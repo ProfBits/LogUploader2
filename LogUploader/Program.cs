@@ -45,7 +45,7 @@ namespace LogUploader
          *  Task: spell checking
          *  Task: DONE: get user tocken in Settings broken
          *  Task: Tester + Helper in about
-         *  Task: Auto Updater / Repo change
+         *  Task: DONE: Auto Updater / Repo change
          *  Task: DONE: Qadim CM 30.05 15:13 - does not parse
          *  Task: DONE: improve job faulting
          *  Task: DONE: update emotes to default for rise instead of gn
@@ -152,24 +152,27 @@ namespace LogUploader
                 }
                 settings = new SettingsData(mainSettings);
             }
-            if (ct.IsCancellationRequested)
-                return null;
 
             SetLanguage(settings);
-            LoadJsonData(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.02 + p.Percent * 0.01, "Loading static Data" + " - " + p.Message))));
+            LoadJsonData(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.04 + (p.Percent * 0.02), "Loading static Data" + " - " + p.Message))));
 
             if (ct.IsCancellationRequested)
                 return null;
 
-            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.03 + p.Percent * 0.1, "Init EliteInsights" + " - " + p.Message))));
+            Action UpdateReuest = await CheckForUpdates(settings, new Progress<ProgressMessage>(p => new ProgressMessage(0.06 + (p.Percent * 0.02), p.Message)));
+            
+            if (ct.IsCancellationRequested)
+                return null;
+
+            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.08 + (p.Percent * 0.2), "Init EliteInsights" + " - " + p.Message))));
 
             if (ct.IsCancellationRequested)
                 return null;
 
-            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.03 + (p.Percent * 0.1), "EliteInsights" + " - " + p.Message))));
+            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.010 + (p.Percent * 0.2), "Local DB" + " - " + p.Message))));
 
             progress.Report(new ProgressMessage(0.13, "Loading"));
-            
+
             if (ct.IsCancellationRequested)
                 return null;
 
@@ -187,9 +190,39 @@ namespace LogUploader
             Cleanup = () =>
             {
                 newLogic.Dispose();
+                UpdateReuest?.Invoke();
             };
             //return await CreateUI(logic, flags);
             return await CreateUI2(newLogic, flags, new Progress<double>(p => progress.Report(new ProgressMessage(0.95 + (p * 0.05), "Creating UI"))));
+        }
+
+        private static async Task<Action> CheckForUpdates(SettingsData settings, IProgress<ProgressMessage> progress = null)
+        {
+            if (await Updater.UpdateAvailable(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.2, "Checking for Update")))))
+            {
+                switch (Updater.ShowUpdateMgsBox())
+                {
+                    case DialogResult.Yes:
+                        await Updater.Update(settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((48 * p.Percent), p.Message))));
+                        break;
+                    case DialogResult.No:
+                        break;
+                    default:
+                        return () =>
+                        {
+                            switch (Updater.ShowUpdateMgsBox())
+                            {
+                                case DialogResult.Yes:
+                                    Updater.Update(settings).Wait();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        };
+                }
+            }
+
+            return null;
         }
 
         private static Action Cleanup;
@@ -233,8 +266,8 @@ namespace LogUploader
 
         private static void LoadJsonData(IProgress<ProgressMessage> progress = null)
         {
-            var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             progress?.Report(new ProgressMessage(0, "Processing Boss data"));
+            var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var rawDataJson = GP.ReadJsonFile(exePath + @"\Data\DataConfig.json");
             progress?.Report(new ProgressMessage(0.5, "Processing Boss data"));
             Helper.DataBuilder.LoadDataJson(rawDataJson);

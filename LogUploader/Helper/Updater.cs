@@ -17,7 +17,7 @@ namespace LogUploader.Helper
     class Updater
     {
         private const string USER_AGENT = "LogUploader";
-        private const string GitHubApiLink = @"https://api.github.com/repos/ProfBits/LogUploader/releases/latest";
+        private const string GitHubApiLink = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
 
         static async Task<Version> GetNewestVersion(IProxySettings settings, IProgress<double> progress = null)
         {
@@ -32,7 +32,7 @@ namespace LogUploader.Helper
             var tag = jsonData.GetTypedElement<string>("tag_name").TrimStart('v', 'V');
             progress?.Report(0.9);
             var gitHubVersion = new Version(tag);
-                return gitHubVersion;
+            return gitHubVersion;
         }
 
         static Version GetLocalVersion()
@@ -64,7 +64,7 @@ namespace LogUploader.Helper
         /// <returns></returns>
         private static async Task<string> DownloadInstaller(IProxySettings settings, Progress<double> progress = null)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/temp/LogUploaderInstaller.exe";
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\LogUploaderInstaller.exe";
             using (var wc = GetWebClient(settings))
             {
                 var res = await wc.DownloadStringTaskAsync(GitHubApiLink);
@@ -75,7 +75,7 @@ namespace LogUploader.Helper
                     .First();
                 if (File.Exists(path))
                     File.Delete(path);
-                wc.DownloadFile(installerUrl, path);
+                await wc.DownloadFileTaskAsync(installerUrl, path);
             }
             return path;
         }
