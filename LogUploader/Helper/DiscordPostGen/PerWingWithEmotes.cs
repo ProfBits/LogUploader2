@@ -1,0 +1,36 @@
+﻿using LogUploader.Data;
+using LogUploader.Languages;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogUploader.Helper.DiscordPostGen
+{
+    class PerWingWithEmotes : PerWingGen
+    {
+        protected override WebHookData.Field GenerateField(CachedLog log)
+        {
+            if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
+                return null;
+            string name = $"{Language.Data.SuccsessFail(log.Succsess)} - {log.Date.ToString("HH\\:mm")}";
+            string value = $"{Boss.getByID(log.BossID).DiscordEmote} {log.BossName}";
+            if (log.IsCM)
+                value += $" CM";
+            if (log.DataCorrected)
+                value += $" - {log.Duration.ToString(Language.Current == eLanguage.DE ? "mm':'ss','fff" : "mm':'ss'.'fff")}";
+            if (!string.IsNullOrWhiteSpace(log.Link))
+                value += $"\n[dps.report]({ log.Link})";
+            var field = new WebHookData.Field(name, value, true);
+            return field;
+        }
+
+        protected override Grouping GetGrouping(IEnumerable<ParsedData> data)
+        {
+            if (data.Select(log => Boss.getByID(log.Log.BossID)).Distinct().Count() == 1)
+                return new Grouping(Boss.getByID(data.First().Log.BossID), Boss.getByID(data.First().Log.BossID).Prefix(Boss.getByID(data.First().Log.BossID).DiscordEmote + " "));
+            return new Grouping(Boss.getByID(data.First().Log.BossID).Area);
+        }
+    }
+}

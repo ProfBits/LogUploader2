@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-16"?>
+<XMLLanguage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <succsess>Success</succsess>
+  <fail>Fail</fail>
+  <proxySettings>Proxy Settings</proxySettings>
+  <proxyUse>Use Proxy</proxyUse>
+  <proxyHostename>Hostname</proxyHostename>
+  <proxyPort>Port</proxyPort>
+  <proxyUser>Username</proxyUser>
+  <proxyPassword>Password</proxyPassword>
+  <colHeaderBoss>Boss</colHeaderBoss>
+  <colHeaderDate>Date</colHeaderDate>
+  <colHeaderSize>SizeKb</colHeaderSize>
+  <colHeaderDataCorrected>Data Checked</colHeaderDataCorrected>
+  <colHeaderDuration>Duration</colHeaderDuration>
+  <colHeaderSuccess>Kill</colHeaderSuccess>
+  <colHeaderHpLeft>% left</colHeaderHpLeft>
+  <colHeaderCM>CM</colHeaderCM>
+  <colHeaderParsed>Parsed</colHeaderParsed>
+  <colHeaderUploaded>Uploaded</colHeaderUploaded>
+  <filterHeader>Filter</filterHeader>
+  <filterBoss>Boss</filterBoss>
+  <filterHPLeft>HP left</filterHPLeft>
+  <filterDuration>Duration</filterDuration>
+  <filterDate>Date</filterDate>
+  <filterFrom>from</filterFrom>
+  <filterTo>to</filterTo>
+  <filterSuccess>Success</filterSuccess>
+  <filterKill>Kill</filterKill>
+  <filterWipe>Wipe</filterWipe>
+  <filterToday>Today</filterToday>
+  <filterReset>Reset</filterReset>
+  <detailsHeader>Details</detailsHeader>
+  <detailsBoss>Boss:</detailsBoss>
+  <detailsDate>Date:</detailsDate>
+  <detailsSize>Size:</detailsSize>
+  <detailsCorrected>Corrected:</detailsCorrected>
+  <detailsDuration>Duration:</detailsDuration>
+  <detailsSuccess>Success:</detailsSuccess>
+  <detailsHpLeft>HP left:</detailsHpLeft>
+  <detailsCM>CM:</detailsCM>
+  <detailsParsed>Parsed:</detailsParsed>
+  <detailsUploaded>Uploaded:</detailsUploaded>
+  <detailsOpenLocal>open</detailsOpenLocal>
+  <detailsOpenRemote>open</detailsOpenRemote>
+  <detailsAccName>Account</detailsAccName>
+  <detailsSubGroup>SG</detailsSubGroup>
+  <detailsDPS>DPS</detailsDPS>
+  <actionsHeader>Actions</actionsHeader>
+  <actionsParseLocal>Parse Local</actionsParseLocal>
+  <actionsOpenLocal>Open Local</actionsOpenLocal>
+  <actionsUpload>Upload</actionsUpload>
+  <actionsOpenRemote>dps.report</actionsOpenRemote>
+  <actionsParseAndUpload>Parse Local and Upload</actionsParseAndUpload>
+  <actionsCopyLinks>Copy Links</actionsCopyLinks>
+  <actionsCopied>copied</actionsCopied>
+  <actionsPostToDiscord>Post to Discord</actionsPostToDiscord>
+  <settingsHeader>Settings</settingsHeader>
+  <settingsAutoParse>Auto Parse new Logs</settingsAutoParse>
+  <settingsAutoUpload>Auto Upload new Logs</settingsAutoUpload>
+  <settingsAbout>About</settingsAbout>
+  <settingsSettings>Settings ...</settingsSettings>
+  <footerElements>Elements</footerElements>
+  <footerSelected>Selected</footerSelected>
+  <footerShown>Shown</footerShown>
+  <footerProcessing>Processing</footerProcessing>
+  <footerParsing>Parsing</footerParsing>
+  <footerUploading>Uploading</footerUploading>
+  <aboutTitle>About</aboutTitle>
+  <aboutProjectPage>Projectpage github.com</aboutProjectPage>
+  <aboutViewLicense>View License</aboutViewLicense>
+  <aboutSpecialThanks>Special Thanks to:</aboutSpecialThanks>
+  <aboutBetaTesters>Beta Testers:</aboutBetaTesters>
+  <aboutCopyright>Copyright:</aboutCopyright>
+  <aboutView3rdParty>View 3rd Party Libraries, Software</aboutView3rdParty>
+  <aboutForSpellCheck>for Spell Checking</aboutForSpellCheck>
+  <licenseTitle>License</licenseTitle>
+  <licenseFor>for</licenseFor>
+  <licenseBy>by</licenseBy>
+  <licensesTitle>3rd Party Software</licensesTitle>
+  <licensesClose>Close</licensesClose>
+  <softwareItemProject>Project</softwareItemProject>
+  <softwareItemViewLicense>view License</softwareItemViewLicense>
+  <initTitle>First Setup</initTitle>
+  <initArcPaht>Arc Logs Path:</initArcPaht>
+  <initBrowse>Browse ...</initBrowse>
+  <initLanguage>Language:</initLanguage>
+  <initCancle>Cancel</initCancle>
+  <initStart>Start</initStart>
+  <initCancelSetupTitel>Confirm cancel</initCancelSetupTitel>
+  <initCancelSetupText>Really abort the setup?</initCancelSetupText>
+  <initInvalidPathTitel>Invlaid path</initInvalidPathTitel>
+  <initInvalidPathText>...\arcdps.cbtlogs\ path is invalid!</initInvalidPathText>
+  <configTitle>Settings</configTitle>
+  <configGeneralTitle>General</configGeneralTitle>
+  <configGeneralArcPaht>Arc Log Folder Path</configGeneralArcPaht>
+  <configGeneralBrowse>Browse...</configGeneralBrowse>
+  <configGeneralLanguage>Language</configGeneralLanguage>
+  <configDpsReportTitle>dps.report</configDpsReportTitle>
+  <configDpsReportToken>User Token:</configDpsReportToken>
+  <configDpsReportGetToken>Get your Token:</configDpsReportGetToken>
+  <configDpsReportProxy>Proxy Settings...</configDpsReportProxy>
+  <configCopyTitle>Copy Links</configCopyTitle>
+  <configCopyBoss>Include Encounter</configCopyBoss>
+  <configCopySuccess>Incoulde Succsess</configCopySuccess>
+  <configCopyInline>Link in Same Line as encounter</configCopyInline>
+  <configCopySpace>Empty Line between Logs</configCopySpace>
+  <configCopyEmotes>Include Guildnews Discord Emotes</configCopyEmotes>
+  <configDiscordTitle>Discord Webhooks</configDiscordTitle>
+  <configDiscordWebHookName>Name:</configDiscordWebHookName>
+  <configDiscordWebHookLink>Link:</configDiscordWebHookLink>
+  <configDiscordWebHookFormat>Format:</configDiscordWebHookFormat>
+  <configDiscordWebHookAvatar>Avatar URL:</configDiscordWebHookAvatar>
+  <configDiscordWebHookDelete>Delete</configDiscordWebHookDelete>
+  <configDiscordCount>Count</configDiscordCount>
+  <configDiscordNoHooks>No WebHooks configured
+
+Add a new one!</configDiscordNoHooks>
+  <configDiscordAdd>Add</configDiscordAdd>
+  <configDiscordOnlyUploaded>Only post Uploaded</configDiscordOnlyUploaded>
+  <configDiscordNameAsUsername>Name as Diecord Username</configDiscordNameAsUsername>
+  <configEiTitle>EliteInsights</configEiTitle>
+  <configEiCombatReplay>Generate combat replay</configEiCombatReplay>
+  <configEiLightTheme>Use light theme</configEiLightTheme>
+  <configDefault>Default</configDefault>
+  <configCancel>Cancel</configCancel>
+  <configSave>Save</configSave>
+  <configDefaultMsgTitel>Reset Settings</configDefaultMsgTitel>
+  <configDefaultMsgText>Restore the Default settings?
+This will permanently delete your current settings!</configDefaultMsgText>
+  <configDiscardMsgTitel>Discard Changes?</configDiscardMsgTitel>
+  <configDiscardMsgText>Continue without saving?</configDiscardMsgText>
+  <miscGenericProcessing>Processing</miscGenericProcessing>
+  <miscNoWebhookMsgTitel>Setup Webhooks</miscNoWebhookMsgTitel>
+  <miscNoWebhookMsgText>You have currently no Webhooks setup.
+Go to Discord Webhooks in Settings and create a new one</miscNoWebhookMsgText>
+  <miscDiscordPostGenDuration>Duration</miscDiscordPostGenDuration>
+  <miscDiscordPostGenHpLeft>HP left</miscDiscordPostGenHpLeft>
+  <miscDiscordPostGenGroupDPS>Group DPS</miscDiscordPostGenGroupDPS>
+  <miscDiscordPostGenTopDPS>Top DPS</miscDiscordPostGenTopDPS>
+  <miscDetailsMultibleBosses>Multiple</miscDetailsMultibleBosses>
+</XMLLanguage>

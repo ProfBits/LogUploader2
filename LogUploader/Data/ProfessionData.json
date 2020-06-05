@@ -1,0 +1,144 @@
+{
+  "Professions": [
+    {
+      "NameEN": "Unknown",
+      "NameDE": "Unbekannt",
+      "IconPath": "\\images\\Professions\\Unknown.png"
+    },
+    {
+      "NameEN": "Guardian",
+      "NameDE": "Wächter",
+      "IconPath": "\\images\\Professions\\Guardian.png"
+    },
+    {
+      "NameEN": "Dragonhunter",
+      "NameDE": "Drachenjäger",
+      "IconPath": "\\images\\Professions\\Dragonhunter.png"
+    },
+    {
+      "NameEN": "Firebrand",
+      "NameDE": "Aufwiegler",
+      "IconPath": "\\images\\Professions\\Firebrand.png"
+    },
+    {
+      "NameEN": "Revenant",
+      "NameDE": "Widergänger",
+      "IconPath": "\\images\\Professions\\Revenant.png"
+    },
+    {
+      "NameEN": "Herald",
+      "NameDE": "Herold",
+      "IconPath": "\\images\\Professions\\Herald.png"
+    },
+    {
+      "NameEN": "Renegade",
+      "NameDE": "Abtrünniger",
+      "IconPath": "\\images\\Professions\\Renegade.png"
+    },
+    {
+      "NameEN": "Warrior",
+      "NameDE": "Krieger",
+      "IconPath": "\\images\\Professions\\Warrior.png"
+    },
+    {
+      "NameEN": "Berserker",
+      "NameDE": "Berserker",
+      "IconPath": "\\images\\Professions\\Berserker.png"
+    },
+    {
+      "NameEN": "Spellbreaker",
+      "NameDE": "Bannbrecher",
+      "IconPath": "\\images\\Professions\\Spellbreaker.png"
+    },
+    {
+      "NameEN": "Engineer",
+      "NameDE": "Ingenieur",
+      "IconPath": "\\images\\Professions\\Engineer.png"
+    },
+    {
+      "NameEN": "Scrapper",
+      "NameDE": "Schrotter",
+      "IconPath": "\\images\\Professions\\Scrapper.png"
+    },
+    {
+      "NameEN": "Holosmith",
+      "NameDE": "Holoschmied",
+      "IconPath": "\\images\\Professions\\Holosmith.png"
+    },
+    {
+      "NameEN": "Ranger",
+      "NameDE": "Waldläufer",
+      "IconPath": "\\images\\Professions\\Ranger.png"
+    },
+    {
+      "NameEN": "Druid",
+      "NameDE": "Druide",
+      "IconPath": "\\images\\Professions\\Druid.png"
+    },
+    {
+      "NameEN": "Soulbeast",
+      "NameDE": "Seelenwandler",
+      "IconPath": "\\images\\Professions\\Soulbeast.png"
+    },
+    {
+      "NameEN": "Thief",
+      "NameDE": "Dieb",
+      "IconPath": "\\images\\Professions\\Thief.png"
+    },
+    {
+      "NameEN": "Daredevil",
+      "NameDE": "Draufgänger",
+      "IconPath": "\\images\\Professions\\Daredevil.png"
+    },
+    {
+      "NameEN": "Deadeye",
+      "NameDE": "Scharfschütze",
+      "IconPath": "\\images\\Professions\\Deadeye.png"
+    },
+    {
+      "NameEN": "Elementalist",
+      "NameDE": "Elementarmagier",
+      "IconPath": "\\images\\Professions\\Elementalist.png"
+    },
+    {
+      "NameEN": "Tempest",
+      "NameDE": "Sturmbote",
+      "IconPath": "\\images\\Professions\\Tempest.png"
+    },
+    {
+      "NameEN": "Weaver",
+      "NameDE": "Weber",
+      "IconPath": "\\images\\Professions\\Weaver.png"
+    },
+    {
+      "NameEN": "Mesmer",
+      "NameDE": "Mesmer",
+      "IconPath": "\\images\\Professions\\Mesmer.png"
+    },
+    {
+      "NameEN": "Chronomancer",
+      "NameDE": "Chronomant",
+      "IconPath": "\\images\\Professions\\Chronomancer.png"
+    },
+    {
+      "NameEN": "Mirage",
+      "NameDE": "Illusionist",
+      "IconPath": "\\images\\Professions\\Mirage.png"
+    },
+    {
+      "NameEN": "Necromancer",
+      "NameDE": "Nekromant",
+      "IconPath": "\\images\\Professions\\Necromancer.png"
+    },
+    {
+      "NameEN": "Reaper",
+      "NameDE": "Schnitter",
+      "IconPath": "\\images\\Professions\\Reaper.png"
+    },
+    {
+      "NameEN": "Scourge",
+      "NameDE": "Pestbringer",
+      "IconPath": "\\images\\Professions\\Scourge.png"
+    }
+  ]
+}

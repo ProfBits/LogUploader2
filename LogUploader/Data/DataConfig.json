@@ -1,0 +1,2057 @@
+{
+  "LogUploaderData": {
+    "GameAreas": {
+      "RaidWings": [
+        {
+          "ID": 1,
+          "NameEN": "Spirit Vale",
+          "NameDE": "Geistertal",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/97/Spirit_Vale_loading_screen.jpg"
+        },
+        {
+          "ID": 2,
+          "NameEN": "Salvations Pass",
+          "NameDE": "Erlösungspass",
+          "AvatarURL": "https://wiki.guildwars2.com/images/2/23/Salvation_Pass_loading_screen.png"
+        },
+        {
+          "ID": 3,
+          "NameEN": "Stronghold of the Faitful",
+          "NameDE": "Festung der Treuen",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/02/Stronghold_of_the_Faithful_loading_screen.png"
+        },
+        {
+          "ID": 4,
+          "NameEN": "Bastion of the Penidant",
+          "NameDE": "Bastion der Busferigen",
+          "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Bastion_of_the_Penitent_loading_screen.jpg"
+        },
+        {
+          "ID": 5,
+          "NameEN": "Hall of Chains",
+          "NameDE": "Halle der Ketten",
+          "AvatarURL": "https://wiki.guildwars2.com/images/8/89/Hall_of_Chains_loading_screen.jpg"
+        },
+        {
+          "ID": 6,
+          "NameEN": "Mythrightgambit",
+          "NameDE": "Mythenschreiber Wagnis",
+          "AvatarURL": "https://wiki.guildwars2.com/images/5/52/Mythwright_Gambit_loading_screen.jpg"
+        },
+        {
+          "ID": 7,
+          "NameEN": "The Key of Ahdashim",
+          "NameDE": "Der Schlüssel on Ahdashim",
+          "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/The_Key_of_Ahdashim_loading_screen.jpg"
+        }
+      ],
+      "StrikeMissions": [
+        {
+          "ID": 1,
+          "NameEN": "Shiverpeeks Pass",
+          "NameDE": "Zittergipfelpass",
+          "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/A_Race_to_Arms_loading_screen.jpg"
+        },
+        {
+          "ID": 2,
+          "NameEN": "Raven Sanctum",
+          "NameDE": "Raben-Refugium",
+          "AvatarURL": "https://wiki.guildwars2.com/images/e/ec/The_Invitation_loading_screen.jpg"
+        },
+        {
+          "ID": 3,
+          "NameEN": "Whisper of Jormag",
+          "NameDE": "Geflüster des Jormag",
+          "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Voice_in_the_Deep_loading_screen.jpg"
+        },
+        {
+          "ID": 255,
+          "NameEN": "Freeze",
+          "NameDE": "Frostie",
+          "AvatarURL": "https://wiki.guildwars2.com/images/d/d9/Secret_Lair_of_the_Snowmen_loading_screen.jpg"
+        }
+      ],
+      "Fractals": [
+        {
+          "Level": 99,
+          "NameEN": "Nightmare Factal",
+          "NameDE": "Albtraum Fraktal",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
+        },
+        {
+          "Level": 100,
+          "NameEN": "Shattered Observertory",
+          "NameDE": "Zerschmettertes Observatorium",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
+        }
+      ],
+      "WvW": [
+        {
+          "NameEN": "World versus World",
+          "NameDE": "Welt gegen Welt",
+          "ShortNameEN": "WvW",
+          "ShortNameDE": "WvW",
+          "AvatarURL": "https://wiki.guildwars2.com/images/7/7b/Eternal_Battlegrounds_loading_screen.jpg"
+        }
+      ],
+      "Training": [
+        {
+          "NameEN": "Special Forces Trainings Area",
+          "NameDE": "Übungsgelände der Spezialkräfte",
+          "ShortNameEN": "Golem",
+          "ShortNameDE": "Golem",
+          "AvatarURL": "https://wiki.guildwars2.com/images/2/2a/Lion%27s_Arch_Aerodrome_Loading_Screen.jpg"
+        }
+      ],
+      "Unknown": [
+        {
+          "NameEN": "Unknown Area",
+          "NameDE": "Unbekannter Bereich",
+          "ShortNameEN": "???",
+          "ShortNameDE": "???",
+          "AvatarURL": "https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png"
+        }
+      ]
+    },
+    "Bosses": [
+      {
+        "ID": 0,
+        "NameEN": "Unknown",
+        "NameDE": "Unbekannt",
+        "FolderEN": "Unknown",
+        "FolderDE": "Unbekannt",
+        "EiName": "Unknown",
+        "GameAreaName": "Unknown",
+        "GameAreaID": 0,
+        "DiscordEmote": "ghost",
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png"
+      },
+      {
+        "ID": 15438,
+        "NameEN": "Vale Guardian",
+        "NameDE": "Tal Wächter",
+        "FolderEN": "Vale Guardian",
+        "FolderDE": "Tal-Wächter",
+        "EiName": "Vale Guardian",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "DiscordEmote": "vg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/fb/Mini_Vale_Guardian.png"
+      },
+      {
+        "ID": 15429,
+        "NameEN": "Gorseval",
+        "NameDE": "Gorseval",
+        "FolderEN": "Gorseval the Multifarious",
+        "FolderDE": "Gorseval der Facettenreiche",
+        "EiName": "Gorseval",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "DiscordEmote": "gors",
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/d1/Mini_Gorseval_the_Multifarious.png"
+      },
+      {
+        "ID": 15375,
+        "NameEN": "Sabetha",
+        "NameDE": "Sabetha",
+        "FolderEN": "Sabetha the Saboteur",
+        "FolderDE": "Sabetha die Saboteurin",
+        "EiName": "Sabetha the Saboteur",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "DiscordEmote": "sab",
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/54/Mini_Sabetha.png"
+      },
+      {
+        "ID": 16123,
+        "NameEN": "Slothasor",
+        "NameDE": "Faultierion",
+        "FolderEN": "Slothasor",
+        "FolderDE": "Faultierion",
+        "EiName": "Slothasor",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "DiscordEmote": "sloth~1",
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/ed/Mini_Slubling.png"
+      },
+      {
+        "ID": 16088,
+        "NameEN": "Bandit Trio",
+        "NameDE": "Banditen Trio",
+        "FolderEN": "Berg",
+        "FolderDE": "Berg",
+        "EiName": "Berg",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "DiscordEmote": "trio",
+        "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
+      },
+      {
+        "ID": 16137,
+        "NameEN": "Bandit Trio",
+        "NameDE": "Banditen Trio",
+        "FolderEN": "Zane",
+        "FolderDE": "Zane",
+        "EiName": "Zane",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "DiscordEmote": "trio",
+        "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
+      },
+      {
+        "ID": 16125,
+        "NameEN": "Bandit Trio",
+        "NameDE": "Banditen Trio",
+        "FolderEN": "Narella",
+        "FolderDE": "Narella",
+        "EiName": "Narella",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "DiscordEmote": "trio",
+        "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
+      },
+      {
+        "ID": 16115,
+        "NameEN": "Matthias",
+        "NameDE": "Matthias",
+        "FolderEN": "Matthias Gabrel",
+        "FolderDE": "Matthias Gabrel",
+        "EiName": "Matthias Gabrel",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "DiscordEmote": "matt",
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/5d/Mini_Matthias_Abomination.png"
+      },
+      {
+        "ID": 16253,
+        "NameEN": "Escort",
+        "NameDE": "Eskorte",
+        "FolderEN": "McLeod the Silent",
+        "FolderDE": "McLeod der Stille",
+        "EiName": "McLeod the Silent",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "DiscordEmote": "gdn",
+        "AvatarURL": ""
+      },
+      {
+        "ID": 16235,
+        "NameEN": "Keep Construct",
+        "NameDE": "Festenkonstrukt",
+        "FolderEN": "Keep Construct",
+        "FolderDE": "Festenkonstrukt",
+        "EiName": "Keep Construct",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "DiscordEmote": "kc",
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png"
+      },
+      {
+        "ID": 16247,
+        "NameEN": "Twisted Castle",
+        "NameDE": "Verdrehdes Schloss",
+        "FolderEN": "Haunting Statue",
+        "FolderDE": "Spukende Statue",
+        "EiName": "Twisted Castle",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "DiscordEmote": "mir",
+        "AvatarURL": "https://i.imgur.com/xpQnu35.png"
+      },
+      {
+        "ID": 16246,
+        "NameEN": "Xera",
+        "NameDE": "Xera",
+        "FolderEN": "Xera",
+        "FolderDE": "Xera",
+        "EiName": "Xera",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "DiscordEmote": "xera",
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png"
+      },
+      {
+        "ID": 17194,
+        "NameEN": "Cairn",
+        "NameDE": "Cairn",
+        "FolderEN": "Cairn the Indomitable",
+        "FolderDE": "Cairn der Unbeugsame",
+        "EiName": "Cairn the Indomitable",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "DiscordEmote": "cairn",
+        "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Mini_Cairn_the_Indomitable.png"
+      },
+      {
+        "ID": 17172,
+        "NameEN": "Mursaat",
+        "NameDE": "Mursaat",
+        "FolderEN": "Mursaat Overseer",
+        "FolderDE": "Mursaat-Aufseher",
+        "EiName": "Mursaat Overseer",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "DiscordEmote": "mo",
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/c8/Mini_Mursaat_Overseer.png"
+      },
+      {
+        "ID": 17188,
+        "NameEN": "Samarog",
+        "NameDE": "Samarog",
+        "FolderEN": "Samarog",
+        "FolderDE": "Samarog",
+        "EiName": "Samarog",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "DiscordEmote": "sam",
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/f0/Mini_Samarog.png"
+      },
+      {
+        "ID": 17154,
+        "NameEN": "Deimos",
+        "NameDE": "Deimos",
+        "FolderEN": "Deimos",
+        "FolderDE": "Deimos",
+        "EiName": "Deimos",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "DiscordEmote": "deimos",
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Ragged_White_Mantle_Figurehead.png"
+      },
+      {
+        "ID": 19767,
+        "NameEN": "Soulless Horror",
+        "NameDE": "Seelenloser Schrecken",
+        "FolderEN": "Soulless Horror",
+        "FolderDE": "Seelenloser Schrecken",
+        "EiName": "Soulless Horror",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "DiscordEmote": "horror",
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Mini_Desmina.png"
+      },
+      {
+        "ID": 19828,
+        "NameEN": "River",
+        "NameDE": "Fluss der Seelen",
+        "FolderEN": "Desmina",
+        "FolderDE": "Desmina",
+        "EiName": "Desmina Escort",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "DiscordEmote": "gnd",
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/7/7b/Gold_River_of_Souls_Trophy.jpg/220px-Gold_River_of_Souls_Trophy.jpg"
+      },
+      {
+        "ID": 19691,
+        "NameEN": "Broken King",
+        "NameDE": "Bezwungener König",
+        "FolderEN": "Broken King",
+        "FolderDE": "Bezwungener König",
+        "EiName": "Broken King",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "DiscordEmote": "nec",
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/37/Mini_Broken_King.png"
+      },
+      {
+        "ID": 19536,
+        "NameEN": "Soul Eater",
+        "NameDE": "Seelenverzehrer",
+        "FolderEN": "Eater of Souls",
+        "FolderDE": "Seelenverzehrer",
+        "EiName": "Soul Eater",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "DiscordEmote": "nec",
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/2/24/Eater_of_Souls_%28Hall_of_Chains%29.jpg/194px-Eater_of_Souls_%28Hall_of_Chains%29.jpg"
+      },
+      {
+        "ID": 19651,
+        "NameEN": "Eyes",
+        "NameDE": "Augen",
+        "FolderEN": "Eye of Judgment",
+        "FolderDE": "Auge des Urteils",
+        "EiName": "Eye of Judgement",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "DiscordEmote": "nec",
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg"
+      },
+      {
+        "ID": 19844,
+        "NameEN": "Eyes",
+        "NameDE": "Augen",
+        "FolderEN": "Eye of Fate",
+        "FolderDE": "Auge des Schicksals",
+        "EiName": "Eye of Fate",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "DiscordEmote": "nec",
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg"
+      },
+      {
+        "ID": 19450,
+        "NameEN": "Dhuum",
+        "NameDE": "Dhuum",
+        "FolderEN": "Dhuum",
+        "FolderDE": "Dhuum",
+        "EiName": "Dhuum",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "DiscordEmote": "dhuum",
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Mini_Dhuum.png"
+      },
+      {
+        "ID": 43974,
+        "NameEN": "Conjured Amalgamate",
+        "NameDE": "Beschworene Verschmelzung",
+        "FolderEN": "Conjured Amalgamate",
+        "FolderDE": "Beschworene Verschmelzung",
+        "EiName": "Conjured Amalgamate",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "DiscordEmote": "ca",
+        "AvatarURL": "https://i.imgur.com/eLyIWd2.png"
+      },
+      {
+        "ID": 21105,
+        "NameEN": "Largos",
+        "NameDE": "Largos",
+        "FolderEN": "Nikare",
+        "FolderDE": "Nikare",
+        "EiName": "Twin Largos",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "DiscordEmote": "larg",
+        "AvatarURL": "https://i.imgur.com/6O5MT7v.png"
+      },
+      {
+        "ID": 21089,
+        "NameEN": "Largos",
+        "NameDE": "Largos",
+        "FolderEN": "Kenut",
+        "FolderDE": "Kenut",
+        "EiName": "Twin Largos",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "DiscordEmote": "larg",
+        "AvatarURL": "https://i.imgur.com/6O5MT7v.png"
+      },
+      {
+        "ID": 20934,
+        "NameEN": "Qadim",
+        "NameDE": "Qadim",
+        "FolderEN": "Qadim",
+        "FolderDE": "Qadim",
+        "EiName": "Qadim",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "DiscordEmote": "qad",
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/f2/Mini_Qadim.png"
+      },
+      {
+        "ID": 22006,
+        "NameEN": "Cardinal Adina",
+        "NameDE": "Kardinal Adina",
+        "FolderEN": "Cardinal Adina",
+        "FolderDE": "Kardinal Adina",
+        "EiName": "Cardinal Adina",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "DiscordEmote": "adi",
+        "AvatarURL": "https://wiki.guildwars2.com/images/a/a0/Mini_Earth_Djinn.png"
+      },
+      {
+        "ID": 21964,
+        "NameEN": "Cardinal Sabir",
+        "NameDE": "Kardinal Sabir",
+        "FolderEN": "Cardinal Sabir",
+        "FolderDE": "Kardinal Sabir",
+        "EiName": "Cardinal Sabir",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "DiscordEmote": "sabi",
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/fc/Mini_Air_Djinn.png"
+      },
+      {
+        "ID": 22000,
+        "NameEN": "Qadim the Peerless",
+        "NameDE": "Qadim der Unvergleichliche",
+        "FolderEN": "Qadim the Peerless",
+        "FolderDE": "Qadim der Unvergleichliche",
+        "EiName": "Qadim the Peerless",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "DiscordEmote": "qad2",
+        "AvatarURL": "https://wiki.guildwars2.com/images/8/8b/Mini_Qadim_the_Peerless.png"
+      },
+      {
+        "ID": 22154,
+        "NameEN": "Icebrood Construct",
+        "NameDE": "Eisbrut Konstrukt",
+        "FolderEN": "Icebrood Construct",
+        "FolderDE": "Eisbrut Konstrukt",
+        "EiName": "Icebrood Construct",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 1,
+        "DiscordEmote": "dgh",
+        "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg"
+      },
+      {
+        "ID": 22343,
+        "NameEN": "Fallen Kodan",
+        "NameDE": "Gefallenen Kodan",
+        "FolderEN": "Voice of the Fallen",
+        "FolderDE": "Stimme der Gefallenen",
+        "EiName": "VoiceOfTheFallen",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": "ren",
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Voice_of_the_Fallen.jpg"
+      },
+      {
+        "ID": 22481,
+        "NameEN": "Fallen Kodan",
+        "NameDE": "Gefallenen Kodan",
+        "FolderEN": "Claw of the Fallen",
+        "FolderDE": "Klaue der Gefallenen",
+        "EiName": "ClawOfTheFallen",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": "ren",
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/Claw_of_the_Fallen.jpg"
+      },
+      {
+        "ID": 22315,
+        "NameEN": "Fallen Kodan",
+        "NameDE": "Gefallenen Kodan",
+        "FolderEN": "The Voice and the Claw",
+        "FolderDE": "Die Stimme und die Klaue",
+        "EiName": "VoiceAndClaw",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": "ren",
+        "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Whisper_in_the_Dark_09.jpg"
+      },
+      {
+        "ID": 22492,
+        "NameEN": "Fraenir of Jormag",
+        "NameDE": "Fraenir Jormags",
+        "FolderEN": "Fraenir of Jormag",
+        "FolderDE": "Fraenir Jormags",
+        "EiName": "FraenirOfJormag ",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": "fbd",
+        "AvatarURL": "https://wiki.guildwars2.com/images/6/67/Fraenir_of_Jormag.jpg"
+      },
+      {
+        "ID": 22436,
+        "NameEN": "Icebrood Construct",
+        "NameDE": "Eisbrut-Konstrukt",
+        "FolderEN": "Icebrood Construct",
+        "FolderDE": "Eisbrut-Konstrukt",
+        "EiName": "IcebroodConstructFraenir",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": "fbd",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7f/Icebrood_Construct_%28Sanctum_Arena%29.jpg"
+      },
+      {
+        "ID": 22521,
+        "NameEN": "Boneskinner",
+        "NameDE": "Knochenhäuter",
+        "FolderEN": "Boneskinner",
+        "FolderDE": "Knochenhäuter",
+        "EiName": "Boneskinner",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": "scg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg"
+      },
+      {
+        "ID": 22711,
+        "NameEN": "Whisper of Jormag",
+        "NameDE": "Geflüster des Jormag",
+        "FolderEN": "Whisper of Jormag",
+        "FolderDE": "Geflüster des Jormag",
+        "EiName": "Whisper of Jormag",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 3,
+        "DiscordEmote": "mes",
+        "AvatarURL": "https://i.imgur.com/8GLwgfL.png"
+      },
+      {
+        "ID": 21333,
+        "NameEN": "Freezie",
+        "NameDE": "Frostie",
+        "FolderEN": "Freezie",
+        "FolderDE": "Frostie",
+        "EiName": "Freezie",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 255,
+        "DiscordEmote": "snowman",
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/8/8b/Freezie.jpg/189px-Freezie.jpg"
+      },
+      {
+        "ID": 1,
+        "NameEN": "WvW",
+        "NameDE": "WvW",
+        "FolderEN": "World versus World",
+        "FolderDE": "Welt gegen Welt",
+        "EiName": "WvW",
+        "GameAreaName": "WvW",
+        "GameAreaID": 1,
+        "DiscordEmote": "cop",
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/35/WvW_Rank_up.png"
+      },
+      {
+        "ID": 17021,
+        "NameEN": "MAMA",
+        "NameDE": "MAMA",
+        "FolderEN": "MAMA",
+        "FolderDE": "MAMA",
+        "EiName": "M A M A",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "DiscordEmote": "rea",
+        "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg"
+      },
+      {
+        "ID": 17028,
+        "NameEN": "Siax",
+        "NameDE": "Siax",
+        "FolderEN": "Nightmare Oratuss",
+        "FolderDE": "Albtraum-Oratuss",
+        "EiName": "Siax the Corrupted",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "DiscordEmote": "rea",
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Siax_the_Corrupted.jpg"
+      },
+      {
+        "ID": 16948,
+        "NameEN": "Ensolyss",
+        "NameDE": "Ensolyss",
+        "FolderEN": "Ensolyss of the Endless Torment",
+        "FolderDE": "Ensolyss der endlosen Pein",
+        "EiName": "Ensolyss of the Endless Torment",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "DiscordEmote": "rea",
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/f6/Ensolyss_of_the_Endless_Torment.jpg"
+      },
+      {
+        "ID": 17632,
+        "NameEN": "Skorvald",
+        "NameDE": "Skorvald",
+        "FolderEN": "Skorvald the Shattered",
+        "FolderDE": "Skorvald der Zerschmetterte",
+        "EiName": "Skorvald the Shattered",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "chr",
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/c1/Skorvald_the_Shattered.jpg"
+      },
+      {
+        "ID": 17949,
+        "NameEN": "Artsariiv",
+        "NameDE": "Artsariiv",
+        "FolderEN": "Artsariiv",
+        "FolderDE": "Artsariiv",
+        "EiName": "Artsariiv",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "chr",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/76/Viirastra.jpg"
+      },
+      {
+        "ID": 17759,
+        "NameEN": "Arkk",
+        "NameDE": "Arkk",
+        "FolderEN": "Arkk",
+        "FolderDE": "Arkk",
+        "EiName": "Arkk",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "chr",
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg"
+      },
+      {
+        "ID": 16202,
+        "NameEN": "Massive Kitty Golem",
+        "NameDE": "Massiver Kätzchen-Golem",
+        "FolderEN": "Massive Kitty Golem",
+        "FolderDE": "Massiver Kätzchen-Golem",
+        "EiName": "Massive Kitty Golem",
+        "GameAreaName": "Training",
+        "GameAreaID": 1,
+        "DiscordEmote": "white_check_mark",
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/33/Mini_Snuggles.png"
+      },
+      {
+        "ID": 16177,
+        "NameEN": "Average Kitty Golem",
+        "NameDE": "Durchschnittlicher Kätzchen-Golem",
+        "FolderEN": "Average Kitty Golem",
+        "FolderDE": "Durchschnittlicher Kätzchen-Golem",
+        "EiName": "Average Kitty Golem",
+        "GameAreaName": "Training",
+        "GameAreaID": 1,
+        "DiscordEmote": "white_check_mark",
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png"
+      },
+      {
+        "ID": 19676,
+        "NameEN": "Large Kitty Golem",
+        "NameDE": "Großer Kätzchen-Golem",
+        "FolderEN": "Large Kitty Golem",
+        "FolderDE": "Großer Kätzchen-Golem",
+        "EiName": "Large Kitty Golem",
+        "GameAreaName": "Training",
+        "GameAreaID": 1,
+        "DiscordEmote": "white_check_mark",
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/47/Mini_Baron_von_Scrufflebutt.png"
+      },
+      {
+        "ID": 19645,
+        "NameEN": "Medium Kitty Golem",
+        "NameDE": "Mittlerer Kätzchen-Golem",
+        "FolderEN": "Medium Kitty Golem",
+        "FolderDE": "Mittlerer Kätzchen-Golem",
+        "EiName": "Medium Kitty Golem",
+        "GameAreaName": "Training",
+        "GameAreaID": 1,
+        "DiscordEmote": "white_check_mark",
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png"
+      },
+      {
+        "ID": 16199,
+        "NameEN": "Standard Kitty Golem",
+        "NameDE": "Standard-Kätzchen-Golem",
+        "FolderEN": "Standard Kitty Golem",
+        "FolderDE": "Standard-Kätzchen-Golem",
+        "EiName": "Standard Kitty Golem",
+        "GameAreaName": "Training",
+        "GameAreaID": 1,
+        "DiscordEmote": "white_check_mark",
+        "AvatarURL": "https://wiki.guildwars2.com/images/8/8f/Mini_Professor_Mew.png"
+      }
+    ],
+    "AddEnemys": [
+      {
+        "ID": 0,
+        "NameEN": "Unknown",
+        "NameDE": "Unbekannt",
+        "GameAreaName": "Unknown",
+        "GameAreaID": 0,
+        "Intresting": true
+      },
+      {
+        "ID": 2,
+        "NameEN": "Hand of Erosion",
+        "NameDE": "Hand der Erosion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 3,
+        "NameEN": "Hand of Eruption",
+        "NameDE": "Hand des Ausbruchs",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 7481,
+        "NameEN": "Warg",
+        "NameDE": "Warg",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 8267,
+        "NameEN": "Charged Bloodstone",
+        "NameDE": "Aufgeladener Blutstein",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 11282,
+        "NameEN": "Fanatic",
+        "NameDE": "Fanatiker",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 15372,
+        "NameEN": "Kernan",
+        "NameDE": "Kernan",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": true
+      },
+      {
+        "ID": 15397,
+        "NameEN": "Bandit Thug",
+        "NameDE": "Banditen Schl\u00E4ger",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 15404,
+        "NameEN": "Knuckles",
+        "NameDE": "Knuckles",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": true
+      },
+      {
+        "ID": 15420,
+        "NameEN": "Green Guardien",
+        "NameDE": "Gr\u00FCner W\u00E4cher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": true
+      },
+      {
+        "ID": 15421,
+        "NameEN": "Bandit Arsonist",
+        "NameDE": "Banditen Brandstifter",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 15423,
+        "NameEN": "Bandit Sapper ",
+        "NameDE": "Bantiten Pionier",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 15426,
+        "NameEN": "Seeker",
+        "NameDE": "Sucher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": false
+      },
+      {
+        "ID": 15430,
+        "NameEN": "Karde",
+        "NameDE": "Karde",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": true
+      },
+      {
+        "ID": 15431,
+        "NameEN": "Blue Guardien",
+        "NameDE": "Blauer W\u00E4cher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": true
+      },
+      {
+        "ID": 15433,
+        "NameEN": "Red Guardien",
+        "NameDE": "Roter W\u00E4cher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": true
+      },
+      {
+        "ID": 15434,
+        "NameEN": "Charged Soul",
+        "NameDE": "Aufgeladene Seele",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": true
+      },
+      {
+        "ID": 15960,
+        "NameEN": "Fractal Avenger",
+        "NameDE": "Fraktal-R\u00E4cher",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": false
+      },
+      {
+        "ID": 16005,
+        "NameEN": "Angered Spirit",
+        "NameDE": "Ver\u00E4rgerter Geist",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": false
+      },
+      {
+        "ID": 16024,
+        "NameEN": "Enraged Spirit",
+        "NameDE": "W\u00FCtender Geist",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": false
+      },
+      {
+        "ID": 16056,
+        "NameEN": "Prisoner",
+        "NameDE": "Gefangener",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16064,
+        "NameEN": "Slubling",
+        "NameDE": "Slubling",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16065,
+        "NameEN": "Bandit Sniper",
+        "NameDE": "Banditen Scharfsch\u00FCtze",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16066,
+        "NameEN": "Bandit Brawler",
+        "NameDE": "Banditen Raufer",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16067,
+        "NameEN": "Bandit Assassin",
+        "NameDE": "Banditen Assassine",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16068,
+        "NameEN": "Fiery Tornado",
+        "NameDE": "Feuriger Tornado",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16071,
+        "NameEN": "Slubling",
+        "NameDE": "Slubling",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16074,
+        "NameEN": "Bandit Sapper Trio",
+        "NameDE": "Banditen Pionier Trio",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16076,
+        "NameEN": "Bandit Deathsalyer",
+        "NameDE": "Banditen Todesschl\u00E4chter",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16077,
+        "NameEN": "Slubling",
+        "NameDE": "Slubling",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16092,
+        "NameEN": "Narella Tornado",
+        "NameDE": "Narella's Tornado",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16093,
+        "NameEN": "Bandit Battlemage",
+        "NameDE": "Banditen Kampfmagier",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16096,
+        "NameEN": "Oil Slick",
+        "NameDE": "\u00D6lteppich",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16101,
+        "NameEN": "Bandit Cleric",
+        "NameDE": "Banditen Kleriker",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16103,
+        "NameEN": "Prisoner",
+        "NameDE": "Gefangener",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16104,
+        "NameEN": "Slubling",
+        "NameDE": "Slubling",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16105,
+        "NameEN": "Spirit",
+        "NameDE": "Geist",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16108,
+        "NameEN": "Storm",
+        "NameDE": "Sturmwolke",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16114,
+        "NameEN": "Spirit",
+        "NameDE": "Geist",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16117,
+        "NameEN": "Bandit Saboteur",
+        "NameDE": "Banditen Saboteur",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16129,
+        "NameEN": "Caged Warg",
+        "NameDE": "Eingesperrter Warg",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16138,
+        "NameEN": "Bandit Saboteur",
+        "NameDE": "Banditen Saboteur",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16139,
+        "NameEN": "Ice Path",
+        "NameDE": "Eis Fl\u00E4che",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 16221,
+        "NameEN": "White Mantle Battle Mage",
+        "NameDE": "Weißer Mantel Kampfmagier",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16225,
+        "NameEN": "Xeras Phantasm",
+        "NameDE": "Xeras Trugbild",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16226,
+        "NameEN": "White Mantle Battle Mage",
+        "NameDE": "Weißer Mantel Kampfmagier",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16227,
+        "NameEN": "Insidious Projection",
+        "NameDE": "Heimt\u00FCckische Projektion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": true
+      },
+      {
+        "ID": 16228,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16232,
+        "NameEN": "Exquisite Conjunction",
+        "NameDE": "Exquisite Konjunktion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16236,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16237,
+        "NameEN": "Green Phantasm",
+        "NameDE": "Gr\u00FCnes Trugbild",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16238,
+        "NameEN": "White Mantle Seeker",
+        "NameDE": "Weißer Mantel Sucher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16244,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16248,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16249,
+        "NameEN": "Retriever Projection",
+        "NameDE": "Retriever-Projektion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16251,
+        "NameEN": "White Mantle Seeker",
+        "NameDE": "Weißer Mantel Sucher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16257,
+        "NameEN": "Crimson Phantasm",
+        "NameDE": "Purpur Trugbild",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16259,
+        "NameEN": "Radiant Phantasm",
+        "NameDE": "Strahlendes Trugbild",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16261,
+        "NameEN": "Core",
+        "NameDE": "Kern",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16264,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16274,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16277,
+        "NameEN": "UnstableLeyRift",
+        "NameDE": "Instabieler Ley Riss",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16278,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16282,
+        "NameEN": "Champion Illusion",
+        "NameDE": "Champion Illusion",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 16283,
+        "NameEN": "White Mantle Seeker",
+        "NameDE": "Weißer Mantel Sucher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16287,
+        "NameEN": "White Mantle Seeker",
+        "NameDE": "Weißer Mantel Sucher",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16325,
+        "NameEN": "PLINK K1T-A",
+        "NameDE": "Peng M1EZ-A",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 16437,
+        "NameEN": "BLIGHT K1T-A",
+        "NameDE": "PEST M1EZ-A",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 16552,
+        "NameEN": "CHOP K1T-A",
+        "NameDE": "CHOP K1EZ-A",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 16657,
+        "NameEN": "DOC K1T-A",
+        "NameDE": "DOC M1EZ-A",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 16899,
+        "NameEN": "Blue Dynamic Assault Knight",
+        "NameDE": "Blauer Dynamischer Sturmritter",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": true
+      },
+      {
+        "ID": 16906,
+        "NameEN": "Green Synergetic Assault Knight",
+        "NameDE": "Gr\u00FCnder Synergetischer Sturmritter",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": true
+      },
+      {
+        "ID": 16912,
+        "NameEN": "Nightmare Hallucination",
+        "NameDE": "Albtraub Halluzination",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": false
+      },
+      {
+        "ID": 16974,
+        "NameEN": "Red Static Assault Knight",
+        "NameDE": "Roter Statischer Sturmritter",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": true
+      },
+      {
+        "ID": 17002,
+        "NameEN": "Hallucination",
+        "NameDE": "Halluzination",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": false
+      },
+      {
+        "ID": 17009,
+        "NameEN": "Twisted Horror",
+        "NameDE": "Verdrehter Schrecken",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": false
+      },
+      {
+        "ID": 17033,
+        "NameEN": "Nightmare Hallucination",
+        "NameDE": "Albtraub Halluzination",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": false
+      },
+      {
+        "ID": 17068,
+        "NameEN": "Echo of the Unclean",
+        "NameDE": "Echo des Unsauberen",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": false
+      },
+      {
+        "ID": 17124,
+        "NameEN": "Rigom",
+        "NameDE": "Rigom",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17126,
+        "NameEN": "Saul D'Alessio",
+        "NameDE": "Saul D'Alessio",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17161,
+        "NameEN": "Saul D'Alessio - Gambler Clone",
+        "NameDE": "Saul D'Alessio - Gl\u00FCcksspieler Klone",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17163,
+        "NameEN": "Saul D'Alessio - Drunkard",
+        "NameDE": "Saul D'Alessio - Trunkenbold",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17181,
+        "NameEN": "Jade Soldier",
+        "NameDE": "Jade Soldat",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17206,
+        "NameEN": "Saul D'Alessio - Thief",
+        "NameDE": "Saul D'Alessio - Dieb",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17208,
+        "NameEN": "Guldhem",
+        "NameDE": "Guldhem",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17213,
+        "NameEN": "Greed",
+        "NameDE": "Gier",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 17221,
+        "NameEN": "Hands",
+        "NameDE": "H\u00E4nde",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 17233,
+        "NameEN": "Pride",
+        "NameDE": "Stolz",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 17303,
+        "NameEN": "Tear",
+        "NameDE": "Tr\u00E4ne",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 17332,
+        "NameEN": "Black",
+        "NameDE": "Schwarz",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 17335,
+        "NameEN": "Saul D'Alessio - Gambler",
+        "NameDE": "Saul D'Alessio - Gl\u00FCcksspieler",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17355,
+        "NameEN": "Saul D'Alessio - Gambler Real",
+        "NameDE": "Saul D'Alessio - Gl\u00FCcksspieler Echt",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": true
+      },
+      {
+        "ID": 17599,
+        "NameEN": "Flux Anomaly",
+        "NameDE": "Flux Anomaly",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17613,
+        "NameEN": "Projection Arkk",
+        "NameDE": "Arkk Projection",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17630,
+        "NameEN": "Spark",
+        "NameDE": "Funke",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17673,
+        "NameEN": "Flux Anomaly",
+        "NameDE": "Flux Anomaly",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17694,
+        "NameEN": "Small Artsariiv",
+        "NameDE": "Kleine Artsariiv",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17720,
+        "NameEN": "Temporal Anomaly",
+        "NameDE": "Tempor\u00E4re Anomaly",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17730,
+        "NameEN": "Brazen Gladiator",
+        "NameDE": "Dreister Gladiator",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": true
+      },
+      {
+        "ID": 17732,
+        "NameEN": "Solar Bloom",
+        "NameDE": "Solarbl\u00FCten",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17770,
+        "NameEN": "Flux Anomaly",
+        "NameDE": "Flux Anomaly",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17811,
+        "NameEN": "Mini Artsariiv",
+        "NameDE": "Winzige Artsariiv",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17851,
+        "NameEN": "Flux Anomaly",
+        "NameDE": "Flux Anomaly",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17870,
+        "NameEN": "Temporal Anomaly",
+        "NameDE": "Tempor\u00E4re Anomaly",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 17893,
+        "NameEN": "Archdiviner",
+        "NameDE": "Erzwahrsager",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": true
+      },
+      {
+        "ID": 17937,
+        "NameEN": "Medium Artsariiv",
+        "NameDE": "Mittlere Artsariiv",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 19396,
+        "NameEN": "Spinning Scythe",
+        "NameDE": "Drehende Sense",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19399,
+        "NameEN": "Hollowed Bomber",
+        "NameDE": "Hohlbomber",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19400,
+        "NameEN": "Spirit Horde",
+        "NameDE": "Geister Horde",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19402,
+        "NameEN": "Maze Minotaur",
+        "NameDE": "Labyrinth-Minotaurus",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19422,
+        "NameEN": "Tormented Dead",
+        "NameDE": "Gepeinigter Toter",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19461,
+        "NameEN": "Spirit Horde",
+        "NameDE": "Geister Horde",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19464,
+        "NameEN": "Flesh Wurm",
+        "NameDE": "Fleisch Wurm",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19474,
+        "NameEN": "Wall",
+        "NameDE": "Wand",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19481,
+        "NameEN": "Desmina",
+        "NameDE": "Desmina",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19571,
+        "NameEN": "Green Spirit",
+        "NameDE": "Gr\u00FCner Geist",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19587,
+        "NameEN": "Green Spirit",
+        "NameDE": "Gr\u00FCner Geist",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19628,
+        "NameEN": "Ender's Echo",
+        "NameDE": "Ender's Echo",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19658,
+        "NameEN": "Light Thieve",
+        "NameDE": "Licht Dieb",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19681,
+        "NameEN": "Dhuum's Enforcer",
+        "NameDE": "Vollstrecker Dhuums",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": true
+      },
+      {
+        "ID": 19684,
+        "NameEN": "Fractal Vindicator",
+        "NameDE": "Fraktal-Verteidiger",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "Intresting": false
+      },
+      {
+        "ID": 19692,
+        "NameEN": "Spirit Horde",
+        "NameDE": "Geister Horde",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19759,
+        "NameEN": "Deathling",
+        "NameDE": "Todling",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19801,
+        "NameEN": "Twisted Spider",
+        "NameDE": "Verdrehte Spinne",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19807,
+        "NameEN": "Dhuum's Messenger",
+        "NameDE": "Bote Dhuums",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19829,
+        "NameEN": "River of Souls",
+        "NameDE": "Fluss der Seelen",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19831,
+        "NameEN": "Reaper",
+        "NameDE": "Schnitter",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 19863,
+        "NameEN": "Enervator",
+        "NameDE": "Enervator",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 5,
+        "Intresting": false
+      },
+      {
+        "ID": 20944,
+        "NameEN": "Destroyer Troll",
+        "NameDE": "Zerst\u00F6rer Troll",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 20961,
+        "NameEN": "Zommoros",
+        "NameDE": "Zommoros",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 20997,
+        "NameEN": "Wyvern Matriarch",
+        "NameDE": "Wyvern Matriarch",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": true
+      },
+      {
+        "ID": 21049,
+        "NameEN": "Ice Elemental",
+        "NameDE": "Eis Elementar",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21050,
+        "NameEN": "Pyre Guardian",
+        "NameDE": "Feuer W\u00E4chter",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": true
+      },
+      {
+        "ID": 21073,
+        "NameEN": "Apocalypse Bringer",
+        "NameDE": "Bringer der Apokalypse",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": true
+      },
+      {
+        "ID": 21078,
+        "NameEN": "Lava Elemental",
+        "NameDE": "Lava Elementar",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21100,
+        "NameEN": "Fire Imp",
+        "NameDE": "Feuer Imp",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21150,
+        "NameEN": "Greater Magma Elemental",
+        "NameDE": "Gr\u00F6ßerer Magma Elementar",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21163,
+        "NameEN": "Iceborn Hydra",
+        "NameDE": "Eisgeborene Hydra",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": true
+      },
+      {
+        "ID": 21170,
+        "NameEN": "Conjured Shield",
+        "NameDE": "Beschworenes Schild",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21183,
+        "NameEN": "Wyvern Patriarch",
+        "NameDE": "Wyvern Patriarch",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": true
+      },
+      {
+        "ID": 21218,
+        "NameEN": "Reaper of Flesh",
+        "NameDE": "Fleish Schnitter",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21221,
+        "NameEN": "Fire Elemental",
+        "NameDE": "Feuer Elementar",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21223,
+        "NameEN": "Greater Magma Elemental",
+        "NameDE": "Gr\u00F6ßerer Magma Elementar",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21236,
+        "NameEN": "Lava Elemental",
+        "NameDE": "Lava Elementar",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21255,
+        "NameEN": "Conjured Greatsword",
+        "NameDE": "Beschworenes Großschwert",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21285,
+        "NameEN": "Ancient Invoked Hydra",
+        "NameDE": "Antike beschworene Hydra",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 6,
+        "Intresting": false
+      },
+      {
+        "ID": 21328,
+        "NameEN": "Freezies Frozen Heart",
+        "NameDE": "Frosties gefrorenes Herz",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 255,
+        "Intresting": true
+      },
+      {
+        "ID": 21946,
+        "NameEN": "Energy Orb",
+        "NameDE": "Energie Kugel",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21955,
+        "NameEN": "Paralyzing Wisp",
+        "NameDE": "L\u00E4hmender Hauch",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21957,
+        "NameEN": "Small Killer Tornado",
+        "NameDE": "Kleiner Todes Tornado",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21961,
+        "NameEN": "Small Tornado",
+        "NameDE": "Kleiner Tornado",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21962,
+        "NameEN": "Pylon",
+        "NameDE": "Pylon",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21973,
+        "NameEN": "Entropic Distortion",
+        "NameDE": "Entropische Verzerrung",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21975,
+        "NameEN": "Voltaic Wisp",
+        "NameDE": "Geladener Hauch",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21987,
+        "NameEN": "Big Killer Tornado",
+        "NameDE": "Großer Todes Tornado",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 21996,
+        "NameEN": "Pylon",
+        "NameDE": "Pylon",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 7,
+        "Intresting": false
+      },
+      {
+        "ID": 40724,
+        "NameEN": "Bloodstone Fragment",
+        "NameDE": "Blutsteinfragment",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 4,
+        "Intresting": false
+      },
+      {
+        "ID": 16247,
+        "NameEN": "Haunting Statue",
+        "NameDE": "Spukende Statue",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 3,
+        "Intresting": false
+      },
+      {
+        "ID": 22576,
+        "NameEN": "Icebrood Elemental",
+        "NameDE": "Eisbrut-Elementar",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 22561,
+        "NameEN": "Priory Explorer",
+        "NameDE": "Abtei-Explorator",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 22448,
+        "NameEN": "Priory Scholar",
+        "NameDE": "Abtei-Gelehrter",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 22389,
+        "NameEN": "Vigil Recruit",
+        "NameDE": "Wachsamen-Rekrut",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 22420,
+        "NameEN": "Vigil Tactician",
+        "NameDE": "Wachsamen-Taktiker",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 22538,
+        "NameEN": "Aberrant Wisp",
+        "NameDE": "Annormales Irrlicht",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "Intresting": false
+      }
+    ]
+  }
+}
