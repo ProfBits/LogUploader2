@@ -164,6 +164,11 @@ namespace LogUploader.Helper
 
         public static List<string> Parse(string log)
         {
+            if (!IsInstalled())
+            {
+                throw new OperationCanceledException("Can't parse log locally: No EliteInsights installation present!");
+            }
+
             string destConf = PrepearConfig();
             //-p requiered for silent execution!!
             var args = $"-p -c \"{destConf}\" \"{log}\"";

@@ -23,36 +23,13 @@ namespace LogUploader
     class Program
     {
         // Version 2.0 Targets
-        /*  Task: DONE: refactor and modulize Main
-         *  Task: DONE: usertokenless mode, remove from first install and dpsReport?
-         *  Task: DONE: add multi webhook support
-         *  Task: DONE: refactor WebHookHelper
-         *  Task: DONE: Add counter for selected logs (uploaded and local)
-         *  Task: DONE: Local and remot logprocessor, loguploader with blocking queues and proper reporting -> log db + redesigen
-         *  Task: DONE: Disable Proxy support
-         *  Task: DONE: Delete old/unused stuff
-         *  Task: DONE: Redo settings...
-         *  Task: DONE: Fail Saves if .evtc or simple.json or html does not esist.
-         *  Task: DONE: SoftwareUsed + licenses screens
-         *  Task: DONE: erroro for removed detaild generator or reimplement
-         *  Task: DONE: implement missing Ei settings
-         *  Task: DONE: implement selected webhook
-         *  Task: DONE: cla + small doc
-         *  Task: DONE: localization
-         *              in to do markings
-         *              in main ui
-         *              in about and software ui
+        /*  
          *  Task: spell checking
          *  Task: DONE: get user tocken in Settings broken
          *  Task: Tester + Helper in about
-         *  Task: DONE: Auto Updater / Repo change
-         *  Task: DONE: Qadim CM 30.05 15:13 - does not parse
-         *  Task: DONE: improve job faulting
-         *  Task: DONE: update emotes to default for rise instead of gn
-         *    
-         * Maybe: DONE: Succsess Detection for local logs (reverseengeener EI) and add only upload succsessful trys for auto upload
-         *        correction for eyes bug as dhumm??
-         *        fight duration?? (min duration for upload???) -> local EI + LogDB
+         *  
+         *  Task: Update EI Button in settings
+         *  
          */
 
         // Version 2.1 Targets
@@ -110,7 +87,23 @@ namespace LogUploader
 
             LoadingScreenUI loadingUI = new LoadingScreenUI(async (progress, ct) =>
             {
-                ui = await LoadApplication(progress, ct, args);
+                try
+                {
+                    ui = await LoadApplication(progress, ct, args);
+                }
+                catch (System.ComponentModel.Win32Exception e)
+                {
+                    MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(1);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Exception: {e.GetType().ToString()}\n" +
+                        $"Message: {e.Message}\n" +
+                        "StacTrace:\n" +
+                        $"{e.StackTrace}", "normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(2);
+                }
             });
 
             Application.Run(loadingUI);
@@ -120,9 +113,45 @@ namespace LogUploader
             if (ui == null)
                 return;
 
-            //display ui and run
-            Application.Run(ui);
+            try
+            {
+                //display ui and run
+                Application.Run(ui);
+            }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Exception: {e.GetType().ToString()}\n" +
+                    $"Message: {e.Message}\n" +
+                    "StacTrace:\n" +
+                    $"{e.StackTrace}", "normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(2);
+            }
             Cleanup();
+            Environment.Exit(0);
+        }
+
+        private static string GetWin23ExeptionMessage(System.ComponentModel.Win32Exception e)
+        {
+            var res = $"Exception: {e.GetType().ToString()}\n" +
+                                    $"Message: {e.Message}\n" +
+                                    $"NativeErrorCode: {e.NativeErrorCode}\n" +
+                                    $"ErrorCode: {e.ErrorCode}\n";
+            try
+            {
+                res += $"Data: {string.Join("\n", e?.Data?.Keys.Cast<object>().Select(k => k.ToString() + " : " + e.Data[k].ToString()))}\n";
+            }
+            catch (Exception)
+            { }
+            res += $"\nStackTrace: " +
+                $"{e.StackTrace}";
+
+
+            return res;
         }
 
         private static async Task<Form> LoadApplication(IProgress<ProgressMessage> progress, CancellationToken ct, string[] args)
