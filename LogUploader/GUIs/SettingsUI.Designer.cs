@@ -67,6 +67,7 @@
             this.gbEi = new System.Windows.Forms.GroupBox();
             this.cbEiTheme = new System.Windows.Forms.CheckBox();
             this.cbEiCombatReplay = new System.Windows.Forms.CheckBox();
+            this.btnEiUpdate = new System.Windows.Forms.Button();
             this.gbCopyLinks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.gbDpsReport.SuspendLayout();
@@ -432,6 +433,7 @@
             // 
             // gbEi
             // 
+            this.gbEi.Controls.Add(this.btnEiUpdate);
             this.gbEi.Controls.Add(this.cbEiTheme);
             this.gbEi.Controls.Add(this.cbEiCombatReplay);
             this.gbEi.Location = new System.Drawing.Point(333, 301);
@@ -462,6 +464,16 @@
             this.cbEiCombatReplay.TabIndex = 0;
             this.cbEiCombatReplay.Text = "Generate combat replay";
             this.cbEiCombatReplay.UseVisualStyleBackColor = true;
+            // 
+            // btnEiUpdate
+            // 
+            this.btnEiUpdate.Location = new System.Drawing.Point(197, 38);
+            this.btnEiUpdate.Name = "btnEiUpdate";
+            this.btnEiUpdate.Size = new System.Drawing.Size(111, 23);
+            this.btnEiUpdate.TabIndex = 2;
+            this.btnEiUpdate.Text = "Update / Reinstall";
+            this.btnEiUpdate.UseVisualStyleBackColor = true;
+            this.btnEiUpdate.Click += new System.EventHandler(this.btnEiUpdate_Click);
             // 
             // SettingsUI
             // 
@@ -542,5 +554,6 @@
         private System.Windows.Forms.CheckBox cbEiCombatReplay;
         private System.Windows.Forms.CheckBox cbEiOnlyUploaded;
         private System.Windows.Forms.CheckBox cbNameAsUser;
+        private System.Windows.Forms.Button btnEiUpdate;
     }
 }

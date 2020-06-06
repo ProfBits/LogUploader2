@@ -98,10 +98,7 @@ namespace LogUploader
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Exception: {e.GetType().ToString()}\n" +
-                        $"Message: {e.Message}\n" +
-                        "StacTrace:\n" +
-                        $"{e.StackTrace}", "normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Environment.Exit(2);
                 }
             });
@@ -125,14 +122,19 @@ namespace LogUploader
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Exception: {e.GetType().ToString()}\n" +
-                    $"Message: {e.Message}\n" +
-                    "StacTrace:\n" +
-                    $"{e.StackTrace}", "normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(2);
             }
             Cleanup();
             Environment.Exit(0);
+        }
+
+        private static string GetExceptionMessage(Exception e)
+        {
+            return $"Exception: {e.GetType().ToString()}\n" +
+                                $"Message: {e.Message}\n" +
+                                "StacTrace:\n" +
+                                $"{e.StackTrace}";
         }
 
         private static string GetWin23ExeptionMessage(System.ComponentModel.Win32Exception e)

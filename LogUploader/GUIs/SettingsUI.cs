@@ -202,5 +202,16 @@ namespace LogUploader.GUI
             linklblGetUserToken.LinkVisited = true;
             System.Diagnostics.Process.Start(@"https://dps.report/getUserToken");
         }
+
+        private async void btnEiUpdate_Click(object sender, EventArgs e)
+        {
+            Enabled = false;
+            var tmp = btnEiUpdate.Text;
+            btnEiUpdate.Text = "Updating ...";
+            btnEiUpdate.Update();
+            await Task.Run(() => Helper.EliteInsights.Update(initState));
+            btnEiUpdate.Text = tmp;
+            Enabled = true;
+        }
     }
 }

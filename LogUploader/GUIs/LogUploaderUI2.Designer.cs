@@ -98,6 +98,7 @@
             this.lblLinksCopied = new System.Windows.Forms.Label();
             this.btnParsAndUpload = new System.Windows.Forms.Button();
             this.btnOpenDpsReport = new System.Windows.Forms.Button();
+            this.dBLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnPostToDiscord = new System.Windows.Forms.Button();
             this.btnCopyLinks = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
@@ -111,14 +112,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pGrid = new System.Windows.Forms.Panel();
             this.dBLogDataGridView = new System.Windows.Forms.DataGridView();
-            this.contextMenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.miParse = new System.Windows.Forms.ToolStripMenuItem();
-            this.miOpenLocal = new System.Windows.Forms.ToolStripMenuItem();
-            this.miUpload = new System.Windows.Forms.ToolStripMenuItem();
-            this.miOpenLink = new System.Windows.Forms.ToolStripMenuItem();
-            this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
-            this.pTop = new System.Windows.Forms.Panel();
-            this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.colBossName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -140,7 +133,14 @@
             this.colFlags = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colHasEvtc = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colHasJson = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dBLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.contextMenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miParse = new System.Windows.Forms.ToolStripMenuItem();
+            this.miOpenLocal = new System.Windows.Forms.ToolStripMenuItem();
+            this.miUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.miOpenLink = new System.Windows.Forms.ToolStripMenuItem();
+            this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.pTop = new System.Windows.Forms.Panel();
             this.pStatus.SuspendLayout();
             this.pWorkStatus.SuspendLayout();
             this.flpProgress.SuspendLayout();
@@ -154,11 +154,11 @@
             this.tpDetailsTop.SuspendLayout();
             this.pDetailsPlayers.SuspendLayout();
             this.gbActions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).BeginInit();
             this.gbSettings.SuspendLayout();
             this.pGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).BeginInit();
             this.contextMenuGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pStatus
@@ -1030,6 +1030,10 @@
             this.btnOpenDpsReport.UseVisualStyleBackColor = true;
             this.btnOpenDpsReport.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
             // 
+            // dBLogBindingSource
+            // 
+            this.dBLogBindingSource.DataSource = typeof(LogUploader.Data.DBLog);
+            // 
             // btnPostToDiscord
             // 
             this.btnPostToDiscord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1151,6 +1155,7 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "Reload Lang XML";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // pGrid
@@ -1204,69 +1209,6 @@
             this.dBLogDataGridView.TabIndex = 0;
             this.dBLogDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dBLogDataGridView_CellDoubleClick);
             this.dBLogDataGridView.SelectionChanged += new System.EventHandler(this.dBLogDataGridView_SelectionChanged);
-            // 
-            // contextMenuGrid
-            // 
-            this.contextMenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miParse,
-            this.miOpenLocal,
-            this.miUpload,
-            this.miOpenLink,
-            this.miParseUpload,
-            this.miViewInExplorer});
-            this.contextMenuGrid.Name = "contextMenuGrid";
-            this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
-            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGrid_Opening);
-            // 
-            // miParse
-            // 
-            this.miParse.Name = "miParse";
-            this.miParse.Size = new System.Drawing.Size(166, 22);
-            this.miParse.Text = "Parse";
-            this.miParse.Click += new System.EventHandler(this.btnParse_Click);
-            // 
-            // miOpenLocal
-            // 
-            this.miOpenLocal.Name = "miOpenLocal";
-            this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
-            this.miOpenLocal.Text = "Open Local";
-            this.miOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
-            // 
-            // miUpload
-            // 
-            this.miUpload.Name = "miUpload";
-            this.miUpload.Size = new System.Drawing.Size(166, 22);
-            this.miUpload.Text = "Upload";
-            this.miUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // miOpenLink
-            // 
-            this.miOpenLink.Name = "miOpenLink";
-            this.miOpenLink.Size = new System.Drawing.Size(166, 22);
-            this.miOpenLink.Text = "Open dps.report";
-            this.miOpenLink.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
-            // 
-            // miParseUpload
-            // 
-            this.miParseUpload.Name = "miParseUpload";
-            this.miParseUpload.Size = new System.Drawing.Size(166, 22);
-            this.miParseUpload.Text = "Parse and Upload";
-            this.miParseUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
-            // 
-            // pTop
-            // 
-            this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pTop.Location = new System.Drawing.Point(0, 0);
-            this.pTop.Name = "pTop";
-            this.pTop.Size = new System.Drawing.Size(1027, 1);
-            this.pTop.TabIndex = 0;
-            // 
-            // miViewInExplorer
-            // 
-            this.miViewInExplorer.Name = "miViewInExplorer";
-            this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
-            this.miViewInExplorer.Text = "View in Explorer";
-            this.miViewInExplorer.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
             // 
             // colBossName
             // 
@@ -1453,9 +1395,68 @@
             this.colHasJson.ReadOnly = true;
             this.colHasJson.Visible = false;
             // 
-            // dBLogBindingSource
+            // contextMenuGrid
             // 
-            this.dBLogBindingSource.DataSource = typeof(LogUploader.Data.DBLog);
+            this.contextMenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miParse,
+            this.miOpenLocal,
+            this.miUpload,
+            this.miOpenLink,
+            this.miParseUpload,
+            this.miViewInExplorer});
+            this.contextMenuGrid.Name = "contextMenuGrid";
+            this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
+            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGrid_Opening);
+            // 
+            // miParse
+            // 
+            this.miParse.Name = "miParse";
+            this.miParse.Size = new System.Drawing.Size(166, 22);
+            this.miParse.Text = "Parse";
+            this.miParse.Click += new System.EventHandler(this.btnParse_Click);
+            // 
+            // miOpenLocal
+            // 
+            this.miOpenLocal.Name = "miOpenLocal";
+            this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
+            this.miOpenLocal.Text = "Open Local";
+            this.miOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            // 
+            // miUpload
+            // 
+            this.miUpload.Name = "miUpload";
+            this.miUpload.Size = new System.Drawing.Size(166, 22);
+            this.miUpload.Text = "Upload";
+            this.miUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
+            // miOpenLink
+            // 
+            this.miOpenLink.Name = "miOpenLink";
+            this.miOpenLink.Size = new System.Drawing.Size(166, 22);
+            this.miOpenLink.Text = "Open dps.report";
+            this.miOpenLink.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            // 
+            // miParseUpload
+            // 
+            this.miParseUpload.Name = "miParseUpload";
+            this.miParseUpload.Size = new System.Drawing.Size(166, 22);
+            this.miParseUpload.Text = "Parse and Upload";
+            this.miParseUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
+            // 
+            // miViewInExplorer
+            // 
+            this.miViewInExplorer.Name = "miViewInExplorer";
+            this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
+            this.miViewInExplorer.Text = "View in Explorer";
+            this.miViewInExplorer.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+            // 
+            // pTop
+            // 
+            this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pTop.Location = new System.Drawing.Point(0, 0);
+            this.pTop.Name = "pTop";
+            this.pTop.Size = new System.Drawing.Size(1027, 1);
+            this.pTop.TabIndex = 0;
             // 
             // LogUploaderUI2
             // 
@@ -1490,12 +1491,12 @@
             this.pDetailsPlayers.ResumeLayout(false);
             this.gbActions.ResumeLayout(false);
             this.gbActions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).EndInit();
             this.gbSettings.ResumeLayout(false);
             this.gbSettings.PerformLayout();
             this.pGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).EndInit();
             this.contextMenuGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
