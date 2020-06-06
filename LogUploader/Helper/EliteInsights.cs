@@ -61,7 +61,15 @@ namespace LogUploader.Helper
             progress?.Report(0);
             using (var wc = GetWebClient(settings))
             {
-                res = wc.DownloadString(GitHubApiLink);
+                try
+                {
+                    res = wc.DownloadString(GitHubApiLink);
+                }
+                catch (WebException)
+                {
+                    NewestVersion = new Version(0, 0, 0, 0);
+                    return NewestVersion;
+                }
             }
             progress?.Report(0.5);
             var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
@@ -90,15 +98,22 @@ namespace LogUploader.Helper
                 progress?.Report(0.05);
                 using (var wc = GetWebClient(settings))
                 {
-                    var res = wc.DownloadString(GitHubApiLink);
-                    progress?.Report(0.15);
-                    var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
-                    progress?.Report(0.20);
-                    var gw2EiZipURL = jsonData.GetTypedList<JSONObject>("assets")
-                        .Where(json => json.GetTypedElement<string>("name") == "GW2EI.zip")
-                        .Select(json => json.GetTypedElement<string>("browser_download_url"))
-                        .First();
-                    wc.DownloadFile(gw2EiZipURL, ZipFilePath);
+                    try
+                    {
+                        var res = wc.DownloadString(GitHubApiLink);
+                        progress?.Report(0.15);
+                        var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
+                        progress?.Report(0.20);
+                        var gw2EiZipURL = jsonData.GetTypedList<JSONObject>("assets")
+                            .Where(json => json.GetTypedElement<string>("name") == "GW2EI.zip")
+                            .Select(json => json.GetTypedElement<string>("browser_download_url"))
+                            .First();
+                        wc.DownloadFile(gw2EiZipURL, ZipFilePath);
+                    }
+                    catch (WebException)
+                    {
+                        throw new OperationCanceledException("Update EI faild");
+                    }
                 }
                 progress?.Report(0.60);
                 Directory.CreateDirectory(TempPath);

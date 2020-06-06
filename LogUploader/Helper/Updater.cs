@@ -25,7 +25,14 @@ namespace LogUploader.Helper
             progress?.Report(0);
             using (var wc = GetWebClient(settings))
             {
-                res = await wc.DownloadStringTaskAsync(GitHubApiLink);
+                try
+                {
+                    res = await wc.DownloadStringTaskAsync(GitHubApiLink);
+                }
+                catch (WebException)
+                {
+                    return new Version(0, 0, 0, 0);
+                }
             }
             progress?.Report(0.5);
             var jsonData = new JSONHelper.JSONHelper().Desirealize(res);

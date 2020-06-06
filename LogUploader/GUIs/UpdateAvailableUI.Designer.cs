@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateAvailableUI));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAtEnd = new System.Windows.Forms.Button();
             this.btnNo = new System.Windows.Forms.Button();
             this.btnYes = new System.Windows.Forms.Button();
-            this.btnAtEnd = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -49,14 +49,6 @@
             this.panel2.Size = new System.Drawing.Size(334, 36);
             this.panel2.TabIndex = 1;
             // 
-            // panel3
-            // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(253, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(81, 81);
-            this.panel3.TabIndex = 2;
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnAtEnd);
@@ -68,6 +60,18 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(334, 36);
             this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // btnAtEnd
+            // 
+            this.btnAtEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAtEnd.Location = new System.Drawing.Point(253, 6);
+            this.btnAtEnd.Margin = new System.Windows.Forms.Padding(6);
+            this.btnAtEnd.Name = "btnAtEnd";
+            this.btnAtEnd.Size = new System.Drawing.Size(75, 23);
+            this.btnAtEnd.TabIndex = 2;
+            this.btnAtEnd.Text = "on Exit";
+            this.btnAtEnd.UseVisualStyleBackColor = true;
+            this.btnAtEnd.Click += new System.EventHandler(this.btnAtEnd_Click);
             // 
             // btnNo
             // 
@@ -94,17 +98,13 @@
             this.btnYes.UseVisualStyleBackColor = true;
             this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
-            // btnAtEnd
+            // panel3
             // 
-            this.btnAtEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAtEnd.Location = new System.Drawing.Point(253, 6);
-            this.btnAtEnd.Margin = new System.Windows.Forms.Padding(6);
-            this.btnAtEnd.Name = "btnAtEnd";
-            this.btnAtEnd.Size = new System.Drawing.Size(75, 23);
-            this.btnAtEnd.TabIndex = 2;
-            this.btnAtEnd.Text = "on Exit";
-            this.btnAtEnd.UseVisualStyleBackColor = true;
-            this.btnAtEnd.Click += new System.EventHandler(this.btnAtEnd_Click);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(253, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(81, 81);
+            this.panel3.TabIndex = 2;
             // 
             // label1
             // 
@@ -133,6 +133,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(350, 156);
             this.Name = "UpdateAvailableUI";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Available";
             this.panel2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);

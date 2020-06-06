@@ -252,7 +252,20 @@ namespace LogUploader
                 {
                     progress?.Report(new ProgressMessage(0.25, "Starting Update"));
                     if (settings.AutoUpdateEI || MessageBox.Show("New Version of EliteInsights is aviable\nUpdate now?", "EliteInsights Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                        EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.75) + 0.25, "Updating"))));
+                    {
+                        try
+                        {
+                            EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.75) + 0.25, "Updating"))));
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            if (!EliteInsights.IsInstalled())
+                            {
+                                MessageBox.Show("Faild to install EliteInsights", "Missing EliteInsights installation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Environment.Exit(10);
+                            }
+                        }
+                    }
                 }
             });
         }
