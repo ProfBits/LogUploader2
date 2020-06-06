@@ -657,8 +657,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log Uploader"
-        "ProductCode" = "8:{D509EBBA-3921-4F4A-B6A2-57F614BAA3B9}"
-        "PackageCode" = "8:{2BC05228-1477-4BC8-B2DD-0F751AA9AA7A}"
+        "ProductCode" = "8:{42676BE4-AE3F-464D-8BEE-9CC63ED19FCD}"
+        "PackageCode" = "8:{4A252252-4F53-42E4-A3ED-D296B9063D06}"
         "UpgradeCode" = "8:{3F3DD479-F9CF-48EE-8590-B34CEB67C1B3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

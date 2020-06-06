@@ -217,7 +217,7 @@ namespace LogUploader
             var newLog = new CachedLog(-1, bossID, absolutPath, null, null, null, sizeKb, date);
 
             newLog.ID = LogDBConnector.Insert(newLog.GetDBLog());
-            var taskName = newLog.BossName.Length > 17 ? newLog.BossName.Substring(0, 19) + "..." : newLog.BossName;
+            var taskName = newLog.BossName.Length > 17 ? newLog.BossName.Substring(0, Math.Min(17, newLog.BossName.Length)) + "..." : newLog.BossName;
 
             LogCache.Add(newLog);
 
