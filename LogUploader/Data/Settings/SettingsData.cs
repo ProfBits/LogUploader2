@@ -199,7 +199,7 @@ namespace LogUploader.Data.Settings
                    ProxyPort == data.ProxyPort &&
                    ProxyUsername == data.ProxyUsername &&
                    ProxyPassword == data.ProxyPassword &&
-                   WebHookDBStr == data.WebHookDBStr &&
+                   WebHookDB.ToString() == data.WebHookDB.ToString() &&
                    CurrentWebHook == data.CurrentWebHook &&
                    DiscordPostFormat == data.DiscordPostFormat &&
                    OnlyPostUploaded == data.OnlyPostUploaded &&
@@ -226,7 +226,7 @@ namespace LogUploader.Data.Settings
             hashCode = hashCode * -1521134295 + ProxyPort.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProxyUsername);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProxyPassword);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(WebHookDBStr);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(WebHookDB.ToString());
             hashCode = hashCode * -1521134295 + CurrentWebHook.GetHashCode();
             hashCode = hashCode * -1521134295 + DiscordPostFormat.GetHashCode();
             hashCode = hashCode * -1521134295 + OnlyPostUploaded.GetHashCode();
@@ -239,7 +239,7 @@ namespace LogUploader.Data.Settings
 
         public static bool operator ==(SettingsData left, SettingsData right)
         {
-            return EqualityComparer<SettingsData>.Default.Equals(left, right);
+            return Equals(left, right);
         }
 
         public static bool operator !=(SettingsData left, SettingsData right)

@@ -126,7 +126,7 @@ namespace LogUploader.GUI
                 DialogResult = CurrentState == initState ? DialogResult.Cancel : DialogResult.OK;
                 return;
             }
-            if (CurrentState != initState)
+            if (!CurrentState.Equals(initState))
             {
                 var res = MessageBox.Show(Language.Data.ConfigDiscardMsgTitel, Language.Data.ConfigDiscardMsgText, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 switch (res)
