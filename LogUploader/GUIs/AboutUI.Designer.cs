@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutUI));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblVersion = new System.Windows.Forms.Label();
@@ -51,6 +52,8 @@
             this.btnThirdParty = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lblThirdCopyRight = new System.Windows.Forms.Label();
+            this.llPatchnotes = new System.Windows.Forms.LinkLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.panel1.SuspendLayout();
@@ -73,30 +76,31 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.lblVersion, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.pbLogo, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblName, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblCopyright, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.llProjectPage, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.llLicense, 4, 3);
-            this.tableLayoutPanel1.Controls.Add(this.panel5, 4, 5);
+            this.tableLayoutPanel1.Controls.Add(this.panel5, 4, 6);
+            this.tableLayoutPanel1.Controls.Add(this.llPatchnotes, 2, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 9;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.571429F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.571429F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.142857F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2851F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2851F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.571233F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.571233F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.569805F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.142637F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.719585F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2851F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2851F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2851F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 361);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -119,8 +123,8 @@
             this.pbLogo.Location = new System.Drawing.Point(20, 20);
             this.pbLogo.Margin = new System.Windows.Forms.Padding(20);
             this.pbLogo.Name = "pbLogo";
-            this.tableLayoutPanel1.SetRowSpan(this.pbLogo, 5);
-            this.pbLogo.Size = new System.Drawing.Size(154, 112);
+            this.tableLayoutPanel1.SetRowSpan(this.pbLogo, 6);
+            this.pbLogo.Size = new System.Drawing.Size(154, 128);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbLogo.TabIndex = 0;
             this.pbLogo.TabStop = false;
@@ -161,6 +165,8 @@
             this.llProjectPage.TabIndex = 4;
             this.llProjectPage.TabStop = true;
             this.llProjectPage.Text = "Projectpage github.com";
+            this.toolTip1.SetToolTip(this.llProjectPage, "https://github.com/ProfBits/LogUploader2");
+            this.llProjectPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llProjectPage_LinkClicked);
             // 
             // panel1
             // 
@@ -168,10 +174,10 @@
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 155);
+            this.panel1.Location = new System.Drawing.Point(3, 171);
             this.panel1.Name = "panel1";
             this.tableLayoutPanel1.SetRowSpan(this.panel1, 4);
-            this.panel1.Size = new System.Drawing.Size(188, 203);
+            this.panel1.Size = new System.Drawing.Size(188, 187);
             this.panel1.TabIndex = 5;
             // 
             // flowLayoutPanel1
@@ -183,7 +189,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 27);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(188, 176);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(188, 160);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // lblSpellCheck
@@ -223,10 +229,10 @@
             this.panel3.Controls.Add(this.flowLayoutPanel2);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(197, 155);
+            this.panel3.Location = new System.Drawing.Point(197, 171);
             this.panel3.Name = "panel3";
             this.tableLayoutPanel1.SetRowSpan(this.panel3, 4);
-            this.panel3.Size = new System.Drawing.Size(188, 203);
+            this.panel3.Size = new System.Drawing.Size(188, 187);
             this.panel3.TabIndex = 6;
             // 
             // flowLayoutPanel2
@@ -238,7 +244,7 @@
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 27);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(3);
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(188, 176);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(188, 160);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
             // label7
@@ -291,10 +297,10 @@
             this.panel5.Controls.Add(this.panel7);
             this.panel5.Controls.Add(this.panel6);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(391, 155);
+            this.panel5.Location = new System.Drawing.Point(391, 171);
             this.panel5.Name = "panel5";
             this.tableLayoutPanel1.SetRowSpan(this.panel5, 4);
-            this.panel5.Size = new System.Drawing.Size(190, 203);
+            this.panel5.Size = new System.Drawing.Size(190, 187);
             this.panel5.TabIndex = 8;
             // 
             // panel7
@@ -303,7 +309,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(0, 27);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(190, 176);
+            this.panel7.Size = new System.Drawing.Size(190, 160);
             this.panel7.TabIndex = 1;
             // 
             // btnThirdParty
@@ -338,6 +344,26 @@
             this.lblThirdCopyRight.Size = new System.Drawing.Size(80, 20);
             this.lblThirdCopyRight.TabIndex = 2;
             this.lblThirdCopyRight.Text = "Copyright:";
+            // 
+            // llPatchnotes
+            // 
+            this.llPatchnotes.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.llPatchnotes, 2);
+            this.llPatchnotes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.llPatchnotes.Location = new System.Drawing.Point(194, 134);
+            this.llPatchnotes.Margin = new System.Windows.Forms.Padding(0);
+            this.llPatchnotes.Name = "llPatchnotes";
+            this.llPatchnotes.Size = new System.Drawing.Size(194, 16);
+            this.llPatchnotes.TabIndex = 9;
+            this.llPatchnotes.TabStop = true;
+            this.llPatchnotes.Text = "View latest Patchnotes";
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 250;
+            this.toolTip1.AutoPopDelay = 10000;
+            this.toolTip1.InitialDelay = 250;
+            this.toolTip1.ReshowDelay = 50;
             // 
             // AboutUI
             // 
@@ -397,5 +423,7 @@
         private System.Windows.Forms.Button btnThirdParty;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label lblThirdCopyRight;
+        private System.Windows.Forms.LinkLabel llPatchnotes;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

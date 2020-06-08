@@ -346,7 +346,6 @@ namespace LogUploader
 
         private CachedLog ParseAndUploadJob(CachedLog log)
         {
-            //Test for errors
             var parse = Task.Run(() => ParseJob(log));
             var upload = Task.Run(() => UploadJob(log));
             Task.WaitAll(parse, upload);
@@ -373,14 +372,10 @@ namespace LogUploader
 
         private Boss GetBoss(string Path)
         {
-            var folder = "";
+            string folder;
             if (Path.EndsWith(".evtc") || Path.EndsWith(".zevtc") || Path.EndsWith(".evtc.zip"))
             {
-                var folders = Path.Trim('\\').Split('\\');
-                if (folders.Length >= 2)
-                    folder = folders[folders.Length - 2];
-                else
-                    folder = null;
+                folder = GetBossPartFromPath(Path);
             }
             else
                 folder = Path.Trim('\\').Split('\\').LastOrDefault();
@@ -391,6 +386,21 @@ namespace LogUploader
                 return Boss.getByID((int)id);
             else
                 return Boss.getByFolderName(folder);
+        }
+
+        private static string GetBossPartFromPath(string Path)
+        {
+            var folders = Path.Trim('\\').Split('\\');
+            if (folders.Contains("arcdps.cbtlogs"))
+            {
+                var index = folders.ToList().FindIndex(s => s == "arcdps.cbtlogs");
+                if (index + 1 < folders.Length)
+                    return folders[index + 1];
+
+            }
+            if (folders.Length >= 2)
+                return folders[folders.Length - 2];
+            return null;
         }
 
         internal void ApplySettings()

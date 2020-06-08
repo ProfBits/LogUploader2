@@ -42,7 +42,7 @@ namespace LogUploader.Helper
             return gitHubVersion;
         }
 
-        static Version GetLocalVersion()
+        public static Version GetLocalVersion()
         {
             return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion);
         }

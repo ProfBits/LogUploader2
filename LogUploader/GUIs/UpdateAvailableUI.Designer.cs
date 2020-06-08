@@ -114,7 +114,7 @@
             this.label1.Padding = new System.Windows.Forms.Padding(21, 0, 0, 0);
             this.label1.Size = new System.Drawing.Size(253, 81);
             this.label1.TabIndex = 0;
-            this.label1.Text = "A Update for LogUploader is available.\r\nDo you want to intall it now?";
+            this.label1.Text = "A update for LogUploader is available.\r\nDo you want to intall it now?";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // UpdateAvailableUI

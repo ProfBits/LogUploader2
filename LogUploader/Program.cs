@@ -32,20 +32,24 @@ namespace LogUploader
          *  
          */
 
-        // Version 2.1 Targets
-        /*  Task: Darkmode / Thems (integrated into win darkmode?)
+        // Future Versions
+        /*  Task: Language out of compieled into.txt file
+         *  Task: Whats new Screen after update
+         *  Task: add View changelog to about and update UI
+         *  Task: Misc category in dataJson for kill/wipe emotes
+         *        add emotes to professions
+         *  Task: add more webhook formats
+         *        ultra compact with emotes
+         *        with classesemote (compact and area)
+         *  Task: Update EI Helper to accout for EI now outputting generated files -> remove file system watcher
+         *  Task: Log state and cleand up tools....
+         *  Task: switch over to Newtonsoft (performance)
+         *  Task: Add logs manually
+         *  Task: Add help and/or user doc...
+         *  Task: Darkmode / Thems (integrated into win darkmode?)
          *        Accent Color: HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM\AccentColor format #aabbccdd => aa opacity, bb b, cc g, dd r
          *        Darkmode: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize\AppsUseLightTheme 0 => dark mode
-         *  Task: Language out of compieled into .txt file
          *  Task: sanity check for ustertoken (on entering it?)
-         *  Task: Add optional emote support for discordposts (and add area emotes)
-         *  Task: Add help and/or user doc...
-         *  Task: Introduce more failsaves
-         *  Task: Min filesize for autoupload/parse upload respriction base on local parse?
-         *  Task: Log state and cleand up tools....
-         *  Task: Whats new Screen after update
-         *  Task: Add logs manually
-         *  Task: switch over to Newtonsoft (performance)
          *  
          * Maybe: sanity checks for data.json / versionssupport for data.json
          * Maybe: test and reaktivate proxy
