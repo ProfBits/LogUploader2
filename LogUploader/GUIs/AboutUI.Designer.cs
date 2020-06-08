@@ -356,7 +356,7 @@
             this.llPatchnotes.Size = new System.Drawing.Size(194, 16);
             this.llPatchnotes.TabIndex = 9;
             this.llPatchnotes.TabStop = true;
-            this.llPatchnotes.Text = "View latest Patchnotes";
+            this.llPatchnotes.Text = "View Patchnotes";
             // 
             // toolTip1
             // 
