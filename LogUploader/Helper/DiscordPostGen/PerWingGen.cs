@@ -87,6 +87,8 @@ namespace LogUploader.Helper.DiscordPostGen
                 currentLogs.Add(log);
             }
 
+            if (currentGroup == null)
+                return res;
 
             currentGroup = GetGrouping(currentLogs);
             if (currentLogs.All(l => l.Log.IsCM))

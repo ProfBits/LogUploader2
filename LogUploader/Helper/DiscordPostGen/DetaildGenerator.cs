@@ -67,6 +67,9 @@ namespace LogUploader.Helper.DiscordPostGen
                 currentLogs.Add(log);
             }
 
+            if (currentGroup == null)
+                return res;
+
             if (currentLogs.All(l => l.Log.IsCM))
                 currentGroup.PostFix = "CM";
             res.Add(currentGroup, currentLogs);

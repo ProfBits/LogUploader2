@@ -84,6 +84,10 @@ namespace LogUploader.Helper.DiscordPostGen
         protected virtual IEnumerable<WebHookData> GetPosts(IEnumerable<WebHookData.Embed> embeds, string userName, string avatarURL)
         {
             var posts = new List<WebHookData>();
+
+            if (embeds.Count() == 0)
+                return posts;
+
             var currentPost = GetDefaultPostHeader(userName, avatarURL);
             foreach (var embed in embeds)
             {
