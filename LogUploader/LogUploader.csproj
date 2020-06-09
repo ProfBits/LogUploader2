@@ -110,6 +110,7 @@
     <Compile Include="Data\Licenses\WindowsAPICodePack_CoreLicense.cs" />
     <Compile Include="Data\Licenses\WindowsAPICodePack_ShellLicense.cs" />
     <Compile Include="Data\Licenses\MakeSFXLicense.cs" />
+    <Compile Include="Data\MiscData.cs" />
     <Compile Include="Data\Settings\ISettings.cs" />
     <Compile Include="Data\Settings\SettingsData.cs" />
     <Compile Include="Data\WebHookDeleteEventArgs.cs" />

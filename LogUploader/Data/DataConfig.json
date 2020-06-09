@@ -2052,6 +2052,12 @@
         "GameAreaID": 2,
         "Intresting": false
       }
-    ]
+    ],
+    "Misc": {
+      "Emotes": {
+        "Kill": "raid_true",
+        "Wipe": "raid_false"
+      }
+    }
   }
 }

@@ -21,6 +21,8 @@ namespace LogUploader
         [ObjectName("per Area", "pro Gebiet")]
         PerArea,
         [ObjectName("per Try Detaild", "pro Versuch ausführlich")]
-        PerTryDetaild
+        PerTryDetaild,
+        [ObjectName("per Area with emotes", "pro Gebiet mit Emotes")]
+        PerAreaEmotes
     }
 }

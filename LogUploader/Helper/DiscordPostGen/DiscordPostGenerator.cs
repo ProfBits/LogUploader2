@@ -122,6 +122,8 @@ namespace LogUploader.Helper.DiscordPostGen
                     return new PerBossGenerator();
                 case eDiscordPostFormat.PerTryDetaild:
                     return new DetaildGenerator();
+                case eDiscordPostFormat.PerAreaEmotes:
+                    return new PerWingWithEmotes();
                 case eDiscordPostFormat.PerArea:
                 default:
                     return new PerWingGen();

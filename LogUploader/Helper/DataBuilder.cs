@@ -16,6 +16,7 @@ namespace LogUploader.Helper
         private const string TagAreaRoot = "GameAreas";
         private const string TagBossRoot = "Bosses";
         private const string TagAddRoot = "AddEnemys";
+        private const string TagMiscRoot = "Misc";
 
         private const string TagRaidRoot = "RaidWings";
         private const string TagStrikeRoot = "StrikeMissions";
@@ -23,6 +24,7 @@ namespace LogUploader.Helper
         private const string TagWvWRoot = "WvW";
         private const string TagTrainingRoot = "Training";
         private const string TagUnknownRoot = "Unknown";
+        private const string TagMiscEmoteRoot = "Emotes";
 
         private const string TagID = "ID";
 
@@ -39,6 +41,8 @@ namespace LogUploader.Helper
         private const string TagGameAreaID = "GameAreaID";
         private const string TagDiscordEmote = "DiscordEmote";
         private const string TagIntresting = "Intresting";
+        private const string TagWipe = "Wipe";
+        private const string TagKill = "Kill";
 
 
         public static void LoadDataJson(string json)
@@ -51,6 +55,15 @@ namespace LogUploader.Helper
 
             CreateBosses(Bosses);
             CreateAdds(AddEnemys);
+
+            CreateMiscData(data.GetTypedElement<JSONHelper.JSONObject>(TagMiscRoot));
+        }
+
+        private static void CreateMiscData(JSONHelper.JSONObject json)
+        {
+            var emotes = json.GetTypedElement<JSONObject>(TagMiscEmoteRoot);
+            MiscData.EmoteRaidKill = emotes.GetTypedElement<string>(TagKill);
+            MiscData.EmoteRaidWipe = emotes.GetTypedElement<string>(TagWipe);
         }
 
         private static JSONHelper.JSONObject ParseJson(string json)

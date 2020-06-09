@@ -25,10 +25,7 @@ namespace LogUploader
         // Version 2.0 Targets
         /*  
          *  Task: spell checking
-         *  Task: DONE: get user tocken in Settings broken
          *  Task: Tester + Helper in about
-         *  
-         *  Task: Update EI Button in settings
          *  
          */
 
@@ -163,7 +160,6 @@ namespace LogUploader
         private static async Task<Form> LoadApplication(IProgress<ProgressMessage> progress, CancellationToken ct, string[] args)
         {
             //await Task.Delay(10000);
-
             SetUpLocalisation();
 
             if (!CheckForOtherInstances())
