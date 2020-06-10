@@ -16,7 +16,7 @@ LogUploader is a tool to help you with GW2 arcdps log management.
 ## Requirements
 
 - .netFramework 4.7.2
-- Windows
+- Full support Windows 10, Windows Vista or new should wrok too 
 
 ## Advanced Features
 
@@ -48,7 +48,7 @@ LogUploader ein Tool das dir mit deiner GW2 arcdps Log Verwaltung hilft.
 ## Vorraussentzungen
 
 - .netFramework 4.7.2
-- Windows
+- Vollen Support mit Windows 10, Windows Vista oder neuer sollte funktionieren
 
 ## Erweiterte Funktionen
 
