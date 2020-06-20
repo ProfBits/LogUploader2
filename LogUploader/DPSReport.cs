@@ -155,7 +155,7 @@ namespace LogUploader
 
         private class MyWebClient : WebClient
         {
-            public int Timeout { get; set; } = 10_000;
+            public int Timeout { get; set; } = 240_000;
 
             protected override WebRequest GetWebRequest(Uri uri)
             {

@@ -348,7 +348,17 @@ namespace LogUploader
         {
             var parse = Task.Run(() => ParseJob(log));
             var upload = Task.Run(() => UploadJob(log));
-            Task.WaitAll(parse, upload);
+            try
+            {
+                Task.WaitAll(parse, upload);
+            }
+            catch (AggregateException e)
+            {
+                throw new AggregateException($"{e.InnerExceptions.Count()} Exeptions occured\n" +
+                    $"First:\n" +
+                    $"{e.InnerExceptions.FirstOrDefault()?.Message}\n" +
+                    $"{e.InnerExceptions.FirstOrDefault()?.StackTrace}", e.InnerExceptions);
+            }
             //ParseJob(log);
             //UploadJob(log);
             return log;
