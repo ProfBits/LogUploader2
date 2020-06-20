@@ -17,19 +17,25 @@ namespace LogUploader.Helper
 
         public static void Add(CachedLog log)
         {
-            if (Cache.Contains(log))
-                Cache.Remove(log);
-            Cache.AddFirst(log);
-            if (Cache.Count > maxSize)
-                Cache.RemoveLast();
+            lock (Cache)
+            {
+                if (Cache.Contains(log))
+                    Cache.Remove(log);
+                Cache.AddFirst(log);
+                if (Cache.Count > maxSize)
+                    Cache.RemoveLast();
+            }
         }
         public static void Addend(CachedLog log)
         {
-            if (Cache.Contains(log))
-                Cache.Remove(log);
-            if (Cache.Count > maxSize)
-                Cache.RemoveLast();
-            Cache.AddLast(log);
+            lock (Cache)
+            {
+                if (Cache.Contains(log))
+                    Cache.Remove(log);
+                if (Cache.Count > maxSize)
+                    Cache.RemoveLast();
+                Cache.AddLast(log);
+            }
         }
 
         public static void Remove(int id)
@@ -39,12 +45,14 @@ namespace LogUploader.Helper
 
         public static void Remove(CachedLog log)
         {
-            Cache.Remove(log);
+            lock (Cache)
+                Cache.Remove(log);
         }
 
         public static CachedLog getLog(int id)
         {
-            return Cache.Where(log => log.ID == id).FirstOrDefault();
+            lock (Cache)
+               return Cache.Where(log => log.ID == id).FirstOrDefault();
         }
     }
 }
