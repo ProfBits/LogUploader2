@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Log Uploader")]
 [assembly: AssemblyDescription("A administartion tool for GuildWars 2 arcdps logs")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Bits Inc.")]
 [assembly: AssemblyProduct("Log Uploader")]
 [assembly: AssemblyCopyright("Copyright © ProfBits 2019 - 2020")]
 [assembly: AssemblyTrademark("")]

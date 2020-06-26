@@ -138,7 +138,7 @@ namespace LogUploader
             string answerStr;
             using (MyWebClient wc = GetWebClient(Settings))
             {
-                wc.Timeout = 20_000;
+                wc.Timeout = 600_000;
                 try
                 {
                     var answerByte = await wc.UploadFileTaskAsync(address, path);

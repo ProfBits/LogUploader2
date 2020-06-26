@@ -148,18 +148,20 @@ namespace LogUploader
             progress?.Report(0);
             var newestElement = LogDBConnector.GetNewest();
             var min = newestElement?.Date.Subtract(new TimeSpan(1, 0, 0, 0)) ?? new DateTime(2000, 1, 1);
-            var allFiles = Directory.GetFiles(Settings.ArcLogsPath, "*.*", SearchOption.AllDirectories);
+            var allFiles = Directory.EnumerateFiles(Settings.ArcLogsPath, "*.*", SearchOption.AllDirectories)
+                .Where(file => file.EndsWith(".evtc") || file.EndsWith(".zevtc") || file.EndsWith(".evtc.zip"))
+                .ToList();
             List<DBLog> newLogs = FilterNewLogs(progress, min, allFiles);
             progress?.Report(0.95);
             if (newLogs.Count > 0)
                 LogDBConnector.InsertBulk(newLogs);
         }
 
-        private List<DBLog> FilterNewLogs(IProgress<double> progress, DateTime min, string[] allFiles)
+        private List<DBLog> FilterNewLogs(IProgress<double> progress, DateTime min, List<string> allFiles)
         {
             var newLogs = new List<DBLog>();
             var reportStep = 32;
-            var numFiles = allFiles.Length;
+            var numFiles = allFiles.Count;
             for (int i = 0; i < numFiles; i++)
             {
                 if (i % reportStep == 0)

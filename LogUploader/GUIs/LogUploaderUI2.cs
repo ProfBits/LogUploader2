@@ -205,9 +205,12 @@ namespace LogUploader.GUIs
         private void viewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dBLogDataGridView.SelectedRows.Count <= 0) return;
-            var log = dBLogDataGridView.SelectedRows[0];
-            var evtcPaht = (string)log.Cells["colEvtcPath"].Value;
-            _ = Task.Run(() => System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{evtcPaht}\""));
+            var row = dBLogDataGridView.SelectedRows[0];
+            var id = (int)row.Cells["colID"].Value;
+            var log = Logic.QuickCacheLog(id);
+            if (string.IsNullOrWhiteSpace(log.EvtcPath))
+                    return;
+            _ = Task.Run(() => System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{log.EvtcPath}\""));
         }
 
         private void txtFilterDuration_KeyPress(object sender, KeyPressEventArgs e)
