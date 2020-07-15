@@ -64,6 +64,7 @@ namespace LogUploader.Helpers
             string time = $"{dateTime.Hour.ToString().PadLeft(2, '0')}:{dateTime.Minute.ToString().PadLeft(2, '0')}:{dateTime.Second.ToString().PadLeft(2, '0')}";
             return $"{date} {time}";
         }
+
         public static bool Compare<T>(T obj1, T obj2)
         {
             if ((object)obj1 == null)

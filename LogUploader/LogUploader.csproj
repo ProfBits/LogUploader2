@@ -150,6 +150,7 @@
     <Compile Include="GUIs\WebHookConfig.Designer.cs">
       <DependentUpon>WebHookConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="Helper\Updater.cs" />
     <Compile Include="Interfaces\IJSONSerializeable.cs" />
     <Compile Include="Data\LogPreview.cs" />

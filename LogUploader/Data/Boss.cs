@@ -23,7 +23,7 @@ namespace LogUploader.Data
 
         private static Dictionary<int, Boss> allBosses = new Dictionary<int, Boss>();
 
-        internal Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.get(), "localhost", "xxx", "Unknowen") { }
+        internal Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.get(), "localhost", ":grey_question:", "Unknowen") { }
 
         internal Boss(int id, string name, string FolderName, GameArea area, string avatarURL, string discordEmote, string eIName) : this(id, name, name, FolderName, FolderName, area, avatarURL, discordEmote, eIName)
         {
@@ -32,7 +32,7 @@ namespace LogUploader.Data
 
         internal Boss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName) : base(id, nameEN, nameDE, area)
         {
-            DiscordEmote = $":{discordEmote.Trim(':')}:"; ;
+            DiscordEmote = discordEmote;
             AvatarURL = avatarURL;
             m_FolderName = new NamedObject(FolderNameEN, FolderNameDE);
             EIName = eIName;

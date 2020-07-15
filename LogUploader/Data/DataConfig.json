@@ -123,7 +123,7 @@
         "EiName": "Unknown",
         "GameAreaName": "Unknown",
         "GameAreaID": 0,
-        "DiscordEmote": "ghost",
+        "DiscordEmote": ":ghost:",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png"
       },
       {
@@ -135,7 +135,7 @@
         "EiName": "Vale Guardian",
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
-        "DiscordEmote": "vg",
+        "DiscordEmote": "<:vg:501749258320478228>",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/fb/Mini_Vale_Guardian.png"
       },
       {
@@ -147,7 +147,7 @@
         "EiName": "Gorseval",
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
-        "DiscordEmote": "gors",
+        "DiscordEmote": "<:gors:501748869017894912>",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d1/Mini_Gorseval_the_Multifarious.png"
       },
       {
@@ -159,7 +159,7 @@
         "EiName": "Sabetha the Saboteur",
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
-        "DiscordEmote": "sab",
+        "DiscordEmote": "<:sab:501749126061621260>",
         "AvatarURL": "https://wiki.guildwars2.com/images/5/54/Mini_Sabetha.png"
       },
       {
@@ -171,7 +171,7 @@
         "EiName": "Slothasor",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
-        "DiscordEmote": "sloth~1",
+        "DiscordEmote": "<:sloth:501749219342811156>",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/ed/Mini_Slubling.png"
       },
       {
@@ -183,7 +183,7 @@
         "EiName": "Berg",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
-        "DiscordEmote": "trio",
+        "DiscordEmote": "<:trio:576146907588460559>",
         "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
       },
       {
@@ -195,7 +195,7 @@
         "EiName": "Zane",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
-        "DiscordEmote": "trio",
+        "DiscordEmote": "<:trio:576146907588460559>",
         "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
       },
       {
@@ -207,7 +207,7 @@
         "EiName": "Narella",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
-        "DiscordEmote": "trio",
+        "DiscordEmote": "<:trio:576146907588460559>",
         "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
       },
       {
@@ -219,7 +219,7 @@
         "EiName": "Matthias Gabrel",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
-        "DiscordEmote": "matt",
+        "DiscordEmote": "<:matt:501748945060626444>",
         "AvatarURL": "https://wiki.guildwars2.com/images/5/5d/Mini_Matthias_Abomination.png"
       },
       {
@@ -231,8 +231,8 @@
         "EiName": "McLeod the Silent",
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
-        "DiscordEmote": "gdn",
-        "AvatarURL": ""
+        "DiscordEmote": "<:gdn:484839339474288650>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/5a/Fountain_of_Cleansing.jpg"
       },
       {
         "ID": 16235,
@@ -243,7 +243,7 @@
         "EiName": "Keep Construct",
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
-        "DiscordEmote": "kc",
+        "DiscordEmote": "<:kc:501748909010583552>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png"
       },
       {
@@ -255,7 +255,7 @@
         "EiName": "Twisted Castle",
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
-        "DiscordEmote": "mir",
+        "DiscordEmote": "<:mir:484839459259678744>",
         "AvatarURL": "https://i.imgur.com/xpQnu35.png"
       },
       {
@@ -267,7 +267,7 @@
         "EiName": "Xera",
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
-        "DiscordEmote": "xera",
+        "DiscordEmote": "<:xera:501749293783318548>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png"
       },
       {
@@ -279,7 +279,7 @@
         "EiName": "Cairn the Indomitable",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
-        "DiscordEmote": "cairn",
+        "DiscordEmote": "<:cairn:501748574632280074>",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Mini_Cairn_the_Indomitable.png"
       },
       {
@@ -291,7 +291,7 @@
         "EiName": "Mursaat Overseer",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
-        "DiscordEmote": "mo",
+        "DiscordEmote": "<:mo:501748997174591492>",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/c8/Mini_Mursaat_Overseer.png"
       },
       {
@@ -303,7 +303,7 @@
         "EiName": "Samarog",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
-        "DiscordEmote": "sam",
+        "DiscordEmote": "<:sam:501749156394696704>",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/f0/Mini_Samarog.png"
       },
       {
@@ -315,7 +315,7 @@
         "EiName": "Deimos",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
-        "DiscordEmote": "deimos",
+        "DiscordEmote": "<:deimos:501749064346632213> ",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Ragged_White_Mantle_Figurehead.png"
       },
       {
@@ -327,7 +327,7 @@
         "EiName": "Soulless Horror",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
-        "DiscordEmote": "horror",
+        "DiscordEmote": "<:horror:501748773752537088>",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Mini_Desmina.png"
       },
       {
@@ -339,7 +339,7 @@
         "EiName": "Desmina Escort",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
-        "DiscordEmote": "gnd",
+        "DiscordEmote": "<:gdn:484839339474288650>",
         "AvatarURL": "https://wiki.guildwars2.com/images/thumb/7/7b/Gold_River_of_Souls_Trophy.jpg/220px-Gold_River_of_Souls_Trophy.jpg"
       },
       {
@@ -351,7 +351,7 @@
         "EiName": "Broken King",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
-        "DiscordEmote": "nec",
+        "DiscordEmote": "<:nec:484839499478597642>",
         "AvatarURL": "https://wiki.guildwars2.com/images/3/37/Mini_Broken_King.png"
       },
       {
@@ -363,7 +363,7 @@
         "EiName": "Soul Eater",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
-        "DiscordEmote": "nec",
+        "DiscordEmote": "<:nec:484839499478597642>",
         "AvatarURL": "https://wiki.guildwars2.com/images/thumb/2/24/Eater_of_Souls_%28Hall_of_Chains%29.jpg/194px-Eater_of_Souls_%28Hall_of_Chains%29.jpg"
       },
       {
@@ -375,7 +375,7 @@
         "EiName": "Eye of Judgement",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
-        "DiscordEmote": "nec",
+        "DiscordEmote": "<:nec:484839499478597642>",
         "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg"
       },
       {
@@ -387,7 +387,7 @@
         "EiName": "Eye of Fate",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
-        "DiscordEmote": "nec",
+        "DiscordEmote": "<:nec:484839499478597642>",
         "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg"
       },
       {
@@ -399,7 +399,7 @@
         "EiName": "Dhuum",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
-        "DiscordEmote": "dhuum",
+        "DiscordEmote": "<:dhuum:501748828945383424>",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Mini_Dhuum.png"
       },
       {
@@ -411,7 +411,7 @@
         "EiName": "Conjured Amalgamate",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
-        "DiscordEmote": "ca",
+        "DiscordEmote": "<:ca:501871735503585300>",
         "AvatarURL": "https://i.imgur.com/eLyIWd2.png"
       },
       {
@@ -423,7 +423,7 @@
         "EiName": "Twin Largos",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
-        "DiscordEmote": "larg",
+        "DiscordEmote": "<:larg:501865906587041807> ",
         "AvatarURL": "https://i.imgur.com/6O5MT7v.png"
       },
       {
@@ -435,7 +435,7 @@
         "EiName": "Twin Largos",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
-        "DiscordEmote": "larg",
+        "DiscordEmote": "<:larg:501865906587041807> ",
         "AvatarURL": "https://i.imgur.com/6O5MT7v.png"
       },
       {
@@ -447,7 +447,7 @@
         "EiName": "Qadim",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
-        "DiscordEmote": "qad",
+        "DiscordEmote": "<:qad:501865963143036939>",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/f2/Mini_Qadim.png"
       },
       {
@@ -459,7 +459,7 @@
         "EiName": "Cardinal Adina",
         "GameAreaName": "RaidWings",
         "GameAreaID": 7,
-        "DiscordEmote": "adi",
+        "DiscordEmote": "<:adi:591359582740414500>",
         "AvatarURL": "https://wiki.guildwars2.com/images/a/a0/Mini_Earth_Djinn.png"
       },
       {
@@ -471,7 +471,7 @@
         "EiName": "Cardinal Sabir",
         "GameAreaName": "RaidWings",
         "GameAreaID": 7,
-        "DiscordEmote": "sabi",
+        "DiscordEmote": "<:sabi:591359598175191040>",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/fc/Mini_Air_Djinn.png"
       },
       {
@@ -483,7 +483,7 @@
         "EiName": "Qadim the Peerless",
         "GameAreaName": "RaidWings",
         "GameAreaID": 7,
-        "DiscordEmote": "qad2",
+        "DiscordEmote": "<:qad2:591359616189988864>",
         "AvatarURL": "https://wiki.guildwars2.com/images/8/8b/Mini_Qadim_the_Peerless.png"
       },
       {
@@ -495,7 +495,7 @@
         "EiName": "Icebrood Construct",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 1,
-        "DiscordEmote": "dgh",
+        "DiscordEmote": "<:dgh:484839155155599360>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg"
       },
       {
@@ -507,7 +507,7 @@
         "EiName": "VoiceOfTheFallen",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
-        "DiscordEmote": "ren",
+        "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Voice_of_the_Fallen.jpg"
       },
       {
@@ -519,7 +519,7 @@
         "EiName": "ClawOfTheFallen",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
-        "DiscordEmote": "ren",
+        "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/Claw_of_the_Fallen.jpg"
       },
       {
@@ -531,7 +531,7 @@
         "EiName": "VoiceAndClaw",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
-        "DiscordEmote": "ren",
+        "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Whisper_in_the_Dark_09.jpg"
       },
       {
@@ -543,7 +543,7 @@
         "EiName": "FraenirOfJormag ",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
-        "DiscordEmote": "fbd",
+        "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/67/Fraenir_of_Jormag.jpg"
       },
       {
@@ -555,7 +555,7 @@
         "EiName": "IcebroodConstructFraenir",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
-        "DiscordEmote": "fbd",
+        "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/7f/Icebrood_Construct_%28Sanctum_Arena%29.jpg"
       },
       {
@@ -567,7 +567,7 @@
         "EiName": "Boneskinner",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
-        "DiscordEmote": "scg",
+        "DiscordEmote": "<:rea:484839588876255232> ",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg"
       },
       {
@@ -579,7 +579,7 @@
         "EiName": "Whisper of Jormag",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 3,
-        "DiscordEmote": "mes",
+        "DiscordEmote": "<:mes:484839435578507295>",
         "AvatarURL": "https://i.imgur.com/8GLwgfL.png"
       },
       {
@@ -591,7 +591,7 @@
         "EiName": "Freezie",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 255,
-        "DiscordEmote": "snowman",
+        "DiscordEmote": ":snowman:",
         "AvatarURL": "https://wiki.guildwars2.com/images/thumb/8/8b/Freezie.jpg/189px-Freezie.jpg"
       },
       {
@@ -603,7 +603,7 @@
         "EiName": "WvW",
         "GameAreaName": "WvW",
         "GameAreaID": 1,
-        "DiscordEmote": "cop",
+        "DiscordEmote": ":european_castle:",
         "AvatarURL": "https://wiki.guildwars2.com/images/3/35/WvW_Rank_up.png"
       },
       {
@@ -615,7 +615,7 @@
         "EiName": "M A M A",
         "GameAreaName": "Fractals",
         "GameAreaID": 99,
-        "DiscordEmote": "rea",
+        "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg"
       },
       {
@@ -627,7 +627,7 @@
         "EiName": "Siax the Corrupted",
         "GameAreaName": "Fractals",
         "GameAreaID": 99,
-        "DiscordEmote": "rea",
+        "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Siax_the_Corrupted.jpg"
       },
       {
@@ -639,7 +639,7 @@
         "EiName": "Ensolyss of the Endless Torment",
         "GameAreaName": "Fractals",
         "GameAreaID": 99,
-        "DiscordEmote": "rea",
+        "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/f6/Ensolyss_of_the_Endless_Torment.jpg"
       },
       {
@@ -651,7 +651,7 @@
         "EiName": "Skorvald the Shattered",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
-        "DiscordEmote": "chr",
+        "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/c1/Skorvald_the_Shattered.jpg"
       },
       {
@@ -663,7 +663,7 @@
         "EiName": "Artsariiv",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
-        "DiscordEmote": "chr",
+        "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/76/Viirastra.jpg"
       },
       {
@@ -675,7 +675,7 @@
         "EiName": "Arkk",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
-        "DiscordEmote": "chr",
+        "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg"
       },
       {
@@ -687,7 +687,7 @@
         "EiName": "Massive Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
-        "DiscordEmote": "white_check_mark",
+        "DiscordEmote": ":white_check_mark:",
         "AvatarURL": "https://wiki.guildwars2.com/images/3/33/Mini_Snuggles.png"
       },
       {
@@ -699,7 +699,7 @@
         "EiName": "Average Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
-        "DiscordEmote": "white_check_mark",
+        "DiscordEmote": ":white_check_mark:",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png"
       },
       {
@@ -711,7 +711,7 @@
         "EiName": "Large Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
-        "DiscordEmote": "white_check_mark",
+        "DiscordEmote": ":white_check_mark:",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/47/Mini_Baron_von_Scrufflebutt.png"
       },
       {
@@ -723,7 +723,7 @@
         "EiName": "Medium Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
-        "DiscordEmote": "white_check_mark",
+        "DiscordEmote": ":white_check_mark:",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png"
       },
       {
@@ -735,7 +735,7 @@
         "EiName": "Standard Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
-        "DiscordEmote": "white_check_mark",
+        "DiscordEmote": ":white_check_mark:",
         "AvatarURL": "https://wiki.guildwars2.com/images/8/8f/Mini_Professor_Mew.png"
       }
     ],
@@ -2055,8 +2055,8 @@
     ],
     "Misc": {
       "Emotes": {
-        "Kill": "raid_true",
-        "Wipe": "raid_false"
+        "Kill": "<:raid_true:623230716674834485>",
+        "Wipe": "<:raid_false:623230729106489365>"
       }
     }
   }

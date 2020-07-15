@@ -23,6 +23,8 @@ namespace LogUploader
         [ObjectName("per Try Detaild", "pro Versuch ausführlich")]
         PerTryDetaild,
         [ObjectName("per Area with emotes", "pro Gebiet mit Emotes")]
-        PerAreaEmotes
+        PerAreaEmotes,
+        [ObjectName("compact with emotes", "kompakt mit Emotes")]
+        CompactWithEmotes
     }
 }
