@@ -17,7 +17,7 @@ namespace LogUploader.GUIs
     {
         private LogUploaderLogic Logic;
 
-        internal LogUploaderUI2(LogUploaderLogic logic, bool eap, bool eau, IProgress<double> progress = null)
+        internal LogUploaderUI2(LogUploaderLogic logic, IProgress<double> progress = null)
         {
             progress?.Report(0);
             Logic = logic;
@@ -33,8 +33,8 @@ namespace LogUploader.GUIs
             BindComboBoxes();
             progress?.Report(0.7);
             UpdateData();
-            cbAutoParse.Checked = eap;
-            cbAutoUpload.Checked = eau;
+            cbAutoParse.Checked = Logic.EnableAutoParsing;
+            cbAutoUpload.Checked = Logic.EnableAutoUpload;
             progress?.Report(0.8);
             UpdateSelectedWebHook();
             UpdateFilter();
@@ -167,8 +167,12 @@ namespace LogUploader.GUIs
 
         private void Update_NewLogsAutoFeatures(object sender, EventArgs e)
         {
-            Logic.EnableAutoParsing = cbAutoParse.Checked;
-            Logic.EnableAutoUpload = cbAutoUpload.Checked;
+            if (Visible)
+            {
+                Logic.EnableAutoParsing = cbAutoParse.Checked;
+                Logic.EnableAutoUpload = cbAutoUpload.Checked;
+                Logic.SetSelectedAutoTasks(cbAutoParse.Checked, cbAutoUpload.Checked);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

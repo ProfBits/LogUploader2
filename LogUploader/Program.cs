@@ -224,7 +224,7 @@ namespace LogUploader
                 UpdateReuest?.Invoke();
             };
             //return await CreateUI(logic, flags);
-            return await CreateUI2(newLogic, flags, new Progress<double>(p => progress.Report(new ProgressMessage(0.95 + (p * 0.05), "Creating UI"))));
+            return await CreateUI2(newLogic, new Progress<double>(p => progress.Report(new ProgressMessage(0.95 + (p * 0.05), "Creating UI"))));
         }
 
         private static async Task<Action> CheckForUpdates(SettingsData settings, IProgress<ProgressMessage> progress = null)
@@ -301,10 +301,10 @@ namespace LogUploader
             });
         }
 
-        private static async Task<LogUploaderUI2> CreateUI2(LogUploaderLogic logic, Flags flags, IProgress<double> progress = null)
+        private static async Task<LogUploaderUI2> CreateUI2(LogUploaderLogic logic, IProgress<double> progress = null)
         {
             LogUploaderUI2 ui = null;
-            await Task.Run(() => ui = new LogUploaderUI2(logic, flags.EnableAutoParse, flags.EnableAutoUpload, progress));
+            await Task.Run(() => ui = new LogUploaderUI2(logic, progress));
             return ui;
         }
 

@@ -309,5 +309,29 @@ namespace LogUploader.Properties {
                 this["NameAsDiscordUser"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableAutoUpload {
+            get {
+                return ((bool)(this["EnableAutoUpload"]));
+            }
+            set {
+                this["EnableAutoUpload"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableAutoParse {
+            get {
+                return ((bool)(this["EnableAutoParse"]));
+            }
+            set {
+                this["EnableAutoParse"] = value;
+            }
+        }
     }
 }

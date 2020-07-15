@@ -124,8 +124,8 @@ namespace LogUploader
             progress?.Report(new ProgressMessage(0, "Init"));
             Settings = settings;
             DPSReport = new DPSReport(Settings, settings.UserToken);
-            EnableAutoParsing = eap;
-            EnableAutoUpload = eau;
+            EnableAutoParsing = settings.EnableAutoParse || eap;
+            EnableAutoUpload = settings.EnableAutoUpload || eau;
 
             progress?.Report(new ProgressMessage(0.01, "Webhooks"));
             WebHookDB = Settings.WebHookDB;
@@ -620,6 +620,16 @@ namespace LogUploader
         }
 
         #endregion
+        
+        public void SetSelectedAutoTasks(bool eap, bool eau)
+        {
+            Settings.EnableAutoParse = eap;
+            Settings.EnableAutoUpload = eau;
+            var mainSettings = new Settings();
+            mainSettings.EnableAutoParse = eap;
+            mainSettings.EnableAutoUpload = eau;
+            mainSettings.Save();
+        }
 
         public DataTable GetData()
         {
