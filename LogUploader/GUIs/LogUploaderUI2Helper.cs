@@ -252,7 +252,7 @@ namespace LogUploader.GUIs
             else
                 lblDetDate.Text = perv.Date.ToString(Languages.Language.Current == eLanguage.DE ? "dd'.'MM'.'yy HH':'mm" : "MM'-'dd'-'yy HH':'mm");
             lblDetDuration.Text = perv.MaxDuratin.ToString(Languages.Language.Current == eLanguage.DE ? "h':'mm':'ss','fff" : "h':'mm':'ss'.'fff");
-            lblDetHp.Text = perv.HPLeft.ToString(Languages.Language.Current == eLanguage.DE ? "0,00'%'" : "0.00'%'");
+            lblDetHp.Text = perv.HPLeft.ToString("F2") + " %";
 
             cbDetCorrected.CheckState = perv.Corrected;
             cbDetSuccess.CheckState = perv.Success;

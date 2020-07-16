@@ -15,7 +15,7 @@ namespace LogUploader.GUIs
 {
     public partial class AboutUI : Form
     {
-        private const string SPELLCHECKER = "";
+        private const string SPELLCHECKER = "Laelia#5033";
 
         public AboutUI()
         {

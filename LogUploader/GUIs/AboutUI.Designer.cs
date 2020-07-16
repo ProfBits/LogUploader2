@@ -197,9 +197,9 @@
             this.lblSpellCheck.AutoSize = true;
             this.lblSpellCheck.Location = new System.Drawing.Point(6, 3);
             this.lblSpellCheck.Name = "lblSpellCheck";
-            this.lblSpellCheck.Size = new System.Drawing.Size(124, 13);
+            this.lblSpellCheck.Size = new System.Drawing.Size(155, 13);
             this.lblSpellCheck.TabIndex = 0;
-            this.lblSpellCheck.Text = "#### for Spell Checking";
+            this.lblSpellCheck.Text = "Laelia#5033 for Spell Checking";
             // 
             // panel2
             // 
@@ -252,9 +252,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 3);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.Size = new System.Drawing.Size(66, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Name";
+            this.label7.Text = "Laelia#5033";
             // 
             // panel4
             // 

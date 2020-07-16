@@ -16,8 +16,8 @@ namespace LogUploader.Languages
 
         public override string ColHeaderBoss { get => "Boss"; }
         public override string ColHeaderDate { get => "Date"; }
-        public override string ColHeaderSize { get => "SizeKb"; }
-        public override string ColHeaderDataCorrected { get => "Data Checked"; }
+        public override string ColHeaderSize { get => "Size"; }
+        public override string ColHeaderDataCorrected { get => "Data checked"; }
         public override string ColHeaderDuration { get => "Duration"; }
         public override string ColHeaderSuccess { get => "Kill"; }
         public override string ColHeaderHpLeft { get => "% left"; }
@@ -53,17 +53,17 @@ namespace LogUploader.Languages
         public override string DetailsSubGroup { get => "SG"; }
         public override string DetailsDPS { get => "DPS"; }
         public override string ActionsHeader { get => "Actions"; }
-        public override string ActionsParseLocal { get => "Parse Local"; }
-        public override string ActionsOpenLocal { get => "Open Local"; }
+        public override string ActionsParseLocal { get => "Parse local"; }
+        public override string ActionsOpenLocal { get => "Open local"; }
         public override string ActionsUpload { get => "Upload"; }
         public override string ActionsOpenRemote { get => "dps.report"; }
-        public override string ActionsParseAndUpload { get => "Parse Local and Upload"; }
-        public override string ActionsCopyLinks { get => "Copy Links"; }
+        public override string ActionsParseAndUpload { get => "Parse local and upload"; }
+        public override string ActionsCopyLinks { get => "Copy links"; }
         public override string ActionsCopied { get => "copied"; }
         public override string ActionsPostToDiscord { get => "Post to Discord"; }
         public override string SettingsHeader { get => "Settings"; }
-        public override string SettingsAutoParse { get => "Auto Parse new Logs"; }
-        public override string SettingsAutoUpload { get => "Auto Upload new Logs"; }
+        public override string SettingsAutoParse { get => "Auto parse new logs"; }
+        public override string SettingsAutoUpload { get => "Auto upload new logs"; }
         public override string SettingsAbout { get => "About"; }
         public override string SettingsSettings { get => "Settings ..."; }
         public override string FooterElements { get => "Elements"; }
@@ -108,7 +108,7 @@ namespace LogUploader.Languages
         public override string InitStart { get => "Start"; }
         public override string InitCancelSetupText { get => "Really abort the setup?"; }
         public override string InitCancelSetupTitel { get => "Confirm cancel"; }
-        public override string InitInvalidPathTitel { get => "Invlaid path"; }
+        public override string InitInvalidPathTitel { get => "Invalid path"; }
         public override string InitInvalidPathText { get => @"...\arcdps.cbtlogs\ path is invalid!"; }
 
 
@@ -122,10 +122,10 @@ namespace LogUploader.Languages
         public override string ConfigDpsReportGetToken { get => "Get your Token:"; }
         public override string ConfigDpsReportProxy { get => "Proxy Settings..."; }
         public override string ConfigCopyTitle { get => "Copy Links"; }
-        public override string ConfigCopyBoss { get => "Include Encounter"; }
-        public override string ConfigCopySuccess { get => "Incoulde Succsess"; }
-        public override string ConfigCopyInline { get => "Link in Same Line as encounter"; }
-        public override string ConfigCopySpace { get => "Empty Line between Logs"; }
+        public override string ConfigCopyBoss { get => "Include encounter"; }
+        public override string ConfigCopySuccess { get => "Include success"; }
+        public override string ConfigCopyInline { get => "Link in same line as encounter"; }
+        public override string ConfigCopySpace { get => "Empty line between logs"; }
         public override string ConfigCopyEmotes { get => "Include Guildnews Discord Emotes"; }
         public override string ConfigDiscordTitle { get => "Discord Webhooks"; }
         public override string ConfigDiscordWebHookName { get => "Name:"; }
@@ -137,7 +137,7 @@ namespace LogUploader.Languages
         public override string ConfigDiscordCount { get => "Count"; }
         public override string ConfigDiscordAdd { get => "Add"; }
         public override string ConfigDiscordOnlyUploaded { get => "Only post Uploaded"; }
-        public override string ConfigDiscordNameAsUsername { get => "Name as Diecord Username"; }
+        public override string ConfigDiscordNameAsUsername { get => "Name as Discord Username"; }
         public override string ConfigEiTitle { get => "EliteInsights"; }
         public override string ConfigEiCombatReplay { get => "Generate combat replay"; }
         public override string ConfigEiLightTheme { get => "Use light theme"; }
@@ -152,7 +152,7 @@ namespace LogUploader.Languages
 
         public override string MiscGenericProcessing { get => "Processing"; }
         public override string MiscNoWebhookMsgTitel { get => "Setup Webhooks"; }
-        public override string MiscNoWebhookMsgText { get => "You have currently no Webhooks setup.\nGo to Discord Webhooks in Settings and create a new one"; }
+        public override string MiscNoWebhookMsgText { get => "You have currently no Webhooks set up.\nGo to Discord Webhooks in Settings and create a new one"; }
         public override string MiscDiscordPostGenDuration { get => "Duration"; }
         public override string MiscDiscordPostGenHpLeft { get => "HP left"; }
         public override string MiscDiscordPostGenGroupDPS { get => "Group DPS"; }

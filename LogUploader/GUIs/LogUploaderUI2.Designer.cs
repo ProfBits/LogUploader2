@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogUploaderUI2));
             this.pStatus = new System.Windows.Forms.Panel();
             this.pWorkStatus = new System.Windows.Forms.Panel();
@@ -98,7 +99,6 @@
             this.lblLinksCopied = new System.Windows.Forms.Label();
             this.btnParsAndUpload = new System.Windows.Forms.Button();
             this.btnOpenDpsReport = new System.Windows.Forms.Button();
-            this.dBLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnPostToDiscord = new System.Windows.Forms.Button();
             this.btnCopyLinks = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
@@ -112,6 +112,14 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pGrid = new System.Windows.Forms.Panel();
             this.dBLogDataGridView = new System.Windows.Forms.DataGridView();
+            this.contextMenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miParse = new System.Windows.Forms.ToolStripMenuItem();
+            this.miOpenLocal = new System.Windows.Forms.ToolStripMenuItem();
+            this.miUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.miOpenLink = new System.Windows.Forms.ToolStripMenuItem();
+            this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.pTop = new System.Windows.Forms.Panel();
             this.colBossName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -133,14 +141,7 @@
             this.colFlags = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colHasEvtc = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colHasJson = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.contextMenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.miParse = new System.Windows.Forms.ToolStripMenuItem();
-            this.miOpenLocal = new System.Windows.Forms.ToolStripMenuItem();
-            this.miUpload = new System.Windows.Forms.ToolStripMenuItem();
-            this.miOpenLink = new System.Windows.Forms.ToolStripMenuItem();
-            this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
-            this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
-            this.pTop = new System.Windows.Forms.Panel();
+            this.dBLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pStatus.SuspendLayout();
             this.pWorkStatus.SuspendLayout();
             this.flpProgress.SuspendLayout();
@@ -154,11 +155,11 @@
             this.tpDetailsTop.SuspendLayout();
             this.pDetailsPlayers.SuspendLayout();
             this.gbActions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).BeginInit();
             this.gbSettings.SuspendLayout();
             this.pGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).BeginInit();
             this.contextMenuGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pStatus
@@ -998,7 +999,7 @@
             this.lblLinksCopied.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLinksCopied.AutoSize = true;
-            this.lblLinksCopied.Location = new System.Drawing.Point(87, 120);
+            this.lblLinksCopied.Location = new System.Drawing.Point(100, 119);
             this.lblLinksCopied.Name = "lblLinksCopied";
             this.lblLinksCopied.Size = new System.Drawing.Size(64, 13);
             this.lblLinksCopied.TabIndex = 3;
@@ -1030,10 +1031,6 @@
             this.btnOpenDpsReport.UseVisualStyleBackColor = true;
             this.btnOpenDpsReport.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
             // 
-            // dBLogBindingSource
-            // 
-            this.dBLogBindingSource.DataSource = typeof(LogUploader.Data.DBLog);
-            // 
             // btnPostToDiscord
             // 
             this.btnPostToDiscord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1049,7 +1046,7 @@
             // 
             this.btnCopyLinks.Location = new System.Drawing.Point(6, 115);
             this.btnCopyLinks.Name = "btnCopyLinks";
-            this.btnCopyLinks.Size = new System.Drawing.Size(75, 23);
+            this.btnCopyLinks.Size = new System.Drawing.Size(88, 23);
             this.btnCopyLinks.TabIndex = 2;
             this.btnCopyLinks.Text = "Copy links";
             this.btnCopyLinks.UseVisualStyleBackColor = true;
@@ -1210,6 +1207,69 @@
             this.dBLogDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dBLogDataGridView_CellDoubleClick);
             this.dBLogDataGridView.SelectionChanged += new System.EventHandler(this.dBLogDataGridView_SelectionChanged);
             // 
+            // contextMenuGrid
+            // 
+            this.contextMenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miParse,
+            this.miOpenLocal,
+            this.miUpload,
+            this.miOpenLink,
+            this.miParseUpload,
+            this.miViewInExplorer});
+            this.contextMenuGrid.Name = "contextMenuGrid";
+            this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
+            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGrid_Opening);
+            // 
+            // miParse
+            // 
+            this.miParse.Name = "miParse";
+            this.miParse.Size = new System.Drawing.Size(166, 22);
+            this.miParse.Text = "Parse";
+            this.miParse.Click += new System.EventHandler(this.btnParse_Click);
+            // 
+            // miOpenLocal
+            // 
+            this.miOpenLocal.Name = "miOpenLocal";
+            this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
+            this.miOpenLocal.Text = "Open Local";
+            this.miOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            // 
+            // miUpload
+            // 
+            this.miUpload.Name = "miUpload";
+            this.miUpload.Size = new System.Drawing.Size(166, 22);
+            this.miUpload.Text = "Upload";
+            this.miUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
+            // miOpenLink
+            // 
+            this.miOpenLink.Name = "miOpenLink";
+            this.miOpenLink.Size = new System.Drawing.Size(166, 22);
+            this.miOpenLink.Text = "Open dps.report";
+            this.miOpenLink.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            // 
+            // miParseUpload
+            // 
+            this.miParseUpload.Name = "miParseUpload";
+            this.miParseUpload.Size = new System.Drawing.Size(166, 22);
+            this.miParseUpload.Text = "Parse and Upload";
+            this.miParseUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
+            // 
+            // miViewInExplorer
+            // 
+            this.miViewInExplorer.Name = "miViewInExplorer";
+            this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
+            this.miViewInExplorer.Text = "View in Explorer";
+            this.miViewInExplorer.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+            // 
+            // pTop
+            // 
+            this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pTop.Location = new System.Drawing.Point(0, 0);
+            this.pTop.Name = "pTop";
+            this.pTop.Size = new System.Drawing.Size(1027, 1);
+            this.pTop.TabIndex = 0;
+            // 
             // colBossName
             // 
             this.colBossName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -1271,12 +1331,14 @@
             // colHpLeft
             // 
             this.colHpLeft.DataPropertyName = "RemainingHealth";
+            dataGridViewCellStyle1.Format = "F2";
+            this.colHpLeft.DefaultCellStyle = dataGridViewCellStyle1;
             this.colHpLeft.FillWeight = 10F;
             this.colHpLeft.HeaderText = "% left";
-            this.colHpLeft.MinimumWidth = 60;
+            this.colHpLeft.MinimumWidth = 64;
             this.colHpLeft.Name = "colHpLeft";
             this.colHpLeft.ReadOnly = true;
-            this.colHpLeft.Width = 60;
+            this.colHpLeft.Width = 64;
             // 
             // colIsCM
             // 
@@ -1395,68 +1457,9 @@
             this.colHasJson.ReadOnly = true;
             this.colHasJson.Visible = false;
             // 
-            // contextMenuGrid
+            // dBLogBindingSource
             // 
-            this.contextMenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miParse,
-            this.miOpenLocal,
-            this.miUpload,
-            this.miOpenLink,
-            this.miParseUpload,
-            this.miViewInExplorer});
-            this.contextMenuGrid.Name = "contextMenuGrid";
-            this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
-            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGrid_Opening);
-            // 
-            // miParse
-            // 
-            this.miParse.Name = "miParse";
-            this.miParse.Size = new System.Drawing.Size(166, 22);
-            this.miParse.Text = "Parse";
-            this.miParse.Click += new System.EventHandler(this.btnParse_Click);
-            // 
-            // miOpenLocal
-            // 
-            this.miOpenLocal.Name = "miOpenLocal";
-            this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
-            this.miOpenLocal.Text = "Open Local";
-            this.miOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
-            // 
-            // miUpload
-            // 
-            this.miUpload.Name = "miUpload";
-            this.miUpload.Size = new System.Drawing.Size(166, 22);
-            this.miUpload.Text = "Upload";
-            this.miUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // miOpenLink
-            // 
-            this.miOpenLink.Name = "miOpenLink";
-            this.miOpenLink.Size = new System.Drawing.Size(166, 22);
-            this.miOpenLink.Text = "Open dps.report";
-            this.miOpenLink.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
-            // 
-            // miParseUpload
-            // 
-            this.miParseUpload.Name = "miParseUpload";
-            this.miParseUpload.Size = new System.Drawing.Size(166, 22);
-            this.miParseUpload.Text = "Parse and Upload";
-            this.miParseUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
-            // 
-            // miViewInExplorer
-            // 
-            this.miViewInExplorer.Name = "miViewInExplorer";
-            this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
-            this.miViewInExplorer.Text = "View in Explorer";
-            this.miViewInExplorer.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
-            // 
-            // pTop
-            // 
-            this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pTop.Location = new System.Drawing.Point(0, 0);
-            this.pTop.Name = "pTop";
-            this.pTop.Size = new System.Drawing.Size(1027, 1);
-            this.pTop.TabIndex = 0;
+            this.dBLogBindingSource.DataSource = typeof(LogUploader.Data.DBLog);
             // 
             // LogUploaderUI2
             // 
@@ -1491,12 +1494,12 @@
             this.pDetailsPlayers.ResumeLayout(false);
             this.gbActions.ResumeLayout(false);
             this.gbActions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).EndInit();
             this.gbSettings.ResumeLayout(false);
             this.gbSettings.PerformLayout();
             this.pGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).EndInit();
             this.contextMenuGrid.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1565,27 +1568,6 @@
         private System.Windows.Forms.ToolStripMenuItem miParseUpload;
         private System.Windows.Forms.Button btnFilterReset;
         private System.Windows.Forms.Label lblFilterPercent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBossName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSize;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colDataCorrected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDuration;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colSuccsess;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colHpLeft;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colIsCM;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasHtml;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasLink;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBossID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEvtcPath;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colJsonPath;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colHtmlPath;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLink;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTimeStamp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDurationMs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFlags;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasEvtc;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasJson;
         private System.Windows.Forms.Panel pDetailsPlayers;
         private System.Windows.Forms.FlowLayoutPanel flpPlayers;
         private System.Windows.Forms.TableLayoutPanel tpDetailsTop;
@@ -1614,5 +1596,26 @@
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStripMenuItem miViewInExplorer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBossName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSize;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colDataCorrected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDuration;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colSuccsess;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHpLeft;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colIsCM;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasHtml;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasLink;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBossID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colEvtcPath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colJsonPath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHtmlPath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colLink;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTimeStamp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDurationMs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFlags;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasEvtc;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colHasJson;
     }
 }

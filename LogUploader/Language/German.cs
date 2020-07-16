@@ -16,7 +16,7 @@ namespace LogUploader.Languages
 
         public override string ColHeaderBoss { get => "Boss"; }
         public override string ColHeaderDate { get => "Datum"; }
-        public override string ColHeaderSize { get => "GröseKb"; }
+        public override string ColHeaderSize { get => "Gröse"; }
         public override string ColHeaderDataCorrected { get => "Überprüft"; }
         public override string ColHeaderDuration { get => "Dauer"; }
         public override string ColHeaderSuccess { get => "Erfolg"; }
@@ -57,13 +57,13 @@ namespace LogUploader.Languages
         public override string ActionsOpenLocal { get => "Öffne lokal"; }
         public override string ActionsUpload { get => "Upload"; }
         public override string ActionsOpenRemote { get => "dps.report"; }
-        public override string ActionsParseAndUpload { get => "Parse kokal und Upload"; }
+        public override string ActionsParseAndUpload { get => "Parse lokal und upload"; }
         public override string ActionsCopyLinks { get => "Links kopieren"; }
         public override string ActionsCopied { get => "kopiert"; }
-        public override string ActionsPostToDiscord { get => "Poste in Discord"; }
+        public override string ActionsPostToDiscord { get => "in Discord posten"; }
         public override string SettingsHeader { get => "Einstellungen"; }
-        public override string SettingsAutoParse { get => "Auto Parse neue Logs"; }
-        public override string SettingsAutoUpload { get => "Auto Upload neue Logs"; }
+        public override string SettingsAutoParse { get => "Auto parse neue Logs"; }
+        public override string SettingsAutoUpload { get => "Auto upload neue Logs"; }
         public override string SettingsAbout { get => "Über"; }
         public override string SettingsSettings { get => "Einstellungen ..."; }
         public override string FooterElements { get => "Elemente"; }
@@ -76,7 +76,7 @@ namespace LogUploader.Languages
 
         public override string ProxySettings { get => "Proxy Einstellungen"; }
         public override string ProxyUse { get => "Proxy nutzen"; }
-        public override string ProxyHostename { get => "Proyserver Adresse"; }
+        public override string ProxyHostename { get => "Proxyserver Adresse"; }
         public override string ProxyPort { get => "Port"; }
         public override string ProxyUser { get => "Benutzername"; }
         public override string ProxyPassword { get => "Passwort"; }
@@ -126,36 +126,36 @@ namespace LogUploader.Languages
         public override string ConfigCopyBoss { get => "mit Bossname"; }
         public override string ConfigCopySuccess { get => "mit Erfolg"; }
         public override string ConfigCopyInline { get => "Link in gleiche Zeile wie Boss"; }
-        public override string ConfigCopySpace { get => "Leere Zeile zwischen Logs"; }
-        public override string ConfigCopyEmotes { get => "mit Discord Emotes"; }
+        public override string ConfigCopySpace { get => "leere Zeile zwischen Logs"; }
+        public override string ConfigCopyEmotes { get => "mit RisingLight Discord Emotes"; }
         public override string ConfigDiscordTitle { get => "Discord Webhooks"; }
         public override string ConfigDiscordWebHookName { get => "Name:"; }
         public override string ConfigDiscordWebHookLink { get => "Link:"; }
         public override string ConfigDiscordWebHookFormat { get => "Format:"; }
         public override string ConfigDiscordWebHookAvatar { get => "Avatar URL:"; }
         public override string ConfigDiscordWebHookDelete { get => "Löschen"; }
-        public override string ConfigDiscordNoHooks { get => "Keine Webhooks vorhanden\n\nFüge einen neue hinzu!"; }
+        public override string ConfigDiscordNoHooks { get => "Keine Webhooks vorhanden\n\nFüge einen neuen hinzu!"; }
         public override string ConfigDiscordCount { get => "Anzahl"; }
         public override string ConfigDiscordAdd { get => "Hinzufügen"; }
-        public override string ConfigDiscordOnlyUploaded { get => "Nur hochgeladene Posten"; }
-        public override string ConfigDiscordNameAsUsername { get => "Name als Diecord Username"; }
+        public override string ConfigDiscordOnlyUploaded { get => "Nur hochgeladene posten"; }
+        public override string ConfigDiscordNameAsUsername { get => "Name als Discord Username"; }
         public override string ConfigEiTitle { get => "EliteInsights"; }
-        public override string ConfigEiCombatReplay { get => "Erzeuge das Combat-Replay"; }
-        public override string ConfigEiLightTheme { get => "Nutze Helles Theme"; }
+        public override string ConfigEiCombatReplay { get => "Erzeuge Combat-Replay"; }
+        public override string ConfigEiLightTheme { get => "Nutze helles Thema"; }
         public override string ConfigDefault { get => "Standard"; }
         public override string ConfigCancel { get => "Abbrechen"; }
         public override string ConfigSave { get => "Speichern"; }
         public override string ConfigDefaultMsgTitel { get => "Einstellungen zurücksetzen"; }
-        public override string ConfigDefaultMsgText { get => "Standart Einstellungen wiederherstellen?\nDies wird deine aktuellen Einstellungen dauerhaft Löschen!"; }
+        public override string ConfigDefaultMsgText { get => "Standard Einstellungen wiederherstellen?\nDies wird deine aktuellen Einstellungen dauerhaft löschen!"; }
         public override string ConfigDiscardMsgTitel { get => "Änderungen verwerfen?"; }
         public override string ConfigDiscardMsgText { get => "Fortfahren ohne speichern?"; }
 
         public override string MiscGenericProcessing { get => "Verarbeite"; }
         public override string MiscNoWebhookMsgTitel { get => "Webhooks erstellen"; }
-        public override string MiscNoWebhookMsgText { get => "Du has aktuell keine WebHooks eingestelle\nGehe zu Discord Webhooks in den Einstellungen und erstelle einen neuen"; }
+        public override string MiscNoWebhookMsgText { get => "Du hast aktuell keine WebHooks eingestellt\nGehe zu Discord Webhooks in den Einstellungen und erstelle einen neuen."; }
         public override string MiscDiscordPostGenDuration { get => "Dauer"; }
         public override string MiscDiscordPostGenHpLeft { get => "HP übrig"; }
-        public override string MiscDiscordPostGenGroupDPS { get => "Group DPS"; }
+        public override string MiscDiscordPostGenGroupDPS { get => "Gruppen DPS"; }
         public override string MiscDiscordPostGenTopDPS { get => "Top DPS"; }
         public override string MiscDetailsMultibleBosses { get => "Verschieden"; }
     }

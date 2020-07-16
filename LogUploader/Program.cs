@@ -31,6 +31,7 @@ namespace LogUploader
 
         // Future Versions
         /*  Task: Language out of compieled into.txt file
+         *  Task: Collect exit codes
          *  Task: Whats new Screen after update
          *  Task: add View changelog to about and update UI
          *  Task: Misc category in dataJson for kill/wipe emotes
@@ -56,22 +57,7 @@ namespace LogUploader
         [STAThread]
         static void Main(string[] args)
         {
-            //Write out language xmls
-            //var ser = new XmlSerializer(typeof(XMLLanguage));
-            //using (var tw = new StringWriter())
-            //{
-            //    var xmlLang = new XMLLanguage(new English());
-            //    ser.Serialize(tw, xmlLang);
-            //    var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            //    File.WriteAllText(exePath + @"\Data\English.xml", tw.ToString());
-            //}
-            //using (var tw = new StringWriter())
-            //{
-            //    var xmlLang = new XMLLanguage(new German());
-            //    ser.Serialize(tw, xmlLang);
-            //    var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            //    File.WriteAllText(exePath + @"\Data\German.xml", tw.ToString());
-            //}
+            //WriteOutLanguageXmls();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -426,6 +412,25 @@ namespace LogUploader
                 }
             }
 
+            private static void WriteOutLanguageXmls()
+            {
+                var ser = new XmlSerializer(typeof(XMLLanguage));
+                using (var tw = new StringWriter())
+                {
+                    var xmlLang = new XMLLanguage(new English());
+                    ser.Serialize(tw, xmlLang);
+                    var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                    File.WriteAllText(exePath + @"\Data\English.xml", tw.ToString());
+                }
+                using (var tw = new StringWriter())
+                {
+                    var xmlLang = new XMLLanguage(new German());
+                    ser.Serialize(tw, xmlLang);
+                    var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                    File.WriteAllText(exePath + @"\Data\German.xml", tw.ToString());
+                }
+                Environment.Exit(2);
+            }
         }
 
 
