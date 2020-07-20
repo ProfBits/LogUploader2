@@ -361,6 +361,26 @@ namespace LogUploader
                 Language.Current = eLanguage.DE;
         }
 
+        private static void WriteOutLanguageXmls()
+        {
+            var ser = new XmlSerializer(typeof(XMLLanguage));
+            using (var tw = new StringWriter())
+            {
+                var xmlLang = new XMLLanguage(new English());
+                ser.Serialize(tw, xmlLang);
+                var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                File.WriteAllText(exePath + @"\Data\English.xml", tw.ToString());
+            }
+            using (var tw = new StringWriter())
+            {
+                var xmlLang = new XMLLanguage(new German());
+                ser.Serialize(tw, xmlLang);
+                var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                File.WriteAllText(exePath + @"\Data\German.xml", tw.ToString());
+            }
+            Environment.Exit(2);
+        }
+
         private static Flags ProcessCommandLineArgs(params string[] args)
         {
             var flags = new Flags(args);
@@ -410,26 +430,6 @@ namespace LogUploader
                 {
                     MessageBox.Show("Unknown command line arguments:" + argumentErrors, "Argument parse errors", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            }
-
-            private static void WriteOutLanguageXmls()
-            {
-                var ser = new XmlSerializer(typeof(XMLLanguage));
-                using (var tw = new StringWriter())
-                {
-                    var xmlLang = new XMLLanguage(new English());
-                    ser.Serialize(tw, xmlLang);
-                    var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                    File.WriteAllText(exePath + @"\Data\English.xml", tw.ToString());
-                }
-                using (var tw = new StringWriter())
-                {
-                    var xmlLang = new XMLLanguage(new German());
-                    ser.Serialize(tw, xmlLang);
-                    var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                    File.WriteAllText(exePath + @"\Data\German.xml", tw.ToString());
-                }
-                Environment.Exit(2);
             }
         }
 
