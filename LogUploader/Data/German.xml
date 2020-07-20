@@ -134,7 +134,7 @@ Dies wird deine aktuellen Einstellungen dauerhaft löschen!</configDefaultMsgTex
   <configDiscardMsgText>Fortfahren ohne speichern?</configDiscardMsgText>
   <newTitle>Neuerungen in </newTitle>
   <newHeading>Update-Notes</newHeading>
-  <newClose>Schliesen</newClose>
+  <newClose>Schliessen</newClose>
   <miscGenericProcessing>Verarbeite</miscGenericProcessing>
   <miscNoWebhookMsgTitel>Webhooks erstellen</miscNoWebhookMsgTitel>
   <miscNoWebhookMsgText>Du hast aktuell keine WebHooks eingestellt
@@ -145,10 +145,10 @@ Gehe zu Discord Webhooks in den Einstellungen und erstelle einen neuen.</miscNoW
   <miscDiscordPostGenTopDPS>Top DPS</miscDiscordPostGenTopDPS>
   <miscDiscordPostGenNoLink>kein Link</miscDiscordPostGenNoLink>
   <miscDiscordPostErrTitle>Discord-Post Fehler</miscDiscordPostErrTitle>
-  <miscDiscordPostErrMsg>Unable to Post to Webhook %s.
-Make sure
-- the address of the WebHook is correct
-- if an avatar is specified check its link
-- you are connected to the internet</miscDiscordPostErrMsg>
+  <miscDiscordPostErrMsg>Es war nicht möglich über den Webhook %s zu posten.
+Stelle sicher, dass
+- die Adresse des Webhooks korrekt ist
+- der Link des genutzten Avatars korrekt ist (wenn du einen nutzt)
+- du mit dem Internet verbunden bist</miscDiscordPostErrMsg>
   <miscDetailsMultibleBosses>Verschieden</miscDetailsMultibleBosses>
 </XMLLanguage>

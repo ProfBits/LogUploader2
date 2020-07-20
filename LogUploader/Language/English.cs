@@ -169,10 +169,10 @@ namespace LogUploader.Languages
         {
             get
             {
-                return "Unable to Post to Webhook %s.\n" +
+                return "Unable to post to Webhook %s.\n" +
                     $"Make sure\n" +
                     $"- the address of the WebHook is correct\n" +
-                    $"- if an avatar is specified check its link\n" +
+                    $"- if an avatar is specified to check its link\n" +
                     $"- you are connected to the internet";
             }
         }
