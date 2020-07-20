@@ -61,6 +61,7 @@ namespace LogUploader.Languages
         public override string ActionsCopyLinks { get => "Links kopieren"; }
         public override string ActionsCopied { get => "kopiert"; }
         public override string ActionsPostToDiscord { get => "in Discord posten"; }
+        public override string ActionsViewInExplorer { get => "Zeige im Explorer"; }
         public override string SettingsHeader { get => "Einstellungen"; }
         public override string SettingsAutoParse { get => "Auto parse neue Logs"; }
         public override string SettingsAutoUpload { get => "Auto upload neue Logs"; }
@@ -90,6 +91,8 @@ namespace LogUploader.Languages
         public override string AboutCopyright { get => "Copyright:"; }
         public override string AboutView3rdParty { get => "Zeige 3rd Party Bibliotheken, Software"; }
         public override string AboutForSpellCheck { get => "für Spell Checking"; }
+        public override string AboutVersion { get => "Version"; }
+        public override string AboutViewPatchnotes { get => "Zeige Update-Notes"; }
 
         public override string LicenseTitle { get => "Lizenz"; }
         public override string LicenseFor { get => "für"; }
@@ -120,7 +123,7 @@ namespace LogUploader.Languages
         public override string ConfigGeneralLanguage { get => "Sprache"; }
         public override string ConfigDpsReportTitle { get => "dps.report"; }
         public override string ConfigDpsReportToken { get => "User Token:"; }
-        public override string ConfigDpsReportGetToken { get => "Get your Token:"; }
+        public override string ConfigDpsReportGetToken { get => "Token generieren:"; }
         public override string ConfigDpsReportProxy { get => "Proxy Einstellungen..."; }
         public override string ConfigCopyTitle { get => "Links kopieren"; }
         public override string ConfigCopyBoss { get => "mit Bossname"; }
@@ -150,6 +153,10 @@ namespace LogUploader.Languages
         public override string ConfigDiscardMsgTitel { get => "Änderungen verwerfen?"; }
         public override string ConfigDiscardMsgText { get => "Fortfahren ohne speichern?"; }
 
+        public override string NewTitle { get => "Neuerungen in "; }
+        public override string NewHeading { get => "Update-Notes"; }
+        public override string NewClose { get => "Schliesen"; }
+
         public override string MiscGenericProcessing { get => "Verarbeite"; }
         public override string MiscNoWebhookMsgTitel { get => "Webhooks erstellen"; }
         public override string MiscNoWebhookMsgText { get => "Du hast aktuell keine WebHooks eingestellt\nGehe zu Discord Webhooks in den Einstellungen und erstelle einen neuen."; }
@@ -157,6 +164,19 @@ namespace LogUploader.Languages
         public override string MiscDiscordPostGenHpLeft { get => "HP übrig"; }
         public override string MiscDiscordPostGenGroupDPS { get => "Gruppen DPS"; }
         public override string MiscDiscordPostGenTopDPS { get => "Top DPS"; }
+        public override string MiscDiscordPostGenNoLink { get => "kein Link"; }
+        public override string MiscDiscordPostErrTitle { get => "Discord-Post Fehler"; }
+        public override string MiscDiscordPostErrMsg
+        {
+            get
+            {
+                return "Unable to Post to Webhook %s.\n" +
+                    $"Make sure\n" +
+                    $"- the address of the WebHook is correct\n" +
+                    $"- if an avatar is specified check its link\n" +
+                    $"- you are connected to the internet";
+            }
+        }
         public override string MiscDetailsMultibleBosses { get => "Verschieden"; }
     }
 }

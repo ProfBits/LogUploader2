@@ -222,5 +222,11 @@ namespace LogUploader.GUIs
             timerBossFilter.Stop();
             timerBossFilter.Start();
         }
+
+        private async void LogUploaderUI2_Shown(object sender, EventArgs e)
+        {
+            await Task.Delay(1000);
+            ShowWhatsNew();
+        }
     }
 }

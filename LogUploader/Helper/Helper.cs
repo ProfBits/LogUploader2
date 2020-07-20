@@ -5,6 +5,7 @@ using LogUploader.Properties;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -81,6 +82,13 @@ namespace LogUploader.Helpers
         {
             File.WriteAllText(path, text, Encoding.GetEncoding("iso-8859-1"));
         }
+
+        public static Version GetVersion()
+        {
+            var fi = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location);
+            return new Version(fi.ProductMajorPart, fi.ProductMinorPart, fi.ProductBuildPart, fi.ProductPrivatePart);
+        }
+
     }
 
     public static class SettingsHelper
@@ -226,6 +234,5 @@ namespace LogUploader.Helpers
                 return "";
             }
         }
-
     }
 }

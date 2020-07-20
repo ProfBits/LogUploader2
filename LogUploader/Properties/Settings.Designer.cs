@@ -333,5 +333,17 @@ namespace LogUploader.Properties {
                 this["EnableAutoParse"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("v0.0.0")]
+        public string WhatsNewShown {
+            get {
+                return ((string)(this["WhatsNewShown"]));
+            }
+            set {
+                this["WhatsNewShown"] = value;
+            }
+        }
     }
 }

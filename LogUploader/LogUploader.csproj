@@ -63,6 +63,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonMark.NET.0.15.1\lib\net45\CommonMark.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
     </Reference>
@@ -73,6 +76,7 @@
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.112.1, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.2\lib\net40\System.Data.SQLite.dll</HintPath>
@@ -103,6 +107,7 @@
     <Compile Include="Data\GameAreas\RaidWing.cs" />
     <Compile Include="Data\GameAreas\Strike.cs" />
     <Compile Include="Data\GameAreas\Unknowen.cs" />
+    <Compile Include="Data\Licenses\CommonMarkLicense.cs" />
     <Compile Include="Data\Licenses\DapperLicense.cs" />
     <Compile Include="Data\Licenses\ISoftwareLicense.cs" />
     <Compile Include="Data\Licenses\LogUploaderLicense.cs" />
@@ -149,6 +154,12 @@
     </Compile>
     <Compile Include="GUIs\WebHookConfig.Designer.cs">
       <DependentUpon>WebHookConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\WhatsNewUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\WhatsNewUI.Designer.cs">
+      <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="Helper\Updater.cs" />
@@ -252,8 +263,13 @@
     <Compile Include="GUIs\SettingsUI.Designer.cs">
       <DependentUpon>SettingsUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\update.png" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -329,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\WebHookConfig.resx">
       <DependentUpon>WebHookConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\WhatsNewUI.resx">
+      <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

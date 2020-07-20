@@ -42,11 +42,8 @@ namespace LogUploader.GUIs
             lblThirdCopyRight.Text = lang.AboutCopyright;
             btnThirdParty.Text = lang.AboutView3rdParty;
             lblSpellCheck.Text = SPELLCHECKER + " " + lang.AboutForSpellCheck;
-            //HACK
-            lblVersion.Text = "Version";
-            //TODO localize
-            //lblVersion.Text = lang.AboutVersion; // nur "Version"
-            //llPatchnotes.Text = lang.AboutViewPatchnotes;
+            lblVersion.Text = lang.AboutVersion;
+            llPatchnotes.Text = lang.AboutViewPatchnotes;
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

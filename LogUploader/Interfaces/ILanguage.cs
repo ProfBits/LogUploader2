@@ -63,6 +63,7 @@ namespace LogUploader.Languages
         string ActionsCopyLinks { get; }
         string ActionsCopied { get; }
         string ActionsPostToDiscord { get; }
+        string ActionsViewInExplorer { get; }
         string SettingsHeader { get; }
         string SettingsAutoParse { get; }
         string SettingsAutoUpload { get; }
@@ -84,6 +85,8 @@ namespace LogUploader.Languages
         string AboutCopyright { get; }
         string AboutView3rdParty { get; }
         string AboutForSpellCheck { get; }
+        string AboutVersion { get; }
+        string AboutViewPatchnotes { get; }
 
         string LicenseTitle { get; }
         string LicenseFor { get; }
@@ -144,6 +147,10 @@ namespace LogUploader.Languages
         string ConfigDiscardMsgTitel { get; }
         string ConfigDiscardMsgText { get; }
 
+        string NewTitle { get; }
+        string NewHeading { get; }
+        string NewClose { get; }
+
         string MiscGenericProcessing { get; }
         string MiscNoWebhookMsgTitel { get; }
         string MiscNoWebhookMsgText { get; }
@@ -151,8 +158,9 @@ namespace LogUploader.Languages
         string MiscDiscordPostGenHpLeft { get; }
         string MiscDiscordPostGenGroupDPS { get; }
         string MiscDiscordPostGenTopDPS { get; }
+        string MiscDiscordPostGenNoLink { get; }
+        string MiscDiscordPostErrTitle { get; }
+        string MiscDiscordPostErrMsg { get; }
         string MiscDetailsMultibleBosses { get; }
     }
-
-    //gatherd
 }

@@ -125,6 +125,8 @@ namespace LogUploader.Languages
         [XmlElement]
         public string actionsPostToDiscord;
         [XmlElement]
+        public string actionsViewInExplorer;
+        [XmlElement]
         public string settingsHeader;
         [XmlElement]
         public string settingsAutoParse;
@@ -163,6 +165,10 @@ namespace LogUploader.Languages
         public string aboutView3rdParty;
         [XmlElement]
         public string aboutForSpellCheck;
+        [XmlElement]
+        public string aboutVersion;
+        [XmlElement]
+        private string aboutViewPatchnotes;
 
         [XmlElement]
         public string licenseTitle;
@@ -276,6 +282,13 @@ namespace LogUploader.Languages
         public string configDiscardMsgText;
 
         [XmlElement]
+        public string newTitle;
+        [XmlElement]
+        public string newHeading;
+        [XmlElement]
+        public string newClose;
+
+        [XmlElement]
         public string miscGenericProcessing;
         [XmlElement]
         public string miscNoWebhookMsgTitel;
@@ -289,6 +302,12 @@ namespace LogUploader.Languages
         public string miscDiscordPostGenGroupDPS;
         [XmlElement]
         public string miscDiscordPostGenTopDPS;
+        [XmlElement]
+        public string miscDiscordPostGenNoLink;
+        [XmlElement]
+        public string miscDiscordPostErrTitle;
+        [XmlElement]
+        public string miscDiscordPostErrMsg;
         [XmlElement]
         public string miscDetailsMultibleBosses;
 
@@ -355,6 +374,7 @@ namespace LogUploader.Languages
             actionsCopyLinks = lang.ActionsCopyLinks;
             actionsCopied = lang.ActionsCopied;
             actionsPostToDiscord = lang.ActionsPostToDiscord;
+            actionsViewInExplorer = lang.ActionsViewInExplorer;
             settingsHeader = lang.SettingsHeader;
             settingsAutoParse = lang.SettingsAutoParse;
             settingsAutoUpload = lang.SettingsAutoUpload;
@@ -376,6 +396,8 @@ namespace LogUploader.Languages
             aboutCopyright = lang.AboutCopyright;
             aboutView3rdParty = lang.AboutView3rdParty;
             aboutForSpellCheck = lang.AboutForSpellCheck;
+            aboutVersion = lang.AboutVersion;
+            aboutViewPatchnotes = lang.AboutViewPatchnotes;
 
             licenseTitle = lang.LicenseTitle;
             licenseFor = lang.LicenseFor;
@@ -435,6 +457,10 @@ namespace LogUploader.Languages
             configDiscardMsgTitel = lang.ConfigDiscardMsgTitel;
             configDiscardMsgText = lang.ConfigDiscardMsgText;
 
+            newTitle = lang.NewTitle;
+            newHeading = lang.NewHeading;
+            newClose = lang.NewClose;
+
             miscGenericProcessing = lang.MiscGenericProcessing;
             miscNoWebhookMsgTitel = lang.MiscNoWebhookMsgTitel;
             miscNoWebhookMsgText = lang.MiscNoWebhookMsgText;
@@ -442,6 +468,9 @@ namespace LogUploader.Languages
             miscDiscordPostGenHpLeft = lang.MiscDiscordPostGenHpLeft;
             miscDiscordPostGenGroupDPS = lang.MiscDiscordPostGenGroupDPS;
             miscDiscordPostGenTopDPS = lang.MiscDiscordPostGenTopDPS;
+            miscDiscordPostGenNoLink = lang.MiscDiscordPostGenNoLink;
+            miscDiscordPostErrTitle = lang.MiscDiscordPostErrTitle;
+            miscDiscordPostErrMsg = lang.MiscDiscordPostErrMsg;
             miscDetailsMultibleBosses = lang.MiscDetailsMultibleBosses;
         }
 
@@ -502,6 +531,7 @@ namespace LogUploader.Languages
         public override string ActionsCopyLinks => actionsCopyLinks;
         public override string ActionsCopied => actionsCopied;
         public override string ActionsPostToDiscord => actionsPostToDiscord;
+        public override string ActionsViewInExplorer => actionsViewInExplorer;
         public override string SettingsHeader => settingsHeader;
         public override string SettingsAutoParse => settingsAutoParse;
         public override string SettingsAutoUpload => settingsAutoUpload;
@@ -522,6 +552,8 @@ namespace LogUploader.Languages
         public override string AboutCopyright => aboutCopyright;
         public override string AboutView3rdParty => aboutView3rdParty;
         public override string AboutForSpellCheck => aboutForSpellCheck;
+        public override string AboutVersion => aboutVersion;
+        public override string AboutViewPatchnotes => aboutViewPatchnotes;
         public override string LicenseTitle => licenseTitle;
         public override string LicenseFor => licenseFor;
         public override string LicenseBy => licenseBy;
@@ -577,6 +609,10 @@ namespace LogUploader.Languages
         public override string ConfigDiscardMsgTitel => configDiscardMsgTitel;
         public override string ConfigDiscardMsgText => configDiscardMsgText;
 
+        public override string NewTitle => newTitle;
+        public override string NewHeading => newHeading;
+        public override string NewClose => newClose;
+
         public override string MiscGenericProcessing => miscGenericProcessing;
         public override string MiscNoWebhookMsgTitel => miscNoWebhookMsgTitel;
         public override string MiscNoWebhookMsgText => miscNoWebhookMsgText;
@@ -584,6 +620,9 @@ namespace LogUploader.Languages
         public override string MiscDiscordPostGenHpLeft => miscDiscordPostGenHpLeft;
         public override string MiscDiscordPostGenGroupDPS => miscDiscordPostGenGroupDPS;
         public override string MiscDiscordPostGenTopDPS => miscDiscordPostGenTopDPS;
+        public override string MiscDiscordPostGenNoLink => miscDiscordPostGenNoLink;
+        public override string MiscDiscordPostErrTitle => miscDiscordPostErrTitle;
+        public override string MiscDiscordPostErrMsg => miscDiscordPostErrMsg;
         public override string MiscDetailsMultibleBosses => miscDetailsMultibleBosses;
     }
 }

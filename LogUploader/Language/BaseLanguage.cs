@@ -60,6 +60,7 @@ namespace LogUploader.Languages
         public abstract string ActionsCopyLinks { get; }
         public abstract string ActionsCopied { get; }
         public abstract string ActionsPostToDiscord { get; }
+        public abstract string ActionsViewInExplorer { get; }
         public abstract string SettingsHeader { get; }
         public abstract string SettingsAutoParse { get; }
         public abstract string SettingsAutoUpload { get; }
@@ -84,6 +85,8 @@ namespace LogUploader.Languages
         public abstract string AboutCopyright { get; }
         public abstract string AboutView3rdParty { get; }
         public abstract string AboutForSpellCheck { get; }
+        public abstract string AboutVersion { get; }
+        public abstract string AboutViewPatchnotes { get; }
         public abstract string LicenseTitle { get; }
         public abstract string LicenseFor { get; }
         public abstract string LicenseBy { get; }
@@ -137,6 +140,10 @@ namespace LogUploader.Languages
         public abstract string ConfigDefaultMsgText { get; }
         public abstract string ConfigDiscardMsgTitel { get; }
         public abstract string ConfigDiscardMsgText { get; }
+        public abstract string NewTitle { get; }
+        public abstract string NewHeading { get; }
+        public abstract string NewClose { get; }
+
 
         public abstract string MiscGenericProcessing { get; }
         public abstract string MiscNoWebhookMsgTitel { get; }
@@ -145,6 +152,9 @@ namespace LogUploader.Languages
         public abstract string MiscDiscordPostGenHpLeft { get; }
         public abstract string MiscDiscordPostGenGroupDPS { get; }
         public abstract string MiscDiscordPostGenTopDPS { get; }
+        public abstract string MiscDiscordPostGenNoLink { get; }
+        public abstract string MiscDiscordPostErrTitle { get; }
+        public abstract string MiscDiscordPostErrMsg { get; }
         public abstract string MiscDetailsMultibleBosses { get; }
 
         public string SuccsessFail(bool succsess)

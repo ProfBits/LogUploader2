@@ -18,6 +18,7 @@ namespace LogUploader.Data.Settings
         public eLanguage Language { get; set; }
         public bool EnableAutoParse { get; set; }
         public bool EnableAutoUpload { get; set; }
+        public string WhatsNewShown { get; set; }
 
         #endregion
         #region CopyLink
@@ -58,7 +59,7 @@ namespace LogUploader.Data.Settings
 
         public SettingsData(Properties.Settings settings)
         {
-            SetGeneral(settings.ArcLogsPath, settings.UserToken, settings.FirstBoot, settings.Language, settings.EnableAutoParse, settings.EnableAutoUpload);
+            SetGeneral(settings.ArcLogsPath, settings.UserToken, settings.FirstBoot, settings.Language, settings.EnableAutoParse, settings.EnableAutoUpload, settings.WhatsNewShown);
             SetCopyLinks(settings.EncounterName, settings.EncounterSuccsess, settings.inline, settings.EmptyLineBetween, settings.UseGnDiscordEmotes);
             SetProxy(settings.UseProxy, settings.ProxyAddress, settings.ProxyPort, settings.ProxyUsername, settings.ProxyPassword);
             SetWebHook(settings.WebHookDB, settings.CurrentWebHook, settings.DiscordPostFormat, settings.OnlyPostUploaded, settings.NameAsDiscordUser);
@@ -68,13 +69,14 @@ namespace LogUploader.Data.Settings
 
         #region SetPerInterface
 
-        private void SetGeneral(string arcLogsPath, string userToken, bool firstBoot, string language, bool eap, bool eau)
+        private void SetGeneral(string arcLogsPath, string userToken, bool firstBoot, string language, bool eap, bool eau, string whatsNewShown)
         {
             ArcLogsPath = arcLogsPath;
             UserToken = SettingsHelper.UnprotectString(userToken);
             FirstBoot = firstBoot;
             EnableAutoParse = eap;
             EnableAutoUpload = eau;
+            WhatsNewShown = whatsNewShown;
             try
             {
                 Language = (eLanguage)Enum.Parse(typeof(eLanguage), language);
@@ -148,6 +150,7 @@ namespace LogUploader.Data.Settings
             settings.Language = Language.ToString();
             settings.EnableAutoParse = EnableAutoParse;
             settings.EnableAutoUpload = EnableAutoUpload;
+            settings.WhatsNewShown = WhatsNewShown;
         }
 
         private void ApplyCopyLinks(Properties.Settings settings)

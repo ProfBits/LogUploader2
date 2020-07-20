@@ -61,6 +61,7 @@ namespace LogUploader.Languages
         public override string ActionsCopyLinks { get => "Copy links"; }
         public override string ActionsCopied { get => "copied"; }
         public override string ActionsPostToDiscord { get => "Post to Discord"; }
+        public override string ActionsViewInExplorer { get => "View in Explorer"; }
         public override string SettingsHeader { get => "Settings"; }
         public override string SettingsAutoParse { get => "Auto parse new logs"; }
         public override string SettingsAutoUpload { get => "Auto upload new logs"; }
@@ -88,6 +89,8 @@ namespace LogUploader.Languages
         public override string AboutCopyright { get => "Copyright:"; }
         public override string AboutView3rdParty { get => "View 3rd Party Libraries, Software"; }
         public override string AboutForSpellCheck { get => "for Spell Checking"; }
+        public override string AboutVersion { get => "Version"; }
+        public override string AboutViewPatchnotes { get => "View Patchnotes"; }
 
         public override string LicenseTitle { get => "License"; }
         public override string LicenseFor { get => "for"; }
@@ -119,14 +122,14 @@ namespace LogUploader.Languages
         public override string ConfigGeneralLanguage { get => "Language"; }
         public override string ConfigDpsReportTitle { get => "dps.report"; }
         public override string ConfigDpsReportToken { get => "User Token:"; }
-        public override string ConfigDpsReportGetToken { get => "Get your Token:"; }
+        public override string ConfigDpsReportGetToken { get => "Generate Token:"; }
         public override string ConfigDpsReportProxy { get => "Proxy Settings..."; }
         public override string ConfigCopyTitle { get => "Copy Links"; }
         public override string ConfigCopyBoss { get => "Include encounter"; }
         public override string ConfigCopySuccess { get => "Include success"; }
         public override string ConfigCopyInline { get => "Link in same line as encounter"; }
         public override string ConfigCopySpace { get => "Empty line between logs"; }
-        public override string ConfigCopyEmotes { get => "Include Guildnews Discord Emotes"; }
+        public override string ConfigCopyEmotes { get => "Include RisingLight Discord Emotes"; }
         public override string ConfigDiscordTitle { get => "Discord Webhooks"; }
         public override string ConfigDiscordWebHookName { get => "Name:"; }
         public override string ConfigDiscordWebHookLink { get => "Link:"; }
@@ -149,6 +152,9 @@ namespace LogUploader.Languages
         public override string ConfigDiscardMsgTitel { get => "Discard Changes?"; }
         public override string ConfigDiscardMsgText { get => "Continue without saving?"; }
 
+        public override string NewTitle { get => "What's new in "; }
+        public override string NewHeading { get => "Patchnotes"; }
+        public override string NewClose { get => "Close"; }
 
         public override string MiscGenericProcessing { get => "Processing"; }
         public override string MiscNoWebhookMsgTitel { get => "Setup Webhooks"; }
@@ -157,6 +163,19 @@ namespace LogUploader.Languages
         public override string MiscDiscordPostGenHpLeft { get => "HP left"; }
         public override string MiscDiscordPostGenGroupDPS { get => "Group DPS"; }
         public override string MiscDiscordPostGenTopDPS { get => "Top DPS"; }
+        public override string MiscDiscordPostGenNoLink { get => "no Link"; }
+        public override string MiscDiscordPostErrTitle { get => "Discord posting Error"; }
+        public override string MiscDiscordPostErrMsg
+        {
+            get
+            {
+                return "Unable to Post to Webhook %s.\n" +
+                    $"Make sure\n" +
+                    $"- the address of the WebHook is correct\n" +
+                    $"- if an avatar is specified check its link\n" +
+                    $"- you are connected to the internet";
+            }
+        }
         public override string MiscDetailsMultibleBosses { get => "Multiple"; }
     }
 }

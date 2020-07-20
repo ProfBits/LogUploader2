@@ -77,8 +77,7 @@ namespace LogUploader.GUIs
             miOpenLocal.Text = lang.ActionsOpenLocal;
             miOpenLink.Text = lang.ActionsOpenRemote;
             miParseUpload.Text = lang.ActionsParseAndUpload;
-            //TODO localice view in exploerer text
-            //miViewInExplorer.Text = lang.ActionsViewInExplorer;
+            miViewInExplorer.Text = lang.ActionsViewInExplorer;
         }
 
         private PlayerData PlayerDataHeader;
@@ -477,6 +476,17 @@ namespace LogUploader.GUIs
         private void UpdateSelectedWebHook()
         {
             cmbWebhookSelect.SelectedValue = Logic.GetSelectedWebhook();
+        }
+
+        private void ShowWhatsNew()
+        {
+            var version = Helpers.GP.GetVersion();
+            var versionStr = $"v{version.Major}.{version.Minor}.{version.Build}";
+            if (!Logic.Settings.WhatsNewShown.Equals(versionStr))
+            {
+                Logic.updateWhatsNew(versionStr);
+                new WhatsNewUI(Logic.Settings, versionStr).Show();
+            }
         }
     }
 }

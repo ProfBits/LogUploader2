@@ -226,11 +226,11 @@ namespace LogUploader
             OnDataChanged(new EventArgs());
 
             if (EnableAutoParsing && EnableAutoUpload)
-                ParseAndUpload(newLog.ID, "Processing new " + taskName);
+                ParseAndUpload(newLog.ID, $"{Language.Data.FooterProcessing} {taskName}");
             else if (EnableAutoParsing)
-                Parse(newLog.ID, "Parsing new " + taskName);
+                Parse(newLog.ID, $"{Language.Data.FooterParsing} {taskName}");
             else if (EnableAutoUpload)
-                Upload(newLog.ID, "Uploading new " + taskName);
+                Upload(newLog.ID, $"{Language.Data.FooterUploading} {taskName}");
 
             GC.Collect();
             return newLog;
@@ -610,12 +610,8 @@ namespace LogUploader
             catch (WebException e)
             {
                 //TODO localize
-                MessageBox.Show($"Unable to Post to Webhook {webHook.Name}.\n" +
-                    $"Make sure\n" +
-                    $"- the address of the WebHook is correct\n" +
-                    $"- if an avatar is specified check its link\n" +
-                    $"- you are connected to the internet",
-                    "Discord posting Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Language.Data.MiscDiscordPostErrMsg, webHook.Name),
+                     Language.Data.MiscDiscordPostErrTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -797,6 +793,14 @@ namespace LogUploader
             if (string.IsNullOrEmpty(log.JsonPath) || !File.Exists(log.JsonPath))
                 log.JsonPath = null;
             LogDBConnector.Update(log.GetDBLog());
+        }
+
+        public void updateWhatsNew(string version)
+        {
+            Settings.WhatsNewShown = version;
+            var settings = new Settings();
+            Settings.ApplyTo(settings);
+            settings.Save();
         }
 
         #region IDisposable Support

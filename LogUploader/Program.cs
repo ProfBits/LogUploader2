@@ -17,6 +17,7 @@ using LogUploader.Helper;
 using LogUploader.GUIs;
 using LogUploader.Data.Settings;
 using System.Xml.Serialization;
+using System.Configuration;
 
 namespace LogUploader
 {
@@ -25,7 +26,7 @@ namespace LogUploader
         // Version 2.0 Targets
         /*  
          *  Task: spell checking
-         *  Task: Tester + Helper in about
+         *  Task: Tester in about
          *  
          */
 
@@ -37,7 +38,6 @@ namespace LogUploader
          *  Task: Misc category in dataJson for kill/wipe emotes
          *        add emotes to professions
          *  Task: add more webhook formats
-         *        ultra compact with emotes
          *        with classesemote (compact and area)
          *  Task: Update EI Helper to accout for EI now outputting generated files -> remove file system watcher
          *  Task: Log state and cleand up tools....

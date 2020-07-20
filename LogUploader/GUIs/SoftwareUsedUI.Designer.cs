@@ -37,6 +37,7 @@
             this.WindowsAPICodePackCore = new LogUploader.GUIs.SoftwareItem();
             this.WindowsAPICodePackShell = new LogUploader.GUIs.SoftwareItem();
             this.MakeSFX = new LogUploader.GUIs.SoftwareItem();
+            this.CommonMark = new LogUploader.GUIs.SoftwareItem();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +72,7 @@
             this.flowLayoutPanel1.Controls.Add(this.WindowsAPICodePackCore);
             this.flowLayoutPanel1.Controls.Add(this.WindowsAPICodePackShell);
             this.flowLayoutPanel1.Controls.Add(this.MakeSFX);
+            this.flowLayoutPanel1.Controls.Add(this.CommonMark);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -150,6 +152,20 @@
             this.MakeSFX.Software = "Make SFX";
             this.MakeSFX.TabIndex = 4;
             // 
+            // CommonMark
+            // 
+            this.CommonMark.Copyright = "© 2014, Kārlis Gaņģis All rights reserved.";
+            this.CommonMark.Image = ((System.Drawing.Image)(resources.GetObject("CommonMark.Image")));
+            this.CommonMark.ImageUsed = true;
+            this.CommonMark.License = null;
+            this.CommonMark.LicenseStr = "Custom";
+            this.CommonMark.Location = new System.Drawing.Point(3, 563);
+            this.CommonMark.Name = "CommonMark";
+            this.CommonMark.ProjectLink = "https://revocue.cz/en/make-sfx/index.php";
+            this.CommonMark.Size = new System.Drawing.Size(300, 106);
+            this.CommonMark.Software = "CommonMark.NET";
+            this.CommonMark.TabIndex = 5;
+            // 
             // SoftwareUsedUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,5 +197,6 @@
         private SoftwareItem WindowsAPICodePackCore;
         private SoftwareItem WindowsAPICodePackShell;
         private SoftwareItem MakeSFX;
+        private SoftwareItem CommonMark;
     }
 }

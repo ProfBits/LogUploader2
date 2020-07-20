@@ -10,20 +10,20 @@
         },
         {
           "ID": 2,
-          "NameEN": "Salvations Pass",
+          "NameEN": "Salvation Pass",
           "NameDE": "Erlösungspass",
           "AvatarURL": "https://wiki.guildwars2.com/images/2/23/Salvation_Pass_loading_screen.png"
         },
         {
           "ID": 3,
-          "NameEN": "Stronghold of the Faitful",
+          "NameEN": "Stronghold of the Faithful",
           "NameDE": "Festung der Treuen",
           "AvatarURL": "https://wiki.guildwars2.com/images/0/02/Stronghold_of_the_Faithful_loading_screen.png"
         },
         {
           "ID": 4,
-          "NameEN": "Bastion of the Penidant",
-          "NameDE": "Bastion der Busferigen",
+          "NameEN": "Bastion of the Penitent",
+          "NameDE": "Bastion der Busfertigen",
           "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Bastion_of_the_Penitent_loading_screen.jpg"
         },
         {
@@ -34,14 +34,14 @@
         },
         {
           "ID": 6,
-          "NameEN": "Mythrightgambit",
+          "NameEN": "Mythwright Gambit",
           "NameDE": "Mythenschreiber Wagnis",
           "AvatarURL": "https://wiki.guildwars2.com/images/5/52/Mythwright_Gambit_loading_screen.jpg"
         },
         {
           "ID": 7,
           "NameEN": "The Key of Ahdashim",
-          "NameDE": "Der Schlüssel on Ahdashim",
+          "NameDE": "Der Schlüssel von Ahdashim",
           "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/The_Key_of_Ahdashim_loading_screen.jpg"
         }
       ],
@@ -80,7 +80,7 @@
         },
         {
           "Level": 100,
-          "NameEN": "Shattered Observertory",
+          "NameEN": "Shattered Observartory",
           "NameDE": "Zerschmettertes Observatorium",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         }
@@ -96,7 +96,7 @@
       ],
       "Training": [
         {
-          "NameEN": "Special Forces Trainings Area",
+          "NameEN": "Special Forces Training Area",
           "NameDE": "Übungsgelände der Spezialkräfte",
           "ShortNameEN": "Golem",
           "ShortNameDE": "Golem",
@@ -249,7 +249,7 @@
       {
         "ID": 16247,
         "NameEN": "Twisted Castle",
-        "NameDE": "Verdrehdes Schloss",
+        "NameDE": "Verdrehtes Schloss",
         "FolderEN": "Haunting Statue",
         "FolderDE": "Spukende Statue",
         "EiName": "Twisted Castle",
@@ -815,7 +815,7 @@
       {
         "ID": 15420,
         "NameEN": "Green Guardien",
-        "NameDE": "Gr\u00FCner W\u00E4cher",
+        "NameDE": "Gr\u00FCner W\u00E4chter",
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
         "Intresting": true
@@ -831,7 +831,7 @@
       {
         "ID": 15423,
         "NameEN": "Bandit Sapper ",
-        "NameDE": "Bantiten Pionier",
+        "NameDE": "Banditen Pionier",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
         "Intresting": false
@@ -855,7 +855,7 @@
       {
         "ID": 15431,
         "NameEN": "Blue Guardien",
-        "NameDE": "Blauer W\u00E4cher",
+        "NameDE": "Blauer W\u00E4chter",
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
         "Intresting": true
@@ -863,7 +863,7 @@
       {
         "ID": 15433,
         "NameEN": "Red Guardien",
-        "NameDE": "Roter W\u00E4cher",
+        "NameDE": "Roter W\u00E4chter",
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
         "Intresting": true
@@ -983,7 +983,7 @@
       {
         "ID": 16092,
         "NameEN": "Narella Tornado",
-        "NameDE": "Narella's Tornado",
+        "NameDE": "Narellas Tornado",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
         "Intresting": false
@@ -1231,7 +1231,7 @@
       {
         "ID": 16277,
         "NameEN": "UnstableLeyRift",
-        "NameDE": "Instabieler Ley Riss",
+        "NameDE": "Instabiler Ley Riss",
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
         "Intresting": false
@@ -1271,7 +1271,7 @@
       {
         "ID": 16325,
         "NameEN": "PLINK K1T-A",
-        "NameDE": "Peng M1EZ-A",
+        "NameDE": "PENG M1EZ-A",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
         "Intresting": false
@@ -1287,7 +1287,7 @@
       {
         "ID": 16552,
         "NameEN": "CHOP K1T-A",
-        "NameDE": "CHOP K1EZ-A",
+        "NameDE": "CHOP M1EZ-A",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
         "Intresting": false
@@ -1311,7 +1311,7 @@
       {
         "ID": 16906,
         "NameEN": "Green Synergetic Assault Knight",
-        "NameDE": "Gr\u00FCnder Synergetischer Sturmritter",
+        "NameDE": "Gr\u00FCner Synergetischer Sturmritter",
         "GameAreaName": "Fractals",
         "GameAreaID": 99,
         "Intresting": true
@@ -1319,7 +1319,7 @@
       {
         "ID": 16912,
         "NameEN": "Nightmare Hallucination",
-        "NameDE": "Albtraub Halluzination",
+        "NameDE": "Albtraum Halluzination",
         "GameAreaName": "Fractals",
         "GameAreaID": 99,
         "Intresting": false
@@ -1351,7 +1351,7 @@
       {
         "ID": 17033,
         "NameEN": "Nightmare Hallucination",
-        "NameDE": "Albtraub Halluzination",
+        "NameDE": "Albtraum Halluzination",
         "GameAreaName": "Fractals",
         "GameAreaID": 99,
         "Intresting": false
@@ -1487,7 +1487,7 @@
       {
         "ID": 17613,
         "NameEN": "Projection Arkk",
-        "NameDE": "Arkk Projection",
+        "NameDE": "Arkk Projektion",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
         "Intresting": false
@@ -1519,7 +1519,7 @@
       {
         "ID": 17720,
         "NameEN": "Temporal Anomaly",
-        "NameDE": "Tempor\u00E4re Anomaly",
+        "NameDE": "Tempor\u00E4re Anomalie",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
         "Intresting": false
@@ -1567,7 +1567,7 @@
       {
         "ID": 17870,
         "NameEN": "Temporal Anomaly",
-        "NameDE": "Tempor\u00E4re Anomaly",
+        "NameDE": "Tempor\u00E4re Anomalie",
         "GameAreaName": "Fractals",
         "GameAreaID": 100,
         "Intresting": false
@@ -1607,7 +1607,7 @@
       {
         "ID": 19400,
         "NameEN": "Spirit Horde",
-        "NameDE": "Geister Horde",
+        "NameDE": "Geisterhorde",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "Intresting": false
@@ -1631,7 +1631,7 @@
       {
         "ID": 19461,
         "NameEN": "Spirit Horde",
-        "NameDE": "Geister Horde",
+        "NameDE": "Geisterhorde",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "Intresting": false
@@ -1686,8 +1686,8 @@
       },
       {
         "ID": 19658,
-        "NameEN": "Light Thieve",
-        "NameDE": "Licht Dieb",
+        "NameEN": "Light Thief",
+        "NameDE": "Lichtdieb",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "Intresting": false
@@ -1711,7 +1711,7 @@
       {
         "ID": 19692,
         "NameEN": "Spirit Horde",
-        "NameDE": "Geister Horde",
+        "NameDE": "Geisterhorde",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "Intresting": false
@@ -1863,7 +1863,7 @@
       {
         "ID": 21218,
         "NameEN": "Reaper of Flesh",
-        "NameDE": "Fleish Schnitter",
+        "NameDE": "Fleisch Schnitter",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "Intresting": false

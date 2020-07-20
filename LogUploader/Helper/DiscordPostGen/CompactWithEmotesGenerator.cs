@@ -17,19 +17,14 @@ namespace LogUploader.Helper.DiscordPostGen
             name += Boss.getByID(log.BossID).DiscordEmote;
             name += " " + log.BossName;
             if (log.IsCM)
-            {
                 name += " CM";
-            }
-            string value = "";
+
+            string value;
             if (!string.IsNullOrWhiteSpace(log.Link))
-            {
                 value = $"[dps.report]({log.Link})";
-            }
             else
-            {
-                //TODO localize
-                value = Languages.Language.Current == eLanguage.EN ? "no Link" : "kein Link";
-            }
+                value = Languages.Language.Data.MiscDiscordPostGenNoLink;
+            
             return new WebHookData.Field(name, value, true);
         }
 
