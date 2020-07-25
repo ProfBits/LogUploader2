@@ -59,6 +59,10 @@ namespace LogUploader
         {
             //WriteOutLanguageXmls();
 
+            LoadJsonData();
+            RoPlusTesting.Run();
+            Environment.Exit(42);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

@@ -489,7 +489,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             public string AccountName { get; set; }
             public string RaidOrgaName { get; set; }
             public long RaidOrgaID { get; set; }
-            public bool IsLFG { get => RaidOrgaID < 0; }
+            public bool IsLFG { get => RaidOrgaID == 1; }
             public Role Role { get; set; } = Role.Empty;
             public int PDPS { get; set; }
             public int CDPS { get; set; }
@@ -518,7 +518,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 else
                 {
                     RaidOrgaName = "";
-                    RaidOrgaID = -1;
+                    RaidOrgaID = 1;
                 }
                 PDPS = player.PDPS;
                 CDPS = player.CDPS;
@@ -538,7 +538,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             public void setLFG()
             {
                 RaidOrgaName = "";
-                RaidOrgaID = -1;
+                RaidOrgaID = 1;
                 Type = PlayerType.LFG;
             }
 

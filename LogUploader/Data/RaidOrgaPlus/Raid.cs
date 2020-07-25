@@ -86,5 +86,10 @@ namespace LogUploader.Data.RaidOrgaPlus
                     throw new NotImplementedException();
             }
         }
+
+        private Account GetLFGPlayer()
+        {
+            return new Account(1, "LFG", "LFG");
+        }
     }
 }

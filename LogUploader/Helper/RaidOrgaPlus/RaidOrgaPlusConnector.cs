@@ -86,7 +86,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             return termine.ToList();
         }
 
-        public Raid GetRaid(Session session, int terminID, int raidID)
+        public Raid GetRaid(Session session, long terminID, long raidID)
         {
 
             var request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen?termin={terminID}&auth={session.Token}", session.UserAgent);
@@ -128,7 +128,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GetRole((string)element["T"]), GetClass((string)element["class"])) });
 
             var aufstellungenParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{aufstellungenRAW}}}");
-            var aufstellungen = elementsParsed["wrapper"].Select(aufstellung => new TeamComp((long)aufstellung["id"], GetBoss(bosses, (string)aufstellung["name"]), (int)aufstellung["is_cm"] == 1, elements.Where(e => e.id == (long)aufstellung["id"]).Select(e => e.pos).ToList())).ToList();
+            var aufstellungen = aufstellungenParsed["wrapper"].Select(aufstellung => new TeamComp((long)aufstellung["id"], GetBoss(bosses, (string)aufstellung["abbr"]), (int)aufstellung["is_cm"] == 1, elements.Where(e => e.id == (long)aufstellung["id"]).Select(e => e.pos).ToList())).ToList();
 
 
             var group = GetGroup(session, terminID);
