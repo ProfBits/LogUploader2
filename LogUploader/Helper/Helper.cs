@@ -89,6 +89,12 @@ namespace LogUploader.Helpers
             return new Version(fi.ProductMajorPart, fi.ProductMinorPart, fi.ProductBuildPart, fi.ProductPrivatePart);
         }
 
+        public static Data.RaidOrgaPlus.Role getRoleById(int id)
+        {
+            if (Enum.IsDefined(typeof(Data.RaidOrgaPlus.Role), (byte)id))
+                return (Data.RaidOrgaPlus.Role)(byte)(id);
+            return Data.RaidOrgaPlus.Role.Empty;
+        }
     }
 
     public static class SettingsHelper

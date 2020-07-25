@@ -17,14 +17,18 @@ namespace LogUploader
         public Image ProfessionIcon { get => Class.Icon; }
         public byte SubGroup { get; }
         public int DPS { get; }
+        public int PDPS { get; }
+        public int CDPS { get; }
 
-        public CachedPlayer(string accountName, string charakterName, Profession profession, byte subGroup, int dPS)
+        public CachedPlayer(string accountName, string charakterName, Profession profession, byte subGroup, int dPS, int pDPS, int cDPS)
         {
             AccountName = accountName;
             CharakterName = charakterName;
             Class = profession;
             SubGroup = subGroup;
             DPS = dPS;
+            PDPS = pDPS;
+            CDPS = cDPS;
         }
 
         public CachedPlayer(JSONObject data)
@@ -42,7 +46,23 @@ namespace LogUploader
             {
                 DPS = 0;
             }
-            
+            try
+            {
+                PDPS = (int)data.GetTypedElement<double>("dpsAll[0]/powerDps");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                PDPS = 0;
+            }
+            try
+            {
+                CDPS = (int)data.GetTypedElement<double>("dpsAll[0]/condiDps");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                CDPS = 0;
+            }
+
         }
     }
 }

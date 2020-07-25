@@ -3,142 +3,170 @@
     {
       "NameEN": "Unknown",
       "NameDE": "Unbekannt",
-      "IconPath": "\\images\\Professions\\Unknown.png"
+      "IconPath": "\\images\\Professions\\Unknown.png",
+      "RaidOrgaPlusID": 0
     },
     {
       "NameEN": "Guardian",
       "NameDE": "Wächter",
-      "IconPath": "\\images\\Professions\\Guardian.png"
+      "IconPath": "\\images\\Professions\\Guardian.png",
+      "RaidOrgaPlusID": 8
     },
     {
       "NameEN": "Dragonhunter",
       "NameDE": "Drachenjäger",
-      "IconPath": "\\images\\Professions\\Dragonhunter.png"
+      "IconPath": "\\images\\Professions\\Dragonhunter.png",
+      "RaidOrgaPlusID": 17
     },
     {
       "NameEN": "Firebrand",
       "NameDE": "Aufwiegler",
-      "IconPath": "\\images\\Professions\\Firebrand.png"
+      "IconPath": "\\images\\Professions\\Firebrand.png",
+      "RaidOrgaPlusID": 26
     },
     {
       "NameEN": "Revenant",
       "NameDE": "Widergänger",
-      "IconPath": "\\images\\Professions\\Revenant.png"
+      "IconPath": "\\images\\Professions\\Revenant.png",
+      "RaidOrgaPlusID": 9
     },
     {
       "NameEN": "Herald",
       "NameDE": "Herold",
-      "IconPath": "\\images\\Professions\\Herald.png"
+      "IconPath": "\\images\\Professions\\Herald.png",
+      "RaidOrgaPlusID": 18
     },
     {
       "NameEN": "Renegade",
       "NameDE": "Abtrünniger",
-      "IconPath": "\\images\\Professions\\Renegade.png"
+      "IconPath": "\\images\\Professions\\Renegade.png",
+      "RaidOrgaPlusID": 27
     },
     {
       "NameEN": "Warrior",
       "NameDE": "Krieger",
-      "IconPath": "\\images\\Professions\\Warrior.png"
+      "IconPath": "\\images\\Professions\\Warrior.png",
+      "RaidOrgaPlusID": 7
     },
     {
       "NameEN": "Berserker",
       "NameDE": "Berserker",
-      "IconPath": "\\images\\Professions\\Berserker.png"
+      "IconPath": "\\images\\Professions\\Berserker.png",
+      "RaidOrgaPlusID": 16
     },
     {
       "NameEN": "Spellbreaker",
       "NameDE": "Bannbrecher",
-      "IconPath": "\\images\\Professions\\Spellbreaker.png"
+      "IconPath": "\\images\\Professions\\Spellbreaker.png",
+      "RaidOrgaPlusID": 25
     },
     {
       "NameEN": "Engineer",
       "NameDE": "Ingenieur",
-      "IconPath": "\\images\\Professions\\Engineer.png"
+      "IconPath": "\\images\\Professions\\Engineer.png",
+      "RaidOrgaPlusID": 5
     },
     {
       "NameEN": "Scrapper",
       "NameDE": "Schrotter",
-      "IconPath": "\\images\\Professions\\Scrapper.png"
+      "IconPath": "\\images\\Professions\\Scrapper.png",
+      "RaidOrgaPlusID": 14
     },
     {
       "NameEN": "Holosmith",
       "NameDE": "Holoschmied",
-      "IconPath": "\\images\\Professions\\Holosmith.png"
+      "IconPath": "\\images\\Professions\\Holosmith.png",
+      "RaidOrgaPlusID": 23
     },
     {
       "NameEN": "Ranger",
       "NameDE": "Waldläufer",
-      "IconPath": "\\images\\Professions\\Ranger.png"
+      "IconPath": "\\images\\Professions\\Ranger.png",
+      "RaidOrgaPlusID": 4
     },
     {
       "NameEN": "Druid",
       "NameDE": "Druide",
-      "IconPath": "\\images\\Professions\\Druid.png"
+      "IconPath": "\\images\\Professions\\Druid.png",
+      "RaidOrgaPlusID": 13
     },
     {
       "NameEN": "Soulbeast",
       "NameDE": "Seelenwandler",
-      "IconPath": "\\images\\Professions\\Soulbeast.png"
+      "IconPath": "\\images\\Professions\\Soulbeast.png",
+      "RaidOrgaPlusID": 22
     },
     {
       "NameEN": "Thief",
       "NameDE": "Dieb",
-      "IconPath": "\\images\\Professions\\Thief.png"
+      "IconPath": "\\images\\Professions\\Thief.png",
+      "RaidOrgaPlusID": 6
     },
     {
       "NameEN": "Daredevil",
       "NameDE": "Draufgänger",
-      "IconPath": "\\images\\Professions\\Daredevil.png"
+      "IconPath": "\\images\\Professions\\Daredevil.png",
+      "RaidOrgaPlusID": 15
     },
     {
       "NameEN": "Deadeye",
       "NameDE": "Scharfschütze",
-      "IconPath": "\\images\\Professions\\Deadeye.png"
+      "IconPath": "\\images\\Professions\\Deadeye.png",
+      "RaidOrgaPlusID": 24
     },
     {
       "NameEN": "Elementalist",
       "NameDE": "Elementarmagier",
-      "IconPath": "\\images\\Professions\\Elementalist.png"
+      "IconPath": "\\images\\Professions\\Elementalist.png",
+      "RaidOrgaPlusID": 1
     },
     {
       "NameEN": "Tempest",
       "NameDE": "Sturmbote",
-      "IconPath": "\\images\\Professions\\Tempest.png"
+      "IconPath": "\\images\\Professions\\Tempest.png",
+      "RaidOrgaPlusID": 10
     },
     {
       "NameEN": "Weaver",
       "NameDE": "Weber",
-      "IconPath": "\\images\\Professions\\Weaver.png"
+      "IconPath": "\\images\\Professions\\Weaver.png",
+      "RaidOrgaPlusID": 19
     },
     {
       "NameEN": "Mesmer",
       "NameDE": "Mesmer",
-      "IconPath": "\\images\\Professions\\Mesmer.png"
+      "IconPath": "\\images\\Professions\\Mesmer.png",
+      "RaidOrgaPlusID": 2
     },
     {
       "NameEN": "Chronomancer",
       "NameDE": "Chronomant",
-      "IconPath": "\\images\\Professions\\Chronomancer.png"
+      "IconPath": "\\images\\Professions\\Chronomancer.png",
+      "RaidOrgaPlusID": 11
     },
     {
       "NameEN": "Mirage",
       "NameDE": "Illusionist",
-      "IconPath": "\\images\\Professions\\Mirage.png"
+      "IconPath": "\\images\\Professions\\Mirage.png",
+      "RaidOrgaPlusID": 20
     },
     {
       "NameEN": "Necromancer",
       "NameDE": "Nekromant",
-      "IconPath": "\\images\\Professions\\Necromancer.png"
+      "IconPath": "\\images\\Professions\\Necromancer.png",
+      "RaidOrgaPlusID": 3
     },
     {
       "NameEN": "Reaper",
       "NameDE": "Schnitter",
-      "IconPath": "\\images\\Professions\\Reaper.png"
+      "IconPath": "\\images\\Professions\\Reaper.png",
+      "RaidOrgaPlusID": 12
     },
     {
       "NameEN": "Scourge",
       "NameDE": "Pestbringer",
-      "IconPath": "\\images\\Professions\\Scourge.png"
+      "IconPath": "\\images\\Professions\\Scourge.png",
+      "RaidOrgaPlusID": 21
     }
   ]
 }

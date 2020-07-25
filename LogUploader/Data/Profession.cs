@@ -19,12 +19,13 @@ namespace LogUploader.Data
 
         private Profession() { }
 
-        private Profession(string nameEN, string nameDE, string iconPath)
+        private Profession(string nameEN, string nameDE, string iconPath, int raidOrgaPlusID)
         {
             NameEN = nameEN;
             NameDE = nameDE;
             IconPath = iconPath;
             Icon = Image.FromFile(iconPath);
+            RaidOrgaPlusID = raidOrgaPlusID;
         }
 
         public Profession this[string name]
@@ -35,15 +36,30 @@ namespace LogUploader.Data
             }
         }
 
+        public Profession this[int roPlusID]
+        {
+            get
+            {
+                return Professions.Select(p => p.Value).Where(p => p.RaidOrgaPlusID == roPlusID).FirstOrDefault() ?? Professions["Unknown"];
+            }
+        }
+
         public static Profession Get(string name)
         {
             return new Profession()[name];
+        }
+
+        public static Profession Get(int roPlusID)
+        {
+            return new Profession()[roPlusID];
         }
 
         public string NameEN { get; }
         public string NameDE { get; }
         public string IconPath { get; }
         public Image Icon { get; internal set; }
+        public int RaidOrgaPlusID { get; }
+
 
         public static void Init(string path, IProgress<double> progress = null)
         {
@@ -59,8 +75,9 @@ namespace LogUploader.Data
                 string nameEN = json.GetTypedElement<string>("NameEN");
                 string nameDE = json.GetTypedElement<string>("NameDE");
                 string iconPath = exePath + json.GetTypedElement<string>("IconPath");
+                int raidOrgaPlusID = (int) json.GetTypedElement<double>("RaidOrgaPlusID");
 
-                return new Profession(nameEN, nameDE, iconPath);
+                return new Profession(nameEN, nameDE, iconPath, raidOrgaPlusID);
             })
             .ToDictionary(prof => prof.NameEN);
             progress?.Report(1);

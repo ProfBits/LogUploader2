@@ -776,7 +776,7 @@ namespace LogUploader
                 var jsonData = new JSONHelper.JSONHelper().Desirealize(jsonStr);
                 var simpleLogJson = new SimpleLogJson(jsonData);
                 log.Players = simpleLogJson.Players
-                    .Select(p => new CachedPlayer(p.Account, p.Name, Profession.Get(p.Profession), (byte) p.Group, p.DpsAll))
+                    .Select(p => new CachedPlayer(p.Account, p.Name, Profession.Get(p.Profession), (byte) p.Group, p.DpsAll, p.DpsAllPower, p.DpsAllCondi))
                     .ToList();
             }
             GC.Collect();

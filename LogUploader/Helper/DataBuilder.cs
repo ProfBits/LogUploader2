@@ -40,6 +40,7 @@ namespace LogUploader.Helper
         private const string TagGameAreaName = "GameAreaName";
         private const string TagGameAreaID = "GameAreaID";
         private const string TagDiscordEmote = "DiscordEmote";
+        private const string TagRaidOrgaPlusID = "RaidOrgaPlusID";
         private const string TagIntresting = "Intresting";
         private const string TagWipe = "Wipe";
         private const string TagKill = "Kill";
@@ -172,9 +173,10 @@ namespace LogUploader.Helper
             var EiName = boss.GetTypedElement<string>(TagEiName);
             var avatarURL = GetAvatarUrl(boss);
             var DiscordEmote = boss.GetTypedElement<string>(TagDiscordEmote);
+            var raidOrgaPlusId = (int) boss.GetTypedElement<double>(TagRaidOrgaPlusID);
 
 
-            new Boss(basics, folderEN, folderDE, avatarURL, DiscordEmote, EiName);
+            new Boss(basics, folderEN, folderDE, avatarURL, DiscordEmote, EiName, raidOrgaPlusId);
         }
 
         private static GameArea detimenGameArea(string gameAreaName, int gameAreaID)

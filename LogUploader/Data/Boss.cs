@@ -20,29 +20,31 @@ namespace LogUploader.Data
         public string FolderName { get => m_FolderName.Name; }
 
         public string EIName { get; }
+        public int RaidOrgaPlusID { get; }
 
         private static Dictionary<int, Boss> allBosses = new Dictionary<int, Boss>();
 
-        internal Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.get(), "localhost", ":grey_question:", "Unknowen") { }
+        internal Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.get(), @"https://www.publicdomainpictures.net/pictures/280000/velka/ghost-on-black-background.jpg", ":grey_question:", "Unknowen", -1) { }
 
-        internal Boss(int id, string name, string FolderName, GameArea area, string avatarURL, string discordEmote, string eIName) : this(id, name, name, FolderName, FolderName, area, avatarURL, discordEmote, eIName)
+        internal Boss(int id, string name, string FolderName, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(id, name, name, FolderName, FolderName, area, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         {
 
         }
 
-        internal Boss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName) : base(id, nameEN, nameDE, area)
+        internal Boss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : base(id, nameEN, nameDE, area)
         {
             DiscordEmote = discordEmote;
             AvatarURL = avatarURL;
             m_FolderName = new NamedObject(FolderNameEN, FolderNameDE);
             EIName = eIName;
+            RaidOrgaPlusID = raidOrgaPlusID;
             allBosses.Add(id, this);
         }
 
-        internal Boss(BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName) : this(info.ID, info.NameEN, info.NameDE, FolderNameEN, FolderNameDE, info.GameArea, avatarURL, discordEmote, eIName)
+        internal Boss(BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(info.ID, info.NameEN, info.NameDE, FolderNameEN, FolderNameDE, info.GameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         { }
 
-        internal Boss(BasicInfo info, string FolderName, string avatarURL, string discordEmote, string eIName) : this(info.ID, info.NameEN, info.NameDE, FolderName, FolderName, info.GameArea, avatarURL, discordEmote, eIName)
+        internal Boss(BasicInfo info, string FolderName, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(info.ID, info.NameEN, info.NameDE, FolderName, FolderName, info.GameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         { }
 
         public static Boss getByID(int id)
