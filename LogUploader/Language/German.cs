@@ -155,7 +155,7 @@ namespace LogUploader.Languages
 
         public override string NewTitle { get => "Neuerungen in "; }
         public override string NewHeading { get => "Update-Notes"; }
-        public override string NewClose { get => "Schliesen"; }
+        public override string NewClose { get => "Schliessen"; }
 
         public override string MiscGenericProcessing { get => "Verarbeite"; }
         public override string MiscNoWebhookMsgTitel { get => "Webhooks erstellen"; }
@@ -170,11 +170,11 @@ namespace LogUploader.Languages
         {
             get
             {
-                return "Unable to Post to Webhook %s.\n" +
-                    $"Make sure\n" +
-                    $"- the address of the WebHook is correct\n" +
-                    $"- if an avatar is specified check its link\n" +
-                    $"- you are connected to the internet";
+                return "Es war nicht möglich über den Webhook %s zu posten.\n" +
+                    $"Stelle sicher, dass\n" +
+                    $"- die Adresse des Webhooks korrekt ist\n" +
+                    $"- der Link des genutzten Avatars korrekt ist (wenn du einen nutzt)\n" +
+                    $"- du mit dem Internet verbunden bist";
             }
         }
         public override string MiscDetailsMultibleBosses { get => "Verschieden"; }

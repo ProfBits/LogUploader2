@@ -145,10 +145,10 @@ Go to Discord Webhooks in Settings and create a new one</miscNoWebhookMsgText>
   <miscDiscordPostGenTopDPS>Top DPS</miscDiscordPostGenTopDPS>
   <miscDiscordPostGenNoLink>no Link</miscDiscordPostGenNoLink>
   <miscDiscordPostErrTitle>Discord posting Error</miscDiscordPostErrTitle>
-  <miscDiscordPostErrMsg>Unable to Post to Webhook %s.
+  <miscDiscordPostErrMsg>Unable to post to Webhook %s.
 Make sure
 - the address of the WebHook is correct
-- if an avatar is specified check its link
+- if an avatar is specified to check its link
 - you are connected to the internet</miscDiscordPostErrMsg>
   <miscDetailsMultibleBosses>Multiple</miscDetailsMultibleBosses>
 </XMLLanguage>

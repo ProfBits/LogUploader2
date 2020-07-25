@@ -79,6 +79,16 @@ namespace LogUploader.Data
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.checkFolderName(name)).Value;
             if (boss == null)
+            {
+                switch (name)
+                {
+                    case "Gebrochener König":
+                    case "Bezwungener König":
+                        boss = getByID(19691);
+                        break;
+                }
+            }
+            if (boss == null)
                 return getByID(0);
             return boss;
         }
