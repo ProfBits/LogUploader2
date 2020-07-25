@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using LogUploader.Data.RaidOrgaPlus;
 using System.Net;
 using System.IO;
+using LogUploader.Data;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {
     internal class RaidOrgaPlusConnector
     {
+        //TODO implement ProxySettings
         private IProxySettings ProxySettings;
 
         private const int TimeoutMs = 10_000;
@@ -46,19 +48,17 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine?auth={session.Token}", session.UserAgent);
 
-            string termine;
+            string termineRAW;
             var httpResponse = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                termine = streamReader.ReadToEnd();
+                termineRAW = streamReader.ReadToEnd();
 
             request = GetGetRequest($@"https://sv.sollunad.de:8080/raids?auth={session.Token}", session.UserAgent);
 
-            string raids;
+            string raidsRAW;
             httpResponse = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                raids = streamReader.ReadToEnd();
-
-            //TODO Process and filter
+                raidsRAW = streamReader.ReadToEnd();
 
             /* Fromat
              * Termine
@@ -68,26 +68,47 @@ namespace LogUploader.Helper.RaidOrgaPlus
              * [{"id":6,"name":"xyz","icon":"","role":0}]
              * Role=2 == leader
              */
+
+            var raidsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{raidsRAW}}}");
+            var raids = raidsParsed["wrapper"].ToDictionary(raid => (long)raid["id"], raid => (int)raid["role"] == 2);
+
+            var termineParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{termineRAW}}}");
+            var termine = termineParsed["wrapper"]
+                .Where(termin => raids[(long)termin["raidID"]])
+                .Select(termin => new RaidSimple(
+                    (long)termin["id"],
+                    (long)termin["raidID"],
+                    DateTime.Parse(((string)termin["date"]).Split(' ').Last()),
+                    TimeSpan.Parse((string)termin["time"] + ":00"),
+                    TimeSpan.Parse((string)termin["endtime"] + ":00"),
+                    (string)termin["name"]
+                    ));
+            return termine.ToList();
         }
 
-        public Raid GetRaid(Session session, int raidID)
+        public Raid GetRaid(Session session, int terminID, int raidID)
         {
-            //TODO
-            int groupID = 0;
 
-            var request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen?termin={raidID}&auth={session.Token}", session.UserAgent);
+            var request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen?termin={terminID}&auth={session.Token}", session.UserAgent);
 
-            string aufstellungen;
+            string aufstellungenRAW;
             var httpResponse = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                aufstellungen = streamReader.ReadToEnd();
+                aufstellungenRAW = streamReader.ReadToEnd();
 
-            request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen/elements?termin={raidID}&auth={session.Token}", session.UserAgent);
+            request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen/elements?termin={terminID}&auth={session.Token}", session.UserAgent);
 
-            string elements;
+            string elementsRAW;
             httpResponse = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                elements = streamReader.ReadToEnd();
+                elementsRAW = streamReader.ReadToEnd();
+            
+            request = GetGetRequest($@"https://sv.sollunad.de:8080/gamedata/encounter", session.UserAgent);
+
+            string bossesRAW;
+            httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                bossesRAW = streamReader.ReadToEnd();
 
             /* Fromat
              * aufstellungen (bosse)
@@ -95,29 +116,26 @@ namespace LogUploader.Helper.RaidOrgaPlus
              * 
              * elements (alle positionen für jeden boss)
              * [{"aufstellung":7048,"pos":1,"class":"Chr","role":"T","id":127,"name":"xyz","accname":"xyz.1234"}]
+             * 
+             * bosses
+             * [{"id":1,"name":"Vale Guardian","abbr":"VG","apiname":"vale_guardian","wing":1,"main":1,"kp_id":77705,"has_cm":0}]
              */
 
-            request = GetGetRequest($@"https://sv.sollunad.de:8080/termine/anmeldungenAll?termin={raidID}&auth={session.Token}", session.UserAgent);
+            var bossesParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{bossesRAW}}}");
+            var bosses = bossesParsed["wrapper"].ToDictionary(boss => (string)boss["abbr"], boss => (int)boss["id"]);
 
-            string group;
-            httpResponse = (HttpWebResponse)request.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                group = streamReader.ReadToEnd();
+            var elementsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{elementsRAW}}}");
+            var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GetRole((string)element["T"]), GetClass((string)element["class"])) });
 
-            request = GetGetRequest($@"https://sv.sollunad.de:8080/termine/ersatz?termin={raidID}&auth={session.Token}", session.UserAgent);
+            var aufstellungenParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{aufstellungenRAW}}}");
+            var aufstellungen = elementsParsed["wrapper"].Select(aufstellung => new TeamComp((long)aufstellung["id"], GetBoss(bosses, (string)aufstellung["name"]), (int)aufstellung["is_cm"] == 1, elements.Where(e => e.id == (long)aufstellung["id"]).Select(e => e.pos).ToList())).ToList();
 
-            string ersatz;
-            httpResponse = (HttpWebResponse)request.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                ersatz = streamReader.ReadToEnd();
 
-            //evlt über all?
-            request = GetGetRequest($@"https://sv.sollunad.de:8080/raids/invitable?raid={groupID}&auth={session.Token}", session.UserAgent);
+            var group = GetGroup(session, terminID);
+            var helper = GetHelper(session, terminID);
+            var inviteable = GetInvitealbe(session, raidID);
 
-            string inviteable;
-            httpResponse = (HttpWebResponse)request.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                inviteable = streamReader.ReadToEnd();
+            
             /* Format
              * anmeldungen all (gruppe)
              * [{"id":204,"name":"xyz","accname":"xyz.1234","type":2}]
@@ -129,8 +147,105 @@ namespace LogUploader.Helper.RaidOrgaPlus
              * inviteable
              * [{"id":201,"name":"xyz","accname":"xyz.1234"}]
              */
+            return new Raid(terminID, raidID, group, helper, inviteable, aufstellungen);
         }
 
+        private List<Account> GetGroup(Session session, long terminID)
+        {
+            var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine/anmeldungenAll?termin={terminID}&auth={session.Token}", session.UserAgent);
+
+            string groupRAW;
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                groupRAW = streamReader.ReadToEnd();
+
+            var groupParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{groupRAW}}}");
+            return groupParsed["wrapper"].Select(player => new Account((long)player["id"], (string)player["accname"], (string)player["name"])).ToList();
+        }
+
+        private List<Account> GetHelper(Session session, long terminID)
+        {
+            var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine/ersatz?termin={terminID}&auth={session.Token}", session.UserAgent);
+
+            string ersatzRAW;
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                ersatzRAW = streamReader.ReadToEnd();
+
+            var ersatzParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{ersatzRAW}}}");
+            return ersatzParsed["wrapper"].Select(player => new Account((long)player["id"], (string)player["accname"], (string)player["name"])).ToList();
+        }
+
+        private List<Account> GetInvitealbe(Session session, long groupID)
+        {
+            var request = GetGetRequest($@"https://sv.sollunad.de:8080/raids/invitable?raid={groupID}&auth={session.Token}", session.UserAgent);
+
+            string inviteableRAW;
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                inviteableRAW = streamReader.ReadToEnd();
+
+            var inviteableParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{inviteableRAW}}}");
+            return inviteableParsed["wrapper"].Select(player => new Account((long)player["id"], (string)player["accname"], (string)player["name"])).ToList();
+        }
+
+        private Boss GetBoss(Dictionary<string, int> bosses, string roPlusBossAbbreviation)
+        {
+            return Boss.getByRaidOragPlusID(bosses[roPlusBossAbbreviation]);
+        }
+
+        private Profession GetClass(string classAbbreviation)
+        {
+            switch (classAbbreviation)
+            {
+                case "Ele": return Profession.Get(1);
+                case "Tmp": return Profession.Get(10);
+                case "Wea": return Profession.Get(19);
+                case "Mes": return Profession.Get(2);
+                case "Chr": return Profession.Get(11);
+                case "Mir": return Profession.Get(20);
+                case "Nec": return Profession.Get(3);
+                case "Rea": return Profession.Get(12);
+                case "Scg": return Profession.Get(21);
+                case "Rgr": return Profession.Get(4);
+                case "Dru": return Profession.Get(13);
+                case "Slb": return Profession.Get(22);
+                case "Eng": return Profession.Get(5);
+                case "Scr": return Profession.Get(14);
+                case "Hls": return Profession.Get(23);
+                case "Thf": return Profession.Get(6);
+                case "Dar": return Profession.Get(15);
+                case "Ded": return Profession.Get(24);
+                case "War": return Profession.Get(7);
+                case "Brs": return Profession.Get(16);
+                case "Spb": return Profession.Get(25);
+                case "Gdn": return Profession.Get(8);
+                case "Dgh": return Profession.Get(17);
+                case "Fbd": return Profession.Get(26);
+                case "Rev": return Profession.Get(9);
+                case "Her": return Profession.Get(18);
+                case "Ren": return Profession.Get(27);
+                default: return Profession.Unknown;
+            }
+        }
+
+        private Role GetRole(string roleAbbreviation)
+        {
+            switch (roleAbbreviation)
+            {
+                case "P": return Role.Power;
+                case "C": return Role.Condi;
+                case "H": return Role.Heal;
+                case "T": return Role.Tank;
+                case "U": return Role.Utility;
+                case "B": return Role.Banner;
+                case "S": return Role.Special;
+                case "K": return Role.Kiter;
+                default: return Role.Empty;
+            }
+        }
+
+        //TODO implement sender
         public void SetRaid(Session session, Raid raid)
         {
             

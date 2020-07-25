@@ -75,6 +75,9 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -107,6 +110,7 @@
     <Compile Include="Data\GameAreas\RaidWing.cs" />
     <Compile Include="Data\GameAreas\Strike.cs" />
     <Compile Include="Data\GameAreas\Unknowen.cs" />
+    <Compile Include="Data\Licenses\NewtonsoftJsonLicense.cs" />
     <Compile Include="Data\Licenses\CommonMarkLicense.cs" />
     <Compile Include="Data\Licenses\DapperLicense.cs" />
     <Compile Include="Data\Licenses\ISoftwareLicense.cs" />
@@ -132,6 +136,18 @@
     </Compile>
     <Compile Include="GUIs\AboutUI.Designer.cs">
       <DependentUpon>AboutUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\CorrectPlayerUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\CorrectPlayerUI.Designer.cs">
+      <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\PlayerToCorrect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\PlayerToCorrect.Designer.cs">
+      <DependentUpon>PlayerToCorrect.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIs\SoftwareItem.cs">
       <SubType>UserControl</SubType>
@@ -328,6 +344,12 @@
   <ItemGroup>
     <EmbeddedResource Include="GUIs\AboutUI.resx">
       <DependentUpon>AboutUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\CorrectPlayer\CorrectPlayerUI.resx">
+      <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\CorrectPlayer\PlayerToCorrect.resx">
+      <DependentUpon>PlayerToCorrect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\InitConfigUI.resx">
       <DependentUpon>InitConfigUI.cs</DependentUpon>

@@ -38,6 +38,7 @@
             this.WindowsAPICodePackShell = new LogUploader.GUIs.SoftwareItem();
             this.MakeSFX = new LogUploader.GUIs.SoftwareItem();
             this.CommonMark = new LogUploader.GUIs.SoftwareItem();
+            this.NewtonsoftJson = new LogUploader.GUIs.SoftwareItem();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -73,6 +74,7 @@
             this.flowLayoutPanel1.Controls.Add(this.WindowsAPICodePackShell);
             this.flowLayoutPanel1.Controls.Add(this.MakeSFX);
             this.flowLayoutPanel1.Controls.Add(this.CommonMark);
+            this.flowLayoutPanel1.Controls.Add(this.NewtonsoftJson);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -166,6 +168,20 @@
             this.CommonMark.Software = "CommonMark.NET";
             this.CommonMark.TabIndex = 5;
             // 
+            // NewtonsoftJson
+            // 
+            this.NewtonsoftJson.Copyright = "© 2007 James Newton-King";
+            this.NewtonsoftJson.Image = ((System.Drawing.Image)(resources.GetObject("NewtonsoftJson.Image")));
+            this.NewtonsoftJson.ImageUsed = true;
+            this.NewtonsoftJson.License = null;
+            this.NewtonsoftJson.LicenseStr = "MIT";
+            this.NewtonsoftJson.Location = new System.Drawing.Point(3, 675);
+            this.NewtonsoftJson.Name = "NewtonsoftJson";
+            this.NewtonsoftJson.ProjectLink = "https://www.newtonsoft.com/json";
+            this.NewtonsoftJson.Size = new System.Drawing.Size(300, 106);
+            this.NewtonsoftJson.Software = "Newtonsoft.Json";
+            this.NewtonsoftJson.TabIndex = 6;
+            // 
             // SoftwareUsedUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,5 +214,6 @@
         private SoftwareItem WindowsAPICodePackShell;
         private SoftwareItem MakeSFX;
         private SoftwareItem CommonMark;
+        private SoftwareItem NewtonsoftJson;
     }
 }

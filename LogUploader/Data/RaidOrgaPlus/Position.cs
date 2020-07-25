@@ -9,6 +9,16 @@ namespace LogUploader.Data.RaidOrgaPlus
 {
     public class Position
     {
+        public Position(int pos, long iD, string accName, Role role, Profession profession)
+        {
+            Pos = pos;
+            ID = iD;
+            AccName = accName;
+            Role = role;
+            Profession = profession;
+        }
+
+        public int Pos { get; set; }
         public long ID { get; set; }
         public string AccName { get; set; }
         public Role Role { get; set; }
@@ -31,7 +41,7 @@ namespace LogUploader.Data.RaidOrgaPlus
                 Role = role;
         }
 
-        internal void Set(RaidOrgaPlusDataWorker.Player player)
+        internal void Set(RaidOrgaPlusDataWorker.CheckedPlayer player)
         {
             Profession = player.Class;
             Role = player.Role;

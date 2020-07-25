@@ -58,6 +58,13 @@ namespace LogUploader.Data
                 return getByID(0);
             }
         }
+        public static Boss getByRaidOragPlusID(int id)
+        {
+            var boss = allBosses.FirstOrDefault((e) => e.Value.RaidOrgaPlusID == id).Value;
+            if (boss == null)
+                return getByID(0);
+            return boss;
+        }
 
         public static Boss getByName(string name)
         {

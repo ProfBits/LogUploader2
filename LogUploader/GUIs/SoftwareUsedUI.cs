@@ -29,6 +29,7 @@ namespace LogUploader.GUIs
             WindowsAPICodePackShell.License = new WindowsAPICodePack_ShellLicense();
             MakeSFX.License = new MakeSFXLicense();
             CommonMark.License = new CommonMarkLicense();
+            NewtonsoftJson.License = new NewtonsoftJsonLicense();
         }
 
         private void ApplyLanguage(ILanguage lang)

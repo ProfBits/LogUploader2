@@ -54,6 +54,8 @@ namespace LogUploader.Data
             return new Profession()[roPlusID];
         }
 
+        public static Profession Unknown { get => Get("Unknown"); }
+
         public string NameEN { get; }
         public string NameDE { get; }
         public string IconPath { get; }

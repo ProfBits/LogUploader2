@@ -19,6 +19,16 @@ namespace LogUploader.Data.RaidOrgaPlus
         public List<string> Unknown;
         public List<Account> ToInvite;
 
+        public Raid(long terminID, long raidID, List<Account> players, List<Account> helper, List<Account> inviteable, List<TeamComp> bosses)
+        {
+            TerminID = terminID;
+            RaidID = raidID;
+            Players = players;
+            Helper = helper;
+            Inviteable = inviteable;
+            Bosses = bosses;
+        }
+
         internal bool IsMember(string accountName)
         {
             return Players.Any(p => p.AccountName == accountName);
