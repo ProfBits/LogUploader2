@@ -1,4 +1,5 @@
 ﻿using LogUploader.Helper.RaidOrgaPlus;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,28 @@ namespace LogUploader.Data.RaidOrgaPlus
 {
     public class Raid
     {
+        [JsonProperty("terminId")]
         public long TerminID { get; set; }
+
+        [JsonIgnore()]
         public long RaidID { get; set; }
+
+        [JsonIgnore()]
         public List<Account> Players;
+
+        [JsonIgnore()]
         public List<Account> Helper;
+
+        [JsonIgnore()]
         public List<Account> Inviteable;
+
+        [JsonProperty("aufstellungen")]
         public List<TeamComp> Bosses;
 
+        [JsonIgnore()]
         public List<string> Unknown;
+
+        [JsonIgnore()]
         public List<Account> ToInvite;
 
         public Raid(long terminID, long raidID, List<Account> players, List<Account> helper, List<Account> inviteable, List<TeamComp> bosses)
@@ -89,7 +104,12 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         private Account GetLFGPlayer()
         {
-            return new Account(1, "LFG", "LFG");
+            return new Account(1, "", "LFG");
+        }
+
+        public string getPostJson()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

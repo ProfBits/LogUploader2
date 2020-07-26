@@ -12,6 +12,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
     {
         public static Raid UpdateRaid(Raid raid, IEnumerable<CachedLog> logs)
         {
+            logs = OnlyGetOnePerBoss(logs);
+            logs = CondenseStatues(logs);
             InsertLogs(raid, logs);
             var encounters = GetEncounters(raid, logs);
             var players = GetAllPlayers(raid, encounters);
@@ -20,6 +22,41 @@ namespace LogUploader.Helper.RaidOrgaPlus
             UpdateRaidOrgaPlusData(raid, encounters);
 
             return raid;
+        }
+
+        private static IEnumerable<CachedLog> OnlyGetOnePerBoss(IEnumerable<CachedLog> logs)
+        {
+            return logs.GroupBy(log => Boss.getByID(log.BossID).RaidOrgaPlusID).SelectMany(group =>
+            {
+                if (group.All(e => !e.IsCM) || group.All(e => e.IsCM))
+                {
+                    if (group.Any(e => e.Succsess))
+                        return new List<CachedLog>() { group.Last(e => e.Succsess) };
+                    return new List<CachedLog>() { group.Last() };
+                }
+                var subGroup = group.GroupBy(e => e.IsCM);
+                return subGroup.Select(grp =>
+                {
+                    if (group.Any(e => e.Succsess))
+                        return group.Last(e => e.Succsess);
+                    return group.Last();
+                });
+            }).OrderBy(log => log.Date);
+        }
+
+        private static IEnumerable<CachedLog> CondenseStatues(IEnumerable<CachedLog> logs)
+        {
+            if (logs.Any(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18))
+            {
+                CachedLog keep;
+                if (logs.Any(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess))
+                    keep = logs.Last(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess);
+                else
+                    keep = logs.Last(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18);
+
+                return logs.Where(log => Boss.getByID(log.BossID).RaidOrgaPlusID != 18 || log == keep);
+            }
+            return logs;
         }
 
         private static void ShowCorrectPlayerUI(List<CheckPlayer> players, Raid raid)
@@ -32,6 +69,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             foreach (var encounter in encounters)
             {
+                encounter.FillTeamComp();
                 encounter.GuessRoles();
                 encounter.RemoveNotAttededPlayers();
                 encounter.RemoveDuplicates();
@@ -80,7 +118,10 @@ namespace LogUploader.Helper.RaidOrgaPlus
         private static void InsertLogs(Raid raid, IEnumerable<CachedLog> logs)
         {
             foreach (var log in logs)
-                InsertLog(raid, log);
+            {
+                if (Boss.getByID(log.BossID).RaidOrgaPlusID > 0)
+                    InsertLog(raid, log);
+            }
             //TODO Duplicated bosses
         }
 
@@ -271,7 +312,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11).Role = Role.Utility;
                 orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 26 && p.Role == Role.Empty).Role = Role.Utility;
                 orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 27 && p.Role == Role.Empty).Role = Role.Heal;
-                orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
+                SetSecondHeal(orderdPlayers);
                 SetBS();
                 FillUpDps();
                 return true;
@@ -288,11 +329,17 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 26).Role = Role.Utility;
                 orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 26 && p.Role == Role.Empty).Role = Role.Utility;
                 orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 27 && p.Role == Role.Empty).Role = Role.Heal;
-                // TODO Better second heal detection if dps woud support it or not
-                orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
+                SetSecondHeal(orderdPlayers);
                 SetBS();
                 FillUpDps();
                 return true;
+            }
+
+            private static void SetSecondHeal(IOrderedEnumerable<CheckedPlayer> orderdPlayers)
+            {
+                var maxDps = orderdPlayers.Last().DPS;
+                if (orderdPlayers.First(p => p.Role == Role.Empty).DPS < (maxDps / 3))
+                    orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
             }
 
             private bool GuessDoubleChrono(bool hasTank = true)
@@ -306,7 +353,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11).Role = Role.Utility;
                 orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11 && p.Role == Role.Empty).Role = Role.Utility;
                 orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
-                orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
+                SetSecondHeal(orderdPlayers);
                 SetBS();
                 FillUpDps();
                 return true;
@@ -325,7 +372,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 27).Role = Role.Utility;
                     orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
                 }
-                orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
+                SetSecondHeal(orderdPlayers);
                 SetBS();
                 FillUpDps();
                 return true;
@@ -333,6 +380,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             private void SetBS()
             {
+                if (Players.Any(p => p.Role == Role.Banner))
+                    return;
                 if (Players.Any(p => (p.Class.RaidOrgaPlusID == 7 || p.Class.RaidOrgaPlusID == 16) && p.Role == Role.Empty))
                     Players.OrderBy(p => p.DPS).First(p => (p.Class.RaidOrgaPlusID == 7 || p.Class.RaidOrgaPlusID == 16) && p.Role == Role.Empty).Role = Role.Banner;
             }
@@ -379,7 +428,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 var TargetLFGCount = Players.Where(p => p.IsLFG).Count();
 
                 if (ROplusLFGCount > TargetLFGCount)
-                    TC.Players.Where(p => p.IsLFG()).Take(ROplusLFGCount - TargetLFGCount).Select(p => p.RemoveName());
+                    foreach (var p in TC.Players.Where(p => p.IsLFG()).Take(ROplusLFGCount - TargetLFGCount))
+                        p.RemoveName();
             }
 
             internal void RemoveDuplicates()
@@ -392,25 +442,28 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     if (dupe.Any(pos => pos.Profession == player.Class && pos.Role == player.Role))
                     {
                         var hit = dupe.First(pos => pos.Profession == player.Class && pos.Role == player.Role);
-                        dupe.Where(p => p != hit).Select(pos => pos.RemoveName());
-
+                        foreach (var pos in dupe.Where(p => p != hit))
+                            pos.RemoveName();
                     }
                     else if (dupe.Any(pos => pos.Role == player.Role))
                     {
                         var hit = dupe.First(pos => pos.Role == player.Role);
-                        dupe.Where(p => p != hit).Select(pos => pos.RemoveName());
+                        foreach (var pos in dupe.Where(p => p != hit))
+                            pos.RemoveName();
                         hit.Set(player);
                     }
                     else if (dupe.Any(pos => pos.Profession == player.Class))
                     {
                         var hit = dupe.First(pos => pos.Profession == player.Class);
-                        dupe.Where(p => p != hit).Select(pos => pos.RemoveName());
+                        foreach (var pos in dupe.Where(p => p != hit))
+                            pos.RemoveName();
                         hit.Set(player);
                     }
                     else
                     {
                         var hit = dupe.First();
-                        dupe.Where(p => p != hit).Select(pos => pos.RemoveName());
+                        foreach (var pos in dupe.Where(p => p != hit))
+                            pos.RemoveName();
                         hit.Set(player);
                     }
                 }
@@ -481,6 +534,13 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 //    if (error.actual > error.expected)
                 //        continue;
                 //}
+            }
+
+            internal void FillTeamComp()
+            {
+                for (int i = 1; i <= 10; i++)
+                    if (!TC.Players.Any(p => p.Pos == i))
+                        TC.Players.Add(new Position(i, 0, "", Role.Empty, Profession.Unknown));
             }
         }
 
@@ -557,15 +617,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 return -220601745 + EqualityComparer<string>.Default.GetHashCode(AccountName);
             }
-
-            public string DisplayName { get
-                {
-                    if (IsLFG)
-                        return $"LFG {AccountName}";
-                    else
-                        return $"{RaidOrgaName} ({AccountName})";
-
-                } }
 
             public static bool operator ==(CheckedPlayer left, CheckedPlayer right)
             {

@@ -1,4 +1,5 @@
 ﻿using LogUploader.Helper.RaidOrgaPlus;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,36 @@ namespace LogUploader.Data.RaidOrgaPlus
             Profession = profession;
         }
 
+        [JsonProperty("position")]
         public int Pos { get; set; }
+
+        [JsonProperty("spielerId")]
         public long ID { get; set; }
+
+        [JsonIgnore]
         public string AccName { get; set; }
+
+        [JsonIgnore]
         public Role Role { get; set; }
+
+        [JsonProperty("roleId")]
+        public byte RoleID { get => (byte)Role; }
+
+        [JsonIgnore]
         public Profession Profession { get; set; }
+
+        [JsonProperty("classId")]
+        public int ClassID { get => Profession.RaidOrgaPlusID; }
 
         internal bool IsLFG()
         {
-            throw new NotImplementedException();
+            return ID == 1;
         }
 
-        internal object RemoveName()
+        internal void RemoveName()
         {
-            throw new NotImplementedException();
+            ID = 0;
+            AccName = "";
         }
 
         internal void UpdateProffessionRole(Profession @class, Role role)

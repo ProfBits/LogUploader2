@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,33 @@ namespace LogUploader.Data.RaidOrgaPlus
 {
     public class TeamComp
     {
+        [JsonIgnore]
+        public long ID { get; set; }
+
+        [JsonProperty("aufstellungId")]
+        public long? aufstellungsID
+        {
+            get
+            {
+                if (ID >= 0)
+                    return ID;
+                else
+                    return null;
+            }
+        }
+
+        [JsonIgnore]
+        public Boss Encounter { get; set; }
+
+        [JsonProperty("bossId")]
+        public long BossID { get => Encounter.RaidOrgaPlusID; }
+
+        [JsonProperty("isCM")]
+        public bool IsCM { get; set; }
+
+        [JsonProperty("positionen")]
+        public List<Position> Players { get; set; }
+
         public TeamComp(long iD, Boss encounter, bool isCM, List<Position> players)
         {
             ID = iD;
@@ -15,11 +43,6 @@ namespace LogUploader.Data.RaidOrgaPlus
             IsCM = isCM;
             Players = players;
         }
-
-        public long ID { get; set; }
-        public Boss Encounter { get; set; }
-        public bool IsCM { get; set; }
-        public List<Position> Players { get; set; }
 
         private IEnumerable<Position> UnnamedPlayers { get => Players.Where(pos => string.IsNullOrEmpty(pos.AccName)); }
 

@@ -16,8 +16,21 @@ namespace LogUploader.Data.RaidOrgaPlus
         public Account(long iD, string accountName, string name)
         {
             ID = iD;
-            AccountName = accountName;
-            Name = name;
+            switch (ID)
+            {
+                case 0:
+                    Name = "";
+                    AccountName = "";
+                    break;
+                case 1:
+                    Name = "LFG";
+                    AccountName = "";
+                    break;
+                default:
+                    AccountName = accountName;
+                    Name = name;
+                    break;
+            }
         }
 
         public override bool Equals(object obj)
@@ -34,7 +47,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         public override string ToString()
         {
-            return base.ToString();
+            return UIString;
         }
 
         public static bool operator ==(Account a, Account b)
