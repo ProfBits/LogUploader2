@@ -76,12 +76,12 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal bool ExistsBoss(Boss boss, bool isCM)
         {
-            return Bosses.Any(b => b.Encounter == boss && b.IsCM == isCM);
+            return Bosses.Any(b => b.Encounter.RaidOrgaPlusID == boss.RaidOrgaPlusID && b.IsCM == isCM);
         }
 
         internal TeamComp GetTeamComp(Boss boss, bool isCM)
         {
-            return Bosses.First(b => b.Encounter == boss && b.IsCM == isCM);
+            return Bosses.First(b => b.Encounter.RaidOrgaPlusID == boss.RaidOrgaPlusID && b.IsCM == isCM);
         }
 
         internal Account GetAccount(string accountName, RaidOrgaPlusDataWorker.PlayerType type)

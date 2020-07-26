@@ -52,12 +52,12 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         public static bool operator ==(Account a, Account b)
         {
-            return a.Equals(b);
+            return a?.Equals(b) ?? (object)b == null;
         }
 
         public static bool operator !=(Account a, Account b)
         {
-            return !a.Equals(b);
+            return !a?.Equals(b) ?? (object)b == null;
         }
     }
 }

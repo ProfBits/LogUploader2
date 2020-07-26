@@ -59,10 +59,6 @@ namespace LogUploader
         {
             //WriteOutLanguageXmls();
 
-            LoadJsonData();
-            RoPlusTesting.Run();
-            Environment.Exit(42);
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -94,9 +90,13 @@ namespace LogUploader
                 }
             });
 
+
             Application.Run(loadingUI);
 
             GC.Collect();
+
+            RoPlusTesting.Run(((LogUploaderUI2)ui).DEBUGgetLogic());
+            Environment.Exit(42);
 
             if (ui == null)
                 return;

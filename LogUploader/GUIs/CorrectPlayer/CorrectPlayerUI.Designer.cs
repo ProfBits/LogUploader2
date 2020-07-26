@@ -92,12 +92,14 @@
             // 
             // flpMain
             // 
+            this.flpMain.AutoScroll = true;
             this.flpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpMain.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMain.Location = new System.Drawing.Point(0, 47);
             this.flpMain.Name = "flpMain";
             this.flpMain.Size = new System.Drawing.Size(584, 365);
             this.flpMain.TabIndex = 2;
+            this.flpMain.WrapContents = false;
             // 
             // CorrectPlayerUI
             // 

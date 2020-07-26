@@ -80,6 +80,8 @@ namespace LogUploader.GUIs
             miViewInExplorer.Text = lang.ActionsViewInExplorer;
         }
 
+        internal LogUploaderLogic DEBUGgetLogic() => Logic;
+
         private PlayerData PlayerDataHeader;
 
         private void InitPlayerDataHeader()
