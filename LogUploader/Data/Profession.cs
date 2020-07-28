@@ -10,19 +10,17 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data
 {
-    public class Profession
+    public class Profession : NamedObject
     {
         /// <summary>
         /// dict&lt;nameEN, Prfession&gt;
         /// </summary>
         private static IReadOnlyDictionary<string, Profession> Professions = new Dictionary<string, Profession>();
 
-        private Profession() { }
+        private Profession() : base("") { }
 
-        private Profession(string nameEN, string nameDE, string iconPath, string emote)
+        private Profession(string nameEN, string nameDE, string iconPath, string emote) : base(nameEN, nameDE)
         {
-            NameEN = nameEN;
-            NameDE = nameDE;
             IconPath = iconPath;
             Icon = Image.FromFile(iconPath);
             Emote = emote;
@@ -41,8 +39,6 @@ namespace LogUploader.Data
             return new Profession()[name];
         }
 
-        public string NameEN { get; }
-        public string NameDE { get; }
         public string IconPath { get; }
         public string Emote { get; }
         public Image Icon { get; internal set; }
@@ -61,7 +57,7 @@ namespace LogUploader.Data
                 string nameEN = json.GetTypedElement<string>("NameEN");
                 string nameDE = json.GetTypedElement<string>("NameDE");
                 string iconPath = exePath + json.GetTypedElement<string>("IconPath");
-                string emote = exePath + json.GetTypedElement<string>("Emote");
+                string emote = json.GetTypedElement<string>("Emote");
 
                 return new Profession(nameEN, nameDE, iconPath, emote);
             })

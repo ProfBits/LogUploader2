@@ -126,6 +126,8 @@ namespace LogUploader.Helper.DiscordPostGen
                     return new PerWingWithEmotes();
                 case eDiscordPostFormat.CompactWithEmotes:
                     return new CompactWithEmotesGenerator();
+                case eDiscordPostFormat.PerAreaClasses:
+                    return new PerWingWithClassesGenerator();
                 case eDiscordPostFormat.PerArea:
                 default:
                     return new PerWingGen();

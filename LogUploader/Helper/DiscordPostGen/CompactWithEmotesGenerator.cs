@@ -13,6 +13,8 @@ namespace LogUploader.Helper.DiscordPostGen
     {
         protected override WebHookData.Field GenerateField(CachedLog log)
         {
+            if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
+                return null;
             string name = log.Succsess ? MiscData.EmoteRaidKill : MiscData.EmoteRaidWipe;
             name += Boss.getByID(log.BossID).DiscordEmote;
             name += " " + log.BossName;

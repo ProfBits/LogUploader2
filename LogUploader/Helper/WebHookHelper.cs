@@ -20,6 +20,7 @@ namespace LogUploader.Helpers
         {
             using (var wc = WebHelper.GetWebClient(settings))
             {
+                wc.Headers.Add(HttpRequestHeader.UserAgent, "LogUploader");
                 wc.Headers.Add(HttpRequestHeader.ContentType, "application/json");
                 return await wc.UploadStringTaskAsync(uri, "POST", data.ToString());
             }
