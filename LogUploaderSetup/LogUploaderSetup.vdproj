@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_23CCC52F8A6FEC3E4867701133FBAD43"
+        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2C637E1467F875ADB1602AB1BDFED2B0"
         "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
         "MsmSig" = "8:_UNDEFINED"
@@ -29,6 +35,12 @@
         {
         "MsmKey" = "8:_4DA52FEED72909480248181EEDC69AFE"
         "OwnerKey" = "8:_BE22E2316D25310B6A219F85E7A0B3FF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4FFDDF27D59936F849C57260A80D7801"
+        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -118,7 +130,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4FFDDF27D59936F849C57260A80D7801"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C536B346E1D0EEBDA4E60E48B8CF8FEF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_23CCC52F8A6FEC3E4867701133FBAD43"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -240,6 +264,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_23CCC52F8A6FEC3E4867701133FBAD43"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_23CCC52F8A6FEC3E4867701133FBAD43"
+                    {
+                    "Name" = "8:CommonMark.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:CommonMark.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2C637E1467F875ADB1602AB1BDFED2B0"
             {
             "AssemblyRegister" = "3:1"
@@ -316,6 +371,37 @@
                     }
                 }
             "SourcePath" = "8:System.IO.Compression.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4FFDDF27D59936F849C57260A80D7801"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_4FFDDF27D59936F849C57260A80D7801"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
@@ -657,15 +743,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log Uploader"
-        "ProductCode" = "8:{B13967C8-4D48-448F-B822-5B8CA13D237E}"
-        "PackageCode" = "8:{31FB740D-4308-4004-A26A-FA828B493959}"
+        "ProductCode" = "8:{39132A46-5ED4-4450-B9D3-671828711171}"
+        "PackageCode" = "8:{A5309D51-5585-4648-92D9-1D03B59672EA}"
         "UpgradeCode" = "8:{3F3DD479-F9CF-48EE-8590-B34CEB67C1B3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.28"
+        "ProductVersion" = "8:1.2.29"
         "Manufacturer" = "8:Bits Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/ProfBits/LogUploader2"
