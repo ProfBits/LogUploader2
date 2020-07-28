@@ -10,21 +10,20 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data
 {
-    public class Profession
+    public class Profession : NamedObject
     {
         /// <summary>
         /// dict&lt;nameEN, Prfession&gt;
         /// </summary>
         private static IReadOnlyDictionary<string, Profession> Professions = new Dictionary<string, Profession>();
 
-        private Profession() { }
+        private Profession() : base("") { }
 
-        private Profession(string nameEN, string nameDE, string iconPath, int raidOrgaPlusID)
+        private Profession(string nameEN, string nameDE, string iconPath, string emote, int raidOrgaPlusID) : base(nameEN, nameDE)
         {
-            NameEN = nameEN;
-            NameDE = nameDE;
             IconPath = iconPath;
             Icon = Image.FromFile(iconPath);
+            Emote = emote;
             RaidOrgaPlusID = raidOrgaPlusID;
         }
 
@@ -56,9 +55,8 @@ namespace LogUploader.Data
 
         public static Profession Unknown { get => Get("Unknown"); }
 
-        public string NameEN { get; }
-        public string NameDE { get; }
         public string IconPath { get; }
+        public string Emote { get; }
         public Image Icon { get; internal set; }
         public int RaidOrgaPlusID { get; }
 
@@ -77,9 +75,10 @@ namespace LogUploader.Data
                 string nameEN = json.GetTypedElement<string>("NameEN");
                 string nameDE = json.GetTypedElement<string>("NameDE");
                 string iconPath = exePath + json.GetTypedElement<string>("IconPath");
+                string emote = json.GetTypedElement<string>("Emote");
                 int raidOrgaPlusID = (int) json.GetTypedElement<double>("RaidOrgaPlusID");
 
-                return new Profession(nameEN, nameDE, iconPath, raidOrgaPlusID);
+                return new Profession(nameEN, nameDE, iconPath, emote, raidOrgaPlusID);
             })
             .ToDictionary(prof => prof.NameEN);
             progress?.Report(1);

@@ -42,6 +42,7 @@ namespace LogUploader.Data
     }
     public class SimplePlayer : IJSONSerializeable
     {
+        //TODO update in Ro+Branch
         public SimplePlayer(JSONObject data)
         {
             Account = data.GetTypedElement<string>("account");
