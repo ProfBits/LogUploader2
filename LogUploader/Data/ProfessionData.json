@@ -3,142 +3,170 @@
     {
       "NameEN": "Unknown",
       "NameDE": "Unbekannt",
-      "IconPath": "\\images\\Professions\\Unknown.png"
+      "IconPath": "\\images\\Professions\\Unknown.png",
+      "Emote": ":ghost:"
     },
     {
       "NameEN": "Guardian",
       "NameDE": "Wächter",
-      "IconPath": "\\images\\Professions\\Guardian.png"
+      "IconPath": "\\images\\Professions\\Guardian.png",
+      "Emote": "<:gdn:484839339474288650>"
     },
     {
       "NameEN": "Dragonhunter",
       "NameDE": "Drachenjäger",
-      "IconPath": "\\images\\Professions\\Dragonhunter.png"
+      "IconPath": "\\images\\Professions\\Dragonhunter.png",
+      "Emote": "<:dgh:484839155155599360>"
     },
     {
       "NameEN": "Firebrand",
       "NameDE": "Aufwiegler",
-      "IconPath": "\\images\\Professions\\Firebrand.png"
+      "IconPath": "\\images\\Professions\\Firebrand.png",
+      "Emote": "<:fbd:484839294243045416>"
     },
     {
       "NameEN": "Revenant",
       "NameDE": "Widergänger",
-      "IconPath": "\\images\\Professions\\Revenant.png"
+      "IconPath": "\\images\\Professions\\Revenant.png",
+      "Emote": "<:rev:484839906170896437>"
     },
     {
       "NameEN": "Herald",
       "NameDE": "Herold",
-      "IconPath": "\\images\\Professions\\Herald.png"
+      "IconPath": "\\images\\Professions\\Herald.png",
+      "Emote": "<:her:484839367383318544>"
     },
     {
       "NameEN": "Renegade",
       "NameDE": "Abtrünniger",
-      "IconPath": "\\images\\Professions\\Renegade.png"
+      "IconPath": "\\images\\Professions\\Renegade.png",
+      "Emote": "<:ren:484839875841884161>"
     },
     {
       "NameEN": "Warrior",
       "NameDE": "Krieger",
-      "IconPath": "\\images\\Professions\\Warrior.png"
+      "IconPath": "\\images\\Professions\\Warrior.png",
+      "Emote": "<:war:484840192834797569>"
     },
     {
       "NameEN": "Berserker",
       "NameDE": "Berserker",
-      "IconPath": "\\images\\Professions\\Berserker.png"
+      "IconPath": "\\images\\Professions\\Berserker.png",
+      "Emote": "<:brs:484838819234054146>"
     },
     {
       "NameEN": "Spellbreaker",
       "NameDE": "Bannbrecher",
-      "IconPath": "\\images\\Professions\\Spellbreaker.png"
+      "IconPath": "\\images\\Professions\\Spellbreaker.png",
+      "Emote": "<:spb:484840071007305738>"
     },
     {
       "NameEN": "Engineer",
       "NameDE": "Ingenieur",
-      "IconPath": "\\images\\Professions\\Engineer.png"
+      "IconPath": "\\images\\Professions\\Engineer.png",
+      "Emote": "<:eng:484839253830926337>"
     },
     {
       "NameEN": "Scrapper",
       "NameDE": "Schrotter",
-      "IconPath": "\\images\\Professions\\Scrapper.png"
+      "IconPath": "\\images\\Professions\\Scrapper.png",
+      "Emote": "<:scr:484839974211026966>"
     },
     {
       "NameEN": "Holosmith",
       "NameDE": "Holoschmied",
-      "IconPath": "\\images\\Professions\\Holosmith.png"
+      "IconPath": "\\images\\Professions\\Holosmith.png",
+      "Emote": "<:hls:484839388069494805>"
     },
     {
       "NameEN": "Ranger",
       "NameDE": "Waldläufer",
-      "IconPath": "\\images\\Professions\\Ranger.png"
+      "IconPath": "\\images\\Professions\\Ranger.png",
+      "Emote": "<:rgr:484839548971646976>"
     },
     {
       "NameEN": "Druid",
       "NameDE": "Druide",
-      "IconPath": "\\images\\Professions\\Druid.png"
+      "IconPath": "\\images\\Professions\\Druid.png",
+      "Emote": "<:dru:484839188298989570>"
     },
     {
       "NameEN": "Soulbeast",
       "NameDE": "Seelenwandler",
-      "IconPath": "\\images\\Professions\\Soulbeast.png"
+      "IconPath": "\\images\\Professions\\Soulbeast.png",
+      "Emote": "<:slb:484840014535065610>"
     },
     {
       "NameEN": "Thief",
       "NameDE": "Dieb",
-      "IconPath": "\\images\\Professions\\Thief.png"
+      "IconPath": "\\images\\Professions\\Thief.png",
+      "Emote": "<:thf:484840156290088962>"
     },
     {
       "NameEN": "Daredevil",
       "NameDE": "Draufgänger",
-      "IconPath": "\\images\\Professions\\Daredevil.png"
+      "IconPath": "\\images\\Professions\\Daredevil.png",
+      "Emote": "<:dar:484838873713868810>"
     },
     {
       "NameEN": "Deadeye",
       "NameDE": "Scharfschütze",
-      "IconPath": "\\images\\Professions\\Deadeye.png"
+      "IconPath": "\\images\\Professions\\Deadeye.png",
+      "Emote": "<:ded:484839130123993090>"
     },
     {
       "NameEN": "Elementalist",
       "NameDE": "Elementarmagier",
-      "IconPath": "\\images\\Professions\\Elementalist.png"
+      "IconPath": "\\images\\Professions\\Elementalist.png",
+      "Emote": "<:ele:484839211388764162>"
     },
     {
       "NameEN": "Tempest",
       "NameDE": "Sturmbote",
-      "IconPath": "\\images\\Professions\\Tempest.png"
+      "IconPath": "\\images\\Professions\\Tempest.png",
+      "Emote": "<:tmp:484840119527014400>"
     },
     {
       "NameEN": "Weaver",
       "NameDE": "Weber",
-      "IconPath": "\\images\\Professions\\Weaver.png"
+      "IconPath": "\\images\\Professions\\Weaver.png",
+      "Emote": "<:wea:484840211084476426>"
     },
     {
       "NameEN": "Mesmer",
       "NameDE": "Mesmer",
-      "IconPath": "\\images\\Professions\\Mesmer.png"
+      "IconPath": "\\images\\Professions\\Mesmer.png",
+      "Emote": "<:mes:484839435578507295>"
     },
     {
       "NameEN": "Chronomancer",
       "NameDE": "Chronomant",
-      "IconPath": "\\images\\Professions\\Chronomancer.png"
+      "IconPath": "\\images\\Professions\\Chronomancer.png",
+      "Emote": "<:chr:484840237684621323>"
     },
     {
       "NameEN": "Mirage",
       "NameDE": "Illusionist",
-      "IconPath": "\\images\\Professions\\Mirage.png"
+      "IconPath": "\\images\\Professions\\Mirage.png",
+      "Emote": "<:mir:484839459259678744>"
     },
     {
       "NameEN": "Necromancer",
       "NameDE": "Nekromant",
-      "IconPath": "\\images\\Professions\\Necromancer.png"
+      "IconPath": "\\images\\Professions\\Necromancer.png",
+      "Emote": "<:nec:484839499478597642>"
     },
     {
       "NameEN": "Reaper",
       "NameDE": "Schnitter",
-      "IconPath": "\\images\\Professions\\Reaper.png"
+      "IconPath": "\\images\\Professions\\Reaper.png",
+      "Emote": "<:rea:484839588876255232>"
     },
     {
       "NameEN": "Scourge",
       "NameDE": "Pestbringer",
-      "IconPath": "\\images\\Professions\\Scourge.png"
+      "IconPath": "\\images\\Professions\\Scourge.png",
+      "Emote": "<:scg:484839927121575950>"
     }
   ]
 }

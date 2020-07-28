@@ -19,12 +19,13 @@ namespace LogUploader.Data
 
         private Profession() { }
 
-        private Profession(string nameEN, string nameDE, string iconPath)
+        private Profession(string nameEN, string nameDE, string iconPath, string emote)
         {
             NameEN = nameEN;
             NameDE = nameDE;
             IconPath = iconPath;
             Icon = Image.FromFile(iconPath);
+            Emote = emote;
         }
 
         public Profession this[string name]
@@ -43,6 +44,7 @@ namespace LogUploader.Data
         public string NameEN { get; }
         public string NameDE { get; }
         public string IconPath { get; }
+        public string Emote { get; }
         public Image Icon { get; internal set; }
 
         public static void Init(string path, IProgress<double> progress = null)
@@ -59,8 +61,9 @@ namespace LogUploader.Data
                 string nameEN = json.GetTypedElement<string>("NameEN");
                 string nameDE = json.GetTypedElement<string>("NameDE");
                 string iconPath = exePath + json.GetTypedElement<string>("IconPath");
+                string emote = exePath + json.GetTypedElement<string>("Emote");
 
-                return new Profession(nameEN, nameDE, iconPath);
+                return new Profession(nameEN, nameDE, iconPath, emote);
             })
             .ToDictionary(prof => prof.NameEN);
             progress?.Report(1);
