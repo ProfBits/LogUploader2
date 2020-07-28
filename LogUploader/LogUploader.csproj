@@ -161,6 +161,7 @@
     <Compile Include="GUIs\WhatsNewUI.Designer.cs">
       <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="Helper\DiscordPostGen\PerWingWithClasses.cs" />
     <Compile Include="Helper\Updater.cs" />
