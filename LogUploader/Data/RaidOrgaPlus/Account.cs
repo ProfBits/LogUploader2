@@ -11,7 +11,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         public long ID { get; }
         public string AccountName { get; }
         public string Name { get; }
-        public string UIString { get => $"{Name} ({AccountName})"; }
+        public string UIString { get => $"{AccountName} ({Name})"; }
 
         public Account(long iD, string accountName, string name)
         {

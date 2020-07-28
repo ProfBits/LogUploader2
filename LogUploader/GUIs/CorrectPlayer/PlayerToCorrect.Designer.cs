@@ -32,12 +32,12 @@
             this.lblAccountName = new System.Windows.Forms.Label();
             this.gbAccount = new System.Windows.Forms.GroupBox();
             this.gbSettings = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbMember = new System.Windows.Forms.RadioButton();
-            this.rbHelper = new System.Windows.Forms.RadioButton();
-            this.rbLFG = new System.Windows.Forms.RadioButton();
-            this.cbMember = new System.Windows.Forms.ComboBox();
             this.cbHelper = new System.Windows.Forms.ComboBox();
+            this.cbMember = new System.Windows.Forms.ComboBox();
+            this.rbLFG = new System.Windows.Forms.RadioButton();
+            this.rbHelper = new System.Windows.Forms.RadioButton();
+            this.rbMember = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.gbAccount.SuspendLayout();
             this.gbSettings.SuspendLayout();
@@ -87,45 +87,31 @@
             this.gbSettings.Controls.Add(this.rbMember);
             this.gbSettings.Location = new System.Drawing.Point(138, 3);
             this.gbSettings.Name = "gbSettings";
-            this.gbSettings.Size = new System.Drawing.Size(237, 93);
+            this.gbSettings.Size = new System.Drawing.Size(286, 93);
             this.gbSettings.TabIndex = 1;
             this.gbSettings.TabStop = false;
             // 
-            // groupBox1
+            // cbHelper
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.lblStatus);
-            this.groupBox1.Location = new System.Drawing.Point(381, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 12);
-            this.groupBox1.Size = new System.Drawing.Size(92, 93);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
+            this.cbHelper.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbHelper.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbHelper.Enabled = false;
+            this.cbHelper.FormattingEnabled = true;
+            this.cbHelper.Location = new System.Drawing.Point(99, 41);
+            this.cbHelper.Name = "cbHelper";
+            this.cbHelper.Size = new System.Drawing.Size(181, 21);
+            this.cbHelper.TabIndex = 2;
             // 
-            // rbMember
+            // cbMember
             // 
-            this.rbMember.AutoSize = true;
-            this.rbMember.Location = new System.Drawing.Point(6, 19);
-            this.rbMember.Name = "rbMember";
-            this.rbMember.Size = new System.Drawing.Size(63, 17);
-            this.rbMember.TabIndex = 0;
-            this.rbMember.TabStop = true;
-            this.rbMember.Text = "Member";
-            this.rbMember.UseVisualStyleBackColor = true;
-            this.rbMember.CheckedChanged += new System.EventHandler(this.rbMember_CheckedChanged);
-            // 
-            // rbHelper
-            // 
-            this.rbHelper.AutoSize = true;
-            this.rbHelper.Location = new System.Drawing.Point(6, 42);
-            this.rbHelper.Name = "rbHelper";
-            this.rbHelper.Size = new System.Drawing.Size(56, 17);
-            this.rbHelper.TabIndex = 0;
-            this.rbHelper.TabStop = true;
-            this.rbHelper.Text = "Helper";
-            this.rbHelper.UseVisualStyleBackColor = true;
-            this.rbHelper.CheckedChanged += new System.EventHandler(this.rbMember_CheckedChanged);
+            this.cbMember.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbMember.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbMember.Enabled = false;
+            this.cbMember.FormattingEnabled = true;
+            this.cbMember.Location = new System.Drawing.Point(99, 18);
+            this.cbMember.Name = "cbMember";
+            this.cbMember.Size = new System.Drawing.Size(181, 21);
+            this.cbMember.TabIndex = 1;
             // 
             // rbLFG
             // 
@@ -139,25 +125,41 @@
             this.rbLFG.UseVisualStyleBackColor = true;
             this.rbLFG.CheckedChanged += new System.EventHandler(this.rbMember_CheckedChanged);
             // 
-            // cbMember
+            // rbHelper
             // 
-            this.cbMember.Enabled = false;
-            this.cbMember.FormattingEnabled = true;
-            this.cbMember.Location = new System.Drawing.Point(75, 18);
-            this.cbMember.Name = "cbMember";
-            this.cbMember.Size = new System.Drawing.Size(156, 21);
-            this.cbMember.TabIndex = 1;
-            this.cbMember.TextUpdate += new System.EventHandler(this.cbMember_TextUpdate);
+            this.rbHelper.AutoSize = true;
+            this.rbHelper.Location = new System.Drawing.Point(6, 42);
+            this.rbHelper.Name = "rbHelper";
+            this.rbHelper.Size = new System.Drawing.Size(56, 17);
+            this.rbHelper.TabIndex = 0;
+            this.rbHelper.TabStop = true;
+            this.rbHelper.Text = "Helper";
+            this.rbHelper.UseVisualStyleBackColor = true;
+            this.rbHelper.CheckedChanged += new System.EventHandler(this.rbMember_CheckedChanged);
             // 
-            // cbHelper
+            // rbMember
             // 
-            this.cbHelper.Enabled = false;
-            this.cbHelper.FormattingEnabled = true;
-            this.cbHelper.Location = new System.Drawing.Point(75, 41);
-            this.cbHelper.Name = "cbHelper";
-            this.cbHelper.Size = new System.Drawing.Size(156, 21);
-            this.cbHelper.TabIndex = 2;
-            this.cbHelper.TextUpdate += new System.EventHandler(this.cbHelper_TextUpdate);
+            this.rbMember.AutoSize = true;
+            this.rbMember.Location = new System.Drawing.Point(6, 19);
+            this.rbMember.Name = "rbMember";
+            this.rbMember.Size = new System.Drawing.Size(63, 17);
+            this.rbMember.TabIndex = 0;
+            this.rbMember.TabStop = true;
+            this.rbMember.Text = "Member";
+            this.rbMember.UseVisualStyleBackColor = true;
+            this.rbMember.CheckedChanged += new System.EventHandler(this.rbMember_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.lblStatus);
+            this.groupBox1.Location = new System.Drawing.Point(430, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.groupBox1.Size = new System.Drawing.Size(92, 93);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
             // 
             // lblStatus
             // 
@@ -178,7 +180,7 @@
             this.Controls.Add(this.gbSettings);
             this.Controls.Add(this.gbAccount);
             this.Name = "PlayerToCorrect";
-            this.Size = new System.Drawing.Size(476, 99);
+            this.Size = new System.Drawing.Size(525, 99);
             this.gbAccount.ResumeLayout(false);
             this.gbAccount.PerformLayout();
             this.gbSettings.ResumeLayout(false);

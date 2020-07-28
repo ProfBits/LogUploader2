@@ -39,27 +39,26 @@ namespace LogUploader.GUIs.CorrectPlayer
                 case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.MEMBER:
                     rbMember.Checked = true;
                     cbMember.Enabled = true;
+                    cbMember.Visible = true;
                     cbMember.SelectedItem = player.BecomesAccount;
                     break;
                 case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.HELPER:
                     rbHelper.Checked = true;
                     cbHelper.Enabled = true;
-                    cbMember.SelectedItem = player.BecomesAccount;
+                    cbHelper.Visible = true;
+                    cbHelper.SelectedItem = player.BecomesAccount;
                     break;
                 case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.INVITEABLE:
                     rbHelper.Checked = true;
                     cbHelper.Enabled = true;
-                    cbMember.SelectedItem = player.BecomesAccount;
+                    cbHelper.Visible = true;
+                    cbHelper.SelectedItem = player.BecomesAccount;
                     break;
                 case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.LFG:
-                    rbLFG.Enabled = true;
+                    rbLFG.Checked = true;
                     break;
             }
 
-            TimerCBMember.Interval = 2000;
-            TimerCBMember.Tick += (sender, e) => updateDataCbMember();
-            TimerCBHelper.Interval = 2000;
-            TimerCBHelper.Tick += (sender, e) => updateDataCbHelper();
 
             //TODO localize
             lblStatus.Text = "OK";
@@ -91,7 +90,7 @@ namespace LogUploader.GUIs.CorrectPlayer
             cbMember.DataSource = Raid.Players;
 
             cbHelper.DisplayMember = "UIString";
-            cbMember.DataSource = AllHelper;
+            cbHelper.DataSource = AllHelper;
         }
 
         private void ApplyLanguage(ILanguage data)
@@ -106,52 +105,20 @@ namespace LogUploader.GUIs.CorrectPlayer
 
             cbMember.Enabled = false;
             cbHelper.Enabled = false;
+            cbMember.Visible = false;
+            cbHelper.Visible = false;
 
             if (sender == rbMember)
+            {
                 cbMember.Enabled = true;
+                cbMember.Visible = true;
+            }
             else if (sender == rbHelper)
+            {
                 cbHelper.Enabled = true;
-
-        }
-
-        private Timer TimerCBMember = new Timer();
-
-        private void cbMember_TextUpdate(object sender, EventArgs e)
-        {
-            if (cbMember.SelectedText.Length < 3)
-            {
-                cbMember.DataSource = new List<Account>();
-                return;
+                cbHelper.Visible = true;
             }
-            TimerCBMember.Stop();
-            TimerCBMember.Start();
 
-        }
-
-        private void updateDataCbMember()
-        {
-            TimerCBMember.Stop();
-            var items = Raid.Players.Where(p => p.UIString.ToLowerInvariant().Contains(cbMember.SelectedText.ToLowerInvariant())).ToList();
-            cbMember.DataSource = items;
-        }
-
-        private Timer TimerCBHelper = new Timer();
-
-        private void cbHelper_TextUpdate(object sender, EventArgs e)
-        {
-            if (cbHelper.SelectedText.Length < 3)
-            {
-                cbHelper.DataSource = new List<Account>();
-                return;
-            }
-            TimerCBHelper.Stop();
-            TimerCBHelper.Start();
-        }
-        private void updateDataCbHelper()
-        {
-            TimerCBHelper.Stop();
-            var items = AllHelper.Where(p => p.UIString.ToLowerInvariant().Contains(cbHelper.SelectedText.ToLowerInvariant())).ToList();
-            cbHelper.DataSource = items;
         }
     }
 }

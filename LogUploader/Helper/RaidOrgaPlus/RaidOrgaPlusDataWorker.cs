@@ -18,7 +18,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             var encounters = GetEncounters(raid, logs);
             var players = GetAllPlayers(raid, encounters);
             ShowCorrectPlayerUI(players, raid);
-            CorrectPlayers(players);
+            CorrectPlayers(players, encounters);
             UpdateRaidOrgaPlusData(raid, encounters);
 
             return raid;
@@ -90,9 +90,11 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 .ToList();
         }
 
-        private static void CorrectPlayers(List<CheckPlayer> players)
+        private static void CorrectPlayers(List<CheckPlayer> players, List<Encounter> encounters)
         {
-            players.ForEach(p => p.Correct());
+            var lookup = players.ToDictionary(p => p.Player.AccountName, p => p);
+            foreach (var player in encounters.SelectMany(e => e.Players))
+                lookup[player.AccountName].Correct(player);
         }
 
         private static List<CheckPlayer> GetAllPlayers(Raid raid, List<Encounter> encounters)
@@ -153,15 +155,14 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 BecomesType = p.Type;
                 if (a == null)
                     p.Type = PlayerType.LFG;
-
             }
 
-            public void Correct()
+            internal void Correct(CheckedPlayer player)
             {
                 if (BecomesType == PlayerType.LFG)
-                    Player.setLFG();
+                    player.setLFG();
                 else
-                    Player.SetAccount(BecomesAccount, BecomesType);
+                    player.SetAccount(BecomesAccount, BecomesType);
             }
         }
 
@@ -170,7 +171,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
             public List<CheckedPlayer> Players { get; set; } = new List<CheckedPlayer>();
             public Boss Boss { get; set; }
             public TeamComp TC { get; set; }
-            public int CDPS { get; private set; }
 
             public Encounter(TeamComp tc, CachedLog log, Raid r)
             {
@@ -392,7 +392,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 {
                     if (player.Role == Role.Empty)
                     {
-                        if (player.PDPS > CDPS)
+                        if (player.PDPS > player.CDPS)
                             player.Role = Role.Power;
                         player.Role = Role.Condi;
                     }
@@ -434,7 +434,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             internal void RemoveDuplicates()
             {
-                var dupes = TC.Players.GroupBy(p => p.AccName).Where(g => g.Count() > 1);
+                var dupes = TC.Players.Where(p => !(p.IsLFG() || string.IsNullOrEmpty(p.AccName))).GroupBy(p => p.AccName).Where(g => g.Count() > 1);
                 foreach (var dupe in dupes)
                 {
                     var player = Players.Find(p => p.AccountName == dupe.Key);
