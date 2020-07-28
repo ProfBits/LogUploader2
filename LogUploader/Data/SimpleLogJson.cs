@@ -4,24 +4,23 @@ using LogUploader.JSONHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace LogUploader.Data
 {
     class SimpleLogJson : IJSONSerializeable
     {
-        public SimpleLogJson(JSONObject data)
+        public SimpleLogJson(string data)
         {
-            try
-            {
-                Version = (int)data.GetTypedElement<double>("version");
-            }
-            catch (JSONException) { }
-            RecordedBy = data.GetTypedElement<string>("recordedBy");
-            Targets = data.GetTypedList<JSONObject>("targets")
-                .Select(targetData => new SimmpleTarget(targetData))
+            var parsed = JObject.Parse(data);
+            if (parsed.ContainsKey("version"))
+                Version = (int)parsed["version"];
+            RecordedBy = (string)parsed["recordedBy"];
+            Targets = ((JArray)parsed["targets"])
+                .Select(targetData => new SimmpleTarget((JObject)targetData))
                 .ToList();
-            Players = data.GetTypedList<JSONObject>("players")
-                .Select(playerData => new SimplePlayer(playerData))
+            Players = ((JArray)parsed["players"])
+                .Select(playerData => new SimplePlayer((JObject)playerData))
                 .ToList();
         }
 
@@ -63,6 +62,26 @@ namespace LogUploader.Data
             }
         }
 
+        public SimplePlayer(JObject data)
+        {
+            Account = (string)data["account"];
+            Name = (string)data["name"];
+            Profession = (string)data["profession"];
+            Group = (int)data["group"];
+            if (data["dpsAll"] is JArray)
+            {
+                DpsAll = (int)data["dpsAll"][0]["dps"];
+                DpsAllPower = (int)data["dpsAll"][0]["powerDps"];
+                DpsAllCondi = (int)data["dpsAll"][0]["condiDps"];
+            }
+            else
+            {
+                DpsAll = (int)data["allDps"];
+                DpsAllPower = (int)data["allPowerDps"];
+                DpsAllCondi = (int)data["allCondiDps"];
+            }
+        }
+
         public string Account { get; }
         public string Name { get; }
         public string Profession { get; }
@@ -93,6 +112,15 @@ namespace LogUploader.Data
             FinalHealth = (int)data.GetTypedElement<double>("finalHealth");
             FirstAware = (int)data.GetTypedElement<double>("firstAware");
             LastAware = (int)data.GetTypedElement<double>("lastAware");
+        }
+
+        public SimmpleTarget(JObject data)
+        {
+            ID = (int)data["id"];
+            TotalHealth = (int)data["totalHealth"];
+            FinalHealth = (int)data["finalHealth"];
+            FirstAware = (int)data["firstAware"];
+            LastAware = (int)data["lastAware"];
         }
 
         public int ID { get; }

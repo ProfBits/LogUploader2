@@ -265,12 +265,11 @@ namespace LogUploader
             if (!log.DataCorrected)
             {
                 response = DPSReport.GetEncounterDataPermalink(link);
-                jsonData = new JSONHelper.JSONHelper().Desirealize(response);
-                log.UpdateEi(jsonData);
+                log.UpdateEi(response);
 
                 if (string.IsNullOrWhiteSpace(log.JsonPath))
                 {
-                    var simpleLogJson = new SimpleLogJson(jsonData);
+                    var simpleLogJson = new SimpleLogJson(response);
                     var evtcName = Path.GetFileName(log.EvtcPath);
                     var newjson = EliteInsights.LogsPath + evtcName.Substring(0, evtcName.LastIndexOf('.')) + "_simple.json";
                     GP.WriteJsonFile(newjson, simpleLogJson.GetJSONObject().ToString());
@@ -313,13 +312,11 @@ namespace LogUploader
             if (!log.DataCorrected)
             {
                 var jsonStr = GP.ReadJsonFile(json);
-                var jsonData = new JSONHelper.JSONHelper().Desirealize(jsonStr);
-
-                log.UpdateEi(jsonData);
+                log.UpdateEi(jsonStr);
 
                 if (string.IsNullOrWhiteSpace(log.JsonPath))
                 {
-                    var simpleLogJson = new SimpleLogJson(jsonData);
+                    var simpleLogJson = new SimpleLogJson(jsonStr);
                     var newjson = json.Substring(0, json.Length - ".json".Length) + "_simple.json";
                     GP.WriteJsonFile(newjson, simpleLogJson.GetJSONObject().ToString());
                     log.JsonPath = newjson;
@@ -607,7 +604,7 @@ namespace LogUploader
             try {
                 await WebHookHelper.PostWebHookPosts(webHook, posts, Settings);
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 //TODO localize
                 MessageBox.Show(string.Format(Language.Data.MiscDiscordPostErrMsg, webHook.Name),
@@ -773,8 +770,7 @@ namespace LogUploader
                 if (!File.Exists(log.JsonPath))
                     return log;
                 var jsonStr = GP.ReadJsonFile(log.JsonPath);
-                var jsonData = new JSONHelper.JSONHelper().Desirealize(jsonStr);
-                var simpleLogJson = new SimpleLogJson(jsonData);
+                var simpleLogJson = new SimpleLogJson(jsonStr);
                 log.Players = simpleLogJson.Players
                     .Select(p => new CachedPlayer(p.Account, p.Name, Profession.Get(p.Profession), (byte) p.Group, p.DpsAll, p.DpsAllPower, p.DpsAllCondi))
                     .ToList();

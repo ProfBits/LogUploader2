@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace LogUploader
 {
@@ -31,16 +32,19 @@ namespace LogUploader
             CDPS = cDPS;
         }
 
-        public CachedPlayer(JSONObject data)
+        public CachedPlayer(string json) : this(JObject.Parse(json))
+        { }
+
+        public CachedPlayer(JObject data)
         {
-            AccountName = data.GetTypedElement<string>("account");
-            CharakterName = data.GetTypedElement<string>("name");
-            Class = Profession.Get(data.GetTypedElement<string>("profession"));
-            SubGroup = (byte) data.GetTypedElement<double>("group");
+            AccountName = (string)data["account"];
+            CharakterName = (string)data["name"];
+            Class = Profession.Get((string)data["profession"]);
+            SubGroup = (byte)data["group"];
 
             try
             {
-                DPS = (int)data.GetTypedList<JSONObject>("dpsAll")[0].GetTypedElement<double>("dps");
+                DPS = (int)data["dpsAll"][0]["dps"];
             }
             catch (IndexOutOfRangeException)
             {
@@ -48,7 +52,7 @@ namespace LogUploader
             }
             try
             {
-                PDPS = (int)data.GetTypedElement<double>("dpsAll[0]/powerDps");
+                PDPS = (int)data["dpsAll"][0]["powerDps"];
             }
             catch (IndexOutOfRangeException)
             {
@@ -56,13 +60,12 @@ namespace LogUploader
             }
             try
             {
-                CDPS = (int)data.GetTypedElement<double>("dpsAll[0]/condiDps");
+                CDPS = (int)data["dpsAll"][0]["condiDps"];
             }
             catch (IndexOutOfRangeException)
             {
                 CDPS = 0;
             }
-
         }
     }
 }

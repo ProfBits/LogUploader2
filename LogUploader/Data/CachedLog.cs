@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace LogUploader.Data
 {
@@ -53,7 +54,7 @@ namespace LogUploader.Data
                 Players = players;
         }
 
-        public CachedLog(int iD, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, JSONObject data)
+        public CachedLog(int iD, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, JObject data)
         {
             ID = iD;
             EvtcPath = evtcPath;
@@ -64,10 +65,11 @@ namespace LogUploader.Data
             UpdateEi(data);
         }
 
-        private DateTime GetDate(JSONObject data)
+        private DateTime GetDate(string dateStr)
         {
             DateTime date;
-            if (DateTime.TryParse(data.GetTypedElement<string>("timeStartStd"), out date)){
+            if (DateTime.TryParse(dateStr, out date))
+            {
                 return date;
             }
             //TODO check this
@@ -82,13 +84,13 @@ namespace LogUploader.Data
             return DateTime.Now;
         }
 
-        private float getRemainingHealth(List<JSONObject> list, int bossID)
+        private float getRemainingHealth(JArray list, int bossID)
         {
             var data = list.Select(target => new
             {
-                id = (int)target.GetTypedElement<double>("id"),
-                totalHealth = (int)target.GetTypedElement<double>("totalHealth"),
-                finalHealth = (int)target.GetTypedElement<double>("finalHealth")
+                id = (int)target["id"],
+                totalHealth = (int)target["totalHealth"],
+                finalHealth = (int)target["finalHealth"]
             });
 
             switch (bossID)
@@ -125,9 +127,9 @@ namespace LogUploader.Data
             }
         }
 
-        private IReadOnlyList<CachedPlayer> ParsePlayers(List<JSONObject> playerRawData)
+        private IReadOnlyList<CachedPlayer> ParsePlayers(JArray playerRawData)
         {
-            return playerRawData.Select(data => new CachedPlayer(data)).ToList();
+            return playerRawData.Select(data => new CachedPlayer((JObject)data)).ToList();
         }
 
         public CachedLog(int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date)
@@ -169,22 +171,22 @@ namespace LogUploader.Data
         {
         }
 
-        public void UpdateEi(JSONObject data)
+        public void UpdateEi(string json) => UpdateEi(JObject.Parse(json));
+        public void UpdateEi(JObject data)
         {
-            BossID = (int)data.GetTypedElement<double>("triggerID");
+            BossID = (int)data["triggerID"];
 
-            Date = GetDate(data);
+            Date = GetDate((string)data["timeStartStd"]);
             DataCorrected = true;
-            Duration = GetDuration(data);
-            Succsess = data.GetTypedElement<bool>("success");
-            RemainingHealth = getRemainingHealth(data.GetTypedList<JSONObject>("targets"), BossID);
-            IsCM = data.GetTypedElement<bool>("isCM");
-            Players = ParsePlayers(data.GetTypedList<JSONObject>("players"));
+            Duration = GetDuration((string)data["duration"]);
+            Succsess = (bool)data["success"];
+            RemainingHealth = getRemainingHealth((JArray)data["targets"], BossID);
+            IsCM = (bool)data["isCM"];
+            Players = ParsePlayers((JArray)data["players"]);
         }
 
-        private static TimeSpan GetDuration(JSONObject data)
+        private static TimeSpan GetDuration(string durationStr)
         {
-            var durationStr = data.GetTypedElement<string>("duration");
             try
             {
                 return TimeSpan.ParseExact(durationStr, "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
@@ -208,17 +210,17 @@ namespace LogUploader.Data
             }
         }
 
-        public void UpdateDpsReport(JSONObject data)
+        public void UpdateDpsReport(JObject data)
         {
-            BossID = (int)data.GetTypedElement<double>("triggerID");
+            BossID = (int)data["triggerID"];
 
-            Date = GetDate(data);
+            Date = GetDate((string)data["timeStartStd"]);
             DataCorrected = true;
-            Duration = TimeSpan.ParseExact(data.GetTypedElement<string>("duration"), "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
-            Succsess = data.GetTypedElement<bool>("success");
-            RemainingHealth = getRemainingHealth(data.GetTypedList<JSONObject>("targets"), BossID);
-            IsCM = data.GetTypedElement<bool>("isCM");
-            Players = ParsePlayers(data.GetTypedList<JSONObject>("players"));
+            Duration = TimeSpan.ParseExact((string)data["duration"], "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
+            Succsess = (bool)data["success"];
+            RemainingHealth = getRemainingHealth((JArray)data["targets"], BossID);
+            IsCM = (bool)data["isCM"];
+            Players = ParsePlayers((JArray)data["players"]);
         }
 
         public DBLog GetDBLog()
