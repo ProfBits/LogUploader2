@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using LogUploader.Data.GameAreas;
 using LogUploader.Data;
-using LogUploader.JSONHelper;
 
 using Newtonsoft.Json.Linq;
 

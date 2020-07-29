@@ -1,6 +1,4 @@
 ﻿using LogUploader.Interfaces;
-using LogUploader.JSONHelper;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

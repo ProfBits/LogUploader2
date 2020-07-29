@@ -256,7 +256,6 @@
     <Compile Include="GUIs\InitConfigUI.Designer.cs">
       <DependentUpon>InitConfigUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Interfaces\IDiscordPostGen.cs" />
     <Compile Include="Language\BaseLanguage.cs" />
     <Compile Include="Language\English.cs" />

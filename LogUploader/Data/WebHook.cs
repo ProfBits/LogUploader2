@@ -55,7 +55,7 @@ namespace LogUploader.Data
             {
                 Format = (eDiscordPostFormat)Enum.Parse(typeof(eDiscordPostFormat), value);
             }
-            catch (Exception e) when (e is JSONHelper.JSONException || e is InvalidCastException || e is ArgumentException)
+            catch (Exception e) when (e is InvalidCastException || e is ArgumentException)
             {
                 Format = DEFAULT_FROMAT;
             }

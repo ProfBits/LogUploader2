@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using LogUploader.JSONHelper;
 using LogUploader.Interfaces;
 
 using Newtonsoft.Json;

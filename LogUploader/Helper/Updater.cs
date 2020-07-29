@@ -1,6 +1,5 @@
 ﻿using LogUploader.Data;
 using LogUploader.Data.Settings;
-using LogUploader.JSONHelper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

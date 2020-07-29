@@ -1,5 +1,4 @@
-﻿using LogUploader.JSONHelper;
-using LogUploader.Languages;
+﻿using LogUploader.Languages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

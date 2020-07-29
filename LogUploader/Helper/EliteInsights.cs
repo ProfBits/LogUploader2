@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogUploader.Properties;
-using LogUploader.JSONHelper;
 using System.IO.Compression;
 using System.Reflection;
 using System.Net;
