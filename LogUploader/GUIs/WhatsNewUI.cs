@@ -113,8 +113,8 @@ line-height: 1.5;
                 Close();
                 return;
             }
-            var data = new JSONHelper.JSONHelper().Desirealize(res);
-            var patchnotes = data.GetTypedElement<string>("body");
+            var data = Newtonsoft.Json.Linq.JObject.Parse(res);
+            var patchnotes = (string)data["body"];
             var htmlNotes = CommonMark.CommonMarkConverter.Convert(patchnotes);
             var html = HTML_PART_A + htmlNotes + HTML_PART_B;
             webBrowser1.DocumentText = html;

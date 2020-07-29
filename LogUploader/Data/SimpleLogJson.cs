@@ -10,9 +10,12 @@ namespace LogUploader.Data
 {
     class SimpleLogJson : IJSONSerializeable
     {
-        public SimpleLogJson(string data)
+        public SimpleLogJson(string data) : this(JObject.Parse(data))
         {
-            var parsed = JObject.Parse(data);
+        }
+
+        public SimpleLogJson(JObject parsed)
+        {
             if (parsed.ContainsKey("version"))
                 Version = (int)parsed["version"];
             RecordedBy = (string)parsed["recordedBy"];

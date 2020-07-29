@@ -35,8 +35,8 @@ namespace LogUploader.Helper
                 }
             }
             progress?.Report(0.5);
-            var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
-            var tag = jsonData.GetTypedElement<string>("tag_name").TrimStart('v', 'V');
+            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
+            var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
             progress?.Report(0.9);
             var gitHubVersion = new Version(tag);
             return gitHubVersion;
@@ -75,10 +75,10 @@ namespace LogUploader.Helper
             using (var wc = GetWebClient(settings))
             {
                 var res = await wc.DownloadStringTaskAsync(GitHubApiLink);
-                var data = new JSONHelper.JSONHelper().Desirealize(res);
-                var installerUrl = data.GetTypedList<JSONObject>("assets")
-                    .Where(json => json.GetTypedElement<string>("name") == "installer.exe")
-                    .Select(json => json.GetTypedElement<string>("browser_download_url"))
+                var data = Newtonsoft.Json.Linq.JObject.Parse(res);
+                var installerUrl = data["assets"]
+                    .Where(json => (string)json["name"] == "installer.exe")
+                    .Select(json => (string)json["browser_download_url"])
                     .First();
                 if (File.Exists(path))
                     File.Delete(path);

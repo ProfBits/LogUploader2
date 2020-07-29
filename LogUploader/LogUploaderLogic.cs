@@ -258,10 +258,10 @@ namespace LogUploader
                 return log;
             }
             var response = DPSReport.UpladContent(log.EvtcPath);
-            var jsonData = new JSONHelper.JSONHelper().Desirealize(response);
-            if (jsonData.Values.ContainsKey("Error"))
+            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(response);
+            if (jsonData.ContainsKey("Error"))
                 throw new Exception($"Could not upload the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}\n\nResponse: \"{jsonData.GetTypedElement<string>("Error")}\"");
-            var link = jsonData.GetTypedElement<string>("permalink");
+            var link = (string)jsonData["permalink"];
             if (!log.DataCorrected)
             {
                 response = DPSReport.GetEncounterDataPermalink(link);

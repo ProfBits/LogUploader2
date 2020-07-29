@@ -72,8 +72,8 @@ namespace LogUploader.Helper
                 }
             }
             progress?.Report(0.5);
-            var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
-            var tag = jsonData.GetTypedElement<string>("tag_name").TrimStart('v', 'V');
+            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
+            var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
             progress?.Report(0.9);
             NewestVersion = new Version(tag);
             return NewestVersion;
@@ -102,11 +102,12 @@ namespace LogUploader.Helper
                     {
                         var res = wc.DownloadString(GitHubApiLink);
                         progress?.Report(0.15);
-                        var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
+                        //var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
+                        var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
                         progress?.Report(0.20);
-                        var gw2EiZipURL = jsonData.GetTypedList<JSONObject>("assets")
-                            .Where(json => json.GetTypedElement<string>("name") == "GW2EI.zip")
-                            .Select(json => json.GetTypedElement<string>("browser_download_url"))
+                        var gw2EiZipURL = jsonData["assets"]
+                            .Where(json => (string)json["name"] == "GW2EI.zip")
+                            .Select(json => (string)json["browser_download_url"])
                             .First();
                         wc.DownloadFile(gw2EiZipURL, ZipFilePath);
                     }
