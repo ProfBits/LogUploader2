@@ -8,11 +8,17 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace LogUploader.Helpers
 {
     internal partial class WebHookDB
     {
+        [JsonIgnore]
         private readonly Dictionary<long, WebHook> Data = new Dictionary<long, WebHook>();
+        [JsonProperty("WebHooks")]
+        public List<WebHook> WebHooks { get => Data.Values.ToList(); }
 
         public WebHookDB(string RawData)
         {
@@ -21,10 +27,10 @@ namespace LogUploader.Helpers
 
             string data = SettingsHelper.UnprotectString(RawData);
 
-            var root = new JSONHelper.JSONHelper().Desirealize(data);
-            var webhooks = root.GetListElement("WebHooks").Cast<JSONHelper.JSONObject>();
+            var root = JObject.Parse(data);
+            var webhooks = (JArray)root["WebHooks"];
             
-            foreach(var webhook in webhooks)
+            foreach(JObject webhook in webhooks)
             {
                 var webhookData = new WebHook(webhook);
                 Data.Add(webhookData.ID, webhookData);
@@ -39,9 +45,7 @@ namespace LogUploader.Helpers
 
         public override string ToString()
         {
-            var root = new JSONHelper.JSONObject();
-            root.Values.Add("WebHooks", Data.Values.Select(webHook => (object) webHook.ToJsonObject()).ToList());
-            return root.ToString();
+            return JsonConvert.SerializeObject(this);
         }
 
         public WebHook this[string alias]

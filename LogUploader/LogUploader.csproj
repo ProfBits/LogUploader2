@@ -191,7 +191,6 @@
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusDataWorker.cs" />
     <Compile Include="Helper\DiscordPostGen\PerWingWithClasses.cs" />
     <Compile Include="Helper\Updater.cs" />
-    <Compile Include="Interfaces\IJSONSerializeable.cs" />
     <Compile Include="Data\LogPreview.cs" />
     <Compile Include="Data\Profession.cs" />
     <Compile Include="Data\SimpleLogJson.cs" />
