@@ -260,7 +260,7 @@ namespace LogUploader
             var response = DPSReport.UpladContent(log.EvtcPath);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(response);
             if (jsonData.ContainsKey("Error"))
-                throw new Exception($"Could not upload the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}\n\nResponse: \"{jsonData.GetTypedElement<string>("Error")}\"");
+                throw new Exception($"Could not upload the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}\n\nResponse: \"{(string)jsonData["Error"]}\"");
             var link = (string)jsonData["permalink"];
             if (!log.DataCorrected)
             {
@@ -272,7 +272,7 @@ namespace LogUploader
                     var simpleLogJson = new SimpleLogJson(response);
                     var evtcName = Path.GetFileName(log.EvtcPath);
                     var newjson = EliteInsights.LogsPath + evtcName.Substring(0, evtcName.LastIndexOf('.')) + "_simple.json";
-                    GP.WriteJsonFile(newjson, simpleLogJson.GetJSONObject().ToString());
+                    GP.WriteJsonFile(newjson, simpleLogJson.ToString());
                     log.JsonPath = newjson;
                 }
             }
@@ -318,7 +318,7 @@ namespace LogUploader
                 {
                     var simpleLogJson = new SimpleLogJson(jsonStr);
                     var newjson = json.Substring(0, json.Length - ".json".Length) + "_simple.json";
-                    GP.WriteJsonFile(newjson, simpleLogJson.GetJSONObject().ToString());
+                    GP.WriteJsonFile(newjson, simpleLogJson.ToString());
                     log.JsonPath = newjson;
                 }
 

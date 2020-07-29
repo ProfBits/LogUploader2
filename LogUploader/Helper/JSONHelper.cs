@@ -389,6 +389,8 @@ namespace LogUploader.JSONHelper
     {
         public Dictionary<string, object> Values { get; } = new Dictionary<string, object>();
 
+        public JSONObject() { }
+
         public object GetElement(string path)
         {
             var processedPath = SplitPath(path);

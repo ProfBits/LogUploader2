@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace LogUploader.Data
 {
-    class SimpleLogJson : IJSONSerializeable
+    class SimpleLogJson
     {
         public SimpleLogJson(string data) : this(JObject.Parse(data))
         {
@@ -27,45 +28,27 @@ namespace LogUploader.Data
                 .ToList();
         }
 
+        [JsonProperty("recordedBy")]
         public string RecordedBy { get; }
+
+        [JsonProperty("targets")]
         public List<SimmpleTarget> Targets { get; }
+
+        [JsonProperty("players")]
         public List<SimplePlayer> Players { get; }
+
+        [JsonProperty("version")]
         public int Version { get; } = 1;
 
-        public JSONObject GetJSONObject()
+        public override string ToString()
         {
-            var json = new JSONObject();
-            json.Values.Add("version", Version);
-            json.Values.Add("recordedBy", RecordedBy);
-            json.Values.Add("targets", Targets.Select(target => (object) target.GetJSONObject()).ToList());
-            json.Values.Add("players", Players.Select(player => (object) player.GetJSONObject()).ToList());
-            return json;
+            return JsonConvert.SerializeObject(this);
         }
 
     }
-    public class SimplePlayer : IJSONSerializeable
-    {
-        //TODO update in Ro+Branch
-        public SimplePlayer(JSONObject data)
-        {
-            Account = data.GetTypedElement<string>("account");
-            Name = data.GetTypedElement<string>("name");
-            Profession = data.GetTypedElement<string>("profession");
-            Group = (int)data.GetTypedElement<double>("group");
-            try
-            {
-                DpsAll = (int)data.GetTypedElement<double>("dpsAll[0]/dps");
-                DpsAllPower = (int)data.GetTypedElement<double>("dpsAll[0]/powerDps");
-                DpsAllCondi = (int)data.GetTypedElement<double>("dpsAll[0]/condiDps");
-            }
-            catch (JSONException)
-            {
-                DpsAll = (int)data.GetTypedElement<double>("allDps");
-                DpsAllPower = (int)data.GetTypedElement<double>("allPowerDps");
-                DpsAllCondi = (int)data.GetTypedElement<double>("allCondiDps");
-            }
-        }
 
+    public class SimplePlayer
+    {
         public SimplePlayer(JObject data)
         {
             Account = (string)data["account"];
@@ -86,38 +69,35 @@ namespace LogUploader.Data
             }
         }
 
+
+        [JsonProperty("account")]
         public string Account { get; }
+
+        [JsonProperty("name")]
         public string Name { get; }
+
+        [JsonProperty("profession")]
         public string Profession { get; }
+
+        [JsonProperty("group")]
         public int Group { get; }
+
+        [JsonProperty("allDps")]
         public int DpsAll { get; }
+
+        [JsonProperty("allPowerDps")]
         public int DpsAllPower { get; }
+
+        [JsonProperty("allCondiDps")]
         public int DpsAllCondi { get; }
 
-        public JSONObject GetJSONObject()
+        public override string ToString()
         {
-            var json = new JSONObject();
-            json.Values.Add("account", Account);
-            json.Values.Add("name", Name);
-            json.Values.Add("profession", Profession);
-            json.Values.Add("group", Group);
-            json.Values.Add("allDps", DpsAll);
-            json.Values.Add("allPowerDps", DpsAllPower);
-            json.Values.Add("allCondiDps", DpsAllCondi);
-            return json;
+            return JsonConvert.SerializeObject(this);
         }
     }
-    public class SimmpleTarget : IJSONSerializeable
+    public class SimmpleTarget
     {
-        public SimmpleTarget(JSONObject data)
-        {
-            ID = (int)data.GetTypedElement<double>("id");
-            TotalHealth = (int)data.GetTypedElement<double>("totalHealth");
-            FinalHealth = (int)data.GetTypedElement<double>("finalHealth");
-            FirstAware = (int)data.GetTypedElement<double>("firstAware");
-            LastAware = (int)data.GetTypedElement<double>("lastAware");
-        }
-
         public SimmpleTarget(JObject data)
         {
             ID = (int)data["id"];
@@ -127,21 +107,25 @@ namespace LogUploader.Data
             LastAware = (int)data["lastAware"];
         }
 
+
+        [JsonProperty("id")]
         public int ID { get; }
+
+        [JsonProperty("totalHealth")]
         public int TotalHealth { get; }
+
+        [JsonProperty("finalHealth")]
         public int FinalHealth { get; }
+
+        [JsonProperty("firstAware")]
         public int FirstAware { get; }
+
+        [JsonProperty("lastAware")]
         public int LastAware { get; }
 
-        public JSONObject GetJSONObject()
+        public override string ToString()
         {
-            var json = new JSONObject();
-            json.Values.Add("id", ID);
-            json.Values.Add("totalHealth", TotalHealth);
-            json.Values.Add("finalHealth", FinalHealth);
-            json.Values.Add("firstAware", FirstAware);
-            json.Values.Add("lastAware", LastAware);
-            return json;
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

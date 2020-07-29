@@ -95,8 +95,8 @@ namespace LogUploader
 
             GC.Collect();
 
-            RoPlusTesting.Run(((LogUploaderUI2)ui).DEBUGgetLogic());
-            Environment.Exit(42);
+            //RoPlusTesting.Run(((LogUploaderUI2)ui).DEBUGgetLogic());
+            //Environment.Exit(42);
 
             if (ui == null)
                 return;
