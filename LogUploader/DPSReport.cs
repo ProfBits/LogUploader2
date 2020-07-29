@@ -168,7 +168,7 @@ namespace LogUploader
         private MyWebClient GetWebClient(IProxySettings settings)
         {
             var mywc = new MyWebClient();
-            mywc = Helpers.WebHelper.ConfigureWebClientProxy(mywc, settings);
+            mywc = Helper.WebHelper.ConfigureWebClientProxy(mywc, settings);
             return mywc;
         }
     }

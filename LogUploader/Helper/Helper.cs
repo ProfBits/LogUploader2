@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helpers
+namespace LogUploader.Helper
 {
     /// <summary>
     /// A general purpose helper for various tasks

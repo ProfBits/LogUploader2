@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helpers
+namespace LogUploader.Helper
 {
     public static class EnumHelper
     {

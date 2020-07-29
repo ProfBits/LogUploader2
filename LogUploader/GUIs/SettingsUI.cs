@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogUploader.Properties;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 using Extensiones;
 using LogUploader.Languages;
 using LogUploader.Data.Settings;

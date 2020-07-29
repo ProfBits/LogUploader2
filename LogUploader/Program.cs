@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 using LogUploader.Properties;
 using LogUploader.Languages;
 using System.Reflection;

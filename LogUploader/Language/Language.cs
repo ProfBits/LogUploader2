@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using LogUploader;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 
 namespace LogUploader.Languages
 {

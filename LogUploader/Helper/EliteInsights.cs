@@ -157,7 +157,7 @@ namespace LogUploader.Helper
 
         private static WebClient GetWebClient(IProxySettings settings)
         {
-            var wc = Helpers.WebHelper.GetWebClient(settings);
+            var wc = Helper.WebHelper.GetWebClient(settings);
             wc.Headers.Add(HttpRequestHeader.UserAgent, USER_AGENT);
             return wc;
         }

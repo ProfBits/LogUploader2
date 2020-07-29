@@ -3,7 +3,7 @@ using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Helper;
 using LogUploader.Helper.JobQueue;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 using LogUploader.Languages;
 using LogUploader.Properties;
 

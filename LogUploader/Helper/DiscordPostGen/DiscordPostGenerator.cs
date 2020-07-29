@@ -1,7 +1,7 @@
 ﻿using LogUploader.Data;
 using LogUploader.Data.GameAreas;
 using LogUploader.Data.Settings;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 using LogUploader.Interfaces;
 using LogUploader.Languages;
 using System;

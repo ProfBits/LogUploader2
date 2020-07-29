@@ -32,7 +32,7 @@ namespace LogUploader.GUIs
             cmbFormat.ValueMember = "val";
             cmbFormat.DisplayMember = "name";
             cmbFormat.DataSource = 
-                Helpers.EnumHelper.GetValues<eDiscordPostFormat>()
+                Helper.EnumHelper.GetValues<eDiscordPostFormat>()
                 .Select(f => new { val = f, name = f.GetAttribute<ObjectName>().Name })
                 .ToList();
 

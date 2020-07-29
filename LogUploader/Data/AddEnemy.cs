@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using LogUploader.Data.GameAreas;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 
 namespace LogUploader.Data
 {

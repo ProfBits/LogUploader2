@@ -101,7 +101,7 @@ line-height: 1.5;
         private async Task LoadData(IProxySettings settings, string version)
         {
             await Task.Delay(500);
-            var wc = Helpers.WebHelper.GetWebClient(settings);
+            var wc = Helper.WebHelper.GetWebClient(settings);
             wc.Headers.Add(System.Net.HttpRequestHeader.UserAgent, "LogUploader");
             string res;
             try

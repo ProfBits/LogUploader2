@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using LogUploader.Data.Settings;
 using LogUploader.Properties;
 
-namespace LogUploader.Helpers
+namespace LogUploader.Helper
 {
     class WebHelper
     {

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace LogUploader.Helpers
+namespace LogUploader.Helper
 {
     internal partial class WebHookDB
     {
