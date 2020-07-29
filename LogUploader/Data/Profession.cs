@@ -67,16 +67,16 @@ namespace LogUploader.Data
             var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var strData = Helpers.GP.ReadJsonFile(path);
             progress?.Report(25);
-            var jsonData = new JSONHelper.JSONHelper().Desirealize(strData);
+            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(strData);
             progress?.Report(50);
-            var profList = jsonData.GetTypedList<JSONObject>("Professions");
+            var profList = (Newtonsoft.Json.Linq.JArray)jsonData["Professions"];
             Professions = profList.Select(json =>
             {
-                string nameEN = json.GetTypedElement<string>("NameEN");
-                string nameDE = json.GetTypedElement<string>("NameDE");
-                string iconPath = exePath + json.GetTypedElement<string>("IconPath");
-                string emote = json.GetTypedElement<string>("Emote");
-                int raidOrgaPlusID = (int) json.GetTypedElement<double>("RaidOrgaPlusID");
+                string nameEN = (string)json["NameEN"];
+                string nameDE = (string)json["NameDE"];
+                string iconPath = exePath + (string)json["IconPath"];
+                string emote = (string)json["Emote"];
+                int raidOrgaPlusID = (int) json["RaidOrgaPlusID"];
 
                 return new Profession(nameEN, nameDE, iconPath, emote, raidOrgaPlusID);
             })

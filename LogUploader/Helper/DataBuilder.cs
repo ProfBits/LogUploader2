@@ -74,9 +74,9 @@ namespace LogUploader.Helper
             return JObject.Parse(json);
         }
 
-        private static async Task<JSONHelper.JSONObject> ParseJsonAsync(string json)
+        private static async Task<JObject> ParseJsonAsync(string json)
         {
-            return await Task.Run(() => new JSONHelper.JSONHelper().Desirealize(json));
+            return await Task.Run(() => JObject.Parse(json));
         }
 
         private static void CreateAreas(JObject gameAreaData)
