@@ -245,19 +245,38 @@ namespace LogUploader.Helper.RaidOrgaPlus
             }
         }
 
-        //TODO implement sender
         public void SetRaid(Session session, Raid raid)
         {
-            
+            foreach (var helper in raid.ToInvite)
+            {
+                ToggleHelper(session, raid.TerminID, helper.ID);
+            }
+
+            var httpWebRequest = GetPostRequest(@"https://sv.sollunad.de:8080/api/aufstellungen", session.UserAgent);
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
+            {
+                string json = $@"{{
+""session"":""{session.Token}"",
+""body"":{raid.ToString()}}}";
+
+                streamWriter.Write(json);
+
+                string response;
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                    response = streamReader.ReadToEnd();
+            }
         }
 
-        public void ToggleHelper(Session session, int raidID, int userID)
+        public void ToggleHelper(Session session, long terminID, long userID)
         {
             var httpWebRequest = GetPostRequest("https://sv.sollunad.de:8080/termine/ersatz", session.UserAgent);
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {
-                string json = $@"{{""auth"":""{session.Token}"",""termin"":{raidID},""user"":{userID}}}";
+                string json = $@"{{""auth"":""{session.Token}"",""termin"":{terminID},""user"":{userID}}}";
 
                 streamWriter.Write(json);
             }

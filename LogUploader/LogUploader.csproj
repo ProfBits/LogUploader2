@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes.cs" />
-    <Compile Include="CachedPlayer.cs" />
+    <Compile Include="Data\CachedPlayer.cs" />
     <Compile Include="Data\AddEnemy.cs" />
     <Compile Include="Data\Boss.cs" />
     <Compile Include="Data\CachedLog.cs" />
@@ -235,7 +235,7 @@
     <Compile Include="Data\NamedObject.cs" />
     <Compile Include="Data\GameAreas\Training.cs" />
     <Compile Include="Data\GameAreas\WvW.cs" />
-    <Compile Include="DPSReport.cs" />
+    <Compile Include="Helper\DPSReport.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helper\DataBuilder.cs" />
     <Compile Include="Helper\DiscordPostGen\DetaildGenerator.cs" />

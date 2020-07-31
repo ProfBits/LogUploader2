@@ -194,12 +194,15 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         //TODO
                         goto default;
                     case 22000: //Qadim2
-                        if (GuessDoubleChrono()) ;
-                        else if (GuessFireBrigadeChrono()) ;
-                        else if (GuessFireBrigade()) ;
-                        else GenericGuesses();
+                        if (!(GuessDoubleChrono() || GuessFireBrigadeChrono() || GuessFireBrigade()))
+                            GenericGuesses();
                         SetQadim2Pylons();
                         break;
+                    case 19767: //SH
+                        if (GuessSoulessHorror())
+                            break;
+                        goto default;
+
 
                     //Boonthive bosses
                     case 16115: //Mathias
@@ -224,26 +227,28 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case 17194: //Carin
                     case 17188: //Samarog
                     case 43974: //CA
-                        if (GuessDoubleChrono(false))
-                            return;
-                        else if (GuessFireBrigadeChrono(false))
-                            return;
-                        else if (GuessFireBrigade(false))
+                        if (GuessDoubleChrono(false) || GuessFireBrigadeChrono(false) || GuessFireBrigade(false))
                             return;
                         GenericGuesses(false);
                         return;
 
                     default:
-                        if (GuessDoubleChrono())
-                            return;
-                        else if (GuessFireBrigadeChrono())
-                            return;
-                        else if (GuessFireBrigade())
+                        if (GuessDoubleChrono() || GuessFireBrigadeChrono() || GuessFireBrigade())
                             return;
                         GenericGuesses();
                         return;
                 }
 
+            }
+
+            private bool GuessSoulessHorror()
+            {
+                if (GuessDoubleChrono())
+                {
+                    Players.OrderBy(p => p.DPS).First(p => p.Class.RaidOrgaPlusID == 11 && p.Role == Role.Utility).Role = Role.Tank;
+                    return true;
+                }
+                return false;
             }
 
             private void GuessRiver()

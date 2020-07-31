@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using LogUploader.Data.Settings;
 using LogUploader.Properties;
 
-namespace LogUploader
+namespace LogUploader.Helper
 {
     public class DPSReport
     {
         internal string UserToken { private get; set; } = "";
         private IProxySettings Settings { get; set; }
 
-        private const string BaseAddress = @"http://a.dps.report";
+        private const string BaseAddress = @"https://b.dps.report";
 
         internal DPSReport(IProxySettings settings)
         {

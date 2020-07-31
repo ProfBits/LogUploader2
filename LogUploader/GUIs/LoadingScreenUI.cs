@@ -102,7 +102,9 @@ namespace LogUploader.GUI
         private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             await Task.Delay(250);
-            await StartSequenc(progress, m_cts.Token);
+            var task = StartSequenc(progress, m_cts.Token);
+            m_startSequence = task;
+            await task;
             ((IProgress<ProgressMessage>)progress).Report(new ProgressMessage(0.99, "Finishing up..."));
             await Task.Delay(250);
             Action a = Close;

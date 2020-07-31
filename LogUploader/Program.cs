@@ -13,7 +13,6 @@ using LogUploader.GUI;
 using LogUploader.Data;
 using System.Threading.Tasks;
 using System.Threading;
-using LogUploader.Helper;
 using LogUploader.GUIs;
 using LogUploader.Data.Settings;
 using System.Xml.Serialization;
