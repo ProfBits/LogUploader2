@@ -88,5 +88,11 @@
     <Setting Name="WhatsNewShown" Type="System.String" Scope="User">
       <Value Profile="(Default)">v0.0.0</Value>
     </Setting>
+    <Setting Name="RopUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RopPwd" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

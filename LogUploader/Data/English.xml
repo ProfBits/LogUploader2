@@ -132,6 +132,9 @@ Add a new one!</configDiscordNoHooks>
 This will permanently delete your current settings!</configDefaultMsgText>
   <configDiscardMsgTitel>Discard Changes?</configDiscardMsgTitel>
   <configDiscardMsgText>Continue without saving?</configDiscardMsgText>
+  <configRoPlusTitle>RaidOrga+</configRoPlusTitle>
+  <configRoPlusUser>User</configRoPlusUser>
+  <configRoPlusPwd>Password</configRoPlusPwd>
   <newTitle>What's new in </newTitle>
   <newHeading>Patchnotes</newHeading>
   <newClose>Close</newClose>
@@ -151,4 +154,7 @@ Make sure
 - if an avatar is specified to check its link
 - you are connected to the internet</miscDiscordPostErrMsg>
   <miscDetailsMultibleBosses>Multiple</miscDetailsMultibleBosses>
+  <miscRaidOrgaPlusNoAccount>No account configured</miscRaidOrgaPlusNoAccount>
+  <miscRaidOrgaPlusLoginErr>Login faild</miscRaidOrgaPlusLoginErr>
+  <miscRaidOrgaPlusNoRaid>No raid with leader permission</miscRaidOrgaPlusNoRaid>
 </XMLLanguage>

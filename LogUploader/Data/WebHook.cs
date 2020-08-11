@@ -35,7 +35,7 @@ namespace LogUploader.Data
             URL = (string)WebHookJson["url"];
             Name = (string)WebHookJson["name"];
             SetFormat((string)WebHookJson["format"]);
-            avaturURL = (string)WebHookJson["avatarURL"] ?? DEFAULT_AVATAR_URL;
+            AvatarURL = (string)WebHookJson["avatarURL"] ?? DEFAULT_AVATAR_URL;
         }
 
         [JsonProperty("url")]

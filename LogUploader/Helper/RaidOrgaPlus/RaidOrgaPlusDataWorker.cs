@@ -5,28 +5,52 @@ using System.Text;
 using System.Threading.Tasks;
 using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data;
+using Extensiones.Linq;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {
     public static class RaidOrgaPlusDataWorker
     {
-        public static Raid UpdateRaid(Raid raid, IEnumerable<CachedLog> logs)
-        {
-            logs = OnlyGetOnePerBoss(logs);
-            logs = CondenseStatues(logs);
-            InsertLogs(raid, logs);
-            var encounters = GetEncounters(raid, logs);
-            var players = GetAllPlayers(raid, encounters);
-            ShowCorrectPlayerUI(players, raid);
-            CorrectPlayers(players, encounters);
-            UpdateRaidOrgaPlusData(raid, encounters);
+        public const int MIN_DATA_VERSION = 2;
 
+        public static Raid UpdateRaid(Raid raid, IEnumerable<CachedLog> logs, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)
+        {
+            progress?.Report(new ProgressMessage(0.01, "Remove outdated logs"));
+            logs = logs.Where(l => l.DataVersion >= MIN_DATA_VERSION);
+            progress?.Report(new ProgressMessage(0.02, "Remove duplicated bosses"));
+            logs = OnlyGetOnePerBoss(logs);
+            CondenseStatues(logs);
+            progress?.Report(new ProgressMessage(0.03, "Remove unused bosses from RO+ data"));
+            RemoveUnused(raid, logs);
+            progress?.Report(new ProgressMessage(0.04, "Create missing bosses"));
+            InsertLogs(raid, logs);
+            progress?.Report(new ProgressMessage(0.05, "Build encounters"));
+            var encounters = GetEncounters(raid, logs);
+            progress?.Report(new ProgressMessage(0.08, "Gather players"));
+            var players = GetAllPlayers(raid, encounters);
+            progress?.Report(new ProgressMessage(0.10, "Assigen players"));
+            ShowCorrectPlayerUI(players, raid, invoker);
+            progress?.Report(new ProgressMessage(0.15, "Update players"));
+            CorrectPlayers(players, encounters);
+            UpdateRaidOrgaPlusData(raid, encounters, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.83) + 0.15, "Update boss " + p.Message))));
+
+            progress?.Report(new ProgressMessage(0.98, "Update players to invite"));
+            UpdatePlayersToInvite(raid, encounters);
+            progress?.Report(new ProgressMessage(1, "Done"));
             return raid;
+        }
+
+        private static void RemoveUnused(Raid raid, IEnumerable<CachedLog> logs)
+        {
+            raid.Bosses = raid.Bosses.Where(boss => 
+            logs.Any(log => Boss.getByID(log.BossID).RaidOrgaPlusID == boss.BossID && log.IsCM == boss.IsCM)
+            ).ToList();
         }
 
         private static IEnumerable<CachedLog> OnlyGetOnePerBoss(IEnumerable<CachedLog> logs)
         {
-            return logs.GroupBy(log => Boss.getByID(log.BossID).RaidOrgaPlusID).SelectMany(group =>
+            return logs.Where(log => log.DataCorrected)
+                .GroupBy(log => Boss.getByID(log.BossID).RaidOrgaPlusID).SelectMany(group =>
             {
                 if (group.All(e => !e.IsCM) || group.All(e => e.IsCM))
                 {
@@ -59,16 +83,24 @@ namespace LogUploader.Helper.RaidOrgaPlus
             return logs;
         }
 
-        private static void ShowCorrectPlayerUI(List<CheckPlayer> players, Raid raid)
+        private static void ShowCorrectPlayerUI(List<CheckPlayer> players, Raid raid, Action<Delegate> invoker)
         {
-            var ui = new GUIs.CorrectPlayer.CorrectPlayerUI(raid, players);
-            ui.ShowDialog();
+            Action a = () => {
+                var ui = new GUIs.CorrectPlayer.CorrectPlayerUI(raid, players);
+                ui.ShowDialog();
+            };
+            if (invoker == null)
+                a();
+            else
+            invoker(a);
         }
 
-        private static void UpdateRaidOrgaPlusData(Raid raid, List<Encounter> encounters)
+        private static void UpdateRaidOrgaPlusData(Raid raid, List<Encounter> encounters, IProgress<ProgressMessage> progress = null)
         {
-            foreach (var encounter in encounters)
+            var count = encounters.Count();
+            foreach ((int index, var encounter) in encounters.Enumerate())
             {
+                progress?.Report(new ProgressMessage((double)(index) / (double)count, $"{(int)(count + 1)} of {count}"));
                 encounter.FillTeamComp();
                 encounter.GuessRoles();
                 encounter.RemoveNotAttededPlayers();
@@ -76,8 +108,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 encounter.UpdateNamedPlayers();
                 encounter.UpdateUnnamedPlayers();
                 encounter.EnsureAllPlayers();
+                encounter.SortIfNew();
             }
-            UpdatePlayersToInvite(raid, encounters);
         }
 
         private static void UpdatePlayersToInvite(Raid raid, List<Encounter> encounters)
@@ -99,7 +131,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private static List<CheckPlayer> GetAllPlayers(Raid raid, List<Encounter> encounters)
         {
-           return encounters.SelectMany(e => e.Players).Distinct().Select(p => {
+           return encounters.SelectMany(e => e.Players).Distinct().Where(p => p.AccountName.Contains(".")).Select(p => {
                 if (p.Type != PlayerType.LFG)
                     return new CheckPlayer(p, raid.GetAccount(p.AccountName, p.Type));
                 return new CheckPlayer(p, null);
@@ -144,11 +176,11 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         public class CheckPlayer
         {
-            public CheckedPlayer Player { get; set; }
+            public RoPlusPlayer Player { get; set; }
             public Account BecomesAccount { get; set; }
             public PlayerType BecomesType { get; set; }
 
-            public CheckPlayer(CheckedPlayer p, Account a)
+            public CheckPlayer(RoPlusPlayer p, Account a)
             {
                 Player = p;
                 BecomesAccount = a;
@@ -157,7 +189,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     p.Type = PlayerType.LFG;
             }
 
-            internal void Correct(CheckedPlayer player)
+            internal void Correct(RoPlusPlayer player)
             {
                 if (BecomesType == PlayerType.LFG)
                     player.setLFG();
@@ -168,7 +200,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private class Encounter
         {
-            public List<CheckedPlayer> Players { get; set; } = new List<CheckedPlayer>();
+            public List<RoPlusPlayer> Players { get; set; } = new List<RoPlusPlayer>();
             public Boss Boss { get; set; }
             public TeamComp TC { get; set; }
 
@@ -176,7 +208,13 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 TC = tc;
                 Boss = tc.Encounter;
-                Players.AddRange(log.Players.Select(p => new CheckedPlayer(p, r)));
+                Players.AddRange(log.PlayersNew.Select(p => new RoPlusPlayer(p, r)));
+                if (Boss.RaidOrgaPlusID == 20)
+                {
+                    var sword = Players.Where(p => !p.AccountName.Contains('.')).FirstOrDefault();
+                    if (sword != null)
+                        Players.Remove(sword);
+                }
             }
 
             internal void GuessRoles()
@@ -184,37 +222,38 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 switch (Boss.ID)
                 {
                     //Special Bosses
+                    case 17154:
+                        SetTank();
+                        SetDeimosHK();
+                        AssigenSupporter();
+                        SetBS();
+                        FillUpDps();
+                        break;
                     case 19651: //Eyes
                     case 19844: //Eyes
-                        goto default;
+                        AssigenSupporter();
+                        SetBS();
+                        FillUpDps();
+                        break;
                     case 19828: //River
                         GuessRiver();
                         break;
                     case 20934: //Qadim1
-                        //TODO
+                        //TODO Qadim1
                         goto default;
                     case 22000: //Qadim2
-                        if (!(GuessDoubleChrono() || GuessFireBrigadeChrono() || GuessFireBrigade()))
-                            GenericGuesses();
+                        SetTank();
                         SetQadim2Pylons();
+                        AssigenSupporter();
+                        SetBS();
+                        FillUpDps();
                         break;
                     case 19767: //SH
-                        if (GuessSoulessHorror())
-                            break;
+                        SetTank();
                         goto default;
-
-
-                    //Boonthive bosses
-                    case 16115: //Mathias
-                        if (GuessBoonThief(false))
-                            return;
-                        goto default;
-                    case 17172: //Mo
-                    case 19691: //Broken king
-                    case 19536: //Soul Eater
-                    case 22006: //Adina
-                        if (GuessBoonThief())
-                            return;
+                    case 21105: //Largos
+                    case 21089:
+                        SetLargosTank();
                         goto default;
 
                     //No Tank
@@ -223,32 +262,38 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case 16088: //Trio
                     case 16137: //Trio
                     case 16125: //Trio
+                    case 16115: //Mathias
                     case 16247: //TC
                     case 17194: //Carin
+                    case 17172: //Mo
                     case 17188: //Samarog
                     case 43974: //CA
-                        if (GuessDoubleChrono(false) || GuessFireBrigadeChrono(false) || GuessFireBrigade(false))
-                            return;
-                        GenericGuesses(false);
+                        AssigenSupporter();
+                        SetBS();
+                        FillUpDps();
                         return;
 
                     default:
-                        if (GuessDoubleChrono() || GuessFireBrigadeChrono() || GuessFireBrigade())
-                            return;
-                        GenericGuesses();
+                        SetTank();
+                        AssigenSupporter();
+                        SetBS();
+                        FillUpDps();
                         return;
                 }
 
             }
 
-            private bool GuessSoulessHorror()
+            private void SetLargosTank()
             {
-                if (GuessDoubleChrono())
-                {
-                    Players.OrderBy(p => p.DPS).First(p => p.Class.RaidOrgaPlusID == 11 && p.Role == Role.Utility).Role = Role.Tank;
-                    return true;
-                }
-                return false;
+                if (Players.Where(p => p.Toughness >= 5).Count() >= 2)
+                    SetTank();
+            }
+
+            private void SetDeimosHK()
+            {
+                var hk = Players.Where(p => p.Role == Role.Empty).OrderBy(p => p.DPS).FirstOrDefault();
+                if (hk != null)
+                    hk.Role = Role.Special;
             }
 
             private void GuessRiver()
@@ -256,10 +301,12 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 var ThreashholdDMG = Players.Max(p => p.DPS)/2;
                 foreach (var player in Players)
                 {
-                    if (player.DPS <= ThreashholdDMG)
+                    if (player.DPS <= ThreashholdDMG && player.Healing > 1)
                         player.Role = Role.Heal;
-                    if (player.Class.RaidOrgaPlusID == 11)
+                    if (player.Class == eProfession.Chronomancer)
                         player.Role = Role.Utility;
+                    if (player.Class == eProfession.Scrapper && player.DPS < 500)
+                        player.Role = Role.Special;
                 }
                 SetBS();
                 FillUpDps();
@@ -267,158 +314,78 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             private void SetQadim2Pylons()
             {
-                var kiters = Players.OrderBy(p => p.DPS).Where(p => p.Class.RaidOrgaPlusID == 21 || p.Class.RaidOrgaPlusID == 24);
+                var kiters = Players.OrderBy(p => p.DPS).Where(p => p.Class == eProfession.Deadeye || p.Class == eProfession.Scourge);
                 kiters = kiters.Take(Math.Min(3, kiters.Count()));
                 foreach (var kiter in kiters)
                     kiter.Role = Role.Kiter;
             }
 
-            private void GenericGuesses(bool hasTank = true)
+            private void AssigenSupporter()
             {
-                var orderdPlayers = Players.OrderBy(p => p.DPS).Take(5);
-                if (hasTank && orderdPlayers.Take(3).Any(p => p.Class.RaidOrgaPlusID == 11))
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11).Role = Role.Tank;
-                
+                var orderdPlayers = Players.Where(p => p.Role == Role.Empty).OrderBy(p => p.DPS);
                 foreach (var orderdPlayer in orderdPlayers)
                 {
-                    switch (orderdPlayer.Class.RaidOrgaPlusID)
+                    switch (orderdPlayer.Class.ProfessionEnum)
                     {
-                        //Chrono
-                        case 11:
-                        //Firebrand
-                        case 26:
-                        //Renegade
-                        case 27:
-                            orderdPlayer.Role = Role.Utility;
+                        case eProfession.Firebrand:
+                            if (orderdPlayer.GroupQuickness >= 10)
+                                if (orderdPlayer.Healing > 2)
+                                    orderdPlayer.Role = Role.Heal;
+                                else
+                                    orderdPlayer.Role = Role.Utility;
                             break;
-                        //Durid
-                        case 13:
-                        //Tempest
-                        case 10:
-                        //Scourge
-                        case 21:
+                        case eProfession.Chronomancer:
+                        case eProfession.Thief:
+                        case eProfession.Daredevil:
+                            if (orderdPlayer.GroupQuickness >= 25 && orderdPlayer.Concentration > 0)
+                                orderdPlayer.Role = Role.Utility;
+                            break;
+                        case eProfession.Renegade:
+                            if (orderdPlayer.GroupAlacrity >= 5)
+                                if (orderdPlayer.Healing > 1)
+                                    orderdPlayer.Role = Role.Heal;
+                                else if (orderdPlayer.Concentration > 0)
+                                    orderdPlayer.Role = Role.Utility;
+                            break;
+                        case eProfession.Druid:
+                        case eProfession.Tempest:
+                        case eProfession.Scourge:
+                            //Maybe special healer dectection
                         default:
-                            orderdPlayer.Role = Role.Heal;
+                            if (orderdPlayer.Healing > 2)
+                                orderdPlayer.Role = Role.Heal;
                             break;
                     }
                 }
-                SetBS();
-                FillUpDps();
             }
 
-            private bool GuessFireBrigadeChrono(bool hasTank = true)
+            private void SetTank()
             {
-                if (!FireBrigadeChronoRequMet())
-                    return false;
-                var orderdPlayers = Players.OrderBy(p => p.DPS);
-                if (hasTank)
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11).Role = Role.Tank;
-                else
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11).Role = Role.Utility;
-                orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 26 && p.Role == Role.Empty).Role = Role.Utility;
-                orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 27 && p.Role == Role.Empty).Role = Role.Heal;
-                SetSecondHeal(orderdPlayers);
-                SetBS();
-                FillUpDps();
-                return true;
+                var orderdPlayers = Players.Where(p => p.Role == Role.Empty).OrderBy(p => p.DPS);
+                if (orderdPlayers.Count() <= 0) return;
+                var maxThougness = orderdPlayers.Max(p => p.Toughness);
+                if (maxThougness == 0) return;
+                orderdPlayers.Where(p => p.Toughness == maxThougness).First().Role = Role.Tank;
             }
 
-            private bool GuessFireBrigade(bool hasTank = true)
-            {
-                if (!FireBrigadeRequMet())
-                    return false;
-                var orderdPlayers = Players.OrderBy(p => p.DPS);
-                if (hasTank)
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 26).Role = Role.Tank;
-                else
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 26).Role = Role.Utility;
-                orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 26 && p.Role == Role.Empty).Role = Role.Utility;
-                orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 27 && p.Role == Role.Empty).Role = Role.Heal;
-                SetSecondHeal(orderdPlayers);
-                SetBS();
-                FillUpDps();
-                return true;
-            }
-
-            private static void SetSecondHeal(IOrderedEnumerable<CheckedPlayer> orderdPlayers)
-            {
-                var maxDps = orderdPlayers.Last().DPS;
-                if (orderdPlayers.First(p => p.Role == Role.Empty).DPS < (maxDps / 3))
-                    orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
-            }
-
-            private bool GuessDoubleChrono(bool hasTank = true)
-            {
-                if (!DoubleChronoRequMet())
-                    return false;
-                var orderdPlayers = Players.OrderBy(p => p.DPS);
-                if (hasTank)
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11).Role = Role.Tank;
-                else
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11).Role = Role.Utility;
-                orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 11 && p.Role == Role.Empty).Role = Role.Utility;
-                orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
-                SetSecondHeal(orderdPlayers);
-                SetBS();
-                FillUpDps();
-                return true;
-            }
-
-            private bool GuessBoonThief(bool hasTank = true)
-            {
-                if (!(BoonThiveRequMet() && !(DoubleChronoRequMet() || FireBrigadeChronoRequMet())))
-                    return false;
-                var orderdPlayers = Players.OrderBy(p => p.DPS);
-                orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 6 || p.Class.RaidOrgaPlusID == 15).Role = Role.Utility;
-                if (orderdPlayers.Take(3).Any(p => p.Class.RaidOrgaPlusID == 27))
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 27).Role = Role.Heal;
-                else
-                {
-                    orderdPlayers.First(p => p.Class.RaidOrgaPlusID == 27).Role = Role.Utility;
-                    orderdPlayers.First(p => p.Role == Role.Empty).Role = Role.Heal;
-                }
-                SetSecondHeal(orderdPlayers);
-                SetBS();
-                FillUpDps();
-                return true;
-            }
 
             private void SetBS()
             {
                 if (Players.Any(p => p.Role == Role.Banner))
                     return;
-                if (Players.Any(p => (p.Class.RaidOrgaPlusID == 7 || p.Class.RaidOrgaPlusID == 16) && p.Role == Role.Empty))
-                    Players.OrderBy(p => p.DPS).First(p => (p.Class.RaidOrgaPlusID == 7 || p.Class.RaidOrgaPlusID == 16) && p.Role == Role.Empty).Role = Role.Banner;
+                if (Players.Any(p => (p.Class == eProfession.Warrior || p.Class == eProfession.Berserker) && p.Role == Role.Empty))
+                    Players.OrderBy(p => p.DPS).First(p => (p.Class == eProfession.Warrior || p.Class == eProfession.Berserker) && p.Role == Role.Empty).Role = Role.Banner;
             }
 
             private void FillUpDps()
             {
-                foreach (var player in Players)
+                foreach (var player in Players.Where(p => p.Role == Role.Empty))
                 {
-                    if (player.Role == Role.Empty)
-                    {
-                        if (player.PDPS > player.CDPS)
-                            player.Role = Role.Power;
+                    if (player.PDPS < player.CDPS)
                         player.Role = Role.Condi;
-                    }
+                    else
+                        player.Role = Role.Power;
                 }
-            }
-
-            private bool BoonThiveRequMet()
-            {
-                return Players.Any(p => p.Class.RaidOrgaPlusID == 6 || p.Class.RaidOrgaPlusID == 15) && Players.Any(p => p.Class.RaidOrgaPlusID == 27);
-            }
-            private bool DoubleChronoRequMet()
-            {
-                return Players.OrderBy(p => p.DPS).Take(Math.Min(6, Players.Count)).Count(p => p.Class.RaidOrgaPlusID == 11) >= 2;
-            }
-            private bool FireBrigadeChronoRequMet()
-            {
-                return Players.Any(p => p.Class.RaidOrgaPlusID == 11) && Players.Any(p => p.Class.RaidOrgaPlusID == 27) && Players.Any(p => p.Class.RaidOrgaPlusID == 26) && Players.OrderBy(p => p.DPS).Take(Math.Min(4, Players.Count)).Any(p => p.Class.RaidOrgaPlusID == 11);
-            }
-            private bool FireBrigadeRequMet()
-            {
-                return Players.Any(p => p.Class.RaidOrgaPlusID == 27) && Players.Count(p => p.Class.RaidOrgaPlusID == 26) >= 2;
             }
 
             internal void RemoveNotAttededPlayers()
@@ -437,6 +404,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         p.RemoveName();
             }
 
+            //TODO has to improve
             internal void RemoveDuplicates()
             {
                 var dupes = TC.Players.Where(p => !(p.IsLFG() || string.IsNullOrEmpty(p.AccName))).GroupBy(p => p.AccName).Where(g => g.Count() > 1);
@@ -513,32 +481,25 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
                 relevantPlayers = Players.Where(p => !TC.Exists(p.AccountName));
                 foreach (var player in relevantPlayers)
-                    if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown))
-                        TC.Get(Profession.Unknown).Set(player);
-                foreach (var player in relevantPlayers)
                     if (!TC.Exists(player.AccountName) && TC.Exists(Role.Empty))
                         TC.Get(Role.Empty).Set(player);
+                foreach (var player in relevantPlayers)
+                    if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown))
+                        TC.Get(Profession.Unknown).Set(player);
                 foreach (var player in relevantPlayers)
                     if (!TC.Exists(player.AccountName) && TC.Exists())
                         TC.Get().Set(player);
             }
 
+            //TODO improve EnsureAllPlayers
             internal void EnsureAllPlayers()
             {
-                var errorPlayers = Players.Where(player => TC.Players.Where(p => p.AccName == player.AccountName).Count() != Players.Where(p => p.AccountName == player.AccountName).Count());
-                if (errorPlayers.Count() == 0)
+                if (!Players.All(p => p.RaidOrgaID >= 1))
+                {
+                    //TODO errorhandling not all players present
                     return;
+                }
 
-                //TODO Proper logging
-                System.Windows.Forms.MessageBox.Show($"Not all players present ({errorPlayers.Count()} errors)");
-
-                //TODO implement proper handling
-                //var errors = errorPlayers.Select(error => new { player = error, actual = TC.Players.Where(p => p.AccName == error.AccountName).Count(), expected = Players.Where(p => p.AccountName == error.AccountName).Count() }); 
-                //foreach (var error in errors)
-                //{
-                //    if (error.actual > error.expected)
-                //        continue;
-                //}
             }
 
             internal void FillTeamComp()
@@ -547,9 +508,15 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     if (!TC.Players.Any(p => p.Pos == i))
                         TC.Players.Add(new Position(i, 0, "", Role.Empty, Profession.Unknown));
             }
+
+            internal void SortIfNew()
+            {
+                if (!TC.aufstellungsID.HasValue)
+                    TC.OrderPlayers();
+            }
         }
 
-        public class CheckedPlayer : IEquatable<CheckedPlayer>
+        public class RoPlusPlayer : IEquatable<RoPlusPlayer>
         {
             public string AccountName { get; set; }
             public string RaidOrgaName { get; set; }
@@ -562,9 +529,16 @@ namespace LogUploader.Helper.RaidOrgaPlus
             public Profession Class { get; set; }
             public PlayerType Type { get; set; } = PlayerType.LFG;
 
-            public CheckedPlayer(CachedPlayer player, Raid r)
+            public int Condition { get; } = 0;
+            public int Concentration { get; } = 0;
+            public int Healing { get; } = 0;
+            public int Toughness { get; } = 0;
+            public float GroupQuickness { get; } = 0;
+            public float GroupAlacrity { get; } = 0;
+
+            public RoPlusPlayer(SimplePlayer player, Raid r)
             {
-                AccountName = player.AccountName;
+                AccountName = player.Account;
                 if (r.IsMember(AccountName))
                 {
                     Type = PlayerType.MEMBER;
@@ -585,10 +559,16 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     RaidOrgaName = "";
                     RaidOrgaID = 1;
                 }
-                PDPS = player.PDPS;
-                CDPS = player.CDPS;
-                DPS = player.DPS;
-                Class = player.Class;
+                PDPS = player.DpsAllPower;
+                CDPS = player.DpsAllCondi;
+                DPS = player.DpsAll;
+                Class = player.Profession;
+                Condition = player.Condition;
+                Concentration = player.Concentration;
+                Healing = player.Healing;
+                Toughness = player.Toughness;
+                GroupQuickness = player.GroupQuickness;
+                GroupAlacrity = player.GroupAlacrity;
             }
 
             public void SetAccount(Account account) => SetAccount(account, Type);
@@ -609,10 +589,10 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             public override bool Equals(object obj)
             {
-                return Equals(obj as CheckedPlayer);
+                return Equals(obj as RoPlusPlayer);
             }
 
-            public bool Equals(CheckedPlayer other)
+            public bool Equals(RoPlusPlayer other)
             {
                 return other != null &&
                        AccountName == other.AccountName;
@@ -623,12 +603,12 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 return -220601745 + EqualityComparer<string>.Default.GetHashCode(AccountName);
             }
 
-            public static bool operator ==(CheckedPlayer left, CheckedPlayer right)
+            public static bool operator ==(RoPlusPlayer left, RoPlusPlayer right)
             {
-                return EqualityComparer<CheckedPlayer>.Default.Equals(left, right);
+                return EqualityComparer<RoPlusPlayer>.Default.Equals(left, right);
             }
 
-            public static bool operator !=(CheckedPlayer left, CheckedPlayer right)
+            public static bool operator !=(RoPlusPlayer left, RoPlusPlayer right)
             {
                 return !(left == right);
             }

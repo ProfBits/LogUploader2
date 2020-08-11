@@ -89,6 +89,14 @@ namespace LogUploader.Helper
             return new Version(fi.ProductMajorPart, fi.ProductMinorPart, fi.ProductBuildPart, fi.ProductPrivatePart);
         }
 
+        public static T IntToEnum<T>(int id) where T : struct
+        {
+            T e = (T)(object)id;
+            if (Enum.GetNames(typeof(T)).Contains(Enum.GetName(typeof(T), e)))
+                return e;
+            return (T)(object)0;
+        }
+
         public static Data.RaidOrgaPlus.Role getRoleById(int id)
         {
             if (Enum.IsDefined(typeof(Data.RaidOrgaPlus.Role), (byte)id))

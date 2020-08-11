@@ -152,6 +152,9 @@ namespace LogUploader.Languages
         public override string ConfigDefaultMsgText { get => "Standard Einstellungen wiederherstellen?\nDies wird deine aktuellen Einstellungen dauerhaft löschen!"; }
         public override string ConfigDiscardMsgTitel { get => "Änderungen verwerfen?"; }
         public override string ConfigDiscardMsgText { get => "Fortfahren ohne speichern?"; }
+        public override string ConfigRoPlusTitle { get => "RaidOrga+"; }
+        public override string ConfigRoPlusUser { get => "Benutzer"; }
+        public override string ConfigRoPlusPwd { get => "Passwort"; }
 
         public override string NewTitle { get => "Neuerungen in "; }
         public override string NewHeading { get => "Update-Notes"; }
@@ -178,5 +181,8 @@ namespace LogUploader.Languages
             }
         }
         public override string MiscDetailsMultibleBosses { get => "Verschieden"; }
+        public override string MiscRaidOrgaPlusNoAccount { get => "Kein konto eingestellt"; }
+        public override string MiscRaidOrgaPlusLoginErr { get => "Login fehlgeschlagen"; }
+        public override string MiscRaidOrgaPlusNoRaid { get => "Kein Termin mit Leiter rechten"; }
     }
 }

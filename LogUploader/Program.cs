@@ -56,7 +56,9 @@ namespace LogUploader
         [STAThread]
         static void Main(string[] args)
         {
-            //WriteOutLanguageXmls();
+#if CREATE_LANGUAGE_XMLS
+            WriteOutLanguageXmls();
+#endif
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -202,7 +204,8 @@ namespace LogUploader
             await newLogic.InitLogUploaderLogic(settings,
                 flags.EnableAutoParse,
                 flags.EnableAutoUpload,
-                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.13f + (pm.Percent * 0.82f), "Loading - " + pm.Message))));
+                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.13f + (pm.Percent * 0.82f), "Loading - " + pm.Message)))
+                );
 
             if (ct.IsCancellationRequested)
                 return null;
@@ -381,6 +384,13 @@ namespace LogUploader
                 var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
                 File.WriteAllText(exePath + @"\Data\German.xml", tw.ToString());
             }
+            var res = MessageBox.Show("Copy into project?", "Copy XMLs", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (res == DialogResult.Yes)
+            {
+                var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                File.Copy(exePath + @"\Data\English.xml", exePath + @"\..\..\Data\English.xml", true);
+                File.Copy(exePath + @"\Data\German.xml", exePath + @"\..\..\Data\German.xml", true);
+            }
             Environment.Exit(2);
         }
 
@@ -411,8 +421,9 @@ namespace LogUploader
             public Flags(string[] args) : this(false, false, false)
             {
                 var argumentErrors = "";
-                foreach (var arg in args)
+                for (int i = 0; i < args.Length; i++)
                 {
+                    var arg = args[i];
                     switch (arg)
                     {
                         case FlagEnableAutoUpload:

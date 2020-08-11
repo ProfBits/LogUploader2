@@ -280,6 +280,15 @@ namespace LogUploader.Languages
         public string configDiscardMsgTitel;
         [XmlElement]
         public string configDiscardMsgText;
+        [XmlElement]
+        public string configRoPlusTitle;
+        [XmlElement]
+        public string configRoPlusUser;
+        [XmlElement]
+        public string configRoPlusPwd;
+
+
+
 
         [XmlElement]
         public string newTitle;
@@ -310,6 +319,12 @@ namespace LogUploader.Languages
         public string miscDiscordPostErrMsg;
         [XmlElement]
         public string miscDetailsMultibleBosses;
+        [XmlElement]
+        public string miscRaidOrgaPlusNoAccount;
+        [XmlElement]
+        public string miscRaidOrgaPlusLoginErr;
+        [XmlElement]
+        public string miscRaidOrgaPlusNoRaid;
 
         public XMLLanguage()
         {
@@ -456,6 +471,9 @@ namespace LogUploader.Languages
             configDefaultMsgText = lang.ConfigDefaultMsgText;
             configDiscardMsgTitel = lang.ConfigDiscardMsgTitel;
             configDiscardMsgText = lang.ConfigDiscardMsgText;
+            configRoPlusTitle = lang.ConfigRoPlusTitle;
+            configRoPlusUser = lang.ConfigRoPlusUser;
+            configRoPlusPwd = lang.ConfigRoPlusPwd;
 
             newTitle = lang.NewTitle;
             newHeading = lang.NewHeading;
@@ -472,8 +490,11 @@ namespace LogUploader.Languages
             miscDiscordPostErrTitle = lang.MiscDiscordPostErrTitle;
             miscDiscordPostErrMsg = lang.MiscDiscordPostErrMsg;
             miscDetailsMultibleBosses = lang.MiscDetailsMultibleBosses;
-        }
+            miscRaidOrgaPlusNoAccount = lang.MiscRaidOrgaPlusNoAccount;
+            miscRaidOrgaPlusLoginErr = lang.MiscRaidOrgaPlusLoginErr;
+            miscRaidOrgaPlusNoRaid = lang.MiscRaidOrgaPlusNoRaid;
 
+        }
         [XmlIgnore]
         public override CultureInfo Culture => culture;
         public override string Succsess => succsess;
@@ -608,6 +629,9 @@ namespace LogUploader.Languages
         public override string ConfigDefaultMsgText => configDefaultMsgText;
         public override string ConfigDiscardMsgTitel => configDiscardMsgTitel;
         public override string ConfigDiscardMsgText => configDiscardMsgText;
+        public override string ConfigRoPlusTitle => configRoPlusTitle;
+        public override string ConfigRoPlusUser => configRoPlusUser;
+        public override string ConfigRoPlusPwd => configRoPlusPwd;
 
         public override string NewTitle => newTitle;
         public override string NewHeading => newHeading;
@@ -624,5 +648,8 @@ namespace LogUploader.Languages
         public override string MiscDiscordPostErrTitle => miscDiscordPostErrTitle;
         public override string MiscDiscordPostErrMsg => miscDiscordPostErrMsg;
         public override string MiscDetailsMultibleBosses => miscDetailsMultibleBosses;
+        public override string MiscRaidOrgaPlusNoAccount => miscRaidOrgaPlusNoAccount;
+        public override string MiscRaidOrgaPlusLoginErr  => miscRaidOrgaPlusLoginErr;
+        public override string MiscRaidOrgaPlusNoRaid => miscRaidOrgaPlusNoRaid;
     }
 }

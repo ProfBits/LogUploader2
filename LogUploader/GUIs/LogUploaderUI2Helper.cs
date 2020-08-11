@@ -286,6 +286,10 @@ namespace LogUploader.GUIs
             cmbWebhookSelect.DataSource = Logic.GetWebHooks();
             cmbWebhookSelect.DisplayMember = "Name";
             cmbWebhookSelect.ValueMember = "ID";
+
+            cmbRaidOrgaTermin.DataSource = Logic.GetRaidOrgaTermine();
+            cmbRaidOrgaTermin.DisplayMember = "DisplayName";
+            cmbRaidOrgaTermin.ValueMember = "Self";
         }
 
         private void UpdateAutoLogActions()
@@ -486,7 +490,7 @@ namespace LogUploader.GUIs
             var versionStr = $"v{version.Major}.{version.Minor}.{version.Build}";
             if (!Logic.Settings.WhatsNewShown.Equals(versionStr))
             {
-                Logic.updateWhatsNew(versionStr);
+                Logic.UpdateWhatsNew(versionStr);
                 new WhatsNewUI(Logic.Settings, versionStr).Show();
             }
         }

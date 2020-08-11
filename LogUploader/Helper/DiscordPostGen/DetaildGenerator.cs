@@ -27,8 +27,8 @@ namespace LogUploader.Helper.DiscordPostGen
                     value += $"\nCM";
                 value += $"\n{Language.Data.MiscDiscordPostGenDuration}: {log.Duration.ToString(Language.Current == eLanguage.DE ? "mm':'ss','fff" : "mm':'ss'.'fff")}";
                 value += $"\n{Language.Data.MiscDiscordPostGenHpLeft}: {log.RemainingHealth.ToString("0.00'%'")}";
-                value += $"\n{Language.Data.MiscDiscordPostGenGroupDPS}: {log.Players.Select(p => p.DPS).Sum()}";
-                value += $"\n{Language.Data.MiscDiscordPostGenTopDPS}: {log.Players.Max(p2 => p2.DPS)} ({log.Players.Where(p => p.DPS == log.Players.Max(p2 => p2.DPS)).First().AccountName})";
+                value += $"\n{Language.Data.MiscDiscordPostGenGroupDPS}: {log.PlayersNew.Select(p => p.DpsAll).Sum()}";
+                value += $"\n{Language.Data.MiscDiscordPostGenTopDPS}: {log.PlayersNew.Max(p2 => p2.DpsAll)} ({log.PlayersNew.Where(p => p.DpsAll == log.PlayersNew.Max(p2 => p2.DpsAll)).First().Account})";
             }
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";

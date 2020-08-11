@@ -137,7 +137,6 @@ namespace LogUploader.Helper
             string answerStr;
             using (MyWebClient wc = GetWebClient(Settings))
             {
-                wc.Timeout = 600_000;
                 try
                 {
                     var answerByte = await wc.UploadFileTaskAsync(address, path);
@@ -154,7 +153,7 @@ namespace LogUploader.Helper
 
         private class MyWebClient : WebClient
         {
-            public int Timeout { get; set; } = 240_000;
+            public int Timeout { get; set; } = 600_000;
 
             protected override WebRequest GetWebRequest(Uri uri)
             {
@@ -168,7 +167,7 @@ namespace LogUploader.Helper
         private MyWebClient GetWebClient(IProxySettings settings)
         {
             var mywc = new MyWebClient();
-            mywc = Helper.WebHelper.ConfigureWebClientProxy(mywc, settings);
+            mywc = WebHelper.ConfigureWebClientProxy(mywc, settings);
             return mywc;
         }
     }

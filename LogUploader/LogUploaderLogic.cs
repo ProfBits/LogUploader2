@@ -1,4 +1,6 @@
-﻿using LogUploader.Data;
+﻿using Extensiones.Linq;
+using LogUploader.Data;
+using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Helper;
@@ -59,6 +61,10 @@ namespace LogUploader
                     enableAutoUpload = value;
             }
         }
+
+        private Helper.RaidOrgaPlus.RaidOrgaPlusConnector RaidOrgaPlusConnector = null;
+        private Session RaidOrgaPlusSession = null;
+        private List<RaidSimple> RaidOrgaPlusTermine = new List<RaidSimple>();
 
         #region Events
 
@@ -138,6 +144,9 @@ namespace LogUploader
             progress?.Report(new ProgressMessage(0.05, "Starting worker"));
             WatchDogCTS = new CancellationTokenSource();
             WatchDogTask = RunWatchDog(settings.ArcLogsPath, WatchDogCTS);
+
+            progress?.Report(new ProgressMessage(0.06, "Loading RO+ Data"));
+            await Task.Run(() => LoadTermine());
 
             await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.1 + (p * 0.9), "Updating Local Files")))));
         }
@@ -362,9 +371,75 @@ namespace LogUploader
             return log;
         }
 
+        private CachedLog ReParseData(CachedLog log)
+        {
+            if (!log.DataCorrected)
+                return ParseJob(log);
+
+            if (!string.IsNullOrWhiteSpace(log.Link))
+            {
+                var response = DPSReport.GetEncounterDataPermalink(log.Link);
+                var simpleLogJson = new SimpleLogJson(response);
+
+                if (!string.IsNullOrWhiteSpace(log.JsonPath))
+                {
+                    if (File.Exists(log.JsonPath)) File.Delete(log.JsonPath);
+                }
+                string name;
+                if (!string.IsNullOrWhiteSpace(log.EvtcPath))
+                    name = log.EvtcPath.Substring(0, log.EvtcPath.LastIndexOf('.')).Split('\\').Last();
+                else
+                    name = log.Link.Split('/').Last();
+                var newjson = EliteInsights.LogsPath + name + "_simple.json";
+                GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                log.JsonPath = newjson;
+                LogDBConnector.Update(log.GetDBLog());
+                log.ApplySimpleLog(simpleLogJson);
+                return log;
+            }
+            if (!string.IsNullOrWhiteSpace(log.EvtcPath))
+            {
+                if (!File.Exists(log.EvtcPath))
+                {
+                    UpdateFilePaths(log);
+                    return log;
+                }
+                var res = EliteInsights.Parse(log.EvtcPath);
+                var html = res.Where(path => path.EndsWith(".html")).FirstOrDefault();
+                var json = res.Where(path => path.EndsWith(".json")).FirstOrDefault();
+                if (res.Count == 0)
+                    return null;
+
+                if (!string.IsNullOrWhiteSpace(log.HtmlPath) && File.Exists(log.HtmlPath))
+                    File.Delete(log.HtmlPath);
+                if (!string.IsNullOrWhiteSpace(log.JsonPath) && File.Exists(log.JsonPath))
+                    File.Delete(log.HtmlPath);
+                if (!log.DataCorrected)
+                {
+                    var jsonStr = GP.ReadJsonFile(json);
+                    log.UpdateEi(jsonStr);
+
+                    if (string.IsNullOrWhiteSpace(log.JsonPath))
+                    {
+                        var simpleLogJson = new SimpleLogJson(jsonStr);
+                        var newjson = json.Substring(0, json.Length - ".json".Length) + "_simple.json";
+                        GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                        log.JsonPath = newjson;
+                    }
+
+                }
+                log.HtmlPath = html;
+
+                File.Delete(json);
+
+                LogDBConnector.Update(log.GetDBLog());
+            }
+            return null; // cannot upgrade data
+        }
+
         public CachedLog QuickCacheLog(int id)
         {
-            var log = LogCache.getLog(id);
+            var log = LogCache.GetLog(id);
             if (log == null)
             {
                 log = new CachedLog(LogDBConnector.GetByID(id));
@@ -668,7 +743,7 @@ namespace LogUploader
             if (logs.Count == 1)
             {
                 var log = logs[0];
-                var pData = log.Players?.OrderByDescending(p => p.DPS).Select(p => getPlayerData(p));
+                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsAll).Select(p => getPlayerData(p));
                 return new LogPreview(log, pData.Count() > 0 ? pData : null);
             }
             if (logs.Count > 1)
@@ -705,6 +780,7 @@ namespace LogUploader
 
                 if (token.IsCancellationRequested) return null;
 
+                //MAYBE performace improvement via summing and compare count (or not?)
                 if (logs.All(log => log.DataCorrected))
                     Corrected = CheckState.Checked;
                 else if (logs.All(log => !log.DataCorrected))
@@ -747,16 +823,16 @@ namespace LogUploader
                 CheckState.Indeterminate, CheckState.Indeterminate, false, null, CheckState.Indeterminate, null, null);
         }
 
-        private PlayerData getPlayerData(CachedPlayer player)
+        private PlayerData getPlayerData(SimplePlayer player)
         {
             var p = new PlayerData();
             p.Width = 143;
             p.Margin = new Padding(0, 1, 0, 1);
 
             p.ClassImage = player.ProfessionIcon;
-            p.DisplayName = player.AccountName.TrimEnd("0123456789.".ToCharArray());
-            p.SubGroup = player.SubGroup.ToString();
-            p.DPS = player.DPS.ToString();
+            p.DisplayName = player.Account.TrimEnd("0123456789.".ToCharArray());
+            p.SubGroup = player.Group.ToString();
+            p.DPS = player.DpsAll.ToString();
 
             return p;
         }
@@ -764,15 +840,13 @@ namespace LogUploader
         public CachedLog CacheLog(int id)
         {
             var log = QuickCacheLog(id);
-            if (!string.IsNullOrWhiteSpace(log.JsonPath) && ((log.Players?.Count ?? 0) == 0))
+            if (!string.IsNullOrWhiteSpace(log.JsonPath) && ((log.PlayersNew?.Count ?? 0) == 0))
             {
                 if (!File.Exists(log.JsonPath))
                     return log;
                 var jsonStr = GP.ReadJsonFile(log.JsonPath);
                 var simpleLogJson = new SimpleLogJson(jsonStr);
-                log.Players = simpleLogJson.Players
-                    .Select(p => new CachedPlayer(p.Account, p.Name, Profession.Get(p.Profession), (byte) p.Group, p.DpsAll, p.DpsAllPower, p.DpsAllCondi))
-                    .ToList();
+                log.ApplySimpleLog(simpleLogJson);
             }
             GC.Collect();
             LogCache.Add(log);
@@ -790,13 +864,90 @@ namespace LogUploader
             LogDBConnector.Update(log.GetDBLog());
         }
 
-        public void updateWhatsNew(string version)
+        public void UpdateWhatsNew(string version)
         {
             Settings.WhatsNewShown = version;
             var settings = new Settings();
             Settings.ApplyTo(settings);
             settings.Save();
         }
+
+        internal void UpdateRaidOrga(RaidSimple data, List<int> list, CancellationToken ct, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)
+        {
+            if (data is RaidSimpleTemplate t)
+            {
+                //TODO localize error
+                Action a = () => MessageBox.Show(t.DisplayName, "Invalid raid");
+                invoker(a);
+                return;
+            }
+
+            progress?.Report(new ProgressMessage(0, "Gathering RO+ data"));
+            Raid raid = RaidOrgaPlusConnector.GetRaid(RaidOrgaPlusSession, data.TerminID, data.RaidID, ct, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.4) + 0, "Gathering RO+ data - " + p.Message))));
+            if (ct.IsCancellationRequested) return;
+            progress?.Report(new ProgressMessage(40, "Gathering local data"));
+            var PercentPerLog = 1.0 / (double)(2 * list.Count);
+            List<CachedLog> logs = new List<CachedLog>();
+            foreach ((var i, var id) in list.Enumerate())
+            {
+                var log = QuickCacheLog(id);
+                var percent = i * 2 * PercentPerLog;
+                Console.WriteLine($"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
+                progress?.Report(new ProgressMessage((percent * 0.4) + 0.4, $"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
+                log = CacheLog(id);
+                if (ct.IsCancellationRequested) return;
+                if (log.DataVersion < Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.MIN_DATA_VERSION)
+                {
+                    percent = ((i * 2) + 1) * PercentPerLog;
+                    Console.WriteLine($"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
+                    progress?.Report(new ProgressMessage((percent * 0.4) + 0.4, $"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
+                    log = ReParseData(log) ?? log;
+                }
+                logs.Add(log);
+                if (ct.IsCancellationRequested) return;
+            };
+            Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));
+
+            if (ct.IsCancellationRequested) return;
+            progress?.Report(new ProgressMessage(0.95, "Updating RO+"));
+            var fileName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\{data.DisplayName.Replace(":", "")}";
+            var num = 1;
+            while(File.Exists(fileName + $"({num}).json"))
+                num++;
+            fileName += $"({num}).json";
+            GP.WriteJsonFile(fileName, raid.getPostJson());
+            progress?.Report(new ProgressMessage(0.99, "Done"));
+            MessageBox.Show("Created file:\n" + fileName, "User Information", MessageBoxButtons.OK);
+        }
+
+        internal List<RaidSimple> GetRaidOrgaTermine()
+        {
+            return RaidOrgaPlusTermine;
+        }
+
+        private void LoadTermine()
+        {
+            RaidOrgaPlusTermine = new List<RaidSimple>();
+            if (!Settings.RaidOrgaPlusAccoutSet)
+            {
+                RaidOrgaPlusTermine.Add(RaidSimple.GetNoAccount());
+                return;
+            }
+            RaidOrgaPlusConnector = new Helper.RaidOrgaPlus.RaidOrgaPlusConnector(Settings);
+            RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
+            if (RaidOrgaPlusSession == null)
+            {
+                RaidOrgaPlusTermine.Add(RaidSimple.LogInFaild());
+                return;
+            }
+            RaidOrgaPlusTermine = RaidOrgaPlusConnector.GetRaids(RaidOrgaPlusSession);
+            if (RaidOrgaPlusTermine.Count == 0)
+                RaidOrgaPlusTermine.Add(RaidSimple.NoTermine());
+        }
+
+
+
+
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls

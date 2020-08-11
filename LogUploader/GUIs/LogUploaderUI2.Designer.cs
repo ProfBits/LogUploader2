@@ -142,6 +142,9 @@
             this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.pTop = new System.Windows.Forms.Panel();
+            this.gbRaidOrga = new System.Windows.Forms.GroupBox();
+            this.cmbRaidOrgaTermin = new System.Windows.Forms.ComboBox();
+            this.btnUpdateRaidOrga = new System.Windows.Forms.Button();
             this.pStatus.SuspendLayout();
             this.pWorkStatus.SuspendLayout();
             this.flpProgress.SuspendLayout();
@@ -160,6 +163,7 @@
             this.pGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).BeginInit();
             this.contextMenuGrid.SuspendLayout();
+            this.gbRaidOrga.SuspendLayout();
             this.SuspendLayout();
             // 
             // pStatus
@@ -341,14 +345,16 @@
             this.tlControlsTable.Controls.Add(this.gbFilter, 1, 0);
             this.tlControlsTable.Controls.Add(this.gbDetails, 1, 1);
             this.tlControlsTable.Controls.Add(this.gbActions, 2, 1);
-            this.tlControlsTable.Controls.Add(this.gbSettings, 2, 3);
-            this.tlControlsTable.Controls.Add(this.button2, 2, 2);
+            this.tlControlsTable.Controls.Add(this.gbSettings, 2, 4);
+            this.tlControlsTable.Controls.Add(this.button2, 2, 3);
+            this.tlControlsTable.Controls.Add(this.gbRaidOrga, 2, 2);
             this.tlControlsTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlControlsTable.Location = new System.Drawing.Point(0, 0);
             this.tlControlsTable.Name = "tlControlsTable";
-            this.tlControlsTable.RowCount = 4;
+            this.tlControlsTable.RowCount = 5;
             this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 160F));
-            this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tlControlsTable.Size = new System.Drawing.Size(357, 630);
@@ -609,7 +615,7 @@
             this.gbDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbDetails.Location = new System.Drawing.Point(8, 163);
             this.gbDetails.Name = "gbDetails";
-            this.tlControlsTable.SetRowSpan(this.gbDetails, 3);
+            this.tlControlsTable.SetRowSpan(this.gbDetails, 4);
             this.gbDetails.Size = new System.Drawing.Size(170, 464);
             this.gbDetails.TabIndex = 1;
             this.gbDetails.TabStop = false;
@@ -978,7 +984,7 @@
             this.gbActions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbActions.Location = new System.Drawing.Point(184, 163);
             this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(170, 244);
+            this.gbActions.Size = new System.Drawing.Size(170, 204);
             this.gbActions.TabIndex = 2;
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Actions";
@@ -1150,7 +1156,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(184, 413);
+            this.button2.Location = new System.Drawing.Point(184, 453);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 23);
             this.button2.TabIndex = 4;
@@ -1461,6 +1467,36 @@
             this.pTop.Size = new System.Drawing.Size(1027, 1);
             this.pTop.TabIndex = 0;
             // 
+            // gbRaidOrga
+            // 
+            this.gbRaidOrga.Controls.Add(this.btnUpdateRaidOrga);
+            this.gbRaidOrga.Controls.Add(this.cmbRaidOrgaTermin);
+            this.gbRaidOrga.Location = new System.Drawing.Point(184, 373);
+            this.gbRaidOrga.Name = "gbRaidOrga";
+            this.gbRaidOrga.Size = new System.Drawing.Size(170, 74);
+            this.gbRaidOrga.TabIndex = 5;
+            this.gbRaidOrga.TabStop = false;
+            this.gbRaidOrga.Text = "RaidOrga+";
+            // 
+            // cmbRaidOrgaTermin
+            // 
+            this.cmbRaidOrgaTermin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRaidOrgaTermin.FormattingEnabled = true;
+            this.cmbRaidOrgaTermin.Location = new System.Drawing.Point(6, 19);
+            this.cmbRaidOrgaTermin.Name = "cmbRaidOrgaTermin";
+            this.cmbRaidOrgaTermin.Size = new System.Drawing.Size(158, 21);
+            this.cmbRaidOrgaTermin.TabIndex = 0;
+            // 
+            // bntUpdateRaidOrga
+            // 
+            this.btnUpdateRaidOrga.Location = new System.Drawing.Point(53, 45);
+            this.btnUpdateRaidOrga.Name = "bntUpdateRaidOrga";
+            this.btnUpdateRaidOrga.Size = new System.Drawing.Size(111, 23);
+            this.btnUpdateRaidOrga.TabIndex = 1;
+            this.btnUpdateRaidOrga.Text = "Update Termin";
+            this.btnUpdateRaidOrga.UseVisualStyleBackColor = true;
+            this.btnUpdateRaidOrga.Click += new System.EventHandler(this.btnUpdateRaidOrga_Click);
+            // 
             // LogUploaderUI2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1501,6 +1537,7 @@
             this.pGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).EndInit();
             this.contextMenuGrid.ResumeLayout(false);
+            this.gbRaidOrga.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1618,5 +1655,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colFlags;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colHasEvtc;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colHasJson;
+        private System.Windows.Forms.GroupBox gbRaidOrga;
+        private System.Windows.Forms.Button btnUpdateRaidOrga;
+        private System.Windows.Forms.ComboBox cmbRaidOrgaTermin;
     }
 }

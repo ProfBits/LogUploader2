@@ -28,13 +28,13 @@ namespace LogUploader.Helper.DiscordPostGen
 
             if (log.DataCorrected)
             {
-                var subGroups = log.Players.GroupBy(p => p.SubGroup).OrderBy(g => g.Key);
+                var subGroups = log.PlayersNew.GroupBy(p => p.Group).OrderBy(g => g.Key);
                 foreach (var grop in subGroups)
                 {
                     value += "\n";
-                    foreach (var player in grop.OrderBy(p => p.Class.Name))
+                    foreach (var player in grop.OrderBy(p => p.Profession.Name))
                     {
-                        value += player.Class.Emote;
+                        value += player.Profession.Emote;
                     }
                 }
             }

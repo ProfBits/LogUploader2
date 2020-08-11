@@ -8,6 +8,7 @@ using LogUploader.Data.RaidOrgaPlus;
 using System.Net;
 using System.IO;
 using LogUploader.Data;
+using System.Threading;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {
@@ -30,7 +31,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {
-                string json = $@"{{""accName"":""{orgaSettings.User}"",""pwd"":""{orgaSettings.Password}""}}";
+                string json = $@"{{""accName"":""{orgaSettings.RaitOrgaPlusUser}"",""pwd"":""{orgaSettings.RaidOrgaPlusPassword}""}}";
 
                 streamWriter.Write(json);
             }
@@ -40,6 +41,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 sessionToken = streamReader.ReadToEnd();
+
+            if (sessionToken.Length <= 3)
+                return null;
 
             return new Session(sessionToken, userAgent);
         }
@@ -78,7 +82,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 .Select(termin => new RaidSimple(
                     (long)termin["id"],
                     (long)termin["raidID"],
-                    DateTime.Parse(((string)termin["date"]).Split(' ').Last()),
+                    DateTime.Parse(((string)termin["date"]).Split(' ').Last(), System.Globalization.CultureInfo.GetCultureInfo("de-de")),
                     TimeSpan.Parse((string)termin["time"] + ":00"),
                     TimeSpan.Parse((string)termin["endtime"] + ":00"),
                     (string)termin["name"]
@@ -86,24 +90,31 @@ namespace LogUploader.Helper.RaidOrgaPlus
             return termine.ToList();
         }
 
-        public Raid GetRaid(Session session, long terminID, long raidID)
+        public Raid GetRaid(Session session, long terminID, long raidID, CancellationToken ct, IProgress<ProgressMessage> progress = null)
         {
-
+            progress.Report(new ProgressMessage(0, "Bosses"));
             var request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen?termin={terminID}&auth={session.Token}", session.UserAgent);
+            if (ct.IsCancellationRequested) return null;
 
             string aufstellungenRAW;
             var httpResponse = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 aufstellungenRAW = streamReader.ReadToEnd();
 
+            if (ct.IsCancellationRequested) return null;
+            progress.Report(new ProgressMessage(0.10, "Clases and roles"));
             request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen/elements?termin={terminID}&auth={session.Token}", session.UserAgent);
+            if (ct.IsCancellationRequested) return null;
 
             string elementsRAW;
             httpResponse = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 elementsRAW = streamReader.ReadToEnd();
-            
+
+            if (ct.IsCancellationRequested) return null;
+            progress.Report(new ProgressMessage(0.35, "Static data"));
             request = GetGetRequest($@"https://sv.sollunad.de:8080/gamedata/encounter", session.UserAgent);
+            if (ct.IsCancellationRequested) return null;
 
             string bossesRAW;
             httpResponse = (HttpWebResponse)request.GetResponse();
@@ -121,21 +132,32 @@ namespace LogUploader.Helper.RaidOrgaPlus
              * [{"id":1,"name":"Vale Guardian","abbr":"VG","apiname":"vale_guardian","wing":1,"main":1,"kp_id":77705,"has_cm":0}]
              */
 
+            if (ct.IsCancellationRequested) return null;
             var bossesParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{bossesRAW}}}");
             var bosses = bossesParsed["wrapper"].ToDictionary(boss => (string)boss["abbr"], boss => (int)boss["id"]);
 
+            if (ct.IsCancellationRequested) return null;
             var elementsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{elementsRAW}}}");
             var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GetRole((string)element["role"]), GetClass((string)element["class"])) });
 
+            if (ct.IsCancellationRequested) return null;
             var aufstellungenParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{aufstellungenRAW}}}");
             var aufstellungen = aufstellungenParsed["wrapper"].Select(aufstellung => new TeamComp((long)aufstellung["id"], GetBoss(bosses, (string)aufstellung["abbr"]), (int)aufstellung["is_cm"] == 1, elements.Where(e => e.id == (long)aufstellung["id"]).Select(e => e.pos).ToList())).ToList();
 
 
+            if (ct.IsCancellationRequested) return null;
+            progress.Report(new ProgressMessage(0.45, "Members"));
             var group = GetGroup(session, terminID);
+            if (ct.IsCancellationRequested) return null;
+            progress.Report(new ProgressMessage(0.55, "Helpers"));
             var helper = GetHelper(session, terminID);
+            if (ct.IsCancellationRequested) return null;
+            progress.Report(new ProgressMessage(0.65, "Inveteable"));
+            //TODO maybe add finer progress
+            if (ct.IsCancellationRequested) return null;
             var inviteable = GetInvitealbe(session, raidID);
 
-            
+
             /* Format
              * anmeldungen all (gruppe)
              * [{"id":204,"name":"xyz","accname":"xyz.1234","type":2}]
@@ -147,6 +169,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
              * inviteable
              * [{"id":201,"name":"xyz","accname":"xyz.1234"}]
              */
+            progress.Report(new ProgressMessage(0.95, "Finish up"));
             return new Raid(terminID, raidID, group, helper, inviteable, aufstellungen);
         }
 
@@ -198,33 +221,33 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             switch (classAbbreviation)
             {
-                case "Ele": return Profession.Get(1);
-                case "Tmp": return Profession.Get(10);
-                case "Wea": return Profession.Get(19);
-                case "Mes": return Profession.Get(2);
-                case "Chr": return Profession.Get(11);
-                case "Mir": return Profession.Get(20);
-                case "Nec": return Profession.Get(3);
-                case "Rea": return Profession.Get(12);
-                case "Scg": return Profession.Get(21);
-                case "Rgr": return Profession.Get(4);
-                case "Dru": return Profession.Get(13);
-                case "Slb": return Profession.Get(22);
-                case "Eng": return Profession.Get(5);
-                case "Scr": return Profession.Get(14);
-                case "Hls": return Profession.Get(23);
-                case "Thf": return Profession.Get(6);
-                case "Dar": return Profession.Get(15);
-                case "Ded": return Profession.Get(24);
-                case "War": return Profession.Get(7);
-                case "Brs": return Profession.Get(16);
-                case "Spb": return Profession.Get(25);
-                case "Gdn": return Profession.Get(8);
-                case "Dgh": return Profession.Get(17);
-                case "Fbd": return Profession.Get(26);
-                case "Rev": return Profession.Get(9);
-                case "Her": return Profession.Get(18);
-                case "Ren": return Profession.Get(27);
+                case "Ele": return Profession.Get(eProfession.Elementalist);
+                case "Tmp": return Profession.Get(eProfession.Tempest);
+                case "Wea": return Profession.Get(eProfession.Weaver);
+                case "Mes": return Profession.Get(eProfession.Mesmer);
+                case "Chr": return Profession.Get(eProfession.Chronomancer);
+                case "Mir": return Profession.Get(eProfession.Mirage);
+                case "Nec": return Profession.Get(eProfession.Necromancer);
+                case "Rea": return Profession.Get(eProfession.Reaper);
+                case "Scg": return Profession.Get(eProfession.Scourge);
+                case "Rgr": return Profession.Get(eProfession.Ranger);
+                case "Dru": return Profession.Get(eProfession.Druid);
+                case "Slb": return Profession.Get(eProfession.Soulbeast);
+                case "Eng": return Profession.Get(eProfession.Engineer);
+                case "Scr": return Profession.Get(eProfession.Scrapper);
+                case "Hls": return Profession.Get(eProfession.Holosmith);
+                case "Thf": return Profession.Get(eProfession.Thief);
+                case "Dar": return Profession.Get(eProfession.Daredevil);
+                case "Ded": return Profession.Get(eProfession.Deadeye);
+                case "War": return Profession.Get(eProfession.Warrior);
+                case "Brs": return Profession.Get(eProfession.Berserker);
+                case "Spb": return Profession.Get(eProfession.Spellbreaker);
+                case "Gdn": return Profession.Get(eProfession.Guardian);
+                case "Dgh": return Profession.Get(eProfession.Dragonhunter);
+                case "Fbd": return Profession.Get(eProfession.Firebrand);
+                case "Rev": return Profession.Get(eProfession.Revenant);
+                case "Her": return Profession.Get(eProfession.Herald);
+                case "Ren": return Profession.Get(eProfession.Renegade);
                 default: return Profession.Unknown;
             }
         }

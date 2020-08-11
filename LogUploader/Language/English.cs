@@ -151,6 +151,9 @@ namespace LogUploader.Languages
         public override string ConfigDefaultMsgText { get => "Restore the Default settings?\nThis will permanently delete your current settings!"; }
         public override string ConfigDiscardMsgTitel { get => "Discard Changes?"; }
         public override string ConfigDiscardMsgText { get => "Continue without saving?"; }
+        public override string ConfigRoPlusTitle { get => "RaidOrga+"; }
+        public override string ConfigRoPlusUser { get => "User"; }
+        public override string ConfigRoPlusPwd { get => "Password"; }
 
         public override string NewTitle { get => "What's new in "; }
         public override string NewHeading { get => "Patchnotes"; }
@@ -177,5 +180,8 @@ namespace LogUploader.Languages
             }
         }
         public override string MiscDetailsMultibleBosses { get => "Multiple"; }
+        public override string MiscRaidOrgaPlusNoAccount { get => "No account configured"; }
+        public override string MiscRaidOrgaPlusLoginErr { get => "Login faild"; }
+        public override string MiscRaidOrgaPlusNoRaid { get => "No raid with leader permission"; }
     }
 }

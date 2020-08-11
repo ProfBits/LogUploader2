@@ -146,6 +146,9 @@ namespace LogUploader.Languages
         string ConfigDefaultMsgText { get; }
         string ConfigDiscardMsgTitel { get; }
         string ConfigDiscardMsgText { get; }
+        string ConfigRoPlusTitle { get; }
+        string ConfigRoPlusUser { get; }
+        string ConfigRoPlusPwd { get; }
 
         string NewTitle { get; }
         string NewHeading { get; }
@@ -162,5 +165,8 @@ namespace LogUploader.Languages
         string MiscDiscordPostErrTitle { get; }
         string MiscDiscordPostErrMsg { get; }
         string MiscDetailsMultibleBosses { get; }
+        string MiscRaidOrgaPlusNoAccount { get; }
+        string MiscRaidOrgaPlusLoginErr { get; }
+        string MiscRaidOrgaPlusNoRaid { get; }
     }
 }

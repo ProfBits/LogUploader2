@@ -175,6 +175,9 @@ namespace LogUploader.GUI
             btnDefault.Text = lang.ConfigDefault;
             btnCancel.Text = lang.ConfigCancel;
             btnOK.Text = lang.ConfigSave;
+            gbRoPlus.Text = lang.ConfigRoPlusTitle;
+            lblRoPlusUser.Text = lang.ConfigRoPlusUser;
+            lblRoPlusPwd.Text = lang.ConfigRoPlusPwd;
 
             NoWebHooks.Text = lang.ConfigDiscordNoHooks;
         }

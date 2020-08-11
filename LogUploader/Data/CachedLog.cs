@@ -10,31 +10,44 @@ namespace LogUploader.Data
 {
     public class CachedLog
     {
-
-        public int ID { get; set; } = -1;
-        public int BossID { get; set; }
+        /*
+         * DB Section: Has to be present
+         */
+        private DBLog DataDB { get; set; } = new DBLog();
+        public int ID { get => DataDB.ID; set => DataDB.ID = value; }
+        public int BossID { get => DataDB.BossID; set => DataDB.BossID = value; }
         public string BossName { get => Boss.getByID(BossID).Name; }
-        public string EvtcPath { get; set; }
-        public string JsonPath { get; set; }
-        public string HtmlPath { get; set; }
-        public string Link { get; set; }
-        public int SizeKb { get; set; }
-        public DateTime Date { get; set; }
-        public bool DataCorrected { get; private set; } = false;
-        public TimeSpan Duration { get; set; } = new TimeSpan(0, 0, 0);
-        
-        
-        
-        public bool Succsess { get; set; } = false;
-        public float RemainingHealth { get; set; } = 100;
-        public bool IsCM { get; set; } = false;
+        public string EvtcPath { get => DataDB.EvtcPath; set => DataDB.EvtcPath = value; }
+        public string JsonPath { get => DataDB.JsonPath; set => DataDB.JsonPath = value; }
+        public string HtmlPath { get => DataDB.HtmlPath; set => DataDB.HtmlPath = value; }
+        public string Link { get => DataDB.Link; set => DataDB.Link = value; }
+        public int SizeKb { get => DataDB.SizeKb; set => DataDB.SizeKb = value; }
+        public DateTime Date { get => DataDB.Date; set => DataDB.Date = value; }
+        public bool DataCorrected { get => DataDB.DataCorrected; set => DataDB.DataCorrected = value; }
+        public TimeSpan Duration { get => DataDB.Duration; set => DataDB.Duration = value; }
 
+        public bool Succsess { get => DataDB.Succsess; set => DataDB.Succsess = value; }
+        public float RemainingHealth { get => DataDB.RemainingHealth; set => DataDB.RemainingHealth = value; }
+        public bool IsCM  { get => DataDB.IsCM; set => DataDB.IsCM = value; }
+
+        //TODO remove?
+        [Obsolete("Should be removed if unnecesary")]
         public string LocalAvailable { get => string.IsNullOrEmpty(HtmlPath) ? "-" : "open"; }
+        //TODO remove?
+        [Obsolete("Should be removed if unnecesary")]
         public string LinkAvailable { get => string.IsNullOrEmpty(Link) ? "-" : "open"; }
 
-        public IReadOnlyList<CachedPlayer> Players { get; set; } = new List<CachedPlayer>();
+        /*
+         * Json Section: Additional data, may not be present
+         */
+        private SimpleLogJson DataJson { get; set; }
 
-        public CachedLog(int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date, bool dataCorrected, TimeSpan duration, bool succsess, float remainingHealth, bool isCM, IReadOnlyList<CachedPlayer> players = null)
+        public int DataVersion { get => DataJson?.Version ?? 0; }
+        public string RecordedBy { get => DataJson?.RecordedBy ?? ""; }
+        public IReadOnlyList<SimplePlayer> PlayersNew { get => DataJson?.Players ?? new List<SimplePlayer>(); }
+        public List<SimmpleTarget> Targets { get => DataJson?.Targets ?? new List<SimmpleTarget>(); }
+
+        public CachedLog(int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date, bool dataCorrected, TimeSpan duration, bool succsess, float remainingHealth, bool isCM)
         {
             ID = iD;
             BossID = bossID;
@@ -49,19 +62,27 @@ namespace LogUploader.Data
             Succsess = succsess;
             RemainingHealth = remainingHealth;
             IsCM = isCM;
-            if (players != null)
-                Players = players;
         }
+        public CachedLog(int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date) : this(
+            iD,
+            bossID,
+            evtcPath,
+            jsonPath,
+            htmlPath,
+            link,
+            sizeKb,
+            date,
+            false,
+            new TimeSpan(0),
+            false,
+            100,
+            false
+            )
+        { }
 
-        public CachedLog(int iD, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, JObject data)
+        public CachedLog(DBLog log)
         {
-            ID = iD;
-            EvtcPath = evtcPath;
-            JsonPath = jsonPath;
-            HtmlPath = htmlPath;
-            Link = link;
-            SizeKb = sizeKb;
-            UpdateEi(data);
+            DataDB = log;
         }
 
         private DateTime GetDate(string dateStr)
@@ -81,6 +102,31 @@ namespace LogUploader.Data
                 return new FileInfo(EvtcPath).CreationTime;
             }
             return DateTime.Now;
+        }
+        private static TimeSpan GetDuration(string durationStr)
+        {
+            try
+            {
+                //TODO BUG errors on 04m 38s 10ms
+                return TimeSpan.ParseExact(durationStr, "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
+            }
+            catch (FormatException)
+            {
+                var duration = new TimeSpan(0);
+                var parts = durationStr.Split(' ');
+                foreach (var part in parts)
+                {
+                    if (part.EndsWith("ms"))
+                        duration = duration.Add(new TimeSpan(0, 0, 0, 0, int.Parse(part.TrimEnd('m', 's'))));
+                    else if (part.EndsWith("s"))
+                        duration = duration.Add(new TimeSpan(0, 0, int.Parse(part.TrimEnd('s'))));
+                    else if (part.EndsWith("m"))
+                        duration = duration.Add(new TimeSpan(0, int.Parse(part.TrimEnd('m')), 0));
+                    else if (part.EndsWith("h"))
+                        duration = duration.Add(new TimeSpan(int.Parse(part.TrimEnd('h')), 0, 0));
+                }
+                return duration;
+            }
         }
 
         private float getRemainingHealth(JArray list, int bossID)
@@ -126,49 +172,11 @@ namespace LogUploader.Data
             }
         }
 
-        private IReadOnlyList<CachedPlayer> ParsePlayers(JArray playerRawData)
+        private IReadOnlyList<SimplePlayer> ParsePlayersNew(JArray playerRawData)
         {
-            return playerRawData.Select(data => new CachedPlayer((JObject)data)).ToList();
+            return playerRawData.Select(data => new SimplePlayer((JObject)data)).ToList();
         }
 
-        public CachedLog(int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date)
-        {
-            ID = iD;
-            BossID = bossID;
-            EvtcPath = evtcPath;
-            JsonPath = jsonPath;
-            HtmlPath = htmlPath;
-            Link = link;
-            SizeKb = sizeKb;
-            Date = date;
-            DataCorrected = false;
-            Duration = new TimeSpan(0);
-            Succsess = false;
-            RemainingHealth = 100;
-            IsCM = false;
-            Players = new List<CachedPlayer>();
-        }
-
-        public CachedLog(DBLog log) : this(
-            log.ID,
-            log.BossID,
-            log.EvtcPath,
-            log.JsonPath,
-            log.HtmlPath,
-            log.Link,
-            log.SizeKb,
-            log.Date,
-            log.DataCorrected,
-            log.Duration,
-            log.Succsess,
-            log.RemainingHealth,
-            log.IsCM
-            )
-        { }
-
-        public CachedLog()
-        {
-        }
 
         public void UpdateEi(string json) => UpdateEi(JObject.Parse(json));
         public void UpdateEi(JObject data)
@@ -181,34 +189,10 @@ namespace LogUploader.Data
             Succsess = (bool)data["success"];
             RemainingHealth = getRemainingHealth((JArray)data["targets"], BossID);
             IsCM = (bool)data["isCM"];
-            Players = ParsePlayers((JArray)data["players"]);
+            ApplySimpleLog(new SimpleLogJson(data));
         }
 
-        private static TimeSpan GetDuration(string durationStr)
-        {
-            try
-            {
-                return TimeSpan.ParseExact(durationStr, "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
-            }
-            catch (FormatException)
-            {
-                var duration = new TimeSpan(0);
-                var parts = durationStr.Split(' ');
-                foreach (var part in parts)
-                {
-                    if (part.EndsWith("ms"))
-                        duration = duration.Add(new TimeSpan(0, 0, 0, 0, int.Parse(part.TrimEnd('m', 's'))));
-                    else if (part.EndsWith("s"))
-                        duration = duration.Add(new TimeSpan(0, 0, int.Parse(part.TrimEnd('s'))));
-                    else if (part.EndsWith("m"))
-                        duration = duration.Add(new TimeSpan(0, int.Parse(part.TrimEnd('m')), 0));
-                    else if (part.EndsWith("h"))
-                        duration = duration.Add(new TimeSpan(int.Parse(part.TrimEnd('h')), 0, 0));
-                }
-                return duration;
-            }
-        }
-
+        [Obsolete("untested do not use!", true)]
         public void UpdateDpsReport(JObject data)
         {
             BossID = (int)data["triggerID"];
@@ -219,12 +203,17 @@ namespace LogUploader.Data
             Succsess = (bool)data["success"];
             RemainingHealth = getRemainingHealth((JArray)data["targets"], BossID);
             IsCM = (bool)data["isCM"];
-            Players = ParsePlayers((JArray)data["players"]);
+            ApplySimpleLog(new SimpleLogJson(data));
         }
 
         public DBLog GetDBLog()
         {
             return new DBLog(ID, BossID, EvtcPath, JsonPath, HtmlPath, Link, SizeKb, Date, Duration, DataCorrected, Succsess, IsCM, RemainingHealth);
+        }
+
+        internal void ApplySimpleLog(SimpleLogJson data)
+        {
+            DataJson = data;
         }
 
         public override bool Equals(object obj)

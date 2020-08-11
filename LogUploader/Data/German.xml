@@ -132,6 +132,9 @@ Füge einen neuen hinzu!</configDiscordNoHooks>
 Dies wird deine aktuellen Einstellungen dauerhaft löschen!</configDefaultMsgText>
   <configDiscardMsgTitel>Änderungen verwerfen?</configDiscardMsgTitel>
   <configDiscardMsgText>Fortfahren ohne speichern?</configDiscardMsgText>
+  <configRoPlusTitle>RaidOrga+</configRoPlusTitle>
+  <configRoPlusUser>Benutzer</configRoPlusUser>
+  <configRoPlusPwd>Passwort</configRoPlusPwd>
   <newTitle>Neuerungen in </newTitle>
   <newHeading>Update-Notes</newHeading>
   <newClose>Schliessen</newClose>
@@ -151,4 +154,7 @@ Stelle sicher, dass
 - der Link des genutzten Avatars korrekt ist (wenn du einen nutzt)
 - du mit dem Internet verbunden bist</miscDiscordPostErrMsg>
   <miscDetailsMultibleBosses>Verschieden</miscDetailsMultibleBosses>
+  <miscRaidOrgaPlusNoAccount>Kein konto eingestellt</miscRaidOrgaPlusNoAccount>
+  <miscRaidOrgaPlusLoginErr>Login fehlgeschlagen</miscRaidOrgaPlusLoginErr>
+  <miscRaidOrgaPlusNoRaid>Kein Termin mit Leiter rechten</miscRaidOrgaPlusNoRaid>
 </XMLLanguage>

@@ -23,6 +23,10 @@ namespace LogUploader.Data.RaidOrgaPlus
                     return null;
             }
         }
+#if ROPLUSHUMAN
+        [JsonProperty("Boss")]
+        public string BossName { get => Encounter.Name; }
+#endif
 
         [JsonIgnore]
         public Boss Encounter { get; set; }
@@ -44,7 +48,7 @@ namespace LogUploader.Data.RaidOrgaPlus
             Players = players;
         }
 
-        private IEnumerable<Position> UnnamedPlayers { get => Players.Where(pos => string.IsNullOrEmpty(pos.AccName)); }
+        private IEnumerable<Position> UnnamedPlayers { get => Players.Where(pos => string.IsNullOrEmpty(pos.AccName) || pos.AccName == "???"); }
 
         internal bool Exists(string accountName)
         {
@@ -93,6 +97,56 @@ namespace LogUploader.Data.RaidOrgaPlus
         internal Position Get()
         {
             return UnnamedPlayers.First();
+        }
+
+        internal void OrderPlayers()
+        {
+            Players = Players.OrderBy(p => p.Role, new RoleComparator()).Select((p, i) =>
+            {
+                p.Pos = i + 1;
+                return p;
+            }).ToList();
+        }
+
+        private class RoleComparator : IComparer<Role>
+        {
+            public int Compare(Role x, Role y)
+            {
+                var x1 = GetRoleNumber(x);
+                var y1 = GetRoleNumber(y);
+                if (x1 > y1)
+                    return 1;
+                if (x1 < y1)
+                    return -1;
+                return 0;
+            }
+
+            private int GetRoleNumber(Role r)
+            {
+                switch (r)
+                {
+                    case Role.Tank:
+                        return 0;
+                    case Role.Utility:
+                        return 10;
+                    case Role.Heal:
+                        return 20;
+                    case Role.Special:
+                        return 30;
+                    case Role.Banner:
+                        return 40;
+                    case Role.Kiter:
+                        return 50;
+                    case Role.Power:
+                        return 60;
+                    case Role.Condi:
+                        return 70;
+                    case Role.Empty:
+                        return 80;
+                    default:
+                        return 100;
+                }
+            }
         }
     }
 }

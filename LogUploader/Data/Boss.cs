@@ -47,6 +47,13 @@ namespace LogUploader.Data
         internal Boss(BasicInfo info, string FolderName, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(info.ID, info.NameEN, info.NameDE, FolderName, FolderName, info.GameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         { }
 
+        public static Boss Unknown { get => Get(eBosses.Unknown); }
+
+        public static Boss Get(eBosses boss)
+        {
+            return getByID((int)boss);
+        }
+
         public static Boss getByID(int id)
         {
             try
@@ -91,7 +98,7 @@ namespace LogUploader.Data
                 {
                     case "Gebrochener König":
                     case "Bezwungener König":
-                        boss = getByID(19691);
+                        boss = Get(eBosses.BrokenKing);
                         break;
                 }
             }

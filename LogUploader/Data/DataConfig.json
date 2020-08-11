@@ -65,6 +65,12 @@
           "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Voice_in_the_Deep_loading_screen.jpg"
         },
         {
+          "ID": 4,
+          "NameEN": "Cold War",
+          "NameDE": "Kalter Krieg",
+          "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg"
+        },
+        {
           "ID": 255,
           "NameEN": "Freeze",
           "NameDE": "Frostie",
@@ -619,6 +625,19 @@
         "GameAreaID": 3,
         "DiscordEmote": "<:mes:484839435578507295>",
         "AvatarURL": "https://i.imgur.com/8GLwgfL.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 22836,
+        "NameEN": "Cold War",
+        "NameDE": "Kalter Kried",
+        "FolderEN": "Varinia Stormsounder",
+        "FolderDE": "Varinia Sturmschall",
+        "EiName": "Whisper of Jormag",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 4,
+        "DiscordEmote": "<:dgh:484839155155599360>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg",
         "RaidOrgaPlusID": -1
       },
       {

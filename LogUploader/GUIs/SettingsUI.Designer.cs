@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsUI));
             this.gbCopyLinks = new System.Windows.Forms.GroupBox();
             this.cbLinkInSameLine = new System.Windows.Forms.CheckBox();
-            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cbGNEmotes = new System.Windows.Forms.CheckBox();
             this.cbEmptyLinesInBetween = new System.Windows.Forms.CheckBox();
             this.cbShowSuccsess = new System.Windows.Forms.CheckBox();
@@ -62,14 +61,19 @@
             this.btnAddWebHook = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flpWebHooks = new System.Windows.Forms.FlowLayoutPanel();
-            this.webHookConfig1 = new LogUploader.GUIs.WebHookConfig();
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.gbEi = new System.Windows.Forms.GroupBox();
+            this.btnEiUpdate = new System.Windows.Forms.Button();
             this.cbEiTheme = new System.Windows.Forms.CheckBox();
             this.cbEiCombatReplay = new System.Windows.Forms.CheckBox();
-            this.btnEiUpdate = new System.Windows.Forms.Button();
+            this.gbRoPlus = new System.Windows.Forms.GroupBox();
+            this.lblRoPlusUser = new System.Windows.Forms.Label();
+            this.lblRoPlusPwd = new System.Windows.Forms.Label();
+            this.txtRoPlusUser = new System.Windows.Forms.TextBox();
+            this.txtRoPlusPwd = new System.Windows.Forms.TextBox();
+            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.webHookConfig1 = new LogUploader.GUIs.WebHookConfig();
             this.gbCopyLinks.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.gbDpsReport.SuspendLayout();
             this.gbGeneral.SuspendLayout();
             this.gbDiscord.SuspendLayout();
@@ -77,6 +81,8 @@
             this.panel1.SuspendLayout();
             this.flpWebHooks.SuspendLayout();
             this.gbEi.SuspendLayout();
+            this.gbRoPlus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gbCopyLinks
@@ -86,7 +92,7 @@
             this.gbCopyLinks.Controls.Add(this.cbEmptyLinesInBetween);
             this.gbCopyLinks.Controls.Add(this.cbShowSuccsess);
             this.gbCopyLinks.Controls.Add(this.cbShwoEncounterName);
-            this.gbCopyLinks.Location = new System.Drawing.Point(12, 226);
+            this.gbCopyLinks.Location = new System.Drawing.Point(12, 299);
             this.gbCopyLinks.Name = "gbCopyLinks";
             this.gbCopyLinks.Size = new System.Drawing.Size(315, 134);
             this.gbCopyLinks.TabIndex = 0;
@@ -103,11 +109,6 @@
             this.cbLinkInSameLine.TabIndex = 5;
             this.cbLinkInSameLine.Text = "Link in same line as encounter";
             this.cbLinkInSameLine.UseVisualStyleBackColor = true;
-            // 
-            // SettingsbindingSource
-            // 
-            this.SettingsbindingSource.AllowNew = true;
-            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
             // 
             // cbGNEmotes
             // 
@@ -159,7 +160,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(485, 377);
+            this.btnCancel.Location = new System.Drawing.Point(485, 466);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
@@ -170,7 +171,7 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(566, 377);
+            this.btnOK.Location = new System.Drawing.Point(566, 466);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 7;
@@ -181,7 +182,7 @@
             // btnDefault
             // 
             this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDefault.Location = new System.Drawing.Point(12, 377);
+            this.btnDefault.Location = new System.Drawing.Point(12, 466);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(75, 23);
             this.btnDefault.TabIndex = 9;
@@ -418,13 +419,6 @@
             this.flpWebHooks.TabIndex = 0;
             this.flpWebHooks.WrapContents = false;
             // 
-            // webHookConfig1
-            // 
-            this.webHookConfig1.Location = new System.Drawing.Point(3, 3);
-            this.webHookConfig1.Name = "webHookConfig1";
-            this.webHookConfig1.Size = new System.Drawing.Size(280, 152);
-            this.webHookConfig1.TabIndex = 0;
-            // 
             // ttHelp
             // 
             this.ttHelp.AutoPopDelay = 0;
@@ -436,12 +430,22 @@
             this.gbEi.Controls.Add(this.btnEiUpdate);
             this.gbEi.Controls.Add(this.cbEiTheme);
             this.gbEi.Controls.Add(this.cbEiCombatReplay);
-            this.gbEi.Location = new System.Drawing.Point(333, 301);
+            this.gbEi.Location = new System.Drawing.Point(12, 226);
             this.gbEi.Name = "gbEi";
             this.gbEi.Size = new System.Drawing.Size(315, 67);
             this.gbEi.TabIndex = 13;
             this.gbEi.TabStop = false;
             this.gbEi.Text = "EliteInsights";
+            // 
+            // btnEiUpdate
+            // 
+            this.btnEiUpdate.Location = new System.Drawing.Point(197, 38);
+            this.btnEiUpdate.Name = "btnEiUpdate";
+            this.btnEiUpdate.Size = new System.Drawing.Size(111, 23);
+            this.btnEiUpdate.TabIndex = 2;
+            this.btnEiUpdate.Text = "Update / Reinstall";
+            this.btnEiUpdate.UseVisualStyleBackColor = true;
+            this.btnEiUpdate.Click += new System.EventHandler(this.btnEiUpdate_Click);
             // 
             // cbEiTheme
             // 
@@ -465,15 +469,65 @@
             this.cbEiCombatReplay.Text = "Generate combat replay";
             this.cbEiCombatReplay.UseVisualStyleBackColor = true;
             // 
-            // btnEiUpdate
+            // gbRoPlus
             // 
-            this.btnEiUpdate.Location = new System.Drawing.Point(197, 38);
-            this.btnEiUpdate.Name = "btnEiUpdate";
-            this.btnEiUpdate.Size = new System.Drawing.Size(111, 23);
-            this.btnEiUpdate.TabIndex = 2;
-            this.btnEiUpdate.Text = "Update / Reinstall";
-            this.btnEiUpdate.UseVisualStyleBackColor = true;
-            this.btnEiUpdate.Click += new System.EventHandler(this.btnEiUpdate_Click);
+            this.gbRoPlus.Controls.Add(this.txtRoPlusPwd);
+            this.gbRoPlus.Controls.Add(this.txtRoPlusUser);
+            this.gbRoPlus.Controls.Add(this.lblRoPlusPwd);
+            this.gbRoPlus.Controls.Add(this.lblRoPlusUser);
+            this.gbRoPlus.Location = new System.Drawing.Point(333, 301);
+            this.gbRoPlus.Name = "gbRoPlus";
+            this.gbRoPlus.Size = new System.Drawing.Size(315, 113);
+            this.gbRoPlus.TabIndex = 14;
+            this.gbRoPlus.TabStop = false;
+            this.gbRoPlus.Text = "RaidOrga+";
+            // 
+            // lblRoPlusUser
+            // 
+            this.lblRoPlusUser.AutoSize = true;
+            this.lblRoPlusUser.Location = new System.Drawing.Point(6, 20);
+            this.lblRoPlusUser.Name = "lblRoPlusUser";
+            this.lblRoPlusUser.Size = new System.Drawing.Size(32, 13);
+            this.lblRoPlusUser.TabIndex = 0;
+            this.lblRoPlusUser.Text = "User:";
+            // 
+            // lblRoPlusPwd
+            // 
+            this.lblRoPlusPwd.AutoSize = true;
+            this.lblRoPlusPwd.Location = new System.Drawing.Point(6, 63);
+            this.lblRoPlusPwd.Name = "lblRoPlusPwd";
+            this.lblRoPlusPwd.Size = new System.Drawing.Size(56, 13);
+            this.lblRoPlusPwd.TabIndex = 1;
+            this.lblRoPlusPwd.Text = "Password:";
+            // 
+            // txtRoPlusUser
+            // 
+            this.txtRoPlusUser.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsbindingSource, "RaitOrgaPlusUser", true));
+            this.txtRoPlusUser.Location = new System.Drawing.Point(9, 36);
+            this.txtRoPlusUser.Name = "txtRoPlusUser";
+            this.txtRoPlusUser.Size = new System.Drawing.Size(180, 20);
+            this.txtRoPlusUser.TabIndex = 2;
+            // 
+            // txtRoPlusPwd
+            // 
+            this.txtRoPlusPwd.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsbindingSource, "RaidOrgaPlusPassword", true));
+            this.txtRoPlusPwd.Location = new System.Drawing.Point(9, 79);
+            this.txtRoPlusPwd.Name = "txtRoPlusPwd";
+            this.txtRoPlusPwd.PasswordChar = '*';
+            this.txtRoPlusPwd.Size = new System.Drawing.Size(180, 20);
+            this.txtRoPlusPwd.TabIndex = 3;
+            // 
+            // SettingsbindingSource
+            // 
+            this.SettingsbindingSource.AllowNew = true;
+            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
+            // 
+            // webHookConfig1
+            // 
+            this.webHookConfig1.Location = new System.Drawing.Point(3, 3);
+            this.webHookConfig1.Name = "webHookConfig1";
+            this.webHookConfig1.Size = new System.Drawing.Size(280, 152);
+            this.webHookConfig1.TabIndex = 0;
             // 
             // SettingsUI
             // 
@@ -481,7 +535,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(653, 412);
+            this.ClientSize = new System.Drawing.Size(653, 501);
+            this.Controls.Add(this.gbRoPlus);
             this.Controls.Add(this.gbEi);
             this.Controls.Add(this.gbDiscord);
             this.Controls.Add(this.gbGeneral);
@@ -498,7 +553,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsUI_FormClosing);
             this.gbCopyLinks.ResumeLayout(false);
             this.gbCopyLinks.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.gbDpsReport.ResumeLayout(false);
             this.gbDpsReport.PerformLayout();
             this.gbGeneral.ResumeLayout(false);
@@ -511,6 +565,9 @@
             this.flpWebHooks.ResumeLayout(false);
             this.gbEi.ResumeLayout(false);
             this.gbEi.PerformLayout();
+            this.gbRoPlus.ResumeLayout(false);
+            this.gbRoPlus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -555,5 +612,10 @@
         private System.Windows.Forms.CheckBox cbEiOnlyUploaded;
         private System.Windows.Forms.CheckBox cbNameAsUser;
         private System.Windows.Forms.Button btnEiUpdate;
+        private System.Windows.Forms.GroupBox gbRoPlus;
+        private System.Windows.Forms.TextBox txtRoPlusPwd;
+        private System.Windows.Forms.TextBox txtRoPlusUser;
+        private System.Windows.Forms.Label lblRoPlusPwd;
+        private System.Windows.Forms.Label lblRoPlusUser;
     }
 }

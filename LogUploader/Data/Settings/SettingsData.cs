@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Settings
 {
-    class SettingsData : IGeneralSettings, ICopyLinksSettings, IProxySettings, IWebHookSettings, IEliteInsightsSettings
+    class SettingsData : IGeneralSettings, ICopyLinksSettings, IProxySettings, IWebHookSettings, IEliteInsightsSettings, IRaidOrgaPlusSettings
     {
         #region General Settings
 
@@ -56,6 +56,13 @@ namespace LogUploader.Data.Settings
         public bool LightTheme { get; set; }
 
         #endregion
+        #region RO+
+
+        public string RaitOrgaPlusUser { get; set; }
+        public string RaidOrgaPlusPassword { get; set; }
+        public bool RaidOrgaPlusAccoutSet { get => !string.IsNullOrWhiteSpace(RaitOrgaPlusUser) || !string.IsNullOrWhiteSpace(RaidOrgaPlusPassword); }
+
+        #endregion
 
         public SettingsData(Properties.Settings settings)
         {
@@ -64,7 +71,7 @@ namespace LogUploader.Data.Settings
             SetProxy(settings.UseProxy, settings.ProxyAddress, settings.ProxyPort, settings.ProxyUsername, settings.ProxyPassword);
             SetWebHook(settings.WebHookDB, settings.CurrentWebHook, settings.DiscordPostFormat, settings.OnlyPostUploaded, settings.NameAsDiscordUser);
             SetEliteInsights(settings.AutoUpdateEI, settings.EiCreateCombatReplay, settings.EiUseLightTheme);
-
+            SetRaidOrgaPlus(settings.RopUser, settings.RopPwd);
         }
 
         #region SetPerInterface
@@ -128,6 +135,13 @@ namespace LogUploader.Data.Settings
             LightTheme = lightTheme;
         }
 
+        private void SetRaidOrgaPlus(string ropUser, string ropPwd)
+        {
+            RaitOrgaPlusUser = ropUser;
+            RaidOrgaPlusPassword = SettingsHelper.UnprotectString(ropPwd);
+        }
+
+
         #endregion
 
         public Properties.Settings ApplyTo(Properties.Settings settings)
@@ -137,6 +151,7 @@ namespace LogUploader.Data.Settings
             ApplyProxy(settings);
             ApplyWebHook(settings);
             ApplyEliteInsights(settings);
+            ApplyRaidOrgaPlus(settings);
             return settings;
         }
 
@@ -185,6 +200,12 @@ namespace LogUploader.Data.Settings
             settings.AutoUpdateEI = AutoUpdateEI;
             settings.EiCreateCombatReplay = CreateCombatReplay;
             settings.EiUseLightTheme = LightTheme;
+        }
+
+        private void ApplyRaidOrgaPlus(Properties.Settings settings)
+        {
+            settings.RopUser = RaitOrgaPlusUser;
+            settings.RopPwd = SettingsHelper.ProtectString(RaidOrgaPlusPassword);
         }
 
         #endregion

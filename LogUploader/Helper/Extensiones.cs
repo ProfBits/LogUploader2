@@ -12,6 +12,11 @@ namespace Extensiones
             var name = Enum.GetName(enumType, value);
             return enumType.GetField(name).GetCustomAttributes(false).OfType<TAttribute>().SingleOrDefault();
         }
+
+        public static LogUploader.Data.Profession Get(this LogUploader.eProfession profession)
+        {
+            return LogUploader.Data.Profession.Get(profession);
+        }
     }
 }
 
@@ -235,6 +240,10 @@ namespace Extensiones.Linq
         {
             return en.Select(t => new { value = t, eval = evaluate(t) })
                 .Aggregate((max, next) => next.eval.CompareTo(max.eval) < 0 ? next : max).value;
+        }
+        public static IEnumerable<(int, T)> Enumerate<T>(this IEnumerable<T> array)
+        {
+            return array.Select((item, index) => (index, item));
         }
     }
 }

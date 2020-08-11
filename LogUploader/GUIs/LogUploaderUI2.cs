@@ -28,6 +28,7 @@ namespace LogUploader.GUIs
             ApplieLanguage();
             //TODO ApplieTheme
             //ApplieTheme();
+
             progress?.Report(0.6);
             BindEvents();
             BindComboBoxes();
@@ -227,6 +228,18 @@ namespace LogUploader.GUIs
         {
             await Task.Delay(1000);
             ShowWhatsNew();
+        }
+
+        private void btnUpdateRaidOrga_Click(object sender, EventArgs e)
+        {
+            btnUpdateRaidOrga.Enabled = false;
+            btnUpdateRaidOrga.Refresh();
+            var logsToPost = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
+                   .Select(row => (int)row.Cells["colID"].Value);
+            var raid = (Data.RaidOrgaPlus.RaidSimple)cmbRaidOrgaTermin.SelectedValue;
+            var LoadingUI = new LoadingBar("Updating " + raid.DisplayName, (ct, a, p) => Logic.UpdateRaidOrga(raid, logsToPost.ToList(), ct, a, p));
+            LoadingUI.ShowDialog();
+            btnUpdateRaidOrga.Enabled = true;
         }
     }
 }

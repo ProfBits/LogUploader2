@@ -345,5 +345,29 @@ namespace LogUploader.Properties {
                 this["WhatsNewShown"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RopUser {
+            get {
+                return ((string)(this["RopUser"]));
+            }
+            set {
+                this["RopUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RopPwd {
+            get {
+                return ((string)(this["RopPwd"]));
+            }
+            set {
+                this["RopPwd"] = value;
+            }
+        }
     }
 }

@@ -50,7 +50,8 @@ namespace LogUploader.Data.Settings
     //TODO implement settings
     public interface IRaidOrgaPlusSettings
     {
-        string User { get; set; }
-        string Password { get; set; }
+        string RaitOrgaPlusUser { get; set; }
+        string RaidOrgaPlusPassword { get; set; }
+        bool RaidOrgaPlusAccoutSet { get; }
     }
 }
