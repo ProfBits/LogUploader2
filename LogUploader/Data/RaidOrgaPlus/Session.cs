@@ -8,14 +8,19 @@ namespace LogUploader.Data.RaidOrgaPlus
 {
     class Session
     {
+        public TimeSpan Timeout => new TimeSpan(24, 0, 0);
         public string Token { get; }
         public string UserAgent { get; } = "LogUploader";
+        public DateTime Created { get; }
+        public bool Valid => DateTime.Now.Subtract(Created) < Timeout;
 
         public Session(string token, string userAgent)
         {
             Token = token;
             UserAgent = userAgent;
+            Created = DateTime.Now;
         }
+
 
         public override bool Equals(object obj)
         {

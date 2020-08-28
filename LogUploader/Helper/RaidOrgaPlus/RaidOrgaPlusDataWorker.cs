@@ -20,24 +20,89 @@ namespace LogUploader.Helper.RaidOrgaPlus
             progress?.Report(new ProgressMessage(0.02, "Remove duplicated bosses"));
             logs = OnlyGetOnePerBoss(logs);
             CondenseStatues(logs);
+
             progress?.Report(new ProgressMessage(0.03, "Remove unused bosses from RO+ data"));
             RemoveUnused(raid, logs);
+
             progress?.Report(new ProgressMessage(0.04, "Create missing bosses"));
             InsertLogs(raid, logs);
+
             progress?.Report(new ProgressMessage(0.05, "Build encounters"));
             var encounters = GetEncounters(raid, logs);
+
             progress?.Report(new ProgressMessage(0.08, "Gather players"));
             var players = GetAllPlayers(raid, encounters);
-            progress?.Report(new ProgressMessage(0.10, "Assigen players"));
+
+            progress?.Report(new ProgressMessage(0.09, "Loading cached players"));
+            var playerCache = new RaidOrgaPlusCache();
+
+            progress?.Report(new ProgressMessage(0.10, "Applying cached players"));
+            ApplyCache(players, playerCache, raid);
+
+            progress?.Report(new ProgressMessage(0.11, "Assigen players"));
             ShowCorrectPlayerUI(players, raid, invoker);
-            progress?.Report(new ProgressMessage(0.15, "Update players"));
+
+            progress?.Report(new ProgressMessage(0.15, "Update players and cache"));
+            UpdateCache(players, playerCache, raid.RaidID);
+
+            progress?.Report(new ProgressMessage(0.16, "Update players and cache"));
             CorrectPlayers(players, encounters);
-            UpdateRaidOrgaPlusData(raid, encounters, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.83) + 0.15, "Update boss " + p.Message))));
+
+            UpdateRaidOrgaPlusData(raid, encounters, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.81) + 0.17, "Update boss " + p.Message))));
 
             progress?.Report(new ProgressMessage(0.98, "Update players to invite"));
             UpdatePlayersToInvite(raid, encounters);
             progress?.Report(new ProgressMessage(1, "Done"));
             return raid;
+        }
+
+        private static void UpdateCache(List<CheckPlayer> players, RaidOrgaPlusCache playerCache, long raidID)
+        {
+            foreach (var p in players)
+            {
+                if (p.Player.Type != p.BecomesType)
+                {
+                    playerCache.Set(raidID, p.Player.AccountName, p.BecomesAccount?.ID ?? 1);
+                }
+            }
+            playerCache.Save();
+        }
+
+        private static void ApplyCache(List<CheckPlayer> players, RaidOrgaPlusCache playerCache, Raid r)
+        {
+            foreach (var p in players)
+            {
+                if (p.Player.Type != PlayerType.MEMBER)
+                {
+                    var becomesID = playerCache.Get(r.RaidID, p.Player.AccountName);
+                    switch (becomesID)
+                    {
+                        case -1: //Not in cache
+                            break;
+                        case 1: //LFG
+                            p.BecomesAccount = null;
+                            p.BecomesType = PlayerType.LFG;
+                            break;
+                        default: //Knowen Account
+                            if (r.IsMember(becomesID))
+                            {
+                                p.BecomesAccount = r.GetMember(becomesID);
+                                p.BecomesType = PlayerType.MEMBER;
+                            }
+                            else if (r.IsInviteable(becomesID))
+                            {
+                                p.BecomesAccount = r.GetInviteable(becomesID);
+                                p.BecomesType = PlayerType.INVITEABLE;
+                            }
+                            else if (r.IsHelper(becomesID))
+                            {
+                                p.BecomesAccount = r.GetHelper(becomesID);
+                                p.BecomesType = PlayerType.HELPER;
+                            }
+                            break;
+                    }
+                }
+            }
         }
 
         private static void RemoveUnused(Raid raid, IEnumerable<CachedLog> logs)
@@ -240,7 +305,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         break;
                     case 20934: //Qadim1
                         //TODO Qadim1
-                        goto default;
+                        goto case 43974;
                     case 22000: //Qadim2
                         SetTank();
                         SetQadim2Pylons();
@@ -491,15 +556,19 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         TC.Get().Set(player);
             }
 
-            //TODO improve EnsureAllPlayers
+            //TODO Implement EnsureAllPlayers properly
             internal void EnsureAllPlayers()
             {
-                if (!Players.All(p => p.RaidOrgaID >= 1))
+                var tcData = Players.Select(p => p.RaidOrgaID).Distinct().ToDictionary(e => e, e => Players.Where(p => p.RaidOrgaID == e).Count());
+                foreach (var p in TC.Players)
                 {
-                    //TODO errorhandling not all players present
-                    return;
+                    if (!tcData.ContainsKey(p.ID))
+                        //Error player missing in tc
+                        throw new NotImplementedException();
+                    if (tcData[p.ID] != TC.Players.Where(p2 => p.ID == p2.ID).Count())
+                        //Error player to often or to few
+                        throw new NotImplementedException();
                 }
-
             }
 
             internal void FillTeamComp()

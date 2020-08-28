@@ -50,6 +50,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         public List<RaidSimple> GetRaids(Session session)
         {
+            if (!session.Valid)
+                return null;
+
             var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine?auth={session.Token}", session.UserAgent);
 
             string termineRAW;
@@ -92,6 +95,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         public Raid GetRaid(Session session, long terminID, long raidID, CancellationToken ct, IProgress<ProgressMessage> progress = null)
         {
+            if (!session.Valid)
+                return null;
+
             progress.Report(new ProgressMessage(0, "Bosses"));
             var request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen?termin={terminID}&auth={session.Token}", session.UserAgent);
             if (ct.IsCancellationRequested) return null;
@@ -270,6 +276,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         public void SetRaid(Session session, Raid raid)
         {
+            if (!session.Valid)
+                return;
+
             foreach (var helper in raid.ToInvite)
             {
                 ToggleHelper(session, raid.TerminID, helper.ID);
@@ -279,17 +288,22 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {
-                string json = $@"{{
-""session"":""{session.Token}"",
-""body"":{raid.ToString()}}}";
+                string json = $@"{{""auth"":""{session.Token}"",""session"":""{session.Token}"",""body"":{raid.getPostJson()}}}";
 
                 streamWriter.Write(json);
 
                 string response;
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                    response = streamReader.ReadToEnd();
+                try
+                {
+                    using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                        response = streamReader.ReadToEnd();
+                }
+                catch (Exception e)
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
 

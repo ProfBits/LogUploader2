@@ -882,7 +882,17 @@ namespace LogUploader
                 return;
             }
 
-            progress?.Report(new ProgressMessage(0, "Gathering RO+ data"));
+
+            progress?.Report(new ProgressMessage(0, "Check RO+ Login"));
+            if (!RaidOrgaPlusSession.Valid)
+                RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
+            if (RaidOrgaPlusSession == null)
+            {
+                MessageBox.Show(Language.Data.MiscRaidOrgaPlusLoginErr, "RO+ login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            progress?.Report(new ProgressMessage(1, "Gathering RO+ data"));
             Raid raid = RaidOrgaPlusConnector.GetRaid(RaidOrgaPlusSession, data.TerminID, data.RaidID, ct, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.4) + 0, "Gathering RO+ data - " + p.Message))));
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(40, "Gathering local data"));
@@ -906,7 +916,7 @@ namespace LogUploader
                 logs.Add(log);
                 if (ct.IsCancellationRequested) return;
             };
-            Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));
+            raid = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));
 
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.95, "Updating RO+"));
@@ -918,6 +928,14 @@ namespace LogUploader
             GP.WriteJsonFile(fileName, raid.getPostJson());
             progress?.Report(new ProgressMessage(0.99, "Done"));
             MessageBox.Show("Created file:\n" + fileName, "User Information", MessageBoxButtons.OK);
+            //try
+            //{
+            //    RaidOrgaPlusConnector.SetRaid(RaidOrgaPlusSession, raid);
+            //}
+            //catch (Exception e)
+            //{
+            //    throw e;
+            //}
         }
 
         internal List<RaidSimple> GetRaidOrgaTermine()
@@ -944,10 +962,6 @@ namespace LogUploader
             if (RaidOrgaPlusTermine.Count == 0)
                 RaidOrgaPlusTermine.Add(RaidSimple.NoTermine());
         }
-
-
-
-
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls

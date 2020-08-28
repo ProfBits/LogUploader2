@@ -126,4 +126,12 @@ namespace LogUploader
         MedGolem = 19645,
         StdGolem = 16199
     };
+
+    internal enum eLogLevel
+    {
+        MINIMAL,
+        NORMAL,
+        VERBOSE,
+        DEBUG
+    }
 }

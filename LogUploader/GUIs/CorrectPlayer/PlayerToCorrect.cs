@@ -34,7 +34,7 @@ namespace LogUploader.GUIs.CorrectPlayer
             BindComboBoxes();
 
             lblAccountName.Text = player.Player.AccountName;
-            switch (player.Player.Type)
+            switch (player.BecomesType)
             {
                 case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.MEMBER:
                     rbMember.Checked = true;

@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ROPLUSHUMAN</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;OLD_ROPLUSHUMAN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
@@ -133,6 +133,7 @@
     <Compile Include="Data\RaidOrgaPlus\Account.cs" />
     <Compile Include="Data\RaidOrgaPlus\Position.cs" />
     <Compile Include="Data\RaidOrgaPlus\Raid.cs" />
+    <Compile Include="Data\RaidOrgaPlus\RaidOrgaPlusCacheItem.cs" />
     <Compile Include="Data\RaidOrgaPlus\RaidSimple.cs" />
     <Compile Include="Data\RaidOrgaPlus\RequestSetRaid.cs" />
     <Compile Include="Data\RaidOrgaPlus\Role.cs" />
@@ -203,6 +204,8 @@
     </Compile>
     <Compile Include="Helper\DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
+    <Compile Include="Helper\Logger.cs" />
+    <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusCache.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusConnector.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusDataWorker.cs" />
     <Compile Include="Helper\DiscordPostGen\PerWingWithClasses.cs" />

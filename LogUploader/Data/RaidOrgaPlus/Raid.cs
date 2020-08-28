@@ -48,30 +48,54 @@ namespace LogUploader.Data.RaidOrgaPlus
         {
             return Players.Any(p => p.AccountName == accountName);
         }
+        internal bool IsMember(long id)
+        {
+            return Players.Any(p => p.ID == id);
+        }
 
         internal Account GetMember(string accountName)
         {
             return Players.First(p => p.AccountName == accountName);
+        }
+        internal Account GetMember(long id)
+        {
+            return Players.First(p => p.ID == id);
         }
 
         internal bool IsHelper(string accountName)
         {
             return Helper.Any(p => p.AccountName == accountName);
         }
+        internal bool IsHelper(long id)
+        {
+            return Helper.Any(p => p.ID == id);
+        }
 
         internal Account GetHelper(string accountName)
         {
             return Helper.First(p => p.AccountName == accountName);
+        }
+        internal Account GetHelper(long id)
+        {
+            return Helper.First(p => p.ID == id);
         }
 
         internal bool IsInviteable(string accountName)
         {
             return Inviteable.Any(p => p.AccountName == accountName);
         }
+        internal bool IsInviteable(long id)
+        {
+            return Inviteable.Any(p => p.ID == id);
+        }
 
         internal Account GetInviteable(string accountName)
         {
             return Inviteable.First(p => p.AccountName == accountName);
+        }
+        internal Account GetInviteable(long id)
+        {
+            return Inviteable.First(p => p.ID == id);
         }
 
         internal bool ExistsBoss(Boss boss, bool isCM)
