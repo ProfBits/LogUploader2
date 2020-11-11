@@ -15,6 +15,8 @@ namespace LogUploader.Data
         private static long nextID = 0;
         [JsonIgnore]
         private string avaturURL = DEFAULT_AVATAR_URL;
+        [JsonIgnore]
+        private string uRL;
 
         public WebHook(string uRL, string name, eDiscordPostFormat format = DEFAULT_FROMAT) : this(uRL, name, nextID + 1, format)
         {
@@ -39,7 +41,18 @@ namespace LogUploader.Data
         }
 
         [JsonProperty("url")]
-        public string URL { get; set; }
+        public string URL
+        {
+            get => uRL; set
+            {
+                if (value.Contains("discordapp.com"))
+                {
+                    var index = value.IndexOf("discordapp.com");
+                    uRL = value.Substring(0, index) + "discord.com" + value.Substring(index + "discordapp.com".Length);
+                }
+                else uRL = value;
+            }
+        }
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("id")]
@@ -53,11 +66,11 @@ namespace LogUploader.Data
         {
             try
             {
-                Format = (eDiscordPostFormat)Enum.Parse(typeof(eDiscordPostFormat), value);
+                avaturURL = WebHookJson.GetTypedElement<string>("avatarURL");
             }
             catch (Exception e) when (e is InvalidCastException || e is ArgumentException)
             {
-                Format = DEFAULT_FROMAT;
+                avaturURL = DEFAULT_AVATAR_URL;
             }
         }
 
