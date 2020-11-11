@@ -10,6 +10,7 @@ namespace LogUploader.Data
         public const eDiscordPostFormat DEFAULT_FROMAT = eDiscordPostFormat.PerArea;
         private static long nextID = 0;
         private string avaturURL = DEFAULT_AVATAR_URL;
+        private string uRL;
 
         public WebHook(string uRL, string name, eDiscordPostFormat format = DEFAULT_FROMAT) : this(uRL, name, nextID + 1, format)
         {
@@ -39,15 +40,23 @@ namespace LogUploader.Data
             }
             try
             {
-                avaturURL = WebHookJson.GetTypedElement<string>("avatarURL");
+                AvatarURL = WebHookJson.GetTypedElement<string>("avatarURL");
             }
             catch (JSONHelper.JSONException)
             {
-                avaturURL = DEFAULT_AVATAR_URL;
+                AvatarURL = DEFAULT_AVATAR_URL;
             }
         }
 
-        public string URL { get; set; }
+        public string URL { get => uRL; set {
+                if (value.Contains("discordapp.com"))
+                {
+                    var index = value.IndexOf("discordapp.com");
+                    uRL = value.Substring(0, index) + "discord.com" + value.Substring(index + "discordapp.com".Length);
+                }
+                else uRL = value;
+            }
+        }
         public string Name { get; set; }
         public long ID { get; set; }
         public eDiscordPostFormat Format { get; set; }
