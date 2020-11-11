@@ -700,15 +700,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log Uploader"
-        "ProductCode" = "8:{4D453F07-299A-4F42-BD11-F0C5F45A0B82}"
-        "PackageCode" = "8:{65811602-0E0D-4FB8-8AA1-004EA50F5756}"
+        "ProductCode" = "8:{4C472E81-3C10-4635-97E1-4CEE8B8BB3AA}"
+        "PackageCode" = "8:{D2B96EB1-D490-4C64-B959-EDD3F32422AC}"
         "UpgradeCode" = "8:{3F3DD479-F9CF-48EE-8590-B34CEB67C1B3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.30"
+        "ProductVersion" = "8:1.2.31"
         "Manufacturer" = "8:Bits Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/ProfBits/LogUploader2"
@@ -1344,7 +1344,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5478B3399FDE4598B2B307E4402FE1AE"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\LogUploader\\obj\\Debug\\LogUploader.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
