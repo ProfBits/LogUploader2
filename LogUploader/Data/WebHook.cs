@@ -45,6 +45,11 @@ namespace LogUploader.Data
         {
             get => uRL; set
             {
+                if (value == null)
+                {
+                    uRL = null;
+                    return;
+                }
                 if (value.Contains("discordapp.com"))
                 {
                     var index = value.IndexOf("discordapp.com");
