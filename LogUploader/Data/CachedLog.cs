@@ -87,8 +87,7 @@ namespace LogUploader.Data
 
         private DateTime GetDate(string dateStr)
         {
-            DateTime date;
-            if (DateTime.TryParse(dateStr, out date))
+            if (DateTime.TryParse(dateStr, out var date))
             {
                 return date;
             }

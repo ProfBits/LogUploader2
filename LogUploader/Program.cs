@@ -193,7 +193,7 @@ namespace LogUploader
 
             InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.20 + (p.Percent * 0.5), "Local DB" + " - " + p.Message))));
 
-            progress.Report(new ProgressMessage(0.13, "Loading"));
+            progress.Report(new ProgressMessage(0.26, "Loading"));
 
             if (ct.IsCancellationRequested)
                 return null;
@@ -204,7 +204,7 @@ namespace LogUploader
             await newLogic.InitLogUploaderLogic(settings,
                 flags.EnableAutoParse,
                 flags.EnableAutoUpload,
-                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.25f + (pm.Percent * 0.70f), "Loading - " + pm.Message)))
+                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.27f + (pm.Percent * 0.68f), "Loading - " + pm.Message)))
                 );
 
             if (ct.IsCancellationRequested)
@@ -252,13 +252,15 @@ namespace LogUploader
 
         private static void InitDB(Progress<ProgressMessage> progress)
         {
-            LogDBConnector.DBConnectionString = $@"Data Source=""{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\LogUploader\LogDB.db""; Version=3;Connect Timeout=30";
+            string dbFilePaht = $@"{ Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\LogUploader\LogDB.db";
+            LogDBConnector.DBConnectionString = $@"Data Source=""{dbFilePaht}""; Version=3;Connect Timeout=30";
             try
             {
                 LogDBConnector.GetCount();
             }
             catch (System.Data.SQLite.SQLiteException)
             {
+                //Create DB
                 LogDBConnector.CreateTable();
             }
         }
@@ -369,6 +371,7 @@ namespace LogUploader
                 Language.Current = eLanguage.DE;
         }
 
+#if CREATE_LANGUAGE_XMLS
         private static void WriteOutLanguageXmls()
         {
             var ser = new XmlSerializer(typeof(XMLLanguage));
@@ -395,6 +398,7 @@ namespace LogUploader
             }
             Environment.Exit(2);
         }
+#endif
 
         private static Flags ProcessCommandLineArgs(params string[] args)
         {

@@ -77,6 +77,7 @@ namespace LogUploader.Data
             Name = name;
             ID = iD;
             nextID = Math.Max(iD, nextID) + 1;
+            Format = format;
         }
 
         public WebHook(JObject WebHookJson)
