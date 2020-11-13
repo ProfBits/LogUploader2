@@ -40,12 +40,16 @@ namespace LogUploader.Data.RaidOrgaPlus
         [JsonProperty("positionen")]
         public List<Position> Players { get; set; }
 
-        public TeamComp(long iD, Boss encounter, bool isCM, List<Position> players)
+        [JsonProperty("success")]
+        public bool Success { get; set; } = false;
+
+        public TeamComp(long iD, Boss encounter, bool isCM, List<Position> players, bool success = false)
         {
             ID = iD;
             Encounter = encounter;
             IsCM = isCM;
             Players = players;
+            Success = success;
         }
 
         private IEnumerable<Position> UnnamedPlayers { get => Players.Where(pos => string.IsNullOrEmpty(pos.AccName) || pos.AccName == "???"); }

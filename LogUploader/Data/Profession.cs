@@ -57,9 +57,9 @@ namespace LogUploader.Data
             progress?.Report(0);
             var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var strData = Helper.GP.ReadJsonFile(path);
-            progress?.Report(25);
+            progress?.Report(0.25);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(strData);
-            progress?.Report(50);
+            progress?.Report(0.5);
             var profList = (Newtonsoft.Json.Linq.JArray)jsonData["Professions"];
             Professions = profList.Select(json =>
             {

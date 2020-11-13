@@ -59,6 +59,7 @@ namespace LogUploader.Helper
             string installer = await DownloadInstaller(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))));
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
             Process.Start(installer);
+            //TODO create constats table or enum for exit codes
             Environment.Exit(100);
         }
 
@@ -68,21 +69,26 @@ namespace LogUploader.Helper
         /// <param name="settings">the proxy settings</param>
         /// <param name="progress">the progress reporting</param>
         /// <returns></returns>
-        private static async Task<string> DownloadInstaller(IProxySettings settings, Progress<double> progress = null)
+        private static async Task<string> DownloadInstaller(IProxySettings settings, IProgress<double> progress = null)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\LogUploaderInstaller.exe";
             using (var wc = GetWebClient(settings))
             {
+                progress?.Report(0.1);
                 var res = await wc.DownloadStringTaskAsync(GitHubApiLink);
+                progress?.Report(0.3);
                 var data = Newtonsoft.Json.Linq.JObject.Parse(res);
                 var installerUrl = data["assets"]
                     .Where(json => (string)json["name"] == "installer.exe")
                     .Select(json => (string)json["browser_download_url"])
                     .First();
+                progress?.Report(0.4);
                 if (File.Exists(path))
                     File.Delete(path);
+                progress?.Report(0.5);
                 await wc.DownloadFileTaskAsync(installerUrl, path);
             }
+            progress?.Report(1);
             return path;
         }
 

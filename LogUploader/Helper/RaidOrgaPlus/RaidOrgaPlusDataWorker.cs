@@ -235,7 +235,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         private static void AddBoss(Raid raid, Boss boss, CachedLog log)
         {
             var players = new List<Position>();
-            var tc = new TeamComp(-1, boss, log.IsCM, players);
+            var tc = new TeamComp(-1, boss, log.IsCM, players, log.Succsess);
             raid.Bosses.Add(tc);
         }
 
@@ -280,6 +280,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     if (sword != null)
                         Players.Remove(sword);
                 }
+                tc.Success = log.Succsess;
             }
 
             internal void GuessRoles()

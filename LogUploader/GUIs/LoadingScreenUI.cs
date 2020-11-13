@@ -39,6 +39,7 @@ namespace LogUploader.GUI
         {
             Action a = () =>
             {
+                var oldWidth = pLoading.Width;
                 pLoading.Width = (int)Math.Round(m_width1 * e.Percent);
                 lblTask.Text = e.Message;
                 lblPercent.Text = $"{Math.Round(e.Percent * 100)} %";

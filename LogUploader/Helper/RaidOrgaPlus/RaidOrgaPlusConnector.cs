@@ -9,6 +9,7 @@ using System.Net;
 using System.IO;
 using LogUploader.Data;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {
@@ -148,7 +149,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             if (ct.IsCancellationRequested) return null;
             var aufstellungenParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{aufstellungenRAW}}}");
-            var aufstellungen = aufstellungenParsed["wrapper"].Select(aufstellung => new TeamComp((long)aufstellung["id"], GetBoss(bosses, (string)aufstellung["abbr"]), (int)aufstellung["is_cm"] == 1, elements.Where(e => e.id == (long)aufstellung["id"]).Select(e => e.pos).ToList())).ToList();
+            var aufstellungen = aufstellungenParsed["wrapper"].Select(aufstellung => new TeamComp((long)aufstellung["id"], GetBoss(bosses, (string)aufstellung["abbr"]), (int)aufstellung["is_cm"] == 1, elements.Where(e => e.id == (long)aufstellung["id"]).Select(e => e.pos).ToList(), (int)aufstellung["success"] == 1)).ToList();
 
 
             if (ct.IsCancellationRequested) return null;
@@ -284,26 +285,26 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 ToggleHelper(session, raid.TerminID, helper.ID);
             }
 
-            var httpWebRequest = GetPostRequest(@"https://sv.sollunad.de:8080/api/aufstellungen", session.UserAgent);
+            //var httpWebRequest = GetPostRequest(@"https://sv.sollunad.de:8080/api/aufstellungen", session.UserAgent);
+            var httpWebRequest = GetPostRequest(@"http://localhost:8081/api/aufstellungen", session.UserAgent);
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {
                 string json = $@"{{""auth"":""{session.Token}"",""session"":""{session.Token}"",""body"":{raid.getPostJson()}}}";
-
                 streamWriter.Write(json);
+                streamWriter.Close();
+            }
+            string response;
 
-                string response;
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                try
-                {
-                    using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                        response = streamReader.ReadToEnd();
-                }
-                catch (Exception e)
-                {
-                    throw new NotImplementedException();
-                }
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            try
+            {
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                    response = streamReader.ReadToEnd();
+            }
+            catch (Exception e)
+            {
+                throw new NotImplementedException();
             }
         }
 

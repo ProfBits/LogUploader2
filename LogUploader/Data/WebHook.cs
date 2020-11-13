@@ -71,11 +71,11 @@ namespace LogUploader.Data
         {
             try
             {
-                avaturURL = WebHookJson.GetTypedElement<string>("avatarURL");
+                Format = (eDiscordPostFormat)Enum.Parse(typeof(eDiscordPostFormat), value);
             }
             catch (Exception e) when (e is InvalidCastException || e is ArgumentException)
             {
-                avaturURL = DEFAULT_AVATAR_URL;
+                Format = DEFAULT_FROMAT;
             }
         }
 

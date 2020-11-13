@@ -176,22 +176,22 @@ namespace LogUploader
             }
 
             SetLanguage(settings);
-            LoadJsonData(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.04 + (p.Percent * 0.02), "Loading static Data" + " - " + p.Message))));
+            LoadJsonData(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.06 + (p.Percent * 0.04), "Loading static Data" + " - " + p.Message))));
 
             if (ct.IsCancellationRequested)
                 return null;
 
-            Action UpdateReuest = await CheckForUpdates(settings, new Progress<ProgressMessage>(p => new ProgressMessage(0.06 + (p.Percent * 0.02), p.Message)));
+            Action UpdateReuest = await CheckForUpdates(settings, new Progress<ProgressMessage>(p => new ProgressMessage(0.10 + (p.Percent * 0.05), p.Message)));
             
             if (ct.IsCancellationRequested)
                 return null;
 
-            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.08 + (p.Percent * 0.2), "Init EliteInsights" + " - " + p.Message))));
+            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.5), "Init EliteInsights" + " - " + p.Message))));
 
             if (ct.IsCancellationRequested)
                 return null;
 
-            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.010 + (p.Percent * 0.2), "Local DB" + " - " + p.Message))));
+            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.20 + (p.Percent * 0.5), "Local DB" + " - " + p.Message))));
 
             progress.Report(new ProgressMessage(0.13, "Loading"));
 
@@ -204,7 +204,7 @@ namespace LogUploader
             await newLogic.InitLogUploaderLogic(settings,
                 flags.EnableAutoParse,
                 flags.EnableAutoUpload,
-                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.13f + (pm.Percent * 0.82f), "Loading - " + pm.Message)))
+                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.25f + (pm.Percent * 0.70f), "Loading - " + pm.Message)))
                 );
 
             if (ct.IsCancellationRequested)
@@ -273,21 +273,23 @@ namespace LogUploader
                 var newVersion = EliteInsights.UpdateAviable();
                 if (newVersion)
                 {
-                    progress?.Report(new ProgressMessage(0.25, "Starting Update"));
                     if (settings.AutoUpdateEI || MessageBox.Show("New Version of EliteInsights is aviable\nUpdate now?", "EliteInsights Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
+                        progress?.Report(new ProgressMessage(0.25, "Starting Update"));
                         try
                         {
-                            EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.75) + 0.25, "Updating"))));
+                            EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.70) + 0.25, "Updating"))));
                         }
                         catch (OperationCanceledException)
                         {
                             if (!EliteInsights.IsInstalled())
                             {
                                 MessageBox.Show("Faild to install EliteInsights", "Missing EliteInsights installation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //TODO refactor exit code
                                 Environment.Exit(10);
                             }
                         }
+                        progress?.Report(new ProgressMessage(1, "Update Done"));
                     }
                 }
             });

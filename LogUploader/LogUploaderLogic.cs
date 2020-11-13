@@ -920,22 +920,22 @@ namespace LogUploader
 
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.95, "Updating RO+"));
-            var fileName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\{data.DisplayName.Replace(":", "")}";
-            var num = 1;
-            while(File.Exists(fileName + $"({num}).json"))
-                num++;
-            fileName += $"({num}).json";
-            GP.WriteJsonFile(fileName, raid.getPostJson());
+            //var fileName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\{data.DisplayName.Replace(":", "")}";
+            //var num = 1;
+            //while(File.Exists(fileName + $"({num}).json"))
+            //    num++;
+            //fileName += $"({num}).json";
+            //GP.WriteJsonFile(fileName, raid.getPostJson());
+            //MessageBox.Show("Created file:\n" + fileName, "User Information", MessageBoxButtons.OK);
+            try
+            {
+                RaidOrgaPlusConnector.SetRaid(RaidOrgaPlusSession, raid);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
             progress?.Report(new ProgressMessage(0.99, "Done"));
-            MessageBox.Show("Created file:\n" + fileName, "User Information", MessageBoxButtons.OK);
-            //try
-            //{
-            //    RaidOrgaPlusConnector.SetRaid(RaidOrgaPlusSession, raid);
-            //}
-            //catch (Exception e)
-            //{
-            //    throw e;
-            //}
         }
 
         internal List<RaidSimple> GetRaidOrgaTermine()
