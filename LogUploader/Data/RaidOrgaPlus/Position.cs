@@ -28,27 +28,15 @@ namespace LogUploader.Data.RaidOrgaPlus
         [JsonProperty("spielerId")]
         public long ID { get; set; }
 
-#if ROPLUSHUMAN
-        [JsonProperty("account")]
-#else
         [JsonIgnore]
-#endif
         public string AccName { get; set; }
 
-#if ROPLUSHUMAN
-        [JsonProperty("Role")]
-        public string RoleName { get => Role.ToString(); }
-#endif
         [JsonIgnore]
         public Role Role { get; set; }
 
         [JsonProperty("roleId")]
         public byte RoleID { get => (byte)Role; }
 
-#if ROPLUSHUMAN
-        [JsonProperty("Profession")]
-        public string Profstest { get => Profession.Name; }
-#endif
         [JsonIgnore]
         public Profession Profession { get; set; }
 

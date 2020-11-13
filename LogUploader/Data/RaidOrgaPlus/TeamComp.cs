@@ -23,10 +23,6 @@ namespace LogUploader.Data.RaidOrgaPlus
                     return null;
             }
         }
-#if ROPLUSHUMAN
-        [JsonProperty("Boss")]
-        public string BossName { get => Encounter.Name; }
-#endif
 
         [JsonIgnore]
         public Boss Encounter { get; set; }
