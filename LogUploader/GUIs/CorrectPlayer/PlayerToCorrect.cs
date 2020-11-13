@@ -24,6 +24,15 @@ namespace LogUploader.GUIs.CorrectPlayer
             AllHelper.Clear();
             AllHelper.AddRange(r.Helper);
             AllHelper.AddRange(r.Inviteable);
+            AllHelper = AllHelper.Distinct(new AccountEqualityComparer()).ToList();
+        }
+
+        private class AccountEqualityComparer : IEqualityComparer<Account>
+        {
+            public bool Equals(Account x, Account y) =>
+                x.ID == y.ID;
+
+            public int GetHashCode(Account obj) => obj.ID.GetHashCode();
         }
 
         public PlayerToCorrect(Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.CheckPlayer player)
@@ -58,11 +67,6 @@ namespace LogUploader.GUIs.CorrectPlayer
                     rbLFG.Checked = true;
                     break;
             }
-
-
-            //TODO localize
-            lblStatus.Text = "OK";
-
         }
 
         internal void UpdatePlayer()
@@ -100,9 +104,6 @@ namespace LogUploader.GUIs.CorrectPlayer
 
         private void rbMember_CheckedChanged(object sender, EventArgs e)
         {
-            //TODO localize
-            lblStatus.Text = "???";
-
             cbMember.Enabled = false;
             cbHelper.Enabled = false;
             cbMember.Visible = false;

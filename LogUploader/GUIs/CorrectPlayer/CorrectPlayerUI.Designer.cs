@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CorrectPlayerUI));
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -44,7 +45,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(584, 47);
+            this.panel1.Size = new System.Drawing.Size(473, 47);
             this.panel1.TabIndex = 0;
             // 
             // lblTitle
@@ -64,13 +65,13 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 412);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(584, 49);
+            this.panel2.Size = new System.Drawing.Size(473, 49);
             this.panel2.TabIndex = 1;
             // 
             // btnCheck
             // 
             this.btnCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheck.Location = new System.Drawing.Point(416, 14);
+            this.btnCheck.Location = new System.Drawing.Point(305, 14);
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(75, 23);
             this.btnCheck.TabIndex = 0;
@@ -82,7 +83,7 @@
             // bntDone
             // 
             this.bntDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bntDone.Location = new System.Drawing.Point(497, 14);
+            this.bntDone.Location = new System.Drawing.Point(386, 14);
             this.bntDone.Name = "bntDone";
             this.bntDone.Size = new System.Drawing.Size(75, 23);
             this.bntDone.TabIndex = 0;
@@ -97,7 +98,7 @@
             this.flpMain.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMain.Location = new System.Drawing.Point(0, 47);
             this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(584, 365);
+            this.flpMain.Size = new System.Drawing.Size(473, 365);
             this.flpMain.TabIndex = 2;
             this.flpMain.WrapContents = false;
             // 
@@ -105,10 +106,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 461);
+            this.ClientSize = new System.Drawing.Size(473, 461);
             this.Controls.Add(this.flpMain);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CorrectPlayerUI";
             this.Text = "CorrectPlayerUI";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CorrectPlayerUI_FormClosed);
