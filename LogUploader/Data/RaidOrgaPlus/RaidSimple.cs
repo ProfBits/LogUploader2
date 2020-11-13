@@ -29,7 +29,6 @@ namespace LogUploader.Data.RaidOrgaPlus
             Name = name;
         }
 
-        //TODO localize ro+ errors
         internal static RaidSimple GetNoAccount()
         {
             return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusNoAccount);

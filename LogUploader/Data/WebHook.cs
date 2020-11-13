@@ -7,16 +7,65 @@ using Newtonsoft.Json.Linq;
 
 namespace LogUploader.Data
 {
-    //TODO clean up WebHook
     public class WebHook
     {
-        [JsonIgnore]
-        public const eDiscordPostFormat DEFAULT_FROMAT = eDiscordPostFormat.PerArea;
         private static long nextID = 0;
+        [JsonProperty("id")]
+        public long ID { get; set; }
+
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
         [JsonIgnore]
-        private string avaturURL = DEFAULT_AVATAR_URL;
+        public const string DEFAULT_USER = "LogUploader";
+
+
         [JsonIgnore]
         private string uRL;
+
+        [JsonProperty("url")]
+        public string URL
+        {
+            get => uRL; set
+            {
+                if (value == null)
+                {
+                    uRL = null;
+                    return;
+                }
+                if (value.Contains("discordapp.com"))
+                {
+                    var index = value.IndexOf("discordapp.com");
+                    uRL = value.Substring(0, index) + "discord.com" + value.Substring(index + "discordapp.com".Length);
+                }
+                else uRL = value;
+            }
+        }
+
+
+        [JsonIgnore]
+        public const eDiscordPostFormat DEFAULT_FROMAT = eDiscordPostFormat.PerArea;
+
+        [JsonIgnore]
+        public eDiscordPostFormat Format { get; set; }
+
+        [JsonProperty("format")]
+        public string FormatStr { get => Format.ToString(); set => SetFormat(value); }
+
+
+        [JsonIgnore]
+        private const string DEFAULT_AVATAR_URL = @"https://i.imgur.com/o0QwGPV.png";
+
+        [JsonIgnore]
+        private string avaturURL = DEFAULT_AVATAR_URL;
+
+        [JsonProperty("avatarURL")]
+        public string AvatarURL
+        {
+            get => avaturURL == DEFAULT_AVATAR_URL ? "<Default>" : avaturURL;
+            set => avaturURL = value == "<Default>" || string.IsNullOrWhiteSpace(value) ? DEFAULT_AVATAR_URL : value;
+        }
 
         public WebHook(string uRL, string name, eDiscordPostFormat format = DEFAULT_FROMAT) : this(uRL, name, nextID + 1, format)
         {
@@ -40,33 +89,6 @@ namespace LogUploader.Data
             AvatarURL = (string)WebHookJson["avatarURL"] ?? DEFAULT_AVATAR_URL;
         }
 
-        [JsonProperty("url")]
-        public string URL
-        {
-            get => uRL; set
-            {
-                if (value == null)
-                {
-                    uRL = null;
-                    return;
-                }
-                if (value.Contains("discordapp.com"))
-                {
-                    var index = value.IndexOf("discordapp.com");
-                    uRL = value.Substring(0, index) + "discord.com" + value.Substring(index + "discordapp.com".Length);
-                }
-                else uRL = value;
-            }
-        }
-        [JsonProperty("name")]
-        public string Name { get; set; }
-        [JsonProperty("id")]
-        public long ID { get; set; }
-        [JsonIgnore]
-        public eDiscordPostFormat Format { get; set; }
-        [JsonProperty("format")]
-        public string FormatStr { get => Format.ToString(); set => SetFormat(value); }
-
         private void SetFormat(string value)
         {
             try
@@ -77,17 +99,6 @@ namespace LogUploader.Data
             {
                 Format = DEFAULT_FROMAT;
             }
-        }
-
-        [JsonIgnore]
-        public const string DEFAULT_USER = "LogUploader";
-        [JsonIgnore]
-        private const string DEFAULT_AVATAR_URL = @"https://i.imgur.com/o0QwGPV.png";
-        [JsonProperty("avatarURL")]
-        public string AvatarURL
-        {
-            get => avaturURL == DEFAULT_AVATAR_URL ? "<Default>" : avaturURL;
-            set => avaturURL = value == "<Default>" || string.IsNullOrWhiteSpace(value) ? DEFAULT_AVATAR_URL : value;
         }
 
         public override string ToString()

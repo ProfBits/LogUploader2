@@ -119,10 +119,8 @@ namespace LogUploader.Data.RaidOrgaPlus
                 case RaidOrgaPlusDataWorker.PlayerType.INVITEABLE:
                     return GetInviteable(accountName);
                 case RaidOrgaPlusDataWorker.PlayerType.LFG:
-                    return GetLFGPlayer();
                 default:
-                    //TODO error handling
-                    throw new NotImplementedException();
+                    return GetLFGPlayer();
             }
         }
 

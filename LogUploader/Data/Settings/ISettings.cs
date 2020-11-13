@@ -47,7 +47,7 @@ namespace LogUploader.Data.Settings
         bool CreateCombatReplay { get; set; }
         bool LightTheme { get; set; }
     }
-    //TODO implement settings
+
     public interface IRaidOrgaPlusSettings
     {
         string RaitOrgaPlusUser { get; set; }
