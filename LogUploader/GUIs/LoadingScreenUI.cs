@@ -15,8 +15,8 @@ namespace LogUploader.GUI
 {
     public partial class LoadingScreenUI : Form
     {
-        private Progress<ProgressMessage> progress = new Progress<ProgressMessage>();
-        private Func<IProgress<ProgressMessage>, CancellationToken, Task> StartSequenc;
+        private readonly Progress<ProgressMessage> progress = new Progress<ProgressMessage>();
+        private readonly Func<IProgress<ProgressMessage>, CancellationToken, Task> StartSequenc;
         private readonly int m_width1;
         private readonly CancellationTokenSource m_cts;
         private Task m_startSequence;

@@ -16,7 +16,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
     internal class RaidOrgaPlusConnector
     {
         //TODO implement ProxySettings
-        private IProxySettings ProxySettings;
+        private readonly IProxySettings ProxySettings;
 
         private const int TimeoutMs = 10_000;
 

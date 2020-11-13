@@ -24,7 +24,7 @@ namespace LogUploader.GUI
         private SettingsData initState;
         private bool saved = false;
 
-        private Label NoWebHooks = new Label();
+        private readonly Label NoWebHooks = new Label();
 
         internal SettingsUI()
         {

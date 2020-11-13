@@ -15,8 +15,8 @@ namespace LogUploader.GUIs
 {
     public partial class LoadingBar : Form
     {
-        private Action<CancellationToken, Action<Delegate>, IProgress<ProgressMessage>> Work;
-        private CancellationTokenSource Cts = new CancellationTokenSource();
+        private readonly Action<CancellationToken, Action<Delegate>, IProgress<ProgressMessage>> Work;
+        private readonly CancellationTokenSource Cts = new CancellationTokenSource();
 
         public LoadingBar(string TaskName, Action<CancellationToken, Action<Delegate>, IProgress<ProgressMessage>> task)
         {

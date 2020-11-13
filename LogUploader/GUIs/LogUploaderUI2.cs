@@ -15,7 +15,7 @@ namespace LogUploader.GUIs
 {
     public partial class LogUploaderUI2 : Form
     {
-        private LogUploaderLogic Logic;
+        private readonly LogUploaderLogic Logic;
 
         internal LogUploaderUI2(LogUploaderLogic logic, IProgress<double> progress = null)
         {
@@ -84,7 +84,7 @@ namespace LogUploader.GUIs
             ResetFilter();
         }
 
-        private Timer timerBossFilter = new Timer();
+        private readonly Timer timerBossFilter = new Timer();
 
         private void cmbFilterBoss_TextChanged(object sender, EventArgs e)
         {

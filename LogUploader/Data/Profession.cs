@@ -113,7 +113,7 @@ namespace LogUploader.Data
                 return true;
             }
 
-            if (ReferenceEquals(obj, null))
+            if (obj is null)
             {
                 return false;
             }

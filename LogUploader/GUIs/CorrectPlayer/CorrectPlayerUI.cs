@@ -16,7 +16,7 @@ namespace LogUploader.GUIs.CorrectPlayer
 {
     public partial class CorrectPlayerUI : Form
     {
-        private List<PlayerToCorrect> ShowenPlayers = new List<PlayerToCorrect>();
+        private readonly List<PlayerToCorrect> ShowenPlayers = new List<PlayerToCorrect>();
 
         public CorrectPlayerUI(Raid r, List<CheckPlayer> players)
         {

@@ -16,7 +16,7 @@ namespace LogUploader.GUIs.CorrectPlayer
     {
         private static Raid Raid;
         private static List<Account> AllHelper = new List<Account>();
-        private Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.CheckPlayer Player;
+        private readonly Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.CheckPlayer Player;
 
         public static void SetRaid(Raid r)
         {
