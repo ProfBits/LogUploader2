@@ -114,7 +114,7 @@ namespace LogUploader.Helper
         internal static string GetUserToken(Settings settings)
         {
             var encryptedStr = settings.UserToken;
-            if (encryptedStr == "")
+            if (string.IsNullOrEmpty(encryptedStr))
                 return "";
             var encryptedBytes = encryptedStr.Split('|').Select(e => byte.Parse(e)).ToArray();
             var tokenBytes = ProtectedData.Unprotect(encryptedBytes, new byte[] { 15, 7, 20, 19 }, DataProtectionScope.CurrentUser);
@@ -136,7 +136,7 @@ namespace LogUploader.Helper
         internal static string GetProxyPassword(Settings settings)
         {
             var encryptedStr = settings.ProxyPassword;
-            if (encryptedStr == "")
+            if (string.IsNullOrEmpty(encryptedStr))
                 return "";
             var encryptedBytes = encryptedStr.Split('|').Select(e => byte.Parse(e)).ToArray();
             var tokenBytes = ProtectedData.Unprotect(encryptedBytes, new byte[] { 74, 93, 110, 89, 123 }, DataProtectionScope.CurrentUser);
@@ -158,7 +158,7 @@ namespace LogUploader.Helper
         internal static string GetDiscordWebHookLink(Settings settings)
         {
             var encryptedStr = settings.DiscordWebHookLink;
-            if (encryptedStr == "")
+            if (string.IsNullOrEmpty(encryptedStr))
                 return "";
             var encryptedBytes = encryptedStr.Split('|').Select(e => byte.Parse(e)).ToArray();
             var tokenBytes = ProtectedData.Unprotect(encryptedBytes, new byte[] { 61, 71, 111, 90, 117 }, DataProtectionScope.CurrentUser);

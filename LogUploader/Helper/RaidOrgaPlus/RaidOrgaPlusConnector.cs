@@ -156,11 +156,10 @@ namespace LogUploader.Helper.RaidOrgaPlus
             progress.Report(new ProgressMessage(0.45, "Members"));
             var group = GetGroup(session, terminID);
             if (ct.IsCancellationRequested) return null;
-            progress.Report(new ProgressMessage(0.55, "Helpers"));
+            progress.Report(new ProgressMessage(0.60, "Helpers"));
             var helper = GetHelper(session, terminID);
             if (ct.IsCancellationRequested) return null;
-            progress.Report(new ProgressMessage(0.65, "Inveteable"));
-            //TODO maybe add finer progress
+            progress.Report(new ProgressMessage(0.75, "Inveteable"));
             if (ct.IsCancellationRequested) return null;
             var inviteable = GetInvitealbe(session, raidID);
 
@@ -170,7 +169,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
              * [{"id":204,"name":"xyz","accname":"xyz.1234","type":2}]
              * type 2 abgemelded, 1 evlt, 0 angemeldet
              * 
-             * ersatzt
+             * ersatz
              * [{"id":141,"accname":"xyz.1234","name":"xyz"}]
              * 
              * inviteable

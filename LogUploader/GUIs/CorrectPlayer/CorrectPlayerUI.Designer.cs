@@ -32,7 +32,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnCheck = new System.Windows.Forms.Button();
             this.bntDone = new System.Windows.Forms.Button();
             this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
@@ -60,25 +59,12 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnCheck);
             this.panel2.Controls.Add(this.bntDone);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 412);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(473, 49);
             this.panel2.TabIndex = 1;
-            // 
-            // btnCheck
-            // 
-            this.btnCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheck.Location = new System.Drawing.Point(305, 14);
-            this.btnCheck.Name = "btnCheck";
-            this.btnCheck.Size = new System.Drawing.Size(75, 23);
-            this.btnCheck.TabIndex = 0;
-            this.btnCheck.Text = "Check";
-            this.btnCheck.UseVisualStyleBackColor = true;
-            this.btnCheck.Visible = false;
-            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
             // bntDone
             // 
@@ -127,7 +113,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnCheck;
         private System.Windows.Forms.Button bntDone;
         private System.Windows.Forms.FlowLayoutPanel flpMain;
     }

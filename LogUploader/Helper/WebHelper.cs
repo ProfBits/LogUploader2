@@ -21,7 +21,7 @@ namespace LogUploader.Helper
         internal static IWebProxy GetProxy(IProxySettings settings)
         {
             var Proxy = new WebProxy(settings.ProxyAddress, settings.ProxyPort);
-            if (settings.ProxyUsername != "")
+            if (!string.IsNullOrEmpty(settings.ProxyUsername))
             {
                 Proxy.Credentials = new NetworkCredential(settings.ProxyUsername, settings.ProxyPassword);
                 Proxy.UseDefaultCredentials = false;

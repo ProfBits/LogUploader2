@@ -531,18 +531,18 @@ namespace LogUploader
                     str += boss.DiscordEmote;
                 if (Settings.EncounterName)
                 {
-                    str += str == "" ? "" : " ";
+                    str += string.IsNullOrEmpty(str) ? "" : " ";
                     str += boss.Name;
                 }
                 if (Settings.EncounterSuccess)
                 {
-                    str += str == "" ? "" : " - ";
+                    str += string.IsNullOrEmpty(str) ? "" : " - ";
                     str += log.Succsess ? Language.Data.Succsess : Language.Data.Fail;
                 }
                 if (Settings.Inline)
-                    str += str == "" ? "" : ": ";
+                    str += string.IsNullOrEmpty(str) ? "" : ": ";
                 else
-                    str += str == "" ? "" : ":\n";
+                    str += string.IsNullOrEmpty(str) ? "" : ":\n";
                 str += log.Link.Replace("\\/", "/");
                 if (Settings.EmptyLineBetween)
                     str += "\n";

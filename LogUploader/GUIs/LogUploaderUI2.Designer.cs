@@ -16,6 +16,11 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                CopyLinksTimer.Dispose();
+                CTSUpdateSelection.Dispose();
+                GCTimer.Dispose();
+                PlayerDataHeader.Dispose();
+                timerBossFilter.Dispose();
             }
             base.Dispose(disposing);
         }

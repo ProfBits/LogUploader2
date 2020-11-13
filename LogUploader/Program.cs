@@ -442,7 +442,7 @@ namespace LogUploader
                             break;
                     }
                 }
-                if (argumentErrors != "")
+                if (!string.IsNullOrEmpty(argumentErrors))
                 {
                     MessageBox.Show("Unknown command line arguments:" + argumentErrors, "Argument parse errors", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }

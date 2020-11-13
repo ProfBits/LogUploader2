@@ -1,4 +1,6 @@
 ﻿using LogUploader.Data.RaidOrgaPlus;
+using LogUploader.Languages;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +21,7 @@ namespace LogUploader.GUIs.CorrectPlayer
         public CorrectPlayerUI(Raid r, List<CheckPlayer> players)
         {
             InitializeComponent();
+            ApplyLanguage(Language.Data);
             PlayerToCorrect.SetRaid(r);
             foreach(var p in players)
             {
@@ -33,6 +36,11 @@ namespace LogUploader.GUIs.CorrectPlayer
 
         }
 
+        private void ApplyLanguage(ILanguage data)
+        {
+            //TODO ApplyLanguage
+        }
+
         private void UpdatePlayers()
         {
             foreach (var element in ShowenPlayers)
@@ -44,11 +52,6 @@ namespace LogUploader.GUIs.CorrectPlayer
         private void bntDone_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void btnCheck_Click(object sender, EventArgs e)
-        {
-            //TODO implement and make visible again
         }
 
         private void CorrectPlayerUI_FormClosed(object sender, FormClosedEventArgs e)

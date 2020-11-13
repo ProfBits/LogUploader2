@@ -16,6 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                NoWebHooks.Dispose();
             }
             base.Dispose(disposing);
         }

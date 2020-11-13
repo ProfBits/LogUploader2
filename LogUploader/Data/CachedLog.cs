@@ -107,7 +107,6 @@ namespace LogUploader.Data
         {
             try
             {
-                //TODO BUG errors on 04m 38s 10ms
                 return TimeSpan.ParseExact(durationStr, "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
             }
             catch (FormatException)

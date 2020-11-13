@@ -81,6 +81,5 @@ namespace LogUploader.GUIs
         }
 
         #endregion
-
     }
 }
