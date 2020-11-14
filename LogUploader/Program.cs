@@ -17,6 +17,7 @@ using LogUploader.GUIs;
 using LogUploader.Data.Settings;
 using System.Xml.Serialization;
 using System.Configuration;
+using System.ComponentModel;
 
 namespace LogUploader
 {
@@ -38,7 +39,7 @@ namespace LogUploader
          *        add emotes to professions
          *  DONE: add more webhook formats
          *        with classesemote (compact and area)
-         *  Task: Update EI Helper to accout for EI now outputting generated files -> remove file system watcher
+         *  DONE: Update EI Helper to accout for EI now outputting generated files -> remove file system watcher
          *  Task: Log state and cleand up tools....
          *  DONE: switch over to Newtonsoft (performance)
          *  Task: Add logs manually
@@ -56,6 +57,16 @@ namespace LogUploader
         [STAThread]
         static int Main(string[] args)
         {
+#if DEBUG
+            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.DEBUG);
+            Logger.Debug("DEBUG BUILD");
+#else
+            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.NORMAL);
+#endif
+
+            if (args.Length > 0) Logger.Message("Args: " + args.Aggregate("", (str1, str2) => str1 + " " + str2));
+            else Logger.Message("No args");
+
 #if CREATE_LANGUAGE_XMLS
             WriteOutLanguageXmls();
 #endif
@@ -66,10 +77,14 @@ namespace LogUploader
             Settings settings = new Settings();
             if (settings.FirstBoot)
             {
+                Logger.Message("First boot");
                 Application.Run(new InitConfigUI());
                 settings.Reload();
                 if (settings.FirstBoot)
+                {
+                    Logger.Error("Exit: INIT_SETUP_FAILED");
                     return (int)ExitCode.INIT_SETUP_FAILED;
+                }
             }
             Form ui = null;
 
@@ -77,15 +92,19 @@ namespace LogUploader
             {
                 try
                 {
-                    ui = await LoadApplication(progress, ct, args);
+                    ui = await LoadApplication(progress, args, ct);
                 }
                 catch (System.ComponentModel.Win32Exception e)
                 {
+                    Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
+                    Logger.LogException(e);
                     MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Exit(ExitCode.WIN32_EXCPTION);
                 }
                 catch (Exception e)
                 {
+                    Logger.Error("Normal ERROR");
+                    Logger.LogException(e);
                     MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Exit(ExitCode.CLR_EXCPTION);
                 }
@@ -106,11 +125,15 @@ namespace LogUploader
             }
             catch (System.ComponentModel.Win32Exception e)
             {
+                Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
+                Logger.LogException(e);
                 MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Exit(ExitCode.WIN32_EXCPTION);
             }
             catch (Exception e)
             {
+                Logger.Error("Normal ERROR");
+                Logger.LogException(e);
                 MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Exit(ExitCode.CLR_EXCPTION);
             }
@@ -145,49 +168,59 @@ namespace LogUploader
             return res;
         }
 
-        private static async Task<Form> LoadApplication(IProgress<ProgressMessage> progress, CancellationToken ct, string[] args)
+        private static async Task<Form> LoadApplication(IProgress<ProgressMessage> progress, string[] args, CancellationToken ct)
         {
             //await Task.Delay(10000);
             SetUpLocalisation();
 
             if (!CheckForOtherInstances())
-                return null;
+                Exit(ExitCode.ALREADY_RUNNING);
 
             progress.Report(new ProgressMessage(0.01, "Processing command line Arguments"));
             var flags = ProcessCommandLineArgs(args);
 
+#if !DEBUG
+            Logger.LogLevel = flags.LogLevel;
+#endif
+
             progress.Report(new ProgressMessage(0.02, "Loading Settings"));
-            SettingsData settings;
+            SettingsData settings = null;
             {
                 Settings mainSettings;
                 try
                 {
                     mainSettings = LoadSettings(flags);
+                    settings = new SettingsData(mainSettings);
                 }
-                catch (SettingInitException)
+                catch (SettingInitException e)
                 {
+                    Logger.LogException(e);
                     MessageBox.Show("Faild to Load Settings", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
+                    Exit(ExitCode.LOAD_SETTINGS_ERROR);
                 }
-                settings = new SettingsData(mainSettings);
             }
 
+            Logger.Message("Setup - SetLanguage");
             SetLanguage(settings);
+            Logger.Message("Setup - Load json's");
             LoadJsonData(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.06 + (p.Percent * 0.04), "Loading static Data" + " - " + p.Message))));
 
             if (ct.IsCancellationRequested)
                 return null;
 
+            Logger.Message("Setup - Check for updates");
             Action UpdateReuest = await CheckForUpdates(settings, new Progress<ProgressMessage>(p => new ProgressMessage(0.10 + (p.Percent * 0.05), p.Message)));
             
             if (ct.IsCancellationRequested)
                 return null;
 
+            Logger.Message("Setup - Check for updates EI");
             await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.5), "Init EliteInsights" + " - " + p.Message))));
 
             if (ct.IsCancellationRequested)
                 return null;
 
+            Logger.Message("Setup - Init DB");
             InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.20 + (p.Percent * 0.5), "Local DB" + " - " + p.Message))));
 
             progress.Report(new ProgressMessage(0.26, "Loading"));
@@ -197,6 +230,7 @@ namespace LogUploader
 
             Helper.DiscordPostGen.DiscordPostGenerator.Settings = settings;
 
+            Logger.Message("Setup - Logic");
             var newLogic = new LogUploaderLogic();
             await newLogic.InitLogUploaderLogic(settings,
                 flags.EnableAutoParse,
@@ -212,6 +246,8 @@ namespace LogUploader
                 newLogic.Dispose();
                 UpdateReuest?.Invoke();
             };
+
+            Logger.Message("Setup - UI");
             //return await CreateUI(logic, flags);
             return await CreateUI2(newLogic, new Progress<double>(p => progress.Report(new ProgressMessage(0.95 + (p * 0.05), "Creating UI"))));
         }
@@ -220,14 +256,17 @@ namespace LogUploader
         {
             if (await Updater.UpdateAvailable(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.2, "Checking for Update")))))
             {
+                Logger.Message("Update available");
                 switch (Updater.ShowUpdateMgsBox())
                 {
                     case DialogResult.Yes:
                         await Updater.Update(settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((48 * p.Percent), p.Message))));
                         break;
                     case DialogResult.No:
+                        Logger.Warn("Product updatde skipped");
                         break;
                     default:
+                        Logger.Error("Unexpected dialog exit");
                         return () =>
                         {
                             switch (Updater.ShowUpdateMgsBox())
@@ -253,11 +292,13 @@ namespace LogUploader
             LogDBConnector.DBConnectionString = $@"Data Source=""{dbFilePaht}""; Version=3;Connect Timeout=30";
             try
             {
-                LogDBConnector.GetCount();
+                var count = LogDBConnector.GetCount();
+                Logger.Message("DB found " + count + " entries");
             }
             catch (System.Data.SQLite.SQLiteException)
             {
                 //Create DB
+                Logger.Message("Creating DB");
                 LogDBConnector.CreateTable();
             }
         }
@@ -272,6 +313,8 @@ namespace LogUploader
                 var newVersion = EliteInsights.UpdateAviable();
                 if (newVersion)
                 {
+                    Logger.Message("EI update available\nCurrent version: " + EliteInsights.LocalVersion);
+                    Logger.Message("Auto update EI: " + settings.AutoUpdateEI);
                     if (settings.AutoUpdateEI || MessageBox.Show("New Version of EliteInsights is aviable\nUpdate now?", "EliteInsights Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
                         progress?.Report(new ProgressMessage(0.25, "Starting Update"));
@@ -288,6 +331,7 @@ namespace LogUploader
                                 Exit(ExitCode.EI_UPDATE_FATAL_ERROR);
                             }
                         }
+                        Logger.Message("Update EI completed");
                         progress?.Report(new ProgressMessage(1, "Update Done"));
                     }
                 }
@@ -409,19 +453,25 @@ namespace LogUploader
             public const string FlagEnableAutoParse = "-eap";
             public const string FlagEnableAutoUpload = "-eau";
             public const string FlagReset = "-r";
+            public const string FlagLogLevelDebug = "-d";
+            public const string FlagLogLevelWarning = "-w";
+            public const string FlagLogLevelNormal = "-i";
+            public const string FlagLogLevelVerbose = "-v";
 
             public bool EnableAutoParse { get; set; }
             public bool EnableAutoUpload { get; set; }
             public bool ResetSettings { get; set; }
+            public eLogLevel LogLevel { get; set; }
 
-            public Flags(bool enableAutoUpload, bool resetSettings, bool enableAutoParse)
+            public Flags(bool enableAutoUpload = false, bool resetSettings = false, bool enableAutoParse = false, eLogLevel logLevel = eLogLevel.WARN)
             {
                 EnableAutoUpload = enableAutoUpload;
                 ResetSettings = resetSettings;
                 EnableAutoParse = enableAutoParse;
+                LogLevel = logLevel;
             }
 
-            public Flags(string[] args) : this(false, false, false)
+            public Flags(string[] args) : this()
             {
                 var argumentErrors = "";
                 for (int i = 0; i < args.Length; i++)
@@ -438,6 +488,18 @@ namespace LogUploader
                         case FlagReset:
                             ResetSettings = true;
                             break;
+                        case FlagLogLevelDebug:
+                            LogLevel = eLogLevel.DEBUG;
+                            break;
+                        case FlagLogLevelNormal:
+                            LogLevel = eLogLevel.NORMAL;
+                            break;
+                        case FlagLogLevelWarning:
+                            LogLevel = eLogLevel.WARN;
+                            break;
+                        case FlagLogLevelVerbose:
+                            LogLevel = eLogLevel.VERBOSE;
+                            break;
                         default:
                             argumentErrors += $"\n- \"{arg}\"";
                             break;
@@ -445,6 +507,7 @@ namespace LogUploader
                 }
                 if (!string.IsNullOrEmpty(argumentErrors))
                 {
+                    Logger.Warn("Argument errors:\n" + argumentErrors);
                     MessageBox.Show("Unknown command line arguments:" + argumentErrors, "Argument parse errors", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
@@ -452,6 +515,7 @@ namespace LogUploader
 
         public static void Exit(ExitCode exitCode)
         {
+            Logger.Error($"Programm Exit Reason: {(int)exitCode} {exitCode}");
             Environment.Exit((int)exitCode);
         }
 

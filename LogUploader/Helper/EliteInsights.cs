@@ -90,6 +90,7 @@ namespace LogUploader.Helper
 
         public static Version Update(IProxySettings settings, IProgress<double> progress = null)
         {
+            Logger.Message("Updating EI");
             try
             {
                 Directory.CreateDirectory(BASE_PATH);

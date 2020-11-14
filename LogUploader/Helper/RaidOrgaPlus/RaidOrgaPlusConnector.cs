@@ -304,6 +304,10 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                     response = streamReader.ReadToEnd();
+                if (response.Trim() == "[]"|| httpResponse.StatusCode != HttpStatusCode.OK)
+                {
+                    Logger.Error($@"RO+ SetRaid Returned ""{response}"" body was: request body raid.getPostJson()");
+                }
             }
             catch (Exception e)
             {

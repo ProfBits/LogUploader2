@@ -127,12 +127,16 @@ namespace LogUploader
         StdGolem = 16199
     };
 
-    internal enum eLogLevel
+    internal enum eLogLevel : int
     {
+        [Obsolete]
+        SILETN,
+        ERROR,
+        WARN,
         MINIMAL,
         NORMAL,
         VERBOSE,
-        DEBUG
+        DEBUG,
     }
 
     internal enum ExitCode : int
@@ -155,8 +159,10 @@ namespace LogUploader
 
         #region Startup Errors (200-299)
         STARTUP_FAILED = 200,
-        INIT_SETUP_FAILED = 201,
-        EI_UPDATE_FATAL_ERROR = 202,
+        ALREADY_RUNNING = 201,
+        INIT_SETUP_FAILED = 202,
+        EI_UPDATE_FATAL_ERROR = 203,
+        LOAD_SETTINGS_ERROR = 204,
         #endregion
     }
 }

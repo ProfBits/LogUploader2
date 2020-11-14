@@ -1,4 +1,5 @@
 ﻿using LogUploader.Data;
+using LogUploader.Helper;
 using LogUploader.Languages;
 using System;
 using System.Collections.Generic;
@@ -149,6 +150,9 @@ namespace LogUploader.GUIs
             message += $"Exception:\n{e.Exception.Message}\n\n";
             message += $"{e.Exception.StackTrace}";
 
+            if (e.Job is Helper.JobQueue.NamedJob<CachedLog> njob)
+                Logger.Error($"Job: {njob.Name} FAULTED");
+            Logger.LogException(e.Exception);
             var a = Task.Run(() => MessageBox.Show(message, $"Job Faulted", MessageBoxButtons.OK, MessageBoxIcon.Error));
         }
 

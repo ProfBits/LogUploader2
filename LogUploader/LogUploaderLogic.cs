@@ -678,9 +678,16 @@ namespace LogUploader
             try {
                 await WebHookHelper.PostWebHookPosts(webHook, posts, Settings);
             }
-            catch (WebException)
+            catch (WebException e)
             {
-                //TODO localize
+                Logger.Error("Exception in: LogUploaderLogic.PostToDiscord");
+                Logger.LogException(e);
+                if (e.InnerException != null)
+                {
+                    Logger.Error("Inner Exception:");
+                    Logger.LogException(e);
+                }
+
                 MessageBox.Show(string.Format(Language.Data.MiscDiscordPostErrMsg, webHook.Name),
                      Language.Data.MiscDiscordPostErrTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -920,20 +927,14 @@ namespace LogUploader
 
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.95, "Updating RO+"));
-            //var fileName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\{data.DisplayName.Replace(":", "")}";
-            //var num = 1;
-            //while(File.Exists(fileName + $"({num}).json"))
-            //    num++;
-            //fileName += $"({num}).json";
-            //GP.WriteJsonFile(fileName, raid.getPostJson());
-            //MessageBox.Show("Created file:\n" + fileName, "User Information", MessageBoxButtons.OK);
             try
             {
                 RaidOrgaPlusConnector.SetRaid(RaidOrgaPlusSession, raid);
             }
             catch (Exception e)
             {
-                throw e;
+                Logger.Error("Exeption in LogUploaderLogic.UpdateRaidOrga when setting raid");
+                Logger.LogException(e);
             }
             progress?.Report(new ProgressMessage(0.99, "Done"));
         }
