@@ -59,8 +59,7 @@ namespace LogUploader.Helper
             string installer = await DownloadInstaller(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))));
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
             Process.Start(installer);
-            //TODO create constats table or enum for exit codes
-            Environment.Exit(100);
+            Program.Exit(ExitCode.UPDATING);
         }
 
         /// <summary>

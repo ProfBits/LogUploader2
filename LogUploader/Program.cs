@@ -54,7 +54,7 @@ namespace LogUploader
          */
 
         [STAThread]
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
 #if CREATE_LANGUAGE_XMLS
             WriteOutLanguageXmls();
@@ -69,7 +69,7 @@ namespace LogUploader
                 Application.Run(new InitConfigUI());
                 settings.Reload();
                 if (settings.FirstBoot)
-                    return;
+                    return (int)ExitCode.INIT_SETUP_FAILED;
             }
             Form ui = null;
 
@@ -82,12 +82,12 @@ namespace LogUploader
                 catch (System.ComponentModel.Win32Exception e)
                 {
                     MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Environment.Exit(1);
+                    Exit(ExitCode.WIN32_EXCPTION);
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Environment.Exit(2);
+                    Exit(ExitCode.CLR_EXCPTION);
                 }
             });
 
@@ -96,11 +96,8 @@ namespace LogUploader
 
             GC.Collect();
 
-            //RoPlusTesting.Run(((LogUploaderUI2)ui).DEBUGgetLogic());
-            //Environment.Exit(42);
-
             if (ui == null)
-                return;
+                return (int)ExitCode.STARTUP_FAILED;
 
             try
             {
@@ -110,15 +107,15 @@ namespace LogUploader
             catch (System.ComponentModel.Win32Exception e)
             {
                 MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(1);
+                Exit(ExitCode.WIN32_EXCPTION);
             }
             catch (Exception e)
             {
                 MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(2);
+                Exit(ExitCode.CLR_EXCPTION);
             }
             Cleanup();
-            Environment.Exit(0);
+            return (int)ExitCode.OK;
         }
 
         private static string GetExceptionMessage(Exception e)
@@ -287,8 +284,8 @@ namespace LogUploader
                             if (!EliteInsights.IsInstalled())
                             {
                                 MessageBox.Show("Faild to install EliteInsights", "Missing EliteInsights installation", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                //TODO refactor exit code
-                                Environment.Exit(10);
+                                //TODO refactor exit code, really crash here?
+                                Exit(ExitCode.EI_UPDATE_FATAL_ERROR);
                             }
                         }
                         progress?.Report(new ProgressMessage(1, "Update Done"));
@@ -396,7 +393,7 @@ namespace LogUploader
                 File.Copy(exePath + @"\Data\English.xml", exePath + @"\..\..\Data\English.xml", true);
                 File.Copy(exePath + @"\Data\German.xml", exePath + @"\..\..\Data\German.xml", true);
             }
-            Environment.Exit(2);
+            Exit(ExitCode.LANG_XML_CREATION_BUILD);
         }
 #endif
 
@@ -453,7 +450,10 @@ namespace LogUploader
             }
         }
 
-
+        public static void Exit(ExitCode exitCode)
+        {
+            Environment.Exit((int)exitCode);
+        }
 
         [Serializable]
         public class SettingInitException : Exception
