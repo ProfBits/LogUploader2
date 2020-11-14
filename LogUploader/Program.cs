@@ -30,17 +30,17 @@ namespace LogUploader
          */
 
         // Future Versions
-        /*  Task: Language out of compieled into.txt file
-         *  Task: Collect exit codes
-         *  Task: Whats new Screen after update
-         *  Task: add View changelog to about and update UI
-         *  Task: Misc category in dataJson for kill/wipe emotes
+        /*  DONE: Language out of compieled into.txt file
+         *  DONE: Collect exit codes
+         *  DONE: Whats new Screen after update
+         *  DONE: add View changelog to about and update UI
+         *  DONE: Misc category in dataJson for kill/wipe emotes
          *        add emotes to professions
-         *  Task: add more webhook formats
+         *  DONE: add more webhook formats
          *        with classesemote (compact and area)
          *  Task: Update EI Helper to accout for EI now outputting generated files -> remove file system watcher
          *  Task: Log state and cleand up tools....
-         *  Task: switch over to Newtonsoft (performance)
+         *  DONE: switch over to Newtonsoft (performance)
          *  Task: Add logs manually
          *  Task: Add help and/or user doc...
          *  Task: Darkmode / Thems (integrated into win darkmode?)

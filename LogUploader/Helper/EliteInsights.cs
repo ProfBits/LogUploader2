@@ -168,6 +168,10 @@ namespace LogUploader.Helper
             {
                 throw new OperationCanceledException("Can't parse log locally: No EliteInsights installation present!");
             }
+            if (LocalVersion < new Version(2, 24))
+            {
+                throw new NotSupportedException($"EliteInsights version too low.\nInstalled {LocalVersion}\nMin required {new Version(2, 24)}\nPlease update EI via the settings.");
+            }
 
             string destConf = PrepearConfig();
             //-p requiered for silent execution!!
@@ -176,7 +180,7 @@ namespace LogUploader.Helper
             {
                 FileName = BASE_PATH + BIN + "GuildWars2EliteInsights.exe",
                 WorkingDirectory = BinPath,
-                CreateNoWindow = true,
+                CreateNoWindow = false,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -184,30 +188,41 @@ namespace LogUploader.Helper
                 Arguments = args
             };
 
-            string stdOut = "";
-            string stdErr = "";
-            List<string> newFiles = new List<string>();
-            using (var watchDog = new FileSystemWatcher(LogsPath))
-            {
-                watchDog.Created += (sender, e) => newFiles.Add(e.Name);
-                watchDog.Changed += (sender, e) => newFiles.Add(e.Name);
-                watchDog.Renamed += (sender, e) => newFiles.Add(e.Name);
-                watchDog.EnableRaisingEvents = true;
+            List<string> stdOut;
+            //List<string> stdErr;
                 
-                using (var p = new Process())
-                {
-                    p.StartInfo = psi;
-                    p.OutputDataReceived += (sender, e) => stdOut += e.Data + "\n";
-                    p.ErrorDataReceived += (sender, e) => stdErr += e.Data + "\n";
+            using (var p = new Process())
+            {
+                p.StartInfo = psi;
 
-                    p.Start();
-                    p.WaitForExit();
-                }
+                p.Start();
+                p.WaitForExit();
 
-                watchDog.EnableRaisingEvents = false;
+                stdOut = ReadLinesFromStream(p.StandardOutput);
+                //TODO proper error handling
+                //stdErr = ReadLinesFromStream(p.StandardError);
             }
 
-            return newFiles.Distinct().Select(f => LogsPath + f).ToList();
+            return GetGeneratedFiles(stdOut);
+        }
+
+        private static List<string> GetGeneratedFiles(IEnumerable<string> stdOut)
+        {
+            return stdOut.Where(line => line.StartsWith("Generated: "))
+                .Select(line => line.Substring("Generated: ".Length).Trim())
+                .ToList();
+        }
+
+        private static List<string> ReadLinesFromStream(StreamReader stream)
+        {
+            List<string> lines = new List<string>();
+            while (!stream.EndOfStream)
+            {
+                var line = stream.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line)) lines.Add(line);
+            }
+
+            return lines;
         }
 
         private static string PrepearConfig()

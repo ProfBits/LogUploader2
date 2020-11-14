@@ -16,7 +16,10 @@ namespace LogUploader.Data.RaidOrgaPlus
         public virtual string DisplayName { get => $"{Name} {Start.ToString("dd'.'MM' 'HH':'mm")}"; }
         
         //TODO is there a better way to bind
-        //public RaidSimple Self { get => this; }
+        /// <summary>
+        /// Required for data binding of comboboxes
+        /// </summary>
+        public RaidSimple Self { get => this; }
 
         protected RaidSimple() { }
 
