@@ -17,6 +17,7 @@ namespace LogUploader.Helper
         private const string PREFIX_VERBOSE = "[Verbose]";
 
         private const string LOG_DIR = "\\LogUploader\\Logs\\";
+        private const int LOGS_TO_KEEP = 29;
         private static string LogFile;
 
         private static eLogLevel logLevel;
@@ -35,10 +36,42 @@ namespace LogUploader.Helper
             LogLevel = logLevel;
             var logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + LOG_DIR;
             Directory.CreateDirectory(logPath);
+            CleanUpLogs(logPath);
+
             LogFile = logPath + DateTime.Now.ToString("yyMMdd_hhmmssfff") + ".log";
-            File.Create(LogFile).Close();
             WriteHeader(version);
+            
             InitDone = true;
+        }
+
+        private static void CleanUpLogs(string logPath)
+        {
+            var logs = new DirectoryInfo(logPath).GetFiles().Where(file => file.Name.EndsWith(".log"));
+            if (logs.Count() > LOGS_TO_KEEP)
+            {
+                foreach (var file in logs.OrderBy(file => file.CreationTime).Take(logs.Count() - LOGS_TO_KEEP))
+                {
+                    try
+                    {
+                        file.Delete();
+                    }
+                    catch (IOException e)
+                    {
+                        Warn("Could not delelet log (IOException) " + file.FullName);
+                        Warn(e.Message);
+                    }
+                    catch (System.Security.SecurityException e)
+                    {
+                        Warn("Could not delelet log (SecurityException) " + file.FullName);
+                        Warn(e.Message);
+                    }
+                    catch (UnauthorizedAccessException e)
+                    {
+                        Warn("Could not delelet log (UnauthorizedAccessException) " + file.FullName);
+                        Warn(e.Message);
+                    }
+                }
+            }
         }
 
         private static void WriteHeader(string version)
