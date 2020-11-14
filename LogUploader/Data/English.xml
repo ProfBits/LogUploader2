@@ -124,6 +124,8 @@ Add a new one!</configDiscordNoHooks>
   <configEiTitle>EliteInsights</configEiTitle>
   <configEiCombatReplay>Generate combat replay</configEiCombatReplay>
   <configEiLightTheme>Use light theme</configEiLightTheme>
+  <configEiAutoUpdate>Auto update</configEiAutoUpdate>
+  <configEiUpdate>Update / Reinstall</configEiUpdate>
   <configDefault>Default</configDefault>
   <configCancel>Cancel</configCancel>
   <configSave>Save</configSave>

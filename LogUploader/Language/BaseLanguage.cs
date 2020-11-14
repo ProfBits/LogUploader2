@@ -133,6 +133,8 @@ namespace LogUploader.Languages
         public abstract string ConfigEiTitle { get; }
         public abstract string ConfigEiCombatReplay { get; }
         public abstract string ConfigEiLightTheme { get; }
+        public abstract  string ConfigEiAutoUpdate { get; }
+        public abstract string ConfigEiUpdate { get; }
         public abstract string ConfigDefault { get; }
         public abstract string ConfigCancel { get; }
         public abstract string ConfigSave { get; }

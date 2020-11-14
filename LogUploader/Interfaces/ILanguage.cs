@@ -139,6 +139,8 @@ namespace LogUploader.Languages
         string ConfigEiTitle { get; }
         string ConfigEiCombatReplay { get; }
         string ConfigEiLightTheme { get; }
+        string ConfigEiAutoUpdate { get; }
+        string ConfigEiUpdate { get; }
         string ConfigDefault { get; }
         string ConfigCancel { get; }
         string ConfigSave { get; }

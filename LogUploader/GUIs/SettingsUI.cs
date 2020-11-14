@@ -172,6 +172,8 @@ namespace LogUploader.GUI
             gbEi.Text = lang.ConfigEiTitle;
             cbEiCombatReplay.Text = lang.ConfigEiCombatReplay;
             cbEiTheme.Text = lang.ConfigEiLightTheme;
+            cbEIAutoUpdate.Text = lang.ConfigEiAutoUpdate;
+            btnEiUpdate.Text = lang.ConfigEiUpdate;
             btnDefault.Text = lang.ConfigDefault;
             btnCancel.Text = lang.ConfigCancel;
             btnOK.Text = lang.ConfigSave;

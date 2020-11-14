@@ -145,6 +145,8 @@ namespace LogUploader.Languages
         public override string ConfigEiTitle { get => "EliteInsights"; }
         public override string ConfigEiCombatReplay { get => "Erzeuge Combat-Replay"; }
         public override string ConfigEiLightTheme { get => "Nutze helles Thema"; }
+        public override string ConfigEiAutoUpdate { get => "Auto Update"; }
+        public override string ConfigEiUpdate { get => "Update / Reinstall"; }
         public override string ConfigDefault { get => "Standard"; }
         public override string ConfigCancel { get => "Abbrechen"; }
         public override string ConfigSave { get => "Speichern"; }

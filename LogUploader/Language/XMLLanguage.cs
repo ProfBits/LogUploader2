@@ -267,6 +267,10 @@ namespace LogUploader.Languages
         [XmlElement]
         public string configEiLightTheme;
         [XmlElement]
+        public string configEiAutoUpdate;
+        [XmlElement]
+        public string configEiUpdate;
+        [XmlElement]
         public string configDefault;
         [XmlElement]
         public string configCancel;
@@ -483,6 +487,8 @@ namespace LogUploader.Languages
             configEiTitle = lang.ConfigEiTitle;
             configEiCombatReplay = lang.ConfigEiCombatReplay;
             configEiLightTheme = lang.ConfigEiLightTheme;
+            configEiAutoUpdate = lang.ConfigEiAutoUpdate;
+            configEiUpdate = lang.ConfigEiUpdate;
             configDefault = lang.ConfigDefault;
             configCancel = lang.ConfigCancel;
             configSave = lang.ConfigSave;
@@ -651,6 +657,8 @@ namespace LogUploader.Languages
         public override string ConfigEiTitle => configEiTitle;
         public override string ConfigEiCombatReplay => configEiCombatReplay;
         public override string ConfigEiLightTheme => configEiLightTheme;
+        public override string ConfigEiAutoUpdate => configEiAutoUpdate;
+        public override string ConfigEiUpdate => configEiUpdate;
         public override string ConfigDefault => configDefault;
         public override string ConfigCancel => configCancel;
         public override string ConfigSave => configSave;
