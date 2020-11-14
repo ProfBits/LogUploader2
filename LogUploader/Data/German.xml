@@ -138,6 +138,14 @@ Dies wird deine aktuellen Einstellungen dauerhaft löschen!</configDefaultMsgTex
   <newTitle>Neuerungen in </newTitle>
   <newHeading>Update-Notes</newHeading>
   <newClose>Schliessen</newClose>
+  <playerToCorrectPlayer>Spieler</playerToCorrectPlayer>
+  <playerToCorrectAccount>Account</playerToCorrectAccount>
+  <playerToCorrectMember>Mitglied</playerToCorrectMember>
+  <playerToCorrectHelper>Helfer</playerToCorrectHelper>
+  <playerToCorrectLFG>LFG</playerToCorrectLFG>
+  <correctPlayer>Spieler korregieren</correctPlayer>
+  <correctPlayerTitle>Spieler zuordnen</correctPlayerTitle>
+  <correctPlayerDone>Ferig</correctPlayerDone>
   <miscGenericProcessing>Verarbeite</miscGenericProcessing>
   <miscNoWebhookMsgTitel>Webhooks erstellen</miscNoWebhookMsgTitel>
   <miscNoWebhookMsgText>Du hast aktuell keine WebHooks eingestellt

@@ -148,6 +148,17 @@ namespace LogUploader.Languages
         public abstract string NewClose { get; }
 
 
+        public abstract string PlayerToCorrectPlayer { get; }
+        public abstract string PlayerToCorrectAccount { get; }
+        public abstract string PlayerToCorrectMember { get; }
+        public abstract string PlayerToCorrectHelper { get; }
+        public abstract string PlayerToCorrectLFG { get; }
+
+        public abstract string CorrectPlayer { get; }
+        public abstract string CorrectPlayerTitle { get; }
+        public abstract string CorrectPlayerDone { get; }
+
+
         public abstract string MiscGenericProcessing { get; }
         public abstract string MiscNoWebhookMsgTitel { get; }
         public abstract string MiscNoWebhookMsgText { get; }

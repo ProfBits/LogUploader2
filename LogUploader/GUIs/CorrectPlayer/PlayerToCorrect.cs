@@ -99,7 +99,11 @@ namespace LogUploader.GUIs.CorrectPlayer
 
         private void ApplyLanguage(ILanguage data)
         {
-            //TODO ApplyLanguage
+            gbAccount.Text =  data.PlayerToCorrectPlayer;
+            lblAccountNameDes.Text = data.PlayerToCorrectAccount;
+            rbMember.Text = data.PlayerToCorrectMember;
+            rbHelper.Text = data.PlayerToCorrectHelper;
+            rbLFG.Text =  data.PlayerToCorrectLFG;
         }
 
         private void rbMember_CheckedChanged(object sender, EventArgs e)

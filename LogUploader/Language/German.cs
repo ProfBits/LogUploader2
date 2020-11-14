@@ -160,6 +160,18 @@ namespace LogUploader.Languages
         public override string NewHeading { get => "Update-Notes"; }
         public override string NewClose { get => "Schliessen"; }
 
+
+        public override string PlayerToCorrectPlayer { get => "Spieler"; }
+        public override string PlayerToCorrectAccount { get => "Account"; }
+        public override string PlayerToCorrectMember { get => "Mitglied"; }
+        public override string PlayerToCorrectHelper { get => "Helfer"; }
+        public override string PlayerToCorrectLFG { get => "LFG"; }
+
+        public override string CorrectPlayer { get => "Spieler korregieren"; }
+        public override string CorrectPlayerTitle { get => "Spieler zuordnen"; }
+        public override string CorrectPlayerDone { get => "Ferig"; }
+
+
         public override string MiscGenericProcessing { get => "Verarbeite"; }
         public override string MiscNoWebhookMsgTitel { get => "Webhooks erstellen"; }
         public override string MiscNoWebhookMsgText { get => "Du hast aktuell keine WebHooks eingestellt\nGehe zu Discord Webhooks in den Einstellungen und erstelle einen neuen."; }

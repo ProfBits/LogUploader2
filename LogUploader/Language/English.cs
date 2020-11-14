@@ -159,6 +159,17 @@ namespace LogUploader.Languages
         public override string NewHeading { get => "Patchnotes"; }
         public override string NewClose { get => "Close"; }
 
+
+        public override string PlayerToCorrectPlayer { get => "Player"; }
+        public override string PlayerToCorrectAccount { get => "Account"; }
+        public override string PlayerToCorrectMember { get => "Member"; }
+        public override string PlayerToCorrectHelper { get => "Helper"; }
+        public override string PlayerToCorrectLFG { get => "LFG"; }
+
+        public override string CorrectPlayer { get => "Correct Players"; }
+        public override string CorrectPlayerTitle { get => "Assigen Players"; }
+        public override string CorrectPlayerDone { get => "Done"; }
+
         public override string MiscGenericProcessing { get => "Processing"; }
         public override string MiscNoWebhookMsgTitel { get => "Setup Webhooks"; }
         public override string MiscNoWebhookMsgText { get => "You have currently no Webhooks set up.\nGo to Discord Webhooks in Settings and create a new one"; }

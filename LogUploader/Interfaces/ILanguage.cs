@@ -154,6 +154,18 @@ namespace LogUploader.Languages
         string NewHeading { get; }
         string NewClose { get; }
 
+
+        string PlayerToCorrectPlayer { get; }
+        string PlayerToCorrectAccount { get; }
+        string PlayerToCorrectMember { get; }
+        string PlayerToCorrectHelper { get; }
+        string PlayerToCorrectLFG { get; }
+
+        string CorrectPlayer { get; }
+        string CorrectPlayerTitle { get; }
+        string CorrectPlayerDone { get; }
+
+
         string MiscGenericProcessing { get; }
         string MiscNoWebhookMsgTitel { get; }
         string MiscNoWebhookMsgText { get; }

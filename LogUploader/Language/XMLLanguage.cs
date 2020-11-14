@@ -297,6 +297,25 @@ namespace LogUploader.Languages
         [XmlElement]
         public string newClose;
 
+
+        [XmlElement]
+        public string playerToCorrectPlayer;
+        [XmlElement]
+        public string playerToCorrectAccount;
+        [XmlElement]
+        public string playerToCorrectMember;
+        [XmlElement]
+        public string playerToCorrectHelper;
+        [XmlElement]
+        public string playerToCorrectLFG;
+
+        [XmlElement]
+        public string correctPlayer;
+        [XmlElement]
+        public string correctPlayerTitle;
+        [XmlElement]
+        public string correctPlayerDone;
+
         [XmlElement]
         public string miscGenericProcessing;
         [XmlElement]
@@ -479,6 +498,16 @@ namespace LogUploader.Languages
             newHeading = lang.NewHeading;
             newClose = lang.NewClose;
 
+            playerToCorrectPlayer = lang.PlayerToCorrectPlayer;
+            playerToCorrectAccount = lang.PlayerToCorrectAccount;
+            playerToCorrectMember = lang.PlayerToCorrectMember;
+            playerToCorrectHelper = lang.PlayerToCorrectHelper;
+            playerToCorrectLFG = lang.PlayerToCorrectLFG;
+
+            correctPlayer = lang.CorrectPlayer;
+            correctPlayerTitle = lang.CorrectPlayerTitle;
+            correctPlayerDone = lang.CorrectPlayerDone;
+
             miscGenericProcessing = lang.MiscGenericProcessing;
             miscNoWebhookMsgTitel = lang.MiscNoWebhookMsgTitel;
             miscNoWebhookMsgText = lang.MiscNoWebhookMsgText;
@@ -636,6 +665,17 @@ namespace LogUploader.Languages
         public override string NewTitle => newTitle;
         public override string NewHeading => newHeading;
         public override string NewClose => newClose;
+
+
+        public override string PlayerToCorrectPlayer => playerToCorrectPlayer;
+        public override string PlayerToCorrectAccount => playerToCorrectAccount;
+        public override string PlayerToCorrectMember => playerToCorrectMember;
+        public override string PlayerToCorrectHelper => playerToCorrectHelper;
+        public override string PlayerToCorrectLFG => playerToCorrectLFG;
+
+        public override string CorrectPlayer => correctPlayer;
+        public override string CorrectPlayerTitle => correctPlayerTitle;
+        public override string CorrectPlayerDone => correctPlayerDone;
 
         public override string MiscGenericProcessing => miscGenericProcessing;
         public override string MiscNoWebhookMsgTitel => miscNoWebhookMsgTitel;

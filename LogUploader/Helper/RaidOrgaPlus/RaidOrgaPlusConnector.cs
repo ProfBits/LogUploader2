@@ -284,8 +284,12 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 ToggleHelper(session, raid.TerminID, helper.ID);
             }
 
-            //var httpWebRequest = GetPostRequest(@"https://sv.sollunad.de:8080/api/aufstellungen", session.UserAgent);
+            //HACK Dev envoriment
+# if DEBUG
             var httpWebRequest = GetPostRequest(@"http://localhost:8081/api/aufstellungen", session.UserAgent);
+#else
+            var httpWebRequest = GetPostRequest(@"https://sv.sollunad.de:8080/api/aufstellungen", session.UserAgent);
+#endif
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {

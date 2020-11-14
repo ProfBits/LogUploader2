@@ -38,7 +38,9 @@ namespace LogUploader.GUIs.CorrectPlayer
 
         private void ApplyLanguage(ILanguage data)
         {
-            //TODO ApplyLanguage
+            Text = data.CorrectPlayer;
+            lblTitle.Text = data.CorrectPlayerTitle;
+            bntDone.Text = data.CorrectPlayerDone;
         }
 
         private void UpdatePlayers()

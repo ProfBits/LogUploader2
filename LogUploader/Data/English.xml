@@ -138,6 +138,14 @@ This will permanently delete your current settings!</configDefaultMsgText>
   <newTitle>What's new in </newTitle>
   <newHeading>Patchnotes</newHeading>
   <newClose>Close</newClose>
+  <playerToCorrectPlayer>Player</playerToCorrectPlayer>
+  <playerToCorrectAccount>Account</playerToCorrectAccount>
+  <playerToCorrectMember>Member</playerToCorrectMember>
+  <playerToCorrectHelper>Helper</playerToCorrectHelper>
+  <playerToCorrectLFG>LFG</playerToCorrectLFG>
+  <correctPlayer>Correct Players</correctPlayer>
+  <correctPlayerTitle>Assigen Players</correctPlayerTitle>
+  <correctPlayerDone>Done</correctPlayerDone>
   <miscGenericProcessing>Processing</miscGenericProcessing>
   <miscNoWebhookMsgTitel>Setup Webhooks</miscNoWebhookMsgTitel>
   <miscNoWebhookMsgText>You have currently no Webhooks set up.

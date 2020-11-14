@@ -29,7 +29,6 @@ namespace LogUploader.Data
 
         public static Profession Get(eProfession profession)
         {
-            //TODO errorprove
             return Professions.Where(e => e.Key == profession).FirstOrDefault().Value ?? Professions[eProfession.Unknown];
         }
 

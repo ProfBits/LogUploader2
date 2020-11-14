@@ -98,7 +98,7 @@ namespace LogUploader.Data
             }
             if (File.Exists(JsonPath))
             {
-                return new FileInfo(EvtcPath).CreationTime;
+                return new FileInfo(JsonPath).CreationTime;
             }
             return DateTime.Now;
         }
