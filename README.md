@@ -1,5 +1,5 @@
 # LogUploader
-[![Release](https://img.shields.io/github/release/n3wt0n/BugGuardian.MVC.svg)](https://github.com/n3wt0n/BugGuardian.MVC/releases/latest)
+[![Release](https://img.shields.io/github/release/ProfBits/LogUploader2.svg)](https://github.com/ProfBits/LogUploader2/releases/latest)
 
 [German Version](#Überblick)
 ## Overview
