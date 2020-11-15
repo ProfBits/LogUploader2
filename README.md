@@ -1,6 +1,6 @@
 # LogUploader
 [![Release](https://img.shields.io/github/release/ProfBits/LogUploader2.svg?style=flat-square)](https://github.com/ProfBits/LogUploader2/releases/latest)
-![Release Date](https://img.shields.io/github/release-date/ProfBits/LogUploader2?style=flat-square)(https://github.com/ProfBits/LogUploader2/releases/latest)
+[![Release Date](https://img.shields.io/github/release-date/ProfBits/LogUploader2?style=flat-square)](https://github.com/ProfBits/LogUploader2/releases/latest)
 
 [German Version](#Überblick)
 ## Overview
