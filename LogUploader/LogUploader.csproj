@@ -41,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,6 +53,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -71,7 +73,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.1</LangVersion>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -142,6 +144,8 @@
     <Compile Include="Data\RaidOrgaPlus\TeamComp.cs" />
     <Compile Include="Data\Settings\ISettings.cs" />
     <Compile Include="Data\Settings\SettingsData.cs" />
+    <Compile Include="Data\WebHook.cs" />
+    <Compile Include="Data\WebHookData.cs" />
     <Compile Include="Data\WebHookDeleteEventArgs.cs" />
     <Compile Include="GUIs\AboutUI.cs">
       <SubType>Form</SubType>
@@ -242,7 +246,6 @@
     <Compile Include="Helper\ListToDataTable.cs" />
     <Compile Include="Helper\LogCache.cs" />
     <Compile Include="Helper\LogDBConnector.cs" />
-    <Compile Include="Data\WebHook.cs" />
     <Compile Include="Helper\WebHookDB.cs" />
     <Compile Include="Interfaces\IJob.cs" />
     <Compile Include="Helper\JobQueue\JobAddedEventArgs.cs" />
@@ -268,7 +271,6 @@
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="Helper\KeyValueList.cs" />
     <Compile Include="Helper\WebHelper.cs" />
-    <Compile Include="Data\WebHookData.cs" />
     <Compile Include="Helper\WebHookHelper.cs" />
     <Compile Include="GUIs\InitConfigUI.cs">
       <SubType>Form</SubType>
@@ -337,6 +339,7 @@
     <Content Include="Data\LogDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="LogUploader.ruleset" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\LogUploader.Data.DBLog.datasource" />
     <None Include="Properties\DataSources\LogUploader.Data.LocalLogGUI.datasource" />
