@@ -182,6 +182,14 @@ namespace LogUploader.GUI
             lblRoPlusPwd.Text = lang.ConfigRoPlusPwd;
 
             NoWebHooks.Text = lang.ConfigDiscordNoHooks;
+
+#if DEBUG
+            Text += " DEBUG";
+#elif ALPHA
+            Text += " ALPHA";
+#elif BETA
+            Text += " BETA";
+#endif
         }
 
         #endregion

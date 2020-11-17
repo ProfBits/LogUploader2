@@ -44,6 +44,14 @@ namespace LogUploader.GUIs
             lblSpellCheck.Text = SPELLCHECKER + " " + lang.AboutForSpellCheck;
             lblVersion.Text = lang.AboutVersion;
             llPatchnotes.Text = lang.AboutViewPatchnotes;
+
+#if DEBUG
+            Text += " DEBUG";
+#elif ALPHA
+            Text += " ALPHA";
+#elif BETA
+            Text += " BETA";
+#endif
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

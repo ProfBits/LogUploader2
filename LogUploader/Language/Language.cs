@@ -18,6 +18,7 @@ namespace LogUploader.Languages
         private static XMLLanguage English;
         private static XMLLanguage German;
 
+        //TODO improve performance, only load one languate at a time
         private static eLanguage m_Current = eLanguage.EN;
         public static eLanguage Current { get => m_Current; set {
                 m_Current = value;

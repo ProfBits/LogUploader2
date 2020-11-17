@@ -57,13 +57,7 @@ namespace LogUploader
         [STAThread]
         static int Main(string[] args)
         {
-#if DEBUG
-            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.DEBUG);
-            Logger.Debug("DEBUG BUILD");
-#else
-            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.NORMAL);
-#endif
-
+            InitLogger();
             if (args.Length > 0) Logger.Message("Args: " + args.Aggregate("", (str1, str2) => str1 + " " + str2));
             else Logger.Message("No args");
 
@@ -141,6 +135,23 @@ namespace LogUploader
             return (int)ExitCode.OK;
         }
 
+        private static void InitLogger()
+        {
+
+#if DEBUG
+            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.DEBUG);
+            Logger.Debug("DEBUG BUILD");
+#elif BETA
+            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.VERBOSE);
+            Logger.Debug("BETA BUILD");
+#elif ALPHA
+            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.DEBUG);
+            Logger.Debug("ALPHA BUILD");
+#else
+            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.NORMAL);
+#endif
+        }
+
         private static string GetExceptionMessage(Exception e)
         {
             return $"Exception: {e.GetType().ToString()}\n" +
@@ -179,7 +190,10 @@ namespace LogUploader
             progress.Report(new ProgressMessage(0.01, "Processing command line Arguments"));
             var flags = ProcessCommandLineArgs(args);
 
-#if !DEBUG
+#if DEBUG
+#elif BETA
+#elif ALPHA
+#else
             Logger.LogLevel = flags.LogLevel;
 #endif
 
@@ -256,7 +270,8 @@ namespace LogUploader
         {
             if (await Updater.UpdateAvailable(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.2, "Checking for Update")))))
             {
-                Logger.Message("Update available");
+                
+                Logger.Message("Update available.\nNew version: " + (Updater.NewestVersion?.ToString() ?? "na"));
                 switch (Updater.ShowUpdateMgsBox())
                 {
                     case DialogResult.Yes:
@@ -311,9 +326,10 @@ namespace LogUploader
                 EliteInsights.Init(settings);
                 EliteInsights.UpdateNewestVersion(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.2) + 0.05, "Checking for Update"))));
                 var newVersion = EliteInsights.UpdateAviable();
+                if (EliteInsights.IsInstalled()) Logger.Message($"Installed EI Version: {EliteInsights.LocalVersion}"); else Logger.Warn("EI not installed");
                 if (newVersion)
                 {
-                    Logger.Message("EI update available\nCurrent version: " + EliteInsights.LocalVersion);
+                    Logger.Message("EI update available. New version: " + EliteInsights.NewestVersion);
                     Logger.Message("Auto update EI: " + settings.AutoUpdateEI);
                     if (settings.AutoUpdateEI || MessageBox.Show("New Version of EliteInsights is aviable\nUpdate now?", "EliteInsights Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {

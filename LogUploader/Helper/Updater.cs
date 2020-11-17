@@ -18,6 +18,8 @@ namespace LogUploader.Helper
         private const string USER_AGENT = "LogUploader";
         private const string GitHubApiLink = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
 
+        public static Version NewestVersion { get; private set; } = null;
+
         static async Task<Version> GetNewestVersion(IProxySettings settings, IProgress<double> progress = null)
         {
             string res;
@@ -38,6 +40,7 @@ namespace LogUploader.Helper
             var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
             progress?.Report(0.9);
             var gitHubVersion = new Version(tag);
+            NewestVersion = gitHubVersion;
             return gitHubVersion;
         }
 

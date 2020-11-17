@@ -41,6 +41,7 @@
             this.lblTask = new System.Windows.Forms.Label();
             this.pBottom = new System.Windows.Forms.Panel();
             this.bgWorkerMain = new System.ComponentModel.BackgroundWorker();
+            this.lblBeta = new System.Windows.Forms.Label();
             this.pHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.pInfo.SuspendLayout();
@@ -50,6 +51,7 @@
             // pHeader
             // 
             this.pHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pHeader.Controls.Add(this.lblBeta);
             this.pHeader.Controls.Add(this.lblClose);
             this.pHeader.Controls.Add(this.lblTitle);
             this.pHeader.Controls.Add(this.pbLogo);
@@ -173,6 +175,20 @@
             // 
             this.bgWorkerMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
+            // lblBeta
+            // 
+            this.lblBeta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBeta.AutoSize = true;
+            this.lblBeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBeta.ForeColor = System.Drawing.Color.White;
+            this.lblBeta.Location = new System.Drawing.Point(392, 124);
+            this.lblBeta.Name = "lblBeta";
+            this.lblBeta.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblBeta.Size = new System.Drawing.Size(39, 13);
+            this.lblBeta.TabIndex = 1;
+            this.lblBeta.Text = "BETA";
+            this.lblBeta.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // LoadingScreenUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -214,5 +230,6 @@
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Panel pBottom;
         private System.ComponentModel.BackgroundWorker bgWorkerMain;
+        private System.Windows.Forms.Label lblBeta;
     }
 }

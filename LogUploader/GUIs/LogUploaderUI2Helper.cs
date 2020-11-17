@@ -79,6 +79,16 @@ namespace LogUploader.GUIs
             miOpenLink.Text = lang.ActionsOpenRemote;
             miParseUpload.Text = lang.ActionsParseAndUpload;
             miViewInExplorer.Text = lang.ActionsViewInExplorer;
+
+
+
+#if DEBUG
+            Text += " DEBUG";
+#elif ALPHA
+            Text += " ALPHA";
+#elif BETA
+            Text += " BETA";
+#endif
         }
 
         internal LogUploaderLogic DEBUGgetLogic() => Logic;

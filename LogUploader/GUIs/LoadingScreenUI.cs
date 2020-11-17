@@ -33,6 +33,16 @@ namespace LogUploader.GUI
             
             progress = new Progress<ProgressMessage>();
             progress.ProgressChanged += Progress_ProgressChanged;
+
+#if DEBUG
+            lblBeta.Text = "DEBUG";
+#elif ALPHA
+            lblBeta.Text = "ALPHA";
+#elif BETA
+            lblBeta.Text = "BETA";
+#else
+            lblBeta.Visible = false;
+#endif
         }
 
         private void Progress_ProgressChanged(object sender, ProgressMessage e)
@@ -79,7 +89,7 @@ namespace LogUploader.GUI
             }
         }
 
-        #region DragWindow
+#region DragWindow
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
@@ -98,7 +108,7 @@ namespace LogUploader.GUI
             }
         }
 
-        #endregion
+#endregion
 
         private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
