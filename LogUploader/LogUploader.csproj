@@ -279,7 +279,6 @@
       <DependentUpon>InitConfigUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDiscordPostGen.cs" />
-    <Compile Include="Language\BaseLanguage.cs" />
     <Compile Include="Language\English.cs" />
     <Compile Include="Language\German.cs" />
     <Compile Include="Interfaces\ILanguage.cs" />

@@ -7,181 +7,181 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Languages
 {
-    public class English : BaseLanguage
+    public class English : ILanguage
     {
-        public override CultureInfo Culture { get => new CultureInfo("en-us"); }
+        public CultureInfo Culture { get => new CultureInfo("en-us"); }
 
-        public override string Succsess { get => "Success"; }
-        public override string Fail { get => "Fail"; }
+        public string Succsess { get => "Success"; }
+        public string Fail { get => "Fail"; }
 
-        public override string ColHeaderBoss { get => "Boss"; }
-        public override string ColHeaderDate { get => "Date"; }
-        public override string ColHeaderSize { get => "Size"; }
-        public override string ColHeaderDataCorrected { get => "Data checked"; }
-        public override string ColHeaderDuration { get => "Duration"; }
-        public override string ColHeaderSuccess { get => "Kill"; }
-        public override string ColHeaderHpLeft { get => "% left"; }
-        public override string ColHeaderCM { get => "CM"; }
-        public override string ColHeaderParsed { get => "Parsed"; }
-        public override string ColHeaderUploaded { get => "Uploaded"; }
-        public override string FilterHeader { get => "Filter"; }
-        public override string FilterBoss { get => "Boss"; }
-        public override string FilterHPLeft { get => "HP left"; }
-        public override string FilterDuration { get => "Duration"; }
-        public override string FilterDate { get => "Date"; }
-        public override string FilterFrom { get => "from"; }
-        public override string FilterTo { get => "to"; }
-        public override string FilterSuccess { get => "Success"; }
-        public override string FilterKill { get => "Kill"; }
-        public override string FilterWipe { get => "Wipe"; }
-        public override string FilterToday { get => "Today"; }
-        public override string FilterReset { get => "Reset"; }
-        public override string DetailsHeader { get => "Details"; }
-        public override string DetailsBoss { get => "Boss:"; }
-        public override string DetailsDate { get => "Date:"; }
-        public override string DetailsSize { get => "Size:"; }
-        public override string DetailsCorrected { get => "Corrected:"; }
-        public override string DetailsDuration { get => "Duration:"; }
-        public override string DetailsSuccess { get => "Success:"; }
-        public override string DetailsHpLeft { get => "HP left:"; }
-        public override string DetailsCM { get => "CM:"; }
-        public override string DetailsParsed { get => "Parsed:"; }
-        public override string DetailsUploaded { get => "Uploaded:"; }
-        public override string DetailsOpenLocal { get => "open"; }
-        public override string DetailsOpenRemote { get => "open"; }
-        public override string DetailsAccName { get => "Account"; }
-        public override string DetailsSubGroup { get => "SG"; }
-        public override string DetailsDPS { get => "DPS"; }
-        public override string ActionsHeader { get => "Actions"; }
-        public override string ActionsParseLocal { get => "Parse local"; }
-        public override string ActionsOpenLocal { get => "Open local"; }
-        public override string ActionsUpload { get => "Upload"; }
-        public override string ActionsOpenRemote { get => "dps.report"; }
-        public override string ActionsParseAndUpload { get => "Parse local and upload"; }
-        public override string ActionsCopyLinks { get => "Copy links"; }
-        public override string ActionsCopied { get => "copied"; }
-        public override string ActionsPostToDiscord { get => "Post to Discord"; }
-        public override string ActionsViewInExplorer { get => "View in Explorer"; }
-        public override string SettingsHeader { get => "Settings"; }
-        public override string SettingsAutoParse { get => "Auto parse new logs"; }
-        public override string SettingsAutoUpload { get => "Auto upload new logs"; }
-        public override string SettingsAbout { get => "About"; }
-        public override string SettingsSettings { get => "Settings ..."; }
-        public override string FooterElements { get => "Elements"; }
-        public override string FooterSelected { get => "Selected"; }
-        public override string FooterShown { get => "Shown"; }
-        public override string FooterProcessing { get => "Processing"; }
-        public override string FooterParsing { get => "Parsing"; }
-        public override string FooterUploading { get => "Uploading"; }
+        public string ColHeaderBoss { get => "Boss"; }
+        public string ColHeaderDate { get => "Date"; }
+        public string ColHeaderSize { get => "Size"; }
+        public string ColHeaderDataCorrected { get => "Data checked"; }
+        public string ColHeaderDuration { get => "Duration"; }
+        public string ColHeaderSuccess { get => "Kill"; }
+        public string ColHeaderHpLeft { get => "% left"; }
+        public string ColHeaderCM { get => "CM"; }
+        public string ColHeaderParsed { get => "Parsed"; }
+        public string ColHeaderUploaded { get => "Uploaded"; }
+        public string FilterHeader { get => "Filter"; }
+        public string FilterBoss { get => "Boss"; }
+        public string FilterHPLeft { get => "HP left"; }
+        public string FilterDuration { get => "Duration"; }
+        public string FilterDate { get => "Date"; }
+        public string FilterFrom { get => "from"; }
+        public string FilterTo { get => "to"; }
+        public string FilterSuccess { get => "Success"; }
+        public string FilterKill { get => "Kill"; }
+        public string FilterWipe { get => "Wipe"; }
+        public string FilterToday { get => "Today"; }
+        public string FilterReset { get => "Reset"; }
+        public string DetailsHeader { get => "Details"; }
+        public string DetailsBoss { get => "Boss:"; }
+        public string DetailsDate { get => "Date:"; }
+        public string DetailsSize { get => "Size:"; }
+        public string DetailsCorrected { get => "Corrected:"; }
+        public string DetailsDuration { get => "Duration:"; }
+        public string DetailsSuccess { get => "Success:"; }
+        public string DetailsHpLeft { get => "HP left:"; }
+        public string DetailsCM { get => "CM:"; }
+        public string DetailsParsed { get => "Parsed:"; }
+        public string DetailsUploaded { get => "Uploaded:"; }
+        public string DetailsOpenLocal { get => "open"; }
+        public string DetailsOpenRemote { get => "open"; }
+        public string DetailsAccName { get => "Account"; }
+        public string DetailsSubGroup { get => "SG"; }
+        public string DetailsDPS { get => "DPS"; }
+        public string ActionsHeader { get => "Actions"; }
+        public string ActionsParseLocal { get => "Parse local"; }
+        public string ActionsOpenLocal { get => "Open local"; }
+        public string ActionsUpload { get => "Upload"; }
+        public string ActionsOpenRemote { get => "dps.report"; }
+        public string ActionsParseAndUpload { get => "Parse local and upload"; }
+        public string ActionsCopyLinks { get => "Copy links"; }
+        public string ActionsCopied { get => "copied"; }
+        public string ActionsPostToDiscord { get => "Post to Discord"; }
+        public string ActionsViewInExplorer { get => "View in Explorer"; }
+        public string SettingsHeader { get => "Settings"; }
+        public string SettingsAutoParse { get => "Auto parse new logs"; }
+        public string SettingsAutoUpload { get => "Auto upload new logs"; }
+        public string SettingsAbout { get => "About"; }
+        public string SettingsSettings { get => "Settings ..."; }
+        public string FooterElements { get => "Elements"; }
+        public string FooterSelected { get => "Selected"; }
+        public string FooterShown { get => "Shown"; }
+        public string FooterProcessing { get => "Processing"; }
+        public string FooterParsing { get => "Parsing"; }
+        public string FooterUploading { get => "Uploading"; }
 
-        public override string ProxySettings { get => "Proxy Settings"; }
-        public override string ProxyUse { get => "Use Proxy"; }
-        public override string ProxyHostename { get => "Hostname"; }
-        public override string ProxyPort { get => "Port"; }
-        public override string ProxyUser { get => "Username"; }
-        public override string ProxyPassword { get => "Password"; }
+        public string ProxySettings { get => "Proxy Settings"; }
+        public string ProxyUse { get => "Use Proxy"; }
+        public string ProxyHostename { get => "Hostname"; }
+        public string ProxyPort { get => "Port"; }
+        public string ProxyUser { get => "Username"; }
+        public string ProxyPassword { get => "Password"; }
 
-        public override string AboutTitle { get => "About"; }
-        public override string AboutProjectPage { get => "Projectpage github.com"; }
-        public override string AboutViewLicense { get => "View License"; }
-        public override string AboutSpecialThanks { get => "Special Thanks to:"; }
-        public override string AboutBetaTesters { get => "Beta Testers:"; }
-        public override string AboutCopyright { get => "Copyright:"; }
-        public override string AboutView3rdParty { get => "View 3rd Party Libraries, Software"; }
-        public override string AboutForSpellCheck { get => "for Spell Checking"; }
-        public override string AboutVersion { get => "Version"; }
-        public override string AboutViewPatchnotes { get => "View Patchnotes"; }
+        public string AboutTitle { get => "About"; }
+        public string AboutProjectPage { get => "Projectpage github.com"; }
+        public string AboutViewLicense { get => "View License"; }
+        public string AboutSpecialThanks { get => "Special Thanks to:"; }
+        public string AboutBetaTesters { get => "Beta Testers:"; }
+        public string AboutCopyright { get => "Copyright:"; }
+        public string AboutView3rdParty { get => "View 3rd Party Libraries, Software"; }
+        public string AboutForSpellCheck { get => "for Spell Checking"; }
+        public string AboutVersion { get => "Version"; }
+        public string AboutViewPatchnotes { get => "View Patchnotes"; }
 
-        public override string LicenseTitle { get => "License"; }
-        public override string LicenseFor { get => "for"; }
-        public override string LicenseBy { get => "by"; }
+        public string LicenseTitle { get => "License"; }
+        public string LicenseFor { get => "for"; }
+        public string LicenseBy { get => "by"; }
 
-        public override string LicensesTitle { get => "3rd Party Software"; }
-        public override string LicensesClose { get => "Close"; }
+        public string LicensesTitle { get => "3rd Party Software"; }
+        public string LicensesClose { get => "Close"; }
 
-        public override string SoftwareItemProject { get => "Project"; }
-        public override string SoftwareItemViewLicense { get => "view License"; }
-
-
-        public override string InitTitle { get => "First Setup"; }
-        public override string InitArcPaht { get => @"Arc Logs Path:"; }
-        public override string InitBrowse { get => "Browse ..."; }
-        public override string InitLanguage { get => "Language:"; }
-        public override string InitCancle { get => "Cancel"; }
-        public override string InitStart { get => "Start"; }
-        public override string InitCancelSetupText { get => "Really abort the setup?"; }
-        public override string InitCancelSetupTitel { get => "Confirm cancel"; }
-        public override string InitInvalidPathTitel { get => "Invalid path"; }
-        public override string InitInvalidPathText { get => @"...\arcdps.cbtlogs\ path is invalid!"; }
+        public string SoftwareItemProject { get => "Project"; }
+        public string SoftwareItemViewLicense { get => "view License"; }
 
 
-        public override string ConfigTitle { get => "Settings"; }
-        public override string ConfigGeneralTitle { get => "General"; }
-        public override string ConfigGeneralArcPaht { get => "Arc Log Folder Path"; }
-        public override string ConfigGeneralBrowse { get => "Browse..."; }
-        public override string ConfigGeneralLanguage { get => "Language"; }
-        public override string ConfigDpsReportTitle { get => "dps.report"; }
-        public override string ConfigDpsReportToken { get => "User Token:"; }
-        public override string ConfigDpsReportGetToken { get => "Generate Token:"; }
-        public override string ConfigDpsReportProxy { get => "Proxy Settings..."; }
-        public override string ConfigCopyTitle { get => "Copy Links"; }
-        public override string ConfigCopyBoss { get => "Include encounter"; }
-        public override string ConfigCopySuccess { get => "Include success"; }
-        public override string ConfigCopyInline { get => "Link in same line as encounter"; }
-        public override string ConfigCopySpace { get => "Empty line between logs"; }
-        public override string ConfigCopyEmotes { get => "Include RisingLight Discord Emotes"; }
-        public override string ConfigDiscordTitle { get => "Discord Webhooks"; }
-        public override string ConfigDiscordWebHookName { get => "Name:"; }
-        public override string ConfigDiscordWebHookLink { get => "Link:"; }
-        public override string ConfigDiscordWebHookFormat { get => "Format:"; }
-        public override string ConfigDiscordWebHookAvatar { get => "Avatar URL:"; }
-        public override string ConfigDiscordWebHookDelete { get => "Delete"; }
-        public override string ConfigDiscordNoHooks { get => "No WebHooks configured\n\nAdd a new one!"; }
-        public override string ConfigDiscordCount { get => "Count"; }
-        public override string ConfigDiscordAdd { get => "Add"; }
-        public override string ConfigDiscordOnlyUploaded { get => "Only post Uploaded"; }
-        public override string ConfigDiscordNameAsUsername { get => "Name as Discord Username"; }
-        public override string ConfigEiTitle { get => "EliteInsights"; }
-        public override string ConfigEiCombatReplay { get => "Generate combat replay"; }
-        public override string ConfigEiLightTheme { get => "Use light theme"; }
-        public override string ConfigEiAutoUpdate { get => "Auto update"; }
-        public override string ConfigEiUpdate { get => "Update / Reinstall"; }
-        public override string ConfigDefault { get => "Default"; }
-        public override string ConfigCancel { get => "Cancel"; }
-        public override string ConfigSave { get => "Save"; }
-        public override string ConfigDefaultMsgTitel { get => "Reset Settings"; }
-        public override string ConfigDefaultMsgText { get => "Restore the Default settings?\nThis will permanently delete your current settings!"; }
-        public override string ConfigDiscardMsgTitel { get => "Discard Changes?"; }
-        public override string ConfigDiscardMsgText { get => "Continue without saving?"; }
-        public override string ConfigRoPlusTitle { get => "RaidOrga+"; }
-        public override string ConfigRoPlusUser { get => "User"; }
-        public override string ConfigRoPlusPwd { get => "Password"; }
-
-        public override string NewTitle { get => "What's new in "; }
-        public override string NewHeading { get => "Patchnotes"; }
-        public override string NewClose { get => "Close"; }
+        public string InitTitle { get => "First Setup"; }
+        public string InitArcPaht { get => @"Arc Logs Path:"; }
+        public string InitBrowse { get => "Browse ..."; }
+        public string InitLanguage { get => "Language:"; }
+        public string InitCancle { get => "Cancel"; }
+        public string InitStart { get => "Start"; }
+        public string InitCancelSetupText { get => "Really abort the setup?"; }
+        public string InitCancelSetupTitel { get => "Confirm cancel"; }
+        public string InitInvalidPathTitel { get => "Invalid path"; }
+        public string InitInvalidPathText { get => @"...\arcdps.cbtlogs\ path is invalid!"; }
 
 
-        public override string PlayerToCorrectPlayer { get => "Player"; }
-        public override string PlayerToCorrectAccount { get => "Account"; }
-        public override string PlayerToCorrectMember { get => "Member"; }
-        public override string PlayerToCorrectHelper { get => "Helper"; }
-        public override string PlayerToCorrectLFG { get => "LFG"; }
+        public string ConfigTitle { get => "Settings"; }
+        public string ConfigGeneralTitle { get => "General"; }
+        public string ConfigGeneralArcPaht { get => "Arc Log Folder Path"; }
+        public string ConfigGeneralBrowse { get => "Browse..."; }
+        public string ConfigGeneralLanguage { get => "Language"; }
+        public string ConfigDpsReportTitle { get => "dps.report"; }
+        public string ConfigDpsReportToken { get => "User Token:"; }
+        public string ConfigDpsReportGetToken { get => "Generate Token:"; }
+        public string ConfigDpsReportProxy { get => "Proxy Settings..."; }
+        public string ConfigCopyTitle { get => "Copy Links"; }
+        public string ConfigCopyBoss { get => "Include encounter"; }
+        public string ConfigCopySuccess { get => "Include success"; }
+        public string ConfigCopyInline { get => "Link in same line as encounter"; }
+        public string ConfigCopySpace { get => "Empty line between logs"; }
+        public string ConfigCopyEmotes { get => "Include RisingLight Discord Emotes"; }
+        public string ConfigDiscordTitle { get => "Discord Webhooks"; }
+        public string ConfigDiscordWebHookName { get => "Name:"; }
+        public string ConfigDiscordWebHookLink { get => "Link:"; }
+        public string ConfigDiscordWebHookFormat { get => "Format:"; }
+        public string ConfigDiscordWebHookAvatar { get => "Avatar URL:"; }
+        public string ConfigDiscordWebHookDelete { get => "Delete"; }
+        public string ConfigDiscordNoHooks { get => "No WebHooks configured\n\nAdd a new one!"; }
+        public string ConfigDiscordCount { get => "Count"; }
+        public string ConfigDiscordAdd { get => "Add"; }
+        public string ConfigDiscordOnlyUploaded { get => "Only post Uploaded"; }
+        public string ConfigDiscordNameAsUsername { get => "Name as Discord Username"; }
+        public string ConfigEiTitle { get => "EliteInsights"; }
+        public string ConfigEiCombatReplay { get => "Generate combat replay"; }
+        public string ConfigEiLightTheme { get => "Use light theme"; }
+        public string ConfigEiAutoUpdate { get => "Auto update"; }
+        public string ConfigEiUpdate { get => "Update / Reinstall"; }
+        public string ConfigDefault { get => "Default"; }
+        public string ConfigCancel { get => "Cancel"; }
+        public string ConfigSave { get => "Save"; }
+        public string ConfigDefaultMsgTitel { get => "Reset Settings"; }
+        public string ConfigDefaultMsgText { get => "Restore the Default settings?\nThis will permanently delete your current settings!"; }
+        public string ConfigDiscardMsgTitel { get => "Discard Changes?"; }
+        public string ConfigDiscardMsgText { get => "Continue without saving?"; }
+        public string ConfigRoPlusTitle { get => "RaidOrga+"; }
+        public string ConfigRoPlusUser { get => "User"; }
+        public string ConfigRoPlusPwd { get => "Password"; }
 
-        public override string CorrectPlayer { get => "Correct Players"; }
-        public override string CorrectPlayerTitle { get => "Assigen Players"; }
-        public override string CorrectPlayerDone { get => "Done"; }
+        public string NewTitle { get => "What's new in "; }
+        public string NewHeading { get => "Patchnotes"; }
+        public string NewClose { get => "Close"; }
 
-        public override string MiscGenericProcessing { get => "Processing"; }
-        public override string MiscNoWebhookMsgTitel { get => "Setup Webhooks"; }
-        public override string MiscNoWebhookMsgText { get => "You have currently no Webhooks set up.\nGo to Discord Webhooks in Settings and create a new one"; }
-        public override string MiscDiscordPostGenDuration { get => "Duration"; }
-        public override string MiscDiscordPostGenHpLeft { get => "HP left"; }
-        public override string MiscDiscordPostGenGroupDPS { get => "Group DPS"; }
-        public override string MiscDiscordPostGenTopDPS { get => "Top DPS"; }
-        public override string MiscDiscordPostGenNoLink { get => "no Link"; }
-        public override string MiscDiscordPostErrTitle { get => "Discord posting Error"; }
-        public override string MiscDiscordPostErrMsg
+
+        public string PlayerToCorrectPlayer { get => "Player"; }
+        public string PlayerToCorrectAccount { get => "Account"; }
+        public string PlayerToCorrectMember { get => "Member"; }
+        public string PlayerToCorrectHelper { get => "Helper"; }
+        public string PlayerToCorrectLFG { get => "LFG"; }
+
+        public string CorrectPlayer { get => "Correct Players"; }
+        public string CorrectPlayerTitle { get => "Assigen Players"; }
+        public string CorrectPlayerDone { get => "Done"; }
+
+        public string MiscGenericProcessing { get => "Processing"; }
+        public string MiscNoWebhookMsgTitel { get => "Setup Webhooks"; }
+        public string MiscNoWebhookMsgText { get => "You have currently no Webhooks set up.\nGo to Discord Webhooks in Settings and create a new one"; }
+        public string MiscDiscordPostGenDuration { get => "Duration"; }
+        public string MiscDiscordPostGenHpLeft { get => "HP left"; }
+        public string MiscDiscordPostGenGroupDPS { get => "Group DPS"; }
+        public string MiscDiscordPostGenTopDPS { get => "Top DPS"; }
+        public string MiscDiscordPostGenNoLink { get => "no Link"; }
+        public string MiscDiscordPostErrTitle { get => "Discord posting Error"; }
+        public string MiscDiscordPostErrMsg
         {
             get
             {
@@ -192,9 +192,9 @@ namespace LogUploader.Languages
                     $"- you are connected to the internet";
             }
         }
-        public override string MiscDetailsMultibleBosses { get => "Multiple"; }
-        public override string MiscRaidOrgaPlusNoAccount { get => "No account configured"; }
-        public override string MiscRaidOrgaPlusLoginErr { get => "Login faild"; }
-        public override string MiscRaidOrgaPlusNoRaid { get => "No raid with leader permission"; }
+        public string MiscDetailsMultibleBosses { get => "Multiple"; }
+        public string MiscRaidOrgaPlusNoAccount { get => "No account configured"; }
+        public string MiscRaidOrgaPlusLoginErr { get => "Login faild"; }
+        public string MiscRaidOrgaPlusNoRaid { get => "No raid with leader permission"; }
     }
 }

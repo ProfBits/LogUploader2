@@ -39,7 +39,7 @@ namespace LogUploader.Languages
                 }
             }
         }
-        public static BaseLanguage Data { get; private set; } = new English();
+        public static ILanguage Data { get; private set; } = new English();
 
         public static void ReloadFromXML()
         {
@@ -49,12 +49,12 @@ namespace LogUploader.Languages
             using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\Data\English.xml", Encoding.UTF8)))
             {
                 English = (XMLLanguage)ser.Deserialize(sr);
-                English.culture = new CultureInfo("en-us");
+                English.Culture = new CultureInfo("en-us");
             }
             using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\Data\German.xml", Encoding.UTF8)))
             {
                 German = (XMLLanguage)ser.Deserialize(sr);
-                German.culture = new CultureInfo("de-de");
+                German.Culture = new CultureInfo("de-de");
             }
             Current = m_Current;
         }

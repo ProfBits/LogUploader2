@@ -18,7 +18,7 @@ namespace LogUploader.Helper.DiscordPostGen
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
-            string name = $"{Language.Data.SuccsessFail(log.Succsess)} - {log.Date.ToString("HH\\:mm")}";
+            string name = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)} - {log.Date.ToString("HH\\:mm")}";
             string value = $"{log.BossName}";
             if (log.IsCM)
                 value += $" CM";
@@ -34,7 +34,7 @@ namespace LogUploader.Helper.DiscordPostGen
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
             string name = $"{log.Date.ToString("HH\\:mm")}";
-            string value = $"{Language.Data.SuccsessFail(log.Succsess)}";
+            string value = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)}";
             if (log.IsCM)
                 value = $"CM " + value;
             if (log.DataCorrected)
