@@ -30,6 +30,7 @@ namespace LogUploader.GUIs
             MakeSFX.License = new MakeSFXLicense();
             CommonMark.License = new CommonMarkLicense();
             NewtonsoftJson.License = new NewtonsoftJsonLicense();
+            PropMapper.License = new PropMapperLicense();
         }
 
         private void ApplyLanguage(ILanguage lang)

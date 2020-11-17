@@ -39,6 +39,7 @@
             this.MakeSFX = new LogUploader.GUIs.SoftwareItem();
             this.CommonMark = new LogUploader.GUIs.SoftwareItem();
             this.NewtonsoftJson = new LogUploader.GUIs.SoftwareItem();
+            this.PropMapper = new LogUploader.GUIs.SoftwareItem();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +76,7 @@
             this.flowLayoutPanel1.Controls.Add(this.MakeSFX);
             this.flowLayoutPanel1.Controls.Add(this.CommonMark);
             this.flowLayoutPanel1.Controls.Add(this.NewtonsoftJson);
+            this.flowLayoutPanel1.Controls.Add(this.PropMapper);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -182,6 +184,20 @@
             this.NewtonsoftJson.Software = "Newtonsoft.Json";
             this.NewtonsoftJson.TabIndex = 6;
             // 
+            // PropMapper
+            // 
+            this.PropMapper.Copyright = "Copyright (c) 2019 Jitbit (the company behind \"Jitbit Helpdesk\" software)";
+            this.PropMapper.Image = null;
+            this.PropMapper.ImageUsed = false;
+            this.PropMapper.License = null;
+            this.PropMapper.LicenseStr = "MIT";
+            this.PropMapper.Location = new System.Drawing.Point(3, 787);
+            this.PropMapper.Name = "PropMapper";
+            this.PropMapper.ProjectLink = "https://github.com/jitbit/PropMapper";
+            this.PropMapper.Size = new System.Drawing.Size(300, 106);
+            this.PropMapper.Software = "PropMapper";
+            this.PropMapper.TabIndex = 7;
+            // 
             // SoftwareUsedUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,5 +231,6 @@
         private SoftwareItem MakeSFX;
         private SoftwareItem CommonMark;
         private SoftwareItem NewtonsoftJson;
+        private SoftwareItem PropMapper;
     }
 }

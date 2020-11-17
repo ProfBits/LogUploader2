@@ -434,14 +434,16 @@ namespace LogUploader
             var ser = new XmlSerializer(typeof(XMLLanguage));
             using (var tw = new StringWriter())
             {
-                var xmlLang = new XMLLanguage(new English());
+                var xmlLang = new XMLLanguage();
+                Jitbit.Utils.PropMapper<ILanguage, XMLLanguage>.CopyTo(new English(), xmlLang);
                 ser.Serialize(tw, xmlLang);
                 var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
                 File.WriteAllText(exePath + @"\Data\English.xml", tw.ToString());
             }
             using (var tw = new StringWriter())
             {
-                var xmlLang = new XMLLanguage(new German());
+                var xmlLang = new XMLLanguage();
+                Jitbit.Utils.PropMapper<ILanguage, XMLLanguage>.CopyTo(new German(), xmlLang);
                 ser.Serialize(tw, xmlLang);
                 var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
                 File.WriteAllText(exePath + @"\Data\German.xml", tw.ToString());

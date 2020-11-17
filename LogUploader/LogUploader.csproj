@@ -145,6 +145,7 @@
     <Compile Include="Data\GameAreas\RaidWing.cs" />
     <Compile Include="Data\GameAreas\Strike.cs" />
     <Compile Include="Data\GameAreas\Unknowen.cs" />
+    <Compile Include="Data\Licenses\PropMapperLicense.cs" />
     <Compile Include="Data\Licenses\NewtonsoftJsonLicense.cs" />
     <Compile Include="Data\Licenses\CommonMarkLicense.cs" />
     <Compile Include="Data\Licenses\DapperLicense.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Helper\DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="Helper\Logger.cs" />
+    <Compile Include="Helper\PropMapper.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusCache.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusConnector.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusDataWorker.cs" />
