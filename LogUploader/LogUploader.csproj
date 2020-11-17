@@ -68,13 +68,35 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateLanguageXMLs|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\CreateLanguageXMLs\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CREATE_LANGUAGE_XMLS;ROPLUSHUMAN</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CREATE_LANGUAGE_XMLS</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.1</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AlphaRelease|AnyCPU'">
+    <OutputPath>bin\AlphaRelease\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.1</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DefineConstants>TRACE;ALPHA</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BetaRelease|AnyCPU'">
+    <OutputPath>bin\BetaRelease\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.1</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DefineConstants>BETA</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">

@@ -81,7 +81,7 @@ namespace LogUploader.Helper
                 progress?.Report(0.3);
                 var data = Newtonsoft.Json.Linq.JObject.Parse(res);
                 var installerUrl = data["assets"]
-                    .Where(json => (string)json["name"] == "installer.exe")
+                    .Where(json => ((string)json["name"]).StartsWith("installer") && ((string)json["name"]).EndsWith(".exe"))
                     .Select(json => (string)json["browser_download_url"])
                     .First();
                 progress?.Report(0.4);
