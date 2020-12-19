@@ -10,6 +10,8 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Net;
 using LogUploader.Data.Settings;
+using Extensiones.HTTPClient;
+using System.Threading;
 
 namespace LogUploader.Helper
 {
@@ -30,6 +32,8 @@ namespace LogUploader.Helper
         private static string TempOldPath { get => BASE_PATH + TEMP_OLD_FOLDER; }
         private static string BinPath { get => BASE_PATH + BIN; }
         private static string ZipFilePath { get => BASE_PATH + ZIP_NAME; }
+
+        private static string DownloadURLCache { get; set; } = null;
 
         public static Version LocalVersion { get; private set; } = new Version(0, 0, 0, 0);
         public static Version NewestVersion { get; private set; } = new Version(0, 0, 0, 0);
@@ -54,24 +58,28 @@ namespace LogUploader.Helper
             return LocalVersion;
         }
 
-        public static Version UpdateNewestVersion(IProxySettings settings, IProgress<double> progress = null)
+        public static async Task<Version> UpdateNewestVersion(IProxySettings settings, IProgress<double> progress = null)
         {
-            string res;
+            string res = null;
             progress?.Report(0);
-            using (var wc = GetWebClient(settings))
-            {
-                try
+            await Task.Run(() => {
+                using (var wc = GetWebClient(settings))
                 {
-                    res = wc.DownloadString(GitHubApiLink);
+                    try
+                    {
+                        res = wc.DownloadString(GitHubApiLink);
+                    }
+                    catch (WebException)
+                    {
+                        NewestVersion = new Version(0, 0, 0, 0);
+                        res = null;
+                    }
                 }
-                catch (WebException)
-                {
-                    NewestVersion = new Version(0, 0, 0, 0);
-                    return NewestVersion;
-                }
-            }
+            });
+            if (res == null) return NewestVersion;
             progress?.Report(0.5);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
+            DownloadURLCache = GetDownloadURL(jsonData);
             var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
             progress?.Report(0.9);
             NewestVersion = new Version(tag);
@@ -88,7 +96,7 @@ namespace LogUploader.Helper
             return File.Exists(BASE_PATH + BIN + "GuildWars2EliteInsights.exe");
         }
 
-        public static Version Update(IProxySettings settings, IProgress<double> progress = null)
+        public static async Task<Version> Update(IProxySettings settings, IProgress<double> progress = null, CancellationToken cancellationToken = default)
         {
             Logger.Message("Updating EI");
             try
@@ -100,23 +108,36 @@ namespace LogUploader.Helper
                 {
                     try
                     {
-                        var res = wc.DownloadString(GitHubApiLink);
-                        progress?.Report(0.15);
-                        //var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
-                        var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
-                        progress?.Report(0.20);
-                        var gw2EiZipURL = jsonData["assets"]
-                            .Where(json => (string)json["name"] == "GW2EI.zip")
-                            .Select(json => (string)json["browser_download_url"])
-                            .First();
-                        wc.DownloadFile(gw2EiZipURL, ZipFilePath);
+                        double currProgress = 0.05;
+                        string gw2EiZipURL;
+                        if (DownloadURLCache == null)
+                        {
+                            var res = wc.DownloadString(GitHubApiLink);
+                            progress?.Report(0.15);
+                            //var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
+                            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
+                            gw2EiZipURL = GetDownloadURL(jsonData);
+                            progress?.Report(0.20);
+                            currProgress = 0.20;
+                        }
+                        else
+                        {
+                            gw2EiZipURL = DownloadURLCache;
+                        }
+                        var httpClient = new System.Net.Http.HttpClient();
+                        httpClient.Timeout = Timeout.InfiniteTimeSpan;
+                        using (FileStream fs = new FileStream(ZipFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            double yourPercent = 0.75 - currProgress;
+                            await httpClient.DownloadAsync(gw2EiZipURL, fs, new Progress<double>(p => progress?.Report((p* yourPercent) + currProgress)), cancellationToken);
+                        }
                     }
                     catch (WebException)
                     {
                         throw new OperationCanceledException("Update EI faild");
                     }
                 }
-                progress?.Report(0.60);
+                progress?.Report(0.75);
                 Directory.CreateDirectory(TempPath);
                 progress?.Report(0.80);
                 ZipFile.ExtractToDirectory(ZipFilePath, TempPath);
@@ -144,6 +165,14 @@ namespace LogUploader.Helper
             UpdateLocalVersion();
             progress?.Report(1);
             return LocalVersion;
+        }
+
+        private static string GetDownloadURL(Newtonsoft.Json.Linq.JObject jsonData)
+        {
+            return jsonData["assets"]
+                .Where(json => (string)json["name"] == "GW2EI.zip")
+                .Select(json => (string)json["browser_download_url"])
+                .First();
         }
 
         private static void FolderCleanup()

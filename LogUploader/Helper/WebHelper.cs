@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Security;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using LogUploader.Data.Settings;
 using LogUploader.Properties;
@@ -44,5 +47,56 @@ namespace LogUploader.Helper
             return wc;
         }
 
+        internal static HttpClient GetHttpClient(IProxySettings settings)
+        {
+            var httpClientHandler = new HttpClientHandler();
+            if (settings.UseProxy)
+            {
+                SetProxyOfClientHandler(settings, httpClientHandler);
+            }
+
+            var httpClient = new HttpClient(httpClientHandler, true);
+
+            //TODO default timeout??
+            httpClient.Timeout = Timeout.InfiniteTimeSpan;
+
+            return httpClient;
+        }
+
+        private static void SetProxyOfClientHandler(IProxySettings settings, HttpClientHandler httpClientHandler)
+        {
+            var proxy = new WebProxy
+            {
+                Address = new Uri($"http://{settings.ProxyAddress}:{settings.ProxyPort}"),
+                BypassProxyOnLocal = false,
+                UseDefaultCredentials = false,
+
+                Credentials = new NetworkCredential(settings.ProxyUsername, settings.ProxyPassword)
+            };
+            httpClientHandler.Proxy = proxy;
+        }
+
+        private class Credential : ICredentials
+        {
+            string UserName;
+            string Password;
+
+            public Credential(string userName, string password)
+            {
+                UserName = userName;
+                Password = password;
+            }
+            public Credential(IProxySettings settings) : this(settings.ProxyUsername, settings.ProxyPassword)
+            {
+            }
+
+            public NetworkCredential GetCredential(Uri uri, string authType)
+            {
+                return new NetworkCredential(UserName, Password);
+            }
+        }
+
     }
+
+    
 }

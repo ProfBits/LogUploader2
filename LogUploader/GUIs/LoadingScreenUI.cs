@@ -1,4 +1,6 @@
-﻿using LogUploader.Data;
+﻿#define PERF_MEAS
+
+using LogUploader.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +32,7 @@ namespace LogUploader.GUI
             m_width1 = Width + 1;
 
             m_cts = new CancellationTokenSource();
-            
+
             progress = new Progress<ProgressMessage>();
             progress.ProgressChanged += Progress_ProgressChanged;
 
@@ -45,15 +47,24 @@ namespace LogUploader.GUI
 #endif
         }
 
+#if PERF_MEAS
+        static System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+#endif
         private void Progress_ProgressChanged(object sender, ProgressMessage e)
         {
+#if PERF_MEAS
+            if (!sw.IsRunning)
+                sw.Start();
+#endif
             Action a = () =>
             {
                 var oldWidth = pLoading.Width;
                 pLoading.Width = (int)Math.Round(m_width1 * e.Percent);
                 lblTask.Text = e.Message;
                 lblPercent.Text = $"{Math.Round(e.Percent * 100)} %";
-
+#if PERF_MEAS
+                Console.WriteLine($"###\t{sw.ElapsedMilliseconds}\t{e.Percent}\t{e.Message}");
+#endif
             };
             try
             {

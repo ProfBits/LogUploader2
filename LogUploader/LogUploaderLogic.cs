@@ -145,10 +145,10 @@ namespace LogUploader
             WatchDogCTS = new CancellationTokenSource();
             WatchDogTask = RunWatchDog(settings.ArcLogsPath, WatchDogCTS);
 
-            progress?.Report(new ProgressMessage(0.06, "Loading RO+ Data"));
-            await Task.Run(() => LoadTermine());
+            progress?.Report(new ProgressMessage(0.06, "RO+"));
+            await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage(0.24 * p.Percent + 0.06, "RO+ " + p.Message)))));
 
-            await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.1 + (p * 0.9), "Updating Local Files")))));
+            await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.7), "Updating Local Files")))));
         }
 
         private void CheckForNewLogs(IProgress<double> progress = null)
@@ -699,9 +699,11 @@ namespace LogUploader
         {
             Settings.EnableAutoParse = eap;
             Settings.EnableAutoUpload = eau;
-            var mainSettings = new Settings();
-            mainSettings.EnableAutoParse = eap;
-            mainSettings.EnableAutoUpload = eau;
+            var mainSettings = new Settings
+            {
+                EnableAutoParse = eap,
+                EnableAutoUpload = eau
+            };
             mainSettings.Save();
         }
 
@@ -750,7 +752,7 @@ namespace LogUploader
             if (logs.Count == 1)
             {
                 var log = logs[0];
-                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsAll).Select(p => getPlayerData(p));
+                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsAll).Select(p => GetPlayerData(p));
                 return new LogPreview(log, pData.Count() > 0 ? pData : null);
             }
             if (logs.Count > 1)
@@ -830,18 +832,18 @@ namespace LogUploader
                 CheckState.Indeterminate, CheckState.Indeterminate, false, null, CheckState.Indeterminate, null, null);
         }
 
-        private PlayerData getPlayerData(SimplePlayer player)
+        private PlayerData GetPlayerData(SimplePlayer player)
         {
-            var p = new PlayerData();
-            p.Width = 143;
-            p.Margin = new Padding(0, 1, 0, 1);
+            return new PlayerData
+            {
+                Width = 143,
+                Margin = new Padding(0, 1, 0, 1),
 
-            p.ClassImage = player.ProfessionIcon;
-            p.DisplayName = player.Account.TrimEnd("0123456789.".ToCharArray());
-            p.SubGroup = player.Group.ToString();
-            p.DPS = player.DpsAll.ToString();
-
-            return p;
+                ClassImage = player.ProfessionIcon,
+                DisplayName = player.Account.TrimEnd("0123456789.".ToCharArray()),
+                SubGroup = player.Group.ToString(),
+                DPS = player.DpsAll.ToString()
+            };
         }
 
         public CachedLog CacheLog(int id)
@@ -944,24 +946,34 @@ namespace LogUploader
             return RaidOrgaPlusTermine;
         }
 
-        private void LoadTermine()
+        private void LoadTermine(IProgress<ProgressMessage> progress = null)
         {
             RaidOrgaPlusTermine = new List<RaidSimple>();
             if (!Settings.RaidOrgaPlusAccoutSet)
             {
                 RaidOrgaPlusTermine.Add(RaidSimple.GetNoAccount());
+                Logger.Message("[LogUploaderLogic.LoadTermine] No RO+ Account");
+                progress?.Report(new ProgressMessage(1, "No Account"));
                 return;
             }
+            progress?.Report(new ProgressMessage(0, "Login"));
             RaidOrgaPlusConnector = new Helper.RaidOrgaPlus.RaidOrgaPlusConnector(Settings);
             RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
             if (RaidOrgaPlusSession == null)
             {
                 RaidOrgaPlusTermine.Add(RaidSimple.LogInFaild());
+                Logger.Error("[LogUploaderLogic.LoadTermine] RO+ Login Faild");
+                progress?.Report(new ProgressMessage(1, "Log in Failed"));
                 return;
             }
-            RaidOrgaPlusTermine = RaidOrgaPlusConnector.GetRaids(RaidOrgaPlusSession);
+            progress?.Report(new ProgressMessage(0.5, "Raids"));
+            RaidOrgaPlusTermine = RaidOrgaPlusConnector.GetRaids(RaidOrgaPlusSession, new Progress<double>(p => progress?.Report(new ProgressMessage((0.4 * p) + 0.5, "Raids"))));
             if (RaidOrgaPlusTermine.Count == 0)
+            {
                 RaidOrgaPlusTermine.Add(RaidSimple.NoTermine());
+                Logger.Message("[LogUploaderLogic.LoadTermine] No Raid appointments");
+            }
+            progress?.Report(new ProgressMessage(1, "Done"));
         }
 
         #region IDisposable Support

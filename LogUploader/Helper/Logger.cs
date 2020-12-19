@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace LogUploader.Helper
 {
     internal static class Logger
     {
         private static bool InitDone = false;
-        private const string PREFIX_MESSAGE = "[Message]";
-        private const string PREFIX_ERROR = "[ERROR]";
-        private const string PREFIX_WARN = "[WARN]";
-        private const string PREFIX_DEBUG = "[Debug]";
-        private const string PREFIX_VERBOSE = "[Verbose]";
+        private const string PREFIX_MESSAGE = "[msg]";
+        private const string PREFIX_ERROR = "[ERR]";
+        private const string PREFIX_WARN = "[WRN]";
+        private const string PREFIX_DEBUG = "[dbg]";
+        private const string PREFIX_VERBOSE = "[veb]";
 
         private const string LOG_DIR = "\\LogUploader\\Logs\\";
         private const int LOGS_TO_KEEP = 29;
@@ -96,40 +97,45 @@ namespace LogUploader.Helper
             lock (sync) File.AppendAllText(LogFile, header + text, Encoding.UTF8);
         }
 
-        public static void Message(string msg)
+        public static void Message(string msg, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
         {
             if (LogLevel >= eLogLevel.NORMAL)
-                Log(PREFIX_MESSAGE, msg);
+                Log(PREFIX_MESSAGE, CreateCaller(cmn, line, cfp) + " " + msg);
         }
-        public static void Error(string msg)
+        public static void Error(string msg, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
         {
             if (LogLevel >= eLogLevel.ERROR)
-                Log(PREFIX_ERROR, msg);
+                Log(PREFIX_ERROR, CreateCaller(cmn, line, cfp) + " " + msg);
         }
 
-        public static void Warn(string msg)
+        public static void Warn(string msg, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
         {
             if (LogLevel >= eLogLevel.WARN)
-                Log(PREFIX_WARN, msg);
+                Log(PREFIX_WARN, CreateCaller(cmn, line, cfp) + " " + msg);
         }
 
-        public static void Debug(string msg)
+        public static void Debug(string msg, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
         {
             if (LogLevel >= eLogLevel.DEBUG)
-                Log(PREFIX_DEBUG, msg);
+                Log(PREFIX_DEBUG, CreateCaller(cmn, line, cfp) + " " + msg);
         }
 
-        public static void Verbose(string msg)
+        public static void Verbose(string msg, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
         {
             if (LogLevel >= eLogLevel.VERBOSE)
-                Log(PREFIX_VERBOSE, msg);
+                Log(PREFIX_VERBOSE, CreateCaller(cmn, line, cfp) + " " + msg);
         }
 
-        public static void LogException(Exception e)
+        public static void LogException(Exception e, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
         {
-            Error(e.GetType().ToString());
-            Error("Message:" + Environment.NewLine + e.Message);
-            Error("Stacktrace:" + Environment.NewLine + e.StackTrace);
+            Error("Exception: " + e.GetType().ToString(), cmn, line, cfp);
+            Error("Message:" + e.Message, cmn, line, cfp);
+            Error("Stacktrace:" + Environment.NewLine + e.StackTrace, cmn, line, cfp);
+        }
+
+        private static string CreateCaller(string cmn, int line, string cfp)
+        {
+            return $"[{cmn} in {Path.Combine(new DirectoryInfo(Path.GetDirectoryName(cfp)).Name, Path.GetFileName(cfp))} L{line}]";
         }
     }
 }

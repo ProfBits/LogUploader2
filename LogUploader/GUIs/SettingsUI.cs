@@ -222,7 +222,7 @@ namespace LogUploader.GUI
             var tmp = btnEiUpdate.Text;
             btnEiUpdate.Text = "Updating ...";
             btnEiUpdate.Update();
-            await Task.Run(() => Helper.EliteInsights.Update(initState));
+            await EliteInsights.Update(initState);
             btnEiUpdate.Text = tmp;
             Enabled = true;
         }

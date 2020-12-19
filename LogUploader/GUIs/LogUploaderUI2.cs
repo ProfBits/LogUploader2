@@ -22,21 +22,21 @@ namespace LogUploader.GUIs
             progress?.Report(0);
             Logic = logic;
             InitializeComponent();
-            progress?.Report(0.4);
+            progress?.Report(0.2);
             InitPlayerDataHeader();
 
             ApplieLanguage();
             //TODO ApplieTheme
             //ApplieTheme();
 
-            progress?.Report(0.6);
+            progress?.Report(0.25);
             BindEvents();
             BindComboBoxes();
-            progress?.Report(0.7);
+            progress?.Report(0.40);
             UpdateData();
             cbAutoParse.Checked = Logic.EnableAutoParsing;
             cbAutoUpload.Checked = Logic.EnableAutoUpload;
-            progress?.Report(0.8);
+            progress?.Report(0.60);
             UpdateSelectedWebHook();
             UpdateFilter();
             SetupTimers();

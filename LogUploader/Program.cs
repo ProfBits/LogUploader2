@@ -229,7 +229,7 @@ namespace LogUploader
                 return null;
 
             Logger.Message("Setup - Check for updates EI");
-            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.5), "Init EliteInsights" + " - " + p.Message))));
+            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.05), "Init EliteInsights" + " - " + p.Message))));
 
             if (ct.IsCancellationRequested)
                 return null;
@@ -249,7 +249,7 @@ namespace LogUploader
             await newLogic.InitLogUploaderLogic(settings,
                 flags.EnableAutoParse,
                 flags.EnableAutoUpload,
-                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.27f + (pm.Percent * 0.68f), "Loading - " + pm.Message)))
+                new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.27f + (pm.Percent * 0.64f), "Loading - " + pm.Message)))
                 );
 
             if (ct.IsCancellationRequested)
@@ -263,7 +263,7 @@ namespace LogUploader
 
             Logger.Message("Setup - UI");
             //return await CreateUI(logic, flags);
-            return await CreateUI2(newLogic, new Progress<double>(p => progress.Report(new ProgressMessage(0.95 + (p * 0.05), "Creating UI"))));
+            return await CreateUI2(newLogic, new Progress<double>(p => progress.Report(new ProgressMessage(0.91 + (p * 0.07), "Creating UI"))));
         }
 
         private static async Task<Action> CheckForUpdates(SettingsData settings, IProgress<ProgressMessage> progress = null)
@@ -275,7 +275,7 @@ namespace LogUploader
                 switch (Updater.ShowUpdateMgsBox())
                 {
                     case DialogResult.Yes:
-                        await Updater.Update(settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((48 * p.Percent), p.Message))));
+                        await Updater.Update(settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((17.8 * p.Percent) + 0.2, p.Message))));
                         break;
                     case DialogResult.No:
                         Logger.Warn("Product updatde skipped");
@@ -320,38 +320,35 @@ namespace LogUploader
 
         private static async Task InitEliteInsights(IEliteInsightsSettings settings, IProxySettings proxySettings, IProgress<ProgressMessage> progress = null)
         {
-            await Task.Run(() =>
+            progress?.Report(new ProgressMessage(0, "Init"));
+            EliteInsights.Init(settings);
+            await EliteInsights.UpdateNewestVersion(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.2) + 0.05, "Checking for Update"))));
+            var newVersion = EliteInsights.UpdateAviable();
+            if (EliteInsights.IsInstalled()) Logger.Message($"Installed EI Version: {EliteInsights.LocalVersion}"); else Logger.Warn("EI not installed");
+            if (newVersion)
             {
-                progress?.Report(new ProgressMessage(0, "Init"));
-                EliteInsights.Init(settings);
-                EliteInsights.UpdateNewestVersion(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.2) + 0.05, "Checking for Update"))));
-                var newVersion = EliteInsights.UpdateAviable();
-                if (EliteInsights.IsInstalled()) Logger.Message($"Installed EI Version: {EliteInsights.LocalVersion}"); else Logger.Warn("EI not installed");
-                if (newVersion)
+                Logger.Message("EI update available. New version: " + EliteInsights.NewestVersion);
+                Logger.Message("Auto update EI: " + settings.AutoUpdateEI);
+                if (settings.AutoUpdateEI || MessageBox.Show("New Version of EliteInsights is aviable\nUpdate now?", "EliteInsights Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Logger.Message("EI update available. New version: " + EliteInsights.NewestVersion);
-                    Logger.Message("Auto update EI: " + settings.AutoUpdateEI);
-                    if (settings.AutoUpdateEI || MessageBox.Show("New Version of EliteInsights is aviable\nUpdate now?", "EliteInsights Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    progress?.Report(new ProgressMessage(0.25, "Starting Update"));
+                    try
                     {
-                        progress?.Report(new ProgressMessage(0.25, "Starting Update"));
-                        try
-                        {
-                            EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.70) + 0.25, "Updating"))));
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            if (!EliteInsights.IsInstalled())
-                            {
-                                MessageBox.Show("Faild to install EliteInsights", "Missing EliteInsights installation", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                //TODO refactor exit code, really crash here?
-                                Exit(ExitCode.EI_UPDATE_FATAL_ERROR);
-                            }
-                        }
-                        Logger.Message("Update EI completed");
-                        progress?.Report(new ProgressMessage(1, "Update Done"));
+                        await EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.70) + 0.25, $"Updating {p*100:.}%"))));
                     }
+                    catch (OperationCanceledException)
+                    {
+                        if (!EliteInsights.IsInstalled())
+                        {
+                            MessageBox.Show("Faild to install EliteInsights", "Missing EliteInsights installation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //TODO really crash here?
+                            Exit(ExitCode.EI_UPDATE_FATAL_ERROR);
+                        }
+                    }
+                    Logger.Message("Update EI completed");
+                    progress?.Report(new ProgressMessage(1, "Update Done"));
                 }
-            });
+            }
         }
 
         private static async Task<LogUploaderUI2> CreateUI2(LogUploaderLogic logic, IProgress<double> progress = null)

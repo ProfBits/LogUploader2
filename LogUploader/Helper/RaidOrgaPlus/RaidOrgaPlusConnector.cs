@@ -30,29 +30,39 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             var httpWebRequest = GetPostRequest("https://sv.sollunad.de:8080/users/sessions", userAgent);
 
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
+            try
             {
-                string json = $@"{{""accName"":""{orgaSettings.RaitOrgaPlusUser}"",""pwd"":""{orgaSettings.RaidOrgaPlusPassword}""}}";
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
+                {
+                    string json = $@"{{""accName"":""{orgaSettings.RaitOrgaPlusUser}"",""pwd"":""{orgaSettings.RaidOrgaPlusPassword}""}}";
 
-                streamWriter.Write(json);
+                    streamWriter.Write(json);
+                }
+
+                string sessionToken;
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                    sessionToken = streamReader.ReadToEnd();
+
+                if (sessionToken.Length <= 3)
+                    return null;
+
+                return new Session(sessionToken, userAgent);
             }
-
-            string sessionToken;
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                sessionToken = streamReader.ReadToEnd();
-
-            if (sessionToken.Length <= 3)
+            catch (WebException e)
+            {
+                Logger.Warn("RO+ Login Faild with exception");
+                Logger.LogException(e);
                 return null;
-
-            return new Session(sessionToken, userAgent);
+            }
         }
 
-        public List<RaidSimple> GetRaids(Session session)
+        public List<RaidSimple> GetRaids(Session session, IProgress<double> progress = null)
         {
             if (!session.Valid)
                 return null;
+
+            progress?.Report(0);
 
             var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine?auth={session.Token}", session.UserAgent);
 
@@ -61,12 +71,16 @@ namespace LogUploader.Helper.RaidOrgaPlus
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 termineRAW = streamReader.ReadToEnd();
 
+            progress?.Report(0.4);
+
             request = GetGetRequest($@"https://sv.sollunad.de:8080/raids?auth={session.Token}", session.UserAgent);
 
             string raidsRAW;
             httpResponse = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 raidsRAW = streamReader.ReadToEnd();
+
+            progress?.Report(0.8);
 
             /* Fromat
              * Termine
@@ -80,6 +94,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
             var raidsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{raidsRAW}}}");
             var raids = raidsParsed["wrapper"].ToDictionary(raid => (long)raid["id"], raid => (int)raid["role"] == 2);
 
+            progress?.Report(0.9);
+
             var termineParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{termineRAW}}}");
             var termine = termineParsed["wrapper"]
                 .Where(termin => raids[(long)termin["raidID"]])
@@ -91,6 +107,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     TimeSpan.Parse((string)termin["endtime"] + ":00"),
                     (string)termin["name"]
                     ));
+
+            progress?.Report(1);
             return termine.ToList();
         }
 
@@ -284,10 +302,12 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 ToggleHelper(session, raid.TerminID, helper.ID);
             }
 
-            //HACK Dev envoriment
+            //TEMP Dev envoriment
 # if DEBUG
+#warning Dev hack, do not release, test on live
             var httpWebRequest = GetPostRequest(@"http://localhost:8081/api/aufstellungen", session.UserAgent);
 #else
+#error Dev envoriment DO NOT RELEASE
             var httpWebRequest = GetPostRequest(@"https://sv.sollunad.de:8080/api/aufstellungen", session.UserAgent);
 #endif
 
