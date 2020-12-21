@@ -229,7 +229,7 @@ namespace LogUploader
                 return null;
 
             Logger.Message("Setup - Check for updates EI");
-            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.05), "Init EliteInsights" + " - " + p.Message))));
+            await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.05), "Init EliteInsights" + " - " + p.Message))), ct);
 
             if (ct.IsCancellationRequested)
                 return null;
@@ -318,7 +318,7 @@ namespace LogUploader
             }
         }
 
-        private static async Task InitEliteInsights(IEliteInsightsSettings settings, IProxySettings proxySettings, IProgress<ProgressMessage> progress = null)
+        private static async Task InitEliteInsights(IEliteInsightsSettings settings, IProxySettings proxySettings, IProgress<ProgressMessage> progress = null, CancellationToken cancellationToken = default)
         {
             progress?.Report(new ProgressMessage(0, "Init"));
             EliteInsights.Init(settings);
@@ -334,10 +334,13 @@ namespace LogUploader
                     progress?.Report(new ProgressMessage(0.25, "Starting Update"));
                     try
                     {
-                        await EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.70) + 0.25, $"Updating {p*100:.}%"))));
+                        await EliteInsights.Update(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.70) + 0.25, $"Updating {p*100:.}%"))), cancellationToken);
+                        Logger.Message("Update EI completed");
                     }
-                    catch (OperationCanceledException)
+                    catch (OperationCanceledException e)
                     {
+                        Logger.Warn("EI update failed");
+                        Logger.LogException(e);
                         if (!EliteInsights.IsInstalled())
                         {
                             MessageBox.Show("Faild to install EliteInsights", "Missing EliteInsights installation", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -345,7 +348,7 @@ namespace LogUploader
                             Exit(ExitCode.EI_UPDATE_FATAL_ERROR);
                         }
                     }
-                    Logger.Message("Update EI completed");
+
                     progress?.Report(new ProgressMessage(1, "Update Done"));
                 }
             }

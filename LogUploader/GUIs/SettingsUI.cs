@@ -222,7 +222,21 @@ namespace LogUploader.GUI
             var tmp = btnEiUpdate.Text;
             btnEiUpdate.Text = "Updating ...";
             btnEiUpdate.Update();
-            await EliteInsights.Update(initState);
+            DialogResult res = DialogResult.OK;
+            do
+            {
+                try
+                {
+                    //TODO Add progress window...
+                    await EliteInsights.Update(initState);
+                }
+                catch (OperationCanceledException ex)
+                {
+                    Logger.Error("Manual EI update failed");
+                    Logger.LogException(ex);
+                    res = MessageBox.Show("EI uppdate failed.\nMessage:\n" + ex.Message, "Error - EI Update", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                }
+            } while (res == DialogResult.Retry);
             btnEiUpdate.Text = tmp;
             Enabled = true;
         }

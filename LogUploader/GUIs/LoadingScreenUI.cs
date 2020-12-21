@@ -76,9 +76,11 @@ namespace LogUploader.GUI
 
         private void lblClose_Click(object sender, EventArgs e)
         {
+            lblClose.Cursor = Cursors.WaitCursor;
+            lblTask.Text = "Cancel operation...";
             m_cts.Cancel();
             m_startSequence?.Wait();
-            Close();
+            //Close();
         }
 
         private void LoadApplication(object sender, EventArgs e)

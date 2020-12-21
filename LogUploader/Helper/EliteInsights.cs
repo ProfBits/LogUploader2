@@ -96,6 +96,14 @@ namespace LogUploader.Helper
             return File.Exists(BASE_PATH + BIN + "GuildWars2EliteInsights.exe");
         }
 
+        /// <summary>
+        /// Updates Ei to the newest verion available
+        /// </summary>
+        /// <param name="settings">the proxy settings</param>
+        /// <param name="progress">the progress callback</param>
+        /// <param name="cancellationToken">the cancellation token</param>
+        /// <returns>the new version</returns>
+        /// <exception cref="OperationCanceledException">if canceled by user or web error</exception>
         public static async Task<Version> Update(IProxySettings settings, IProgress<double> progress = null, CancellationToken cancellationToken = default)
         {
             Logger.Message("Updating EI");
@@ -131,10 +139,19 @@ namespace LogUploader.Helper
                             double yourPercent = 0.75 - currProgress;
                             await httpClient.DownloadAsync(gw2EiZipURL, fs, new Progress<double>(p => progress?.Report((p* yourPercent) + currProgress)), cancellationToken);
                         }
+                        if (cancellationToken.IsCancellationRequested) throw new OperationCanceledException();
                     }
-                    catch (WebException)
+                    catch (WebException e)
                     {
-                        throw new OperationCanceledException("Update EI faild");
+                        Logger.Error("Update EI failed - WebException");
+                        progress?.Report(1);
+                        throw new OperationCanceledException("Update EI failed - Web Error");
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        Logger.Error("EI Update canceled by user");
+                        progress?.Report(1);
+                        throw new OperationCanceledException("EI Update canceled by user");
                     }
                 }
                 progress?.Report(0.75);
@@ -142,9 +159,10 @@ namespace LogUploader.Helper
                 progress?.Report(0.80);
                 ZipFile.ExtractToDirectory(ZipFilePath, TempPath);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 FolderCleanup();
+                if (e is OperationCanceledException) throw e;
                 return LocalVersion;
             }
             try
