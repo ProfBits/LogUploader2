@@ -39,12 +39,12 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal static RaidSimple LogInFaild()
         {
-            throw new NotImplementedException(Languages.Language.Data.MiscRaidOrgaPlusLoginErr);
+            return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusLoginErr);
         }
 
         internal static RaidSimple NoTermine()
         {
-            throw new NotImplementedException(Languages.Language.Data.MiscRaidOrgaPlusNoRaid);
+            return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusNoRaid);
         }
     }
 
@@ -52,7 +52,7 @@ namespace LogUploader.Data.RaidOrgaPlus
     {
         public override string DisplayName { get; }
 
-        public RaidSimpleTemplate(string message)
+        public RaidSimpleTemplate(string message) : base(-1, -1, DateTime.Today, TimeSpan.Zero, TimeSpan.Zero, "")
         {
             DisplayName = message;
         }

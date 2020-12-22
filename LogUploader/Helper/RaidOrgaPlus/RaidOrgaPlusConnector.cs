@@ -59,7 +59,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         public List<RaidSimple> GetRaids(Session session, IProgress<double> progress = null)
         {
-            if (!session.Valid)
+            if (!session?.Valid ?? false)
                 return null;
 
             progress?.Report(0);

@@ -41,12 +41,12 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         public static bool operator ==(Session a, Session b)
         {
-            return a.Equals(b);
+            return a?.Equals(b) ?? b?.Equals(a) ?? true;
         }
 
         public static bool operator !=(Session a, Session b)
         {
-            return !a.Equals(b);
+            return !a?.Equals(b) ?? !b?.Equals(a) ?? false;
         }
     }
 }

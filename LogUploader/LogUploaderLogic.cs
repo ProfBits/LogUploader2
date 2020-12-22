@@ -883,47 +883,30 @@ namespace LogUploader
 
         internal void UpdateRaidOrga(RaidSimple data, List<int> list, CancellationToken ct, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)
         {
+
+            progress?.Report(new ProgressMessage(0, "Check RO+ Login"));
             if (data is RaidSimpleTemplate t)
             {
                 //TODO localize error
-                Action a = () => MessageBox.Show(t.DisplayName, "Invalid raid");
+                Action a = () => MessageBox.Show(t.DisplayName, "Invalid raid", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 invoker(a);
                 return;
             }
 
+            if (!CheckRaidOrgaSession(invoker, progress)) return;
 
-            progress?.Report(new ProgressMessage(0, "Check RO+ Login"));
-            if (!RaidOrgaPlusSession.Valid)
-                RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
-            if (RaidOrgaPlusSession == null)
-            {
-                MessageBox.Show(Language.Data.MiscRaidOrgaPlusLoginErr, "RO+ login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            progress?.Report(new ProgressMessage(1, "Gathering RO+ data"));
-            Raid raid = RaidOrgaPlusConnector.GetRaid(RaidOrgaPlusSession, data.TerminID, data.RaidID, ct, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.4) + 0, "Gathering RO+ data - " + p.Message))));
+            progress?.Report(new ProgressMessage(0.05, "Gathering RO+ data"));
+            Raid raid = RaidOrgaPlusConnector.GetRaid(RaidOrgaPlusSession, data.TerminID, data.RaidID, ct, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.35) + 0.05, "Gathering RO+ data - " + p.Message))));
             if (ct.IsCancellationRequested) return;
-            progress?.Report(new ProgressMessage(40, "Gathering local data"));
-            var PercentPerLog = 1.0 / (double)(2 * list.Count);
+            progress?.Report(new ProgressMessage(0.35, "Gathering local data"));
+            var PercentPerLog = 0.4 / list.Count;
             List<CachedLog> logs = new List<CachedLog>();
             foreach ((var i, var id) in list.Enumerate())
             {
-                var log = QuickCacheLog(id);
-                var percent = i * 2 * PercentPerLog;
-                Console.WriteLine($"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
-                progress?.Report(new ProgressMessage((percent * 0.4) + 0.4, $"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
-                log = CacheLog(id);
+                var tmp = ProcessLog(PercentPerLog, i, id, progress, ct);
                 if (ct.IsCancellationRequested) return;
-                if (log.DataVersion < Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.MIN_DATA_VERSION)
-                {
-                    percent = ((i * 2) + 1) * PercentPerLog;
-                    Console.WriteLine($"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
-                    progress?.Report(new ProgressMessage((percent * 0.4) + 0.4, $"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
-                    log = ReParseData(log) ?? log;
-                }
-                logs.Add(log);
-                if (ct.IsCancellationRequested) return;
+                if (tmp != null)
+                    logs.Add(tmp);
             };
             raid = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));
 
@@ -939,6 +922,43 @@ namespace LogUploader
                 Logger.LogException(e);
             }
             progress?.Report(new ProgressMessage(0.99, "Done"));
+        }
+
+        private bool CheckRaidOrgaSession(Action<Delegate> invoker, IProgress<ProgressMessage> progress)
+        {
+            progress?.Report(new ProgressMessage(0.01, "Check RO+ Session"));
+            if (!RaidOrgaPlusSession.Valid)
+            {
+                progress?.Report(new ProgressMessage(0.01, "Reconnect RO+ Session"));
+                RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
+            }
+            if (RaidOrgaPlusSession == null)
+            {
+                Action a = () => MessageBox.Show(Language.Data.MiscRaidOrgaPlusLoginErr, "RO+ login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                invoker(a);
+                return false;
+            }
+            if (!RaidOrgaPlusSession.Valid)
+                return false;
+            return true;
+        }
+
+        private CachedLog ProcessLog(double PercentPerLog int i, int id, IProgress<ProgressMessage> progress, CancellationToken ct)
+        {
+            var log = QuickCacheLog(id);
+            var percent = i * PercentPerLog;
+            Console.WriteLine($"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
+            progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
+            log = CacheLog(id);
+            if (ct.IsCancellationRequested) return null;
+            if (log.DataVersion < Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.MIN_DATA_VERSION)
+            {
+                percent += PercentPerLog / 2;
+                Console.WriteLine($"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
+                progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
+                log = ReParseData(log) ?? log;
+            }
+            return log;
         }
 
         internal List<RaidSimple> GetRaidOrgaTermine()
