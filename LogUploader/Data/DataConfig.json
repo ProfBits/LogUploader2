@@ -106,6 +106,26 @@
           "AvatarURL": "https://wiki.guildwars2.com/images/7/7b/Eternal_Battlegrounds_loading_screen.jpg"
         }
       ],
+      "DragonResponseMissions": [
+        {
+          "ID": 1,
+          "NameEN": "Metrica Province",
+          "NameDE": "Provinz Metrica",
+          "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg"
+        },
+        {
+          "ID": 2,
+          "NameEN": "Brisban Wildlands",
+          "NameDE": "Brisban-Wildnis",
+          "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg"
+        },
+        {
+          "ID": 3,
+          "NameEN": "Gendarran Fields",
+          "NameDE": "Gendarran-Felder",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        }
+      ],
       "Training": [
         {
           "NameEN": "Special Forces Training Area",
@@ -660,6 +680,45 @@
         "RaidOrgaPlusID": -1
       },
       {
+        "ID": 23330,
+        "NameEN": "Destroyer of the Ironhammer Line",
+        "NameDE": "Zerstörer der Eisenhammer Linie",
+        "FolderEN": "Destroyer of the Ironhammer Line",
+        "FolderDE": "Zerstörer der Eisenhammer Linie",
+        "EiName": "Destroyer of the Ironhammer Line",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 1,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23321,
+        "NameEN": "Destroyer of the Crystal Fields",
+        "NameDE": "Zerstörer der Kristallfelder",
+        "FolderEN": "Destroyer of the Crystal Fields",
+        "FolderDE": "Zerstörer der Kristallfelder",
+        "EiName": "Destroyer of the Crystal Fields",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23302,
+        "NameEN": "Destroyer of the Great Bridge",
+        "NameDE": "Zerstörer der Großen Brücke",
+        "FolderEN": "Destroyer of the Great Bridge",
+        "FolderDE": "Zerstörer der Großen Brücke",
+        "EiName": "Destroyer of the Great Bridge",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 3,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
         "ID": 1,
         "NameEN": "WvW",
         "NameDE": "WvW",
@@ -752,8 +811,8 @@
       },
       {
         "ID": 23256,
-        "NameEN": "Elemental Ai",
-        "NameDE": "Elementar Ai",
+        "NameEN": "Sunqua Peak",
+        "NameDE": "Sunqua-Gipfel",
         "FolderEN": "###",
         "FolderDE": "###",
         "EiName": "Elemental Ai, Keeper of the Peak",
@@ -765,8 +824,8 @@
       },
       {
         "ID": 23255,
-        "NameEN": "Dark Ai",
-        "NameDE": "Dunkle Ai",
+        "NameEN": "Sunqua Peak",
+        "NameDE": "Sunqua-Gipfel",
         "FolderEN": "###",
         "FolderDE": "###",
         "EiName": "Dark Ai, Keeper of the Peak",
@@ -778,8 +837,8 @@
       },
       {
         "ID": 23254,
-        "NameEN": "Ai",
-        "NameDE": "Ai",
+        "NameEN": "Sunqua Peak",
+        "NameDE": "Sunqua-Gipfel",
         "FolderEN": "Sorrowful Spellcaster",
         "FolderDE": "Sorrowful Spellcaster",
         "EiName": "Ai, Keeper of the Peak",

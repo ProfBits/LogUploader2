@@ -21,6 +21,7 @@ namespace LogUploader.Helper
 
         private const string TagRaidRoot = "RaidWings";
         private const string TagStrikeRoot = "StrikeMissions";
+        private const string TagDRMRoot = "DragonResponseMissions";
         private const string TagFractalRoot = "Fractals";
         private const string TagWvWRoot = "WvW";
         private const string TagTrainingRoot = "Training";
@@ -82,6 +83,7 @@ namespace LogUploader.Helper
         {
             CreateRaidWings((JArray)gameAreaData[TagRaidRoot]);
             CreateStrikeMissions((JArray)gameAreaData[TagStrikeRoot]);
+            CreateDrMissions((JArray)gameAreaData[TagDRMRoot]);
             CreateFractals((JArray)gameAreaData[TagFractalRoot]);
             CreateWvW((JArray)gameAreaData[TagWvWRoot]);
             CreateTraining((JArray)gameAreaData[TagTrainingRoot]);
@@ -107,6 +109,17 @@ namespace LogUploader.Helper
                 var basicInfo = GetAreaBasicInfo(strike);
 
                 new Strike(basicInfo, ID);
+            }
+        }
+
+        private static void CreateDrMissions(JArray drmData)
+        {
+            foreach (JObject drm in drmData)
+            {
+                var ID = (int) drm[TagID];
+                var basicInfo = GetAreaBasicInfo(drm);
+
+                new DragonResponseMission(basicInfo, ID);
             }
         }
 
@@ -188,6 +201,8 @@ namespace LogUploader.Helper
                     return RaidWing.RaidWings[gameAreaID];
                 case TagStrikeRoot:
                     return Strike.StrikeMissions[gameAreaID];
+                case TagDRMRoot:
+                    return DragonResponseMission.DragonResponseMissions[gameAreaID];
                 case TagFractalRoot:
                     return Fractal.Fractals[gameAreaID];
                 case TagWvWRoot:

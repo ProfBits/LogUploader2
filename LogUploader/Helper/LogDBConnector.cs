@@ -82,6 +82,16 @@ namespace LogUploader.Helper
             }
         }
 
+        public static List<DBLog> GetByBossIdWithPath(long id) => GetByBossIdWithPath(DBConnectionString, id);
+        public static List<DBLog> GetByBossIdWithPath(string connectionString, long id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(connectionString))
+            {
+                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE BossID == {id} AND NOT EvtcPath IS NULL").ToList();
+                return t;
+            }
+        }
+
         public static int GetCount() => GetCount(DBConnectionString);
         public static int GetCount(string connectionString)
         {

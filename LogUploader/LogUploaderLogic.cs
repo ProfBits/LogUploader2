@@ -155,8 +155,38 @@ namespace LogUploader
             {
                 RaidOrgaPlusTermine = new List<RaidSimple>() { RaidSimple.GetRaidOrgaDisabled() };
             }
+            await Task.Run(() => UpdateUnkowen(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.2), "Updating Local Files Old")))));
 
-            await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.7), "Updating Local Files")))));
+            await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.5 + (p * 0.5), "Updating Local Files New")))));
+        }
+
+        private void UpdateUnkowen(IProgress<double> progress = null)
+        {
+            progress?.Report(0);
+            var logs = LogDBConnector.GetByBossIdWithPath(0);
+            int i = 0;
+            int count = logs.Count;
+            foreach (var log in logs)
+            {
+                bool update = false;
+                var id = GetBoss(log.EvtcPath).ID;
+                if (id != 0)
+                {
+                    update = true;
+                    log.BossID = id;
+                }
+                if (!File.Exists(log.EvtcPath))
+                {
+                    update = true;
+                    log.EvtcPath = null;
+                }
+                if (update)
+                {
+                    LogDBConnector.Update(log);
+                }
+                progress?.Report((double)i++/count);
+                i++;
+            }
         }
 
         private void CheckForNewLogs(IProgress<double> progress = null)

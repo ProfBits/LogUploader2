@@ -140,6 +140,7 @@
     <Compile Include="Data\DBLog.cs" />
     <Compile Include="Data\Enemy.cs" />
     <Compile Include="Data\FilterConfiguration.cs" />
+    <Compile Include="Data\GameAreas\DragonResponseMission.cs" />
     <Compile Include="Data\GameAreas\Fractal.cs" />
     <Compile Include="Data\GameAreas\GameArea.cs" />
     <Compile Include="Data\GameAreas\RaidWing.cs" />
