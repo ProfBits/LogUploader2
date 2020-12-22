@@ -124,13 +124,14 @@ namespace LogUploader
 
         public LogUploaderLogic() { }
 
-        public async Task InitLogUploaderLogic(SettingsData settings, bool eap, bool eau, IProgress<ProgressMessage> progress = null)
+        public async Task InitLogUploaderLogic(SettingsData settings, bool eap, bool eau, bool betaEnableRaidOrga, IProgress<ProgressMessage> progress = null)
         {
             progress?.Report(new ProgressMessage(0, "Init"));
             Settings = settings;
             DPSReport = new DPSReport(Settings, settings.UserToken);
             EnableAutoParsing = settings.EnableAutoParse || eap;
             EnableAutoUpload = settings.EnableAutoUpload || eau;
+            GUI.SettingsUI.BetaEnableRaidOrga = betaEnableRaidOrga;
 
             progress?.Report(new ProgressMessage(0.01, "Webhooks"));
             WebHookDB = Settings.WebHookDB;
@@ -145,8 +146,15 @@ namespace LogUploader
             WatchDogCTS = new CancellationTokenSource();
             WatchDogTask = RunWatchDog(settings.ArcLogsPath, WatchDogCTS);
 
-            progress?.Report(new ProgressMessage(0.06, "RO+"));
-            await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage(0.24 * p.Percent + 0.06, "RO+ " + p.Message)))));
+            if (betaEnableRaidOrga)
+            {
+                progress?.Report(new ProgressMessage(0.06, "RO+"));
+                await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage(0.24 * p.Percent + 0.06, "RO+ " + p.Message)))));
+            }
+            else
+            {
+                RaidOrgaPlusTermine = new List<RaidSimple>() { RaidSimple.GetRaidOrgaDisabled() };
+            }
 
             await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.7), "Updating Local Files")))));
         }
@@ -943,7 +951,7 @@ namespace LogUploader
             return true;
         }
 
-        private CachedLog ProcessLog(double PercentPerLog int i, int id, IProgress<ProgressMessage> progress, CancellationToken ct)
+        private CachedLog ProcessLog(double PercentPerLog, int i, int id, IProgress<ProgressMessage> progress, CancellationToken ct)
         {
             var log = QuickCacheLog(id);
             var percent = i * PercentPerLog;
@@ -981,7 +989,7 @@ namespace LogUploader
             RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
             if (RaidOrgaPlusSession == null)
             {
-                RaidOrgaPlusTermine.Add(RaidSimple.LogInFaild());
+                RaidOrgaPlusTermine.Add(RaidSimple.GetLogInFaild());
                 Logger.Error("[LogUploaderLogic.LoadTermine] RO+ Login Faild");
                 progress?.Report(new ProgressMessage(1, "Log in Failed"));
                 return;
@@ -990,7 +998,7 @@ namespace LogUploader
             RaidOrgaPlusTermine = RaidOrgaPlusConnector.GetRaids(RaidOrgaPlusSession, new Progress<double>(p => progress?.Report(new ProgressMessage((0.4 * p) + 0.5, "Raids"))));
             if (RaidOrgaPlusTermine.Count == 0)
             {
-                RaidOrgaPlusTermine.Add(RaidSimple.NoTermine());
+                RaidOrgaPlusTermine.Add(RaidSimple.GetNoTermine());
                 Logger.Message("[LogUploaderLogic.LoadTermine] No Raid appointments");
             }
             progress?.Report(new ProgressMessage(1, "Done"));

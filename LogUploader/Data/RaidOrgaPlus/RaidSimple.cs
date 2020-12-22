@@ -37,14 +37,19 @@ namespace LogUploader.Data.RaidOrgaPlus
             return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusNoAccount);
         }
 
-        internal static RaidSimple LogInFaild()
+        internal static RaidSimple GetLogInFaild()
         {
             return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusLoginErr);
         }
 
-        internal static RaidSimple NoTermine()
+        internal static RaidSimple GetNoTermine()
         {
             return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusNoRaid);
+        }
+
+        internal static RaidSimple GetRaidOrgaDisabled()
+        {
+            return new RaidSimpleTemplate("Feature Disabled");
         }
     }
 

@@ -30,6 +30,11 @@ namespace LogUploader.GUI
         {
             InitializeComponent();
             InitRest();
+            if (!BetaEnableRaidOrga)
+            {
+                gbRoPlus.Enabled = false;
+                gbRoPlus.Visible = false;
+            }
         }
 
         private void InitRest()
@@ -240,5 +245,7 @@ namespace LogUploader.GUI
             btnEiUpdate.Text = tmp;
             Enabled = true;
         }
+
+        public static bool BetaEnableRaidOrga { get; set; } = false;
     }
 }
