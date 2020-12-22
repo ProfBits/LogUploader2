@@ -82,11 +82,11 @@ namespace LogUploader
             }
             Form ui = null;
 
-            LoadingScreenUI loadingUI = new LoadingScreenUI(async (progress, ct) =>
+            LoadingScreenUI loadingUI = new LoadingScreenUI(async (progress, ct, cts) =>
             {
                 try
                 {
-                    ui = await LoadApplication(progress, args, ct);
+                    ui = await LoadApplication(progress, args, ct, cts);
                 }
                 catch (System.ComponentModel.Win32Exception e)
                 {
@@ -183,7 +183,7 @@ namespace LogUploader
             return res;
         }
 
-        private static async Task<Form> LoadApplication(IProgress<ProgressMessage> progress, string[] args, CancellationToken ct)
+        private static async Task<Form> LoadApplication(IProgress<ProgressMessage> progress, string[] args, CancellationToken ct, CancellationTokenSource cts)
         {
             //await Task.Delay(10000);
             SetUpLocalisation();
@@ -226,14 +226,19 @@ namespace LogUploader
             if (ct.IsCancellationRequested)
                 return null;
 
+            cts.CancelAfter(TimeSpan.FromMinutes(5));
             Logger.Message("Setup - Check for updates");
-            Action UpdateReuest = await CheckForUpdates(settings, new Progress<ProgressMessage>(p => new ProgressMessage(0.10 + (p.Percent * 0.05), p.Message)));
-            
+            Action UpdateReuest = await CheckForUpdates(settings, new Progress<ProgressMessage>(p => new ProgressMessage(0.10 + (p.Percent * 0.05), p.Message)), ct);
+            cts.CancelAfter(Timeout.Infinite);
+
             if (ct.IsCancellationRequested)
                 return null;
 
+
+            cts.CancelAfter(TimeSpan.FromMinutes(5));
             Logger.Message("Setup - Check for updates EI");
             await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.05), "Init EliteInsights" + " - " + p.Message))), ct);
+            cts.CancelAfter(Timeout.Infinite);
 
             if (ct.IsCancellationRequested)
                 return null;
@@ -271,16 +276,15 @@ namespace LogUploader
             return await CreateUI2(newLogic, flags.BetaEnableRaidOrga, new Progress<double>(p => progress.Report(new ProgressMessage(0.91 + (p * 0.07), "Creating UI"))));
         }
 
-        private static async Task<Action> CheckForUpdates(SettingsData settings, IProgress<ProgressMessage> progress = null)
+        private static async Task<Action> CheckForUpdates(SettingsData settings, IProgress<ProgressMessage> progress = null, CancellationToken ct = default)
         {
             if (await Updater.UpdateAvailable(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.2, "Checking for Update")))))
             {
-                
                 Logger.Message("Update available.\nNew version: " + (Updater.NewestVersion?.ToString() ?? "na"));
                 switch (Updater.ShowUpdateMgsBox())
                 {
                     case DialogResult.Yes:
-                        await Updater.Update(settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((17.8 * p.Percent) + 0.2, p.Message))));
+                        await Updater.Update(settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((17.8 * p.Percent) + 0.2, p.Message))), ct);
                         break;
                     case DialogResult.No:
                         Logger.Warn("Product updatde skipped");
@@ -292,7 +296,8 @@ namespace LogUploader
                             switch (Updater.ShowUpdateMgsBox())
                             {
                                 case DialogResult.Yes:
-                                    Updater.Update(settings).Wait();
+                                    //TODO add progress
+                                    Updater.Update(settings, null, new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token).Wait();
                                     break;
                                 default:
                                     break;

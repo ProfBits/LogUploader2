@@ -18,12 +18,12 @@ namespace LogUploader.GUI
     public partial class LoadingScreenUI : Form
     {
         private readonly Progress<ProgressMessage> progress = new Progress<ProgressMessage>();
-        private readonly Func<IProgress<ProgressMessage>, CancellationToken, Task> StartSequenc;
+        private readonly Func<IProgress<ProgressMessage>, CancellationToken, CancellationTokenSource, Task> StartSequenc;
         private readonly int m_width1;
         private readonly CancellationTokenSource m_cts;
         private Task m_startSequence;
 
-        public LoadingScreenUI(Func<IProgress<ProgressMessage>, CancellationToken, Task> startSequenc)
+        public LoadingScreenUI(Func<IProgress<ProgressMessage>, CancellationToken, CancellationTokenSource, Task> startSequenc)
         {
             StartSequenc = startSequenc;
 
@@ -126,7 +126,7 @@ namespace LogUploader.GUI
         private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             await Task.Delay(250);
-            var task = StartSequenc(progress, m_cts.Token);
+            var task = StartSequenc(progress, m_cts.Token, m_cts);
             m_startSequence = task;
             await task;
             ((IProgress<ProgressMessage>)progress).Report(new ProgressMessage(0.99, "Finishing up..."));

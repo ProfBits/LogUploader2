@@ -63,9 +63,10 @@ namespace LogUploader.Helper
             return NewestVersion > LocalVersion;
         }
 
-        public static async Task Update(IProxySettings settings, IProgress<ProgressMessage> progress = null)
+        public static async Task Update(IProxySettings settings, IProgress<ProgressMessage> progress = null, CancellationToken ct = default)
         {
-            string installer = await DownloadInstaller(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))));
+            string installer = await DownloadInstaller(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))), ct);
+            if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
             Process.Start(installer);
             Program.Exit(ExitCode.UPDATING);
@@ -109,6 +110,7 @@ namespace LogUploader.Helper
                 }
             }
             progress?.Report(1);
+            if (cancellationToken.IsCancellationRequested) return null;
             return path;
         }
 
