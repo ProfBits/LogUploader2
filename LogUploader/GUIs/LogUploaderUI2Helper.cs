@@ -278,6 +278,13 @@ namespace LogUploader.GUIs
             lblDetOpenLocal.Visible = perv.HasHtml;
             lblDetOpenRemot.Visible = perv.HasLink;
 
+            btnOpenLocal.Enabled = perv.HasHtmlCb != CheckState.Unchecked;
+            btnOpenDpsReport.Enabled = perv.HasLinkCb != CheckState.Unchecked;
+
+            btnParse.Enabled = perv.HasHtmlCb != CheckState.Checked;
+            btnUpload.Enabled = perv.HasLinkCb != CheckState.Checked;
+            btnParsAndUpload.Enabled = (perv.HasHtmlCb != CheckState.Checked) || (perv.HasLinkCb != CheckState.Checked);
+
             tpDetailsTop.Refresh();
 
             GCTimer.Start();
