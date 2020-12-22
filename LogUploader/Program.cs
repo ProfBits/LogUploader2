@@ -92,14 +92,18 @@ namespace LogUploader
                 {
                     Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
                     Logger.LogException(e);
-                    MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var errorUI = new FatalErrorUI("Win32 error", GetWin23ExeptionMessage(e));
+                    errorUI.ShowDialog(ui);
                     Exit(ExitCode.WIN32_EXCPTION);
                 }
                 catch (Exception e)
                 {
                     Logger.Error("Normal ERROR");
                     Logger.LogException(e);
-                    MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var errorUI = new FatalErrorUI("Normal Exception", GetExceptionMessage(e));
+                    errorUI.ShowDialog(ui);
                     Exit(ExitCode.CLR_EXCPTION);
                 }
             });

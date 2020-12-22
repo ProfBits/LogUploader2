@@ -188,6 +188,12 @@
     <Compile Include="GUIs\CorrectPlayer\PlayerToCorrect.Designer.cs">
       <DependentUpon>PlayerToCorrect.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUIs\FatalErrorUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\FatalErrorUI.Designer.cs">
+      <DependentUpon>FatalErrorUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIs\LoadingBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -396,6 +402,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\CorrectPlayer\PlayerToCorrect.resx">
       <DependentUpon>PlayerToCorrect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\FatalErrorUI.resx">
+      <DependentUpon>FatalErrorUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\InitConfigUI.resx">
       <DependentUpon>InitConfigUI.cs</DependentUpon>

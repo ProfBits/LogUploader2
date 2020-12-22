@@ -19,7 +19,7 @@ namespace LogUploader.Helper
 
         private const string LOG_DIR = "\\LogUploader\\Logs\\";
         private const int LOGS_TO_KEEP = 29;
-        private static string LogFile;
+        public static string LogFile { get; private set; }
 
         private static eLogLevel logLevel;
         internal static eLogLevel LogLevel { get => logLevel; set
