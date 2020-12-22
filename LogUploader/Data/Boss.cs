@@ -56,6 +56,15 @@ namespace LogUploader.Data
 
         public static Boss getByID(int id)
         {
+            switch (id)
+            {
+                /*Fake Ai's*/
+                case 23255:
+                case 23256:
+                    id = 23254;
+                    break;
+            }
+
             try
             {
                 return allBosses[id];
@@ -120,7 +129,7 @@ namespace LogUploader.Data
             return allBosses.Where(e => e.Value.Area == area).Select(e => e.Value).ToList();
         }
 
-        public static List<Boss> All { get => allBosses.Values.ToList(); }
+        public static List<Boss> All { get => allBosses.Values.Where(boss => boss.ID != 23255 && boss.ID != 23256).ToList(); }
 
         private bool checkFolderName(string folderName)
         {

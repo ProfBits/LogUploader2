@@ -89,6 +89,12 @@
           "NameEN": "Shattered Observartory",
           "NameDE": "Zerschmettertes Observatorium",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
+        },
+        {
+          "Level": 100,
+          "NameEN": "Sunqua Peak",
+          "NameDE": "Sunqua-Gipfel",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         }
       ],
       "WvW": [
@@ -741,6 +747,45 @@
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
         "DiscordEmote": "<:chr:484840237684621323>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23256,
+        "NameEN": "Elemental Ai",
+        "NameDE": "Elementar Ai",
+        "FolderEN": "###",
+        "FolderDE": "###",
+        "EiName": "Elemental Ai, Keeper of the Peak",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "<:ele:484839211388764162>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23255,
+        "NameEN": "Dark Ai",
+        "NameDE": "Dunkle Ai",
+        "FolderEN": "###",
+        "FolderDE": "###",
+        "EiName": "Dark Ai, Keeper of the Peak",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "<:ele:484839211388764162>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23254,
+        "NameEN": "Ai",
+        "NameDE": "Ai",
+        "FolderEN": "Sorrowful Spellcaster",
+        "FolderDE": "Sorrowful Spellcaster",
+        "EiName": "Ai, Keeper of the Peak",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "<:ele:484839211388764162>",
         "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
         "RaidOrgaPlusID": -1
       },
@@ -2121,6 +2166,78 @@
         "NameDE": "Annormales Irrlicht",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 23270,
+        "NameEN": "Wütender Wasser Geist",
+        "NameDE": "Enrage Water Sprite",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23265,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23242,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23279,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23245,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23256,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23268,
+        "NameEN": "Dämon des Zwifels",
+        "NameDE": "Doubt Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23264,
+        "NameEN": "Dämon der Furcht",
+        "NameDE": "Fear Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23252,
+        "NameEN": "Dämon der Schuld",
+        "NameDE": "Guilt Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
         "Intresting": false
       }
     ],

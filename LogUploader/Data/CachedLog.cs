@@ -16,7 +16,7 @@ namespace LogUploader.Data
         private DBLog DataDB { get; set; } = new DBLog();
         public int ID { get => DataDB.ID; set => DataDB.ID = value; }
         public int BossID { get => DataDB.BossID; set => DataDB.BossID = value; }
-        public string BossName { get => Boss.getByID(BossID).Name; }
+        public string BossName { get => Boss.getByID(DataDB.BossID).Name; }
         public string EvtcPath { get => DataDB.EvtcPath; set => DataDB.EvtcPath = value; }
         public string JsonPath { get => DataDB.JsonPath; set => DataDB.JsonPath = value; }
         public string HtmlPath { get => DataDB.HtmlPath; set => DataDB.HtmlPath = value; }
@@ -180,6 +180,8 @@ namespace LogUploader.Data
         public void UpdateEi(JObject data)
         {
             BossID = (int)data["triggerID"];
+            //Correction for Ai, EI uses 3 names depended of phases
+            if (BossID == 23255 || BossID == 23256 /*Fake Ai's*/) BossID = 23254;
 
             Date = GetDate((string)data["timeStartStd"]);
             DataCorrected = true;
@@ -190,6 +192,7 @@ namespace LogUploader.Data
             ApplySimpleLog(new SimpleLogJson(data));
         }
 
+        //TODO remove
         [Obsolete("untested do not use!", true)]
         public void UpdateDpsReport(JObject data)
         {
