@@ -45,7 +45,8 @@ namespace LogUploader.Languages
         public static void ReloadFromXML()
         {
             var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            //TODO Chek by errors with "System.IO.FileNotFoundException: 'Die Datei oder Assembly "LogUploader.XmlSerializers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" oder eine Abhängigkeit davon wurde nicht gefunden. Das System kann die angegebene Datei nicht finden.'"
+            //Exception "System.IO.FileNotFoundException: 'Die Datei oder Assembly "LogUploader.XmlSerializers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" oder eine Abhängigkeit davon wurde nicht gefunden. Das System kann die angegebene Datei nicht finden.'"
+            //Will not be fixed by microsoft. cant do anything about it.
             var ser = new System.Xml.Serialization.XmlSerializer(typeof(XMLLanguage));
             using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\Data\English.xml", Encoding.UTF8)))
             {

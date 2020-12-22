@@ -79,13 +79,13 @@
       ],
       "Fractals": [
         {
-          "Level": 99,
+          "Level": 98,
           "NameEN": "Nightmare Factal",
           "NameDE": "Albtraum Fraktal",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         },
         {
-          "Level": 100,
+          "Level": 99,
           "NameEN": "Shattered Observartory",
           "NameDE": "Zerschmettertes Observatorium",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
@@ -674,7 +674,7 @@
         "FolderDE": "MAMA",
         "EiName": "M A M A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg",
         "RaidOrgaPlusID": -1
@@ -687,7 +687,7 @@
         "FolderDE": "Albtraum-Oratuss",
         "EiName": "Siax the Corrupted",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Siax_the_Corrupted.jpg",
         "RaidOrgaPlusID": -1
@@ -700,7 +700,7 @@
         "FolderDE": "Ensolyss der endlosen Pein",
         "EiName": "Ensolyss of the Endless Torment",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/f6/Ensolyss_of_the_Endless_Torment.jpg",
         "RaidOrgaPlusID": -1
@@ -713,7 +713,7 @@
         "FolderDE": "Skorvald der Zerschmetterte",
         "EiName": "Skorvald the Shattered",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/c1/Skorvald_the_Shattered.jpg",
         "RaidOrgaPlusID": -1
@@ -726,7 +726,7 @@
         "FolderDE": "Artsariiv",
         "EiName": "Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/76/Viirastra.jpg",
         "RaidOrgaPlusID": -1
@@ -739,7 +739,7 @@
         "FolderDE": "Arkk",
         "EiName": "Arkk",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
         "RaidOrgaPlusID": -1
@@ -856,7 +856,7 @@
         "NameEN": "Fanatic",
         "NameDE": "Fanatiker",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -952,7 +952,7 @@
         "NameEN": "Fractal Avenger",
         "NameDE": "Fraktal-R\u00E4cher",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1344,7 +1344,7 @@
         "NameEN": "PLINK K1T-A",
         "NameDE": "PENG M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1352,7 +1352,7 @@
         "NameEN": "BLIGHT K1T-A",
         "NameDE": "PEST M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1360,7 +1360,7 @@
         "NameEN": "CHOP K1T-A",
         "NameDE": "CHOP M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1368,7 +1368,7 @@
         "NameEN": "DOC K1T-A",
         "NameDE": "DOC M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1376,7 +1376,7 @@
         "NameEN": "Blue Dynamic Assault Knight",
         "NameDE": "Blauer Dynamischer Sturmritter",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": true
       },
       {
@@ -1384,7 +1384,7 @@
         "NameEN": "Green Synergetic Assault Knight",
         "NameDE": "Gr\u00FCner Synergetischer Sturmritter",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": true
       },
       {
@@ -1392,7 +1392,7 @@
         "NameEN": "Nightmare Hallucination",
         "NameDE": "Albtraum Halluzination",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1400,7 +1400,7 @@
         "NameEN": "Red Static Assault Knight",
         "NameDE": "Roter Statischer Sturmritter",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": true
       },
       {
@@ -1408,7 +1408,7 @@
         "NameEN": "Hallucination",
         "NameDE": "Halluzination",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1416,7 +1416,7 @@
         "NameEN": "Twisted Horror",
         "NameDE": "Verdrehter Schrecken",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1424,7 +1424,7 @@
         "NameEN": "Nightmare Hallucination",
         "NameDE": "Albtraum Halluzination",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1432,7 +1432,7 @@
         "NameEN": "Echo of the Unclean",
         "NameDE": "Echo des Unsauberen",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1552,7 +1552,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1560,7 +1560,7 @@
         "NameEN": "Projection Arkk",
         "NameDE": "Arkk Projektion",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1568,7 +1568,7 @@
         "NameEN": "Spark",
         "NameDE": "Funke",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1576,7 +1576,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1584,7 +1584,7 @@
         "NameEN": "Small Artsariiv",
         "NameDE": "Kleine Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1592,7 +1592,7 @@
         "NameEN": "Temporal Anomaly",
         "NameDE": "Tempor\u00E4re Anomalie",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1600,7 +1600,7 @@
         "NameEN": "Brazen Gladiator",
         "NameDE": "Dreister Gladiator",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": true
       },
       {
@@ -1608,7 +1608,7 @@
         "NameEN": "Solar Bloom",
         "NameDE": "Solarbl\u00FCten",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1616,7 +1616,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1624,7 +1624,7 @@
         "NameEN": "Mini Artsariiv",
         "NameDE": "Winzige Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1632,7 +1632,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1640,7 +1640,7 @@
         "NameEN": "Temporal Anomaly",
         "NameDE": "Tempor\u00E4re Anomalie",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1648,7 +1648,7 @@
         "NameEN": "Archdiviner",
         "NameDE": "Erzwahrsager",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": true
       },
       {
@@ -1656,7 +1656,7 @@
         "NameEN": "Medium Artsariiv",
         "NameDE": "Mittlere Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1776,7 +1776,7 @@
         "NameEN": "Fractal Vindicator",
         "NameDE": "Fraktal-Verteidiger",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
