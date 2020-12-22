@@ -1,4 +1,4 @@
-﻿#define PERF_MEAS
+﻿//#define PERF_MEAS
 
 using LogUploader.Data;
 using System;
