@@ -38,13 +38,10 @@ Global
 		{0C28D6C4-1346-4A45-8983-6A50E49C6ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C28D6C4-1346-4A45-8983-6A50E49C6ADC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.AlphaRelease|Any CPU.ActiveCfg = AlphaRelease
-		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.AlphaRelease|Any CPU.Build.0 = AlphaRelease
 		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.BetaRelease|Any CPU.ActiveCfg = BetaRelease
-		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.BetaRelease|Any CPU.Build.0 = BetaRelease
 		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.CreateLanguageXMLs|Any CPU.ActiveCfg = CreateLanguageXMLs
 		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.Debug|Any CPU.ActiveCfg = Debug
 		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.Release|Any CPU.ActiveCfg = Release
-		{15CC8DE7-9A0F-4B04-8FFA-8DB2DBB5238A}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
