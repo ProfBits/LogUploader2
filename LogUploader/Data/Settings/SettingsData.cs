@@ -19,6 +19,7 @@ namespace LogUploader.Data.Settings
         public bool EnableAutoParse { get; set; }
         public bool EnableAutoUpload { get; set; }
         public string WhatsNewShown { get; set; }
+        public bool AllowPrerelases { get; set; }
 
         #endregion
         #region CopyLink
@@ -66,7 +67,7 @@ namespace LogUploader.Data.Settings
 
         public SettingsData(Properties.Settings settings)
         {
-            SetGeneral(settings.ArcLogsPath, settings.UserToken, settings.FirstBoot, settings.Language, settings.EnableAutoParse, settings.EnableAutoUpload, settings.WhatsNewShown);
+            SetGeneral(settings.ArcLogsPath, settings.UserToken, settings.FirstBoot, settings.Language, settings.EnableAutoParse, settings.EnableAutoUpload, settings.WhatsNewShown, settings.AllowPrerelases);
             SetCopyLinks(settings.EncounterName, settings.EncounterSuccsess, settings.inline, settings.EmptyLineBetween, settings.UseGnDiscordEmotes);
             SetProxy(settings.UseProxy, settings.ProxyAddress, settings.ProxyPort, settings.ProxyUsername, settings.ProxyPassword);
             SetWebHook(settings.WebHookDB, settings.CurrentWebHook, settings.DiscordPostFormat, settings.OnlyPostUploaded, settings.NameAsDiscordUser);
@@ -76,7 +77,7 @@ namespace LogUploader.Data.Settings
 
         #region SetPerInterface
 
-        private void SetGeneral(string arcLogsPath, string userToken, bool firstBoot, string language, bool eap, bool eau, string whatsNewShown)
+        private void SetGeneral(string arcLogsPath, string userToken, bool firstBoot, string language, bool eap, bool eau, string whatsNewShown, bool allowPrereleases)
         {
             ArcLogsPath = arcLogsPath;
             UserToken = SettingsHelper.UnprotectString(userToken);
@@ -84,6 +85,7 @@ namespace LogUploader.Data.Settings
             EnableAutoParse = eap;
             EnableAutoUpload = eau;
             WhatsNewShown = whatsNewShown;
+            AllowPrerelases = allowPrereleases;
             try
             {
                 Language = (eLanguage)Enum.Parse(typeof(eLanguage), language);
@@ -166,6 +168,7 @@ namespace LogUploader.Data.Settings
             settings.EnableAutoParse = EnableAutoParse;
             settings.EnableAutoUpload = EnableAutoUpload;
             settings.WhatsNewShown = WhatsNewShown;
+            settings.AllowPrerelases = AllowPrerelases;
         }
 
         private void ApplyCopyLinks(Properties.Settings settings)

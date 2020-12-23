@@ -66,6 +66,7 @@
             this.webHookConfig1 = new LogUploader.GUIs.WebHookConfig();
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.gbEi = new System.Windows.Forms.GroupBox();
+            this.cbEIAutoUpdate = new System.Windows.Forms.CheckBox();
             this.btnEiUpdate = new System.Windows.Forms.Button();
             this.cbEiTheme = new System.Windows.Forms.CheckBox();
             this.cbEiCombatReplay = new System.Windows.Forms.CheckBox();
@@ -74,7 +75,7 @@
             this.txtRoPlusUser = new System.Windows.Forms.TextBox();
             this.lblRoPlusPwd = new System.Windows.Forms.Label();
             this.lblRoPlusUser = new System.Windows.Forms.Label();
-            this.cbEIAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.cbGeneralPrerelease = new System.Windows.Forms.CheckBox();
             this.gbCopyLinks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.gbDpsReport.SuspendLayout();
@@ -94,7 +95,7 @@
             this.gbCopyLinks.Controls.Add(this.cbEmptyLinesInBetween);
             this.gbCopyLinks.Controls.Add(this.cbShowSuccsess);
             this.gbCopyLinks.Controls.Add(this.cbShwoEncounterName);
-            this.gbCopyLinks.Location = new System.Drawing.Point(12, 299);
+            this.gbCopyLinks.Location = new System.Drawing.Point(12, 312);
             this.gbCopyLinks.Name = "gbCopyLinks";
             this.gbCopyLinks.Size = new System.Drawing.Size(315, 134);
             this.gbCopyLinks.TabIndex = 0;
@@ -167,7 +168,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(492, 466);
+            this.btnCancel.Location = new System.Drawing.Point(492, 462);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
@@ -178,7 +179,7 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(573, 466);
+            this.btnOK.Location = new System.Drawing.Point(573, 462);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 7;
@@ -189,7 +190,7 @@
             // btnDefault
             // 
             this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDefault.Location = new System.Drawing.Point(12, 466);
+            this.btnDefault.Location = new System.Drawing.Point(12, 462);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(75, 23);
             this.btnDefault.TabIndex = 9;
@@ -204,7 +205,7 @@
             this.gbDpsReport.Controls.Add(this.lblGetUserToken);
             this.gbDpsReport.Controls.Add(this.txtUserToken);
             this.gbDpsReport.Controls.Add(this.lblUserToken);
-            this.gbDpsReport.Location = new System.Drawing.Point(12, 118);
+            this.gbDpsReport.Location = new System.Drawing.Point(12, 131);
             this.gbDpsReport.Name = "gbDpsReport";
             this.gbDpsReport.Size = new System.Drawing.Size(315, 102);
             this.gbDpsReport.TabIndex = 4;
@@ -262,6 +263,7 @@
             // 
             // gbGeneral
             // 
+            this.gbGeneral.Controls.Add(this.cbGeneralPrerelease);
             this.gbGeneral.Controls.Add(this.cmbLang);
             this.gbGeneral.Controls.Add(this.lblLang);
             this.gbGeneral.Controls.Add(this.btnBrowse);
@@ -269,7 +271,7 @@
             this.gbGeneral.Controls.Add(this.lblArcLogsPath);
             this.gbGeneral.Location = new System.Drawing.Point(12, 12);
             this.gbGeneral.Name = "gbGeneral";
-            this.gbGeneral.Size = new System.Drawing.Size(315, 100);
+            this.gbGeneral.Size = new System.Drawing.Size(315, 113);
             this.gbGeneral.TabIndex = 11;
             this.gbGeneral.TabStop = false;
             this.gbGeneral.Text = "General";
@@ -279,7 +281,7 @@
             this.cmbLang.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.SettingsbindingSource, "Language", true));
             this.cmbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLang.FormattingEnabled = true;
-            this.cmbLang.Location = new System.Drawing.Point(67, 72);
+            this.cmbLang.Location = new System.Drawing.Point(67, 64);
             this.cmbLang.Name = "cmbLang";
             this.cmbLang.Size = new System.Drawing.Size(121, 21);
             this.cmbLang.TabIndex = 4;
@@ -287,7 +289,7 @@
             // lblLang
             // 
             this.lblLang.AutoSize = true;
-            this.lblLang.Location = new System.Drawing.Point(6, 75);
+            this.lblLang.Location = new System.Drawing.Point(6, 67);
             this.lblLang.Margin = new System.Windows.Forms.Padding(3);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(55, 13);
@@ -445,12 +447,23 @@
             this.gbEi.Controls.Add(this.btnEiUpdate);
             this.gbEi.Controls.Add(this.cbEiTheme);
             this.gbEi.Controls.Add(this.cbEiCombatReplay);
-            this.gbEi.Location = new System.Drawing.Point(12, 226);
+            this.gbEi.Location = new System.Drawing.Point(12, 239);
             this.gbEi.Name = "gbEi";
             this.gbEi.Size = new System.Drawing.Size(315, 67);
             this.gbEi.TabIndex = 13;
             this.gbEi.TabStop = false;
             this.gbEi.Text = "EliteInsights";
+            // 
+            // cbEIAutoUpdate
+            // 
+            this.cbEIAutoUpdate.AutoSize = true;
+            this.cbEIAutoUpdate.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsbindingSource, "AutoUpdateEI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbEIAutoUpdate.Location = new System.Drawing.Point(198, 15);
+            this.cbEIAutoUpdate.Name = "cbEIAutoUpdate";
+            this.cbEIAutoUpdate.Size = new System.Drawing.Size(86, 17);
+            this.cbEIAutoUpdate.TabIndex = 3;
+            this.cbEIAutoUpdate.Text = "Auto Update";
+            this.cbEIAutoUpdate.UseVisualStyleBackColor = true;
             // 
             // btnEiUpdate
             // 
@@ -533,16 +546,16 @@
             this.lblRoPlusUser.TabIndex = 0;
             this.lblRoPlusUser.Text = "User:";
             // 
-            // cbEIAutoUpdate
+            // cbGeneralPrerelease
             // 
-            this.cbEIAutoUpdate.AutoSize = true;
-            this.cbEIAutoUpdate.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsbindingSource, "AutoUpdateEI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbEIAutoUpdate.Location = new System.Drawing.Point(198, 15);
-            this.cbEIAutoUpdate.Name = "cbEIAutoUpdate";
-            this.cbEIAutoUpdate.Size = new System.Drawing.Size(86, 17);
-            this.cbEIAutoUpdate.TabIndex = 3;
-            this.cbEIAutoUpdate.Text = "Auto Update";
-            this.cbEIAutoUpdate.UseVisualStyleBackColor = true;
+            this.cbGeneralPrerelease.AutoSize = true;
+            this.cbGeneralPrerelease.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsbindingSource, "AllowPrerelases", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbGeneralPrerelease.Location = new System.Drawing.Point(7, 91);
+            this.cbGeneralPrerelease.Name = "cbGeneralPrerelease";
+            this.cbGeneralPrerelease.Size = new System.Drawing.Size(119, 17);
+            this.cbGeneralPrerelease.TabIndex = 5;
+            this.cbGeneralPrerelease.Text = "Allow Beta Updates";
+            this.cbGeneralPrerelease.UseVisualStyleBackColor = true;
             // 
             // SettingsUI
             // 
@@ -550,7 +563,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(660, 501);
+            this.ClientSize = new System.Drawing.Size(660, 497);
             this.Controls.Add(this.gbRoPlus);
             this.Controls.Add(this.gbEi);
             this.Controls.Add(this.gbDiscord);
@@ -633,5 +646,6 @@
         private System.Windows.Forms.Label lblRoPlusPwd;
         private System.Windows.Forms.Label lblRoPlusUser;
         private System.Windows.Forms.CheckBox cbEIAutoUpdate;
+        private System.Windows.Forms.CheckBox cbGeneralPrerelease;
     }
 }

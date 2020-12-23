@@ -81,7 +81,7 @@ namespace LogUploader.GUIs
             miViewInExplorer.Text = lang.ActionsViewInExplorer;
 
 
-
+            Text = "LogUploader";
 #if DEBUG
             Text += " DEBUG";
 #elif ALPHA

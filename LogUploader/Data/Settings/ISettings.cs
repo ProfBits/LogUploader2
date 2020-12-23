@@ -15,6 +15,7 @@ namespace LogUploader.Data.Settings
         bool EnableAutoParse { get; set; }
         bool EnableAutoUpload { get; set; }
         string WhatsNewShown { get; set; }
+        bool AllowPrerelases { get; set; }
     }
     public interface ICopyLinksSettings
     {

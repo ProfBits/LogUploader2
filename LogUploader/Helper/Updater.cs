@@ -22,19 +22,17 @@ namespace LogUploader.Helper
         private const string GitHubApiLinkStabel = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
         private const string GitHubApiLinkPreRelease = @"https://api.github.com/repos/ProfBits/LogUploader2/releases";
 
-        public static bool EnablePreReleases { get; set; } = false;
-
         private static string InstallerUrlCache { get; set; } = null;
 
         public static Version NewestVersion { get; private set; } = null;
 
-        static async Task<Version> GetNewestVersion(IProxySettings settings, IProgress<double> progress = null)
+        static async Task<Version> GetNewestVersion(IProxySettings settings, IGeneralSettings generalSettings, IProgress<double> progress = null)
         {
             progress?.Report(0);
             Newtonsoft.Json.Linq.JToken jsonData;
             try
             {
-                if (EnablePreReleases)
+                if (generalSettings.AllowPrerelases)
                     jsonData = await GetLatestPreRelease(settings);
                 else
                     jsonData = await GetLatestStableRelease(settings);
@@ -57,17 +55,17 @@ namespace LogUploader.Helper
             return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion);
         }
 
-        public static async Task<bool> UpdateAvailable(IProxySettings settings, IProgress<double> progress = null)
+        public static async Task<bool> UpdateAvailable(IProxySettings settings, IGeneralSettings generalSettings, IProgress<double> progress = null)
         {
-            var GitTask = GetNewestVersion(settings, progress);
+            var GitTask = GetNewestVersion(settings, generalSettings);
             var LocalVersion = GetLocalVersion();
             var NewestVersion = await GitTask;
             return NewestVersion > LocalVersion;
         }
 
-        public static async Task Update(IProxySettings settings, IProgress<ProgressMessage> progress = null, CancellationToken ct = default)
+        public static async Task Update(IProxySettings settings, IGeneralSettings generalSettings, IProgress<ProgressMessage> progress = null, CancellationToken ct = default)
         {
-            string installer = await DownloadInstaller(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))), ct);
+            string installer = await DownloadInstaller(settings, generalSettings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))), ct);
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
             Process.Start(installer);
@@ -80,7 +78,7 @@ namespace LogUploader.Helper
         /// <param name="settings">the proxy settings</param>
         /// <param name="progress">the progress reporting</param>
         /// <returns></returns>
-        private static async Task<string> DownloadInstaller(IProxySettings settings, IProgress<double> progress = null, CancellationToken cancellationToken = default)
+        private static async Task<string> DownloadInstaller(IProxySettings settings, IGeneralSettings generalSettings, IProgress<double> progress = null, CancellationToken cancellationToken = default)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\LogUploaderInstaller.exe";
             progress?.Report(0.0);
@@ -90,10 +88,13 @@ namespace LogUploader.Helper
                 double currProgress = 0;
                 if (InstallerUrlCache == null)
                 {
-                    var res = await client.GetStringAsync(GitHubApiLinkStabel);
-                    progress?.Report(0.3);
-                    var data = Newtonsoft.Json.Linq.JObject.Parse(res);
-                    installerUrl = GetInstallerUrl(data);
+                    Newtonsoft.Json.Linq.JToken jsonData;
+                    if (generalSettings.AllowPrerelases)
+                        jsonData = await GetLatestPreRelease(settings);
+                    else
+                        jsonData = await GetLatestStableRelease(settings);
+                    progress?.Report(0.30);
+                    installerUrl = GetInstallerUrl(jsonData);
                     progress?.Report(0.35);
                     currProgress = 0.35;
                 }
