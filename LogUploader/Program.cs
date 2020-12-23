@@ -234,7 +234,6 @@ namespace LogUploader
             if (ct.IsCancellationRequested)
                 return null;
 
-
             cts.CancelAfter(TimeSpan.FromMinutes(5));
             Logger.Message("Setup - Check for updates EI");
             await InitEliteInsights(settings, settings, new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.15 + (p.Percent * 0.05), "Init EliteInsights" + " - " + p.Message))), ct);

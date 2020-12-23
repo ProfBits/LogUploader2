@@ -28,8 +28,16 @@ namespace LogUploader.GUIs
         {
             var version = Helper.Updater.GetLocalVersion();
             lblVersion.Text += $" {version.Major}.{version.Minor}.{version.Build}";
-            llPatchnotes.LinkClicked += (sender, e) => Process.Start($"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}");
-            this.toolTip1.SetToolTip(this.llPatchnotes, $"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}");
+            if (version.Revision == 0)
+            {
+                llPatchnotes.LinkClicked += (sender, e) => Process.Start($"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}");
+            }
+            else
+            {
+                lblVersion.Text += $".{version.Revision}";
+                llPatchnotes.LinkClicked += (sender, e) => Process.Start($"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}.{version.Revision}");
+            }
+            this.toolTip1.SetToolTip(this.llPatchnotes, $"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}.{version.Revision}");
         }
 
         private void ApplieLanguage(ILanguage lang)

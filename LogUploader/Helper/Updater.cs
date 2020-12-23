@@ -19,7 +19,10 @@ namespace LogUploader.Helper
     class Updater
     {
         private const string USER_AGENT = "LogUploader";
-        private const string GitHubApiLink = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
+        private const string GitHubApiLinkStabel = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
+        private const string GitHubApiLinkPreRelease = @"https://api.github.com/repos/ProfBits/LogUploader2/releases";
+
+        public static bool EnablePreReleases { get; set; } = false;
 
         private static string InstallerUrlCache { get; set; } = null;
 
@@ -27,21 +30,20 @@ namespace LogUploader.Helper
 
         static async Task<Version> GetNewestVersion(IProxySettings settings, IProgress<double> progress = null)
         {
-            string res;
             progress?.Report(0);
-            using (var wc = GetWebClient(settings))
+            Newtonsoft.Json.Linq.JToken jsonData;
+            try
             {
-                try
-                {
-                    res = await wc.DownloadStringTaskAsync(GitHubApiLink);
-                }
-                catch (WebException)
-                {
-                    return new Version(0, 0, 0, 0);
-                }
+                if (EnablePreReleases)
+                    jsonData = await GetLatestPreRelease(settings);
+                else
+                    jsonData = await GetLatestStableRelease(settings);
+            }
+            catch (HttpRequestException)
+            {
+                return new Version(0, 0, 0, 0);
             }
             progress?.Report(0.5);
-            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
             var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
             InstallerUrlCache = GetInstallerUrl(jsonData);
             progress?.Report(0.9);
@@ -88,7 +90,7 @@ namespace LogUploader.Helper
                 double currProgress = 0;
                 if (InstallerUrlCache == null)
                 {
-                    var res = await client.GetStringAsync(GitHubApiLink);
+                    var res = await client.GetStringAsync(GitHubApiLinkStabel);
                     progress?.Report(0.3);
                     var data = Newtonsoft.Json.Linq.JObject.Parse(res);
                     installerUrl = GetInstallerUrl(data);
@@ -114,19 +116,12 @@ namespace LogUploader.Helper
             return path;
         }
 
-        private static string GetInstallerUrl(Newtonsoft.Json.Linq.JObject data)
+        private static string GetInstallerUrl(Newtonsoft.Json.Linq.JToken data)
         {
             return data["assets"]
                 .Where(json => ((string)json["name"]).StartsWith("installer") && ((string)json["name"]).EndsWith(".exe"))
-                .Select(json => (string)json["browser_download_url"])
+                .Select(json => (string)json["url"])
                 .First();
-        }
-
-        private static WebClient GetWebClient(IProxySettings settings)
-        {
-            var wc = Helper.WebHelper.GetWebClient(settings);
-            wc.Headers.Add(HttpRequestHeader.UserAgent, USER_AGENT);
-            return wc;
         }
 
         private static HttpClient GetHttpClient(IProxySettings settings)
@@ -144,6 +139,31 @@ namespace LogUploader.Helper
         public static DialogResult ShowUpdateMgsBox() {
             var ui = new GUIs.UpdateAvailableUI();
             return ui.ShowDialog();
+        }
+
+        internal async static Task<Newtonsoft.Json.Linq.JToken> GetLatestStableRelease(IProxySettings settings)
+        {
+            string answer;
+
+            using (var client = GetHttpClient(settings))
+            {
+                answer = await client.GetStringAsync(GitHubApiLinkStabel);
+            }
+
+            return Newtonsoft.Json.Linq.JObject.Parse(answer);
+
+        }
+
+        internal async static Task<Newtonsoft.Json.Linq.JToken> GetLatestPreRelease(IProxySettings settings)
+        {
+            string answer;
+
+            using (var client = GetHttpClient(settings))
+            {
+                answer = await client.GetStringAsync(GitHubApiLinkPreRelease);
+            }
+
+            return Newtonsoft.Json.Linq.JObject.Parse("{data:" + answer + "}")["data"][0];
         }
     }
 }
