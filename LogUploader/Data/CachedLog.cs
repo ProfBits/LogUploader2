@@ -164,6 +164,12 @@ namespace LogUploader.Data
                     return (float)Math.Round((double)remainingLargos / healthLargos * 100, 2);
                 case 16247: //TwistedCastle
                     return 0;
+                case 23254: //Sunqua
+                    var darkAi = data.Where(target => target.id == -8).FirstOrDefault();
+                    var ai = data.Where(target => target.id == 23254).FirstOrDefault();
+                    var healthAi = (ai?.totalHealth ?? 14905666) + (darkAi?.totalHealth ?? 14905666);
+                    var remainingAi = (ai?.finalHealth ?? (darkAi == null ? 14905666 : 0)) + (darkAi?.finalHealth ?? 14905666);
+                    return (float)Math.Round((double)remainingAi / healthAi * 100, 2);
                 default:
                     var boss = data.Where(target => target.id == BossID).FirstOrDefault();
                     return (float)((double)boss?.finalHealth / boss?.totalHealth * 100 ?? 100);
