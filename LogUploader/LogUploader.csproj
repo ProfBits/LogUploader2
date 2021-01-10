@@ -98,6 +98,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <DefineConstants>BETA</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonMark.NET.0.15.1\lib\net45\CommonMark.dll</HintPath>
@@ -369,6 +372,7 @@
     <Content Include="Data\LogDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.manifest" />
     <None Include="LogUploader.ruleset" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\LogUploader.Data.DBLog.datasource" />
