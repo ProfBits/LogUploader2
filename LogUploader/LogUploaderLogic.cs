@@ -306,7 +306,13 @@ namespace LogUploader
             var response = DPSReport.UpladContent(log.EvtcPath);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(response);
             if (jsonData.ContainsKey("Error"))
-                throw new Exception($"Could not upload the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}\n\nResponse: \"{(string)jsonData["Error"]}\"");
+            {
+                var ex = new Exception($"Could not upload the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}\n\nResponse: \"{(string)jsonData["Error"]}\"");
+                if (log.SizeKb >= 30)
+                    throw ex;
+                Logger.LogException(ex);
+                return log;
+            }
             var link = (string)jsonData["permalink"];
             if (!log.DataCorrected)
             {
@@ -354,7 +360,13 @@ namespace LogUploader
             var json = res.Where(path => path.EndsWith(".json")).FirstOrDefault();
             //Maybe Add corrupted flag if no output is generated
             if (res.Count == 0)
-                throw new Exception($"Could not parse the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}");
+            {
+                var ex = new Exception($"Could not parse the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}");
+                if (log.SizeKb >= 30)
+                    throw ex;
+                Logger.LogException(ex);
+                return log;
+            }
             if (!log.DataCorrected)
             {
                 var jsonStr = GP.ReadJsonFile(json);
