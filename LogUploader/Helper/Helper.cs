@@ -248,6 +248,183 @@ namespace LogUploader.Helper
                 return "";
             }
         }
+
+        internal static void ExportSettings(Data.Settings.SettingsData settings, string path, string password = "")
+        {
+            //TODO: errorhandling of file io
+            string data = settings.ToString();
+            byte[] dataBytes;
+            if (!string.IsNullOrEmpty(password))
+            {
+                var key = GetKeyAndIv(password);
+                dataBytes = EncryptStringToBytes_Aes(data, key[0], key[1]);
+            }
+            else
+            {
+                dataBytes = Encoding.Unicode.GetBytes(data);
+            }
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            {
+                if (string.IsNullOrEmpty(password))
+                    fs.WriteByte(0x44);
+                else
+                    fs.WriteByte(0x50);
+                fs.WriteByte(0x0A);
+                fs.WriteByte(0x0D);
+                fs.Write(dataBytes, 0, dataBytes.Length);
+            }
+        }
+
+        private static byte[][] GetKeyAndIv(string password)
+        {
+            byte[][] res = new byte[2][];
+
+            using (SHA256 mySHA256 = SHA256.Create())
+            {
+                res[0] = Encoding.UTF8.GetBytes(password);
+                for (int i = 0; i < 1011; i++)
+                {
+                    res[0] = mySHA256.ComputeHash(res[0]);
+                }
+                var tmp = mySHA256.ComputeHash(res[0]);
+                for (int i = 0; i < tmp.Length - 1; i += 2)
+                {
+                    tmp[i / 2] = (byte) (tmp[i] ^ tmp[i + 1]);
+                }
+                res[1] = new byte[16];
+                Array.Copy(tmp, res[1], 16);
+            }
+
+            return res;
+        }
+
+        private static byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
+        {
+
+            // Check arguments.
+            if (plainText == null || plainText.Length <= 0)
+                throw new ArgumentNullException("plainText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+            byte[] encrypted;
+
+            // Create an Aes object
+            // with the specified key and IV.
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                // Create an encryptor to perform the stream transform.
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for encryption.
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            //Write all data to the stream.
+                            swEncrypt.Write(plainText);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+
+            // Return the encrypted bytes from the memory stream.
+            return encrypted;
+        }
+
+        internal static void ImportSettings(Data.Settings.SettingsData settings, string path, string password = "")
+        {
+            //TODO: errorhandling of file io
+            //TODO: invalid password, crypto exception
+            var file = File.ReadAllBytes(path);
+            byte[] dataBytes;
+            if ((file[0] == 0x44 || file[0] == 0x50) && file[0] == 0x0A && file[0] == 0x0D)
+            {
+                throw new Exception("Invalid File");
+            }
+
+            dataBytes = new byte[file.Length - 3];
+            Array.Copy(file, 3, dataBytes, 0, dataBytes.Length);
+
+            string data;
+            if (file[0] == 0x50)
+            {
+                //Password Protected
+                if (string.IsNullOrEmpty(password))
+                {
+                    throw new InvalidOperationException("Password required");
+                }
+                var key = GetKeyAndIv(password);
+                data = DecryptStringFromBytes_Aes(dataBytes, key[0], key[1]);
+            }
+            else
+            {
+                data = Encoding.Unicode.GetString(dataBytes);
+            }
+
+            settings.ApplyJson(data);
+            var s = new Settings();
+            settings.ApplyTo(s);
+            s.Save();
+        }
+
+
+        static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
+        {
+            // Check arguments.
+            if (cipherText == null || cipherText.Length <= 0)
+                throw new ArgumentNullException("cipherText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+
+            // Declare the string used to hold
+            // the decrypted text.
+            string plaintext = null;
+
+            // Create an Aes object
+            // with the specified key and IV.
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                // Create a decryptor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for decryption.
+                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+
+                            // Read the decrypted bytes from the decrypting stream
+                            // and place them in a string.
+                            try
+                            {
+                                plaintext = srDecrypt.ReadToEnd();
+                            }
+                            catch (CryptographicException)
+                            {
+                                throw new CryptographicException("Invalid Password");
+                            }
+                        }
+                    }
+                }
+            }
+
+            return plaintext;
+        }
     }
 
     public static class ZipHelper

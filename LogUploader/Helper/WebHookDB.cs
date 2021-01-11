@@ -20,12 +20,12 @@ namespace LogUploader.Helper
         [JsonProperty("WebHooks")]
         public List<WebHook> WebHooks { get => Data.Values.ToList(); }
 
-        public WebHookDB(string RawData)
+        public WebHookDB(string RawData, bool encrypted = false)
         {
             if (string.IsNullOrWhiteSpace(RawData))
                 return;
 
-            string data = SettingsHelper.UnprotectString(RawData);
+            string data = encrypted ? SettingsHelper.UnprotectString(RawData) : RawData;
 
             var root = JObject.Parse(data);
             var webhooks = (JArray)root["WebHooks"];
