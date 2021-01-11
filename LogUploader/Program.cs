@@ -73,7 +73,7 @@ namespace LogUploader
             {
                 Logger.Message("First boot");
                 Application.Run(new InitConfigUI());
-                settings.Reload();
+                settings = new Settings();
                 if (settings.FirstBoot)
                 {
                     Logger.Error("Exit: INIT_SETUP_FAILED");

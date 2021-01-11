@@ -243,6 +243,7 @@
     <Compile Include="Helper\DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="Helper\Logger.cs" />
+    <Compile Include="Helper\SettingsProvider.cs" />
     <Compile Include="Helper\PropMapper.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusCache.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusConnector.cs" />
