@@ -15,12 +15,15 @@ namespace LogUploader.Data.Settings
     {
         #region General Settings
 
+        [JsonIgnore]
         public string ArcLogsPath { get; set; }
         public string UserToken { get; set; }
+        [JsonIgnore]
         public bool FirstBoot { get; set; }
         public eLanguage Language { get; set; }
         public bool EnableAutoParse { get; set; }
         public bool EnableAutoUpload { get; set; }
+        [JsonIgnore]
         public string WhatsNewShown { get; set; }
         public bool AllowPrerelases { get; set; }
 
