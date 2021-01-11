@@ -249,9 +249,24 @@ namespace LogUploader.Helper
             }
         }
 
+        /// <summary>
+        /// Writes the settings to the given file. Overrides a existing file
+        /// The settings are encryted if a non null or empty password string is prvided.
+        /// </summary>
+        /// <param name="settings">the Settings to export</param>
+        /// <param name="path">the file to export to</param>
+        /// <param name="password">the password to protect the file</param>
+        /// <exception cref="IOException"></exception>
+        /// <exception cref="UnauthorizedAccessException"></exception>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="PathTooLongException"></exception>
         internal static void ExportSettings(Data.Settings.SettingsData settings, string path, string password = "")
         {
-            //TODO: errorhandling of file io
+            if (settings == null) new ArgumentNullException($"SettingsData settings was null.");
+            if (path == null) new ArgumentNullException($"string path was null.");
+            if (password == null) new ArgumentNullException($"string password was null.");
+
             string data = settings.ToString();
             byte[] dataBytes;
             if (!string.IsNullOrEmpty(password))
@@ -263,6 +278,7 @@ namespace LogUploader.Helper
             {
                 dataBytes = Encoding.Unicode.GetBytes(data);
             }
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
             using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
             {
                 if (string.IsNullOrEmpty(password))
@@ -339,15 +355,32 @@ namespace LogUploader.Helper
             return encrypted;
         }
 
+        /// <summary>
+        /// Reads the settings form the given file and saved them to the current settings
+        /// </summary>
+        /// <param name="settings">the current setttings</param>
+        /// <param name="path">the path to the file to import</param>
+        /// <param name="password">the password that protects the file</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidDataException">If the provided file has invalid headers</exception>
+        /// <exception cref="InvalidOperationException">If password required, hoverve none was given</exception>
+        /// <exception cref="CryptographicException">If invalid password was given</exception>
+        /// <exception cref="IOException"></exception>
+        /// <exception cref="UnauthorizedAccessException"></exception>
+        /// <exception cref="FileNotFoundException"></exception>
         internal static void ImportSettings(Data.Settings.SettingsData settings, string path, string password = "")
         {
-            //TODO: errorhandling of file io
-            //TODO: invalid password, crypto exception
+            if (settings == null) new ArgumentNullException($"SettingsData settings was null.");
+            if (path == null) new ArgumentNullException($"string path was null.");
+            if (password == null) new ArgumentNullException($"string password was null.");
+            if (!File.Exists(path))
+                throw new FileNotFoundException($"File \"{path}\" does not exist.");
+
             var file = File.ReadAllBytes(path);
             byte[] dataBytes;
             if ((file[0] == 0x44 || file[0] == 0x50) && file[0] == 0x0A && file[0] == 0x0D)
             {
-                throw new Exception("Invalid File");
+                throw new InvalidDataException("Invalid SettingsExport file.");
             }
 
             dataBytes = new byte[file.Length - 3];
@@ -356,11 +389,8 @@ namespace LogUploader.Helper
             string data;
             if (file[0] == 0x50)
             {
-                //Password Protected
                 if (string.IsNullOrEmpty(password))
-                {
-                    throw new InvalidOperationException("Password required");
-                }
+                    throw new InvalidOperationException("Password required.");
                 var key = GetKeyAndIv(password);
                 data = DecryptStringFromBytes_Aes(dataBytes, key[0], key[1]);
             }
