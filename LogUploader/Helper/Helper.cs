@@ -276,7 +276,7 @@ namespace LogUploader.Helper
             }
             else
             {
-                dataBytes = Encoding.Unicode.GetBytes(data);
+                dataBytes = Encoding.UTF8.GetBytes(data);
             }
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
@@ -396,7 +396,7 @@ namespace LogUploader.Helper
             }
             else
             {
-                data = Encoding.Unicode.GetString(dataBytes);
+                data = Encoding.UTF8.GetString(dataBytes);
             }
 
             settings.ApplyJson(data);

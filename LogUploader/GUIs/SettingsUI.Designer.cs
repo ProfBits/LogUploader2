@@ -33,7 +33,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsUI));
             this.gbCopyLinks = new System.Windows.Forms.GroupBox();
             this.cbLinkInSameLine = new System.Windows.Forms.CheckBox();
-            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cbGNEmotes = new System.Windows.Forms.CheckBox();
             this.cbEmptyLinesInBetween = new System.Windows.Forms.CheckBox();
             this.cbShowSuccsess = new System.Windows.Forms.CheckBox();
@@ -48,6 +47,7 @@
             this.txtUserToken = new System.Windows.Forms.TextBox();
             this.lblUserToken = new System.Windows.Forms.Label();
             this.gbGeneral = new System.Windows.Forms.GroupBox();
+            this.cbGeneralPrerelease = new System.Windows.Forms.CheckBox();
             this.cmbLang = new System.Windows.Forms.ComboBox();
             this.lblLang = new System.Windows.Forms.Label();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -75,9 +75,12 @@
             this.txtRoPlusUser = new System.Windows.Forms.TextBox();
             this.lblRoPlusPwd = new System.Windows.Forms.Label();
             this.lblRoPlusUser = new System.Windows.Forms.Label();
-            this.cbGeneralPrerelease = new System.Windows.Forms.CheckBox();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.openFileImport = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileExport = new System.Windows.Forms.SaveFileDialog();
+            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gbCopyLinks.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.gbDpsReport.SuspendLayout();
             this.gbGeneral.SuspendLayout();
             this.gbDiscord.SuspendLayout();
@@ -86,6 +89,7 @@
             this.flpWebHooks.SuspendLayout();
             this.gbEi.SuspendLayout();
             this.gbRoPlus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gbCopyLinks
@@ -112,11 +116,6 @@
             this.cbLinkInSameLine.TabIndex = 5;
             this.cbLinkInSameLine.Text = "Link in same line as encounter";
             this.cbLinkInSameLine.UseVisualStyleBackColor = true;
-            // 
-            // SettingsbindingSource
-            // 
-            this.SettingsbindingSource.AllowNew = true;
-            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
             // 
             // cbGNEmotes
             // 
@@ -275,6 +274,17 @@
             this.gbGeneral.TabIndex = 11;
             this.gbGeneral.TabStop = false;
             this.gbGeneral.Text = "General";
+            // 
+            // cbGeneralPrerelease
+            // 
+            this.cbGeneralPrerelease.AutoSize = true;
+            this.cbGeneralPrerelease.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsbindingSource, "AllowPrerelases", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbGeneralPrerelease.Location = new System.Drawing.Point(7, 91);
+            this.cbGeneralPrerelease.Name = "cbGeneralPrerelease";
+            this.cbGeneralPrerelease.Size = new System.Drawing.Size(119, 17);
+            this.cbGeneralPrerelease.TabIndex = 5;
+            this.cbGeneralPrerelease.Text = "Allow Beta Updates";
+            this.cbGeneralPrerelease.UseVisualStyleBackColor = true;
             // 
             // cmbLang
             // 
@@ -546,16 +556,38 @@
             this.lblRoPlusUser.TabIndex = 0;
             this.lblRoPlusUser.Text = "User:";
             // 
-            // cbGeneralPrerelease
+            // btnImport
             // 
-            this.cbGeneralPrerelease.AutoSize = true;
-            this.cbGeneralPrerelease.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsbindingSource, "AllowPrerelases", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbGeneralPrerelease.Location = new System.Drawing.Point(7, 91);
-            this.cbGeneralPrerelease.Name = "cbGeneralPrerelease";
-            this.cbGeneralPrerelease.Size = new System.Drawing.Size(119, 17);
-            this.cbGeneralPrerelease.TabIndex = 5;
-            this.cbGeneralPrerelease.Text = "Allow Beta Updates";
-            this.cbGeneralPrerelease.UseVisualStyleBackColor = true;
+            this.btnImport.Location = new System.Drawing.Point(93, 462);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.TabIndex = 15;
+            this.btnImport.Text = "Import";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(174, 462);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 15;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // openFileImport
+            // 
+            this.openFileImport.Title = "Select settingsfile to import";
+            // 
+            // saveFileExport
+            // 
+            this.saveFileExport.Title = "Export Settings";
+            // 
+            // SettingsbindingSource
+            // 
+            this.SettingsbindingSource.AllowNew = true;
+            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
             // 
             // SettingsUI
             // 
@@ -564,6 +596,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(660, 497);
+            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.btnImport);
             this.Controls.Add(this.gbRoPlus);
             this.Controls.Add(this.gbEi);
             this.Controls.Add(this.gbDiscord);
@@ -581,7 +615,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsUI_FormClosing);
             this.gbCopyLinks.ResumeLayout(false);
             this.gbCopyLinks.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.gbDpsReport.ResumeLayout(false);
             this.gbDpsReport.PerformLayout();
             this.gbGeneral.ResumeLayout(false);
@@ -596,6 +629,7 @@
             this.gbEi.PerformLayout();
             this.gbRoPlus.ResumeLayout(false);
             this.gbRoPlus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -647,5 +681,9 @@
         private System.Windows.Forms.Label lblRoPlusUser;
         private System.Windows.Forms.CheckBox cbEIAutoUpdate;
         private System.Windows.Forms.CheckBox cbGeneralPrerelease;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.OpenFileDialog openFileImport;
+        private System.Windows.Forms.SaveFileDialog saveFileExport;
     }
 }
