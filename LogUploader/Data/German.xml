@@ -138,6 +138,22 @@ Dies wird deine aktuellen Einstellungen dauerhaft löschen!</ConfigDefaultMsgTex
   <ConfigRoPlusTitle>RaidOrga+</ConfigRoPlusTitle>
   <ConfigRoPlusUser>Benutzer</ConfigRoPlusUser>
   <ConfigRoPlusPwd>Passwort</ConfigRoPlusPwd>
+  <ConfigExport>Export</ConfigExport>
+  <ConfigImport>Import</ConfigImport>
+  <ConfigExportFileFilter>LogUploaderSettings Datein|*.lus|Alle Datein|*.*</ConfigExportFileFilter>
+  <ConfigExportSaveTitle>Datei zum exportieren wählen</ConfigExportSaveTitle>
+  <ConfigImportOpenTitle>Datei zum importieren wählen</ConfigImportOpenTitle>
+  <ConfigExportPwdPromptTitle>Passwort</ConfigExportPwdPromptTitle>
+  <ConfigExportPwdPromptNewText>Passwort eingeben (leer ist kein Passwort):</ConfigExportPwdPromptNewText>
+  <ConfigExportPwdPromptText>Passwort eingeben:</ConfigExportPwdPromptText>
+  <ConfigExportPwdFailTitle>Passwort Fehler</ConfigExportPwdFailTitle>
+  <ConfigExportPwdFailText>Passwort Falsch</ConfigExportPwdFailText>
+  <ConfigExportMessageTitle>Export Status</ConfigExportMessageTitle>
+  <ConfigExportMessageFail>Export Fehlgeschagen</ConfigExportMessageFail>
+  <ConfigExportMessageSucc>Export Abgeschlossen</ConfigExportMessageSucc>
+  <ConfigImportMessageTitle>Import Status</ConfigImportMessageTitle>
+  <ConfigImportMessageFail>Import Fehlgeschagen</ConfigImportMessageFail>
+  <ConfigImportMessageSucc>Import Abgeschlossen</ConfigImportMessageSucc>
   <NewTitle>Neuerungen in </NewTitle>
   <NewHeading>Update-Notes</NewHeading>
   <NewClose>Schliessen</NewClose>

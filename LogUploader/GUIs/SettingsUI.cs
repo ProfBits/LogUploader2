@@ -53,9 +53,9 @@ namespace LogUploader.GUI
             SettingsbindingSource.ResetBindings(true);
             UpdateWebHooks();
 
-            openFileImport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
+            //openFileImport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
             openFileImport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            saveFileExport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
+            //saveFileExport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
             saveFileExport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             saveFileExport.FileName = $"LogUploaderSettings{Environment.UserName}.lus";
 
@@ -194,6 +194,13 @@ namespace LogUploader.GUI
 
             NoWebHooks.Text = lang.ConfigDiscordNoHooks;
 
+            openFileImport.Title = lang.ConfigImportOpenTitle;
+            openFileImport.Filter = lang.ConfigExportFileFilter;
+            saveFileExport.Title = lang.ConfigExportSaveTitle;
+            saveFileExport.Filter = lang.ConfigExportFileFilter;
+            btnExport.Text = lang.ConfigExport;
+            btnImport.Text = lang.ConfigImport;
+
 #if DEBUG
             Text += " DEBUG";
 #elif ALPHA
@@ -269,26 +276,26 @@ namespace LogUploader.GUI
             {
                 do
                 {
-                    var inBox = new InputDialog("Enter Password:", "Password Required");
+                    var inBox = new InputDialog(Language.Data.ConfigExportPwdPromptText, Language.Data.ConfigExportPwdPromptTitle);
                     res = inBox.ShowDialog();
                     if (res == DialogResult.Cancel) return;
                     try
                     {
                         SettingsHelper.ImportSettings(CurrentState, openFileImport.FileName, inBox.Input);
-                        MessageBox.Show("Import complete", "Import result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(Language.Data.ConfigImportMessageSucc, Language.Data.ConfigImportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         SettingsbindingSource.ResetBindings(true);
                         Refresh();
                         return;
                     }
                     catch (System.Security.Cryptography.CryptographicException)
                     {
-                        res = MessageBox.Show("Invalid password", "Invalid Password", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        res = MessageBox.Show(Language.Data.ConfigExportPwdFailText, Language.Data.ConfigExportPwdFailTitle, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                         if (res == DialogResult.Cancel) return;
                     }
                     catch (Exception ex)
                     {
                         Logger.LogException(ex);
-                        MessageBox.Show("Import failed", "Import result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Language.Data.ConfigImportMessageFail, Language.Data.ConfigImportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 } while (res == DialogResult.Retry);
@@ -299,18 +306,18 @@ namespace LogUploader.GUI
         {
             var res = saveFileExport.ShowDialog();
             if (res == DialogResult.Cancel) return;
-            var inBox = new InputDialog("Enter password (empty is no password):", "Set password");
+            var inBox = new InputDialog(Language.Data.ConfigExportPwdPromptNewText, Language.Data.ConfigExportPwdPromptTitle);
             res = inBox.ShowDialog();
             if (res == DialogResult.Cancel) return;
             try
             {
                 SettingsHelper.ExportSettings(CurrentState, saveFileExport.FileName, inBox.Input);
-                MessageBox.Show("Export complete", "Export result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Language.Data.ConfigExportMessageSucc, Language.Data.ConfigExportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                MessageBox.Show("Export faild", "Export result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Language.Data.ConfigExportMessageFail, Language.Data.ConfigExportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -151,6 +151,22 @@ namespace LogUploader.Languages
         string ConfigRoPlusTitle { get; }
         string ConfigRoPlusUser { get; }
         string ConfigRoPlusPwd { get; }
+        string ConfigExport { get; }
+        string ConfigImport { get; }
+        string ConfigExportFileFilter { get; }
+        string ConfigExportSaveTitle { get; }
+        string ConfigImportOpenTitle { get; }
+        string ConfigExportPwdPromptTitle { get; }
+        string ConfigExportPwdPromptNewText { get; }
+        string ConfigExportPwdPromptText { get; }
+        string ConfigExportPwdFailTitle { get; }
+        string ConfigExportPwdFailText { get; }
+        string ConfigExportMessageTitle { get; }
+        string ConfigExportMessageFail { get; }
+        string ConfigExportMessageSucc { get; }
+        string ConfigImportMessageTitle { get; }
+        string ConfigImportMessageFail { get; }
+        string ConfigImportMessageSucc { get; }
 
         string NewTitle { get; }
         string NewHeading { get; }
