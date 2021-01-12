@@ -157,6 +157,22 @@ namespace LogUploader.Languages
         public string ConfigRoPlusTitle { get => "RaidOrga+"; }
         public string ConfigRoPlusUser { get => "Benutzer"; }
         public string ConfigRoPlusPwd { get => "Passwort"; }
+        public string ConfigExport { get => "Export"; }
+        public string ConfigImport { get => "Import"; }
+        public string ConfigExportFileFilter { get => "LogUploaderSettings Datein|*.lus|Alle Datein|*.*"; }
+        public string ConfigExportSaveTitle { get => "Datei zum exportieren wählen"; }
+        public string ConfigImportOpenTitle { get => "Datei zum importieren wählen"; }
+        public string ConfigExportPwdPromptTitle { get => "Passwort"; }
+        public string ConfigExportPwdPromptText { get => "Passwort eingeben:"; }
+        public string ConfigExportPwdPromptNewText { get => "Passwort eingeben (leer ist kein Passwort):"; }
+        public string ConfigExportPwdFailTitle { get => "Passwort Fehler"; }
+        public string ConfigExportPwdFailText { get => "Passwort Falsch"; }
+        public string ConfigExportMessageTitle { get => "Export Status"; }
+        public string ConfigExportMessageFail { get => "Export Fehlgeschagen"; }
+        public string ConfigExportMessageSucc { get => "Export Abgeschlossen"; }
+        public string ConfigImportMessageTitle { get => "Import Status"; }
+        public string ConfigImportMessageFail { get => "Import Fehlgeschagen"; }
+        public string ConfigImportMessageSucc { get => "Import Abgeschlossen"; }
 
         public string NewTitle { get => "Neuerungen in "; }
         public string NewHeading { get => "Update-Notes"; }

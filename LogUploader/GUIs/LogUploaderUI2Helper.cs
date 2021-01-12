@@ -307,10 +307,16 @@ namespace LogUploader.GUIs
             cmbWebhookSelect.DataSource = Logic.GetWebHooks();
             cmbWebhookSelect.DisplayMember = "Name";
             cmbWebhookSelect.ValueMember = "ID";
+            BindRaidOrgaBox();
+        }
 
-            cmbRaidOrgaTermin.DataSource = Logic.GetRaidOrgaTermine();
+        private void BindRaidOrgaBox(bool reload = false)
+        {
+            if (reload) cmbRaidOrgaTermin.Enabled = false;
+            cmbRaidOrgaTermin.DataSource = Logic.GetRaidOrgaTermine(reload);
             cmbRaidOrgaTermin.DisplayMember = "DisplayName";
             cmbRaidOrgaTermin.ValueMember = "Self";
+            if (reload) cmbRaidOrgaTermin.Enabled = true;
         }
 
         private void UpdateAutoLogActions()
@@ -498,6 +504,9 @@ namespace LogUploader.GUIs
 
             lblWorkCount.Text = "";
             lblWorkType.Text = "";
+
+            Action a = () => BindRaidOrgaBox(true);
+            _ = Task.Run(() => Invoke(a));
         }
 
         private void UpdateSelectedWebHook()

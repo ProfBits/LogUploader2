@@ -138,6 +138,22 @@ This will permanently delete your current settings!</ConfigDefaultMsgText>
   <ConfigRoPlusTitle>RaidOrga+</ConfigRoPlusTitle>
   <ConfigRoPlusUser>User</ConfigRoPlusUser>
   <ConfigRoPlusPwd>Password</ConfigRoPlusPwd>
+  <ConfigExport>Export</ConfigExport>
+  <ConfigImport>Import</ConfigImport>
+  <ConfigExportFileFilter>LogUploaderSettings files|*.lus|All files|*.*</ConfigExportFileFilter>
+  <ConfigExportSaveTitle>Select file to export to</ConfigExportSaveTitle>
+  <ConfigImportOpenTitle>Select file to import from</ConfigImportOpenTitle>
+  <ConfigExportPwdPromptTitle>Password</ConfigExportPwdPromptTitle>
+  <ConfigExportPwdPromptNewText>Enter password (empty is no password):</ConfigExportPwdPromptNewText>
+  <ConfigExportPwdPromptText>Enter Password:</ConfigExportPwdPromptText>
+  <ConfigExportPwdFailTitle>Password Error</ConfigExportPwdFailTitle>
+  <ConfigExportPwdFailText>Invalid Password</ConfigExportPwdFailText>
+  <ConfigExportMessageTitle>Export result</ConfigExportMessageTitle>
+  <ConfigExportMessageFail>Export faild</ConfigExportMessageFail>
+  <ConfigExportMessageSucc>Export complete</ConfigExportMessageSucc>
+  <ConfigImportMessageTitle>Import result</ConfigImportMessageTitle>
+  <ConfigImportMessageFail>Import failed</ConfigImportMessageFail>
+  <ConfigImportMessageSucc>Import complete</ConfigImportMessageSucc>
   <NewTitle>What's new in </NewTitle>
   <NewHeading>Patchnotes</NewHeading>
   <NewClose>Close</NewClose>

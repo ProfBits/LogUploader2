@@ -53,6 +53,12 @@ namespace LogUploader.GUI
             SettingsbindingSource.ResetBindings(true);
             UpdateWebHooks();
 
+            //openFileImport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
+            openFileImport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //saveFileExport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
+            saveFileExport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileExport.FileName = $"LogUploaderSettings{Environment.UserName}.lus";
+
             ApplyLanguage(Language.Data);
         }
 
@@ -188,6 +194,13 @@ namespace LogUploader.GUI
 
             NoWebHooks.Text = lang.ConfigDiscordNoHooks;
 
+            openFileImport.Title = lang.ConfigImportOpenTitle;
+            openFileImport.Filter = lang.ConfigExportFileFilter;
+            saveFileExport.Title = lang.ConfigExportSaveTitle;
+            saveFileExport.Filter = lang.ConfigExportFileFilter;
+            btnExport.Text = lang.ConfigExport;
+            btnImport.Text = lang.ConfigImport;
+
 #if DEBUG
             Text += " DEBUG";
 #elif ALPHA
@@ -247,5 +260,65 @@ namespace LogUploader.GUI
         }
 
         public static bool BetaEnableRaidOrga { get; set; } = false;
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            var res = openFileImport.ShowDialog();
+            if (res == DialogResult.Cancel) return;
+            try
+            {
+                SettingsHelper.ImportSettings(CurrentState, openFileImport.FileName);
+                SettingsbindingSource.ResetBindings(true);
+                Refresh();
+                return;
+            }
+            catch (InvalidOperationException)
+            {
+                do
+                {
+                    var inBox = new InputDialog(Language.Data.ConfigExportPwdPromptText, Language.Data.ConfigExportPwdPromptTitle);
+                    res = inBox.ShowDialog();
+                    if (res == DialogResult.Cancel) return;
+                    try
+                    {
+                        SettingsHelper.ImportSettings(CurrentState, openFileImport.FileName, inBox.Input);
+                        MessageBox.Show(Language.Data.ConfigImportMessageSucc, Language.Data.ConfigImportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SettingsbindingSource.ResetBindings(true);
+                        Refresh();
+                        return;
+                    }
+                    catch (System.Security.Cryptography.CryptographicException)
+                    {
+                        res = MessageBox.Show(Language.Data.ConfigExportPwdFailText, Language.Data.ConfigExportPwdFailTitle, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        if (res == DialogResult.Cancel) return;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogException(ex);
+                        MessageBox.Show(Language.Data.ConfigImportMessageFail, Language.Data.ConfigImportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                } while (res == DialogResult.Retry);
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            var res = saveFileExport.ShowDialog();
+            if (res == DialogResult.Cancel) return;
+            var inBox = new InputDialog(Language.Data.ConfigExportPwdPromptNewText, Language.Data.ConfigExportPwdPromptTitle);
+            res = inBox.ShowDialog();
+            if (res == DialogResult.Cancel) return;
+            try
+            {
+                SettingsHelper.ExportSettings(CurrentState, saveFileExport.FileName, inBox.Input);
+                MessageBox.Show(Language.Data.ConfigExportMessageSucc, Language.Data.ConfigExportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                MessageBox.Show(Language.Data.ConfigExportMessageFail, Language.Data.ConfigExportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

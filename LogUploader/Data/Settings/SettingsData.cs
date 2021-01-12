@@ -1,5 +1,8 @@
 ﻿using LogUploader.Helper;
 using LogUploader.Properties;
+
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +11,19 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Settings
 {
-    class SettingsData : IGeneralSettings, ICopyLinksSettings, IProxySettings, IWebHookSettings, IEliteInsightsSettings, IRaidOrgaPlusSettings
+    class SettingsData : IGeneralSettings, ICopyLinksSettings, IProxySettings, IWebHookSettings, IEliteInsightsSettings, IRaidOrgaPlusSettings, IEquatable<SettingsData>
     {
         #region General Settings
 
+        [JsonIgnore]
         public string ArcLogsPath { get; set; }
         public string UserToken { get; set; }
+        [JsonIgnore]
         public bool FirstBoot { get; set; }
         public eLanguage Language { get; set; }
         public bool EnableAutoParse { get; set; }
         public bool EnableAutoUpload { get; set; }
+        [JsonIgnore]
         public string WhatsNewShown { get; set; }
         public bool AllowPrerelases { get; set; }
 
@@ -42,9 +48,10 @@ namespace LogUploader.Data.Settings
         #endregion
         #region WebHook
 
-        public string WebHookDBStr { get => WebHookDB.GetSaveString(); set => WebHookDB = new WebHookDB(value); }
+        public string WebHookDBStr { get => WebHookDB.ToString(); set => WebHookDB = new WebHookDB(value); }
         public long CurrentWebHook { get; set; }
         public eDiscordPostFormat DiscordPostFormat { get; set; }
+        [JsonIgnore]
         public WebHookDB WebHookDB { get; set; }
         public bool OnlyPostUploaded { get; set; }
         public bool NameAsDiscordUser { get; set; }
@@ -61,6 +68,7 @@ namespace LogUploader.Data.Settings
 
         public string RaitOrgaPlusUser { get; set; }
         public string RaidOrgaPlusPassword { get; set; }
+        [JsonIgnore]
         public bool RaidOrgaPlusAccoutSet { get => !string.IsNullOrWhiteSpace(RaitOrgaPlusUser) || !string.IsNullOrWhiteSpace(RaidOrgaPlusPassword); }
 
         #endregion
@@ -116,7 +124,7 @@ namespace LogUploader.Data.Settings
 
         private void SetWebHook(string webHookDB, long currentWebHook, string discordPostFormat, bool onlyPostUploaded, bool nameAsDiscordUser)
         {
-            WebHookDBStr = webHookDB;
+            WebHookDBStr = SettingsHelper.UnprotectString(webHookDB);
             CurrentWebHook = currentWebHook;
             try
             {
@@ -191,7 +199,7 @@ namespace LogUploader.Data.Settings
 
         private void ApplyWebHook(Properties.Settings settings)
         {
-            settings.WebHookDB = WebHookDBStr;
+            settings.WebHookDB = SettingsHelper.ProtectString(WebHookDBStr);
             settings.CurrentWebHook = CurrentWebHook;
             settings.DiscordPostFormat = DiscordPostFormat.ToString();
             settings.OnlyPostUploaded = OnlyPostUploaded;
@@ -211,44 +219,61 @@ namespace LogUploader.Data.Settings
             settings.RopPwd = SettingsHelper.ProtectString(RaidOrgaPlusPassword);
         }
 
+
         #endregion
 
         #region Equals/GetHashCodoe
 
         public override bool Equals(object obj)
         {
-            return obj is SettingsData data &&
-                   ArcLogsPath == data.ArcLogsPath &&
-                   UserToken == data.UserToken &&
-                   FirstBoot == data.FirstBoot &&
-                   Language == data.Language &&
-                   EncounterName == data.EncounterName &&
-                   EncounterSuccess == data.EncounterSuccess &&
-                   Inline == data.Inline &&
-                   EmptyLineBetween == data.EmptyLineBetween &&
-                   UseGnDiscordEmotes == data.UseGnDiscordEmotes &&
-                   UseProxy == data.UseProxy &&
-                   ProxyAddress == data.ProxyAddress &&
-                   ProxyPort == data.ProxyPort &&
-                   ProxyUsername == data.ProxyUsername &&
-                   ProxyPassword == data.ProxyPassword &&
-                   WebHookDB.ToString() == data.WebHookDB.ToString() &&
-                   CurrentWebHook == data.CurrentWebHook &&
-                   DiscordPostFormat == data.DiscordPostFormat &&
-                   OnlyPostUploaded == data.OnlyPostUploaded &&
-                   NameAsDiscordUser == data.NameAsDiscordUser &&
-                   AutoUpdateEI == data.AutoUpdateEI &&
-                   CreateCombatReplay == data.CreateCombatReplay &&
-                   LightTheme == data.LightTheme;
+            return Equals(obj as SettingsData);
+        }
+
+        public bool Equals(SettingsData other)
+        {
+            return other != null &&
+                   ArcLogsPath == other.ArcLogsPath &&
+                   UserToken == other.UserToken &&
+                   FirstBoot == other.FirstBoot &&
+                   Language == other.Language &&
+                   EnableAutoParse == other.EnableAutoParse &&
+                   EnableAutoUpload == other.EnableAutoUpload &&
+                   WhatsNewShown == other.WhatsNewShown &&
+                   AllowPrerelases == other.AllowPrerelases &&
+                   EncounterName == other.EncounterName &&
+                   EncounterSuccess == other.EncounterSuccess &&
+                   Inline == other.Inline &&
+                   EmptyLineBetween == other.EmptyLineBetween &&
+                   UseGnDiscordEmotes == other.UseGnDiscordEmotes &&
+                   UseProxy == other.UseProxy &&
+                   ProxyAddress == other.ProxyAddress &&
+                   ProxyPort == other.ProxyPort &&
+                   ProxyUsername == other.ProxyUsername &&
+                   ProxyPassword == other.ProxyPassword &&
+                   CurrentWebHook == other.CurrentWebHook &&
+                   DiscordPostFormat == other.DiscordPostFormat &&
+                   EqualityComparer<WebHookDB>.Default.Equals(WebHookDB, other.WebHookDB) &&
+                   OnlyPostUploaded == other.OnlyPostUploaded &&
+                   NameAsDiscordUser == other.NameAsDiscordUser &&
+                   AutoUpdateEI == other.AutoUpdateEI &&
+                   CreateCombatReplay == other.CreateCombatReplay &&
+                   LightTheme == other.LightTheme &&
+                   RaitOrgaPlusUser == other.RaitOrgaPlusUser &&
+                   RaidOrgaPlusPassword == other.RaidOrgaPlusPassword &&
+                   RaidOrgaPlusAccoutSet == other.RaidOrgaPlusAccoutSet;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 1707943953;
+            int hashCode = -1752571956;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ArcLogsPath);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(UserToken);
             hashCode = hashCode * -1521134295 + FirstBoot.GetHashCode();
             hashCode = hashCode * -1521134295 + Language.GetHashCode();
+            hashCode = hashCode * -1521134295 + EnableAutoParse.GetHashCode();
+            hashCode = hashCode * -1521134295 + EnableAutoUpload.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(WhatsNewShown);
+            hashCode = hashCode * -1521134295 + AllowPrerelases.GetHashCode();
             hashCode = hashCode * -1521134295 + EncounterName.GetHashCode();
             hashCode = hashCode * -1521134295 + EncounterSuccess.GetHashCode();
             hashCode = hashCode * -1521134295 + Inline.GetHashCode();
@@ -259,14 +284,17 @@ namespace LogUploader.Data.Settings
             hashCode = hashCode * -1521134295 + ProxyPort.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProxyUsername);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProxyPassword);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(WebHookDB.ToString());
             hashCode = hashCode * -1521134295 + CurrentWebHook.GetHashCode();
             hashCode = hashCode * -1521134295 + DiscordPostFormat.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<WebHookDB>.Default.GetHashCode(WebHookDB);
             hashCode = hashCode * -1521134295 + OnlyPostUploaded.GetHashCode();
             hashCode = hashCode * -1521134295 + NameAsDiscordUser.GetHashCode();
             hashCode = hashCode * -1521134295 + AutoUpdateEI.GetHashCode();
             hashCode = hashCode * -1521134295 + CreateCombatReplay.GetHashCode();
             hashCode = hashCode * -1521134295 + LightTheme.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(RaitOrgaPlusUser);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(RaidOrgaPlusPassword);
+            hashCode = hashCode * -1521134295 + RaidOrgaPlusAccoutSet.GetHashCode();
             return hashCode;
         }
 
@@ -280,7 +308,17 @@ namespace LogUploader.Data.Settings
             return !(left == right);
         }
 
+        internal void ApplyJson(string data)
+        {
+            JsonConvert.PopulateObject(data, this);
+        }
+
 
         #endregion
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

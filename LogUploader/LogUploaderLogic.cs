@@ -545,7 +545,7 @@ namespace LogUploader
             EliteInsights.Settings = Settings;
             Helper.DiscordPostGen.DiscordPostGenerator.Settings = Settings;
             WebHookDB = Settings.WebHookDB;
-            
+
             OnDataChanged(new EventArgs());
 
         }
@@ -1011,8 +1011,9 @@ namespace LogUploader
             return log;
         }
 
-        internal List<RaidSimple> GetRaidOrgaTermine()
+        internal List<RaidSimple> GetRaidOrgaTermine(bool reconnect = false, IProgress<ProgressMessage> progress = null)
         {
+            if (reconnect) LoadTermine(progress);
             return RaidOrgaPlusTermine;
         }
 

@@ -19,6 +19,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         private readonly IProxySettings ProxySettings;
 
         private const int TimeoutMs = 10_000;
+        private const string BASE_ADDRESS = "https://koji.sollunad.de:8080";
 
         public RaidOrgaPlusConnector(IProxySettings proxySettings)
         {
@@ -28,7 +29,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         public Session Connect(IRaidOrgaPlusSettings orgaSettings, string userAgent = "LogUploader")
         {
 
-            var httpWebRequest = GetPostRequest("https://sv.sollunad.de:8080/users/sessions", userAgent);
+            var httpWebRequest = GetPostRequest(BASE_ADDRESS + "/users/sessions", userAgent);
 
             try
             {
@@ -64,7 +65,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             progress?.Report(0);
 
-            var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine?auth={session.Token}", session.UserAgent);
+            var request = GetGetRequest(BASE_ADDRESS + $@"/termine?auth={session.Token}", session.UserAgent);
 
             string termineRAW;
             var httpResponse = (HttpWebResponse)request.GetResponse();
@@ -73,7 +74,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             progress?.Report(0.4);
 
-            request = GetGetRequest($@"https://sv.sollunad.de:8080/raids?auth={session.Token}", session.UserAgent);
+            request = GetGetRequest(BASE_ADDRESS + $@"/raids?auth={session.Token}", session.UserAgent);
 
             string raidsRAW;
             httpResponse = (HttpWebResponse)request.GetResponse();
@@ -118,7 +119,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 return null;
 
             progress.Report(new ProgressMessage(0, "Bosses"));
-            var request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen?termin={terminID}&auth={session.Token}", session.UserAgent);
+            var request = GetGetRequest(BASE_ADDRESS + $@"/aufstellungen?termin={terminID}&auth={session.Token}", session.UserAgent);
             if (ct.IsCancellationRequested) return null;
 
             string aufstellungenRAW;
@@ -128,7 +129,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             if (ct.IsCancellationRequested) return null;
             progress.Report(new ProgressMessage(0.10, "Clases and roles"));
-            request = GetGetRequest($@"https://sv.sollunad.de:8080/aufstellungen/elements?termin={terminID}&auth={session.Token}", session.UserAgent);
+            request = GetGetRequest(BASE_ADDRESS + $@"/aufstellungen/elements?termin={terminID}&auth={session.Token}", session.UserAgent);
             if (ct.IsCancellationRequested) return null;
 
             string elementsRAW;
@@ -138,7 +139,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             if (ct.IsCancellationRequested) return null;
             progress.Report(new ProgressMessage(0.35, "Static data"));
-            request = GetGetRequest($@"https://sv.sollunad.de:8080/gamedata/encounter", session.UserAgent);
+            request = GetGetRequest(BASE_ADDRESS + $@"/gamedata/encounter", session.UserAgent);
             if (ct.IsCancellationRequested) return null;
 
             string bossesRAW;
@@ -199,7 +200,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private List<Account> GetGroup(Session session, long terminID)
         {
-            var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine/anmeldungenAll?termin={terminID}&auth={session.Token}", session.UserAgent);
+            var request = GetGetRequest(BASE_ADDRESS + $@"/termine/anmeldungenAll?termin={terminID}&auth={session.Token}", session.UserAgent);
 
             string groupRAW;
             var httpResponse = (HttpWebResponse)request.GetResponse();
@@ -212,7 +213,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private List<Account> GetHelper(Session session, long terminID)
         {
-            var request = GetGetRequest($@"https://sv.sollunad.de:8080/termine/ersatz?termin={terminID}&auth={session.Token}", session.UserAgent);
+            var request = GetGetRequest(BASE_ADDRESS + $@"/termine/ersatz?termin={terminID}&auth={session.Token}", session.UserAgent);
 
             string ersatzRAW;
             var httpResponse = (HttpWebResponse)request.GetResponse();
@@ -225,7 +226,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private List<Account> GetInvitealbe(Session session, long groupID)
         {
-            var request = GetGetRequest($@"https://sv.sollunad.de:8080/raids/invitable?raid={groupID}&auth={session.Token}", session.UserAgent);
+            var request = GetGetRequest(BASE_ADDRESS + $@"/raids/invitable?raid={groupID}&auth={session.Token}", session.UserAgent);
 
             string inviteableRAW;
             var httpResponse = (HttpWebResponse)request.GetResponse();
@@ -307,8 +308,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
 #warning Dev hack, do not release, test on live
             var httpWebRequest = GetPostRequest(@"http://localhost:8081/api/aufstellungen", session.UserAgent);
 #else
-#error Dev envoriment DO NOT RELEASE
-            var httpWebRequest = GetPostRequest(@"https://sv.sollunad.de:8080/api/aufstellungen", session.UserAgent);
+#error Dev envoriment DO NOT RELEASE raid orga set aufstellung
+            var httpWebRequest = GetPostRequest(BASE_ADDRESS + @"/api/aufstellungen", session.UserAgent);
 #endif
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
