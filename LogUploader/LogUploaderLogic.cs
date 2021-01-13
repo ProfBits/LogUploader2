@@ -802,7 +802,7 @@ namespace LogUploader
             if (logs.Count == 1)
             {
                 var log = logs[0];
-                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsAll).Select(p => GetPlayerData(p));
+                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsTargets).Select(p => GetPlayerData(p));
                 return new LogPreview(log, pData.Count() > 0 ? pData : null);
             }
             if (logs.Count > 1)
@@ -892,7 +892,7 @@ namespace LogUploader
                 ClassImage = player.ProfessionIcon,
                 DisplayName = player.Account.TrimEnd("0123456789.".ToCharArray()),
                 SubGroup = player.Group.ToString(),
-                DPS = player.DpsAll.ToString()
+                DPS = player.DpsTargets.ToString()
             };
         }
 
