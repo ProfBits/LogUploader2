@@ -172,7 +172,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 encounter.RemoveDuplicates();
                 encounter.UpdateNamedPlayers();
                 encounter.UpdateUnnamedPlayers();
-                encounter.EnsureAllPlayers();
+                for (int i = 0; i < 10 && !encounter.EnsureAllPlayers(); i++)
+                    encounter.InsertDuplicatesPlayers();
+                
                 encounter.SortIfNew();
             }
         }
@@ -557,19 +559,68 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         TC.Get().Set(player);
             }
 
-            //TODO Implement EnsureAllPlayers properly
-            internal void EnsureAllPlayers()
+            internal void InsertDuplicatesPlayers()
             {
-                var tcData = Players.Select(p => p.RaidOrgaID).Distinct().ToDictionary(e => e, e => Players.Where(p => p.RaidOrgaID == e).Count());
-                foreach (var p in TC.Players)
+                var relevantPlayers = Players
+                    .Where(p => Players.Where(p2 => p.RaidOrgaID == p2.RaidOrgaID).Count() > TC.Players.Where(p2 => p2.ID == p.RaidOrgaID).Count())
+                    .Where(p => !TC.Players.Exists(p2 => p.AccountName == p2.AccName && p.Class.RaidOrgaPlusID == p2.ClassID))
+                    .Distinct();
+
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(player.Class, player.Role))
+                        TC.Get(player.Class, player.Role).Set(player);
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(Profession.Unknown, player.Role))
+                        TC.Get(Profession.Unknown, player.Role).Set(player);
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(player.Class, Role.Empty))
+                        TC.Get(player.Class, Role.Empty).Set(player);
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(Profession.Unknown, Role.Empty))
+                        TC.Get(Profession.Unknown, Role.Empty).Set(player);
+
+                relevantPlayers = Players
+                    .Where(p => Players.Where(p2 => p.RaidOrgaID == p2.RaidOrgaID).Count() > TC.Players.Where(p2 => p2.ID == p.RaidOrgaID).Count())
+                    .Where(p => !TC.Players.Exists(p2 => p.AccountName == p2.AccName && p.Class.RaidOrgaPlusID == p2.ClassID))
+                    .Distinct(); 
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(player.Role))
+                        TC.Get(player.Role).Set(player);
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(player.Class))
+                        TC.Get(player.Class).Set(player);
+
+                relevantPlayers = Players
+                    .Where(p => Players.Where(p2 => p.RaidOrgaID == p2.RaidOrgaID).Count() > TC.Players.Where(p2 => p2.ID == p.RaidOrgaID).Count())
+                    .Where(p => !TC.Players.Exists(p2 => p.AccountName == p2.AccName && p.Class.RaidOrgaPlusID == p2.ClassID))
+                    .Distinct();
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(Role.Empty))
+                        TC.Get(Role.Empty).Set(player);
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists(Profession.Unknown))
+                        TC.Get(Profession.Unknown).Set(player);
+                foreach (var player in relevantPlayers)
+                    if (TC.Exists())
+                        TC.Get().Set(player);
+            }
+
+            internal bool EnsureAllPlayers()
+            {
+                var LogData = Players.Select(p => p.RaidOrgaID).Distinct().ToDictionary(e => e, e => Players.Where(p => p.RaidOrgaID == e).Count());
+                var RopData = TC.Players.Select(p => p.ID).Distinct().ToDictionary(e => e, e => TC.Players.Where(p => p.ID == e).Count());
+                if (!LogData.All(l => RopData[l.Key] == l.Value))
                 {
-                    if (!tcData.ContainsKey(p.ID))
-                        //Error player missing in tc
-                        throw new NotImplementedException();
-                    if (tcData[p.ID] != TC.Players.Where(p2 => p.ID == p2.ID).Count())
-                        //Error player to often or to few
-                        throw new NotImplementedException();
+                    string err = "Players in TeamComp do not match up";
+                    Logger.Error(err);
+                    Logger.Debug("LogData");
+                    foreach (var p in LogData) Logger.Error($"{{{p.Key}; {p.Value}}}");
+                    Logger.Debug("TcData");
+                    foreach (var p in RopData) Logger.Error($"{{{p.Key}; {p.Value}}}");
+
+                    return false;
                 }
+                return true;
             }
 
             internal void FillTeamComp()
