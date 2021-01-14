@@ -26,7 +26,12 @@ namespace LogUploader.Helper.RaidOrgaPlus
             ProxySettings = proxySettings;
         }
 
-        public Session Connect(IRaidOrgaPlusSettings orgaSettings, string userAgent = "LogUploader")
+        public Session Connect(IRaidOrgaPlusSettings orgaSettings)
+        {
+            return Connect(orgaSettings, $"LogUploader{new Random().Next(0, 1000000).ToString().PadLeft(6, '0')}");
+        }
+
+        public Session Connect(IRaidOrgaPlusSettings orgaSettings, string userAgent)
         {
 
             var httpWebRequest = GetPostRequest(BASE_ADDRESS + "/users/sessions", userAgent);
@@ -332,13 +337,15 @@ namespace LogUploader.Helper.RaidOrgaPlus
             }
             catch (Exception e)
             {
-                throw new NotImplementedException();
+                Logger.Error($@"RO+ SetRaid has throwen an exception");
+                Logger.LogException(e);
+                throw new OperationCanceledException("Something went wrong when updating RO+", e);
             }
         }
 
         public void ToggleHelper(Session session, long terminID, long userID)
         {
-            var httpWebRequest = GetPostRequest("https://sv.sollunad.de:8080/termine/ersatz", session.UserAgent);
+            var httpWebRequest = GetPostRequest(BASE_ADDRESS + "/termine/ersatz", session.UserAgent);
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {
