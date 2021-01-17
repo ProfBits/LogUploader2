@@ -19,7 +19,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         private readonly IProxySettings ProxySettings;
 
         private const int TimeoutMs = 10_000;
-        private const string BASE_ADDRESS = "https://koji.sollunad.de:8080";
+        private const string BASE_ADDRESS = "https://sv.rising-light.de:8080";
 
         public RaidOrgaPlusConnector(IProxySettings proxySettings)
         {
