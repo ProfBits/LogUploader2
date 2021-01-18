@@ -108,17 +108,17 @@ namespace LogUploader.Data.RaidOrgaPlus
             return Bosses.First(b => b.Encounter.RaidOrgaPlusID == boss.RaidOrgaPlusID && b.IsCM == isCM);
         }
 
-        internal Account GetAccount(string accountName, RaidOrgaPlusDataWorker.PlayerType type)
+        internal Account GetAccount(string accountName, PlayerType type)
         {
             switch (type)
             {
-                case RaidOrgaPlusDataWorker.PlayerType.MEMBER:
+                case PlayerType.MEMBER:
                     return GetMember(accountName);
-                case RaidOrgaPlusDataWorker.PlayerType.HELPER:
+                case PlayerType.HELPER:
                     return GetHelper(accountName);
-                case RaidOrgaPlusDataWorker.PlayerType.INVITEABLE:
+                case PlayerType.INVITEABLE:
                     return GetInviteable(accountName);
-                case RaidOrgaPlusDataWorker.PlayerType.LFG:
+                case PlayerType.LFG:
                 default:
                     return GetLFGPlayer();
             }

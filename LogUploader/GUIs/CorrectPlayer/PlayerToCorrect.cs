@@ -16,7 +16,7 @@ namespace LogUploader.GUIs.CorrectPlayer
     {
         private static Raid Raid;
         private static List<Account> AllHelper = new List<Account>();
-        private readonly Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.CheckPlayer Player;
+        private readonly CheckPlayer Player;
 
         public static void SetRaid(Raid r)
         {
@@ -35,7 +35,7 @@ namespace LogUploader.GUIs.CorrectPlayer
             public int GetHashCode(Account obj) => obj.ID.GetHashCode();
         }
 
-        public PlayerToCorrect(Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.CheckPlayer player)
+        public PlayerToCorrect(CheckPlayer player)
         {
             Player = player;
             InitializeComponent();
@@ -45,25 +45,25 @@ namespace LogUploader.GUIs.CorrectPlayer
             lblAccountName.Text = player.Player.AccountName;
             switch (player.BecomesType)
             {
-                case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.MEMBER:
+                case PlayerType.MEMBER:
                     rbMember.Checked = true;
                     cbMember.Enabled = true;
                     cbMember.Visible = true;
                     cbMember.SelectedItem = player.BecomesAccount;
                     break;
-                case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.HELPER:
+                case PlayerType.HELPER:
                     rbHelper.Checked = true;
                     cbHelper.Enabled = true;
                     cbHelper.Visible = true;
                     cbHelper.SelectedItem = player.BecomesAccount;
                     break;
-                case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.INVITEABLE:
+                case PlayerType.INVITEABLE:
                     rbHelper.Checked = true;
                     cbHelper.Enabled = true;
                     cbHelper.Visible = true;
                     cbHelper.SelectedItem = player.BecomesAccount;
                     break;
-                case Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.LFG:
+                case PlayerType.LFG:
                     rbLFG.Checked = true;
                     break;
             }
@@ -74,18 +74,18 @@ namespace LogUploader.GUIs.CorrectPlayer
             if (rbMember.Checked)
             {
                 Player.BecomesAccount = (Account)cbMember.SelectedItem;
-                Player.BecomesType = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.MEMBER;
+                Player.BecomesType = PlayerType.MEMBER;
             }
             else if (rbHelper.Checked)
             {
                 Player.BecomesAccount = (Account)cbHelper.SelectedItem;
                 if (Raid.IsHelper(Player.BecomesAccount.AccountName))
-                    Player.BecomesType = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.HELPER;
+                    Player.BecomesType = PlayerType.HELPER;
                 else
-                    Player.BecomesType = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.INVITEABLE;
+                    Player.BecomesType = PlayerType.INVITEABLE;
             }
             else
-                Player.BecomesType = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.PlayerType.LFG;
+                Player.BecomesType = PlayerType.LFG;
         }
 
         private void BindComboBoxes()

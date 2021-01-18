@@ -64,7 +64,7 @@ namespace LogUploader.Data.RaidOrgaPlus
                 Role = role;
         }
 
-        internal void Set(RaidOrgaPlusDataWorker.RoPlusPlayer player)
+        internal void Set(RoPlusPlayer player)
         {
             Profession = player.Class;
             Role = player.Role;
