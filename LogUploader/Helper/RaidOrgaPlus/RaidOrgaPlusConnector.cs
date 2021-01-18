@@ -293,14 +293,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 ToggleHelper(session, raid.TerminID, helper.ID);
             }
 
-            //TEMP Dev envoriment
-# if DEBUG
-#warning Dev hack, do not release, test on live
-            var httpWebRequest = GetPostRequest(@"http://localhost:8081/api/aufstellungen", session.UserAgent);
-#else
-#error Dev envoriment DO NOT RELEASE raid orga set aufstellung
             var httpWebRequest = GetPostRequest(BASE_ADDRESS + @"/api/aufstellungen", session.UserAgent);
-#endif
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {
