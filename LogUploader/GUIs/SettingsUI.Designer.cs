@@ -173,7 +173,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnOK
             // 
@@ -184,7 +184,7 @@
             this.btnOK.TabIndex = 7;
             this.btnOK.Text = "Save";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnDefault
             // 
@@ -195,7 +195,7 @@
             this.btnDefault.TabIndex = 9;
             this.btnDefault.Text = "Default";
             this.btnDefault.UseVisualStyleBackColor = true;
-            this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
+            this.btnDefault.Click += new System.EventHandler(this.BtnDefault_Click);
             // 
             // gbDpsReport
             // 
@@ -232,7 +232,7 @@
             this.linklblGetUserToken.TabIndex = 3;
             this.linklblGetUserToken.TabStop = true;
             this.linklblGetUserToken.Text = "https://dps.report/getUserToken";
-            this.linklblGetUserToken.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblGetUserToken_LinkClicked);
+            this.linklblGetUserToken.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblGetUserToken_LinkClicked);
             // 
             // lblGetUserToken
             // 
@@ -484,7 +484,7 @@
             this.btnEiUpdate.TabIndex = 2;
             this.btnEiUpdate.Text = "Update / Reinstall";
             this.btnEiUpdate.UseVisualStyleBackColor = true;
-            this.btnEiUpdate.Click += new System.EventHandler(this.btnEiUpdate_Click);
+            this.btnEiUpdate.Click += new System.EventHandler(this.BtnEiUpdate_Click);
             // 
             // cbEiTheme
             // 
@@ -564,7 +564,7 @@
             this.btnImport.TabIndex = 15;
             this.btnImport.Text = "Import";
             this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
             // 
             // btnExport
             // 
@@ -574,7 +574,7 @@
             this.btnExport.TabIndex = 15;
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
             // 
             // openFileImport
             // 

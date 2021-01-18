@@ -56,7 +56,7 @@
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnDismiss_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnDismiss_Click);
             // 
             // panel2
             // 

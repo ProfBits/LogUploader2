@@ -63,16 +63,16 @@ namespace LogUploader.GUI
             if (closeForm)
                 return;
 
-            if (!reallyClose())
+            if (!ReallyClose())
                 e.Cancel = true;
         }
 
-        private void btnCancle_Click(object sender, EventArgs e)
+        private void BtnCancle_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private bool reallyClose()
+        private bool ReallyClose()
         {
             var res = MessageBox.Show(Language.Data.InitCancelSetupText, Language.Data.InitCancelSetupTitel, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             switch (res)
@@ -85,7 +85,7 @@ namespace LogUploader.GUI
             }
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void BtnStart_Click(object sender, EventArgs e)
         {
             if (!ValidatePaht())
             {
@@ -131,7 +131,7 @@ namespace LogUploader.GUI
             btnStart.Text = lang.InitStart;
         }
 
-        private void cbLang_SelectedValueChanged(object sender, EventArgs e)
+        private void CbLang_SelectedValueChanged(object sender, EventArgs e)
         {
             Language.Current = (eLanguage)(cbLang.SelectedValue ?? eLanguage.EN);
             ApplyLanguage(Language.Data);

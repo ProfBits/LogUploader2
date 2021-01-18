@@ -88,7 +88,7 @@
             this.lblClose.Size = new System.Drawing.Size(18, 19);
             this.lblClose.TabIndex = 2;
             this.lblClose.Text = "X";
-            this.lblClose.Click += new System.EventHandler(this.lblClose_Click);
+            this.lblClose.Click += new System.EventHandler(this.LblClose_Click);
             // 
             // lblTitle
             // 
@@ -188,7 +188,7 @@
             // 
             // bgWorkerMain
             // 
-            this.bgWorkerMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.bgWorkerMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
             // 
             // LoadingScreenUI
             // 

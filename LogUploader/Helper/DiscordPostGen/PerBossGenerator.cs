@@ -40,9 +40,9 @@ namespace LogUploader.Helper.DiscordPostGen
             foreach (var log in data.ToList().OrderBy(d => d.Log.Date))
             {
                 if (currentGroup == null)
-                    currentGroup = new Grouping(Boss.getByID(log.Log.BossID));
+                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID));
 
-                if (!currentGroup.Equals(Boss.getByID(log.Log.BossID)))
+                if (!currentGroup.Equals(Boss.GetByID(log.Log.BossID)))
                 {
                     if (currentLogs.Count > 0)
                     {
@@ -50,7 +50,7 @@ namespace LogUploader.Helper.DiscordPostGen
                             currentGroup.PostFix = "CM";
                         res.Add(currentGroup, currentLogs);
                     }
-                    currentGroup = new Grouping(Boss.getByID(log.Log.BossID));
+                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID));
                     currentLogs = new List<ParsedData>();
                 }
 

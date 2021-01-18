@@ -125,7 +125,7 @@ line-height: 1.5;
             _ = LoadData(settings, version);
         }
 
-        private void btnDismiss_Click(object sender, EventArgs e)
+        private void BtnDismiss_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -39,7 +39,7 @@ namespace LogUploader.GUIs
             bntClose.Text = lang.LicensesClose;
         }
 
-        private void bntClose_Click(object sender, EventArgs e)
+        private void BntClose_Click(object sender, EventArgs e)
         {
             Close();
         }

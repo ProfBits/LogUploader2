@@ -51,10 +51,10 @@ namespace LogUploader.Data
 
         public static Boss Get(eBosses boss)
         {
-            return getByID((int)boss);
+            return GetByID((int)boss);
         }
 
-        public static Boss getByID(int id)
+        public static Boss GetByID(int id)
         {
             switch (id)
             {
@@ -71,36 +71,36 @@ namespace LogUploader.Data
             }
             catch (KeyNotFoundException)
             {
-                return getByID(0);
+                return GetByID(0);
             }
         }
-        public static Boss getByRaidOragPlusID(int id)
+        public static Boss GetByRaidOragPlusID(int id)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.RaidOrgaPlusID == id).Value;
             if (boss == null)
-                return getByID(0);
+                return GetByID(0);
             return boss;
         }
 
-        public static Boss getByName(string name)
+        public static Boss GetByName(string name)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.Name == name).Value;
             if (boss == null)
-                return getByID(0);
+                return GetByID(0);
             return boss;
         }
 
-        public static Boss getByName(string name, eLanguage lang)
+        public static Boss GetByName(string name, eLanguage lang)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.getName(lang) == name).Value;
             if (boss == null)
-                return getByID(0);
+                return GetByID(0);
             return boss;
         }
 
-        public static Boss getByFolderName(string name)
+        public static Boss GetByFolderName(string name)
         {
-            var boss = allBosses.FirstOrDefault((e) => e.Value.checkFolderName(name)).Value;
+            var boss = allBosses.FirstOrDefault((e) => e.Value.CheckFolderName(name)).Value;
             if (boss == null)
             {
                 switch (name)
@@ -112,26 +112,26 @@ namespace LogUploader.Data
                 }
             }
             if (boss == null)
-                return getByID(0);
+                return GetByID(0);
             return boss;
         }
 
-        public static Boss getByEIName(string name)
+        public static Boss GetByEIName(string name)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.EIName == name).Value;
             if (boss == null)
-                return getByID(0);
+                return GetByID(0);
             return boss;
         }
 
-        public static List<Boss> getByArea(GameArea area)
+        public static List<Boss> GetByArea(GameArea area)
         {
             return allBosses.Where(e => e.Value.Area == area).Select(e => e.Value).ToList();
         }
 
         public static List<Boss> All { get => allBosses.Values.Where(boss => boss.ID != 23255 && boss.ID != 23256).ToList(); }
 
-        private bool checkFolderName(string folderName)
+        private bool CheckFolderName(string folderName)
         {
             return m_FolderName.hasName(folderName);
         }

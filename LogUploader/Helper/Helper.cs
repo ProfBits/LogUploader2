@@ -39,9 +39,9 @@ namespace LogUploader.Helper
         public static Enemy GetEnemyByID(int id)
         {
             if (Boss.ExistsID(id))
-                return Boss.getByID(id);
+                return Boss.GetByID(id);
             if (AddEnemy.ExistsID(id))
-                return AddEnemy.getByID(id);
+                return AddEnemy.GetByID(id);
             return null;
         }
 

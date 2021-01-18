@@ -213,7 +213,7 @@
             this.pgTop.Name = "pgTop";
             this.pgTop.Size = new System.Drawing.Size(30, 10);
             this.pgTop.TabIndex = 1;
-            this.pgTop.Paint += new System.Windows.Forms.PaintEventHandler(this.pgTop_Paint);
+            this.pgTop.Paint += new System.Windows.Forms.PaintEventHandler(this.PgTop_Paint);
             // 
             // pgBottom
             // 
@@ -413,7 +413,7 @@
             this.btnFilterReset.TabIndex = 10;
             this.btnFilterReset.Text = "Reset";
             this.btnFilterReset.UseVisualStyleBackColor = true;
-            this.btnFilterReset.Click += new System.EventHandler(this.btnFromatRest_Click);
+            this.btnFilterReset.Click += new System.EventHandler(this.BtnFromatRest_Click);
             // 
             // btnFilterToday
             // 
@@ -423,7 +423,7 @@
             this.btnFilterToday.TabIndex = 9;
             this.btnFilterToday.Text = "Today";
             this.btnFilterToday.UseVisualStyleBackColor = true;
-            this.btnFilterToday.Click += new System.EventHandler(this.btnFilterToday_Click);
+            this.btnFilterToday.Click += new System.EventHandler(this.BtnFilterToday_Click);
             // 
             // lblFilterTo
             // 
@@ -511,7 +511,7 @@
             this.txtFilterDuration.Name = "txtFilterDuration";
             this.txtFilterDuration.Size = new System.Drawing.Size(86, 20);
             this.txtFilterDuration.TabIndex = 4;
-            this.txtFilterDuration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterDuration_KeyPress);
+            this.txtFilterDuration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtFilterDuration_KeyPress);
             // 
             // numFilterHpLeft
             // 
@@ -522,7 +522,7 @@
             this.numFilterHpLeft.Size = new System.Drawing.Size(65, 20);
             this.numFilterHpLeft.TabIndex = 3;
             this.numFilterHpLeft.ValueChanged += new System.EventHandler(this.FilterControl_Changed);
-            this.numFilterHpLeft.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterDuration_KeyPress);
+            this.numFilterHpLeft.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtFilterDuration_KeyPress);
             // 
             // cbFilterSuccsess
             // 
@@ -611,7 +611,7 @@
             this.cmbFilterBoss.Size = new System.Drawing.Size(151, 21);
             this.cmbFilterBoss.TabIndex = 1;
             this.cmbFilterBoss.SelectedIndexChanged += new System.EventHandler(this.FilterControl_Changed);
-            this.cmbFilterBoss.TextChanged += new System.EventHandler(this.cmbFilterBoss_TextChanged);
+            this.cmbFilterBoss.TextChanged += new System.EventHandler(this.CmbFilterBoss_TextChanged);
             // 
             // gbDetails
             // 
@@ -754,7 +754,7 @@
             this.lblDetOpenRemot.TabIndex = 16;
             this.lblDetOpenRemot.Text = "open";
             this.lblDetOpenRemot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDetOpenRemot.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            this.lblDetOpenRemot.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
             // 
             // cbDetUploaded
             // 
@@ -949,7 +949,7 @@
             this.lblDetOpenLocal.TabIndex = 15;
             this.lblDetOpenLocal.Text = "open";
             this.lblDetOpenLocal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDetOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            this.lblDetOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
             // 
             // pDetailsPlayers
             // 
@@ -1027,7 +1027,7 @@
             this.btnParsAndUpload.TabIndex = 2;
             this.btnParsAndUpload.Text = "Parse Local & Upload";
             this.btnParsAndUpload.UseVisualStyleBackColor = true;
-            this.btnParsAndUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
+            this.btnParsAndUpload.Click += new System.EventHandler(this.BtnParsAndUpload_Click);
             // 
             // btnOpenDpsReport
             // 
@@ -1040,7 +1040,7 @@
             this.btnOpenDpsReport.TabIndex = 2;
             this.btnOpenDpsReport.Text = "dps.report";
             this.btnOpenDpsReport.UseVisualStyleBackColor = true;
-            this.btnOpenDpsReport.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            this.btnOpenDpsReport.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
             // 
             // dBLogBindingSource
             // 
@@ -1055,7 +1055,7 @@
             this.btnPostToDiscord.TabIndex = 2;
             this.btnPostToDiscord.Text = "Post to Discord";
             this.btnPostToDiscord.UseVisualStyleBackColor = true;
-            this.btnPostToDiscord.Click += new System.EventHandler(this.btnPostToDiscord_Click);
+            this.btnPostToDiscord.Click += new System.EventHandler(this.BtnPostToDiscord_Click);
             // 
             // btnCopyLinks
             // 
@@ -1065,7 +1065,7 @@
             this.btnCopyLinks.TabIndex = 2;
             this.btnCopyLinks.Text = "Copy links";
             this.btnCopyLinks.UseVisualStyleBackColor = true;
-            this.btnCopyLinks.Click += new System.EventHandler(this.btnCopyLinks_Click);
+            this.btnCopyLinks.Click += new System.EventHandler(this.BtnCopyLinks_Click);
             // 
             // btnUpload
             // 
@@ -1076,7 +1076,7 @@
             this.btnUpload.TabIndex = 2;
             this.btnUpload.Text = "Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            this.btnUpload.Click += new System.EventHandler(this.BtnUpload_Click);
             // 
             // btnOpenLocal
             // 
@@ -1089,7 +1089,7 @@
             this.btnOpenLocal.TabIndex = 1;
             this.btnOpenLocal.Text = "Open Local";
             this.btnOpenLocal.UseVisualStyleBackColor = true;
-            this.btnOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            this.btnOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
             // 
             // btnParse
             // 
@@ -1100,7 +1100,7 @@
             this.btnParse.TabIndex = 0;
             this.btnParse.Text = "Parse Local";
             this.btnParse.UseVisualStyleBackColor = true;
-            this.btnParse.Click += new System.EventHandler(this.btnParse_Click);
+            this.btnParse.Click += new System.EventHandler(this.BtnParse_Click);
             // 
             // gbSettings
             // 
@@ -1124,7 +1124,7 @@
             this.btnAbout.TabIndex = 3;
             this.btnAbout.Text = "About";
             this.btnAbout.UseVisualStyleBackColor = true;
-            this.btnAbout.Click += new System.EventHandler(this.button1_Click);
+            this.btnAbout.Click += new System.EventHandler(this.BtnAbout_Click);
             // 
             // btnSettings
             // 
@@ -1135,7 +1135,7 @@
             this.btnSettings.TabIndex = 2;
             this.btnSettings.Text = "Settings...";
             this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // cbAutoUpload
             // 
@@ -1168,7 +1168,7 @@
             this.button2.Text = "Reload Lang XML";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // pGrid
             // 
@@ -1219,8 +1219,8 @@
             this.dBLogDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dBLogDataGridView.Size = new System.Drawing.Size(670, 630);
             this.dBLogDataGridView.TabIndex = 0;
-            this.dBLogDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dBLogDataGridView_CellDoubleClick);
-            this.dBLogDataGridView.SelectionChanged += new System.EventHandler(this.dBLogDataGridView_SelectionChanged);
+            this.dBLogDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DBLogDataGridView_CellDoubleClick);
+            this.dBLogDataGridView.SelectionChanged += new System.EventHandler(this.DBLogDataGridView_SelectionChanged);
             // 
             // colBossName
             // 
@@ -1420,49 +1420,49 @@
             this.miViewInExplorer});
             this.contextMenuGrid.Name = "contextMenuGrid";
             this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
-            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGrid_Opening);
+            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuGrid_Opening);
             // 
             // miParse
             // 
             this.miParse.Name = "miParse";
             this.miParse.Size = new System.Drawing.Size(166, 22);
             this.miParse.Text = "Parse";
-            this.miParse.Click += new System.EventHandler(this.btnParse_Click);
+            this.miParse.Click += new System.EventHandler(this.BtnParse_Click);
             // 
             // miOpenLocal
             // 
             this.miOpenLocal.Name = "miOpenLocal";
             this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
             this.miOpenLocal.Text = "Open Local";
-            this.miOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            this.miOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
             // 
             // miUpload
             // 
             this.miUpload.Name = "miUpload";
             this.miUpload.Size = new System.Drawing.Size(166, 22);
             this.miUpload.Text = "Upload";
-            this.miUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            this.miUpload.Click += new System.EventHandler(this.BtnUpload_Click);
             // 
             // miOpenLink
             // 
             this.miOpenLink.Name = "miOpenLink";
             this.miOpenLink.Size = new System.Drawing.Size(166, 22);
             this.miOpenLink.Text = "Open dps.report";
-            this.miOpenLink.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            this.miOpenLink.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
             // 
             // miParseUpload
             // 
             this.miParseUpload.Name = "miParseUpload";
             this.miParseUpload.Size = new System.Drawing.Size(166, 22);
             this.miParseUpload.Text = "Parse and Upload";
-            this.miParseUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
+            this.miParseUpload.Click += new System.EventHandler(this.BtnParsAndUpload_Click);
             // 
             // miViewInExplorer
             // 
             this.miViewInExplorer.Name = "miViewInExplorer";
             this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
             this.miViewInExplorer.Text = "View in Explorer";
-            this.miViewInExplorer.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+            this.miViewInExplorer.Click += new System.EventHandler(this.ViewToolStripMenuItem_Click);
             // 
             // pTop
             // 
@@ -1500,7 +1500,7 @@
             this.btnUpdateRaidOrga.TabIndex = 1;
             this.btnUpdateRaidOrga.Text = "Update Termin";
             this.btnUpdateRaidOrga.UseVisualStyleBackColor = true;
-            this.btnUpdateRaidOrga.Click += new System.EventHandler(this.btnUpdateRaidOrga_Click);
+            this.btnUpdateRaidOrga.Click += new System.EventHandler(this.BtnUpdateRaidOrga_Click);
             // 
             // LogUploaderUI2
             // 

@@ -514,11 +514,11 @@ namespace LogUploader
                 folder = Path.Trim('\\').Split('\\').LastOrDefault();
 
             if (folder == null)
-                return Boss.getByID(0);
+                return Boss.GetByID(0);
             else if (ushort.TryParse(folder, out ushort id))
-                return Boss.getByID((int)id);
+                return Boss.GetByID((int)id);
             else
-                return Boss.getByFolderName(folder);
+                return Boss.GetByFolderName(folder);
         }
 
         private static string GetBossPartFromPath(string Path)
@@ -574,7 +574,7 @@ namespace LogUploader
                 if (string.IsNullOrEmpty(log.Link))
                     continue;
                 
-                var boss = Boss.getByID(log.BossID) ?? Boss.getByID(0);
+                var boss = Boss.GetByID(log.BossID) ?? Boss.GetByID(0);
                 var str = "";
 
                 if (Settings.UseGnDiscordEmotes)

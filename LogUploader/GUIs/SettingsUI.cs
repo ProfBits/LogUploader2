@@ -100,7 +100,7 @@ namespace LogUploader.GUI
 
         #region events
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             foreach (var control in flpWebHooks.Controls)
             {
@@ -113,12 +113,12 @@ namespace LogUploader.GUI
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnDefault_Click(object sender, EventArgs e)
+        private void BtnDefault_Click(object sender, EventArgs e)
         {
             var res = MessageBox.Show(Language.Data.ConfigDiscardMsgText, Language.Data.ConfigDiscardMsgTitel, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
             if (res != DialogResult.OK)
@@ -212,11 +212,6 @@ namespace LogUploader.GUI
 
         #endregion
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void AddWebHook_Click(object sender, EventArgs e)
         {
             if (CurrentState.WebHookDB.Count() == 0)
@@ -228,13 +223,13 @@ namespace LogUploader.GUI
             lblWebHookCount.Text = CurrentState.WebHookDB.Count().ToString();
         }
 
-        private void linklblGetUserToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinklblGetUserToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             linklblGetUserToken.LinkVisited = true;
             System.Diagnostics.Process.Start(@"https://dps.report/getUserToken");
         }
 
-        private async void btnEiUpdate_Click(object sender, EventArgs e)
+        private async void BtnEiUpdate_Click(object sender, EventArgs e)
         {
             Enabled = false;
             var tmp = btnEiUpdate.Text;
@@ -261,7 +256,7 @@ namespace LogUploader.GUI
 
         public static bool BetaEnableRaidOrga { get; set; } = false;
 
-        private void btnImport_Click(object sender, EventArgs e)
+        private void BtnImport_Click(object sender, EventArgs e)
         {
             var res = openFileImport.ShowDialog();
             if (res == DialogResult.Cancel) return;
@@ -302,7 +297,7 @@ namespace LogUploader.GUI
             }
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+        private void BtnExport_Click(object sender, EventArgs e)
         {
             var res = saveFileExport.ShowDialog();
             if (res == DialogResult.Cancel) return;

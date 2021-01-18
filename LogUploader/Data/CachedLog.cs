@@ -16,7 +16,7 @@ namespace LogUploader.Data
         private DBLog DataDB { get; set; } = new DBLog();
         public int ID { get => DataDB.ID; set => DataDB.ID = value; }
         public int BossID { get => DataDB.BossID; set => DataDB.BossID = value; }
-        public string BossName { get => Boss.getByID(DataDB.BossID).Name; }
+        public string BossName { get => Boss.GetByID(DataDB.BossID).Name; }
         public string EvtcPath { get => DataDB.EvtcPath; set => DataDB.EvtcPath = value; }
         public string JsonPath { get => DataDB.JsonPath; set => DataDB.JsonPath = value; }
         public string HtmlPath { get => DataDB.HtmlPath; set => DataDB.HtmlPath = value; }

@@ -75,7 +75,7 @@
             this.bntDone.TabIndex = 0;
             this.bntDone.Text = "Done";
             this.bntDone.UseVisualStyleBackColor = true;
-            this.bntDone.Click += new System.EventHandler(this.bntDone_Click);
+            this.bntDone.Click += new System.EventHandler(this.BntDone_Click);
             // 
             // flpMain
             // 

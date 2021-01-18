@@ -244,7 +244,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private Boss GetBoss(Dictionary<string, int> bosses, string roPlusBossAbbreviation)
         {
-            return Boss.getByRaidOragPlusID(bosses[roPlusBossAbbreviation]);
+            return Boss.GetByRaidOragPlusID(bosses[roPlusBossAbbreviation]);
         }
 
         //TODO export to professiondata.json?
@@ -304,7 +304,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream(), Encoding.UTF8))
             {
-                string json = $@"{{""auth"":""{session.Token}"",""session"":""{session.Token}"",""body"":{raid.getPostJson()}}}";
+                string json = $@"{{""auth"":""{session.Token}"",""session"":""{session.Token}"",""body"":{raid.GetPostJson()}}}";
                 streamWriter.Write(json);
                 streamWriter.Close();
             }

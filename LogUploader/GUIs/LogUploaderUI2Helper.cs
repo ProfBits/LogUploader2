@@ -293,7 +293,7 @@ namespace LogUploader.GUIs
 
         private void BindComboBoxes()
         {
-            cmbFilterBoss.DataSource = Boss.All.Select(b => b.Name).Distinct().Select(n => Boss.getByName(n)).ToList();
+            cmbFilterBoss.DataSource = Boss.All.Select(b => b.Name).Distinct().Select(n => Boss.GetByName(n)).ToList();
             cmbFilterBoss.DisplayMember = "Name";
             cmbFilterBoss.ValueMember = "ID";
 

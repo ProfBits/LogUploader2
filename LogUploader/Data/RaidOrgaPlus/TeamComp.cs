@@ -13,7 +13,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         public long ID { get; set; }
 
         [JsonProperty("aufstellungId", NullValueHandling = NullValueHandling.Ignore)]
-        public long? aufstellungsID
+        public long? AufstellungsID
         {
             get
             {

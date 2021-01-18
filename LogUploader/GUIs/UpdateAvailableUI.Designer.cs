@@ -74,7 +74,7 @@
             this.btnAtEnd.TabIndex = 2;
             this.btnAtEnd.Text = "on Exit";
             this.btnAtEnd.UseVisualStyleBackColor = true;
-            this.btnAtEnd.Click += new System.EventHandler(this.btnAtEnd_Click);
+            this.btnAtEnd.Click += new System.EventHandler(this.BtnAtEnd_Click);
             // 
             // btnNo
             // 
@@ -87,7 +87,7 @@
             this.btnNo.TabIndex = 0;
             this.btnNo.Text = "No";
             this.btnNo.UseVisualStyleBackColor = true;
-            this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
+            this.btnNo.Click += new System.EventHandler(this.BtnNo_Click);
             // 
             // btnYes
             // 
@@ -99,7 +99,7 @@
             this.btnYes.TabIndex = 1;
             this.btnYes.Text = "Yes";
             this.btnYes.UseVisualStyleBackColor = true;
-            this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
+            this.btnYes.Click += new System.EventHandler(this.BtnYes_Click);
             // 
             // panel3
             // 

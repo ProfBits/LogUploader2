@@ -23,12 +23,12 @@ namespace LogUploader.GUIs
             rtbMessage.Text = message;
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        private void BtnOk_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnShowLog_Click(object sender, EventArgs e)
+        private void BtnShowLog_Click(object sender, EventArgs e)
         {
             if (File.Exists(Logger.LogFile))
                 _ = Task.Run(() => System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{Logger.LogFile}\""));

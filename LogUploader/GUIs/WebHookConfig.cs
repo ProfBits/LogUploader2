@@ -59,7 +59,7 @@ namespace LogUploader.GUIs
             WebHookDeleted?.Invoke(this, e);
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             OnWebHookDeleted(new WebHookDeleteEventArgs(WebHook.ID));
         }

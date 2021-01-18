@@ -47,7 +47,7 @@ namespace LogUploader.Helper.DiscordPostGen
 
         protected override Color GetColor(IEnumerable<CachedLog> logs)
         {
-            var groups = logs.GroupBy(log => Boss.getByID(log.BossID)).Select(group => group.Any(log => log.Succsess));
+            var groups = logs.GroupBy(log => Boss.GetByID(log.BossID)).Select(group => group.Any(log => log.Succsess));
 
             var succsess = groups.Any(log => log);
             var fail = groups.Any(log => !log);
@@ -69,9 +69,9 @@ namespace LogUploader.Helper.DiscordPostGen
             foreach (var log in data.ToList().OrderBy(d => d.Log.Date))
             {
                 if (currentGroup == null)
-                    currentGroup = new Grouping(Boss.getByID(log.Log.BossID).Area);
+                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID).Area);
 
-                if (!currentGroup.Equals(Boss.getByID(log.Log.BossID).Area))
+                if (!currentGroup.Equals(Boss.GetByID(log.Log.BossID).Area))
                 {
                     if (currentLogs.Count > 0)
                     {
@@ -80,7 +80,7 @@ namespace LogUploader.Helper.DiscordPostGen
                             currentGroup.PostFix = "CM";
                         res.Add(currentGroup, currentLogs);
                     }
-                    currentGroup = new Grouping(Boss.getByID(log.Log.BossID).Area);
+                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID).Area);
                     currentLogs = new List<ParsedData>();
                 }
 
@@ -100,9 +100,9 @@ namespace LogUploader.Helper.DiscordPostGen
 
         protected virtual Grouping GetGrouping(IEnumerable<ParsedData> data)
         {
-            if (data.Select(log => Boss.getByID(log.Log.BossID)).Distinct().Count() == 1)
-                return new Grouping(Boss.getByID(data.First().Log.BossID));
-            return new Grouping(Boss.getByID(data.First().Log.BossID).Area);
+            if (data.Select(log => Boss.GetByID(log.Log.BossID)).Distinct().Count() == 1)
+                return new Grouping(Boss.GetByID(data.First().Log.BossID));
+            return new Grouping(Boss.GetByID(data.First().Log.BossID).Area);
         }
 
         protected override WebHookData.Embed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)

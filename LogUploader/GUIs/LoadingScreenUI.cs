@@ -74,7 +74,7 @@ namespace LogUploader.GUI
         }
 
 
-        private void lblClose_Click(object sender, EventArgs e)
+        private void LblClose_Click(object sender, EventArgs e)
         {
             lblClose.Cursor = Cursors.WaitCursor;
             lblTask.Text = "Cancel operation...";
@@ -123,7 +123,7 @@ namespace LogUploader.GUI
 
 #endregion
 
-        private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private async void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             await Task.Delay(250);
             var task = StartSequenc(progress, m_cts.Token, m_cts);

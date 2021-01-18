@@ -59,7 +59,7 @@ namespace LogUploader.GUIs
             progress?.Report(1);
         }
 
-        private void contextMenuGrid_Opening(object sender, CancelEventArgs e)
+        private void ContextMenuGrid_Opening(object sender, CancelEventArgs e)
         {
             miOpenLink.Enabled = btnOpenDpsReport.Enabled;
             miOpenLocal.Enabled = btnOpenLocal.Enabled;
@@ -68,7 +68,7 @@ namespace LogUploader.GUIs
             miParseUpload.Enabled = btnParsAndUpload.Enabled;
         }
 
-        private void dBLogDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DBLogDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex < 0)
                 return;
@@ -80,20 +80,20 @@ namespace LogUploader.GUIs
             UpdateFilter();
         }
 
-        private void btnFilterToday_Click(object sender, EventArgs e)
+        private void BtnFilterToday_Click(object sender, EventArgs e)
         {
             AddFilterToday();
         }
 
 
-        private void btnFromatRest_Click(object sender, EventArgs e)
+        private void BtnFromatRest_Click(object sender, EventArgs e)
         {
             ResetFilter();
         }
 
         private readonly Timer timerBossFilter = new Timer();
 
-        private void cmbFilterBoss_TextChanged(object sender, EventArgs e)
+        private void CmbFilterBoss_TextChanged(object sender, EventArgs e)
         {
             timerBossFilter.Stop();
             timerBossFilter.Start();
@@ -106,12 +106,12 @@ namespace LogUploader.GUIs
             FilterControl_Changed(sender, e);
         }
 
-        private void dBLogDataGridView_SelectionChanged(object sender, EventArgs e)
+        private void DBLogDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             UpdateSelected();
         }
 
-        private async void btnParse_Click(object sender, EventArgs e)
+        private async void BtnParse_Click(object sender, EventArgs e)
         {
             var logsToDo = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
                 .Where(row => !((bool) row.Cells["colHasHtml"].Value))
@@ -123,20 +123,20 @@ namespace LogUploader.GUIs
             });
         }
 
-        private void pgTop_Paint(object sender, PaintEventArgs e)
+        private void PgTop_Paint(object sender, PaintEventArgs e)
         {
             //TODO ajust color via theme
             ControlPaint.DrawBorder(e.Graphics, ((Panel) sender).ClientRectangle, Color.Green, ButtonBorderStyle.Solid);
         }
 
-        private async void btnOpenLocal_Click(object sender, EventArgs e)
+        private async void BtnOpenLocal_Click(object sender, EventArgs e)
         {
             var logsToOpen = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
                    .Select(row => (int)row.Cells["colID"].Value);
             await Task.Run(() => Logic.OpenLocal(logsToOpen.ToArray()));
         }
 
-        private async void btnUpload_Click(object sender, EventArgs e)
+        private async void BtnUpload_Click(object sender, EventArgs e)
         {
             var logsToDo = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
                    .Where(row => !((bool)row.Cells["colHasLink"].Value))
@@ -148,7 +148,7 @@ namespace LogUploader.GUIs
             });
         }
 
-        private async void btnOpenDpsReport_Click(object sender, EventArgs e)
+        private async void BtnOpenDpsReport_Click(object sender, EventArgs e)
         {
             var logsToOpen = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
                    .Select(row => (int)row.Cells["colID"].Value);
@@ -156,7 +156,7 @@ namespace LogUploader.GUIs
             await Task.Run(() => Logic.OpenLink(logsToOpen.ToArray()));
         }
 
-        private void btnParsAndUpload_Click(object sender, EventArgs e)
+        private void BtnParsAndUpload_Click(object sender, EventArgs e)
         {
             var logsToDo = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
                       .Where(row => !(bool)row.Cells["colHasLink"].Value || !(bool)row.Cells["colHasHtml"].Value)
@@ -168,7 +168,7 @@ namespace LogUploader.GUIs
         }
 
         private readonly Timer CopyLinksTimer = new Timer();
-        private async void btnCopyLinks_Click(object sender, EventArgs e)
+        private async void BtnCopyLinks_Click(object sender, EventArgs e)
         {
             await CopyLinks();
         }
@@ -183,17 +183,17 @@ namespace LogUploader.GUIs
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnAbout_Click(object sender, EventArgs e)
         {
             new AboutUI().Show();
         }
 
-        private void btnSettings_Click(object sender, EventArgs e)
+        private void BtnSettings_Click(object sender, EventArgs e)
         {
             ShowSettings();
         }
 
-        private async void btnPostToDiscord_Click(object sender, EventArgs e)
+        private async void BtnPostToDiscord_Click(object sender, EventArgs e)
         {
             btnPostToDiscord.Enabled = false;
             var logsToPost = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
@@ -207,14 +207,14 @@ namespace LogUploader.GUIs
             Logic.SetSelectedWebhook((long) cmbWebhookSelect.SelectedValue);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             Language.ReloadFromXML();
             ApplieLanguage();
             Refresh();
         }
 
-        private void viewToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dBLogDataGridView.SelectedRows.Count <= 0) return;
             var row = dBLogDataGridView.SelectedRows[0];
@@ -225,7 +225,7 @@ namespace LogUploader.GUIs
             _ = Task.Run(() => System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{log.EvtcPath}\""));
         }
 
-        private void txtFilterDuration_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtFilterDuration_KeyPress(object sender, KeyPressEventArgs e)
         {
             timerBossFilter.Stop();
             timerBossFilter.Start();
@@ -237,7 +237,7 @@ namespace LogUploader.GUIs
             ShowWhatsNew();
         }
 
-        private void btnUpdateRaidOrga_Click(object sender, EventArgs e)
+        private void BtnUpdateRaidOrga_Click(object sender, EventArgs e)
         {
             btnUpdateRaidOrga.Enabled = false;
             btnUpdateRaidOrga.Refresh();

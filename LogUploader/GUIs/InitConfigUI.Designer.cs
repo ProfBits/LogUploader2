@@ -85,7 +85,7 @@
             this.btnStart.TabIndex = 4;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
             // btnCancle
             // 
@@ -97,7 +97,7 @@
             this.btnCancle.TabIndex = 5;
             this.btnCancle.Text = "Cancle";
             this.btnCancle.UseVisualStyleBackColor = true;
-            this.btnCancle.Click += new System.EventHandler(this.btnCancle_Click);
+            this.btnCancle.Click += new System.EventHandler(this.BtnCancle_Click);
             // 
             // cbLang
             // 
@@ -108,7 +108,7 @@
             this.cbLang.Name = "cbLang";
             this.cbLang.Size = new System.Drawing.Size(121, 21);
             this.cbLang.TabIndex = 102;
-            this.cbLang.SelectedValueChanged += new System.EventHandler(this.cbLang_SelectedValueChanged);
+            this.cbLang.SelectedValueChanged += new System.EventHandler(this.CbLang_SelectedValueChanged);
             // 
             // lblLang
             // 

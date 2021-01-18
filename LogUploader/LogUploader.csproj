@@ -165,7 +165,6 @@
     <Compile Include="Data\RaidOrgaPlus\Raid.cs" />
     <Compile Include="Data\RaidOrgaPlus\RaidOrgaPlusCacheItem.cs" />
     <Compile Include="Data\RaidOrgaPlus\RaidSimple.cs" />
-    <Compile Include="Data\RaidOrgaPlus\RequestSetRaid.cs" />
     <Compile Include="Data\RaidOrgaPlus\Role.cs" />
     <Compile Include="Data\RaidOrgaPlus\Session.cs" />
     <Compile Include="Data\RaidOrgaPlus\TeamComp.cs" />

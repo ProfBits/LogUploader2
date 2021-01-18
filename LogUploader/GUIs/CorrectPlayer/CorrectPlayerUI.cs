@@ -52,7 +52,7 @@ namespace LogUploader.GUIs.CorrectPlayer
             }
         }
 
-        private void bntDone_Click(object sender, EventArgs e)
+        private void BntDone_Click(object sender, EventArgs e)
         {
             Close();
         }

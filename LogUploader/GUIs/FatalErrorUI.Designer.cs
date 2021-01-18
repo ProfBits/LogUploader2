@@ -64,7 +64,7 @@ namespace LogUploader.GUIs
             this.btnOk.TabIndex = 1;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.btnOk.Click += new System.EventHandler(this.BtnOk_Click);
             // 
             // btnShowLog
             // 
@@ -75,7 +75,7 @@ namespace LogUploader.GUIs
             this.btnShowLog.TabIndex = 2;
             this.btnShowLog.Text = "Show Log";
             this.btnShowLog.UseVisualStyleBackColor = true;
-            this.btnShowLog.Click += new System.EventHandler(this.btnShowLog_Click);
+            this.btnShowLog.Click += new System.EventHandler(this.BtnShowLog_Click);
             // 
             // lblTitel
             // 

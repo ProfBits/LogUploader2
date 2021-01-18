@@ -108,14 +108,14 @@ namespace LogUploader.Helper.RaidOrgaPlus
         private static void RemoveUnused(Raid raid, IEnumerable<CachedLog> logs)
         {
             raid.Bosses = raid.Bosses.Where(boss => 
-            logs.Any(log => Boss.getByID(log.BossID).RaidOrgaPlusID == boss.BossID && log.IsCM == boss.IsCM)
+            logs.Any(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == boss.BossID && log.IsCM == boss.IsCM)
             ).ToList();
         }
 
         private static IEnumerable<CachedLog> OnlyGetOnePerBoss(IEnumerable<CachedLog> logs)
         {
             return logs.Where(log => log.DataCorrected)
-                .GroupBy(log => Boss.getByID(log.BossID).RaidOrgaPlusID).SelectMany(group =>
+                .GroupBy(log => Boss.GetByID(log.BossID).RaidOrgaPlusID).SelectMany(group =>
             {
                 if (group.All(e => !e.IsCM) || group.All(e => e.IsCM))
                 {
@@ -135,15 +135,15 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private static IEnumerable<CachedLog> CondenseStatues(IEnumerable<CachedLog> logs)
         {
-            if (logs.Any(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18))
+            if (logs.Any(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == 18))
             {
                 CachedLog keep;
-                if (logs.Any(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess))
-                    keep = logs.Last(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess);
+                if (logs.Any(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess))
+                    keep = logs.Last(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess);
                 else
-                    keep = logs.Last(log => Boss.getByID(log.BossID).RaidOrgaPlusID == 18);
+                    keep = logs.Last(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == 18);
 
-                return logs.Where(log => Boss.getByID(log.BossID).RaidOrgaPlusID != 18 || log == keep);
+                return logs.Where(log => Boss.GetByID(log.BossID).RaidOrgaPlusID != 18 || log == keep);
             }
             return logs;
         }
@@ -211,7 +211,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             var encounters = new List<Encounter>();
             foreach (var log in logs)
             {
-                encounters.Add(new Encounter(raid.GetTeamComp(Boss.getByID(log.BossID), log.IsCM), log, raid));
+                encounters.Add(new Encounter(raid.GetTeamComp(Boss.GetByID(log.BossID), log.IsCM), log, raid));
             }
             return encounters;
         }
@@ -220,7 +220,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             foreach (var log in logs)
             {
-                if (Boss.getByID(log.BossID).RaidOrgaPlusID > 0)
+                if (Boss.GetByID(log.BossID).RaidOrgaPlusID > 0)
                     InsertLog(raid, log);
             }
             //TODO Duplicated bosses
@@ -228,7 +228,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private static void InsertLog(Raid raid, CachedLog log)
         {
-            var boss = Boss.getByID(log.BossID);
+            var boss = Boss.GetByID(log.BossID);
             if (boss.RaidOrgaPlusID == -1 || raid.ExistsBoss(boss, log.IsCM))
                 return;
             AddBoss(raid, boss, log);

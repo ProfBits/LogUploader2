@@ -63,7 +63,7 @@
             this.bntClose.TabIndex = 0;
             this.bntClose.Text = "Close";
             this.bntClose.UseVisualStyleBackColor = true;
-            this.bntClose.Click += new System.EventHandler(this.bntClose_Click);
+            this.bntClose.Click += new System.EventHandler(this.BntClose_Click);
             // 
             // flowLayoutPanel1
             // 

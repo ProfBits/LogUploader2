@@ -66,7 +66,7 @@ namespace LogUploader.Data
         public int ID { get; set; } = -1;
 
         public int BossID { get; set; }
-        public string BossName { get => Boss.getByID(BossID).Name; }
+        public string BossName { get => Boss.GetByID(BossID).Name; }
 
         public string EvtcPath
         {

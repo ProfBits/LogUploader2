@@ -376,7 +376,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         internal void SortIfNew()
         {
-            if (!TC.aufstellungsID.HasValue)
+            if (!TC.AufstellungsID.HasValue)
                 TC.OrderPlayers();
         }
     }
