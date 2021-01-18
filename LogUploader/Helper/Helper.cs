@@ -103,6 +103,16 @@ namespace LogUploader.Helper
                 return (Data.RaidOrgaPlus.Role)(byte)(id);
             return Data.RaidOrgaPlus.Role.Empty;
         }
+
+        public static Data.RaidOrgaPlus.Role GetRoleByAbbreviation(string roleAbbreviation)
+        {
+            foreach (var r in Enum.GetValues(typeof(Data.RaidOrgaPlus.Role)).Cast<Data.RaidOrgaPlus.Role>())
+            {
+                if (r.GetAttribute<StringValueAttribute>().Value == roleAbbreviation)
+                    return r;
+            }
+            return Data.RaidOrgaPlus.Role.Empty;
+        }
     }
 
     public static class SettingsHelper

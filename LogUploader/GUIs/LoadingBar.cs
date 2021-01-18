@@ -1,4 +1,6 @@
 ﻿using LogUploader.Data;
+using LogUploader.Helper;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -57,7 +59,14 @@ namespace LogUploader.GUIs
                 lblTask.Text = p.Message;
                 pLoading.Width = (int)((double)pLoadingBk.Width * p.Percent);
             };
-            this.Invoke(update);
+            try
+            {
+                this.Invoke(update);
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+            }
         }
 
 

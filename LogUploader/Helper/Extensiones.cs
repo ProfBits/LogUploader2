@@ -17,6 +17,11 @@ namespace Extensiones
         {
             return LogUploader.Data.Profession.Get(profession);
         }
+
+        public static LogUploader.Data.RaidOrgaPlus.Role GetRoleByAbbreviation(this LogUploader.Data.RaidOrgaPlus.Role _, string roleAbbreviation)
+        {
+            return LogUploader.Helper.GP.GetRoleByAbbreviation(roleAbbreviation);
+        }
     }
 }
 

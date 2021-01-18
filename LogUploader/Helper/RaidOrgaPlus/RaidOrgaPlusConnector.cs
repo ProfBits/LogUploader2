@@ -169,7 +169,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             if (ct.IsCancellationRequested) return null;
             var elementsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{elementsRAW}}}");
-            var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GetRole((string)element["role"]), GetClass((string)element["class"])) });
+            var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GP.GetRoleByAbbreviation((string)element["role"]), GetClass((string)element["class"])) });
 
             if (ct.IsCancellationRequested) return null;
             var aufstellungenParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{aufstellungenRAW}}}");
@@ -247,6 +247,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             return Boss.getByRaidOragPlusID(bosses[roPlusBossAbbreviation]);
         }
 
+        //TODO export to professiondata.json?
         private Profession GetClass(string classAbbreviation)
         {
             switch (classAbbreviation)
@@ -279,22 +280,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 case "Her": return Profession.Get(eProfession.Herald);
                 case "Ren": return Profession.Get(eProfession.Renegade);
                 default: return Profession.Unknown;
-            }
-        }
-
-        private Role GetRole(string roleAbbreviation)
-        {
-            switch (roleAbbreviation)
-            {
-                case "P": return Role.Power;
-                case "C": return Role.Condi;
-                case "H": return Role.Heal;
-                case "T": return Role.Tank;
-                case "U": return Role.Utility;
-                case "B": return Role.Banner;
-                case "S": return Role.Special;
-                case "K": return Role.Kiter;
-                default: return Role.Empty;
             }
         }
 
