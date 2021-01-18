@@ -310,21 +310,25 @@ namespace LogUploader
 
         private static Action Cleanup;
 
-        private static void InitDB(Progress<ProgressMessage> progress)
+        private static void InitDB(IProgress<ProgressMessage> progress)
         {
+            progress?.Report(new ProgressMessage(0, "Init"));
             string dbFilePaht = $@"{ Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\LogUploader\LogDB.db";
             LogDBConnector.DBConnectionString = $@"Data Source=""{dbFilePaht}""; Version=3;Connect Timeout=30";
             try
             {
+                progress?.Report(new ProgressMessage(0.25, "Connect"));
                 var count = LogDBConnector.GetCount();
                 Logger.Message("DB found " + count + " entries");
             }
             catch (System.Data.SQLite.SQLiteException)
             {
                 //Create DB
+                progress?.Report(new ProgressMessage(0.50, "Create"));
                 Logger.Message("Creating DB");
                 LogDBConnector.CreateTable();
             }
+            progress?.Report(new ProgressMessage(1, "Done"));
         }
 
         private static async Task InitEliteInsights(IEliteInsightsSettings settings, IProxySettings proxySettings, IProgress<ProgressMessage> progress = null, CancellationToken cancellationToken = default)

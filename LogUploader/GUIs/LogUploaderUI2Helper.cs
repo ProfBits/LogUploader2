@@ -331,8 +331,7 @@ namespace LogUploader.GUIs
         {
             if (!filterEnabled)
                 return;
-            TimeSpan duration;
-            if (!TimeSpan.TryParse(txtFilterDuration.Text, out duration))
+            if (!TimeSpan.TryParse(txtFilterDuration.Text, out TimeSpan duration))
                 duration = new TimeSpan(1, 0, 0);
             var filterConfig = new FilterConfiguration(
                 cbFilterBoss.Checked,

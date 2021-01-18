@@ -149,7 +149,7 @@ namespace LogUploader
             if (betaEnableRaidOrga)
             {
                 progress?.Report(new ProgressMessage(0.06, "RO+"));
-                await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage(0.24 * p.Percent + 0.06, "RO+ " + p.Message)))));
+                await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((0.24 * p.Percent) + 0.06, "RO+ " + p.Message)))));
             }
             else
             {
@@ -1059,6 +1059,7 @@ namespace LogUploader
                     // dispose managed state (managed objects).
                     WatchDogCTS.Cancel();
                     WorkerCTS.Cancel();
+                    WatchDogTask.Wait();
                 }
 
                 // free unmanaged resources (unmanaged objects) and override a finalizer below.

@@ -144,6 +144,7 @@ namespace LogUploader.Helper
                     catch (WebException e)
                     {
                         Logger.Error("Update EI failed - WebException");
+                        Logger.LogException(e);
                         progress?.Report(1);
                         throw new OperationCanceledException("Update EI failed - Web Error");
                     }
