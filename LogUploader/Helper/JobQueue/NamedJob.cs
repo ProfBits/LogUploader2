@@ -13,7 +13,7 @@ namespace LogUploader.Helper.JobQueue
         public int ID { get; } = JobID++;
         public string Name { get; }
 
-        private Func<T> Job;
+        private readonly Func<T> Job;
 
         public NamedJob(string name, Func<T> job)
         {

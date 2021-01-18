@@ -12,8 +12,8 @@ namespace LogUploader.Helper.JobQueue
 
     public class JobQueue<T>
     {
-        private BlockingCollection<IJob<T>> jobQueue = new BlockingCollection<IJob<T>>(new ConcurrentQueue<IJob<T>>());
-        private CancellationTokenSource PrivateCts = null;
+        private readonly BlockingCollection<IJob<T>> jobQueue = new BlockingCollection<IJob<T>>(new ConcurrentQueue<IJob<T>>());
+        private readonly CancellationTokenSource PrivateCts = null;
 
         private Thread WorkerThread { get; set; }
         public bool IsStopped { get => !WorkerThread.IsAlive; }
@@ -145,7 +145,7 @@ namespace LogUploader.Helper.JobQueue
 
         private class GenericJob<R> : IJob<R>
         {
-            private Func<R> job;
+            private readonly Func<R> job;
 
             public GenericJob(Func<R> func)
             {

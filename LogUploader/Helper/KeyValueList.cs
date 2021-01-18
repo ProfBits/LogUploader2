@@ -8,7 +8,7 @@ namespace LogUploader.Helper
     public class KeyValueList<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>
     {
 
-        private List<KeyValuePair<TKey, TValue>> Data;
+        private readonly List<KeyValuePair<TKey, TValue>> Data;
 
         //
         // Summary:

@@ -19,7 +19,7 @@ namespace LogUploader.GUI
     public partial class InitConfigUI : Form
     {
 
-        SettingsData Settings;
+        readonly SettingsData Settings;
         private bool closeForm = false;
 
         public InitConfigUI()

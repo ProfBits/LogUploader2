@@ -115,7 +115,7 @@ namespace LogUploader.Data
         [JsonIgnore]
         public int Version { get; }
 
-        private bool DpsTargetsIDNeedsFix = false;
+        private readonly bool DpsTargetsIDNeedsFix = false;
 
         //Version 1
         [JsonProperty("account")]

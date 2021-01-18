@@ -9,7 +9,7 @@ namespace LogUploader.Helper
 {
     static class LogCache
     {
-        private static LinkedList<CachedLog> Cache = new LinkedList<CachedLog>();
+        private static readonly LinkedList<CachedLog> Cache = new LinkedList<CachedLog>();
 
         private static int maxSize = 128;
 

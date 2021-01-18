@@ -408,7 +408,7 @@ namespace LogUploader.GUIs
             UpdateFilter();
         }
 
-        private Timer GCTimer = new Timer();
+        private readonly Timer GCTimer = new Timer();
         private void SetupTimers()
         {
             timerBossFilter.Interval = 1000;

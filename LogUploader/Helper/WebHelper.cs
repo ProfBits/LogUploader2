@@ -78,8 +78,8 @@ namespace LogUploader.Helper
 
         private class Credential : ICredentials
         {
-            string UserName;
-            string Password;
+            readonly string UserName;
+            readonly string Password;
 
             public Credential(string userName, string password)
             {

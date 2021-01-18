@@ -15,7 +15,7 @@ namespace LogUploader.GUIs
 {
     public partial class WebHookConfig : UserControl
     {
-        private WebHook WebHook;
+        private readonly WebHook WebHook;
 
         public WebHookConfig()
         {

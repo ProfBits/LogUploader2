@@ -13,7 +13,7 @@ namespace LogUploader.Data
     {
         public bool IsInteresting { get; }
 
-        private static Dictionary<int, AddEnemy> allAdds = new Dictionary<int, AddEnemy>();
+        private static readonly Dictionary<int, AddEnemy> allAdds = new Dictionary<int, AddEnemy>();
 
         internal AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.get(), true)
         { }

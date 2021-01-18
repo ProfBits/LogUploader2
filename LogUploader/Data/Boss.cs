@@ -22,7 +22,7 @@ namespace LogUploader.Data
         public string EIName { get; }
         public int RaidOrgaPlusID { get; }
 
-        private static Dictionary<int, Boss> allBosses = new Dictionary<int, Boss>();
+        private static readonly Dictionary<int, Boss> allBosses = new Dictionary<int, Boss>();
 
         internal Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.get(), @"https://www.publicdomainpictures.net/pictures/280000/velka/ghost-on-black-background.jpg", ":grey_question:", "Unknowen", -1) { }
 

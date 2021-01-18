@@ -128,7 +128,7 @@ namespace Extensiones.Linq
             internal bool isLastSourceElement = false;
 
             // Private object for thread syncronization
-            private object m_Lock;
+            private readonly object m_Lock;
 
             // REQUIRES: enumerator != null && predicate != null
             public Chunk(TKey key, IEnumerator<TSource> enumerator, Func<TSource, bool> predicate)
