@@ -18,7 +18,7 @@ namespace LogUploader.Helper.DiscordPostGen
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
-            var name = $"{log.Date.ToString("HH\\:mm")}";
+            var name = $"{log.Date:HH\\:mm}";
             var value = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)}";
             if (log.DataCorrected)
             {
@@ -26,7 +26,7 @@ namespace LogUploader.Helper.DiscordPostGen
                 if (log.IsCM)
                     value += $"\nCM";
                 value += $"\n{Language.Data.MiscDiscordPostGenDuration}: {log.Duration.ToString(Language.Current == eLanguage.DE ? "mm':'ss','fff" : "mm':'ss'.'fff")}";
-                value += $"\n{Language.Data.MiscDiscordPostGenHpLeft}: {log.RemainingHealth.ToString("0.00'%'")}";
+                value += $"\n{Language.Data.MiscDiscordPostGenHpLeft}: {log.RemainingHealth:0.00'%'}";
                 value += $"\n{Language.Data.MiscDiscordPostGenGroupDPS}: {log.PlayersNew.Select(p => p.DpsAll).Sum()}";
                 value += $"\n{Language.Data.MiscDiscordPostGenTopDPS}: {log.PlayersNew.Max(p2 => p2.DpsAll)} ({log.PlayersNew.Where(p => p.DpsAll == log.PlayersNew.Max(p2 => p2.DpsAll)).First().Account})";
             }

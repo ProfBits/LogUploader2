@@ -14,7 +14,7 @@ namespace LogUploader.Helper.DiscordPostGen
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
-            string name = $"{log.Date.ToString("HH\\:mm")}";
+            string name = $"{log.Date:HH\\:mm}";
             string value = $"{(log.Succsess ? MiscData.EmoteRaidKill : MiscData.EmoteRaidWipe)} {Boss.getByID(log.BossID).DiscordEmote}";
             if (log.IsCM)
                 value += $" CM";

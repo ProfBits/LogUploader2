@@ -158,7 +158,7 @@ namespace LogUploader
 
         private static string GetExceptionMessage(Exception e)
         {
-            return $"Exception: {e.GetType().ToString()}\n" +
+            return $"Exception: {e.GetType()}\n" +
                                 $"Message: {e.Message}\n" +
                                 "StacTrace:\n" +
                                 $"{e.StackTrace}";
@@ -166,7 +166,7 @@ namespace LogUploader
 
         private static string GetWin23ExeptionMessage(System.ComponentModel.Win32Exception e)
         {
-            var res = $"Exception: {e.GetType().ToString()}\n" +
+            var res = $"Exception: {e.GetType()}\n" +
                                     $"Message: {e.Message}\n" +
                                     $"NativeErrorCode: {e.NativeErrorCode}\n" +
                                     $"ErrorCode: {e.ErrorCode}\n";

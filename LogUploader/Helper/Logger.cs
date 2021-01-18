@@ -178,7 +178,7 @@ namespace LogUploader.Helper
         {
             if (!InitDone)
                 throw new InvalidOperationException("Init logger before use");
-            var header = $"{DateTime.Now.ToString("MM'.'dd HH':'mm':'ss','fff")} {prefix} ";
+            var header = $"{DateTime.Now:MM'.'dd HH':'mm':'ss','fff} {prefix} ";
             var padding = new string(' ', header.Length);
             var lines = msg.Trim().Split('\n').Select(line => padding + line.Trim());
             var text = lines.Aggregate("", (l1, l2) => l1 + l2 + Environment.NewLine).TrimStart();

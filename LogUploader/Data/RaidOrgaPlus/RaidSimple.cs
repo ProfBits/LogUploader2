@@ -13,7 +13,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         public DateTime Start { get; }
         public DateTime End { get; }
         public string Name { get; }
-        public virtual string DisplayName { get => $"{Name} {Start.ToString("dd'.'MM' 'HH':'mm")}"; }
+        public virtual string DisplayName { get => $"{Name} {Start:dd'.'MM' 'HH':'mm}"; }
         
         //TODO is there a better way to bind
         /// <summary>

@@ -18,12 +18,12 @@ namespace LogUploader.Helper.DiscordPostGen
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
-            string name = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)} - {log.Date.ToString("HH\\:mm")}";
+            string name = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)} - {log.Date:HH\\:mm}";
             string value = $"{log.BossName}";
             if (log.IsCM)
                 value += $" CM";
             if (log.DataCorrected)
-                value += $" - {log.Duration.ToString("mm':'ss")}";
+                value += $" - {log.Duration:mm':'ss}";
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";
             var field = new WebHookData.Field(name, value, true);
@@ -33,12 +33,12 @@ namespace LogUploader.Helper.DiscordPostGen
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
-            string name = $"{log.Date.ToString("HH\\:mm")}";
+            string name = $"{log.Date:HH\\:mm}";
             string value = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)}";
             if (log.IsCM)
                 value = $"CM " + value;
             if (log.DataCorrected)
-                value += $" - {log.Duration.ToString("mm':'ss")}";
+                value += $" - {log.Duration:mm':'ss}";
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";
             var field = new WebHookData.Field(name, value, true);

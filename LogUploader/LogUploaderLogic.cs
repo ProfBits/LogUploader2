@@ -997,15 +997,15 @@ namespace LogUploader
         {
             var log = QuickCacheLog(id);
             var percent = i * PercentPerLog;
-            Console.WriteLine($"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
-            progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
+            Console.WriteLine($"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay:hh':'mm}");
+            progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay:hh':'mm}"));
             log = CacheLog(id);
             if (ct.IsCancellationRequested) return null;
             if (log.DataVersion < Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.MIN_DATA_VERSION)
             {
                 percent += PercentPerLog / 2;
-                Console.WriteLine($"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}");
-                progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay.ToString("hh':'mm")}"));
+                Console.WriteLine($"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay:hh':'mm}");
+                progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay:hh':'mm}"));
                 log = ReParseData(log) ?? log;
             }
             return log;
