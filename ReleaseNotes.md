@@ -1,9 +1,15 @@
+# v1.3.2 BETA
+19.01.2021
+
+## Bugfixes
+- Bug in reading installer download url
+
 # v1.3.1 BETA
 19.01.2021
 
 ## Bugfixes
 - Subgroup header in player perview is not displayed correctly
-- Logs with outdated metadata can now be reuploaede or reparsed
+- Logs with outdated metadata can now be reuploaded or reparsed
 
 
 # v1.3.0 BETA
