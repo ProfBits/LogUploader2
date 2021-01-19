@@ -1,4 +1,6 @@
-# v1.2.31.1 ALPHA
+# v1.3.0 BETA
+19.01.2021
+
 ## Features
 - New Encounters:
     - Strike: Cold War
@@ -8,22 +10,28 @@
     - Dragon Response Mission: Gendarran
 
 - New Logger, Logfiles are now created<br>
-Last 30 Logs are saved in %appdata%/LogUploader/Logs
-- New programm argumets for logLevel (-d, -w, -i, -v | debug, warning, info, verbose)
+Last 30 Logs are saved in %appdata%/LogUploader/Logs/
+- New programm argumets for LogLevel (-d, -w, -i, -v | debug, warning, info, verbose)
 - Added Support for Alpha and Beta versions
 - New crash popup<br>
 It was never so easy to get the log
 - Parse, Upload, Open local and Open dps.report buttons are now depened on your selection
-- ???
+- New static configuration paht.<br>
+Never loose your config again after updating
+- You can now export and import your settings.
+- RaidOrga+ Integration for RaidLeads<br>
+Update all missing bosses, classes, roles and names in seconds
+
 
 ## Improvements
 - Improved JSON parsing Performance
-- Exitcodes are now Labeled and logged
+- Exitcodes are now labeled and logged
 - Added badges to the README.md
 - Added Caching for api.github.com request to improve performance
 - EliteInsights update now cancels after 5 min
 - Program update now cancels after 5 min
 - Loading bar on startup is smother than ever
+- Now Target DPS is showen next to log
 
 ## Bugfixes
 - Fixed loading bar on startup jumping backwards
