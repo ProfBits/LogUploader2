@@ -121,7 +121,7 @@ namespace LogUploader.Helper
         {
             return data["assets"]
                 .Where(json => ((string)json["name"]).StartsWith("installer") && ((string)json["name"]).EndsWith(".exe"))
-                .Select(json => (string)json["url"])
+                .Select(json => (string)json["browser_download_url"])
                 .First();
         }
 
