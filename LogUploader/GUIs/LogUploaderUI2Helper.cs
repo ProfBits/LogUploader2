@@ -1,4 +1,5 @@
 ﻿using LogUploader.Data;
+using LogUploader.Helper;
 using LogUploader.Languages;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,19 @@ namespace LogUploader.GUIs
             miOpenLink.Text = lang.ActionsOpenRemote;
             miParseUpload.Text = lang.ActionsParseAndUpload;
             miViewInExplorer.Text = lang.ActionsViewInExplorer;
+
+
+            Text = "LogUploader";
+#if DEBUG
+            Text += " DEBUG";
+#elif ALPHA
+            Text += " ALPHA";
+#elif BETA
+            Text += " BETA";
+#endif
         }
+
+        internal LogUploaderLogic DEBUGgetLogic() => Logic;
 
         private PlayerData PlayerDataHeader;
 
@@ -147,6 +160,9 @@ namespace LogUploader.GUIs
             message += $"Exception:\n{e.Exception.Message}\n\n";
             message += $"{e.Exception.StackTrace}";
 
+            if (e.Job is Helper.JobQueue.NamedJob<CachedLog> njob)
+                Logger.Error($"Job: {njob.Name} FAULTED");
+            Logger.LogException(e.Exception);
             var a = Task.Run(() => MessageBox.Show(message, $"Job Faulted", MessageBoxButtons.OK, MessageBoxIcon.Error));
         }
 
@@ -262,6 +278,13 @@ namespace LogUploader.GUIs
             lblDetOpenLocal.Visible = perv.HasHtml;
             lblDetOpenRemot.Visible = perv.HasLink;
 
+            btnOpenLocal.Enabled = perv.HasHtmlCb != CheckState.Unchecked;
+            btnOpenDpsReport.Enabled = perv.HasLinkCb != CheckState.Unchecked;
+
+            btnParse.Enabled = perv.HasHtmlCb != CheckState.Checked;
+            btnUpload.Enabled = perv.HasLinkCb != CheckState.Checked;
+            btnParsAndUpload.Enabled = (perv.HasHtmlCb != CheckState.Checked) || (perv.HasLinkCb != CheckState.Checked);
+
             tpDetailsTop.Refresh();
 
             GCTimer.Start();
@@ -270,7 +293,7 @@ namespace LogUploader.GUIs
 
         private void BindComboBoxes()
         {
-            cmbFilterBoss.DataSource = Boss.All.Select(b => b.Name).Distinct().Select(n => Boss.getByName(n)).ToList();
+            cmbFilterBoss.DataSource = Boss.All.Select(b => b.Name).Distinct().Select(n => Boss.GetByName(n)).ToList();
             cmbFilterBoss.DisplayMember = "Name";
             cmbFilterBoss.ValueMember = "ID";
 
@@ -284,6 +307,16 @@ namespace LogUploader.GUIs
             cmbWebhookSelect.DataSource = Logic.GetWebHooks();
             cmbWebhookSelect.DisplayMember = "Name";
             cmbWebhookSelect.ValueMember = "ID";
+            BindRaidOrgaBox();
+        }
+
+        private void BindRaidOrgaBox(bool reload = false)
+        {
+            if (reload) cmbRaidOrgaTermin.Enabled = false;
+            cmbRaidOrgaTermin.DataSource = Logic.GetRaidOrgaTermine(reload);
+            cmbRaidOrgaTermin.DisplayMember = "DisplayName";
+            cmbRaidOrgaTermin.ValueMember = "Self";
+            if (reload) cmbRaidOrgaTermin.Enabled = true;
         }
 
         private void UpdateAutoLogActions()
@@ -298,8 +331,7 @@ namespace LogUploader.GUIs
         {
             if (!filterEnabled)
                 return;
-            TimeSpan duration;
-            if (!TimeSpan.TryParse(txtFilterDuration.Text, out duration))
+            if (!TimeSpan.TryParse(txtFilterDuration.Text, out TimeSpan duration))
                 duration = new TimeSpan(1, 0, 0);
             var filterConfig = new FilterConfiguration(
                 cbFilterBoss.Checked,
@@ -375,7 +407,7 @@ namespace LogUploader.GUIs
             UpdateFilter();
         }
 
-        private Timer GCTimer = new Timer();
+        private readonly Timer GCTimer = new Timer();
         private void SetupTimers()
         {
             timerBossFilter.Interval = 1000;
@@ -471,6 +503,9 @@ namespace LogUploader.GUIs
 
             lblWorkCount.Text = "";
             lblWorkType.Text = "";
+
+            Action a = () => BindRaidOrgaBox(true);
+            _ = Task.Run(() => Invoke(a));
         }
 
         private void UpdateSelectedWebHook()
@@ -480,11 +515,11 @@ namespace LogUploader.GUIs
 
         private void ShowWhatsNew()
         {
-            var version = Helpers.GP.GetVersion();
+            var version = Helper.GP.GetVersion();
             var versionStr = $"v{version.Major}.{version.Minor}.{version.Build}";
             if (!Logic.Settings.WhatsNewShown.Equals(versionStr))
             {
-                Logic.updateWhatsNew(versionStr);
+                Logic.UpdateWhatsNew(versionStr);
                 new WhatsNewUI(Logic.Settings, versionStr).Show();
             }
         }

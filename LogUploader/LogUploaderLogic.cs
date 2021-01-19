@@ -1,9 +1,10 @@
-﻿using LogUploader.Data;
+﻿using Extensiones.Linq;
+using LogUploader.Data;
+using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Helper;
 using LogUploader.Helper.JobQueue;
-using LogUploader.Helpers;
 using LogUploader.Languages;
 using LogUploader.Properties;
 
@@ -60,6 +61,10 @@ namespace LogUploader
                     enableAutoUpload = value;
             }
         }
+
+        private Helper.RaidOrgaPlus.RaidOrgaPlusConnector RaidOrgaPlusConnector = null;
+        private Session RaidOrgaPlusSession = null;
+        private List<RaidSimple> RaidOrgaPlusTermine = new List<RaidSimple>();
 
         #region Events
 
@@ -140,7 +145,41 @@ namespace LogUploader
             WatchDogCTS = new CancellationTokenSource();
             WatchDogTask = RunWatchDog(settings.ArcLogsPath, WatchDogCTS);
 
-            await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.1 + (p * 0.9), "Updating Local Files")))));
+            progress?.Report(new ProgressMessage(0.06, "RO+"));
+            await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((0.24 * p.Percent) + 0.06, "RO+ " + p.Message)))));
+            
+            await Task.Run(() => UpdateUnkowen(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.2), "Updating Local Files Old")))));
+
+            await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.5 + (p * 0.5), "Updating Local Files New")))));
+        }
+
+        private void UpdateUnkowen(IProgress<double> progress = null)
+        {
+            progress?.Report(0);
+            var logs = LogDBConnector.GetByBossIdWithPath(0);
+            int i = 0;
+            int count = logs.Count;
+            foreach (var log in logs)
+            {
+                bool update = false;
+                var id = GetBoss(log.EvtcPath).ID;
+                if (id != 0)
+                {
+                    update = true;
+                    log.BossID = id;
+                }
+                if (!File.Exists(log.EvtcPath))
+                {
+                    update = true;
+                    log.EvtcPath = null;
+                }
+                if (update)
+                {
+                    LogDBConnector.Update(log);
+                }
+                progress?.Report((double)i++/count);
+                i++;
+            }
         }
 
         private void CheckForNewLogs(IProgress<double> progress = null)
@@ -258,22 +297,27 @@ namespace LogUploader
                 return log;
             }
             var response = DPSReport.UpladContent(log.EvtcPath);
-            var jsonData = new JSONHelper.JSONHelper().Desirealize(response);
-            if (jsonData.Values.ContainsKey("Error"))
-                throw new Exception($"Could not upload the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}\n\nResponse: \"{jsonData.GetTypedElement<string>("Error")}\"");
-            var link = jsonData.GetTypedElement<string>("permalink");
+            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(response);
+            if (jsonData.ContainsKey("Error"))
+            {
+                var ex = new Exception($"Could not upload the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}\n\nResponse: \"{(string)jsonData["Error"]}\"");
+                if (log.SizeKb >= 30)
+                    throw ex;
+                Logger.LogException(ex);
+                return log;
+            }
+            var link = (string)jsonData["permalink"];
             if (!log.DataCorrected)
             {
                 response = DPSReport.GetEncounterDataPermalink(link);
-                jsonData = new JSONHelper.JSONHelper().Desirealize(response);
-                log.UpdateEi(jsonData);
+                log.UpdateEi(response);
 
                 if (string.IsNullOrWhiteSpace(log.JsonPath))
                 {
-                    var simpleLogJson = new SimpleLogJson(jsonData);
+                    var simpleLogJson = new SimpleLogJson(response);
                     var evtcName = Path.GetFileName(log.EvtcPath);
                     var newjson = EliteInsights.LogsPath + evtcName.Substring(0, evtcName.LastIndexOf('.')) + "_simple.json";
-                    GP.WriteJsonFile(newjson, simpleLogJson.GetJSONObject().ToString());
+                    GP.WriteJsonFile(newjson, simpleLogJson.ToString());
                     log.JsonPath = newjson;
                 }
             }
@@ -309,19 +353,23 @@ namespace LogUploader
             var json = res.Where(path => path.EndsWith(".json")).FirstOrDefault();
             //Maybe Add corrupted flag if no output is generated
             if (res.Count == 0)
-                throw new Exception($"Could not parse the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}");
+            {
+                var ex = new Exception($"Could not parse the {log.BossName} log! ({log.SizeKb} kb)\n{log.EvtcPath}");
+                if (log.SizeKb >= 30)
+                    throw ex;
+                Logger.LogException(ex);
+                return log;
+            }
             if (!log.DataCorrected)
             {
                 var jsonStr = GP.ReadJsonFile(json);
-                var jsonData = new JSONHelper.JSONHelper().Desirealize(jsonStr);
-
-                log.UpdateEi(jsonData);
+                log.UpdateEi(jsonStr);
 
                 if (string.IsNullOrWhiteSpace(log.JsonPath))
                 {
-                    var simpleLogJson = new SimpleLogJson(jsonData);
+                    var simpleLogJson = new SimpleLogJson(jsonStr);
                     var newjson = json.Substring(0, json.Length - ".json".Length) + "_simple.json";
-                    GP.WriteJsonFile(newjson, simpleLogJson.GetJSONObject().ToString());
+                    GP.WriteJsonFile(newjson, simpleLogJson.ToString());
                     log.JsonPath = newjson;
                 }
 
@@ -366,9 +414,75 @@ namespace LogUploader
             return log;
         }
 
+        private CachedLog ReParseData(CachedLog log)
+        {
+            if (!log.DataCorrected)
+                return ParseJob(log);
+
+            if (!string.IsNullOrWhiteSpace(log.Link))
+            {
+                var response = DPSReport.GetEncounterDataPermalink(log.Link);
+                var simpleLogJson = new SimpleLogJson(response);
+
+                if (!string.IsNullOrWhiteSpace(log.JsonPath))
+                {
+                    if (File.Exists(log.JsonPath)) File.Delete(log.JsonPath);
+                }
+                string name;
+                if (!string.IsNullOrWhiteSpace(log.EvtcPath))
+                    name = log.EvtcPath.Substring(0, log.EvtcPath.LastIndexOf('.')).Split('\\').Last();
+                else
+                    name = log.Link.Split('/').Last();
+                var newjson = EliteInsights.LogsPath + name + "_simple.json";
+                GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                log.JsonPath = newjson;
+                LogDBConnector.Update(log.GetDBLog());
+                log.ApplySimpleLog(simpleLogJson);
+                return log;
+            }
+            if (!string.IsNullOrWhiteSpace(log.EvtcPath))
+            {
+                if (!File.Exists(log.EvtcPath))
+                {
+                    UpdateFilePaths(log);
+                    return log;
+                }
+                var res = EliteInsights.Parse(log.EvtcPath);
+                var html = res.Where(path => path.EndsWith(".html")).FirstOrDefault();
+                var json = res.Where(path => path.EndsWith(".json")).FirstOrDefault();
+                if (res.Count == 0)
+                    return null;
+
+                if (!string.IsNullOrWhiteSpace(log.HtmlPath) && File.Exists(log.HtmlPath))
+                    File.Delete(log.HtmlPath);
+                if (!string.IsNullOrWhiteSpace(log.JsonPath) && File.Exists(log.JsonPath))
+                    File.Delete(log.HtmlPath);
+                if (!log.DataCorrected)
+                {
+                    var jsonStr = GP.ReadJsonFile(json);
+                    log.UpdateEi(jsonStr);
+
+                    if (string.IsNullOrWhiteSpace(log.JsonPath))
+                    {
+                        var simpleLogJson = new SimpleLogJson(jsonStr);
+                        var newjson = json.Substring(0, json.Length - ".json".Length) + "_simple.json";
+                        GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                        log.JsonPath = newjson;
+                    }
+
+                }
+                log.HtmlPath = html;
+
+                File.Delete(json);
+
+                LogDBConnector.Update(log.GetDBLog());
+            }
+            return null; // cannot upgrade data
+        }
+
         public CachedLog QuickCacheLog(int id)
         {
-            var log = LogCache.getLog(id);
+            var log = LogCache.GetLog(id);
             if (log == null)
             {
                 log = new CachedLog(LogDBConnector.GetByID(id));
@@ -393,11 +507,11 @@ namespace LogUploader
                 folder = Path.Trim('\\').Split('\\').LastOrDefault();
 
             if (folder == null)
-                return Boss.getByID(0);
+                return Boss.GetByID(0);
             else if (ushort.TryParse(folder, out ushort id))
-                return Boss.getByID((int)id);
+                return Boss.GetByID((int)id);
             else
-                return Boss.getByFolderName(folder);
+                return Boss.GetByFolderName(folder);
         }
 
         private static string GetBossPartFromPath(string Path)
@@ -424,7 +538,7 @@ namespace LogUploader
             EliteInsights.Settings = Settings;
             Helper.DiscordPostGen.DiscordPostGenerator.Settings = Settings;
             WebHookDB = Settings.WebHookDB;
-            
+
             OnDataChanged(new EventArgs());
 
         }
@@ -453,25 +567,25 @@ namespace LogUploader
                 if (string.IsNullOrEmpty(log.Link))
                     continue;
                 
-                var boss = Boss.getByID(log.BossID) ?? Boss.getByID(0);
+                var boss = Boss.GetByID(log.BossID) ?? Boss.GetByID(0);
                 var str = "";
 
                 if (Settings.UseGnDiscordEmotes)
                     str += boss.DiscordEmote;
                 if (Settings.EncounterName)
                 {
-                    str += str == "" ? "" : " ";
+                    str += string.IsNullOrEmpty(str) ? "" : " ";
                     str += boss.Name;
                 }
                 if (Settings.EncounterSuccess)
                 {
-                    str += str == "" ? "" : " - ";
+                    str += string.IsNullOrEmpty(str) ? "" : " - ";
                     str += log.Succsess ? Language.Data.Succsess : Language.Data.Fail;
                 }
                 if (Settings.Inline)
-                    str += str == "" ? "" : ": ";
+                    str += string.IsNullOrEmpty(str) ? "" : ": ";
                 else
-                    str += str == "" ? "" : ":\n";
+                    str += string.IsNullOrEmpty(str) ? "" : ":\n";
                 str += log.Link.Replace("\\/", "/");
                 if (Settings.EmptyLineBetween)
                     str += "\n";
@@ -545,17 +659,17 @@ namespace LogUploader
 
         private string DurationFilter(string relation, TimeSpan value)
         {
-            return $"[DurationMs] {relation} {DBLog.getDurationMs(value)}";
+            return $"[DurationMs] {relation} {DBLog.GetDurationMs(value)}";
         }
 
         private string DateFromFilter(DateTime value)
         {
-            return $"[TimeStamp] >= {DBLog.getTimeStamp(value)}";
+            return $"[TimeStamp] >= {DBLog.GetTimeStamp(value)}";
         }
 
         private string DateToFilter(DateTime value)
         {
-            return $"[TimeStamp] <= {DBLog.getTimeStamp(value)}";
+            return $"[TimeStamp] <= {DBLog.GetTimeStamp(value)}";
         }
 
         public Tuple<DateTime, DateTime> TodayFilterBorders()
@@ -609,7 +723,14 @@ namespace LogUploader
             }
             catch (WebException e)
             {
-                //TODO localize
+                Logger.Error("Exception in: LogUploaderLogic.PostToDiscord");
+                Logger.LogException(e);
+                if (e.InnerException != null)
+                {
+                    Logger.Error("Inner Exception:");
+                    Logger.LogException(e);
+                }
+
                 MessageBox.Show(string.Format(Language.Data.MiscDiscordPostErrMsg, webHook.Name),
                      Language.Data.MiscDiscordPostErrTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -621,9 +742,11 @@ namespace LogUploader
         {
             Settings.EnableAutoParse = eap;
             Settings.EnableAutoUpload = eau;
-            var mainSettings = new Settings();
-            mainSettings.EnableAutoParse = eap;
-            mainSettings.EnableAutoUpload = eau;
+            var mainSettings = new Settings
+            {
+                EnableAutoParse = eap,
+                EnableAutoUpload = eau
+            };
             mainSettings.Save();
         }
 
@@ -672,7 +795,7 @@ namespace LogUploader
             if (logs.Count == 1)
             {
                 var log = logs[0];
-                var pData = log.Players?.OrderByDescending(p => p.DPS).Select(p => getPlayerData(p));
+                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsTargets).Select(p => GetPlayerData(p));
                 return new LogPreview(log, pData.Count() > 0 ? pData : null);
             }
             if (logs.Count > 1)
@@ -709,6 +832,7 @@ namespace LogUploader
 
                 if (token.IsCancellationRequested) return null;
 
+                //MAYBE performace improvement via summing and compare count (or not?)
                 if (logs.All(log => log.DataCorrected))
                     Corrected = CheckState.Checked;
                 else if (logs.All(log => !log.DataCorrected))
@@ -751,33 +875,30 @@ namespace LogUploader
                 CheckState.Indeterminate, CheckState.Indeterminate, false, null, CheckState.Indeterminate, null, null);
         }
 
-        private PlayerData getPlayerData(CachedPlayer player)
+        private PlayerData GetPlayerData(SimplePlayer player)
         {
-            var p = new PlayerData();
-            p.Width = 143;
-            p.Margin = new Padding(0, 1, 0, 1);
+            return new PlayerData
+            {
+                Width = 143,
+                Margin = new Padding(0, 1, 0, 1),
 
-            p.ClassImage = player.ProfessionIcon;
-            p.DisplayName = player.AccountName.TrimEnd("0123456789.".ToCharArray());
-            p.SubGroup = player.SubGroup.ToString();
-            p.DPS = player.DPS.ToString();
-
-            return p;
+                ClassImage = player.ProfessionIcon,
+                DisplayName = player.Account.TrimEnd("0123456789.".ToCharArray()),
+                SubGroup = player.Group.ToString(),
+                DPS = player.DpsTargets.ToString()
+            };
         }
 
         public CachedLog CacheLog(int id)
         {
             var log = QuickCacheLog(id);
-            if (!string.IsNullOrWhiteSpace(log.JsonPath) && ((log.Players?.Count ?? 0) == 0))
+            if (!string.IsNullOrWhiteSpace(log.JsonPath) && ((log.PlayersNew?.Count ?? 0) == 0))
             {
                 if (!File.Exists(log.JsonPath))
                     return log;
                 var jsonStr = GP.ReadJsonFile(log.JsonPath);
-                var jsonData = new JSONHelper.JSONHelper().Desirealize(jsonStr);
-                var simpleLogJson = new SimpleLogJson(jsonData);
-                log.Players = simpleLogJson.Players
-                    .Select(p => new CachedPlayer(p.Account, p.Name, Profession.Get(p.Profession), (byte) p.Group, p.DpsAll))
-                    .ToList();
+                var simpleLogJson = new SimpleLogJson(jsonStr);
+                log.ApplySimpleLog(simpleLogJson);
             }
             GC.Collect();
             LogCache.Add(log);
@@ -795,12 +916,128 @@ namespace LogUploader
             LogDBConnector.Update(log.GetDBLog());
         }
 
-        public void updateWhatsNew(string version)
+        public void UpdateWhatsNew(string version)
         {
             Settings.WhatsNewShown = version;
             var settings = new Settings();
             Settings.ApplyTo(settings);
             settings.Save();
+        }
+
+        internal void UpdateRaidOrga(RaidSimple data, List<int> list, CancellationToken ct, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)
+        {
+
+            progress?.Report(new ProgressMessage(0, "Check RO+ Login"));
+            if (data is RaidSimpleTemplate t)
+            {
+                //TODO localize error
+                Action a = () => MessageBox.Show(t.DisplayName, "Invalid raid", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                invoker(a);
+                return;
+            }
+
+            if (!CheckRaidOrgaSession(invoker, progress)) return;
+
+            progress?.Report(new ProgressMessage(0.05, "Gathering RO+ data"));
+            Raid raid = RaidOrgaPlusConnector.GetRaid(RaidOrgaPlusSession, data.TerminID, data.RaidID, ct, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.35) + 0.05, "Gathering RO+ data - " + p.Message))));
+            if (ct.IsCancellationRequested) return;
+            progress?.Report(new ProgressMessage(0.35, "Gathering local data"));
+            var PercentPerLog = 0.4 / list.Count;
+            List<CachedLog> logs = new List<CachedLog>();
+            foreach ((var i, var id) in list.Enumerate())
+            {
+                var tmp = ProcessLog(PercentPerLog, i, id, progress, ct);
+                if (ct.IsCancellationRequested) return;
+                if (tmp != null)
+                    logs.Add(tmp);
+            };
+            raid = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));
+
+            if (ct.IsCancellationRequested) return;
+            progress?.Report(new ProgressMessage(0.95, "Updating RO+"));
+            try
+            {
+                RaidOrgaPlusConnector.SetRaid(RaidOrgaPlusSession, raid);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Exeption in LogUploaderLogic.UpdateRaidOrga when setting raid");
+                Logger.LogException(e);
+            }
+            progress?.Report(new ProgressMessage(0.99, "Done"));
+        }
+
+        private bool CheckRaidOrgaSession(Action<Delegate> invoker, IProgress<ProgressMessage> progress)
+        {
+            progress?.Report(new ProgressMessage(0.01, "Check RO+ Session"));
+            if (!RaidOrgaPlusSession.Valid)
+            {
+                progress?.Report(new ProgressMessage(0.01, "Reconnect RO+ Session"));
+                RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
+            }
+            if (RaidOrgaPlusSession == null)
+            {
+                Action a = () => MessageBox.Show(Language.Data.MiscRaidOrgaPlusLoginErr, "RO+ login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                invoker(a);
+                return false;
+            }
+            if (!RaidOrgaPlusSession.Valid)
+                return false;
+            return true;
+        }
+
+        private CachedLog ProcessLog(double PercentPerLog, int i, int id, IProgress<ProgressMessage> progress, CancellationToken ct)
+        {
+            var log = QuickCacheLog(id);
+            var percent = i * PercentPerLog;
+            Console.WriteLine($"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay:hh':'mm}");
+            progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay:hh':'mm}"));
+            log = CacheLog(id);
+            if (ct.IsCancellationRequested) return null;
+            if (log.DataVersion < Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.MIN_DATA_VERSION)
+            {
+                percent += PercentPerLog / 2;
+                Console.WriteLine($"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay:hh':'mm}");
+                progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay:hh':'mm}"));
+                log = ReParseData(log) ?? log;
+            }
+            return log;
+        }
+
+        internal List<RaidSimple> GetRaidOrgaTermine(bool reconnect = false, IProgress<ProgressMessage> progress = null)
+        {
+            if (reconnect) LoadTermine(progress);
+            return RaidOrgaPlusTermine;
+        }
+
+        private void LoadTermine(IProgress<ProgressMessage> progress = null)
+        {
+            RaidOrgaPlusTermine = new List<RaidSimple>();
+            if (!Settings.RaidOrgaPlusAccoutSet)
+            {
+                RaidOrgaPlusTermine.Add(RaidSimple.GetNoAccount());
+                Logger.Message("[LogUploaderLogic.LoadTermine] No RO+ Account");
+                progress?.Report(new ProgressMessage(1, "No Account"));
+                return;
+            }
+            progress?.Report(new ProgressMessage(0, "Login"));
+            RaidOrgaPlusConnector = new Helper.RaidOrgaPlus.RaidOrgaPlusConnector(Settings);
+            RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
+            if (RaidOrgaPlusSession == null)
+            {
+                RaidOrgaPlusTermine.Add(RaidSimple.GetLogInFaild());
+                Logger.Error("[LogUploaderLogic.LoadTermine] RO+ Login Faild");
+                progress?.Report(new ProgressMessage(1, "Log in Failed"));
+                return;
+            }
+            progress?.Report(new ProgressMessage(0.5, "Raids"));
+            RaidOrgaPlusTermine = RaidOrgaPlusConnector.GetRaids(RaidOrgaPlusSession, new Progress<double>(p => progress?.Report(new ProgressMessage((0.4 * p) + 0.5, "Raids"))));
+            if (RaidOrgaPlusTermine.Count == 0)
+            {
+                RaidOrgaPlusTermine.Add(RaidSimple.GetNoTermine());
+                Logger.Message("[LogUploaderLogic.LoadTermine] No Raid appointments");
+            }
+            progress?.Report(new ProgressMessage(1, "Done"));
         }
 
         #region IDisposable Support
@@ -815,6 +1052,7 @@ namespace LogUploader
                     // dispose managed state (managed objects).
                     WatchDogCTS.Cancel();
                     WorkerCTS.Cancel();
+                    WatchDogTask.Wait();
                 }
 
                 // free unmanaged resources (unmanaged objects) and override a finalizer below.

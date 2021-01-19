@@ -28,8 +28,16 @@ namespace LogUploader.GUIs
         {
             var version = Helper.Updater.GetLocalVersion();
             lblVersion.Text += $" {version.Major}.{version.Minor}.{version.Build}";
-            llPatchnotes.LinkClicked += (sender, e) => Process.Start($"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}");
-            this.toolTip1.SetToolTip(this.llPatchnotes, $"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}");
+            if (version.Revision == 0)
+            {
+                llPatchnotes.LinkClicked += (sender, e) => Process.Start($"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}");
+            }
+            else
+            {
+                lblVersion.Text += $".{version.Revision}";
+                llPatchnotes.LinkClicked += (sender, e) => Process.Start($"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}.{version.Revision}");
+            }
+            this.toolTip1.SetToolTip(this.llPatchnotes, $"https://github.com/ProfBits/LogUploader2/releases/tag/v{version.Major}.{version.Minor}.{version.Build}.{version.Revision}");
         }
 
         private void ApplieLanguage(ILanguage lang)
@@ -44,19 +52,27 @@ namespace LogUploader.GUIs
             lblSpellCheck.Text = SPELLCHECKER + " " + lang.AboutForSpellCheck;
             lblVersion.Text = lang.AboutVersion;
             llPatchnotes.Text = lang.AboutViewPatchnotes;
+
+#if DEBUG
+            Text += " DEBUG";
+#elif ALPHA
+            Text += " ALPHA";
+#elif BETA
+            Text += " BETA";
+#endif
         }
 
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             new SoftwareLicenseUI(new LogUploaderLicense()).Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             new SoftwareUsedUI().Show();
         }
 
-        private void llProjectPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LlProjectPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start($"https://github.com/ProfBits/LogUploader2");
         }

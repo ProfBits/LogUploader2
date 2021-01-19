@@ -36,7 +36,7 @@ namespace LogUploader.Data.GameAreas
         private readonly NamedObject m_ShortName;
 
         public string ShortName { get => m_ShortName.Name; }
-        public string getShortName(eLanguage language) => m_ShortName.getName(language);
+        public string GetShortName(eLanguage language) => m_ShortName.GetName(language);
 
         public override string ToString()
         {

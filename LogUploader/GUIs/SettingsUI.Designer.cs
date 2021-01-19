@@ -16,6 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                NoWebHooks.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -32,7 +33,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsUI));
             this.gbCopyLinks = new System.Windows.Forms.GroupBox();
             this.cbLinkInSameLine = new System.Windows.Forms.CheckBox();
-            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cbGNEmotes = new System.Windows.Forms.CheckBox();
             this.cbEmptyLinesInBetween = new System.Windows.Forms.CheckBox();
             this.cbShowSuccsess = new System.Windows.Forms.CheckBox();
@@ -47,6 +47,7 @@
             this.txtUserToken = new System.Windows.Forms.TextBox();
             this.lblUserToken = new System.Windows.Forms.Label();
             this.gbGeneral = new System.Windows.Forms.GroupBox();
+            this.cbGeneralPrerelease = new System.Windows.Forms.CheckBox();
             this.cmbLang = new System.Windows.Forms.ComboBox();
             this.lblLang = new System.Windows.Forms.Label();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -65,11 +66,21 @@
             this.webHookConfig1 = new LogUploader.GUIs.WebHookConfig();
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.gbEi = new System.Windows.Forms.GroupBox();
+            this.cbEIAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.btnEiUpdate = new System.Windows.Forms.Button();
             this.cbEiTheme = new System.Windows.Forms.CheckBox();
             this.cbEiCombatReplay = new System.Windows.Forms.CheckBox();
-            this.btnEiUpdate = new System.Windows.Forms.Button();
+            this.gbRoPlus = new System.Windows.Forms.GroupBox();
+            this.txtRoPlusPwd = new System.Windows.Forms.TextBox();
+            this.txtRoPlusUser = new System.Windows.Forms.TextBox();
+            this.lblRoPlusPwd = new System.Windows.Forms.Label();
+            this.lblRoPlusUser = new System.Windows.Forms.Label();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.openFileImport = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileExport = new System.Windows.Forms.SaveFileDialog();
+            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gbCopyLinks.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.gbDpsReport.SuspendLayout();
             this.gbGeneral.SuspendLayout();
             this.gbDiscord.SuspendLayout();
@@ -77,6 +88,8 @@
             this.panel1.SuspendLayout();
             this.flpWebHooks.SuspendLayout();
             this.gbEi.SuspendLayout();
+            this.gbRoPlus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gbCopyLinks
@@ -86,7 +99,7 @@
             this.gbCopyLinks.Controls.Add(this.cbEmptyLinesInBetween);
             this.gbCopyLinks.Controls.Add(this.cbShowSuccsess);
             this.gbCopyLinks.Controls.Add(this.cbShwoEncounterName);
-            this.gbCopyLinks.Location = new System.Drawing.Point(12, 226);
+            this.gbCopyLinks.Location = new System.Drawing.Point(12, 312);
             this.gbCopyLinks.Name = "gbCopyLinks";
             this.gbCopyLinks.Size = new System.Drawing.Size(315, 134);
             this.gbCopyLinks.TabIndex = 0;
@@ -103,11 +116,6 @@
             this.cbLinkInSameLine.TabIndex = 5;
             this.cbLinkInSameLine.Text = "Link in same line as encounter";
             this.cbLinkInSameLine.UseVisualStyleBackColor = true;
-            // 
-            // SettingsbindingSource
-            // 
-            this.SettingsbindingSource.AllowNew = true;
-            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
             // 
             // cbGNEmotes
             // 
@@ -159,35 +167,35 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(485, 377);
+            this.btnCancel.Location = new System.Drawing.Point(492, 462);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(566, 377);
+            this.btnOK.Location = new System.Drawing.Point(573, 462);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 7;
             this.btnOK.Text = "Save";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnDefault
             // 
             this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDefault.Location = new System.Drawing.Point(12, 377);
+            this.btnDefault.Location = new System.Drawing.Point(12, 462);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(75, 23);
             this.btnDefault.TabIndex = 9;
             this.btnDefault.Text = "Default";
             this.btnDefault.UseVisualStyleBackColor = true;
-            this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
+            this.btnDefault.Click += new System.EventHandler(this.BtnDefault_Click);
             // 
             // gbDpsReport
             // 
@@ -196,9 +204,9 @@
             this.gbDpsReport.Controls.Add(this.lblGetUserToken);
             this.gbDpsReport.Controls.Add(this.txtUserToken);
             this.gbDpsReport.Controls.Add(this.lblUserToken);
-            this.gbDpsReport.Location = new System.Drawing.Point(12, 118);
+            this.gbDpsReport.Location = new System.Drawing.Point(12, 131);
             this.gbDpsReport.Name = "gbDpsReport";
-            this.gbDpsReport.Size = new System.Drawing.Size(314, 102);
+            this.gbDpsReport.Size = new System.Drawing.Size(315, 102);
             this.gbDpsReport.TabIndex = 4;
             this.gbDpsReport.TabStop = false;
             this.gbDpsReport.Text = "dps.report";
@@ -224,7 +232,7 @@
             this.linklblGetUserToken.TabIndex = 3;
             this.linklblGetUserToken.TabStop = true;
             this.linklblGetUserToken.Text = "https://dps.report/getUserToken";
-            this.linklblGetUserToken.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblGetUserToken_LinkClicked);
+            this.linklblGetUserToken.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblGetUserToken_LinkClicked);
             // 
             // lblGetUserToken
             // 
@@ -254,6 +262,7 @@
             // 
             // gbGeneral
             // 
+            this.gbGeneral.Controls.Add(this.cbGeneralPrerelease);
             this.gbGeneral.Controls.Add(this.cmbLang);
             this.gbGeneral.Controls.Add(this.lblLang);
             this.gbGeneral.Controls.Add(this.btnBrowse);
@@ -261,17 +270,28 @@
             this.gbGeneral.Controls.Add(this.lblArcLogsPath);
             this.gbGeneral.Location = new System.Drawing.Point(12, 12);
             this.gbGeneral.Name = "gbGeneral";
-            this.gbGeneral.Size = new System.Drawing.Size(315, 100);
+            this.gbGeneral.Size = new System.Drawing.Size(315, 113);
             this.gbGeneral.TabIndex = 11;
             this.gbGeneral.TabStop = false;
             this.gbGeneral.Text = "General";
+            // 
+            // cbGeneralPrerelease
+            // 
+            this.cbGeneralPrerelease.AutoSize = true;
+            this.cbGeneralPrerelease.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsbindingSource, "AllowPrerelases", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbGeneralPrerelease.Location = new System.Drawing.Point(7, 91);
+            this.cbGeneralPrerelease.Name = "cbGeneralPrerelease";
+            this.cbGeneralPrerelease.Size = new System.Drawing.Size(119, 17);
+            this.cbGeneralPrerelease.TabIndex = 5;
+            this.cbGeneralPrerelease.Text = "Allow Beta Updates";
+            this.cbGeneralPrerelease.UseVisualStyleBackColor = true;
             // 
             // cmbLang
             // 
             this.cmbLang.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.SettingsbindingSource, "Language", true));
             this.cmbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLang.FormattingEnabled = true;
-            this.cmbLang.Location = new System.Drawing.Point(67, 72);
+            this.cmbLang.Location = new System.Drawing.Point(67, 64);
             this.cmbLang.Name = "cmbLang";
             this.cmbLang.Size = new System.Drawing.Size(121, 21);
             this.cmbLang.TabIndex = 4;
@@ -279,7 +299,7 @@
             // lblLang
             // 
             this.lblLang.AutoSize = true;
-            this.lblLang.Location = new System.Drawing.Point(6, 75);
+            this.lblLang.Location = new System.Drawing.Point(6, 67);
             this.lblLang.Margin = new System.Windows.Forms.Padding(3);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(55, 13);
@@ -433,15 +453,38 @@
             // 
             // gbEi
             // 
+            this.gbEi.Controls.Add(this.cbEIAutoUpdate);
             this.gbEi.Controls.Add(this.btnEiUpdate);
             this.gbEi.Controls.Add(this.cbEiTheme);
             this.gbEi.Controls.Add(this.cbEiCombatReplay);
-            this.gbEi.Location = new System.Drawing.Point(333, 301);
+            this.gbEi.Location = new System.Drawing.Point(12, 239);
             this.gbEi.Name = "gbEi";
             this.gbEi.Size = new System.Drawing.Size(315, 67);
             this.gbEi.TabIndex = 13;
             this.gbEi.TabStop = false;
             this.gbEi.Text = "EliteInsights";
+            // 
+            // cbEIAutoUpdate
+            // 
+            this.cbEIAutoUpdate.AutoSize = true;
+            this.cbEIAutoUpdate.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsbindingSource, "AutoUpdateEI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbEIAutoUpdate.Location = new System.Drawing.Point(198, 15);
+            this.cbEIAutoUpdate.Name = "cbEIAutoUpdate";
+            this.cbEIAutoUpdate.Size = new System.Drawing.Size(86, 17);
+            this.cbEIAutoUpdate.TabIndex = 3;
+            this.cbEIAutoUpdate.Text = "Auto Update";
+            this.cbEIAutoUpdate.UseVisualStyleBackColor = true;
+            // 
+            // btnEiUpdate
+            // 
+            this.btnEiUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEiUpdate.Location = new System.Drawing.Point(198, 38);
+            this.btnEiUpdate.Name = "btnEiUpdate";
+            this.btnEiUpdate.Size = new System.Drawing.Size(111, 23);
+            this.btnEiUpdate.TabIndex = 2;
+            this.btnEiUpdate.Text = "Update / Reinstall";
+            this.btnEiUpdate.UseVisualStyleBackColor = true;
+            this.btnEiUpdate.Click += new System.EventHandler(this.BtnEiUpdate_Click);
             // 
             // cbEiTheme
             // 
@@ -465,15 +508,86 @@
             this.cbEiCombatReplay.Text = "Generate combat replay";
             this.cbEiCombatReplay.UseVisualStyleBackColor = true;
             // 
-            // btnEiUpdate
+            // gbRoPlus
             // 
-            this.btnEiUpdate.Location = new System.Drawing.Point(197, 38);
-            this.btnEiUpdate.Name = "btnEiUpdate";
-            this.btnEiUpdate.Size = new System.Drawing.Size(111, 23);
-            this.btnEiUpdate.TabIndex = 2;
-            this.btnEiUpdate.Text = "Update / Reinstall";
-            this.btnEiUpdate.UseVisualStyleBackColor = true;
-            this.btnEiUpdate.Click += new System.EventHandler(this.btnEiUpdate_Click);
+            this.gbRoPlus.Controls.Add(this.txtRoPlusPwd);
+            this.gbRoPlus.Controls.Add(this.txtRoPlusUser);
+            this.gbRoPlus.Controls.Add(this.lblRoPlusPwd);
+            this.gbRoPlus.Controls.Add(this.lblRoPlusUser);
+            this.gbRoPlus.Location = new System.Drawing.Point(333, 301);
+            this.gbRoPlus.Name = "gbRoPlus";
+            this.gbRoPlus.Size = new System.Drawing.Size(315, 113);
+            this.gbRoPlus.TabIndex = 14;
+            this.gbRoPlus.TabStop = false;
+            this.gbRoPlus.Text = "RaidOrga+";
+            // 
+            // txtRoPlusPwd
+            // 
+            this.txtRoPlusPwd.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsbindingSource, "RaidOrgaPlusPassword", true));
+            this.txtRoPlusPwd.Location = new System.Drawing.Point(9, 79);
+            this.txtRoPlusPwd.Name = "txtRoPlusPwd";
+            this.txtRoPlusPwd.PasswordChar = '*';
+            this.txtRoPlusPwd.Size = new System.Drawing.Size(180, 20);
+            this.txtRoPlusPwd.TabIndex = 3;
+            // 
+            // txtRoPlusUser
+            // 
+            this.txtRoPlusUser.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsbindingSource, "RaitOrgaPlusUser", true));
+            this.txtRoPlusUser.Location = new System.Drawing.Point(9, 36);
+            this.txtRoPlusUser.Name = "txtRoPlusUser";
+            this.txtRoPlusUser.Size = new System.Drawing.Size(180, 20);
+            this.txtRoPlusUser.TabIndex = 2;
+            // 
+            // lblRoPlusPwd
+            // 
+            this.lblRoPlusPwd.AutoSize = true;
+            this.lblRoPlusPwd.Location = new System.Drawing.Point(6, 63);
+            this.lblRoPlusPwd.Name = "lblRoPlusPwd";
+            this.lblRoPlusPwd.Size = new System.Drawing.Size(56, 13);
+            this.lblRoPlusPwd.TabIndex = 1;
+            this.lblRoPlusPwd.Text = "Password:";
+            // 
+            // lblRoPlusUser
+            // 
+            this.lblRoPlusUser.AutoSize = true;
+            this.lblRoPlusUser.Location = new System.Drawing.Point(6, 20);
+            this.lblRoPlusUser.Name = "lblRoPlusUser";
+            this.lblRoPlusUser.Size = new System.Drawing.Size(32, 13);
+            this.lblRoPlusUser.TabIndex = 0;
+            this.lblRoPlusUser.Text = "User:";
+            // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(93, 462);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.TabIndex = 15;
+            this.btnImport.Text = "Import";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(174, 462);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 15;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
+            // openFileImport
+            // 
+            this.openFileImport.Title = "Select settingsfile to import";
+            // 
+            // saveFileExport
+            // 
+            this.saveFileExport.Title = "Export Settings";
+            // 
+            // SettingsbindingSource
+            // 
+            this.SettingsbindingSource.AllowNew = true;
+            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
             // 
             // SettingsUI
             // 
@@ -481,7 +595,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(653, 412);
+            this.ClientSize = new System.Drawing.Size(660, 497);
+            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.btnImport);
+            this.Controls.Add(this.gbRoPlus);
             this.Controls.Add(this.gbEi);
             this.Controls.Add(this.gbDiscord);
             this.Controls.Add(this.gbGeneral);
@@ -498,7 +615,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsUI_FormClosing);
             this.gbCopyLinks.ResumeLayout(false);
             this.gbCopyLinks.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.gbDpsReport.ResumeLayout(false);
             this.gbDpsReport.PerformLayout();
             this.gbGeneral.ResumeLayout(false);
@@ -511,6 +627,9 @@
             this.flpWebHooks.ResumeLayout(false);
             this.gbEi.ResumeLayout(false);
             this.gbEi.PerformLayout();
+            this.gbRoPlus.ResumeLayout(false);
+            this.gbRoPlus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -555,5 +674,16 @@
         private System.Windows.Forms.CheckBox cbEiOnlyUploaded;
         private System.Windows.Forms.CheckBox cbNameAsUser;
         private System.Windows.Forms.Button btnEiUpdate;
+        private System.Windows.Forms.GroupBox gbRoPlus;
+        private System.Windows.Forms.TextBox txtRoPlusPwd;
+        private System.Windows.Forms.TextBox txtRoPlusUser;
+        private System.Windows.Forms.Label lblRoPlusPwd;
+        private System.Windows.Forms.Label lblRoPlusUser;
+        private System.Windows.Forms.CheckBox cbEIAutoUpdate;
+        private System.Windows.Forms.CheckBox cbGeneralPrerelease;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.OpenFileDialog openFileImport;
+        private System.Windows.Forms.SaveFileDialog saveFileExport;
     }
 }

@@ -65,6 +65,12 @@
           "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Voice_in_the_Deep_loading_screen.jpg"
         },
         {
+          "ID": 4,
+          "NameEN": "Cold War",
+          "NameDE": "Kalter Krieg",
+          "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg"
+        },
+        {
           "ID": 255,
           "NameEN": "Freeze",
           "NameDE": "Frostie",
@@ -73,15 +79,21 @@
       ],
       "Fractals": [
         {
-          "Level": 99,
+          "Level": 98,
           "NameEN": "Nightmare Factal",
           "NameDE": "Albtraum Fraktal",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         },
         {
-          "Level": 100,
+          "Level": 99,
           "NameEN": "Shattered Observartory",
           "NameDE": "Zerschmettertes Observatorium",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
+        },
+        {
+          "Level": 100,
+          "NameEN": "Sunqua Peak",
+          "NameDE": "Sunqua-Gipfel",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         }
       ],
@@ -92,6 +104,26 @@
           "ShortNameEN": "WvW",
           "ShortNameDE": "WvW",
           "AvatarURL": "https://wiki.guildwars2.com/images/7/7b/Eternal_Battlegrounds_loading_screen.jpg"
+        }
+      ],
+      "DragonResponseMissions": [
+        {
+          "ID": 1,
+          "NameEN": "Metrica Province",
+          "NameDE": "Provinz Metrica",
+          "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg"
+        },
+        {
+          "ID": 2,
+          "NameEN": "Brisban Wildlands",
+          "NameDE": "Brisban-Wildnis",
+          "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg"
+        },
+        {
+          "ID": 3,
+          "NameEN": "Gendarran Fields",
+          "NameDE": "Gendarran-Felder",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
         }
       ],
       "Training": [
@@ -124,7 +156,8 @@
         "GameAreaName": "Unknown",
         "GameAreaID": 0,
         "DiscordEmote": ":ghost:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 15438,
@@ -136,7 +169,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
         "DiscordEmote": "<:vg:501749258320478228>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/f/fb/Mini_Vale_Guardian.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/fb/Mini_Vale_Guardian.png",
+        "RaidOrgaPlusID": 1
       },
       {
         "ID": 15429,
@@ -148,7 +182,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
         "DiscordEmote": "<:gors:501748869017894912>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/d/d1/Mini_Gorseval_the_Multifarious.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/d1/Mini_Gorseval_the_Multifarious.png",
+        "RaidOrgaPlusID": 3
       },
       {
         "ID": 15375,
@@ -160,7 +195,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
         "DiscordEmote": "<:sab:501749126061621260>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/5/54/Mini_Sabetha.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/54/Mini_Sabetha.png",
+        "RaidOrgaPlusID": 4
       },
       {
         "ID": 16123,
@@ -172,7 +208,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
         "DiscordEmote": "<:sloth:501749219342811156>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/e/ed/Mini_Slubling.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/ed/Mini_Slubling.png",
+        "RaidOrgaPlusID": 5
       },
       {
         "ID": 16088,
@@ -184,7 +221,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
         "DiscordEmote": "<:trio:576146907588460559>",
-        "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
+        "AvatarURL": "https://i.imgur.com/UZZQUdf.png",
+        "RaidOrgaPlusID": 6
       },
       {
         "ID": 16137,
@@ -196,7 +234,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
         "DiscordEmote": "<:trio:576146907588460559>",
-        "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
+        "AvatarURL": "https://i.imgur.com/UZZQUdf.png",
+        "RaidOrgaPlusID": 6
       },
       {
         "ID": 16125,
@@ -208,7 +247,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
         "DiscordEmote": "<:trio:576146907588460559>",
-        "AvatarURL": "https://i.imgur.com/UZZQUdf.png"
+        "AvatarURL": "https://i.imgur.com/UZZQUdf.png",
+        "RaidOrgaPlusID": 6
       },
       {
         "ID": 16115,
@@ -220,7 +260,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
         "DiscordEmote": "<:matt:501748945060626444>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/5/5d/Mini_Matthias_Abomination.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/5d/Mini_Matthias_Abomination.png",
+        "RaidOrgaPlusID": 7
       },
       {
         "ID": 16253,
@@ -232,7 +273,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
         "DiscordEmote": "<:gdn:484839339474288650>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/5/5a/Fountain_of_Cleansing.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/5a/Fountain_of_Cleansing.jpg",
+        "RaidOrgaPlusID": 8
       },
       {
         "ID": 16235,
@@ -244,7 +286,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
         "DiscordEmote": "<:kc:501748909010583552>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png",
+        "RaidOrgaPlusID": 9
       },
       {
         "ID": 16247,
@@ -256,7 +299,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
         "DiscordEmote": "<:mir:484839459259678744>",
-        "AvatarURL": "https://i.imgur.com/xpQnu35.png"
+        "AvatarURL": "https://i.imgur.com/xpQnu35.png",
+        "RaidOrgaPlusID": 10
       },
       {
         "ID": 16246,
@@ -268,7 +312,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 3,
         "DiscordEmote": "<:xera:501749293783318548>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/4b/Mini_Xera.png",
+        "RaidOrgaPlusID": 11
       },
       {
         "ID": 17194,
@@ -280,7 +325,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "DiscordEmote": "<:cairn:501748574632280074>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Mini_Cairn_the_Indomitable.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Mini_Cairn_the_Indomitable.png",
+        "RaidOrgaPlusID": 12
       },
       {
         "ID": 17172,
@@ -292,7 +338,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "DiscordEmote": "<:mo:501748997174591492>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/c/c8/Mini_Mursaat_Overseer.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/c8/Mini_Mursaat_Overseer.png",
+        "RaidOrgaPlusID": 13
       },
       {
         "ID": 17188,
@@ -304,7 +351,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "DiscordEmote": "<:sam:501749156394696704>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/f/f0/Mini_Samarog.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/f0/Mini_Samarog.png",
+        "RaidOrgaPlusID": 14
       },
       {
         "ID": 17154,
@@ -316,7 +364,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "DiscordEmote": "<:deimos:501749064346632213> ",
-        "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Ragged_White_Mantle_Figurehead.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Ragged_White_Mantle_Figurehead.png",
+        "RaidOrgaPlusID": 15
       },
       {
         "ID": 19767,
@@ -328,7 +377,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "DiscordEmote": "<:horror:501748773752537088>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Mini_Desmina.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Mini_Desmina.png",
+        "RaidOrgaPlusID": 16
       },
       {
         "ID": 19828,
@@ -340,7 +390,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "DiscordEmote": "<:gdn:484839339474288650>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/7/7b/Gold_River_of_Souls_Trophy.jpg/220px-Gold_River_of_Souls_Trophy.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/7/7b/Gold_River_of_Souls_Trophy.jpg/220px-Gold_River_of_Souls_Trophy.jpg",
+        "RaidOrgaPlusID": 17
       },
       {
         "ID": 19691,
@@ -352,7 +403,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "DiscordEmote": "<:nec:484839499478597642>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/3/37/Mini_Broken_King.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/37/Mini_Broken_King.png",
+        "RaidOrgaPlusID": 18
       },
       {
         "ID": 19536,
@@ -364,7 +416,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "DiscordEmote": "<:nec:484839499478597642>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/2/24/Eater_of_Souls_%28Hall_of_Chains%29.jpg/194px-Eater_of_Souls_%28Hall_of_Chains%29.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/2/24/Eater_of_Souls_%28Hall_of_Chains%29.jpg/194px-Eater_of_Souls_%28Hall_of_Chains%29.jpg",
+        "RaidOrgaPlusID": 18
       },
       {
         "ID": 19651,
@@ -376,7 +429,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "DiscordEmote": "<:nec:484839499478597642>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg",
+        "RaidOrgaPlusID": 18
       },
       {
         "ID": 19844,
@@ -388,7 +442,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "DiscordEmote": "<:nec:484839499478597642>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/a/a7/Eye_of_Fate.jpg/188px-Eye_of_Fate.jpg",
+        "RaidOrgaPlusID": 18
       },
       {
         "ID": 19450,
@@ -400,7 +455,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
         "DiscordEmote": "<:dhuum:501748828945383424>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Mini_Dhuum.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Mini_Dhuum.png",
+        "RaidOrgaPlusID": 19
       },
       {
         "ID": 43974,
@@ -412,7 +468,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "DiscordEmote": "<:ca:501871735503585300>",
-        "AvatarURL": "https://i.imgur.com/eLyIWd2.png"
+        "AvatarURL": "https://i.imgur.com/eLyIWd2.png",
+        "RaidOrgaPlusID": 20
       },
       {
         "ID": 21105,
@@ -424,7 +481,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "DiscordEmote": "<:larg:501865906587041807> ",
-        "AvatarURL": "https://i.imgur.com/6O5MT7v.png"
+        "AvatarURL": "https://i.imgur.com/6O5MT7v.png",
+        "RaidOrgaPlusID": 21
       },
       {
         "ID": 21089,
@@ -436,7 +494,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "DiscordEmote": "<:larg:501865906587041807> ",
-        "AvatarURL": "https://i.imgur.com/6O5MT7v.png"
+        "AvatarURL": "https://i.imgur.com/6O5MT7v.png",
+        "RaidOrgaPlusID": 21
       },
       {
         "ID": 20934,
@@ -448,7 +507,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "DiscordEmote": "<:qad:501865963143036939>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/f/f2/Mini_Qadim.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/f2/Mini_Qadim.png",
+        "RaidOrgaPlusID": 22
       },
       {
         "ID": 22006,
@@ -460,7 +520,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 7,
         "DiscordEmote": "<:adi:591359582740414500>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/a/a0/Mini_Earth_Djinn.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/a/a0/Mini_Earth_Djinn.png",
+        "RaidOrgaPlusID": 23
       },
       {
         "ID": 21964,
@@ -472,7 +533,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 7,
         "DiscordEmote": "<:sabi:591359598175191040>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/f/fc/Mini_Air_Djinn.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/fc/Mini_Air_Djinn.png",
+        "RaidOrgaPlusID": 24
       },
       {
         "ID": 22000,
@@ -484,7 +546,8 @@
         "GameAreaName": "RaidWings",
         "GameAreaID": 7,
         "DiscordEmote": "<:qad2:591359616189988864>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/8/8b/Mini_Qadim_the_Peerless.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/8/8b/Mini_Qadim_the_Peerless.png",
+        "RaidOrgaPlusID": 25
       },
       {
         "ID": 22154,
@@ -496,7 +559,8 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 1,
         "DiscordEmote": "<:dgh:484839155155599360>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 22343,
@@ -508,7 +572,8 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
         "DiscordEmote": "<:ren:484839875841884161>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Voice_of_the_Fallen.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Voice_of_the_Fallen.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 22481,
@@ -520,7 +585,8 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
         "DiscordEmote": "<:ren:484839875841884161>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/Claw_of_the_Fallen.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/Claw_of_the_Fallen.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 22315,
@@ -532,7 +598,8 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
         "DiscordEmote": "<:ren:484839875841884161>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Whisper_in_the_Dark_09.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Whisper_in_the_Dark_09.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 22492,
@@ -544,7 +611,8 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
         "DiscordEmote": "<:fbd:484839294243045416>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/6/67/Fraenir_of_Jormag.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/6/67/Fraenir_of_Jormag.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 22436,
@@ -556,7 +624,8 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
         "DiscordEmote": "<:fbd:484839294243045416>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/7/7f/Icebrood_Construct_%28Sanctum_Arena%29.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7f/Icebrood_Construct_%28Sanctum_Arena%29.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 22521,
@@ -568,7 +637,8 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
         "DiscordEmote": "<:rea:484839588876255232> ",
-        "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 22711,
@@ -580,7 +650,21 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 3,
         "DiscordEmote": "<:mes:484839435578507295>",
-        "AvatarURL": "https://i.imgur.com/8GLwgfL.png"
+        "AvatarURL": "https://i.imgur.com/8GLwgfL.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 22836,
+        "NameEN": "Cold War",
+        "NameDE": "Kalter Kried",
+        "FolderEN": "Varinia Stormsounder",
+        "FolderDE": "Varinia Sturmschall",
+        "EiName": "Whisper of Jormag",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 4,
+        "DiscordEmote": "<:dgh:484839155155599360>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 21333,
@@ -592,7 +676,47 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 255,
         "DiscordEmote": ":snowman:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/8/8b/Freezie.jpg/189px-Freezie.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/thumb/8/8b/Freezie.jpg/189px-Freezie.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23330,
+        "NameEN": "Destroyer of the Ironhammer Line",
+        "NameDE": "Zerstörer der Eisenhammer Linie",
+        "FolderEN": "Destroyer of the Ironhammer Line",
+        "FolderDE": "Zerstörer der Eisenhammer Linie",
+        "EiName": "Destroyer of the Ironhammer Line",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 1,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23321,
+        "NameEN": "Destroyer of the Crystal Fields",
+        "NameDE": "Zerstörer der Kristallfelder",
+        "FolderEN": "Destroyer of the Crystal Fields",
+        "FolderDE": "Zerstörer der Kristallfelder",
+        "EiName": "Destroyer of the Crystal Fields",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23302,
+        "NameEN": "Destroyer of the Great Bridge",
+        "NameDE": "Zerstörer der Großen Brücke",
+        "FolderEN": "Destroyer of the Great Bridge",
+        "FolderDE": "Zerstörer der Großen Brücke",
+        "EiName": "Destroyer of the Great Bridge",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 3,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 1,
@@ -604,7 +728,8 @@
         "GameAreaName": "WvW",
         "GameAreaID": 1,
         "DiscordEmote": ":european_castle:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/3/35/WvW_Rank_up.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/35/WvW_Rank_up.png",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 17021,
@@ -614,9 +739,10 @@
         "FolderDE": "MAMA",
         "EiName": "M A M A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "DiscordEmote": "<:rea:484839588876255232>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 17028,
@@ -626,9 +752,10 @@
         "FolderDE": "Albtraum-Oratuss",
         "EiName": "Siax the Corrupted",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "DiscordEmote": "<:rea:484839588876255232>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Siax_the_Corrupted.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Siax_the_Corrupted.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 16948,
@@ -638,9 +765,10 @@
         "FolderDE": "Ensolyss der endlosen Pein",
         "EiName": "Ensolyss of the Endless Torment",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "DiscordEmote": "<:rea:484839588876255232>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/f/f6/Ensolyss_of_the_Endless_Torment.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/f6/Ensolyss_of_the_Endless_Torment.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 17632,
@@ -650,9 +778,10 @@
         "FolderDE": "Skorvald der Zerschmetterte",
         "EiName": "Skorvald the Shattered",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:chr:484840237684621323>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/c/c1/Skorvald_the_Shattered.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/c1/Skorvald_the_Shattered.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 17949,
@@ -662,9 +791,10 @@
         "FolderDE": "Artsariiv",
         "EiName": "Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:chr:484840237684621323>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/7/76/Viirastra.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/76/Viirastra.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 17759,
@@ -674,9 +804,49 @@
         "FolderDE": "Arkk",
         "EiName": "Arkk",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:chr:484840237684621323>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg"
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23256,
+        "NameEN": "Sunqua Peak",
+        "NameDE": "Sunqua-Gipfel",
+        "FolderEN": "###",
+        "FolderDE": "###",
+        "EiName": "Elemental Ai, Keeper of the Peak",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "<:ele:484839211388764162>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23255,
+        "NameEN": "Sunqua Peak",
+        "NameDE": "Sunqua-Gipfel",
+        "FolderEN": "###",
+        "FolderDE": "###",
+        "EiName": "Dark Ai, Keeper of the Peak",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "<:ele:484839211388764162>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23254,
+        "NameEN": "Sunqua Peak",
+        "NameDE": "Sunqua-Gipfel",
+        "FolderEN": "Sorrowful Spellcaster",
+        "FolderDE": "Sorrowful Spellcaster",
+        "EiName": "Ai, Keeper of the Peak",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": "<:ele:484839211388764162>",
+        "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 16202,
@@ -688,7 +858,8 @@
         "GameAreaName": "Training",
         "GameAreaID": 1,
         "DiscordEmote": ":white_check_mark:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/3/33/Mini_Snuggles.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/33/Mini_Snuggles.png",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 16177,
@@ -700,7 +871,8 @@
         "GameAreaName": "Training",
         "GameAreaID": 1,
         "DiscordEmote": ":white_check_mark:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 19676,
@@ -712,7 +884,8 @@
         "GameAreaName": "Training",
         "GameAreaID": 1,
         "DiscordEmote": ":white_check_mark:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/4/47/Mini_Baron_von_Scrufflebutt.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/47/Mini_Baron_von_Scrufflebutt.png",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 19645,
@@ -724,7 +897,8 @@
         "GameAreaName": "Training",
         "GameAreaID": 1,
         "DiscordEmote": ":white_check_mark:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/cb/Mini_Mister_Mittens.png",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 16199,
@@ -736,7 +910,8 @@
         "GameAreaName": "Training",
         "GameAreaID": 1,
         "DiscordEmote": ":white_check_mark:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/8/8f/Mini_Professor_Mew.png"
+        "AvatarURL": "https://wiki.guildwars2.com/images/8/8f/Mini_Professor_Mew.png",
+        "RaidOrgaPlusID": -1
       }
     ],
     "AddEnemys": [
@@ -785,7 +960,7 @@
         "NameEN": "Fanatic",
         "NameDE": "Fanatiker",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -881,7 +1056,7 @@
         "NameEN": "Fractal Avenger",
         "NameDE": "Fraktal-R\u00E4cher",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1273,7 +1448,7 @@
         "NameEN": "PLINK K1T-A",
         "NameDE": "PENG M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1281,7 +1456,7 @@
         "NameEN": "BLIGHT K1T-A",
         "NameDE": "PEST M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1289,7 +1464,7 @@
         "NameEN": "CHOP K1T-A",
         "NameDE": "CHOP M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1297,7 +1472,7 @@
         "NameEN": "DOC K1T-A",
         "NameDE": "DOC M1EZ-A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1305,7 +1480,7 @@
         "NameEN": "Blue Dynamic Assault Knight",
         "NameDE": "Blauer Dynamischer Sturmritter",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": true
       },
       {
@@ -1313,7 +1488,7 @@
         "NameEN": "Green Synergetic Assault Knight",
         "NameDE": "Gr\u00FCner Synergetischer Sturmritter",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": true
       },
       {
@@ -1321,7 +1496,7 @@
         "NameEN": "Nightmare Hallucination",
         "NameDE": "Albtraum Halluzination",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1329,7 +1504,7 @@
         "NameEN": "Red Static Assault Knight",
         "NameDE": "Roter Statischer Sturmritter",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": true
       },
       {
@@ -1337,7 +1512,7 @@
         "NameEN": "Hallucination",
         "NameDE": "Halluzination",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1345,7 +1520,7 @@
         "NameEN": "Twisted Horror",
         "NameDE": "Verdrehter Schrecken",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1353,7 +1528,7 @@
         "NameEN": "Nightmare Hallucination",
         "NameDE": "Albtraum Halluzination",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1361,7 +1536,7 @@
         "NameEN": "Echo of the Unclean",
         "NameDE": "Echo des Unsauberen",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -1481,7 +1656,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1489,7 +1664,7 @@
         "NameEN": "Projection Arkk",
         "NameDE": "Arkk Projektion",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1497,7 +1672,7 @@
         "NameEN": "Spark",
         "NameDE": "Funke",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1505,7 +1680,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1513,7 +1688,7 @@
         "NameEN": "Small Artsariiv",
         "NameDE": "Kleine Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1521,7 +1696,7 @@
         "NameEN": "Temporal Anomaly",
         "NameDE": "Tempor\u00E4re Anomalie",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1529,7 +1704,7 @@
         "NameEN": "Brazen Gladiator",
         "NameDE": "Dreister Gladiator",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": true
       },
       {
@@ -1537,7 +1712,7 @@
         "NameEN": "Solar Bloom",
         "NameDE": "Solarbl\u00FCten",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1545,7 +1720,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1553,7 +1728,7 @@
         "NameEN": "Mini Artsariiv",
         "NameDE": "Winzige Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1561,7 +1736,7 @@
         "NameEN": "Flux Anomaly",
         "NameDE": "Flux Anomaly",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1569,7 +1744,7 @@
         "NameEN": "Temporal Anomaly",
         "NameDE": "Tempor\u00E4re Anomalie",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1577,7 +1752,7 @@
         "NameEN": "Archdiviner",
         "NameDE": "Erzwahrsager",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": true
       },
       {
@@ -1585,7 +1760,7 @@
         "NameEN": "Medium Artsariiv",
         "NameDE": "Mittlere Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 99,
         "Intresting": false
       },
       {
@@ -1705,7 +1880,7 @@
         "NameEN": "Fractal Vindicator",
         "NameDE": "Fraktal-Verteidiger",
         "GameAreaName": "Fractals",
-        "GameAreaID": 99,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2050,6 +2225,78 @@
         "NameDE": "Annormales Irrlicht",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
+        "Intresting": false
+      },
+      {
+        "ID": 23270,
+        "NameEN": "Wütender Wasser Geist",
+        "NameDE": "Enrage Water Sprite",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23265,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23242,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23279,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23245,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23256,
+        "NameEN": "Dämon der Trauer",
+        "NameDE": "Sorrow Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23268,
+        "NameEN": "Dämon des Zwifels",
+        "NameDE": "Doubt Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23264,
+        "NameEN": "Dämon der Furcht",
+        "NameDE": "Fear Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "Intresting": false
+      },
+      {
+        "ID": 23252,
+        "NameEN": "Dämon der Schuld",
+        "NameDE": "Guilt Demon",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
         "Intresting": false
       }
     ],

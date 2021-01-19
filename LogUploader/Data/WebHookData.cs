@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using LogUploader.JSONHelper;
 using LogUploader.Interfaces;
+
+using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace LogUploader.Data
 {
@@ -35,56 +37,86 @@ namespace LogUploader.Data
         {
         }
 
+        [JsonProperty("username", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
         public string Username { get; set; } = "LogUploader";
+        [JsonProperty("avatar_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
         public string AvaturURL { get; set; } = @"https://i.imgur.com/o0QwGPV.png";
+        [JsonProperty("content", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
         public string Content { get; set; } = "";
+        [JsonProperty("embeds", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<Embed> Embeds { get; set; } = new List<Embed>();
+        [JsonIgnore]
         public const int MAX_Embeds = 10;
+        
+        public bool ShouldSerializeEmbeds()
+        {
+            return Embeds.Count > 0;
+        }
 
         public override string ToString()
         {
-            var res = new JSONObject();
-            if (Username != "")
-            res.Values.Add("username", Username);
-            if (AvaturURL != "")
-                res.Values.Add("avatar_url", AvaturURL);
-            if (Content != "")
-                res.Values.Add("content", Content);
-            if (Embeds.Count > 0)
-                res.Values.Add("embeds", Embeds.Select(embed => (object)embed.GetJSONObject()).ToList());
-            return res.ToString();
+            return JsonConvert.SerializeObject(this);
         }
 
-        public class Embed : IJSONSerializeable
+        public class Embed
         {
+            [JsonIgnore]
             public const int MAX_LENGHT = 6000;
+            [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue(null)]
             public Author Author { get; set; } = null;
 
+            [JsonIgnore]
             public const int TITLE_MAX_LENGHT = 256;
             private string title = "";
+            [JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string Title
             {
                 get => title;
                 set => title = value.Length > TITLE_MAX_LENGHT ? value.Substring(0, TITLE_MAX_LENGHT) : value;
             }
+            [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string URL { get; set; } = "";
 
+            [JsonIgnore]
             public const int DESCRIPTIONE_MAX_LENGHT = 2048;
             private string descriptione = "";
+            [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string Descriptione
             {
                 get => descriptione;
                 set => descriptione = value.Length > DESCRIPTIONE_MAX_LENGHT ? value.Substring(0, DESCRIPTIONE_MAX_LENGHT) : value;
             }
 
+            [JsonIgnore]
             public Color Color { get; set; } = Color.FromArgb(255, 0, 254);
+            [JsonProperty("color", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue((20 << 16) + (20 << 8) + 20)]
+            public int JsonColor { get => (Color.R << 16) + (Color.G << 8) + Color.B; set => Color.FromArgb((value & (0b1111_1111 << 16)) >> 16, (value & (0b1111_1111 << 8)) >> 8, value & 0b1111_1111); }
             /// <summary>
             /// Max count of 25
             /// </summary>
+            [JsonProperty("fields", DefaultValueHandling = DefaultValueHandling.Ignore)]
             public List<Field> Fields { get; set; } = new List<Field>();
+            [JsonIgnore]
             public const int MAX_FIELDS = 25;
+
+            [JsonProperty("thumbnail", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue(null)]
             public Thumbmail Thumbmail { get; set; } = null;
+
+            [JsonProperty("image", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue(null)]
             public Image Image { get; set; } = null;
+
+            [JsonProperty("footer", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue(null)]
             public Footer Footer { get; set; } = null;
 
             public Embed(Author author, string title, Color color, List<Field> fields, Thumbmail thumbmail)
@@ -105,43 +137,30 @@ namespace LogUploader.Data
                 Footer = footer;
             }
 
-            public JSONObject GetJSONObject()
+            public override string ToString()
             {
-                var res = new JSONObject();
-                if (Author != null)
-                    res.Values.Add("author", Author.GetJSONObject());
-                if (Title != "")
-                    res.Values.Add("title", Title);
-                if (URL != "")
-                    res.Values.Add("url", URL);
-                if (Descriptione != "")
-                    res.Values.Add("description", Descriptione);
-                if (Color !=  Color.FromArgb(20, 20, 20))
-                    res.Values.Add("color", (Color.R << 16) + (Color.G << 8) + Color.B);
-                if (Fields.Count > 0)
-                {
-                    res.Values.Add("fields", Fields.Select(field => (object)field.GetJSONObject()).ToList());
-                }
-                if (Thumbmail != null)
-                    res.Values.Add("thumbnail", Thumbmail.GetJSONObject());
-                if (Image != null)
-                    res.Values.Add("image", Image.GetJSONObject());
-                if (Footer != null)
-                    res.Values.Add("footer", Footer.GetJSONObject());
-                return res;
+                return JsonConvert.SerializeObject(this);
             }
         }
 
-        public class Author : IJSONSerializeable
+        public class Author
         {
             public const int NAME_MAX_LENGHT = 256;
             private string name = "";
+            [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string Name
             {
                 get => name;
                 set => name = value.Length > NAME_MAX_LENGHT ? value.Substring(0, NAME_MAX_LENGHT) : value;
             }
+
+            [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string URL { get; set; } = "";
+
+            [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string IconURL { get; set; } = "";
 
             public Author(string name, string uRL, string iconURL)
@@ -151,23 +170,18 @@ namespace LogUploader.Data
                 IconURL = iconURL;
             }
 
-            public JSONObject GetJSONObject()
+            public override string ToString()
             {
-                var res = new JSONObject();
-                if (Name != "")
-                    res.Values.Add("name", Name);
-                if (URL != "")
-                    res.Values.Add("url", URL);
-                if (IconURL != "")
-                    res.Values.Add("icon_url", IconURL);
-                return res;
+                return JsonConvert.SerializeObject(this);
             }
         }
 
-        public class Field : IJSONSerializeable
+        public class Field
         {
             public const int NAME_MAX_LENGHT = 256;
             private string name = "";
+            [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string Name
             {
                 get => name;
@@ -176,11 +190,14 @@ namespace LogUploader.Data
 
             public const int VAL_MAX_LENGHT = 1024;
             private string val = "";
+            [JsonProperty("value", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string Value
             {
                 get => val;
                 set => val = value.Length > VAL_MAX_LENGHT ? value.Substring(0, VAL_MAX_LENGHT) : value;
             }
+            [JsonProperty("inline")]
             public bool Inline { get; set; } = false;
 
             public Field(string name, string value, bool inline)
@@ -190,21 +207,21 @@ namespace LogUploader.Data
                 Inline = inline;
             }
 
-            public JSONObject GetJSONObject()
+            public bool ShouldSerializeInline()
             {
-                var res = new JSONObject();
-                if (Name != "")
-                    res.Values.Add("name", Name);
-                if (Value != "")
-                    res.Values.Add("value", Value);
-                if (Name != "" || Value != "")
-                    res.Values.Add("inline", Inline);
-                return res;
+                return !string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(Value);
+            }
+
+            public override string ToString()
+            {
+                return JsonConvert.SerializeObject(this);
             }
         }
 
-        public class Thumbmail : IJSONSerializeable
+        public class Thumbmail
         {
+            [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             string URL { get; set; } = "";
 
             public Thumbmail(string uRL)
@@ -212,17 +229,16 @@ namespace LogUploader.Data
                 URL = uRL;
             }
 
-            public JSONObject GetJSONObject()
+            public override string ToString()
             {
-                var res = new JSONObject();
-                if (URL != "")
-                    res.Values.Add("url", URL);
-                return res;
+                return JsonConvert.SerializeObject(this);
             }
         }
 
-        public class Image : IJSONSerializeable
+        public class Image
         {
+            [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string URL { get; set; } = "";
 
             public Image(string uRL)
@@ -230,18 +246,20 @@ namespace LogUploader.Data
                 URL = uRL;
             }
 
-            public JSONObject GetJSONObject()
+            public override string ToString()
             {
-                var res = new JSONObject();
-                if (URL != "")
-                    res.Values.Add("url", URL);
-                return res;
+                return JsonConvert.SerializeObject(this);
             }
         }
 
-        public class Footer : IJSONSerializeable
+        public class Footer
         {
+            [JsonProperty("text", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string Text { get; set; } = "";
+
+            [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+            [DefaultValue("")]
             public string IconURL { get; set; } = "";
 
             public Footer(string text, string iconURL)
@@ -250,14 +268,9 @@ namespace LogUploader.Data
                 IconURL = iconURL;
             }
 
-            public JSONObject GetJSONObject()
+            public override string ToString()
             {
-                var res = new JSONObject();
-                if (Text != "")
-                    res.Values.Add("text", Text);
-                if (IconURL != "")
-                    res.Values.Add("icon_url", IconURL);
-                return res;
+                return JsonConvert.SerializeObject(this);
             }
         }
     }

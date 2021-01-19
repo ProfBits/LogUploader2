@@ -16,6 +16,11 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                CopyLinksTimer.Dispose();
+                CTSUpdateSelection.Dispose();
+                GCTimer.Dispose();
+                PlayerDataHeader.Dispose();
+                timerBossFilter.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -142,6 +147,9 @@
             this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.pTop = new System.Windows.Forms.Panel();
+            this.gbRaidOrga = new System.Windows.Forms.GroupBox();
+            this.cmbRaidOrgaTermin = new System.Windows.Forms.ComboBox();
+            this.btnUpdateRaidOrga = new System.Windows.Forms.Button();
             this.pStatus.SuspendLayout();
             this.pWorkStatus.SuspendLayout();
             this.flpProgress.SuspendLayout();
@@ -160,6 +168,7 @@
             this.pGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).BeginInit();
             this.contextMenuGrid.SuspendLayout();
+            this.gbRaidOrga.SuspendLayout();
             this.SuspendLayout();
             // 
             // pStatus
@@ -204,7 +213,7 @@
             this.pgTop.Name = "pgTop";
             this.pgTop.Size = new System.Drawing.Size(30, 10);
             this.pgTop.TabIndex = 1;
-            this.pgTop.Paint += new System.Windows.Forms.PaintEventHandler(this.pgTop_Paint);
+            this.pgTop.Paint += new System.Windows.Forms.PaintEventHandler(this.PgTop_Paint);
             // 
             // pgBottom
             // 
@@ -341,14 +350,16 @@
             this.tlControlsTable.Controls.Add(this.gbFilter, 1, 0);
             this.tlControlsTable.Controls.Add(this.gbDetails, 1, 1);
             this.tlControlsTable.Controls.Add(this.gbActions, 2, 1);
-            this.tlControlsTable.Controls.Add(this.gbSettings, 2, 3);
-            this.tlControlsTable.Controls.Add(this.button2, 2, 2);
+            this.tlControlsTable.Controls.Add(this.gbSettings, 2, 4);
+            this.tlControlsTable.Controls.Add(this.button2, 2, 3);
+            this.tlControlsTable.Controls.Add(this.gbRaidOrga, 2, 2);
             this.tlControlsTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlControlsTable.Location = new System.Drawing.Point(0, 0);
             this.tlControlsTable.Name = "tlControlsTable";
-            this.tlControlsTable.RowCount = 4;
+            this.tlControlsTable.RowCount = 5;
             this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 160F));
-            this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tlControlsTable.Size = new System.Drawing.Size(357, 630);
@@ -402,7 +413,7 @@
             this.btnFilterReset.TabIndex = 10;
             this.btnFilterReset.Text = "Reset";
             this.btnFilterReset.UseVisualStyleBackColor = true;
-            this.btnFilterReset.Click += new System.EventHandler(this.btnFromatRest_Click);
+            this.btnFilterReset.Click += new System.EventHandler(this.BtnFromatRest_Click);
             // 
             // btnFilterToday
             // 
@@ -412,7 +423,7 @@
             this.btnFilterToday.TabIndex = 9;
             this.btnFilterToday.Text = "Today";
             this.btnFilterToday.UseVisualStyleBackColor = true;
-            this.btnFilterToday.Click += new System.EventHandler(this.btnFilterToday_Click);
+            this.btnFilterToday.Click += new System.EventHandler(this.BtnFilterToday_Click);
             // 
             // lblFilterTo
             // 
@@ -500,7 +511,7 @@
             this.txtFilterDuration.Name = "txtFilterDuration";
             this.txtFilterDuration.Size = new System.Drawing.Size(86, 20);
             this.txtFilterDuration.TabIndex = 4;
-            this.txtFilterDuration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterDuration_KeyPress);
+            this.txtFilterDuration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtFilterDuration_KeyPress);
             // 
             // numFilterHpLeft
             // 
@@ -511,7 +522,7 @@
             this.numFilterHpLeft.Size = new System.Drawing.Size(65, 20);
             this.numFilterHpLeft.TabIndex = 3;
             this.numFilterHpLeft.ValueChanged += new System.EventHandler(this.FilterControl_Changed);
-            this.numFilterHpLeft.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterDuration_KeyPress);
+            this.numFilterHpLeft.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtFilterDuration_KeyPress);
             // 
             // cbFilterSuccsess
             // 
@@ -600,7 +611,7 @@
             this.cmbFilterBoss.Size = new System.Drawing.Size(151, 21);
             this.cmbFilterBoss.TabIndex = 1;
             this.cmbFilterBoss.SelectedIndexChanged += new System.EventHandler(this.FilterControl_Changed);
-            this.cmbFilterBoss.TextChanged += new System.EventHandler(this.cmbFilterBoss_TextChanged);
+            this.cmbFilterBoss.TextChanged += new System.EventHandler(this.CmbFilterBoss_TextChanged);
             // 
             // gbDetails
             // 
@@ -609,7 +620,7 @@
             this.gbDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbDetails.Location = new System.Drawing.Point(8, 163);
             this.gbDetails.Name = "gbDetails";
-            this.tlControlsTable.SetRowSpan(this.gbDetails, 3);
+            this.tlControlsTable.SetRowSpan(this.gbDetails, 4);
             this.gbDetails.Size = new System.Drawing.Size(170, 464);
             this.gbDetails.TabIndex = 1;
             this.gbDetails.TabStop = false;
@@ -743,7 +754,7 @@
             this.lblDetOpenRemot.TabIndex = 16;
             this.lblDetOpenRemot.Text = "open";
             this.lblDetOpenRemot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDetOpenRemot.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            this.lblDetOpenRemot.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
             // 
             // cbDetUploaded
             // 
@@ -938,7 +949,7 @@
             this.lblDetOpenLocal.TabIndex = 15;
             this.lblDetOpenLocal.Text = "open";
             this.lblDetOpenLocal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDetOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            this.lblDetOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
             // 
             // pDetailsPlayers
             // 
@@ -978,7 +989,7 @@
             this.gbActions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbActions.Location = new System.Drawing.Point(184, 163);
             this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(170, 244);
+            this.gbActions.Size = new System.Drawing.Size(170, 204);
             this.gbActions.TabIndex = 2;
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Actions";
@@ -1016,7 +1027,7 @@
             this.btnParsAndUpload.TabIndex = 2;
             this.btnParsAndUpload.Text = "Parse Local & Upload";
             this.btnParsAndUpload.UseVisualStyleBackColor = true;
-            this.btnParsAndUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
+            this.btnParsAndUpload.Click += new System.EventHandler(this.BtnParsAndUpload_Click);
             // 
             // btnOpenDpsReport
             // 
@@ -1029,7 +1040,7 @@
             this.btnOpenDpsReport.TabIndex = 2;
             this.btnOpenDpsReport.Text = "dps.report";
             this.btnOpenDpsReport.UseVisualStyleBackColor = true;
-            this.btnOpenDpsReport.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            this.btnOpenDpsReport.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
             // 
             // dBLogBindingSource
             // 
@@ -1044,7 +1055,7 @@
             this.btnPostToDiscord.TabIndex = 2;
             this.btnPostToDiscord.Text = "Post to Discord";
             this.btnPostToDiscord.UseVisualStyleBackColor = true;
-            this.btnPostToDiscord.Click += new System.EventHandler(this.btnPostToDiscord_Click);
+            this.btnPostToDiscord.Click += new System.EventHandler(this.BtnPostToDiscord_Click);
             // 
             // btnCopyLinks
             // 
@@ -1054,7 +1065,7 @@
             this.btnCopyLinks.TabIndex = 2;
             this.btnCopyLinks.Text = "Copy links";
             this.btnCopyLinks.UseVisualStyleBackColor = true;
-            this.btnCopyLinks.Click += new System.EventHandler(this.btnCopyLinks_Click);
+            this.btnCopyLinks.Click += new System.EventHandler(this.BtnCopyLinks_Click);
             // 
             // btnUpload
             // 
@@ -1065,7 +1076,7 @@
             this.btnUpload.TabIndex = 2;
             this.btnUpload.Text = "Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            this.btnUpload.Click += new System.EventHandler(this.BtnUpload_Click);
             // 
             // btnOpenLocal
             // 
@@ -1078,7 +1089,7 @@
             this.btnOpenLocal.TabIndex = 1;
             this.btnOpenLocal.Text = "Open Local";
             this.btnOpenLocal.UseVisualStyleBackColor = true;
-            this.btnOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            this.btnOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
             // 
             // btnParse
             // 
@@ -1089,7 +1100,7 @@
             this.btnParse.TabIndex = 0;
             this.btnParse.Text = "Parse Local";
             this.btnParse.UseVisualStyleBackColor = true;
-            this.btnParse.Click += new System.EventHandler(this.btnParse_Click);
+            this.btnParse.Click += new System.EventHandler(this.BtnParse_Click);
             // 
             // gbSettings
             // 
@@ -1113,7 +1124,7 @@
             this.btnAbout.TabIndex = 3;
             this.btnAbout.Text = "About";
             this.btnAbout.UseVisualStyleBackColor = true;
-            this.btnAbout.Click += new System.EventHandler(this.button1_Click);
+            this.btnAbout.Click += new System.EventHandler(this.BtnAbout_Click);
             // 
             // btnSettings
             // 
@@ -1124,7 +1135,7 @@
             this.btnSettings.TabIndex = 2;
             this.btnSettings.Text = "Settings...";
             this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // cbAutoUpload
             // 
@@ -1150,14 +1161,14 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(184, 413);
+            this.button2.Location = new System.Drawing.Point(184, 453);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 23);
             this.button2.TabIndex = 4;
             this.button2.Text = "Reload Lang XML";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // pGrid
             // 
@@ -1208,8 +1219,8 @@
             this.dBLogDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dBLogDataGridView.Size = new System.Drawing.Size(670, 630);
             this.dBLogDataGridView.TabIndex = 0;
-            this.dBLogDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dBLogDataGridView_CellDoubleClick);
-            this.dBLogDataGridView.SelectionChanged += new System.EventHandler(this.dBLogDataGridView_SelectionChanged);
+            this.dBLogDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DBLogDataGridView_CellDoubleClick);
+            this.dBLogDataGridView.SelectionChanged += new System.EventHandler(this.DBLogDataGridView_SelectionChanged);
             // 
             // colBossName
             // 
@@ -1409,49 +1420,49 @@
             this.miViewInExplorer});
             this.contextMenuGrid.Name = "contextMenuGrid";
             this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
-            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGrid_Opening);
+            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuGrid_Opening);
             // 
             // miParse
             // 
             this.miParse.Name = "miParse";
             this.miParse.Size = new System.Drawing.Size(166, 22);
             this.miParse.Text = "Parse";
-            this.miParse.Click += new System.EventHandler(this.btnParse_Click);
+            this.miParse.Click += new System.EventHandler(this.BtnParse_Click);
             // 
             // miOpenLocal
             // 
             this.miOpenLocal.Name = "miOpenLocal";
             this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
             this.miOpenLocal.Text = "Open Local";
-            this.miOpenLocal.Click += new System.EventHandler(this.btnOpenLocal_Click);
+            this.miOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
             // 
             // miUpload
             // 
             this.miUpload.Name = "miUpload";
             this.miUpload.Size = new System.Drawing.Size(166, 22);
             this.miUpload.Text = "Upload";
-            this.miUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            this.miUpload.Click += new System.EventHandler(this.BtnUpload_Click);
             // 
             // miOpenLink
             // 
             this.miOpenLink.Name = "miOpenLink";
             this.miOpenLink.Size = new System.Drawing.Size(166, 22);
             this.miOpenLink.Text = "Open dps.report";
-            this.miOpenLink.Click += new System.EventHandler(this.btnOpenDpsReport_Click);
+            this.miOpenLink.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
             // 
             // miParseUpload
             // 
             this.miParseUpload.Name = "miParseUpload";
             this.miParseUpload.Size = new System.Drawing.Size(166, 22);
             this.miParseUpload.Text = "Parse and Upload";
-            this.miParseUpload.Click += new System.EventHandler(this.btnParsAndUpload_Click);
+            this.miParseUpload.Click += new System.EventHandler(this.BtnParsAndUpload_Click);
             // 
             // miViewInExplorer
             // 
             this.miViewInExplorer.Name = "miViewInExplorer";
             this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
             this.miViewInExplorer.Text = "View in Explorer";
-            this.miViewInExplorer.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+            this.miViewInExplorer.Click += new System.EventHandler(this.ViewToolStripMenuItem_Click);
             // 
             // pTop
             // 
@@ -1460,6 +1471,36 @@
             this.pTop.Name = "pTop";
             this.pTop.Size = new System.Drawing.Size(1027, 1);
             this.pTop.TabIndex = 0;
+            // 
+            // gbRaidOrga
+            // 
+            this.gbRaidOrga.Controls.Add(this.btnUpdateRaidOrga);
+            this.gbRaidOrga.Controls.Add(this.cmbRaidOrgaTermin);
+            this.gbRaidOrga.Location = new System.Drawing.Point(184, 373);
+            this.gbRaidOrga.Name = "gbRaidOrga";
+            this.gbRaidOrga.Size = new System.Drawing.Size(170, 74);
+            this.gbRaidOrga.TabIndex = 5;
+            this.gbRaidOrga.TabStop = false;
+            this.gbRaidOrga.Text = "RaidOrga+";
+            // 
+            // cmbRaidOrgaTermin
+            // 
+            this.cmbRaidOrgaTermin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRaidOrgaTermin.FormattingEnabled = true;
+            this.cmbRaidOrgaTermin.Location = new System.Drawing.Point(6, 19);
+            this.cmbRaidOrgaTermin.Name = "cmbRaidOrgaTermin";
+            this.cmbRaidOrgaTermin.Size = new System.Drawing.Size(158, 21);
+            this.cmbRaidOrgaTermin.TabIndex = 0;
+            // 
+            // bntUpdateRaidOrga
+            // 
+            this.btnUpdateRaidOrga.Location = new System.Drawing.Point(53, 45);
+            this.btnUpdateRaidOrga.Name = "bntUpdateRaidOrga";
+            this.btnUpdateRaidOrga.Size = new System.Drawing.Size(111, 23);
+            this.btnUpdateRaidOrga.TabIndex = 1;
+            this.btnUpdateRaidOrga.Text = "Update Termin";
+            this.btnUpdateRaidOrga.UseVisualStyleBackColor = true;
+            this.btnUpdateRaidOrga.Click += new System.EventHandler(this.BtnUpdateRaidOrga_Click);
             // 
             // LogUploaderUI2
             // 
@@ -1501,6 +1542,7 @@
             this.pGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).EndInit();
             this.contextMenuGrid.ResumeLayout(false);
+            this.gbRaidOrga.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1618,5 +1660,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colFlags;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colHasEvtc;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colHasJson;
+        private System.Windows.Forms.GroupBox gbRaidOrga;
+        private System.Windows.Forms.Button btnUpdateRaidOrga;
+        private System.Windows.Forms.ComboBox cmbRaidOrgaTermin;
     }
 }

@@ -13,8 +13,8 @@ namespace LogUploader.Interfaces
 
         string Name { get; }
 
-        string getName(eLanguage language);
+        string GetName(eLanguage language);
 
-        bool hasName(string name);
+        bool HasName(string name);
     }
 }

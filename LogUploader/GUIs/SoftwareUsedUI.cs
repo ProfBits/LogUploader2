@@ -29,6 +29,8 @@ namespace LogUploader.GUIs
             WindowsAPICodePackShell.License = new WindowsAPICodePack_ShellLicense();
             MakeSFX.License = new MakeSFXLicense();
             CommonMark.License = new CommonMarkLicense();
+            NewtonsoftJson.License = new NewtonsoftJsonLicense();
+            PropMapper.License = new PropMapperLicense();
         }
 
         private void ApplyLanguage(ILanguage lang)
@@ -37,7 +39,7 @@ namespace LogUploader.GUIs
             bntClose.Text = lang.LicensesClose;
         }
 
-        private void bntClose_Click(object sender, EventArgs e)
+        private void BntClose_Click(object sender, EventArgs e)
         {
             Close();
         }

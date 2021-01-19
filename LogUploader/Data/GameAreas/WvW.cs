@@ -70,7 +70,7 @@ namespace LogUploader.Data.GameAreas
             return new WvW(info);
         }
 
-        public static WvW get() => wvw;
+        public static WvW Get() => wvw;
 
         public override string ToString()
         {

@@ -35,7 +35,7 @@ namespace LogUploader.Data
             SizeKb = sizeKb;
             HPLeft = hPLeft;
             Date = date;
-            this.isMaxDuration = isMaxDuration;
+            this.IsMaxDuration = isMaxDuration;
             MaxDuratin = maxDuratin;
             Corrected = corrected;
             IsCM = isCM;
@@ -52,7 +52,7 @@ namespace LogUploader.Data
         public int SizeKb { get; }
         public float HPLeft { get; }
         public DateTime Date { get; }
-        public bool isMaxDuration { get; }
+        public bool IsMaxDuration { get; }
         public TimeSpan MaxDuratin { get; }
         public CheckState Corrected { get; } = CheckState.Indeterminate;
         public CheckState IsCM { get; } = CheckState.Indeterminate;

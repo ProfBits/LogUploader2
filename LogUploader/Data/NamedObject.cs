@@ -1,4 +1,4 @@
-﻿using LogUploader.Helpers;
+﻿using LogUploader.Helper;
 using LogUploader.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace LogUploader.Data
     {
         public string NameEN { get; }
         public string NameDE { get; }
-        public virtual string Name { get => getName(Languages.Language.Current); }
+        public virtual string Name { get => GetName(Languages.Language.Current); }
 
         public NamedObject(string nameEN, string nameDE)
         {
@@ -26,7 +26,7 @@ namespace LogUploader.Data
         public NamedObject(INamedObject namedObject) : this(namedObject.NameEN, namedObject.NameDE)
         { }
 
-        public virtual string getName(eLanguage language)
+        public virtual string GetName(eLanguage language)
         {
             switch (language)
             {
@@ -67,7 +67,7 @@ namespace LogUploader.Data
             return !(a == b);
         }
         
-        public bool hasName(string name)
+        public bool HasName(string name)
         {
             return NameEN == name
                 || NameDE == name;

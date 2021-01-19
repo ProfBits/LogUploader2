@@ -89,7 +89,7 @@ namespace LogUploader.GUI
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -118,7 +118,7 @@ namespace LogUploader.GUI
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             Save();
             Close();

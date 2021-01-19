@@ -15,7 +15,7 @@ namespace LogUploader.GUIs
 {
     public partial class WebHookConfig : UserControl
     {
-        private WebHook WebHook;
+        private readonly WebHook WebHook;
 
         public WebHookConfig()
         {
@@ -32,7 +32,7 @@ namespace LogUploader.GUIs
             cmbFormat.ValueMember = "val";
             cmbFormat.DisplayMember = "name";
             cmbFormat.DataSource = 
-                Helpers.EnumHelper.GetValues<eDiscordPostFormat>()
+                Helper.EnumHelper.GetValues<eDiscordPostFormat>()
                 .Select(f => new { val = f, name = f.GetAttribute<ObjectName>().Name })
                 .ToList();
 
@@ -59,7 +59,7 @@ namespace LogUploader.GUIs
             WebHookDeleted?.Invoke(this, e);
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             OnWebHookDeleted(new WebHookDeleteEventArgs(WebHook.ID));
         }

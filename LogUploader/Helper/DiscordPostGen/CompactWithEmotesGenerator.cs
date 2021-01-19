@@ -1,5 +1,5 @@
 ﻿using LogUploader.Data;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,7 +16,7 @@ namespace LogUploader.Helper.DiscordPostGen
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
             string name = log.Succsess ? MiscData.EmoteRaidKill : MiscData.EmoteRaidWipe;
-            name += Boss.getByID(log.BossID).DiscordEmote;
+            name += Boss.GetByID(log.BossID).DiscordEmote;
             name += " " + log.BossName;
             if (log.IsCM)
                 name += " CM";
@@ -50,19 +50,21 @@ namespace LogUploader.Helper.DiscordPostGen
 
             if (start.Date.Equals(end.Date))
             {
-                string en = $"Logs {start.ToString("HH':'mm")} - {end.ToString("HH':'mm")}";
-                string de = $"Logs {start.ToString("HH':'mm")} - {end.ToString("HH':'mm")}";
+                string en = $"Logs {start:HH':'mm} - {end:HH':'mm}";
+                string de = $"Logs {start:HH':'mm} - {end:HH':'mm}";
                 g = new Grouping(@"https://wiki.guildwars2.com/images/1/1f/Spirit_Vale_%28achievements%29.png", new NamedObject(en, de));
             }
             else
             {
-                string en = $"Logs {start.ToString("yyyy'-'MM'-'dd' 'HH':'mm")} - {end.ToString("yyyy'-'MM'-'dd' 'HH':'mm")}";
-                string de = $"Logs {start.ToString("dd'.'MM'.'yyy' 'HH':'mm")} - {end.ToString("dd'.'MM'.'yyy' 'HH':'mm")}";
+                string en = $"Logs {start:yyyy'-'MM'-'dd' 'HH':'mm} - {end:yyyy'-'MM'-'dd' 'HH':'mm}";
+                string de = $"Logs {start:dd'.'MM'.'yyy' 'HH':'mm} - {end:dd'.'MM'.'yyy' 'HH':'mm}";
                 g = new Grouping(@"https://wiki.guildwars2.com/images/1/1f/Spirit_Vale_%28achievements%29.png", new NamedObject(en, de));
             }
 
-            var list = new KeyValueList<Grouping, IEnumerable<ParsedData>>();
-            list.Add(g, data);
+            var list = new KeyValueList<Grouping, IEnumerable<ParsedData>>
+            {
+                { g, data }
+            };
             return list;
         }
     }

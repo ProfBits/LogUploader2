@@ -1,172 +1,228 @@
 {
   "Professions": [
     {
+      "ID": 0,
       "NameEN": "Unknown",
       "NameDE": "Unbekannt",
       "IconPath": "\\images\\Professions\\Unknown.png",
-      "Emote": ":ghost:"
+      "Emote": ":ghost:",
+      "RaidOrgaPlusID": 0
     },
     {
+      "ID": 2,
       "NameEN": "Guardian",
       "NameDE": "Wächter",
       "IconPath": "\\images\\Professions\\Guardian.png",
-      "Emote": "<:gdn:484839339474288650>"
+      "Emote": "<:gdn:484839339474288650>",
+      "RaidOrgaPlusID": 8
     },
     {
+      "ID": 11,
       "NameEN": "Dragonhunter",
       "NameDE": "Drachenjäger",
       "IconPath": "\\images\\Professions\\Dragonhunter.png",
-      "Emote": "<:dgh:484839155155599360>"
+      "Emote": "<:dgh:484839155155599360>",
+      "RaidOrgaPlusID": 17
     },
     {
+      "ID": 20,
       "NameEN": "Firebrand",
       "NameDE": "Aufwiegler",
       "IconPath": "\\images\\Professions\\Firebrand.png",
-      "Emote": "<:fbd:484839294243045416>"
+      "Emote": "<:fbd:484839294243045416>",
+      "RaidOrgaPlusID": 26
     },
     {
+      "ID": 3,
       "NameEN": "Revenant",
       "NameDE": "Widergänger",
       "IconPath": "\\images\\Professions\\Revenant.png",
-      "Emote": "<:rev:484839906170896437>"
+      "Emote": "<:rev:484839906170896437>",
+      "RaidOrgaPlusID": 9
     },
     {
+      "ID": 12,
       "NameEN": "Herald",
       "NameDE": "Herold",
       "IconPath": "\\images\\Professions\\Herald.png",
-      "Emote": "<:her:484839367383318544>"
+      "Emote": "<:her:484839367383318544>",
+      "RaidOrgaPlusID": 18
     },
     {
+      "ID": 21,
       "NameEN": "Renegade",
       "NameDE": "Abtrünniger",
       "IconPath": "\\images\\Professions\\Renegade.png",
-      "Emote": "<:ren:484839875841884161>"
+      "Emote": "<:ren:484839875841884161>",
+      "RaidOrgaPlusID": 27
     },
     {
+      "ID": 1,
       "NameEN": "Warrior",
       "NameDE": "Krieger",
       "IconPath": "\\images\\Professions\\Warrior.png",
-      "Emote": "<:war:484840192834797569>"
+      "Emote": "<:war:484840192834797569>",
+      "RaidOrgaPlusID": 7
     },
     {
+      "ID": 10,
       "NameEN": "Berserker",
       "NameDE": "Berserker",
       "IconPath": "\\images\\Professions\\Berserker.png",
-      "Emote": "<:brs:484838819234054146>"
+      "Emote": "<:brs:484838819234054146>",
+      "RaidOrgaPlusID": 16
     },
     {
+      "ID": 19,
       "NameEN": "Spellbreaker",
       "NameDE": "Bannbrecher",
       "IconPath": "\\images\\Professions\\Spellbreaker.png",
-      "Emote": "<:spb:484840071007305738>"
+      "Emote": "<:spb:484840071007305738>",
+      "RaidOrgaPlusID": 25
     },
     {
+      "ID": 4,
       "NameEN": "Engineer",
       "NameDE": "Ingenieur",
       "IconPath": "\\images\\Professions\\Engineer.png",
-      "Emote": "<:eng:484839253830926337>"
+      "Emote": "<:eng:484839253830926337>",
+      "RaidOrgaPlusID": 5
     },
     {
+      "ID": 13,
       "NameEN": "Scrapper",
       "NameDE": "Schrotter",
       "IconPath": "\\images\\Professions\\Scrapper.png",
-      "Emote": "<:scr:484839974211026966>"
+      "Emote": "<:scr:484839974211026966>",
+      "RaidOrgaPlusID": 14
     },
     {
+      "ID": 22,
       "NameEN": "Holosmith",
       "NameDE": "Holoschmied",
       "IconPath": "\\images\\Professions\\Holosmith.png",
-      "Emote": "<:hls:484839388069494805>"
+      "Emote": "<:hls:484839388069494805>",
+      "RaidOrgaPlusID": 23
     },
     {
+      "ID": 5,
       "NameEN": "Ranger",
       "NameDE": "Waldläufer",
       "IconPath": "\\images\\Professions\\Ranger.png",
-      "Emote": "<:rgr:484839548971646976>"
+      "Emote": "<:rgr:484839548971646976>",
+      "RaidOrgaPlusID": 4
     },
     {
+      "ID": 14,
       "NameEN": "Druid",
       "NameDE": "Druide",
       "IconPath": "\\images\\Professions\\Druid.png",
-      "Emote": "<:dru:484839188298989570>"
+      "Emote": "<:dru:484839188298989570>",
+      "RaidOrgaPlusID": 13
     },
     {
+      "ID": 23,
       "NameEN": "Soulbeast",
       "NameDE": "Seelenwandler",
       "IconPath": "\\images\\Professions\\Soulbeast.png",
-      "Emote": "<:slb:484840014535065610>"
+      "Emote": "<:slb:484840014535065610>",
+      "RaidOrgaPlusID": 22
     },
     {
+      "ID": 6,
       "NameEN": "Thief",
       "NameDE": "Dieb",
       "IconPath": "\\images\\Professions\\Thief.png",
-      "Emote": "<:thf:484840156290088962>"
+      "Emote": "<:thf:484840156290088962>",
+      "RaidOrgaPlusID": 6
     },
     {
+      "ID": 15,
       "NameEN": "Daredevil",
       "NameDE": "Draufgänger",
       "IconPath": "\\images\\Professions\\Daredevil.png",
-      "Emote": "<:dar:484838873713868810>"
+      "Emote": "<:dar:484838873713868810>",
+      "RaidOrgaPlusID": 15
     },
     {
+      "ID": 24,
       "NameEN": "Deadeye",
       "NameDE": "Scharfschütze",
       "IconPath": "\\images\\Professions\\Deadeye.png",
-      "Emote": "<:ded:484839130123993090>"
+      "Emote": "<:ded:484839130123993090>",
+      "RaidOrgaPlusID": 24
     },
     {
+      "ID": 7,
       "NameEN": "Elementalist",
       "NameDE": "Elementarmagier",
       "IconPath": "\\images\\Professions\\Elementalist.png",
-      "Emote": "<:ele:484839211388764162>"
+      "Emote": "<:ele:484839211388764162>",
+      "RaidOrgaPlusID": 1
     },
     {
+      "ID": 16,
       "NameEN": "Tempest",
       "NameDE": "Sturmbote",
       "IconPath": "\\images\\Professions\\Tempest.png",
-      "Emote": "<:tmp:484840119527014400>"
+      "Emote": "<:tmp:484840119527014400>",
+      "RaidOrgaPlusID": 10
     },
     {
+      "ID": 25,
       "NameEN": "Weaver",
       "NameDE": "Weber",
       "IconPath": "\\images\\Professions\\Weaver.png",
-      "Emote": "<:wea:484840211084476426>"
+      "Emote": "<:wea:484840211084476426>",
+      "RaidOrgaPlusID": 19
     },
     {
+      "ID": 8,
       "NameEN": "Mesmer",
       "NameDE": "Mesmer",
       "IconPath": "\\images\\Professions\\Mesmer.png",
-      "Emote": "<:mes:484839435578507295>"
+      "Emote": "<:mes:484839435578507295>",
+      "RaidOrgaPlusID": 2
     },
     {
+      "ID": 17,
       "NameEN": "Chronomancer",
       "NameDE": "Chronomant",
       "IconPath": "\\images\\Professions\\Chronomancer.png",
-      "Emote": "<:chr:484840237684621323>"
+      "Emote": "<:chr:484840237684621323>",
+      "RaidOrgaPlusID": 11
     },
     {
+      "ID": 26,
       "NameEN": "Mirage",
       "NameDE": "Illusionist",
       "IconPath": "\\images\\Professions\\Mirage.png",
-      "Emote": "<:mir:484839459259678744>"
+      "Emote": "<:mir:484839459259678744>",
+      "RaidOrgaPlusID": 20
     },
     {
+      "ID": 9,
       "NameEN": "Necromancer",
       "NameDE": "Nekromant",
       "IconPath": "\\images\\Professions\\Necromancer.png",
-      "Emote": "<:nec:484839499478597642>"
+      "Emote": "<:nec:484839499478597642>",
+      "RaidOrgaPlusID": 3
     },
     {
+      "ID": 18,
       "NameEN": "Reaper",
       "NameDE": "Schnitter",
       "IconPath": "\\images\\Professions\\Reaper.png",
-      "Emote": "<:rea:484839588876255232>"
+      "Emote": "<:rea:484839588876255232>",
+      "RaidOrgaPlusID": 12
     },
     {
+      "ID": 27,
       "NameEN": "Scourge",
       "NameDE": "Pestbringer",
       "IconPath": "\\images\\Professions\\Scourge.png",
-      "Emote": "<:scg:484839927121575950>"
+      "Emote": "<:scg:484839927121575950>",
+      "RaidOrgaPlusID": 21
     }
   ]
 }

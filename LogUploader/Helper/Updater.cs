@@ -1,44 +1,52 @@
 ﻿using LogUploader.Data;
 using LogUploader.Data.Settings;
-using LogUploader.JSONHelper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Extensiones.HTTPClient;
 
 namespace LogUploader.Helper
 {
     class Updater
     {
         private const string USER_AGENT = "LogUploader";
-        private const string GitHubApiLink = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
+        private const string GitHubApiLinkStabel = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
+        private const string GitHubApiLinkPreRelease = @"https://api.github.com/repos/ProfBits/LogUploader2/releases";
 
-        static async Task<Version> GetNewestVersion(IProxySettings settings, IProgress<double> progress = null)
+        private static string InstallerUrlCache { get; set; } = null;
+
+        public static Version NewestVersion { get; private set; } = null;
+
+        static async Task<Version> GetNewestVersion(IProxySettings settings, IGeneralSettings generalSettings, IProgress<double> progress = null)
         {
-            string res;
             progress?.Report(0);
-            using (var wc = GetWebClient(settings))
+            Newtonsoft.Json.Linq.JToken jsonData;
+            try
             {
-                try
-                {
-                    res = await wc.DownloadStringTaskAsync(GitHubApiLink);
-                }
-                catch (WebException)
-                {
-                    return new Version(0, 0, 0, 0);
-                }
+                if (generalSettings.AllowPrerelases)
+                    jsonData = await GetLatestPreRelease(settings);
+                else
+                    jsonData = await GetLatestStableRelease(settings);
+            }
+            catch (HttpRequestException)
+            {
+                return new Version(0, 0, 0, 0);
             }
             progress?.Report(0.5);
-            var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
-            var tag = jsonData.GetTypedElement<string>("tag_name").TrimStart('v', 'V');
+            var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
+            InstallerUrlCache = GetInstallerUrl(jsonData);
             progress?.Report(0.9);
             var gitHubVersion = new Version(tag);
+            NewestVersion = gitHubVersion;
             return gitHubVersion;
         }
 
@@ -47,20 +55,21 @@ namespace LogUploader.Helper
             return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion);
         }
 
-        public static async Task<bool> UpdateAvailable(IProxySettings settings, IProgress<double> progress = null)
+        public static async Task<bool> UpdateAvailable(IProxySettings settings, IGeneralSettings generalSettings, IProgress<double> progress = null)
         {
-            var GitTask = GetNewestVersion(settings, progress);
+            var GitTask = GetNewestVersion(settings, generalSettings);
             var LocalVersion = GetLocalVersion();
             var NewestVersion = await GitTask;
             return NewestVersion > LocalVersion;
         }
 
-        public static async Task Update(IProxySettings settings, IProgress<ProgressMessage> progress = null)
+        public static async Task Update(IProxySettings settings, IGeneralSettings generalSettings, IProgress<ProgressMessage> progress = null, CancellationToken ct = default)
         {
-            string installer = await DownloadInstaller(settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))));
+            string installer = await DownloadInstaller(settings, generalSettings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))), ct);
+            if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
             Process.Start(installer);
-            Environment.Exit(100);
+            Program.Exit(ExitCode.UPDATING);
         }
 
         /// <summary>
@@ -69,34 +78,93 @@ namespace LogUploader.Helper
         /// <param name="settings">the proxy settings</param>
         /// <param name="progress">the progress reporting</param>
         /// <returns></returns>
-        private static async Task<string> DownloadInstaller(IProxySettings settings, Progress<double> progress = null)
+        private static async Task<string> DownloadInstaller(IProxySettings settings, IGeneralSettings generalSettings, IProgress<double> progress = null, CancellationToken cancellationToken = default)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\LogUploaderInstaller.exe";
-            using (var wc = GetWebClient(settings))
+            progress?.Report(0.0);
+            using (var client = GetHttpClient(settings))
             {
-                var res = await wc.DownloadStringTaskAsync(GitHubApiLink);
-                var data = new JSONHelper.JSONHelper().Desirealize(res);
-                var installerUrl = data.GetTypedList<JSONObject>("assets")
-                    .Where(json => json.GetTypedElement<string>("name") == "installer.exe")
-                    .Select(json => json.GetTypedElement<string>("browser_download_url"))
-                    .First();
+                string installerUrl;
+                double currProgress = 0;
+                if (InstallerUrlCache == null)
+                {
+                    Newtonsoft.Json.Linq.JToken jsonData;
+                    if (generalSettings.AllowPrerelases)
+                        jsonData = await GetLatestPreRelease(settings);
+                    else
+                        jsonData = await GetLatestStableRelease(settings);
+                    progress?.Report(0.30);
+                    installerUrl = GetInstallerUrl(jsonData);
+                    progress?.Report(0.35);
+                    currProgress = 0.35;
+                }
+                else
+                {
+                    installerUrl = InstallerUrlCache;
+                    currProgress = 0.05;
+                }
                 if (File.Exists(path))
                     File.Delete(path);
-                await wc.DownloadFileTaskAsync(installerUrl, path);
+                currProgress += 0.05;
+                progress?.Report(currProgress);
+                using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    await client.DownloadAsync(installerUrl, fs, new Progress<double>(p => progress?.Report((p * (1 - currProgress)) + currProgress)), cancellationToken);
+                }
             }
+            progress?.Report(1);
+            if (cancellationToken.IsCancellationRequested) return null;
             return path;
         }
 
-        private static WebClient GetWebClient(IProxySettings settings)
+        private static string GetInstallerUrl(Newtonsoft.Json.Linq.JToken data)
         {
-            var wc = Helpers.WebHelper.GetWebClient(settings);
-            wc.Headers.Add(HttpRequestHeader.UserAgent, USER_AGENT);
-            return wc;
+            return data["assets"]
+                .Where(json => ((string)json["name"]).StartsWith("installer") && ((string)json["name"]).EndsWith(".exe"))
+                .Select(json => (string)json["url"])
+                .First();
+        }
+
+        private static HttpClient GetHttpClient(IProxySettings settings)
+        {
+            var client = WebHelper.GetHttpClient(settings);
+            if (!client.DefaultRequestHeaders.UserAgent.TryParseAdd(USER_AGENT))
+            {
+                Logger.Warn($"[Updater] Was not able to add useraget \"{USER_AGENT}\" to the headers, forcing it");
+                client.DefaultRequestHeaders.Add("User-Agent", USER_AGENT);
+            }
+            client.Timeout = Timeout.InfiniteTimeSpan;
+            return client;
         }
 
         public static DialogResult ShowUpdateMgsBox() {
             var ui = new GUIs.UpdateAvailableUI();
             return ui.ShowDialog();
+        }
+
+        internal async static Task<Newtonsoft.Json.Linq.JToken> GetLatestStableRelease(IProxySettings settings)
+        {
+            string answer;
+
+            using (var client = GetHttpClient(settings))
+            {
+                answer = await client.GetStringAsync(GitHubApiLinkStabel);
+            }
+
+            return Newtonsoft.Json.Linq.JObject.Parse(answer);
+
+        }
+
+        internal async static Task<Newtonsoft.Json.Linq.JToken> GetLatestPreRelease(IProxySettings settings)
+        {
+            string answer;
+
+            using (var client = GetHttpClient(settings))
+            {
+                answer = await client.GetStringAsync(GitHubApiLinkPreRelease);
+            }
+
+            return Newtonsoft.Json.Linq.JObject.Parse("{data:" + answer + "}")["data"][0];
         }
     }
 }

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using LogUploader.Data.Settings;
 using LogUploader.Properties;
 
-namespace LogUploader
+namespace LogUploader.Helper
 {
     public class DPSReport
     {
         internal string UserToken { private get; set; } = "";
         private IProxySettings Settings { get; set; }
 
-        private const string BaseAddress = @"http://a.dps.report";
+        private const string BaseAddress = @"https://b.dps.report";
 
         internal DPSReport(IProxySettings settings)
         {
@@ -137,7 +137,6 @@ namespace LogUploader
             string answerStr;
             using (MyWebClient wc = GetWebClient(Settings))
             {
-                wc.Timeout = 600_000;
                 try
                 {
                     var answerByte = await wc.UploadFileTaskAsync(address, path);
@@ -154,7 +153,7 @@ namespace LogUploader
 
         private class MyWebClient : WebClient
         {
-            public int Timeout { get; set; } = 240_000;
+            public int Timeout { get; set; } = 600_000;
 
             protected override WebRequest GetWebRequest(Uri uri)
             {
@@ -168,7 +167,7 @@ namespace LogUploader
         private MyWebClient GetWebClient(IProxySettings settings)
         {
             var mywc = new MyWebClient();
-            mywc = Helpers.WebHelper.ConfigureWebClientProxy(mywc, settings);
+            mywc = WebHelper.ConfigureWebClientProxy(mywc, settings);
             return mywc;
         }
     }

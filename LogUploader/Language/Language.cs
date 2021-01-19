@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using LogUploader;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 
 namespace LogUploader.Languages
 {
@@ -18,6 +18,7 @@ namespace LogUploader.Languages
         private static XMLLanguage English;
         private static XMLLanguage German;
 
+        //TODO improve performance, only load one languate at a time
         private static eLanguage m_Current = eLanguage.EN;
         public static eLanguage Current { get => m_Current; set {
                 m_Current = value;
@@ -39,21 +40,23 @@ namespace LogUploader.Languages
                 }
             }
         }
-        public static BaseLanguage Data { get; private set; } = new English();
+        public static ILanguage Data { get; private set; } = new English();
 
         public static void ReloadFromXML()
         {
             var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            var ser = new XmlSerializer(typeof(XMLLanguage));
+            //Exception "System.IO.FileNotFoundException: 'Die Datei oder Assembly "LogUploader.XmlSerializers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" oder eine Abhängigkeit davon wurde nicht gefunden. Das System kann die angegebene Datei nicht finden.'"
+            //Will not be fixed by microsoft. cant do anything about it.
+            var ser = new System.Xml.Serialization.XmlSerializer(typeof(XMLLanguage));
             using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\Data\English.xml", Encoding.UTF8)))
             {
                 English = (XMLLanguage)ser.Deserialize(sr);
-                English.culture = new CultureInfo("en-us");
+                English.Culture = new CultureInfo("en-us");
             }
             using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\Data\German.xml", Encoding.UTF8)))
             {
                 German = (XMLLanguage)ser.Deserialize(sr);
-                German.culture = new CultureInfo("de-de");
+                German.Culture = new CultureInfo("de-de");
             }
             Current = m_Current;
         }

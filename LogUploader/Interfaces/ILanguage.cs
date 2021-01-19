@@ -139,6 +139,8 @@ namespace LogUploader.Languages
         string ConfigEiTitle { get; }
         string ConfigEiCombatReplay { get; }
         string ConfigEiLightTheme { get; }
+        string ConfigEiAutoUpdate { get; }
+        string ConfigEiUpdate { get; }
         string ConfigDefault { get; }
         string ConfigCancel { get; }
         string ConfigSave { get; }
@@ -146,10 +148,41 @@ namespace LogUploader.Languages
         string ConfigDefaultMsgText { get; }
         string ConfigDiscardMsgTitel { get; }
         string ConfigDiscardMsgText { get; }
+        string ConfigRoPlusTitle { get; }
+        string ConfigRoPlusUser { get; }
+        string ConfigRoPlusPwd { get; }
+        string ConfigExport { get; }
+        string ConfigImport { get; }
+        string ConfigExportFileFilter { get; }
+        string ConfigExportSaveTitle { get; }
+        string ConfigImportOpenTitle { get; }
+        string ConfigExportPwdPromptTitle { get; }
+        string ConfigExportPwdPromptNewText { get; }
+        string ConfigExportPwdPromptText { get; }
+        string ConfigExportPwdFailTitle { get; }
+        string ConfigExportPwdFailText { get; }
+        string ConfigExportMessageTitle { get; }
+        string ConfigExportMessageFail { get; }
+        string ConfigExportMessageSucc { get; }
+        string ConfigImportMessageTitle { get; }
+        string ConfigImportMessageFail { get; }
+        string ConfigImportMessageSucc { get; }
 
         string NewTitle { get; }
         string NewHeading { get; }
         string NewClose { get; }
+
+
+        string PlayerToCorrectPlayer { get; }
+        string PlayerToCorrectAccount { get; }
+        string PlayerToCorrectMember { get; }
+        string PlayerToCorrectHelper { get; }
+        string PlayerToCorrectLFG { get; }
+
+        string CorrectPlayer { get; }
+        string CorrectPlayerTitle { get; }
+        string CorrectPlayerDone { get; }
+
 
         string MiscGenericProcessing { get; }
         string MiscNoWebhookMsgTitel { get; }
@@ -162,5 +195,8 @@ namespace LogUploader.Languages
         string MiscDiscordPostErrTitle { get; }
         string MiscDiscordPostErrMsg { get; }
         string MiscDetailsMultibleBosses { get; }
+        string MiscRaidOrgaPlusNoAccount { get; }
+        string MiscRaidOrgaPlusLoginErr { get; }
+        string MiscRaidOrgaPlusNoRaid { get; }
     }
 }

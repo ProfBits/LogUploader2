@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using LogUploader.Data.GameAreas;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 
 namespace LogUploader.Data
 {
@@ -13,9 +13,9 @@ namespace LogUploader.Data
     {
         public bool IsInteresting { get; }
 
-        private static Dictionary<int, AddEnemy> allAdds = new Dictionary<int, AddEnemy>();
+        private static readonly Dictionary<int, AddEnemy> allAdds = new Dictionary<int, AddEnemy>();
 
-        internal AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.get(), true)
+        internal AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.Get(), true)
         { }
 
         internal AddEnemy(int id, string name, GameArea area, bool isIntressting) : this(id, name, name, area, isIntressting)
@@ -30,7 +30,7 @@ namespace LogUploader.Data
         internal AddEnemy(BasicInfo info, bool isIntersting) : this(info.ID, info.NameEN, info.NameDE, info.GameArea, isIntersting)
         { }
 
-        public static AddEnemy getByID(int id)
+        public static AddEnemy GetByID(int id)
         {
             try
             {
@@ -42,17 +42,17 @@ namespace LogUploader.Data
             }
         }
 
-        public static AddEnemy getByName(string name)
+        public static AddEnemy GetByName(string name)
         {
             return allAdds.FirstOrDefault((e) => e.Value.Name == name).Value;
         }
 
-        public static AddEnemy getByName(string name, eLanguage lang)
+        public static AddEnemy GetByName(string name, eLanguage lang)
         {
-            return allAdds.FirstOrDefault((e) => e.Value.getName(lang) == name).Value;
+            return allAdds.FirstOrDefault((e) => e.Value.GetName(lang) == name).Value;
         }
 
-        public static List<AddEnemy> getByArea(GameArea area)
+        public static List<AddEnemy> GetByArea(GameArea area)
         {
             return allAdds.Where(e => e.Value.Area == area).Select(e => e.Value).ToList();
         }

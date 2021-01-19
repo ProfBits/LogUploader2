@@ -18,19 +18,19 @@ namespace LogUploader.GUIs
             DialogResult = DialogResult.No;
         }
 
-        private void btnYes_Click(object sender, EventArgs e)
+        private void BtnYes_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Yes;
             Close();
         }
 
-        private void btnNo_Click(object sender, EventArgs e)
+        private void BtnNo_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.No;
             Close();
         }
 
-        private void btnAtEnd_Click(object sender, EventArgs e)
+        private void BtnAtEnd_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Retry;
             Close();

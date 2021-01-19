@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogUploader.Properties;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 using Extensiones;
 using LogUploader.Languages;
 using LogUploader.Data.Settings;
@@ -24,7 +24,7 @@ namespace LogUploader.GUI
         private SettingsData initState;
         private bool saved = false;
 
-        private Label NoWebHooks = new Label();
+        private readonly Label NoWebHooks = new Label();
 
         internal SettingsUI()
         {
@@ -47,6 +47,12 @@ namespace LogUploader.GUI
             SettingsbindingSource.DataSource = CurrentState;
             SettingsbindingSource.ResetBindings(true);
             UpdateWebHooks();
+
+            //openFileImport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
+            openFileImport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //saveFileExport.Filter = "LogUploaderSettings files|*.lus|All files|*.*";
+            saveFileExport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileExport.FileName = $"LogUploaderSettings{Environment.UserName}.lus";
 
             ApplyLanguage(Language.Data);
         }
@@ -89,7 +95,7 @@ namespace LogUploader.GUI
 
         #region events
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             foreach (var control in flpWebHooks.Controls)
             {
@@ -102,12 +108,12 @@ namespace LogUploader.GUI
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnDefault_Click(object sender, EventArgs e)
+        private void BtnDefault_Click(object sender, EventArgs e)
         {
             var res = MessageBox.Show(Language.Data.ConfigDiscardMsgText, Language.Data.ConfigDiscardMsgTitel, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
             if (res != DialogResult.OK)
@@ -172,19 +178,34 @@ namespace LogUploader.GUI
             gbEi.Text = lang.ConfigEiTitle;
             cbEiCombatReplay.Text = lang.ConfigEiCombatReplay;
             cbEiTheme.Text = lang.ConfigEiLightTheme;
+            cbEIAutoUpdate.Text = lang.ConfigEiAutoUpdate;
+            btnEiUpdate.Text = lang.ConfigEiUpdate;
             btnDefault.Text = lang.ConfigDefault;
             btnCancel.Text = lang.ConfigCancel;
             btnOK.Text = lang.ConfigSave;
+            gbRoPlus.Text = lang.ConfigRoPlusTitle;
+            lblRoPlusUser.Text = lang.ConfigRoPlusUser;
+            lblRoPlusPwd.Text = lang.ConfigRoPlusPwd;
 
             NoWebHooks.Text = lang.ConfigDiscordNoHooks;
+
+            openFileImport.Title = lang.ConfigImportOpenTitle;
+            openFileImport.Filter = lang.ConfigExportFileFilter;
+            saveFileExport.Title = lang.ConfigExportSaveTitle;
+            saveFileExport.Filter = lang.ConfigExportFileFilter;
+            btnExport.Text = lang.ConfigExport;
+            btnImport.Text = lang.ConfigImport;
+
+#if DEBUG
+            Text += " DEBUG";
+#elif ALPHA
+            Text += " ALPHA";
+#elif BETA
+            Text += " BETA";
+#endif
         }
 
         #endregion
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void AddWebHook_Click(object sender, EventArgs e)
         {
@@ -197,21 +218,95 @@ namespace LogUploader.GUI
             lblWebHookCount.Text = CurrentState.WebHookDB.Count().ToString();
         }
 
-        private void linklblGetUserToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinklblGetUserToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             linklblGetUserToken.LinkVisited = true;
             System.Diagnostics.Process.Start(@"https://dps.report/getUserToken");
         }
 
-        private async void btnEiUpdate_Click(object sender, EventArgs e)
+        private async void BtnEiUpdate_Click(object sender, EventArgs e)
         {
             Enabled = false;
             var tmp = btnEiUpdate.Text;
             btnEiUpdate.Text = "Updating ...";
             btnEiUpdate.Update();
-            await Task.Run(() => Helper.EliteInsights.Update(initState));
+            DialogResult res = DialogResult.OK;
+            do
+            {
+                try
+                {
+                    //TODO Add progress window...
+                    await EliteInsights.Update(initState);
+                }
+                catch (OperationCanceledException ex)
+                {
+                    Logger.Error("Manual EI update failed");
+                    Logger.LogException(ex);
+                    res = MessageBox.Show("EI uppdate failed.\nMessage:\n" + ex.Message, "Error - EI Update", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                }
+            } while (res == DialogResult.Retry);
             btnEiUpdate.Text = tmp;
             Enabled = true;
+        }
+
+        private void BtnImport_Click(object sender, EventArgs e)
+        {
+            var res = openFileImport.ShowDialog();
+            if (res == DialogResult.Cancel) return;
+            try
+            {
+                SettingsHelper.ImportSettings(CurrentState, openFileImport.FileName);
+                SettingsbindingSource.ResetBindings(true);
+                Refresh();
+                return;
+            }
+            catch (InvalidOperationException)
+            {
+                do
+                {
+                    var inBox = new InputDialog(Language.Data.ConfigExportPwdPromptText, Language.Data.ConfigExportPwdPromptTitle);
+                    res = inBox.ShowDialog();
+                    if (res == DialogResult.Cancel) return;
+                    try
+                    {
+                        SettingsHelper.ImportSettings(CurrentState, openFileImport.FileName, inBox.Input);
+                        MessageBox.Show(Language.Data.ConfigImportMessageSucc, Language.Data.ConfigImportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SettingsbindingSource.ResetBindings(true);
+                        Refresh();
+                        return;
+                    }
+                    catch (System.Security.Cryptography.CryptographicException)
+                    {
+                        res = MessageBox.Show(Language.Data.ConfigExportPwdFailText, Language.Data.ConfigExportPwdFailTitle, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        if (res == DialogResult.Cancel) return;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogException(ex);
+                        MessageBox.Show(Language.Data.ConfigImportMessageFail, Language.Data.ConfigImportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                } while (res == DialogResult.Retry);
+            }
+        }
+
+        private void BtnExport_Click(object sender, EventArgs e)
+        {
+            var res = saveFileExport.ShowDialog();
+            if (res == DialogResult.Cancel) return;
+            var inBox = new InputDialog(Language.Data.ConfigExportPwdPromptNewText, Language.Data.ConfigExportPwdPromptTitle);
+            res = inBox.ShowDialog();
+            if (res == DialogResult.Cancel) return;
+            try
+            {
+                SettingsHelper.ExportSettings(CurrentState, saveFileExport.FileName, inBox.Input);
+                MessageBox.Show(Language.Data.ConfigExportMessageSucc, Language.Data.ConfigExportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                MessageBox.Show(Language.Data.ConfigExportMessageFail, Language.Data.ConfigExportMessageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

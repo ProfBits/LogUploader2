@@ -1,4 +1,4 @@
-﻿using LogUploader.Helpers;
+﻿using LogUploader.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -101,7 +101,7 @@ line-height: 1.5;
         private async Task LoadData(IProxySettings settings, string version)
         {
             await Task.Delay(500);
-            var wc = Helpers.WebHelper.GetWebClient(settings);
+            var wc = Helper.WebHelper.GetWebClient(settings);
             wc.Headers.Add(System.Net.HttpRequestHeader.UserAgent, "LogUploader");
             string res;
             try
@@ -113,8 +113,8 @@ line-height: 1.5;
                 Close();
                 return;
             }
-            var data = new JSONHelper.JSONHelper().Desirealize(res);
-            var patchnotes = data.GetTypedElement<string>("body");
+            var data = Newtonsoft.Json.Linq.JObject.Parse(res);
+            var patchnotes = (string)data["body"];
             var htmlNotes = CommonMark.CommonMarkConverter.Convert(patchnotes);
             var html = HTML_PART_A + htmlNotes + HTML_PART_B;
             webBrowser1.DocumentText = html;
@@ -125,7 +125,7 @@ line-height: 1.5;
             _ = LoadData(settings, version);
         }
 
-        private void btnDismiss_Click(object sender, EventArgs e)
+        private void BtnDismiss_Click(object sender, EventArgs e)
         {
             Close();
         }

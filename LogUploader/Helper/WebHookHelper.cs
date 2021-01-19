@@ -12,7 +12,7 @@ using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helpers
+namespace LogUploader.Helper
 {
     internal class WebHookHelper
     {

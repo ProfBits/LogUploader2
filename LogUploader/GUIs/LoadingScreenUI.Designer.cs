@@ -16,6 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                m_cts.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -30,6 +31,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadingScreenUI));
             this.pHeader = new System.Windows.Forms.Panel();
+            this.lblBeta = new System.Windows.Forms.Label();
             this.lblClose = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
@@ -49,6 +51,7 @@
             // pHeader
             // 
             this.pHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pHeader.Controls.Add(this.lblBeta);
             this.pHeader.Controls.Add(this.lblClose);
             this.pHeader.Controls.Add(this.lblTitle);
             this.pHeader.Controls.Add(this.pbLogo);
@@ -59,10 +62,25 @@
             this.pHeader.TabIndex = 0;
             this.pHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragWindow);
             // 
+            // lblBeta
+            // 
+            this.lblBeta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBeta.AutoSize = true;
+            this.lblBeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBeta.ForeColor = System.Drawing.Color.White;
+            this.lblBeta.Location = new System.Drawing.Point(392, 124);
+            this.lblBeta.Name = "lblBeta";
+            this.lblBeta.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblBeta.Size = new System.Drawing.Size(39, 13);
+            this.lblBeta.TabIndex = 1;
+            this.lblBeta.Text = "BETA";
+            this.lblBeta.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // lblClose
             // 
             this.lblClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblClose.AutoSize = true;
+            this.lblClose.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.lblClose.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClose.ForeColor = System.Drawing.Color.White;
             this.lblClose.Location = new System.Drawing.Point(470, 9);
@@ -70,7 +88,7 @@
             this.lblClose.Size = new System.Drawing.Size(18, 19);
             this.lblClose.TabIndex = 2;
             this.lblClose.Text = "X";
-            this.lblClose.Click += new System.EventHandler(this.lblClose_Click);
+            this.lblClose.Click += new System.EventHandler(this.LblClose_Click);
             // 
             // lblTitle
             // 
@@ -170,7 +188,7 @@
             // 
             // bgWorkerMain
             // 
-            this.bgWorkerMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.bgWorkerMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
             // 
             // LoadingScreenUI
             // 
@@ -180,7 +198,7 @@
             this.ClientSize = new System.Drawing.Size(500, 300);
             this.Controls.Add(this.pBottom);
             this.Controls.Add(this.pHeader);
-            this.Cursor = System.Windows.Forms.Cursors.AppStarting;
+            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -213,5 +231,6 @@
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Panel pBottom;
         private System.ComponentModel.BackgroundWorker bgWorkerMain;
+        private System.Windows.Forms.Label lblBeta;
     }
 }

@@ -2,53 +2,33 @@
 using LogUploader.Helper.DiscordPostGen;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace LogUploader.Data
 {
     public class WebHook
     {
-        public const eDiscordPostFormat DEFAULT_FROMAT = eDiscordPostFormat.PerArea;
         private static long nextID = 0;
-        private string avaturURL = DEFAULT_AVATAR_URL;
+        [JsonProperty("id")]
+        public long ID { get; set; }
+
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonIgnore]
+        public const string DEFAULT_USER = "LogUploader";
+
+
+        [JsonIgnore]
         private string uRL;
 
-        public WebHook(string uRL, string name, eDiscordPostFormat format = DEFAULT_FROMAT) : this(uRL, name, nextID + 1, format)
+        [JsonProperty("url")]
+        public string URL
         {
-        }
-
-        public WebHook(string uRL, string name, long iD, eDiscordPostFormat format = DEFAULT_FROMAT)
-        {
-            URL = uRL;
-            Name = name;
-            ID = iD;
-            nextID = Math.Max(iD, nextID) + 1;
-        }
-
-        public WebHook(JSONHelper.JSONObject WebHookJson)
-        {
-            ID = long.Parse(WebHookJson.GetTypedElement<string>("id"));
-            nextID = Math.Max(ID, nextID) + 1;
-            URL = WebHookJson.GetTypedElement<string>("url");
-            Name = WebHookJson.GetTypedElement<string>("name");
-            try
+            get => uRL; set
             {
-                Format = (eDiscordPostFormat)Enum.Parse(typeof(eDiscordPostFormat), WebHookJson.GetTypedElement<string>("format"));
-            }
-            catch (Exception e) when (e is JSONHelper.JSONException || e is InvalidCastException || e is ArgumentException)
-            {
-                Format = DEFAULT_FROMAT;
-            }
-            try
-            {
-                AvatarURL = WebHookJson.GetTypedElement<string>("avatarURL");
-            }
-            catch (JSONHelper.JSONException)
-            {
-                AvatarURL = DEFAULT_AVATAR_URL;
-            }
-        }
-
-        public string URL { get => uRL; set {
                 if (value == null)
                 {
                     uRL = null;
@@ -62,27 +42,69 @@ namespace LogUploader.Data
                 else uRL = value;
             }
         }
-        public string Name { get; set; }
-        public long ID { get; set; }
+
+
+        [JsonIgnore]
+        public const eDiscordPostFormat DEFAULT_FROMAT = eDiscordPostFormat.PerArea;
+
+        [JsonIgnore]
         public eDiscordPostFormat Format { get; set; }
 
-        public const string DEFAULT_USER = "LogUploader";
+        [JsonProperty("format")]
+        public string FormatStr { get => Format.ToString(); set => SetFormat(value); }
+
+
+        [JsonIgnore]
         private const string DEFAULT_AVATAR_URL = @"https://i.imgur.com/o0QwGPV.png";
+
+        [JsonIgnore]
+        private string avaturURL = DEFAULT_AVATAR_URL;
+
+        [JsonProperty("avatarURL")]
         public string AvatarURL
         {
             get => avaturURL == DEFAULT_AVATAR_URL ? "<Default>" : avaturURL;
             set => avaturURL = value == "<Default>" || string.IsNullOrWhiteSpace(value) ? DEFAULT_AVATAR_URL : value;
         }
 
-        public JSONHelper.JSONObject ToJsonObject()
+        public WebHook(string uRL, string name, eDiscordPostFormat format = DEFAULT_FROMAT) : this(uRL, name, nextID + 1, format)
         {
-            var jsonNode = new JSONHelper.JSONObject();
-            jsonNode.Values.Add("id", ID.ToString());
-            jsonNode.Values.Add("url", URL);
-            jsonNode.Values.Add("name", Name);
-            jsonNode.Values.Add("format", Format.ToString());
-            jsonNode.Values.Add("avatarURL", avaturURL.ToString());
-            return jsonNode;
+        }
+
+        public WebHook(string uRL, string name, long iD, eDiscordPostFormat format = DEFAULT_FROMAT)
+        {
+            URL = uRL;
+            Name = name;
+            ID = iD;
+            nextID = Math.Max(iD, nextID) + 1;
+            Format = format;
+        }
+
+        public WebHook(JObject WebHookJson)
+        {
+            ID = long.Parse((string)WebHookJson["id"]);
+            nextID = Math.Max(ID, nextID) + 1;
+            URL = (string)WebHookJson["url"];
+            Name = (string)WebHookJson["name"];
+            SetFormat((string)WebHookJson["format"]);
+            AvatarURL = (string)WebHookJson["avatarURL"] ?? DEFAULT_AVATAR_URL;
+        }
+
+        private void SetFormat(string value)
+        {
+            try
+            {
+                Format = (eDiscordPostFormat)Enum.Parse(typeof(eDiscordPostFormat), value);
+            }
+            catch (Exception e) when (e is InvalidCastException || e is ArgumentException)
+            {
+                Format = DEFAULT_FROMAT;
+            }
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
 
         public List<WebHookData> GetPosts(params CachedLog[] logs)

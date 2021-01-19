@@ -37,20 +37,23 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -62,6 +65,42 @@
     <ApplicationIcon>images\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateLanguageXMLs|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\CreateLanguageXMLs\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CREATE_LANGUAGE_XMLS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.1</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AlphaRelease|AnyCPU'">
+    <OutputPath>bin\AlphaRelease\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.1</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DefineConstants>TRACE;ALPHA</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BetaRelease|AnyCPU'">
+    <OutputPath>bin\BetaRelease\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.1</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>loguploader.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DefineConstants>BETA</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonMark.NET.0.15.1\lib\net45\CommonMark.dll</HintPath>
@@ -74,6 +113,9 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -95,18 +137,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes.cs" />
-    <Compile Include="CachedPlayer.cs" />
     <Compile Include="Data\AddEnemy.cs" />
     <Compile Include="Data\Boss.cs" />
     <Compile Include="Data\CachedLog.cs" />
     <Compile Include="Data\DBLog.cs" />
     <Compile Include="Data\Enemy.cs" />
     <Compile Include="Data\FilterConfiguration.cs" />
+    <Compile Include="Data\GameAreas\DragonResponseMission.cs" />
     <Compile Include="Data\GameAreas\Fractal.cs" />
     <Compile Include="Data\GameAreas\GameArea.cs" />
     <Compile Include="Data\GameAreas\RaidWing.cs" />
     <Compile Include="Data\GameAreas\Strike.cs" />
     <Compile Include="Data\GameAreas\Unknowen.cs" />
+    <Compile Include="Data\Licenses\PropMapperLicense.cs" />
+    <Compile Include="Data\Licenses\NewtonsoftJsonLicense.cs" />
     <Compile Include="Data\Licenses\CommonMarkLicense.cs" />
     <Compile Include="Data\Licenses\DapperLicense.cs" />
     <Compile Include="Data\Licenses\ISoftwareLicense.cs" />
@@ -116,14 +160,54 @@
     <Compile Include="Data\Licenses\WindowsAPICodePack_ShellLicense.cs" />
     <Compile Include="Data\Licenses\MakeSFXLicense.cs" />
     <Compile Include="Data\MiscData.cs" />
+    <Compile Include="Data\RaidOrgaPlus\Account.cs" />
+    <Compile Include="Data\RaidOrgaPlus\Position.cs" />
+    <Compile Include="Data\RaidOrgaPlus\Raid.cs" />
+    <Compile Include="Data\RaidOrgaPlus\RaidOrgaPlusCacheItem.cs" />
+    <Compile Include="Data\RaidOrgaPlus\RaidSimple.cs" />
+    <Compile Include="Data\RaidOrgaPlus\Role.cs" />
+    <Compile Include="Data\RaidOrgaPlus\Session.cs" />
+    <Compile Include="Data\RaidOrgaPlus\TeamComp.cs" />
     <Compile Include="Data\Settings\ISettings.cs" />
     <Compile Include="Data\Settings\SettingsData.cs" />
+    <Compile Include="Data\WebHook.cs" />
+    <Compile Include="Data\WebHookData.cs" />
     <Compile Include="Data\WebHookDeleteEventArgs.cs" />
     <Compile Include="GUIs\AboutUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUIs\AboutUI.Designer.cs">
       <DependentUpon>AboutUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\CorrectPlayerUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\CorrectPlayerUI.Designer.cs">
+      <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\PlayerToCorrect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIs\CorrectPlayer\PlayerToCorrect.Designer.cs">
+      <DependentUpon>PlayerToCorrect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\FatalErrorUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\FatalErrorUI.Designer.cs">
+      <DependentUpon>FatalErrorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\InputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\InputDialog.Designer.cs">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\LoadingBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\LoadingBar.Designer.cs">
+      <DependentUpon>LoadingBar.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIs\SoftwareItem.cs">
       <SubType>UserControl</SubType>
@@ -163,9 +247,19 @@
     </Compile>
     <Compile Include="Helper\DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
+    <Compile Include="Helper\Logger.cs" />
+    <Compile Include="Data\RaidOrgaPlus\CheckPlayer.cs" />
+    <Compile Include="Helper\RaidOrgaPlus\Encounter.cs" />
+    <Compile Include="Data\RaidOrgaPlus\PlayerType.cs" />
+    <Compile Include="Data\RaidOrgaPlus\RoPlusPlayer.cs" />
+    <Compile Include="Helper\SettingsProvider.cs" />
+    <Compile Include="Helper\PropMapper.cs" />
+    <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusCache.cs" />
+    <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusConnector.cs" />
+    <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusDataWorker.cs" />
     <Compile Include="Helper\DiscordPostGen\PerWingWithClasses.cs" />
+    <Compile Include="Helper\StringValueAttribute.cs" />
     <Compile Include="Helper\Updater.cs" />
-    <Compile Include="Interfaces\IJSONSerializeable.cs" />
     <Compile Include="Data\LogPreview.cs" />
     <Compile Include="Data\Profession.cs" />
     <Compile Include="Data\SimpleLogJson.cs" />
@@ -197,7 +291,6 @@
     <Compile Include="Helper\ListToDataTable.cs" />
     <Compile Include="Helper\LogCache.cs" />
     <Compile Include="Helper\LogDBConnector.cs" />
-    <Compile Include="Data\WebHook.cs" />
     <Compile Include="Helper\WebHookDB.cs" />
     <Compile Include="Interfaces\IJob.cs" />
     <Compile Include="Helper\JobQueue\JobAddedEventArgs.cs" />
@@ -210,7 +303,7 @@
     <Compile Include="Data\NamedObject.cs" />
     <Compile Include="Data\GameAreas\Training.cs" />
     <Compile Include="Data\GameAreas\WvW.cs" />
-    <Compile Include="DPSReport.cs" />
+    <Compile Include="Helper\DPSReport.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helper\DataBuilder.cs" />
     <Compile Include="Helper\DiscordPostGen\DetaildGenerator.cs" />
@@ -223,7 +316,6 @@
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="Helper\KeyValueList.cs" />
     <Compile Include="Helper\WebHelper.cs" />
-    <Compile Include="Data\WebHookData.cs" />
     <Compile Include="Helper\WebHookHelper.cs" />
     <Compile Include="GUIs\InitConfigUI.cs">
       <SubType>Form</SubType>
@@ -231,9 +323,7 @@
     <Compile Include="GUIs\InitConfigUI.Designer.cs">
       <DependentUpon>InitConfigUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Interfaces\IDiscordPostGen.cs" />
-    <Compile Include="Language\BaseLanguage.cs" />
     <Compile Include="Language\English.cs" />
     <Compile Include="Language\German.cs" />
     <Compile Include="Interfaces\ILanguage.cs" />
@@ -293,6 +383,8 @@
     <Content Include="Data\LogDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.manifest" />
+    <None Include="LogUploader.ruleset" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\LogUploader.Data.DBLog.datasource" />
     <None Include="Properties\DataSources\LogUploader.Data.LocalLogGUI.datasource" />
@@ -321,8 +413,23 @@
     <EmbeddedResource Include="GUIs\AboutUI.resx">
       <DependentUpon>AboutUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\CorrectPlayer\CorrectPlayerUI.resx">
+      <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\CorrectPlayer\PlayerToCorrect.resx">
+      <DependentUpon>PlayerToCorrect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\FatalErrorUI.resx">
+      <DependentUpon>FatalErrorUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUIs\InitConfigUI.resx">
       <DependentUpon>InitConfigUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\InputDialog.resx">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\LoadingBar.resx">
+      <DependentUpon>LoadingBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\LoadingScreenUI.resx">
       <DependentUpon>LoadingScreenUI.cs</DependentUpon>
@@ -462,4 +569,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.2\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.2\build\net40\System.Data.SQLite.Core.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

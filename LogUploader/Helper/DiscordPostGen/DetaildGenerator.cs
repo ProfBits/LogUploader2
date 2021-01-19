@@ -1,6 +1,6 @@
 ﻿using Extensiones;
 using LogUploader.Data;
-using LogUploader.Helpers;
+using LogUploader.Helper;
 using LogUploader.Languages;
 using System;
 using System.Collections.Generic;
@@ -18,17 +18,17 @@ namespace LogUploader.Helper.DiscordPostGen
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
-            var name = $"{log.Date.ToString("HH\\:mm")}";
-            var value = $"{Language.Data.SuccsessFail(log.Succsess)}";
+            var name = $"{log.Date:HH\\:mm}";
+            var value = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)}";
             if (log.DataCorrected)
             {
                 value += $"\n";
                 if (log.IsCM)
                     value += $"\nCM";
                 value += $"\n{Language.Data.MiscDiscordPostGenDuration}: {log.Duration.ToString(Language.Current == eLanguage.DE ? "mm':'ss','fff" : "mm':'ss'.'fff")}";
-                value += $"\n{Language.Data.MiscDiscordPostGenHpLeft}: {log.RemainingHealth.ToString("0.00'%'")}";
-                value += $"\n{Language.Data.MiscDiscordPostGenGroupDPS}: {log.Players.Select(p => p.DPS).Sum()}";
-                value += $"\n{Language.Data.MiscDiscordPostGenTopDPS}: {log.Players.Max(p2 => p2.DPS)} ({log.Players.Where(p => p.DPS == log.Players.Max(p2 => p2.DPS)).First().AccountName})";
+                value += $"\n{Language.Data.MiscDiscordPostGenHpLeft}: {log.RemainingHealth:0.00'%'}";
+                value += $"\n{Language.Data.MiscDiscordPostGenGroupDPS}: {log.PlayersNew.Select(p => p.DpsAll).Sum()}";
+                value += $"\n{Language.Data.MiscDiscordPostGenTopDPS}: {log.PlayersNew.Max(p2 => p2.DpsAll)} ({log.PlayersNew.Where(p => p.DpsAll == log.PlayersNew.Max(p2 => p2.DpsAll)).First().Account})";
             }
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";
@@ -50,9 +50,9 @@ namespace LogUploader.Helper.DiscordPostGen
             foreach (var log in data.ToList().OrderBy(d => d.Log.Date))
             {
                 if (currentGroup == null)
-                    currentGroup = new Grouping(Boss.getByID(log.Log.BossID));
+                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID));
 
-                if (!currentGroup.Equals(Boss.getByID(log.Log.BossID)))
+                if (!currentGroup.Equals(Boss.GetByID(log.Log.BossID)))
                 {
                     if (currentLogs.Count > 0)
                     {
@@ -60,7 +60,7 @@ namespace LogUploader.Helper.DiscordPostGen
                             currentGroup.PostFix = "CM";
                         res.Add(currentGroup, currentLogs);
                     }
-                    currentGroup = new Grouping(Boss.getByID(log.Log.BossID));
+                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID));
                     currentLogs = new List<ParsedData>();
                 }
 

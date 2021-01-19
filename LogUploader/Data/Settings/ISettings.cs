@@ -15,6 +15,7 @@ namespace LogUploader.Data.Settings
         bool EnableAutoParse { get; set; }
         bool EnableAutoUpload { get; set; }
         string WhatsNewShown { get; set; }
+        bool AllowPrerelases { get; set; }
     }
     public interface ICopyLinksSettings
     {
@@ -46,5 +47,12 @@ namespace LogUploader.Data.Settings
         bool AutoUpdateEI { get; set; }
         bool CreateCombatReplay { get; set; }
         bool LightTheme { get; set; }
+    }
+
+    public interface IRaidOrgaPlusSettings
+    {
+        string RaitOrgaPlusUser { get; set; }
+        string RaidOrgaPlusPassword { get; set; }
+        bool RaidOrgaPlusAccoutSet { get; }
     }
 }

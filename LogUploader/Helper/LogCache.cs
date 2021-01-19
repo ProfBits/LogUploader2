@@ -9,7 +9,7 @@ namespace LogUploader.Helper
 {
     static class LogCache
     {
-        private static LinkedList<CachedLog> Cache = new LinkedList<CachedLog>();
+        private static readonly LinkedList<CachedLog> Cache = new LinkedList<CachedLog>();
 
         private static int maxSize = 128;
 
@@ -26,7 +26,7 @@ namespace LogUploader.Helper
                     Cache.RemoveLast();
             }
         }
-        public static void Addend(CachedLog log)
+        public static void AddEnd(CachedLog log)
         {
             lock (Cache)
             {
@@ -40,7 +40,7 @@ namespace LogUploader.Helper
 
         public static void Remove(int id)
         {
-            Remove(getLog(id));
+            Remove(GetLog(id));
         }
 
         public static void Remove(CachedLog log)
@@ -49,7 +49,7 @@ namespace LogUploader.Helper
                 Cache.Remove(log);
         }
 
-        public static CachedLog getLog(int id)
+        public static CachedLog GetLog(int id)
         {
             lock (Cache)
                return Cache.Where(log => log.ID == id).FirstOrDefault();
