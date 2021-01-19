@@ -124,14 +124,13 @@ namespace LogUploader
 
         public LogUploaderLogic() { }
 
-        public async Task InitLogUploaderLogic(SettingsData settings, bool eap, bool eau, bool betaEnableRaidOrga, IProgress<ProgressMessage> progress = null)
+        public async Task InitLogUploaderLogic(SettingsData settings, bool eap, bool eau, IProgress<ProgressMessage> progress = null)
         {
             progress?.Report(new ProgressMessage(0, "Init"));
             Settings = settings;
             DPSReport = new DPSReport(Settings, settings.UserToken);
             EnableAutoParsing = settings.EnableAutoParse || eap;
             EnableAutoUpload = settings.EnableAutoUpload || eau;
-            GUI.SettingsUI.BetaEnableRaidOrga = betaEnableRaidOrga;
 
             progress?.Report(new ProgressMessage(0.01, "Webhooks"));
             WebHookDB = Settings.WebHookDB;
@@ -146,15 +145,9 @@ namespace LogUploader
             WatchDogCTS = new CancellationTokenSource();
             WatchDogTask = RunWatchDog(settings.ArcLogsPath, WatchDogCTS);
 
-            if (betaEnableRaidOrga)
-            {
-                progress?.Report(new ProgressMessage(0.06, "RO+"));
-                await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((0.24 * p.Percent) + 0.06, "RO+ " + p.Message)))));
-            }
-            else
-            {
-                RaidOrgaPlusTermine = new List<RaidSimple>() { RaidSimple.GetRaidOrgaDisabled() };
-            }
+            progress?.Report(new ProgressMessage(0.06, "RO+"));
+            await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((0.24 * p.Percent) + 0.06, "RO+ " + p.Message)))));
+            
             await Task.Run(() => UpdateUnkowen(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.2), "Updating Local Files Old")))));
 
             await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.5 + (p * 0.5), "Updating Local Files New")))));

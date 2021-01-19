@@ -240,7 +240,6 @@ namespace LogUploader
             await newLogic.InitLogUploaderLogic(settings,
                 flags.EnableAutoParse,
                 flags.EnableAutoUpload,
-                flags.BetaEnableRaidOrga,
                 new Progress<ProgressMessage>(pm => progress.Report(new ProgressMessage(0.27f + (pm.Percent * 0.64f), "Loading - " + pm.Message)))
                 );
 
@@ -255,7 +254,7 @@ namespace LogUploader
 
             Logger.Message("Setup - UI");
             //return await CreateUI(logic, flags);
-            return await CreateUI2(newLogic, flags.BetaEnableRaidOrga, new Progress<double>(p => progress.Report(new ProgressMessage(0.91 + (p * 0.07), "Creating UI"))));
+            return await CreateUI2(newLogic, new Progress<double>(p => progress.Report(new ProgressMessage(0.91 + (p * 0.07), "Creating UI"))));
         }
 
         private static async Task<Action> CheckForUpdates(SettingsData settings, IProgress<ProgressMessage> progress = null, CancellationToken ct = default)
@@ -350,10 +349,10 @@ namespace LogUploader
             }
         }
 
-        private static async Task<LogUploaderUI2> CreateUI2(LogUploaderLogic logic, bool betaEnableRaidOrga, IProgress<double> progress = null)
+        private static async Task<LogUploaderUI2> CreateUI2(LogUploaderLogic logic, IProgress<double> progress = null)
         {
             LogUploaderUI2 ui = null;
-            await Task.Run(() => ui = new LogUploaderUI2(logic, betaEnableRaidOrga, progress));
+            await Task.Run(() => ui = new LogUploaderUI2(logic, progress));
             return ui;
         }
 
@@ -471,21 +470,18 @@ namespace LogUploader
             public const string FlagLogLevelWarning = "-w";
             public const string FlagLogLevelNormal = "-i";
             public const string FlagLogLevelVerbose = "-v";
-            public const string FlagBetaEnableRaidOrga = "-beta_raid_orga";
 
             public bool EnableAutoParse { get; set; }
             public bool EnableAutoUpload { get; set; }
             public bool ResetSettings { get; set; }
             public eLogLevel LogLevel { get; set; }
-            public bool BetaEnableRaidOrga { get; set; }
 
-            public Flags(bool enableAutoUpload = false, bool resetSettings = false, bool enableAutoParse = false, eLogLevel logLevel = eLogLevel.WARN, bool betaEnableRaidOrga = false)
+            public Flags(bool enableAutoUpload = false, bool resetSettings = false, bool enableAutoParse = false, eLogLevel logLevel = eLogLevel.WARN)
             {
                 EnableAutoUpload = enableAutoUpload;
                 ResetSettings = resetSettings;
                 EnableAutoParse = enableAutoParse;
                 LogLevel = logLevel;
-                BetaEnableRaidOrga = betaEnableRaidOrga;
             }
 
             public Flags(string[] args) : this()
@@ -516,9 +512,6 @@ namespace LogUploader
                             break;
                         case FlagLogLevelVerbose:
                             LogLevel = eLogLevel.VERBOSE;
-                            break;
-                        case FlagBetaEnableRaidOrga:
-                            BetaEnableRaidOrga = true;
                             break;
                         default:
                             argumentErrors += $"\n- \"{arg}\"";

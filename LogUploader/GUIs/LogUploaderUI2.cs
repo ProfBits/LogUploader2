@@ -17,7 +17,7 @@ namespace LogUploader.GUIs
     {
         private readonly LogUploaderLogic Logic;
 
-        internal LogUploaderUI2(LogUploaderLogic logic, bool betaEnableRaidOrga, IProgress<double> progress = null)
+        internal LogUploaderUI2(LogUploaderLogic logic, IProgress<double> progress = null)
         {
             progress?.Report(0);
             Logic = logic;
@@ -49,12 +49,6 @@ namespace LogUploader.GUIs
 
             lblWorkCount.Text = "";
             lblWorkType.Text = "";
-
-            if (!betaEnableRaidOrga)
-            {
-                gbRaidOrga.Enabled = false;
-                gbRaidOrga.Visible = false;
-            }
 
             progress?.Report(1);
         }

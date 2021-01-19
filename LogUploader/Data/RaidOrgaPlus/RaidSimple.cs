@@ -47,6 +47,7 @@ namespace LogUploader.Data.RaidOrgaPlus
             return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusNoRaid);
         }
 
+        [Obsolete]
         internal static RaidSimple GetRaidOrgaDisabled()
         {
             return new RaidSimpleTemplate("Feature Disabled");
