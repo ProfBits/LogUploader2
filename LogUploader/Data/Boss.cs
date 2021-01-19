@@ -24,7 +24,7 @@ namespace LogUploader.Data
 
         private static readonly Dictionary<int, Boss> allBosses = new Dictionary<int, Boss>();
 
-        internal Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.get(), @"https://www.publicdomainpictures.net/pictures/280000/velka/ghost-on-black-background.jpg", ":grey_question:", "Unknowen", -1) { }
+        internal Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.Get(), @"https://www.publicdomainpictures.net/pictures/280000/velka/ghost-on-black-background.jpg", ":grey_question:", "Unknowen", -1) { }
 
         internal Boss(int id, string name, string FolderName, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(id, name, name, FolderName, FolderName, area, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         {
@@ -92,7 +92,7 @@ namespace LogUploader.Data
 
         public static Boss GetByName(string name, eLanguage lang)
         {
-            var boss = allBosses.FirstOrDefault((e) => e.Value.getName(lang) == name).Value;
+            var boss = allBosses.FirstOrDefault((e) => e.Value.GetName(lang) == name).Value;
             if (boss == null)
                 return GetByID(0);
             return boss;
@@ -133,7 +133,7 @@ namespace LogUploader.Data
 
         private bool CheckFolderName(string folderName)
         {
-            return m_FolderName.hasName(folderName);
+            return m_FolderName.HasName(folderName);
         }
 
         public override bool Equals(object obj)

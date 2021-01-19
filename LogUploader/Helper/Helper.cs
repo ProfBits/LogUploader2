@@ -97,7 +97,7 @@ namespace LogUploader.Helper
             return (T)(object)0;
         }
 
-        public static Data.RaidOrgaPlus.Role getRoleById(int id)
+        public static Data.RaidOrgaPlus.Role GetRoleById(int id)
         {
             if (Enum.IsDefined(typeof(Data.RaidOrgaPlus.Role), (byte)id))
                 return (Data.RaidOrgaPlus.Role)(byte)(id);

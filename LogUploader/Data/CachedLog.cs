@@ -127,7 +127,7 @@ namespace LogUploader.Data
             }
         }
 
-        private float getRemainingHealth(JArray list, int bossID)
+        private float GetRemainingHealth(JArray list, int bossID)
         {
             var data = list.Select(target => new
             {
@@ -193,7 +193,7 @@ namespace LogUploader.Data
             DataCorrected = true;
             Duration = GetDuration((string)data["duration"]);
             Succsess = (bool)data["success"];
-            RemainingHealth = getRemainingHealth((JArray)data["targets"], BossID);
+            RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
             IsCM = (bool)data["isCM"];
             ApplySimpleLog(new SimpleLogJson(data));
         }
@@ -208,7 +208,7 @@ namespace LogUploader.Data
             DataCorrected = true;
             Duration = TimeSpan.ParseExact((string)data["duration"], "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
             Succsess = (bool)data["success"];
-            RemainingHealth = getRemainingHealth((JArray)data["targets"], BossID);
+            RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
             IsCM = (bool)data["isCM"];
             ApplySimpleLog(new SimpleLogJson(data));
         }

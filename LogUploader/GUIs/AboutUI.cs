@@ -62,17 +62,17 @@ namespace LogUploader.GUIs
 #endif
         }
 
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             new SoftwareLicenseUI(new LogUploaderLicense()).Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             new SoftwareUsedUI().Show();
         }
 
-        private void llProjectPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LlProjectPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start($"https://github.com/ProfBits/LogUploader2");
         }

@@ -214,11 +214,11 @@ namespace LogUploader.Helper.DiscordPostGen
                 return AvatarURL.GetHashCode() ^ base.GetHashCode();
             }
 
-            public string getNameWithPostFix(eLanguage language)
+            public string GetNameWithPostFix(eLanguage language)
             {
                 if (string.IsNullOrWhiteSpace(PostFix))
-                    return base.getName(language);
-                return base.getName(language) + " " + PostFix;
+                    return base.GetName(language);
+                return base.GetName(language) + " " + PostFix;
             }
         }
     }

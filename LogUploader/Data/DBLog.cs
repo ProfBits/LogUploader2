@@ -151,27 +151,27 @@ namespace LogUploader.Data
 
 
         #region convert Helper
-        public static DateTime getDateTime(long timeStamp)
+        public static DateTime GetDateTime(long timeStamp)
         {
             var log = new DBLog();
             log.TimeStamp = timeStamp;
             return log.Date;
         }
 
-        public static long getTimeStamp(DateTime dateTime)
+        public static long GetTimeStamp(DateTime dateTime)
         {
             var log = new DBLog();
             log.Date = dateTime;
             return log.TimeStamp;
         }
-        public static TimeSpan getDuration(int durationMs)
+        public static TimeSpan GetDuration(int durationMs)
         {
             var log = new DBLog();
             log.DurationMs = durationMs;
             return log.Duration;
         }
 
-        public static int getDurationMs(TimeSpan duration)
+        public static int GetDurationMs(TimeSpan duration)
         {
             var log = new DBLog();
             log.Duration = duration;

@@ -193,7 +193,7 @@ namespace LogUploader.Helper
             new Boss(basics, folderEN, folderDE, avatarURL, DiscordEmote, EiName, raidOrgaPlusId);
         }
 
-        private static GameArea detimenGameArea(string gameAreaName, int gameAreaID)
+        private static GameArea DetimenGameArea(string gameAreaName, int gameAreaID)
         {
             switch (gameAreaName)
             {
@@ -206,11 +206,11 @@ namespace LogUploader.Helper
                 case TagFractalRoot:
                     return Fractal.Fractals[gameAreaID];
                 case TagWvWRoot:
-                    return WvW.get();
+                    return WvW.Get();
                 case TagTrainingRoot:
-                    return Training.get();
+                    return Training.Get();
                 case TagUnknownRoot:
-                    return Unknowen.get();
+                    return Unknowen.Get();
                 default:
                     return null;
             }
@@ -254,7 +254,7 @@ namespace LogUploader.Helper
             var name = GetNameInfo(enemy);
             var gameAreaName = (string)enemy[TagGameAreaName];
             var gameAreaID = (int)enemy[TagGameAreaID];
-            var gameArea = detimenGameArea(gameAreaName, gameAreaID);
+            var gameArea = DetimenGameArea(gameAreaName, gameAreaID);
             
             return new Enemy.BasicInfo(ID, name.EN, name.DE, gameArea);
         }

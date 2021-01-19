@@ -170,7 +170,7 @@
             this.llProjectPage.TabStop = true;
             this.llProjectPage.Text = "Projectpage github.com";
             this.toolTip1.SetToolTip(this.llProjectPage, "https://github.com/ProfBits/LogUploader2");
-            this.llProjectPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llProjectPage_LinkClicked);
+            this.llProjectPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlProjectPage_LinkClicked);
             // 
             // panel1
             // 
@@ -338,7 +338,7 @@
             this.llLicense.TabIndex = 7;
             this.llLicense.TabStop = true;
             this.llLicense.Text = "View License";
-            this.llLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            this.llLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2_LinkClicked);
             // 
             // panel5
             // 
@@ -370,7 +370,7 @@
             this.btnThirdParty.TabIndex = 0;
             this.btnThirdParty.Text = "View 3rd Party Libraries,\r\nSoftware";
             this.btnThirdParty.UseVisualStyleBackColor = true;
-            this.btnThirdParty.Click += new System.EventHandler(this.button1_Click);
+            this.btnThirdParty.Click += new System.EventHandler(this.Button1_Click);
             // 
             // panel6
             // 

@@ -45,6 +45,11 @@ namespace LogUploader.Helper
             }
 
             Logger.Warn($"Config does not exist: \"{config}\". Looking for other configs");
+            TryCreateConfigFromExisting(newPath, config);
+        }
+
+        private static void TryCreateConfigFromExisting(string newPath, string config)
+        {
             var oldPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Bits_Inc\";
             string[] oldFiles;
             if (Directory.Exists(oldPath))

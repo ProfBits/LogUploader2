@@ -15,7 +15,7 @@ namespace LogUploader.Data
 
         private static readonly Dictionary<int, AddEnemy> allAdds = new Dictionary<int, AddEnemy>();
 
-        internal AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.get(), true)
+        internal AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.Get(), true)
         { }
 
         internal AddEnemy(int id, string name, GameArea area, bool isIntressting) : this(id, name, name, area, isIntressting)
@@ -49,7 +49,7 @@ namespace LogUploader.Data
 
         public static AddEnemy GetByName(string name, eLanguage lang)
         {
-            return allAdds.FirstOrDefault((e) => e.Value.getName(lang) == name).Value;
+            return allAdds.FirstOrDefault((e) => e.Value.GetName(lang) == name).Value;
         }
 
         public static List<AddEnemy> GetByArea(GameArea area)

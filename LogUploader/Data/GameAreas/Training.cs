@@ -74,7 +74,7 @@ namespace LogUploader.Data.GameAreas
             return new Training(info);
         }
 
-        public static Training get() => training;
+        public static Training Get() => training;
 
         public override string ToString()
         {

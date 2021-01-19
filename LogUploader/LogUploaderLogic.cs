@@ -666,17 +666,17 @@ namespace LogUploader
 
         private string DurationFilter(string relation, TimeSpan value)
         {
-            return $"[DurationMs] {relation} {DBLog.getDurationMs(value)}";
+            return $"[DurationMs] {relation} {DBLog.GetDurationMs(value)}";
         }
 
         private string DateFromFilter(DateTime value)
         {
-            return $"[TimeStamp] >= {DBLog.getTimeStamp(value)}";
+            return $"[TimeStamp] >= {DBLog.GetTimeStamp(value)}";
         }
 
         private string DateToFilter(DateTime value)
         {
-            return $"[TimeStamp] <= {DBLog.getTimeStamp(value)}";
+            return $"[TimeStamp] <= {DBLog.GetTimeStamp(value)}";
         }
 
         public Tuple<DateTime, DateTime> TodayFilterBorders()

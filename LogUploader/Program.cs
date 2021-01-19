@@ -23,25 +23,8 @@ namespace LogUploader
 {
     class Program
     {
-        // Version 2.0 Targets
-        /*  
-         *  Task: spell checking
-         *  Task: Tester in about
-         *  
-         */
-
         // Future Versions
-        /*  DONE: Language out of compieled into.txt file
-         *  DONE: Collect exit codes
-         *  DONE: Whats new Screen after update
-         *  DONE: add View changelog to about and update UI
-         *  DONE: Misc category in dataJson for kill/wipe emotes
-         *        add emotes to professions
-         *  DONE: add more webhook formats
-         *        with classesemote (compact and area)
-         *  DONE: Update EI Helper to accout for EI now outputting generated files -> remove file system watcher
-         *  Task: Log state and cleand up tools....
-         *  DONE: switch over to Newtonsoft (performance)
+        /*  Task: Log state and cleand up tools....
          *  Task: Add logs manually
          *  Task: Add help and/or user doc...
          *  Task: Darkmode / Thems (integrated into win darkmode?)
@@ -146,7 +129,7 @@ namespace LogUploader
             Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.DEBUG);
             Logger.Debug("DEBUG BUILD");
 #elif BETA
-            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.VERBOSE);
+            Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.DEBUG);
             Logger.Debug("BETA BUILD");
 #elif ALPHA
             Logger.Init(Updater.GetLocalVersion().ToString(), eLogLevel.DEBUG);

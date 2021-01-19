@@ -28,12 +28,12 @@ namespace LogUploader.GUIs
             Work = task;
         }
 
-        private void lblCancel_Click(object sender, EventArgs e)
+        private void LblCancel_Click(object sender, EventArgs e)
         {
             Cts.Cancel();
         }
 
-        private void lblClose_Click(object sender, EventArgs e)
+        private void LblClose_Click(object sender, EventArgs e)
         {
             Cts.Cancel();
         }

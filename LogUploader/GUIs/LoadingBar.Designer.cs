@@ -68,7 +68,7 @@
             this.lblCancel.TabIndex = 0;
             this.lblCancel.Text = "Cancel";
             this.lblCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCancel.Click += new System.EventHandler(this.lblCancel_Click);
+            this.lblCancel.Click += new System.EventHandler(this.LblCancel_Click);
             // 
             // lblPercent
             // 
@@ -138,7 +138,7 @@
             this.lblClose.Size = new System.Drawing.Size(17, 16);
             this.lblClose.TabIndex = 0;
             this.lblClose.Text = "X";
-            this.lblClose.Click += new System.EventHandler(this.lblClose_Click);
+            this.lblClose.Click += new System.EventHandler(this.LblClose_Click);
             // 
             // lblTaskName
             // 

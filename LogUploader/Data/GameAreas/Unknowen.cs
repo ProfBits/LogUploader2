@@ -71,7 +71,7 @@ namespace LogUploader.Data.GameAreas
             return new Unknowen(info);
         }
 
-        public static Unknowen get() => unknowen;
+        public static Unknowen Get() => unknowen;
 
         public override string ToString()
         {
