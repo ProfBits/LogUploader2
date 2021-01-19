@@ -41,7 +41,7 @@ namespace LogUploader.Data
          * Json Section: Additional data, may not be present
          */
         private SimpleLogJson DataJson { get; set; }
-
+        public static int CurrentDataVersion { get => SimpleLogJson.CurrentVersion; }
         public int DataVersion { get => DataJson?.Version ?? 0; }
         public string RecordedBy { get => DataJson?.RecordedBy ?? ""; }
         public IReadOnlyList<SimplePlayer> PlayersNew { get => DataJson?.Players ?? new List<SimplePlayer>(); }

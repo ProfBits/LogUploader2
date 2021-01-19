@@ -1,3 +1,11 @@
+# v1.3.1 BETA
+19.01.2021
+
+## Bugfixes
+- Subgroup header in player perview is not displayed correctly
+- Logs with outdated metadata can now be reuploaede or reparsed
+
+
 # v1.3.0 BETA
 19.01.2021
 
@@ -11,12 +19,12 @@
 
 - New Logger, Logfiles are now created<br>
 Last 30 Logs are saved in %appdata%/LogUploader/Logs/
-- New programm argumets for LogLevel (-d, -w, -i, -v | debug, warning, info, verbose)
+- New programm arguments for LogLevel (-d, -w, -i, -v | debug, warning, info, verbose)
 - Added Support for Alpha and Beta versions
 - New crash popup<br>
 It was never so easy to get the log
-- Parse, Upload, Open local and Open dps.report buttons are now depened on your selection
-- New static configuration paht.<br>
+- Parse, Upload, Open local and Open dps.report buttons are now dependent on your selection
+- New static configuration path.<br>
 Never loose your config again after updating
 - You can now export and import your settings.
 - RaidOrga+ Integration for RaidLeads<br>
@@ -24,14 +32,14 @@ Update all missing bosses, classes, roles and names in seconds
 
 
 ## Improvements
-- Improved JSON parsing Performance
+- Improved JSON parsing performance
 - Exitcodes are now labeled and logged
 - Added badges to the README.md
 - Added Caching for api.github.com request to improve performance
 - EliteInsights update now cancels after 5 min
 - Program update now cancels after 5 min
 - Loading bar on startup is smother than ever
-- Now Target DPS is showen next to log
+- Now Target DPS is shown next to log
 
 ## Bugfixes
 - Fixed loading bar on startup jumping backwards

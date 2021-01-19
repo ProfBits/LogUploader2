@@ -10,7 +10,7 @@ namespace LogUploader.Data
 {
     class LogPreview
     {
-        public LogPreview(CachedLog log, IEnumerable<PlayerData> players) : this(
+        public LogPreview(CachedLog log, IEnumerable<PlayerData> players, bool outDatedJson) : this(
             log.BossName,
             log.SizeKb,
             log.RemainingHealth,
@@ -25,11 +25,12 @@ namespace LogUploader.Data
             log.HtmlPath,
             !string.IsNullOrWhiteSpace(log.Link) ? CheckState.Checked : CheckState.Unchecked,
             log.Link,
-            players
+            players,
+            outDatedJson
             )
         { }
 
-        public LogPreview(string name, int sizeKb, float hPLeft, DateTime date, bool isMaxDuration, TimeSpan maxDuratin, CheckState corrected, CheckState isCM, CheckState success, CheckState hasHtmlCb, bool multiSelect, string hTML, CheckState hasLinkCb, string link, IEnumerable<PlayerData> players)
+        public LogPreview(string name, int sizeKb, float hPLeft, DateTime date, bool isMaxDuration, TimeSpan maxDuratin, CheckState corrected, CheckState isCM, CheckState success, CheckState hasHtmlCb, bool multiSelect, string hTML, CheckState hasLinkCb, string link, IEnumerable<PlayerData> players, bool outDatedJson)
         {
             Name = name;
             SizeKb = sizeKb;
@@ -46,6 +47,7 @@ namespace LogUploader.Data
             HasLinkCb = hasLinkCb;
             Link = link;
             Players = players;
+            OutDatedJson = outDatedJson;
         }
 
         public string Name { get; } = "";
@@ -65,5 +67,6 @@ namespace LogUploader.Data
         public bool HasLink { get => HasLinkCb != CheckState.Unchecked; }
         public string Link { get; } = "";
         public IEnumerable<PlayerData> Players { get; }
+        public bool OutDatedJson { get; }
     }
 }

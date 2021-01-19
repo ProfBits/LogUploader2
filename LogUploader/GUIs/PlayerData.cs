@@ -27,7 +27,22 @@ namespace LogUploader.GUIs
         
         [Browsable(true)]
         [Description("The test in the sg should be singel digit")]
-        public string SubGroup { get => lblSG.Text; set => lblSG.Text = value; }
+        public string SubGroup { get => lblSG.Text;
+            set
+            {
+                if (value == "SG")
+                {
+                    tableLayoutPanel1.ColumnStyles[2].Width = 25F;
+                    lblSG.TextAlign = ContentAlignment.MiddleRight;
+                }
+                else
+                {
+                    tableLayoutPanel1.ColumnStyles[2].Width = 20F;
+                    lblSG.TextAlign = ContentAlignment.MiddleCenter;
+                }
+                lblSG.Text = value;
+            }
+        }
         
         [Browsable(true)]
         [Description("the dps field, the last one")]

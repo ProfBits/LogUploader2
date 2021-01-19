@@ -108,7 +108,7 @@ namespace LogUploader.GUIs
         private async void BtnParse_Click(object sender, EventArgs e)
         {
             var logsToDo = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
-                .Where(row => !((bool) row.Cells["colHasHtml"].Value))
+                //.Where(row => !((bool) row.Cells["colHasHtml"].Value))
                 .Select(row => new { ID = (int)row.Cells["colID"].Value, Name = GetJobNameFromRow(row) });
             await Task.Run(() =>
             {
@@ -133,7 +133,7 @@ namespace LogUploader.GUIs
         private async void BtnUpload_Click(object sender, EventArgs e)
         {
             var logsToDo = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
-                   .Where(row => !((bool)row.Cells["colHasLink"].Value))
+                   //.Where(row => !((bool)row.Cells["colHasLink"].Value))
                    .Select(row => new { ID = (int)row.Cells["colID"].Value, Name = GetJobNameFromRow(row) });
             await Task.Run(() =>
             {
