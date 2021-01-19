@@ -289,7 +289,8 @@ namespace LogUploader
 
         private CachedLog UploadJob(CachedLog log)
         {
-            if (!string.IsNullOrEmpty(log.Link))
+            var localDataVersion = CacheLog(log.ID).DataVersion;
+            if (!string.IsNullOrEmpty(log.Link) && localDataVersion >= CachedLog.CurrentDataVersion)
                 return log;
             if (string.IsNullOrEmpty(log.EvtcPath) || !File.Exists(log.EvtcPath))
             {
@@ -307,7 +308,7 @@ namespace LogUploader
                 return log;
             }
             var link = (string)jsonData["permalink"];
-            if (!log.DataCorrected)
+            if (!log.DataCorrected || localDataVersion < CachedLog.CurrentDataVersion)
             {
                 response = DPSReport.GetEncounterDataPermalink(link);
                 log.UpdateEi(response);
@@ -341,7 +342,8 @@ namespace LogUploader
         }
         private CachedLog ParseJob(CachedLog log)
         {
-            if (!string.IsNullOrEmpty(log.HtmlPath))
+            var localDataVersion = CacheLog(log.ID).DataVersion;
+            if (!string.IsNullOrEmpty(log.HtmlPath) && localDataVersion >= CachedLog.CurrentDataVersion)
                 return log;
             if (string.IsNullOrEmpty(log.EvtcPath) || !File.Exists(log.EvtcPath))
             {
@@ -360,7 +362,7 @@ namespace LogUploader
                 Logger.LogException(ex);
                 return log;
             }
-            if (!log.DataCorrected)
+            if (!log.DataCorrected || localDataVersion < CachedLog.CurrentDataVersion)
             {
                 var jsonStr = GP.ReadJsonFile(json);
                 log.UpdateEi(jsonStr);
@@ -796,7 +798,7 @@ namespace LogUploader
             {
                 var log = logs[0];
                 var pData = log.PlayersNew?.OrderByDescending(p => p.DpsTargets).Select(p => GetPlayerData(p));
-                return new LogPreview(log, pData.Count() > 0 ? pData : null);
+                return new LogPreview(log, pData.Count() > 0 ? pData : null, 0 < log.DataVersion && log.DataVersion < CachedLog.CurrentDataVersion);
             }
             if (logs.Count > 1)
             {
@@ -868,11 +870,15 @@ namespace LogUploader
 
                 if (token.IsCancellationRequested) return null;
 
+                bool outDatedJson = logs.Any(log => 0 < log.DataVersion && log.DataVersion < CachedLog.CurrentDataVersion);
+
+                if (token.IsCancellationRequested) return null;
+
                 return new LogPreview(name, size, maxHP, date, true, totalDuration, Corrected, IsCM,
-                        Success, HasHtml, true, "", HasLink, "", null);
+                        Success, HasHtml, true, "", HasLink, "", null, outDatedJson);
             }
             return new LogPreview("", 0, 0, DateTime.Now, false, new TimeSpan(0), CheckState.Indeterminate, CheckState.Indeterminate,
-                CheckState.Indeterminate, CheckState.Indeterminate, false, null, CheckState.Indeterminate, null, null);
+                CheckState.Indeterminate, CheckState.Indeterminate, false, null, CheckState.Indeterminate, null, null, false);
         }
 
         private PlayerData GetPlayerData(SimplePlayer player)
