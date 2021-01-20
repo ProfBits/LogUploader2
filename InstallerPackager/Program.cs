@@ -53,7 +53,10 @@ namespace InstallerPackager
                     Directory.Delete(installerFolder, true);
             }
         }
-        
+
+        /*
+         * Thanks to https://web.archive.org/web/20140223075628/http://www.cs.nyu.edu/~vs667/articles/embed_executable_tutorial
+         */
         //======================================================
         //Recreate all executable resources
         //======================================================
