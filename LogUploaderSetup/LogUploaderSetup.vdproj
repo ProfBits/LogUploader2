@@ -863,7 +863,7 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:\"$(ProjectDir)makesfx.exe\" -ic -mf -ft -oo -we -de -s -o -c -h \"$(ProjectDir)bin\\$(Configuration)\" \"$(ProjectDir)installer\\installer$(Configuration).exe\" \"$(ProjectDir)..\\LogUploader\\images\\icon.ico\" \"$(ProjectDir)bin\\$(Configuration)\\setup.exe\""
+        "PostBuildEvent" = "8:REM \"$(ProjectDir)makesfx.exe\" -ic -mf -ft -oo -we -de -s -o -c -h \"$(ProjectDir)bin\\$(Configuration)\" \"$(ProjectDir)installer\\installer$(Configuration).exe\" \"$(ProjectDir)..\\LogUploader\\images\\icon.ico\" \"$(ProjectDir)bin\\$(Configuration)\\setup.exe\"\r\n\r\nxcopy \"$(ProjectDir)bin\\$(Configuration)\\*\" \"$(ProjectDir)\\..\\InstallerPakager\\installer\\*\" /Y"
         "RunPostBuildEvent" = "3:0"
         }
         "Registry"
