@@ -1,3 +1,9 @@
+# v1.3.3 BETA
+
+## Improvements
+- New installer packaging. Installers should no longer be flaged as a virus.
+
+
 # v1.3.2 BETA
 19.01.2021
 
