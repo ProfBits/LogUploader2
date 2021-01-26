@@ -121,6 +121,7 @@ namespace LogUploader.Languages
         public string ConfigGeneralArcPaht { get => "Arc Log Ordner Pfad"; }
         public string ConfigGeneralBrowse { get => "Auswählen"; }
         public string ConfigGeneralLanguage { get => "Sprache"; }
+        public string ConfigGeneralAllowBeta { get => "Erlaube Beta Versionen"; }
         public string ConfigDpsReportTitle { get => "dps.report"; }
         public string ConfigDpsReportToken { get => "User Token:"; }
         public string ConfigDpsReportGetToken { get => "Token generieren:"; }
@@ -157,6 +158,7 @@ namespace LogUploader.Languages
         public string ConfigRoPlusTitle { get => "RaidOrga+"; }
         public string ConfigRoPlusUser { get => "Benutzer"; }
         public string ConfigRoPlusPwd { get => "Passwort"; }
+        public string ConfigRoPlusNote { get => "Hinweis:\nNur Termine von Raids bei denen du Leiter bist werden angezeigt."; }
         public string ConfigExport { get => "Export"; }
         public string ConfigImport { get => "Import"; }
         public string ConfigExportFileFilter { get => "LogUploaderSettings Datein|*.lus|Alle Datein|*.*"; }

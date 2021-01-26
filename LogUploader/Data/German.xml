@@ -99,6 +99,7 @@
   <ConfigGeneralArcPaht>Arc Log Ordner Pfad</ConfigGeneralArcPaht>
   <ConfigGeneralBrowse>Auswählen</ConfigGeneralBrowse>
   <ConfigGeneralLanguage>Sprache</ConfigGeneralLanguage>
+  <ConfigGeneralAllowBeta>Erlaube Beta Versionen</ConfigGeneralAllowBeta>
   <ConfigDpsReportTitle>dps.report</ConfigDpsReportTitle>
   <ConfigDpsReportToken>User Token:</ConfigDpsReportToken>
   <ConfigDpsReportGetToken>Token generieren:</ConfigDpsReportGetToken>
@@ -138,6 +139,8 @@ Dies wird deine aktuellen Einstellungen dauerhaft löschen!</ConfigDefaultMsgTex
   <ConfigRoPlusTitle>RaidOrga+</ConfigRoPlusTitle>
   <ConfigRoPlusUser>Benutzer</ConfigRoPlusUser>
   <ConfigRoPlusPwd>Passwort</ConfigRoPlusPwd>
+  <ConfigRoPlusNote>Hinweis:
+Nur Termine von Raids bei denen du Leiter bist werden angezeigt.</ConfigRoPlusNote>
   <ConfigExport>Export</ConfigExport>
   <ConfigImport>Import</ConfigImport>
   <ConfigExportFileFilter>LogUploaderSettings Datein|*.lus|Alle Datein|*.*</ConfigExportFileFilter>

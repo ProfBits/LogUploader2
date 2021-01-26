@@ -99,6 +99,7 @@
   <ConfigGeneralArcPaht>Arc Log Folder Path</ConfigGeneralArcPaht>
   <ConfigGeneralBrowse>Browse...</ConfigGeneralBrowse>
   <ConfigGeneralLanguage>Language</ConfigGeneralLanguage>
+  <ConfigGeneralAllowBeta>Allow Beta Updates</ConfigGeneralAllowBeta>
   <ConfigDpsReportTitle>dps.report</ConfigDpsReportTitle>
   <ConfigDpsReportToken>User Token:</ConfigDpsReportToken>
   <ConfigDpsReportGetToken>Generate Token:</ConfigDpsReportGetToken>
@@ -138,6 +139,8 @@ This will permanently delete your current settings!</ConfigDefaultMsgText>
   <ConfigRoPlusTitle>RaidOrga+</ConfigRoPlusTitle>
   <ConfigRoPlusUser>User</ConfigRoPlusUser>
   <ConfigRoPlusPwd>Password</ConfigRoPlusPwd>
+  <ConfigRoPlusNote>Note:
+Only raids, where you are also Raidlead, will be shown</ConfigRoPlusNote>
   <ConfigExport>Export</ConfigExport>
   <ConfigImport>Import</ConfigImport>
   <ConfigExportFileFilter>LogUploaderSettings files|*.lus|All files|*.*</ConfigExportFileFilter>

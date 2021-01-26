@@ -120,6 +120,7 @@ namespace LogUploader.Languages
         public string ConfigGeneralArcPaht { get => "Arc Log Folder Path"; }
         public string ConfigGeneralBrowse { get => "Browse..."; }
         public string ConfigGeneralLanguage { get => "Language"; }
+        public string ConfigGeneralAllowBeta { get => "Allow Beta Updates"; }
         public string ConfigDpsReportTitle { get => "dps.report"; }
         public string ConfigDpsReportToken { get => "User Token:"; }
         public string ConfigDpsReportGetToken { get => "Generate Token:"; }
@@ -156,6 +157,7 @@ namespace LogUploader.Languages
         public string ConfigRoPlusTitle { get => "RaidOrga+"; }
         public string ConfigRoPlusUser { get => "User"; }
         public string ConfigRoPlusPwd { get => "Password"; }
+        public string ConfigRoPlusNote { get => "Note:\nOnly raids, where you are also Raidlead, will be shown"; }
         public string ConfigExport { get => "Export"; }
         public string ConfigImport { get => "Import"; }
         public string ConfigExportFileFilter { get => "LogUploaderSettings files|*.lus|All files|*.*"; }
