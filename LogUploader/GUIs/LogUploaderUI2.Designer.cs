@@ -34,8 +34,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogUploaderUI2));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pStatus = new System.Windows.Forms.Panel();
             this.pWorkStatus = new System.Windows.Forms.Panel();
             this.flpProgress = new System.Windows.Forms.FlowLayoutPanel();
@@ -104,7 +104,6 @@
             this.lblLinksCopied = new System.Windows.Forms.Label();
             this.btnParsAndUpload = new System.Windows.Forms.Button();
             this.btnOpenDpsReport = new System.Windows.Forms.Button();
-            this.dBLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnPostToDiscord = new System.Windows.Forms.Button();
             this.btnCopyLinks = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
@@ -116,8 +115,20 @@
             this.cbAutoUpload = new System.Windows.Forms.CheckBox();
             this.cbAutoParse = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.gbRaidOrga = new System.Windows.Forms.GroupBox();
+            this.btnUpdateRaidOrga = new System.Windows.Forms.Button();
+            this.cmbRaidOrgaTermin = new System.Windows.Forms.ComboBox();
             this.pGrid = new System.Windows.Forms.Panel();
             this.dBLogDataGridView = new System.Windows.Forms.DataGridView();
+            this.contextMenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miParse = new System.Windows.Forms.ToolStripMenuItem();
+            this.miOpenLocal = new System.Windows.Forms.ToolStripMenuItem();
+            this.miUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.miOpenLink = new System.Windows.Forms.ToolStripMenuItem();
+            this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.pTop = new System.Windows.Forms.Panel();
+            this.btnRaidOrgaReload = new System.Windows.Forms.Panel();
             this.colBossName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -139,17 +150,7 @@
             this.colFlags = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colHasEvtc = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colHasJson = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.contextMenuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.miParse = new System.Windows.Forms.ToolStripMenuItem();
-            this.miOpenLocal = new System.Windows.Forms.ToolStripMenuItem();
-            this.miUpload = new System.Windows.Forms.ToolStripMenuItem();
-            this.miOpenLink = new System.Windows.Forms.ToolStripMenuItem();
-            this.miParseUpload = new System.Windows.Forms.ToolStripMenuItem();
-            this.miViewInExplorer = new System.Windows.Forms.ToolStripMenuItem();
-            this.pTop = new System.Windows.Forms.Panel();
-            this.gbRaidOrga = new System.Windows.Forms.GroupBox();
-            this.cmbRaidOrgaTermin = new System.Windows.Forms.ComboBox();
-            this.btnUpdateRaidOrga = new System.Windows.Forms.Button();
+            this.dBLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pStatus.SuspendLayout();
             this.pWorkStatus.SuspendLayout();
             this.flpProgress.SuspendLayout();
@@ -163,12 +164,12 @@
             this.tpDetailsTop.SuspendLayout();
             this.pDetailsPlayers.SuspendLayout();
             this.gbActions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).BeginInit();
             this.gbSettings.SuspendLayout();
+            this.gbRaidOrga.SuspendLayout();
             this.pGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).BeginInit();
             this.contextMenuGrid.SuspendLayout();
-            this.gbRaidOrga.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pStatus
@@ -1042,10 +1043,6 @@
             this.btnOpenDpsReport.UseVisualStyleBackColor = true;
             this.btnOpenDpsReport.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
             // 
-            // dBLogBindingSource
-            // 
-            this.dBLogBindingSource.DataSource = typeof(LogUploader.Data.DBLog);
-            // 
             // btnPostToDiscord
             // 
             this.btnPostToDiscord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1170,6 +1167,37 @@
             this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
+            // gbRaidOrga
+            // 
+            this.gbRaidOrga.Controls.Add(this.btnRaidOrgaReload);
+            this.gbRaidOrga.Controls.Add(this.btnUpdateRaidOrga);
+            this.gbRaidOrga.Controls.Add(this.cmbRaidOrgaTermin);
+            this.gbRaidOrga.Location = new System.Drawing.Point(184, 373);
+            this.gbRaidOrga.Name = "gbRaidOrga";
+            this.gbRaidOrga.Size = new System.Drawing.Size(170, 74);
+            this.gbRaidOrga.TabIndex = 5;
+            this.gbRaidOrga.TabStop = false;
+            this.gbRaidOrga.Text = "RaidOrga+";
+            // 
+            // btnUpdateRaidOrga
+            // 
+            this.btnUpdateRaidOrga.Location = new System.Drawing.Point(53, 45);
+            this.btnUpdateRaidOrga.Name = "btnUpdateRaidOrga";
+            this.btnUpdateRaidOrga.Size = new System.Drawing.Size(111, 23);
+            this.btnUpdateRaidOrga.TabIndex = 1;
+            this.btnUpdateRaidOrga.Text = "Update Termin";
+            this.btnUpdateRaidOrga.UseVisualStyleBackColor = true;
+            this.btnUpdateRaidOrga.Click += new System.EventHandler(this.BtnUpdateRaidOrga_Click);
+            // 
+            // cmbRaidOrgaTermin
+            // 
+            this.cmbRaidOrgaTermin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRaidOrgaTermin.FormattingEnabled = true;
+            this.cmbRaidOrgaTermin.Location = new System.Drawing.Point(6, 19);
+            this.cmbRaidOrgaTermin.Name = "cmbRaidOrgaTermin";
+            this.cmbRaidOrgaTermin.Size = new System.Drawing.Size(158, 21);
+            this.cmbRaidOrgaTermin.TabIndex = 0;
+            // 
             // pGrid
             // 
             this.pGrid.Controls.Add(this.dBLogDataGridView);
@@ -1221,6 +1249,81 @@
             this.dBLogDataGridView.TabIndex = 0;
             this.dBLogDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DBLogDataGridView_CellDoubleClick);
             this.dBLogDataGridView.SelectionChanged += new System.EventHandler(this.DBLogDataGridView_SelectionChanged);
+            // 
+            // contextMenuGrid
+            // 
+            this.contextMenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miParse,
+            this.miOpenLocal,
+            this.miUpload,
+            this.miOpenLink,
+            this.miParseUpload,
+            this.miViewInExplorer});
+            this.contextMenuGrid.Name = "contextMenuGrid";
+            this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
+            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuGrid_Opening);
+            // 
+            // miParse
+            // 
+            this.miParse.Name = "miParse";
+            this.miParse.Size = new System.Drawing.Size(166, 22);
+            this.miParse.Text = "Parse";
+            this.miParse.Click += new System.EventHandler(this.BtnParse_Click);
+            // 
+            // miOpenLocal
+            // 
+            this.miOpenLocal.Name = "miOpenLocal";
+            this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
+            this.miOpenLocal.Text = "Open Local";
+            this.miOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
+            // 
+            // miUpload
+            // 
+            this.miUpload.Name = "miUpload";
+            this.miUpload.Size = new System.Drawing.Size(166, 22);
+            this.miUpload.Text = "Upload";
+            this.miUpload.Click += new System.EventHandler(this.BtnUpload_Click);
+            // 
+            // miOpenLink
+            // 
+            this.miOpenLink.Name = "miOpenLink";
+            this.miOpenLink.Size = new System.Drawing.Size(166, 22);
+            this.miOpenLink.Text = "Open dps.report";
+            this.miOpenLink.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
+            // 
+            // miParseUpload
+            // 
+            this.miParseUpload.Name = "miParseUpload";
+            this.miParseUpload.Size = new System.Drawing.Size(166, 22);
+            this.miParseUpload.Text = "Parse and Upload";
+            this.miParseUpload.Click += new System.EventHandler(this.BtnParsAndUpload_Click);
+            // 
+            // miViewInExplorer
+            // 
+            this.miViewInExplorer.Name = "miViewInExplorer";
+            this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
+            this.miViewInExplorer.Text = "View in Explorer";
+            this.miViewInExplorer.Click += new System.EventHandler(this.ViewToolStripMenuItem_Click);
+            // 
+            // pTop
+            // 
+            this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pTop.Location = new System.Drawing.Point(0, 0);
+            this.pTop.Name = "pTop";
+            this.pTop.Size = new System.Drawing.Size(1027, 1);
+            this.pTop.TabIndex = 0;
+            // 
+            // btnRaidOrgaReload
+            // 
+            this.btnRaidOrgaReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRaidOrgaReload.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRaidOrgaReload.BackgroundImage")));
+            this.btnRaidOrgaReload.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRaidOrgaReload.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRaidOrgaReload.Location = new System.Drawing.Point(6, 46);
+            this.btnRaidOrgaReload.Name = "btnRaidOrgaReload";
+            this.btnRaidOrgaReload.Size = new System.Drawing.Size(22, 22);
+            this.btnRaidOrgaReload.TabIndex = 2;
+            this.btnRaidOrgaReload.Click += new System.EventHandler(this.btnRaidOrgaReload_Click);
             // 
             // colBossName
             // 
@@ -1409,98 +1512,9 @@
             this.colHasJson.ReadOnly = true;
             this.colHasJson.Visible = false;
             // 
-            // contextMenuGrid
+            // dBLogBindingSource
             // 
-            this.contextMenuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miParse,
-            this.miOpenLocal,
-            this.miUpload,
-            this.miOpenLink,
-            this.miParseUpload,
-            this.miViewInExplorer});
-            this.contextMenuGrid.Name = "contextMenuGrid";
-            this.contextMenuGrid.Size = new System.Drawing.Size(167, 136);
-            this.contextMenuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuGrid_Opening);
-            // 
-            // miParse
-            // 
-            this.miParse.Name = "miParse";
-            this.miParse.Size = new System.Drawing.Size(166, 22);
-            this.miParse.Text = "Parse";
-            this.miParse.Click += new System.EventHandler(this.BtnParse_Click);
-            // 
-            // miOpenLocal
-            // 
-            this.miOpenLocal.Name = "miOpenLocal";
-            this.miOpenLocal.Size = new System.Drawing.Size(166, 22);
-            this.miOpenLocal.Text = "Open Local";
-            this.miOpenLocal.Click += new System.EventHandler(this.BtnOpenLocal_Click);
-            // 
-            // miUpload
-            // 
-            this.miUpload.Name = "miUpload";
-            this.miUpload.Size = new System.Drawing.Size(166, 22);
-            this.miUpload.Text = "Upload";
-            this.miUpload.Click += new System.EventHandler(this.BtnUpload_Click);
-            // 
-            // miOpenLink
-            // 
-            this.miOpenLink.Name = "miOpenLink";
-            this.miOpenLink.Size = new System.Drawing.Size(166, 22);
-            this.miOpenLink.Text = "Open dps.report";
-            this.miOpenLink.Click += new System.EventHandler(this.BtnOpenDpsReport_Click);
-            // 
-            // miParseUpload
-            // 
-            this.miParseUpload.Name = "miParseUpload";
-            this.miParseUpload.Size = new System.Drawing.Size(166, 22);
-            this.miParseUpload.Text = "Parse and Upload";
-            this.miParseUpload.Click += new System.EventHandler(this.BtnParsAndUpload_Click);
-            // 
-            // miViewInExplorer
-            // 
-            this.miViewInExplorer.Name = "miViewInExplorer";
-            this.miViewInExplorer.Size = new System.Drawing.Size(166, 22);
-            this.miViewInExplorer.Text = "View in Explorer";
-            this.miViewInExplorer.Click += new System.EventHandler(this.ViewToolStripMenuItem_Click);
-            // 
-            // pTop
-            // 
-            this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pTop.Location = new System.Drawing.Point(0, 0);
-            this.pTop.Name = "pTop";
-            this.pTop.Size = new System.Drawing.Size(1027, 1);
-            this.pTop.TabIndex = 0;
-            // 
-            // gbRaidOrga
-            // 
-            this.gbRaidOrga.Controls.Add(this.btnUpdateRaidOrga);
-            this.gbRaidOrga.Controls.Add(this.cmbRaidOrgaTermin);
-            this.gbRaidOrga.Location = new System.Drawing.Point(184, 373);
-            this.gbRaidOrga.Name = "gbRaidOrga";
-            this.gbRaidOrga.Size = new System.Drawing.Size(170, 74);
-            this.gbRaidOrga.TabIndex = 5;
-            this.gbRaidOrga.TabStop = false;
-            this.gbRaidOrga.Text = "RaidOrga+";
-            // 
-            // cmbRaidOrgaTermin
-            // 
-            this.cmbRaidOrgaTermin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbRaidOrgaTermin.FormattingEnabled = true;
-            this.cmbRaidOrgaTermin.Location = new System.Drawing.Point(6, 19);
-            this.cmbRaidOrgaTermin.Name = "cmbRaidOrgaTermin";
-            this.cmbRaidOrgaTermin.Size = new System.Drawing.Size(158, 21);
-            this.cmbRaidOrgaTermin.TabIndex = 0;
-            // 
-            // bntUpdateRaidOrga
-            // 
-            this.btnUpdateRaidOrga.Location = new System.Drawing.Point(53, 45);
-            this.btnUpdateRaidOrga.Name = "bntUpdateRaidOrga";
-            this.btnUpdateRaidOrga.Size = new System.Drawing.Size(111, 23);
-            this.btnUpdateRaidOrga.TabIndex = 1;
-            this.btnUpdateRaidOrga.Text = "Update Termin";
-            this.btnUpdateRaidOrga.UseVisualStyleBackColor = true;
-            this.btnUpdateRaidOrga.Click += new System.EventHandler(this.BtnUpdateRaidOrga_Click);
+            this.dBLogBindingSource.DataSource = typeof(LogUploader.Data.DBLog);
             // 
             // LogUploaderUI2
             // 
@@ -1536,13 +1550,13 @@
             this.pDetailsPlayers.ResumeLayout(false);
             this.gbActions.ResumeLayout(false);
             this.gbActions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).EndInit();
             this.gbSettings.ResumeLayout(false);
             this.gbSettings.PerformLayout();
+            this.gbRaidOrga.ResumeLayout(false);
             this.pGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dBLogDataGridView)).EndInit();
             this.contextMenuGrid.ResumeLayout(false);
-            this.gbRaidOrga.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dBLogBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1663,5 +1677,6 @@
         private System.Windows.Forms.GroupBox gbRaidOrga;
         private System.Windows.Forms.Button btnUpdateRaidOrga;
         private System.Windows.Forms.ComboBox cmbRaidOrgaTermin;
+        private System.Windows.Forms.Panel btnRaidOrgaReload;
     }
 }

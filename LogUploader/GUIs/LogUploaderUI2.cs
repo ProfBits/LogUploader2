@@ -242,5 +242,12 @@ namespace LogUploader.GUIs
             LoadingUI.ShowDialog();
             btnUpdateRaidOrga.Enabled = true;
         }
+
+        private void btnRaidOrgaReload_Click(object sender, EventArgs e)
+        {
+            btnRaidOrgaReload.Enabled = false;
+            BindRaidOrgaBox(true);
+            btnRaidOrgaReload.Enabled = true;
+        }
     }
 }
