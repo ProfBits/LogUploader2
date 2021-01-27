@@ -520,7 +520,13 @@ namespace LogUploader.GUIs
             if (!Logic.Settings.WhatsNewShown.Equals(versionStr))
             {
                 Logic.UpdateWhatsNew(versionStr);
-                new WhatsNewUI(Logic.Settings, versionStr).Show();
+                var whatsNewUI = new WhatsNewUI(Logic.Settings, versionStr);
+                whatsNewUI.FormClosed += (sender, args) =>
+                {
+                    if (whatsNewUI.DialogResult == DialogResult.OK)
+                        Logic.UpdateWhatsNew(versionStr);
+                };
+                whatsNewUI.Show();
             }
         }
     }
