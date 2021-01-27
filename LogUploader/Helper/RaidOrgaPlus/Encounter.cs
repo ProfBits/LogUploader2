@@ -51,8 +51,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     GuessRiver();
                     break;
                 case 20934: //Qadim1
-                            //TODO Qadim1
-                    goto case 43974;
+                    GuessQadim1();
+                    break;
                 case 22000: //Qadim2
                     SetTank();
                     SetQadim2Pylons();
@@ -92,6 +92,60 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     FillUpDps();
                     return;
             }
+
+        }
+
+        private void GuessQadim1()
+        {
+            /*
+                case 20934: //Qadim1
+        "ID": 21285,
+        "NameEN": "Ancient Invoked Hydra",
+        "ID": 21183,
+        "NameEN": "Wyvern Patriarch",
+        "ID": 21073,
+        "NameEN": "Apocalypse Bringer",
+        "ID": 20997,
+        "NameEN": "Wyvern Matriarch",
+             */
+
+            /* 1. Tank least damage chrono? toughness
+             * 2. Healer least damage healing power
+             * 3. kite deadeye or deardeaviel least overall dps
+             * ?. bs warrier least dps ??
+             * 4. lamp deadeye or deardeaviel or reaper or anyting? least overall dps
+             * 5. res is dps
+             */
+
+            SetTank();
+            if (!Players.Any(p => p.Role == Role.Tank))
+            {
+                AssigenSupporter();
+
+                var tank = Players.Where(p => p.Role == Role.Empty || p.Role == Role.Utility && p.Class == eProfession.Chronomancer)
+                    .OrderBy(p => p.Class == eProfession.Chronomancer ? 0 : 1)
+                    .ThenBy(p => p.DPS)
+                    .FirstOrDefault();
+                if (tank != null)
+                    tank.Role = Role.Tank;
+            }
+            else
+            {
+                AssigenSupporter();
+            }
+            var kiter = Players.Where(p => p.Role == Role.Empty && (p.Class == eProfession.Deadeye || p.Class == eProfession.Daredevil))
+                .OrderBy(p => p.DPS)
+                .FirstOrDefault();
+            if (kiter != null)
+                kiter.Role = Role.Kiter;
+            SetBS();
+            var lamp = Players.Where(p => p.Role == Role.Empty)
+                .OrderBy(p => (p.Class == eProfession.Deadeye || p.Class == eProfession.Daredevil || p.Class == eProfession.Reaper) ? 0 : 1)
+                    .ThenBy(p => p.DPS)
+                    .FirstOrDefault();
+            if (lamp != null)
+                lamp.Role = Role.Special;
+            FillUpDps();
 
         }
 
