@@ -68,6 +68,7 @@ namespace LogUploader.Helper
             string installer = await DownloadInstaller(settings, generalSettings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))), ct);
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
+            Logger.Message("Starting Installer");
             Process.Start(installer);
             Program.Exit(ExitCode.UPDATING);
         }
@@ -88,6 +89,7 @@ namespace LogUploader.Helper
                 double currProgress = 0;
                 if (InstallerUrlCache == null)
                 {
+                    Logger.Message("Start Download of installerUrl");
                     Newtonsoft.Json.Linq.JToken jsonData;
                     if (generalSettings.AllowPrerelases)
                         jsonData = await GetLatestPreRelease(settings);
@@ -107,6 +109,7 @@ namespace LogUploader.Helper
                     File.Delete(path);
                 currProgress += 0.05;
                 progress?.Report(currProgress);
+                Logger.Message("Start Download of installer");
                 using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     await client.DownloadAsync(installerUrl, fs, new Progress<double>(p => progress?.Report((p * (1 - currProgress)) + currProgress)), cancellationToken);
