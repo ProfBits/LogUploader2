@@ -840,7 +840,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log Uploader"
         "ProductCode" = "8:{E88F3883-D19F-412B-9131-B846E6CCB71A}"
-        "PackageCode" = "8:{799A6187-23DB-4A70-8C92-F8ACCEEECF9B}"
+        "PackageCode" = "8:{7B40FCEC-9049-4B39-A584-DD776C59F7C0}"
         "UpgradeCode" = "8:{3F3DD479-F9CF-48EE-8590-B34CEB67C1B3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -863,7 +863,7 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:REM \"$(ProjectDir)makesfx.exe\" -ic -mf -ft -oo -we -de -s -o -c -h \"$(ProjectDir)bin\\$(Configuration)\" \"$(ProjectDir)installer\\installer$(Configuration).exe\" \"$(ProjectDir)..\\LogUploader\\images\\icon.ico\" \"$(ProjectDir)bin\\$(Configuration)\\setup.exe\"\r\n\r\nxcopy \"$(ProjectDir)bin\\$(Configuration)\\*\" \"$(ProjectDir)\\..\\InstallerPakager\\installer\\*\" /Y"
+        "PostBuildEvent" = "8:REM \"$(ProjectDir)makesfx.exe\" -ic -mf -ft -oo -we -de -s -o -c -h \"$(ProjectDir)bin\\$(Configuration)\" \"$(ProjectDir)installer\\installer$(Configuration).exe\" \"$(ProjectDir)..\\LogUploader\\images\\icon.ico\" \"$(ProjectDir)bin\\$(Configuration)\\setup.exe\"\r\n\r\nxcopy \"$(ProjectDir)bin\\$(Configuration)\\*\" \"$(ProjectDir)\\..\\InstallerPackager\\installer\\*\" /Y"
         "RunPostBuildEvent" = "3:0"
         }
         "Registry"
@@ -1483,7 +1483,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5478B3399FDE4598B2B307E4402FE1AE"
             {
-            "SourcePath" = "8:..\\LogUploader\\obj\\Debug\\LogUploader.exe"
+            "SourcePath" = "8:..\\LogUploader\\obj\\BetaRelease\\LogUploader.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
