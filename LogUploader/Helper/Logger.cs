@@ -216,6 +216,11 @@ namespace LogUploader.Helper
 
         public static void LogException(Exception e, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
         {
+            if (e == null)
+            {
+                Error("Cannot log null excption", cmn, line, cfp);
+                return;
+            }
             Error("Exception: " + e.GetType().ToString(), cmn, line, cfp);
             Error("Message:" + e.Message, cmn, line, cfp);
             Error("Stacktrace:" + Environment.NewLine + e.StackTrace, cmn, line, cfp);

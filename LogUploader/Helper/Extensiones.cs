@@ -321,7 +321,7 @@ namespace Extensiones.Stream
                 await destination.WriteAsync(buffer, 0, bytesRead, cancellationToken).ConfigureAwait(false);
                 totalBytesRead += bytesRead;
                 progress?.Report(totalBytesRead);
-                Console.WriteLine("bytes read: " + totalBytesRead);
+                //Console.WriteLine("bytes read: " + totalBytesRead);
             }
         }
     }
