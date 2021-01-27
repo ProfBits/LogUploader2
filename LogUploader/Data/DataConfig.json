@@ -124,6 +124,30 @@
           "NameEN": "Gendarran Fields",
           "NameDE": "Gendarran-Felder",
           "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        },
+        {
+          "ID": 4,
+          "NameEN": "Ebonhawk",
+          "NameDE": "Ebonfalke",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        },
+        {
+          "ID": 5,
+          "NameEN": "Thunderhead Peaks",
+          "NameDE": "Donnerkopf Gipfel",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        },
+        {
+          "ID": 6,
+          "NameEN": "Lake Doric",
+          "NameDE": "Doric-See",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        },
+        {
+          "ID": 7,
+          "NameEN": "Snowdendrifts",
+          "NameDE": "Schneekulenhölen",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
         }
       ],
       "Training": [
@@ -715,6 +739,58 @@
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 3,
         "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23367,
+        "NameEN": "Destroyer of the Third Fortress",
+        "NameDE": "Zerstörer der dritten Festung",
+        "FolderEN": "Destroyer of the Third Fortress",
+        "FolderDE": "Zerstörer der dritten Festung",
+        "EiName": "Destroyer of the Third Fortress",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 4,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23413,
+        "NameEN": "Destroyer of the Last Forge",
+        "NameDE": "Zerstörer der letzten Schmiede",
+        "FolderEN": "Destroyer of the Last Forge",
+        "FolderDE": "Zerstörer der letzten Schmiede",
+        "EiName": "Destroyer of the Last Forge",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 5,
+        "DiscordEmote": ":fire:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23325,
+        "NameEN": "Bors of the Ice Gavel",
+        "NameDE": "Bors vom Eishammer",
+        "FolderEN": "Bors of the Ice Gavel",
+        "FolderDE": "Bors vom Eishammer",
+        "EiName": "Bors of the Ice Gavel",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 6,
+        "DiscordEmote": ":snowflake:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23414,
+        "NameEN": "Ryland Steelcatcher",
+        "NameDE": "Ryland Stahlfänger",
+        "FolderEN": "Ryland Steelcatcher",
+        "FolderDE": "Ryland Stahlfänger",
+        "EiName": "Ryland Steelcatcher",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 7,
+        "DiscordEmote": ":snowflake:",
         "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
         "RaidOrgaPlusID": -1
       },

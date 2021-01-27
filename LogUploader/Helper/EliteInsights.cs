@@ -12,6 +12,7 @@ using System.Net;
 using LogUploader.Data.Settings;
 using Extensiones.HTTPClient;
 using System.Threading;
+using System.Net.Http;
 
 namespace LogUploader.Helper
 {
@@ -62,20 +63,20 @@ namespace LogUploader.Helper
         {
             string res = null;
             progress?.Report(0);
-            await Task.Run(() => {
-                using (var wc = GetWebClient(settings))
-                {
-                    try
-                    {
-                        res = wc.DownloadString(GitHubApiLink);
-                    }
-                    catch (WebException)
-                    {
-                        NewestVersion = new Version(0, 0, 0, 0);
-                        res = null;
-                    }
-                }
-            });
+            var httpClient = GetHttpClient(settings);
+            try
+            {
+                res = await httpClient.GetStringAsync(GitHubApiLink);
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("Faild to update EI-Version");
+                Logger.LogException(e);
+                Logger.LogException(e.InnerException);
+                NewestVersion = new Version(0, 0, 0, 0);
+                res = null;
+            }
+
             if (res == null) return NewestVersion;
             progress?.Report(0.5);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
@@ -112,58 +113,76 @@ namespace LogUploader.Helper
                 Directory.CreateDirectory(BASE_PATH);
                 FolderCleanup();
                 progress?.Report(0.05);
-                using (var wc = GetWebClient(settings))
+
+                var httpClient = GetHttpClient(settings);
+                httpClient.Timeout = Timeout.InfiniteTimeSpan;
+                double currProgress = 0.05;
+                string gw2EiZipURL;
+                if (DownloadURLCache == null)
                 {
+                    string res;
                     try
                     {
-                        double currProgress = 0.05;
-                        string gw2EiZipURL;
-                        if (DownloadURLCache == null)
-                        {
-                            var res = wc.DownloadString(GitHubApiLink);
-                            progress?.Report(0.15);
-                            //var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
-                            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
-                            gw2EiZipURL = GetDownloadURL(jsonData);
-                            progress?.Report(0.20);
-                            currProgress = 0.20;
-                        }
-                        else
-                        {
-                            gw2EiZipURL = DownloadURLCache;
-                        }
-                        var httpClient = new System.Net.Http.HttpClient();
-                        httpClient.Timeout = Timeout.InfiniteTimeSpan;
-                        using (FileStream fs = new FileStream(ZipFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
-                        {
-                            double yourPercent = 0.75 - currProgress;
-                            await httpClient.DownloadAsync(gw2EiZipURL, fs, new Progress<double>(p => progress?.Report((p* yourPercent) + currProgress)), cancellationToken);
-                        }
-                        if (cancellationToken.IsCancellationRequested) throw new OperationCanceledException();
+                        res = await httpClient.GetStringAsync(GitHubApiLink);
                     }
-                    catch (WebException e)
+                    catch (HttpRequestException e)
                     {
-                        Logger.Error("Update EI failed - WebException");
+                        Logger.Error("Update EI failed - Cannot get DownloadURL");
                         Logger.LogException(e);
+                        Logger.LogException(e.InnerException);
                         progress?.Report(1);
                         throw new OperationCanceledException("Update EI failed - Web Error");
                     }
-                    catch (OperationCanceledException)
+                    progress?.Report(0.15);
+                    //var jsonData = new JSONHelper.JSONHelper().Desirealize(res);
+                    var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
+                    gw2EiZipURL = GetDownloadURL(jsonData);
+                    progress?.Report(0.20);
+                    currProgress = 0.20;
+                }
+                else
+                {
+                    gw2EiZipURL = DownloadURLCache;
+                }
+                try
+                {
+                    httpClient.Timeout = Timeout.InfiniteTimeSpan;
+                    using (FileStream fs = new FileStream(ZipFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
                     {
-                        Logger.Error("EI Update canceled by user");
-                        progress?.Report(1);
-                        throw new OperationCanceledException("EI Update canceled by user");
+                        double yourPercent = 0.75 - currProgress;
+                        await httpClient.DownloadAsync(gw2EiZipURL, fs, new Progress<double>(p => progress?.Report((p * yourPercent) + currProgress)), cancellationToken);
                     }
+                    if (cancellationToken.IsCancellationRequested) throw new OperationCanceledException();
+                }
+                catch (HttpRequestException e)
+                {
+                    Logger.Error("Update EI failed - Could not download EI");
+                    Logger.LogException(e);
+                    Logger.LogException(e.InnerException);
+                    progress?.Report(1);
+                    throw new OperationCanceledException("Update EI failed - Web Error");
+                }
+                catch (OperationCanceledException)
+                {
+                    Logger.Warn("EI Update canceled by user");
+                    progress?.Report(1);
+                    throw new OperationCanceledException("EI Update canceled by user");
                 }
                 progress?.Report(0.75);
                 Directory.CreateDirectory(TempPath);
                 progress?.Report(0.80);
                 ZipFile.ExtractToDirectory(ZipFilePath, TempPath);
             }
-            catch (Exception e)
+            catch (OperationCanceledException e)
             {
                 FolderCleanup();
-                if (e is OperationCanceledException) throw e;
+                throw e;
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Unkown EI Update error");
+                Logger.LogException(e);
+                FolderCleanup();
                 return LocalVersion;
             }
             try
@@ -173,8 +192,10 @@ namespace LogUploader.Helper
                     Directory.Delete(BinPath, true);
                 Directory.Move(TempPath, BinPath);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Error("Failed to copy new EI-Version");
+                Logger.LogException(e);
                 if (Directory.Exists(BinPath))
                     Directory.Delete(BinPath, true);
                 Directory.Move(TempOldPath, BinPath);
@@ -203,12 +224,11 @@ namespace LogUploader.Helper
             if (File.Exists(ZipFilePath))
                 File.Delete(ZipFilePath);
         }
-
-        private static WebClient GetWebClient(IProxySettings settings)
+        private static HttpClient GetHttpClient(IProxySettings settings)
         {
-            var wc = Helper.WebHelper.GetWebClient(settings);
-            wc.Headers.Add(HttpRequestHeader.UserAgent, USER_AGENT);
-            return wc;
+            var httpClient = WebHelper.GetHttpClient(settings);
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(USER_AGENT);
+            return httpClient;
         }
 
         public static List<string> Parse(string log)

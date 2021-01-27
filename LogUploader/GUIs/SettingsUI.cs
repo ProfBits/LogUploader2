@@ -186,6 +186,8 @@ namespace LogUploader.GUI
             gbRoPlus.Text = lang.ConfigRoPlusTitle;
             lblRoPlusUser.Text = lang.ConfigRoPlusUser;
             lblRoPlusPwd.Text = lang.ConfigRoPlusPwd;
+            lblRopLeadNote.Text = lang.ConfigRoPlusNote;
+            cbGeneralPrerelease.Text = lang.ConfigGeneralAllowBeta;
 
             NoWebHooks.Text = lang.ConfigDiscordNoHooks;
 

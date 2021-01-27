@@ -33,6 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsUI));
             this.gbCopyLinks = new System.Windows.Forms.GroupBox();
             this.cbLinkInSameLine = new System.Windows.Forms.CheckBox();
+            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cbGNEmotes = new System.Windows.Forms.CheckBox();
             this.cbEmptyLinesInBetween = new System.Windows.Forms.CheckBox();
             this.cbShowSuccsess = new System.Windows.Forms.CheckBox();
@@ -79,8 +80,9 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.openFileImport = new System.Windows.Forms.OpenFileDialog();
             this.saveFileExport = new System.Windows.Forms.SaveFileDialog();
-            this.SettingsbindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lblRopLeadNote = new System.Windows.Forms.Label();
             this.gbCopyLinks.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.gbDpsReport.SuspendLayout();
             this.gbGeneral.SuspendLayout();
             this.gbDiscord.SuspendLayout();
@@ -89,7 +91,6 @@
             this.flpWebHooks.SuspendLayout();
             this.gbEi.SuspendLayout();
             this.gbRoPlus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gbCopyLinks
@@ -116,6 +117,11 @@
             this.cbLinkInSameLine.TabIndex = 5;
             this.cbLinkInSameLine.Text = "Link in same line as encounter";
             this.cbLinkInSameLine.UseVisualStyleBackColor = true;
+            // 
+            // SettingsbindingSource
+            // 
+            this.SettingsbindingSource.AllowNew = true;
+            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
             // 
             // cbGNEmotes
             // 
@@ -510,6 +516,7 @@
             // 
             // gbRoPlus
             // 
+            this.gbRoPlus.Controls.Add(this.lblRopLeadNote);
             this.gbRoPlus.Controls.Add(this.txtRoPlusPwd);
             this.gbRoPlus.Controls.Add(this.txtRoPlusUser);
             this.gbRoPlus.Controls.Add(this.lblRoPlusPwd);
@@ -584,10 +591,13 @@
             // 
             this.saveFileExport.Title = "Export Settings";
             // 
-            // SettingsbindingSource
+            // lblRopLeadNote
             // 
-            this.SettingsbindingSource.AllowNew = true;
-            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
+            this.lblRopLeadNote.Location = new System.Drawing.Point(195, 20);
+            this.lblRopLeadNote.Name = "lblRopLeadNote";
+            this.lblRopLeadNote.Size = new System.Drawing.Size(114, 79);
+            this.lblRopLeadNote.TabIndex = 4;
+            this.lblRopLeadNote.Text = "Note:\r\nOnly raids, where you are also Raidlead, will be shown";
             // 
             // SettingsUI
             // 
@@ -615,6 +625,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsUI_FormClosing);
             this.gbCopyLinks.ResumeLayout(false);
             this.gbCopyLinks.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.gbDpsReport.ResumeLayout(false);
             this.gbDpsReport.PerformLayout();
             this.gbGeneral.ResumeLayout(false);
@@ -629,7 +640,6 @@
             this.gbEi.PerformLayout();
             this.gbRoPlus.ResumeLayout(false);
             this.gbRoPlus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SettingsbindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -685,5 +695,6 @@
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.OpenFileDialog openFileImport;
         private System.Windows.Forms.SaveFileDialog saveFileExport;
+        private System.Windows.Forms.Label lblRopLeadNote;
     }
 }

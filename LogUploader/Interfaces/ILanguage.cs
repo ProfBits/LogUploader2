@@ -115,6 +115,7 @@ namespace LogUploader.Languages
         string ConfigGeneralArcPaht { get; }
         string ConfigGeneralBrowse { get; }
         string ConfigGeneralLanguage { get; }
+        string ConfigGeneralAllowBeta { get; }
         string ConfigDpsReportTitle { get; }
         string ConfigDpsReportToken { get; }
         string ConfigDpsReportGetToken { get; }
@@ -151,6 +152,7 @@ namespace LogUploader.Languages
         string ConfigRoPlusTitle { get; }
         string ConfigRoPlusUser { get; }
         string ConfigRoPlusPwd { get; }
+        string ConfigRoPlusNote { get; }
         string ConfigExport { get; }
         string ConfigImport { get; }
         string ConfigExportFileFilter { get; }

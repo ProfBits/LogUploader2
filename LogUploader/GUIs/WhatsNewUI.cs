@@ -1,4 +1,5 @@
 ﻿using LogUploader.Data.Settings;
+using LogUploader.Helper;
 using LogUploader.Languages;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,7 @@ line-height: 1.5;
 
         public WhatsNewUI(IProxySettings settings, string version)
         {
+            DialogResult = DialogResult.None;
             this.settings = settings;
             this.version = version;
 
@@ -101,23 +103,29 @@ line-height: 1.5;
         private async Task LoadData(IProxySettings settings, string version)
         {
             await Task.Delay(500);
-            var wc = Helper.WebHelper.GetWebClient(settings);
-            wc.Headers.Add(System.Net.HttpRequestHeader.UserAgent, "LogUploader");
+            var httpClient = WebHelper.GetHttpClient(settings);
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("LogUploader");
             string res;
             try
             {
-                res = wc.DownloadString(BASE_ADDRESS + version);
+                res = await httpClient.GetStringAsync(BASE_ADDRESS + version);
             }
-            catch (System.Net.WebException)
+            catch (System.Net.Http.HttpRequestException e)
             {
+                Logger.Error("Download of patchnotes failed");
+                Logger.LogException(e);
+                Logger.LogException(e.InnerException);
+                DialogResult = DialogResult.Abort;
                 Close();
                 return;
             }
+
             var data = Newtonsoft.Json.Linq.JObject.Parse(res);
             var patchnotes = (string)data["body"];
             var htmlNotes = CommonMark.CommonMarkConverter.Convert(patchnotes);
             var html = HTML_PART_A + htmlNotes + HTML_PART_B;
             webBrowser1.DocumentText = html;
+            DialogResult = DialogResult.OK;
         }
 
         private void WhatsNewUI_Shown(object sender, EventArgs e)
