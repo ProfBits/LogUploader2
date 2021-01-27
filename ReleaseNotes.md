@@ -1,7 +1,21 @@
 # v1.3.3 BETA
+27.01.2021
+
+## Features
+- Added Dragon Response Mission:
+    - Fields of Ruin
+    - Thunderhead Peaks
+    - Lake Doric
+    - Snowden Drifts
+- Added reload button for RaidOrga+ raid selection
 
 ## Improvements
-- New installer packaging. Installers should no longer be flaged as a virus.
+- New installer packaging. Installers should no longer be flaged as a virus
+- Added note for Raidlead requirement for RO+ integration
+- Added experimental role detection for Quadim 1
+
+## Bugfixes
+- Added localisation for Allow Beta Updates option
 
 
 # v1.3.2 BETA
