@@ -157,7 +157,7 @@ namespace LogUploader.Languages
         public string ConfigRoPlusTitle { get => "RaidOrga+"; }
         public string ConfigRoPlusUser { get => "User"; }
         public string ConfigRoPlusPwd { get => "Password"; }
-        public string ConfigRoPlusNote { get => "Note:\nOnly raids, where you are also Raidlead, will be shown"; }
+        public string ConfigRoPlusNote { get => "Note:\nOnly raids, where you are Raidlead, will be shown"; }
         public string ConfigExport { get => "Export"; }
         public string ConfigImport { get => "Import"; }
         public string ConfigExportFileFilter { get => "LogUploaderSettings files|*.lus|All files|*.*"; }
@@ -169,7 +169,7 @@ namespace LogUploader.Languages
         public string ConfigExportPwdFailTitle { get => "Password Error"; }
         public string ConfigExportPwdFailText { get => "Invalid Password"; }
         public string ConfigExportMessageTitle { get => "Export result"; }
-        public string ConfigExportMessageFail { get => "Export faild"; }
+        public string ConfigExportMessageFail { get => "Export failed"; }
         public string ConfigExportMessageSucc { get => "Export complete"; }
         public string ConfigImportMessageTitle { get => "Import result"; }
         public string ConfigImportMessageFail { get => "Import failed"; }
@@ -186,8 +186,8 @@ namespace LogUploader.Languages
         public string PlayerToCorrectHelper { get => "Helper"; }
         public string PlayerToCorrectLFG { get => "LFG"; }
 
-        public string CorrectPlayer { get => "Correct Players"; }
-        public string CorrectPlayerTitle { get => "Assigen Players"; }
+        public string CorrectPlayer { get => "Adjust Players"; }
+        public string CorrectPlayerTitle { get => "Assign Players"; }
         public string CorrectPlayerDone { get => "Done"; }
 
         public string MiscGenericProcessing { get => "Processing"; }
@@ -212,7 +212,7 @@ namespace LogUploader.Languages
         }
         public string MiscDetailsMultibleBosses { get => "Multiple"; }
         public string MiscRaidOrgaPlusNoAccount { get => "No account configured"; }
-        public string MiscRaidOrgaPlusLoginErr { get => "Login faild"; }
+        public string MiscRaidOrgaPlusLoginErr { get => "Login failed"; }
         public string MiscRaidOrgaPlusNoRaid { get => "No raid with leader permission"; }
     }
 }
