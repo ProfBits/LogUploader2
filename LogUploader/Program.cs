@@ -261,33 +261,58 @@ namespace LogUploader
         {
             if (await Updater.UpdateAvailable(settings, settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.2, "Checking for Update")))))
             {
-                Logger.Message("Update available.\nNew version: " + (Updater.NewestVersion?.ToString() ?? "na"));
-                switch (Updater.ShowUpdateMgsBox())
-                {
-                    case DialogResult.Yes:
-                        await Updater.Update(settings, settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((17.8 * p.Percent) + 0.2, p.Message))), ct);
-                        break;
-                    case DialogResult.No:
-                        Logger.Warn("Product updatde skipped");
-                        break;
-                    default:
-                        Logger.Error("Unexpected dialog exit");
-                        return () =>
-                        {
-                            switch (Updater.ShowUpdateMgsBox())
-                            {
-                                case DialogResult.Yes:
-                                    //TODO add progress
-                                    Updater.Update(settings, settings, null, new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token).Wait();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        };
-                }
+                return await AskForUpdate(settings, progress, ct);
             }
 
             return null;
+        }
+
+        private static async Task<Action> AskForUpdate(SettingsData settings, IProgress<ProgressMessage> progress, CancellationToken ct)
+        {
+            Logger.Message("Update available.\nNew version: " + (Updater.NewestVersion?.ToString() ?? "na"));
+            var userCoice = Updater.ShowUpdateMgsBox();
+            switch (userCoice)
+            {
+                case DialogResult.Yes:
+                    _ = await PerformUpdate(settings, progress, ct);
+                    return null;
+                case DialogResult.No:
+                    Logger.Warn("Product updatde skipped");
+                    return null;
+                default:
+                    Logger.Error("dialog exit: " + userCoice);
+                    return () =>
+                    {
+                        Logger.Message("Re ask user to update");
+                        var userSelection = Updater.ShowUpdateMgsBox();
+                        Logger.Message("user: " + userSelection);
+                        switch (userSelection)
+                        {
+                            case DialogResult.Yes:
+                                //TODO add progress
+                                PerformUpdate(settings, null, new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token).Wait();
+                                break;
+                            default:
+                                break;
+                        }
+                    };
+            }
+        }
+
+        private static async Task<bool> PerformUpdate(SettingsData settings, IProgress<ProgressMessage> progress, CancellationToken ct)
+        {
+            try
+            {
+                await Updater.Update(settings, settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((17.8 * p.Percent) + 0.2, p.Message))), ct);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Update Failed");
+                Logger.LogException(e);
+                MessageBox.Show("Update Failed. Reaseon:\n" + e.Message, "Update Failed", MessageBoxButtons.OK);
+                return false;
+            }
         }
 
         private static Action Cleanup;

@@ -1,3 +1,11 @@
+# v1.3.4 Dev
+
+## Improvements
+- Fixed spelling mistakes and improved some lines
+
+## Bugfixes+
+- Fixed crash on failed installer download
+
 # v1.3.3 BETA
 27.01.2021
 
@@ -10,7 +18,7 @@
 - Added reload button for RaidOrga+ raid selection
 
 ## Improvements
-- New installer packaging. Installers should no longer be flaged as a virus
+- New installer packaging. Installers should no longer be flagged as a virus
 - Added note for Raidlead requirement for RO+ integration
 - Added experimental role detection for Quadim 1
 

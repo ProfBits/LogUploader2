@@ -65,6 +65,7 @@ namespace LogUploader.Helper
 
         public static async Task Update(IProxySettings settings, IGeneralSettings generalSettings, IProgress<ProgressMessage> progress = null, CancellationToken ct = default)
         {
+            Logger.Message("Start update");
             string installer = await DownloadInstaller(settings, generalSettings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.98, "Downloading Installer"))), ct);
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
@@ -109,7 +110,7 @@ namespace LogUploader.Helper
                     File.Delete(path);
                 currProgress += 0.05;
                 progress?.Report(currProgress);
-                Logger.Message("Start Download of installer");
+                Logger.Message("Start Download of installer from " + installerUrl);
                 using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     await client.DownloadAsync(installerUrl, fs, new Progress<double>(p => progress?.Report((p * (1 - currProgress)) + currProgress)), cancellationToken);
