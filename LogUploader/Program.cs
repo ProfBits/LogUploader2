@@ -226,7 +226,7 @@ namespace LogUploader
                 return null;
 
             Logger.Message("Setup - Init DB");
-            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.20 + (p.Percent * 0.5), "Local DB" + " - " + p.Message))));
+            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.20 + (p.Percent * 0.05), "Local DB" + " - " + p.Message))));
 
             progress.Report(new ProgressMessage(0.26, "Loading"));
 
