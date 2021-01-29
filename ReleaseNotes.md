@@ -2,6 +2,8 @@
 
 ## Improvements
 - Fixed spelling mistakes and improved some lines
+- Added roldetection for Escort
+- Ajusted sorting for new Escort and Deimos encounters in RO+
 
 ## Bugfixes+
 - Fixed crash on failed installer download

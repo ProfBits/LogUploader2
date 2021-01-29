@@ -34,7 +34,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             switch (Boss.ID)
             {
                 //Special Bosses
-                case 17154:
+                case 17154: //Deimos
                     SetTank();
                     SetDeimosHK();
                     AssigenSupporter();
@@ -67,6 +67,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 case 21089:
                     SetLargosTank();
                     goto default;
+                case 16253: //Escort
+                    SetTower();
+                    goto case 43974;
 
                 //No Tank
                 case 15375: //Sabeta
@@ -93,6 +96,22 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     return;
             }
 
+        }
+
+        private void SetTower()
+        {
+            var validProfessions = new eProfession[] { eProfession.Chronomancer, eProfession.Mirage, eProfession.Mesmer };
+            var orderdPlayers = Players
+                .Where(p => p.Role == Role.Empty && p.Toughness > 0 && p.DPS_Target < 500)
+                .Where(p => validProfessions.Contains(p.Class.ProfessionEnum))
+                .OrderByDescending(p => p.Toughness)
+                .ThenBy(p => p.DPS);
+                
+            if (orderdPlayers.Count() > 0)
+            {
+                foreach (var p in orderdPlayers.Take(Math.Max(orderdPlayers.Count(), 2)))
+                    p.Role = Role.Special;
+            }
         }
 
         private void GuessQadim1()
@@ -431,7 +450,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         internal void SortIfNew()
         {
             if (!TC.AufstellungsID.HasValue)
-                TC.OrderPlayers();
+                TC.OrderPlayers(Boss);
         }
     }
 }

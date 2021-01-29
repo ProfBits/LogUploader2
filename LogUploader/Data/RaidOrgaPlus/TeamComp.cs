@@ -99,9 +99,24 @@ namespace LogUploader.Data.RaidOrgaPlus
             return UnnamedPlayers.First();
         }
 
-        internal void OrderPlayers()
+        internal void OrderPlayers(Boss b = null)
         {
-            Players = Players.OrderBy(p => p.Role, new RoleComparator()).Select((p, i) =>
+            IComparer<Role> comparator;
+
+            switch (b.ID)
+            {
+                case 17154:
+                    comparator = new DeimosRoleComparator();
+                    break;
+                case 16253:
+                    comparator = new EscortRoleComparator();
+                    break;
+                default:
+                    comparator = new RoleComparator();
+                    break;
+            }
+
+            Players = Players.OrderBy(p => p.Role, comparator).Select((p, i) =>
             {
                 p.Pos = i + 1;
                 return p;
@@ -121,19 +136,19 @@ namespace LogUploader.Data.RaidOrgaPlus
                 return 0;
             }
 
-            private int GetRoleNumber(Role r)
+            protected virtual int GetRoleNumber(Role r)
             {
                 switch (r)
                 {
                     case Role.Tank:
                         return 0;
-                    case Role.Utility:
-                        return 10;
                     case Role.Heal:
+                        return 10;
+                    case Role.Utility:
                         return 20;
-                    case Role.Special:
-                        return 30;
                     case Role.Banner:
+                        return 30;
+                    case Role.Special:
                         return 40;
                     case Role.Kiter:
                         return 50;
@@ -146,6 +161,48 @@ namespace LogUploader.Data.RaidOrgaPlus
                     default:
                         return 100;
                 }
+            }
+        }
+
+        private class EscortRoleComparator : RoleComparator
+        {
+            protected override int GetRoleNumber(Role r)
+            {
+
+                switch (r)
+                {
+                    case Role.Special:
+                        return 0;
+                    case Role.Utility:
+                        return 10;
+                    case Role.Heal:
+                        return 20;
+                    case Role.Banner:
+                        return 40;
+                    case Role.Kiter:
+                        return 50;
+                    case Role.Power:
+                        return 60;
+                    case Role.Condi:
+                        return 70;
+                    case Role.Tank:
+                        return 75;
+                    case Role.Empty:
+                        return 80;
+                    default:
+                        return 100;
+                }
+            }
+        }
+
+        private class DeimosRoleComparator : RoleComparator
+        {
+            protected override int GetRoleNumber(Role r)
+            {
+                if (r == Role.Special)
+                    return 110;
+                else
+                    return base.GetRoleNumber(r);
             }
         }
     }
