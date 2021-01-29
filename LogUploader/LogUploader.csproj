@@ -136,19 +136,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes.cs" />
-    <Compile Include="Data\AddEnemy.cs" />
-    <Compile Include="Data\Boss.cs" />
-    <Compile Include="Data\CachedLog.cs" />
-    <Compile Include="Data\DBLog.cs" />
-    <Compile Include="Data\Enemy.cs" />
-    <Compile Include="Data\FilterConfiguration.cs" />
-    <Compile Include="Data\GameAreas\DragonResponseMission.cs" />
-    <Compile Include="Data\GameAreas\Fractal.cs" />
-    <Compile Include="Data\GameAreas\GameArea.cs" />
-    <Compile Include="Data\GameAreas\RaidWing.cs" />
-    <Compile Include="Data\GameAreas\Strike.cs" />
-    <Compile Include="Data\GameAreas\Unknowen.cs" />
     <Compile Include="Data\Licenses\PropMapperLicense.cs" />
     <Compile Include="Data\Licenses\NewtonsoftJsonLicense.cs" />
     <Compile Include="Data\Licenses\CommonMarkLicense.cs" />
@@ -159,17 +146,6 @@
     <Compile Include="Data\Licenses\WindowsAPICodePack_CoreLicense.cs" />
     <Compile Include="Data\Licenses\WindowsAPICodePack_ShellLicense.cs" />
     <Compile Include="Data\Licenses\MakeSFXLicense.cs" />
-    <Compile Include="Data\MiscData.cs" />
-    <Compile Include="Data\RaidOrgaPlus\Account.cs" />
-    <Compile Include="Data\RaidOrgaPlus\Position.cs" />
-    <Compile Include="Data\RaidOrgaPlus\Raid.cs" />
-    <Compile Include="Data\RaidOrgaPlus\RaidOrgaPlusCacheItem.cs" />
-    <Compile Include="Data\RaidOrgaPlus\RaidSimple.cs" />
-    <Compile Include="Data\RaidOrgaPlus\Role.cs" />
-    <Compile Include="Data\RaidOrgaPlus\Session.cs" />
-    <Compile Include="Data\RaidOrgaPlus\TeamComp.cs" />
-    <Compile Include="Data\Settings\ISettings.cs" />
-    <Compile Include="Data\Settings\SettingsData.cs" />
     <Compile Include="GUIs\AboutUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,27 +212,17 @@
     <Compile Include="GUIs\WhatsNewUI.Designer.cs">
       <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\RaidOrgaPlus\CheckPlayer.cs" />
     <Compile Include="Helper\RaidOrgaPlus\Encounter.cs" />
-    <Compile Include="Data\RaidOrgaPlus\PlayerType.cs" />
-    <Compile Include="Data\RaidOrgaPlus\RoPlusPlayer.cs" />
-    <Compile Include="Helper\SettingsProvider.cs" />
-    <Compile Include="Helper\PropMapper.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusCache.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusConnector.cs" />
     <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusDataWorker.cs" />
-    <Compile Include="Helper\StringValueAttribute.cs" />
     <Compile Include="Helper\Updater.cs" />
-    <Compile Include="Data\LogPreview.cs" />
-    <Compile Include="Data\Profession.cs" />
-    <Compile Include="Data\SimpleLogJson.cs" />
     <Compile Include="GUIs\LoadingScreenUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUIs\LoadingScreenUI.Designer.cs">
       <DependentUpon>LoadingScreenUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\ProgressMessage.cs" />
     <Compile Include="GUIs\LogUploaderUI2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,32 +239,11 @@
       <DependentUpon>PlayerData.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\EliteInsights.cs" />
-    <Compile Include="Helper\JobQueue\JobStartedEventArgs.cs" />
-    <Compile Include="Helper\JobQueue\NamedJob.cs" />
-    <Compile Include="Helper\ListToDataTable.cs" />
     <Compile Include="Helper\LogCache.cs" />
     <Compile Include="Helper\LogDBConnector.cs" />
-    <Compile Include="Helper\WebHookDB.cs" />
-    <Compile Include="Interfaces\IJob.cs" />
-    <Compile Include="Helper\JobQueue\JobAddedEventArgs.cs" />
-    <Compile Include="Helper\JobQueue\JobDoneEventArgs.cs" />
-    <Compile Include="Helper\JobQueue\JobFaultedEventArgs.cs" />
-    <Compile Include="Helper\JobQueue\JobQueue.cs" />
-    <Compile Include="Helper\JobQueue\JobQueueEmptyEventArgs.cs" />
-    <Compile Include="Interfaces\IAvatar.cs" />
-    <Compile Include="Interfaces\INamedObject.cs" />
-    <Compile Include="Data\NamedObject.cs" />
-    <Compile Include="Data\GameAreas\Training.cs" />
-    <Compile Include="Data\GameAreas\WvW.cs" />
     <Compile Include="Helper\DPSReport.cs" />
-    <Compile Include="Enums.cs" />
     <Compile Include="Helper\DataBuilder.cs" />
-    <Compile Include="Helper\EnumHelper.cs" />
-    <Compile Include="Helper\Extensiones.cs" />
     <Compile Include="Helper\Helper.cs" />
-    <Compile Include="Helper\KeyValueList.cs" />
-    <Compile Include="Helper\WebHelper.cs" />
-    <Compile Include="Helper\WebHookHelper.cs" />
     <Compile Include="GUIs\InitConfigUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -314,11 +259,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="GUIs\ProxyConfigUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -331,7 +271,6 @@
     <Compile Include="GUIs\SettingsUI.Designer.cs">
       <DependentUpon>SettingsUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\loading.gif">
@@ -363,10 +302,6 @@
     <None Include="Properties\DataSources\LogUploader.Data.Settings.SettingsData.datasource" />
     <None Include="Properties\DataSources\LogUploader.Data.UploadedLogGUI.datasource" />
     <None Include="Properties\DataSources\LogUploader.EncounterData.EncounterDataGUI.datasource" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -529,6 +464,14 @@
     <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj">
+      <Project>{723b2a2c-9972-4351-b8f8-0b67a04cfdc1}</Project>
+      <Name>LogUploader.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
+      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
+      <Name>LogUploader.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj">
       <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
       <Name>LogUploader.Localisation</Name>
@@ -536,6 +479,10 @@
     <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
       <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
       <Name>LogUploader.Tools.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
+      <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
+      <Name>LogUploader.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

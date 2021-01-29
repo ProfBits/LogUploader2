@@ -15,7 +15,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     class DetaildGenerator : DiscordPostGenerator
     {
-        protected override WebHookData.Field GenerateField(CachedLog log)
+        protected override WebHookData.Field GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -36,7 +36,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             return new WebHookData.Field(name, value, true);
         }
 
-        protected override Color GetColor(IEnumerable<CachedLog> logs)
+        protected override Color GetColor(IEnumerable<ICachedLog> logs)
         {
             return logs.Any(log => log.Succsess) ? ColorSucc : ColorFail;
         }

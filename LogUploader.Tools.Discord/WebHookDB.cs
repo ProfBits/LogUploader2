@@ -1,5 +1,4 @@
 ﻿using LogUploader.Data;
-using LogUploader.Properties;
 
 using System;
 using System.Collections.Generic;
@@ -11,24 +10,26 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using LogUploader.Localisation;
+using LogUploader.Tools.Settings;
+using LogUploader.Data.Discord;
 
 namespace LogUploader.Tools.Discord
 {
-    internal partial class WebHookDB
+    public partial class WebHookDB
     {
         [JsonIgnore]
         private readonly Dictionary<long, WebHook> Data = new Dictionary<long, WebHook>();
         [JsonProperty("WebHooks")]
         public List<WebHook> WebHooks { get => Data.Values.ToList(); }
 
-        public WebHookDB(string RawData, bool encrypted = false)
+        public WebHookDB(string RawData)
         {
             if (string.IsNullOrWhiteSpace(RawData))
                 return;
 
-            string data = encrypted ? SettingsHelper.UnprotectString(RawData) : RawData;
+            //string data = encrypted ? SettingsHelper.UnprotectString(RawData) : RawData;
 
-            var root = JObject.Parse(data);
+            var root = JObject.Parse(RawData);
             var webhooks = (JArray)root["WebHooks"];
             
             foreach(JObject webhook in webhooks)
@@ -39,9 +40,11 @@ namespace LogUploader.Tools.Discord
 
         }
 
+        [Obsolete("circel reference", true)]
         public string GetSaveString()
         {
-            return SettingsHelper.ProtectString(ToString());
+            //return SettingsHelper.ProtectString(ToString());
+            throw new NotImplementedException();
         }
 
         public override string ToString()

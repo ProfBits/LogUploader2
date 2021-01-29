@@ -51,10 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="eLanguage.cs" />
     <Compile Include="English.cs" />
     <Compile Include="German.cs" />
-    <Compile Include="Interfaces\ILanguage.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropMapper.cs" />
@@ -69,6 +67,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
+      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
+      <Name>LogUploader.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
       <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
       <Name>LogUploader.Tools.Logger</Name>

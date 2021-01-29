@@ -1,5 +1,4 @@
 ﻿using LogUploader.Data;
-using LogUploader.Data.Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Extensiones.HTTPClient;
 using LogUploader.Tools.Logger;
+using LogUploader.Tools.Settings;
 
 namespace LogUploader.Helper
 {

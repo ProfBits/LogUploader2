@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper.DiscordPostGen
+namespace LogUploader.Tools.Discord.DiscordPostGen
 {
-    namespace LogUploader.Tools.Discord.DiscordPostGen
+    class PerWingWithEmotes : PerWingGen
     {
         protected override WebHookData.Field GenerateField(CachedLog log)
         {

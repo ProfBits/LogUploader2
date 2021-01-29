@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper.DiscordPostGen
+namespace LogUploader.Tools.Discord.DiscordPostGen
 {
-    namespace LogUploader.Tools.Discord.DiscordPostGen
+    class PerWingWithClassesGenerator : PerWingGen
     {
         protected override WebHookData.Field GenerateField(CachedLog log)
         {
@@ -33,14 +33,14 @@ namespace LogUploader.Helper.DiscordPostGen
                 value += $"[dps.report]({log.Link})";
             else
                 value += Language.Data.MiscDiscordPostGenNoLink;
-            
+
             if (log.DataCorrected)
             {
                 var subGroups = log.PlayersNew.GroupBy(p => p.Group).OrderBy(g => g.Key);
                 foreach (var grop in subGroups)
                 {
                     value += "\n";
-                    foreach (var player in grop.OrderBy(p => p.Profession.Name))
+                    foreach (var player in grop.OrderBy(p => ((Profession)p.Profession).Name))
                     {
                         value += player.Profession.Emote;
                     }

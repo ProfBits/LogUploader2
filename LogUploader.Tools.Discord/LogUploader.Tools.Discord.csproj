@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,16 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Data\Class1.cs" />
-    <Compile Include="Data\WebHook.cs" />
-    <Compile Include="Data\WebHookData.cs" />
-    <Compile Include="Data\WebHookDeleteEventArgs.cs" />
     <Compile Include="DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="DiscordPostGen\DetaildGenerator.cs" />
     <Compile Include="DiscordPostGen\DiscordPostGenerator.cs" />
-    <Compile Include="DiscordPostGen\IDiscordPostGen.cs" />
     <Compile Include="DiscordPostGen\PerBossGenerator.cs" />
     <Compile Include="DiscordPostGen\PerWingGen.cs" />
     <Compile Include="DiscordPostGen\PerWingWithClasses.cs" />
@@ -76,6 +71,24 @@
     <EmbeddedResource Include="WebHookConfig.resx">
       <DependentUpon>WebHookConfig.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj">
+      <Project>{723b2a2c-9972-4351-b8f8-0b67a04cfdc1}</Project>
+      <Name>LogUploader.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
+      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
+      <Name>LogUploader.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj">
+      <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
+      <Name>LogUploader.Localisation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
+      <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
+      <Name>LogUploader.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

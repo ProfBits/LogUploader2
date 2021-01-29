@@ -25,6 +25,11 @@ namespace LogUploader.Localisation
         public static eLanguage Current { get; private set; } = eLanguage.EN;
         public static string CurrentLanguage { get; private set; } = BUILTIN_EN;
 
+        static Language() {
+            //HACK not nice, prevents circel references
+            LogUploader.ObjectName.GetCurrentLanguage = () => Current;
+        }
+
         public static IReadOnlyList<string> GetAvailabeLanguages()
         {
             var available = Directory.GetFiles(LANG_XML_FOLDER_PATH + $@"\{DATA_FOLDER}\", "*.xml")

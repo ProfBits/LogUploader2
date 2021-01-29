@@ -31,8 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +46,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddEnemy.cs" />
+    <Compile Include="Attributes\Attributes.cs" />
+    <Compile Include="Boss.cs" />
+    <Compile Include="CachedLog.cs" />
+    <Compile Include="KeyValueList.cs" />
+    <Compile Include="NamedObject.cs" />
+    <Compile Include="DBLog.cs" />
+    <Compile Include="Discord\Author.cs" />
+    <Compile Include="Discord\Embed.cs" />
+    <Compile Include="Discord\Field.cs" />
+    <Compile Include="Discord\Footer.cs" />
+    <Compile Include="Discord\Image.cs" />
+    <Compile Include="Discord\Thumbmail.cs" />
+    <Compile Include="Discord\WebHook.cs" />
+    <Compile Include="Discord\WebHookData.cs" />
+    <Compile Include="Discord\WebHookDeleteEventArgs.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="FilterConfiguration.cs" />
+    <Compile Include="GameAreas\DragonResponseMission.cs" />
+    <Compile Include="GameAreas\Fractal.cs" />
+    <Compile Include="GameAreas\GameArea.cs" />
+    <Compile Include="GameAreas\RaidWing.cs" />
+    <Compile Include="GameAreas\Strike.cs" />
+    <Compile Include="GameAreas\Training.cs" />
+    <Compile Include="GameAreas\Unknowen.cs" />
+    <Compile Include="GameAreas\WvW.cs" />
+    <Compile Include="LogPreview.cs" />
+    <Compile Include="MiscData.cs" />
+    <Compile Include="Profession.cs" />
+    <Compile Include="ProgressMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RaidOrgaPlus\Account.cs" />
+    <Compile Include="RaidOrgaPlus\CheckPlayer.cs" />
+    <Compile Include="RaidOrgaPlus\PlayerType.cs" />
+    <Compile Include="RaidOrgaPlus\Position.cs" />
+    <Compile Include="RaidOrgaPlus\Raid.cs" />
+    <Compile Include="RaidOrgaPlus\RaidOrgaPlusCacheItem.cs" />
+    <Compile Include="RaidOrgaPlus\RaidSimple.cs" />
+    <Compile Include="RaidOrgaPlus\Role.cs" />
+    <Compile Include="RaidOrgaPlus\RoPlusPlayer.cs" />
+    <Compile Include="RaidOrgaPlus\Session.cs" />
+    <Compile Include="RaidOrgaPlus\TeamComp.cs" />
+    <Compile Include="SimmpleTarget.cs" />
+    <Compile Include="SimpleDps.cs" />
+    <Compile Include="SimpleLogJson.cs" />
+    <Compile Include="SimplePlayer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
+      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
+      <Name>LogUploader.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj">
+      <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
+      <Name>LogUploader.Localisation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
+      <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
+      <Name>LogUploader.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

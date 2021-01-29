@@ -1,9 +1,9 @@
 ﻿using LogUploader.Data;
+using LogUploader.Data.Discord;
 using LogUploader.Data.GameAreas;
-using LogUploader.Data.Settings;
 using LogUploader.Helper;
-using LogUploader.Interfaces;
 using LogUploader.Localisation;
+using LogUploader.Tools.Settings;
 
 using System;
 using System.Collections.Generic;
@@ -18,16 +18,16 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
     {
         public static IWebHookSettings Settings { protected get; set; }
 
-        public virtual List<WebHookData> Generate(IEnumerable<CachedLog> logs, string userName, string avatarURL)
+        public virtual List<IWebHookData> Generate(IEnumerable<ICachedLog> logs, string userName, string avatarURL)
         {
             var parsedLogs = logs.Select(log => new ParsedData(log, GenerateField(log))).Where(log => log.Field != null);
             var groupedLogs = GroupFields(parsedLogs);
             var embeds = GetEmbeds(groupedLogs);
             var posts = GetPosts(embeds, userName, avatarURL);
-            return posts.ToList();
+            return posts.Cast<IWebHookData>().ToList();
         }
 
-        protected abstract WebHookData.Field GenerateField(CachedLog log);
+        protected abstract WebHookData.Field GenerateField(ICachedLog log);
 
         protected abstract KeyValueList<Grouping, IEnumerable<ParsedData>> GroupFields(IEnumerable<ParsedData> data);
 
@@ -53,7 +53,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
                         if (currentLenght > WebHookData.Embed.MAX_LENGHT)
                             current.Fields.RemoveAt(current.Fields.Count - 1);
                         embeds.Add(current);
-                        current = new WebHookData.Embed(null, "", color, new List<WebHookData.Field>(), null);
+                        current = new WebHookData.Embed(null, "", color, new List<IField>(), null);
                         if (currentLenght > WebHookData.Embed.MAX_LENGHT)
                             current.Fields.Add(data.Field);
                     }
@@ -78,13 +78,13 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
                 name += " " + grouping.PostFix;
 
 
-            var current = new WebHookData.Embed(author, name, ColorDefault, new List<WebHookData.Field>(), thumbmail);
+            var current = new WebHookData.Embed(author, name, ColorDefault, new List<IField>(), thumbmail);
             return current;
         }
 
-        protected virtual IEnumerable<WebHookData> GetPosts(IEnumerable<WebHookData.Embed> embeds, string userName, string avatarURL)
+        protected virtual IEnumerable<IWebHookData> GetPosts(IEnumerable<WebHookData.Embed> embeds, string userName, string avatarURL)
         {
-            var posts = new List<WebHookData>();
+            var posts = new List<IWebHookData>();
 
             if (embeds.Count() == 0)
                 return posts;
@@ -92,7 +92,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             var currentPost = GetDefaultPostHeader(userName, avatarURL);
             foreach (var embed in embeds)
             {
-                if (currentPost.Embeds.Count >= WebHookData.MAX_Embeds)
+                if (currentPost.Embeds.Count >= Data.Discord.WebHookData.MAX_Embeds)
                 {
                     posts.Add(currentPost);
                     currentPost = GetDefaultPostHeader(userName, avatarURL);
@@ -103,17 +103,17 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             return posts;
         }
 
-        protected WebHookData GetDefaultPostHeader(string userName, string avatarURL)
+        protected IWebHookData GetDefaultPostHeader(string userName, string avatarURL)
         {
             const string Username = "LogUploader";
-            var post = new WebHookData();
+            IWebHookData post = new Data.Discord.WebHookData();
             post.Username = Settings.NameAsDiscordUser ? userName : Username;
             post.AvaturURL = avatarURL;
             post.Content = "";
             return post;
         }
 
-        protected abstract Color GetColor(IEnumerable<CachedLog> logs);
+        protected abstract Color GetColor(IEnumerable<ICachedLog> logs);
 
         internal static IDiscordPostGen Get(eDiscordPostFormat format)
         {
@@ -154,10 +154,10 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 
         protected struct ParsedData
         {
-            public CachedLog Log { get; }
+            public ICachedLog Log { get; }
             public WebHookData.Field Field { get; }
 
-            public ParsedData(CachedLog log, WebHookData.Field field)
+            public ParsedData(ICachedLog log, WebHookData.Field field)
             {
                 Log = log;
                 Field = field;

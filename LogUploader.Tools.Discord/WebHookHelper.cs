@@ -1,10 +1,8 @@
-﻿using Extensiones;
-using LogUploader.Data;
-using LogUploader.Data.GameAreas;
-using LogUploader.Data.Settings;
-using LogUploader.Helper.DiscordPostGen;
-using LogUploader.Interfaces;
-using LogUploader.Properties;
+﻿using LogUploader.Data.Discord;
+using LogUploader.Helper;
+using LogUploader.Tools.Discord.DiscordPostGen;
+using LogUploader.Tools.Settings;
+
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -15,7 +13,7 @@ namespace LogUploader.Tools.Discord
 {
     internal class WebHookHelper
     {
-        internal static async Task<string> PostToDiscordWebHookAsync(string uri, WebHookData data, IProxySettings settings)
+        internal static async Task<string> PostToDiscordWebHookAsync(string uri, IWebHookData data, IProxySettings settings)
         {
             using (var wc = WebHelper.GetWebClient(settings))
             {
@@ -25,8 +23,8 @@ namespace LogUploader.Tools.Discord
             }
 
         }
-        internal static async Task PostWebHookPosts(WebHook webHook, List<WebHookData> posts, IProxySettings settings) => await PostWebHookPosts(webHook.URL, posts, settings);
-        internal static async Task PostWebHookPosts(string webHookURL, List<WebHookData> posts, IProxySettings settings)
+        internal static async Task PostWebHookPosts(WebHook webHook, List<IWebHookData> posts, IProxySettings settings) => await PostWebHookPosts(webHook.URL, posts, settings);
+        internal static async Task PostWebHookPosts(string webHookURL, List<IWebHookData> posts, IProxySettings settings)
         {
             foreach (var post in posts)
             {
