@@ -10,6 +10,7 @@ namespace LogUploader.Localisation
     public class German : ILanguage
     {
         public CultureInfo Culture { get => new CultureInfo("de-de"); }
+        public string CultureName { get => "de-de"; }
 
         public string Succsess { get => "Erfolg"; }
         public string Fail { get => "Fehlschlag"; }

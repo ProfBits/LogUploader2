@@ -13,6 +13,7 @@ using LogUploader.Data.Settings;
 using Extensiones.HTTPClient;
 using System.Threading;
 using System.Net.Http;
+using LogUploader.Tools.Logger;
 
 namespace LogUploader.Helper
 {

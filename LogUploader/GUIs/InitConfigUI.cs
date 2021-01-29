@@ -33,7 +33,7 @@ namespace LogUploader.GUI
 
             cbLang.DisplayMember = "name";
             cbLang.ValueMember = "value";
-            cbLang.DataSource = EnumHelper.GetValues<eLanguage>().Select(e => new { name = e.GetAttribute<CombBoxView>().Name, value = e }).ToList();
+            cbLang.DataSource = Language.GetAvailabeLanguages().Select(lang => new { name = lang, value = lang }).ToList();
             cbLang.SelectedValue = Settings.Language;
 
 
@@ -133,7 +133,7 @@ namespace LogUploader.GUI
 
         private void CbLang_SelectedValueChanged(object sender, EventArgs e)
         {
-            Language.Current = (eLanguage)(cbLang.SelectedValue ?? eLanguage.EN);
+            Language.SetLanguage((string)cbLang.SelectedValue);
             ApplyLanguage(Language.Data);
         }
     }

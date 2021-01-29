@@ -16,6 +16,7 @@ namespace LogUploader.Localisation
 
         [XmlIgnore]
         public CultureInfo Culture { get; set; }
+        public string CultureName { get; set; }
         public string Succsess { get; set; }
         public string Fail { get; set; }
         public string ProxySettings { get; set; }

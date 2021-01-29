@@ -13,7 +13,7 @@ namespace LogUploader.Data.Settings
         string ArcLogsPath { get; set; }
         string UserToken { get; set; }
         bool FirstBoot { get; set; }
-        eLanguage Language { get; set; }
+        string Language { get; set; }
         bool EnableAutoParse { get; set; }
         bool EnableAutoUpload { get; set; }
         string WhatsNewShown { get; set; }

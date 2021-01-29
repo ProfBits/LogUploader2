@@ -9,72 +9,112 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using LogUploader;
+using LogUploader.Tools.Logger;
 
 namespace LogUploader.Localisation
 {
     public static class Language
     {
-        private static bool XMLMode = false;
-        private static XMLLanguage English;
-        private static XMLLanguage German;
+        private static readonly string LANG_XML_FOLDER_PATH = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private const string DATA_FOLDER = "LanguageData";
+        private const string BUILTIN_EN = "English (integrated)";
+        private const string BUILTIN_DE = "German (integrated)";
+        private const string BUILTIN_EN_FILE_NAME = "English";
+        private const string BUILTIN_DE_FILE_NAME = "German";
 
-        //TODO improve performance, only load one languate at a time
-        private static eLanguage m_Current = eLanguage.EN;
-        public static eLanguage Current { get => m_Current; set {
-                m_Current = value;
-                switch (value)
-                {
-                    case eLanguage.DE:
-                        if (XMLMode)
-                            Data = German;
-                        else
-                            Data = new German();
-                        break;
-                    case eLanguage.EN:
-                    default:
-                        if (XMLMode)
-                            Data = English;
-                        else
-                            Data = new English();
-                        break;
-                }
+        public static eLanguage Current { get; private set; } = eLanguage.EN;
+        public static string CurrentLanguage { get; private set; } = BUILTIN_EN;
+
+        public static IReadOnlyList<string> GetAvailabeLanguages()
+        {
+            var available = Directory.GetFiles(LANG_XML_FOLDER_PATH + $@"\{DATA_FOLDER}\", "*.xml")
+                .Select(path => Path.GetFileNameWithoutExtension(path))
+                .OrderBy(fileName => fileName)
+                .ToList();
+            if (!available.Contains(BUILTIN_DE_FILE_NAME)) available.Insert(0, BUILTIN_DE);
+            if (!available.Contains(BUILTIN_EN_FILE_NAME)) available.Insert(0, BUILTIN_EN);
+            return available;
+        }
+
+        public static void SetLanguage(eLanguage language)
+        {
+            switch (language)
+            {
+                case eLanguage.EN:
+                    SetLanguage(BUILTIN_EN_FILE_NAME);
+                    break;
+                case eLanguage.DE:
+                    SetLanguage(BUILTIN_DE_FILE_NAME);
+                    break;
+                default:
+                    throw new ArgumentException($"Invalid argument eLanguage.{language}. Only eLanguage.EN or eLanguage.DE are allowed.");
             }
         }
+
+        public static void SetLanguage(string language)
+        {
+            if (!GetAvailabeLanguages().Contains(language))
+            {
+                Logger.Error($"Language: {language} does not exist! Defaulting to {BUILTIN_EN}");
+                language = BUILTIN_EN;
+            }
+
+            Logger.Message("Loading language " + language);
+            switch (language)
+            {
+                case BUILTIN_EN:
+                    Data = new English();
+                    break;
+                case BUILTIN_DE:
+                    Data = new German();
+                    break;
+                default:
+                    var newData = LoadFromXML(language);
+                    if (newData == null)
+                    {
+                        Logger.Warn("Failed to load xml file.");
+                        return;
+                    }
+                    else
+                        Data = newData;
+                    if (Data.CultureName.StartsWith("de-"))
+                        Current = eLanguage.DE;
+                    else
+                        Current = eLanguage.EN;
+                    break;
+
+            }
+        }
+
         public static ILanguage Data { get; private set; } = new English();
 
         public static void ReloadFromXML()
         {
-            var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            //Exception "System.IO.FileNotFoundException: 'Die Datei oder Assembly "LogUploader.XmlSerializers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" oder eine Abhängigkeit davon wurde nicht gefunden. Das System kann die angegebene Datei nicht finden.'"
-            //Will not be fixed by microsoft. cant do anything about it.
-            var ser = new System.Xml.Serialization.XmlSerializer(typeof(XMLLanguage));
-            using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\LanguageData\English.xml", Encoding.UTF8)))
-            {
-                English = (XMLLanguage)ser.Deserialize(sr);
-                English.Culture = new CultureInfo("en-us");
-            }
-            using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\LanguageData\German.xml", Encoding.UTF8)))
-            {
-                German = (XMLLanguage)ser.Deserialize(sr);
-                German.Culture = new CultureInfo("de-de");
-            }
-            Current = m_Current;
+            SetLanguage(CurrentLanguage);
         }
 
-        public static void XMLModeEnable(bool enable)
+        private static XMLLanguage LoadFromXML(string file)
         {
-            if (enable)
+            var xmlPath = LANG_XML_FOLDER_PATH + $@"\{DATA_FOLDER}\{file}.xml";
+            Logger.Message("loading " + xmlPath);
+            XMLLanguage data = new XMLLanguage();
+            var ser = new System.Xml.Serialization.XmlSerializer(typeof(XMLLanguage));
+            try
             {
-                ReloadFromXML();
-                XMLMode = true;
+                using (TextReader sr = new StreamReader(xmlPath, Encoding.UTF8))
+                {
+                    data = (XMLLanguage)ser.Deserialize(sr);
+                    data.Culture = new CultureInfo(data.CultureName);
+                }
             }
-            else
+            catch (Exception e)
             {
-                XMLMode = false;
+                Logger.Error("Error on loading xml language file");
+                Logger.LogException(e);
+                return null;
             }
-            Current = m_Current;
+            return data;
         }
-
 
 #if CREATE_LANGUAGE_XMLS
         public static void WriteOutLanguageXmls()

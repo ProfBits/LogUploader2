@@ -10,6 +10,7 @@ using System.IO;
 using LogUploader.Data;
 using System.Threading;
 using Newtonsoft.Json;
+using LogUploader.Tools.Logger;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {

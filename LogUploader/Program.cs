@@ -18,6 +18,7 @@ using System.Xml.Serialization;
 using System.Configuration;
 using System.ComponentModel;
 using LogUploader.Localisation;
+using LogUploader.Tools.Logger;
 
 namespace LogUploader
 {
@@ -395,8 +396,7 @@ namespace LogUploader
 
         private static void SetLanguage(IGeneralSettings settings)
         {
-            Language.XMLModeEnable(true);
-            Language.Current = settings.Language;
+            Language.SetLanguage(settings.Language);
             System.Threading.Thread.CurrentThread.CurrentUICulture = Language.Data.Culture;
         }
 
@@ -446,7 +446,7 @@ namespace LogUploader
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
             if (System.Globalization.CultureInfo.InstalledUICulture.Name.StartsWith("de-"))
-                Language.Current = eLanguage.DE;
+                Language.SetLanguage(eLanguage.DE);
         }
 
 

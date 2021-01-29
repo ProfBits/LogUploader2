@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,18 +118,6 @@ namespace LogUploader
         MedGolem = 19645,
         StdGolem = 16199
     };
-
-    internal enum eLogLevel : int
-    {
-        [Obsolete]
-        SILETN,
-        ERROR,
-        WARN,
-        MINIMAL,
-        NORMAL,
-        VERBOSE,
-        DEBUG,
-    }
 
     internal enum ExitCode : int
     {

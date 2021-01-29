@@ -14,6 +14,7 @@ using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Data;
 using LogUploader.Localisation;
+using LogUploader.Tools.Logger;
 
 namespace LogUploader.GUI
 {
@@ -42,7 +43,7 @@ namespace LogUploader.GUI
 
             cmbLang.DisplayMember = "name";
             cmbLang.ValueMember = "value";
-            cmbLang.DataSource = EnumHelper.GetValues<eLanguage>().Select(e => new { name = e.GetAttribute<CombBoxView>().Name, value = e }).ToList();
+            cmbLang.DataSource = Language.GetAvailabeLanguages().Select(lang => new { name = lang, value = lang }).ToList();
 
             SettingsbindingSource.DataSource = CurrentState;
             SettingsbindingSource.ResetBindings(true);

@@ -5,6 +5,7 @@ namespace LogUploader.Localisation
     public interface ILanguage
     {
         CultureInfo Culture { get; }
+        string CultureName { get; }
 
         string Succsess { get; }
         string Fail { get; }

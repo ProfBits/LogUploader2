@@ -7,7 +7,7 @@ using System.Configuration;
 using System.Reflection;
 using System.Xml.Linq;
 using System.IO;
-
+using LogUploader.Tools.Logger;
 
 namespace LogUploader.Helper
 {
@@ -19,7 +19,8 @@ namespace LogUploader.Helper
         const string USER_SETTINGS = "userSettings";
         const string SETTING = "setting";
 #if DEBUG
-        const string FILE_NAME = "user.debug.config";
+#warning Special conf for branch
+        const string FILE_NAME = "user.debugRESTRUCTUR.config";
 #else
         const string FILE_NAME = "user.config";
 #endif

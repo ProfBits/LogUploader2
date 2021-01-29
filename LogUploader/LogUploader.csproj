@@ -247,7 +247,6 @@
     </Compile>
     <Compile Include="Helper\DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="Helper\DiscordPostGen\CompactWithEmotesGenerator.cs" />
-    <Compile Include="Helper\Logger.cs" />
     <Compile Include="Data\RaidOrgaPlus\CheckPlayer.cs" />
     <Compile Include="Helper\RaidOrgaPlus\Encounter.cs" />
     <Compile Include="Data\RaidOrgaPlus\PlayerType.cs" />
@@ -560,6 +559,10 @@
     <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj">
       <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
       <Name>LogUploader.Localisation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
+      <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
+      <Name>LogUploader.Tools.Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

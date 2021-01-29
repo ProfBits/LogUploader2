@@ -21,7 +21,7 @@ namespace LogUploader.Data.Settings
         public string UserToken { get; set; }
         [JsonIgnore]
         public bool FirstBoot { get; set; }
-        public eLanguage Language { get; set; }
+        public string Language { get; set; }
         public bool EnableAutoParse { get; set; }
         public bool EnableAutoUpload { get; set; }
         [JsonIgnore]
@@ -95,14 +95,12 @@ namespace LogUploader.Data.Settings
             EnableAutoUpload = eau;
             WhatsNewShown = whatsNewShown;
             AllowPrerelases = allowPrereleases;
-            try
-            {
-                Language = (eLanguage)Enum.Parse(typeof(eLanguage), language);
-            }
-            catch (Exception e) when (e is ArgumentException || e is InvalidCastException)
-            {
-                Language = eLanguage.EN;
-            }
+            if (language == "EN")
+                Language = "English";
+            else if (language == "DE")
+                Language = "German";
+            else
+                Language = language;
         }
 
         private void SetCopyLinks(bool encounterName, bool encounterSuccess, bool inline, bool emptyLineBetween, bool useGnDiscordEmotes)
@@ -173,7 +171,7 @@ namespace LogUploader.Data.Settings
             settings.ArcLogsPath = ArcLogsPath;
             settings.UserToken = SettingsHelper.ProtectString(UserToken);
             settings.FirstBoot = FirstBoot;
-            settings.Language = Language.ToString();
+            settings.Language = Language;
             settings.EnableAutoParse = EnableAutoParse;
             settings.EnableAutoUpload = EnableAutoUpload;
             settings.WhatsNewShown = WhatsNewShown;

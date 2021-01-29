@@ -7,6 +7,7 @@ using LogUploader.Helper;
 using LogUploader.Helper.JobQueue;
 using LogUploader.Localisation;
 using LogUploader.Properties;
+using LogUploader.Tools.Logger;
 
 using System;
 using System.Collections.Generic;
@@ -536,7 +537,7 @@ namespace LogUploader
             var mainSettings = new Settings();
             Settings = new SettingsData(mainSettings);
 
-            Language.Current = Settings.Language;
+            Language.SetLanguage(Settings.Language);
             EliteInsights.Settings = Settings;
             Helper.DiscordPostGen.DiscordPostGenerator.Settings = Settings;
             WebHookDB = Settings.WebHookDB;

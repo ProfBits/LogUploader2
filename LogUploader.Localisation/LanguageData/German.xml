@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-16"?>
 <XMLLanguage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CultureName>de-de</CultureName>
   <Succsess>Erfolg</Succsess>
   <Fail>Fehlschlag</Fail>
   <ProxySettings>Proxy Einstellungen</ProxySettings>

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace LogUploader.Helper
+namespace LogUploader.Tools.Logger
 {
-    internal static class Logger
+    public static class Logger
     {
         private static bool InitDone = false;
         private const string PREFIX_MESSAGE = "[msg]";
@@ -22,7 +22,7 @@ namespace LogUploader.Helper
         public static string LogFile { get; private set; }
 
         private static eLogLevel logLevel;
-        internal static eLogLevel LogLevel { get => logLevel; set
+        public static eLogLevel LogLevel { get => logLevel; set
             {
                 if (InitDone)
                     Log("[LOGLEVEL]", $"New Loglevel is: {value}");

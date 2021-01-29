@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data;
+using LogUploader.Tools.Logger;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {

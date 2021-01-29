@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Extensiones.HTTPClient;
+using LogUploader.Tools.Logger;
 
 namespace LogUploader.Helper
 {
