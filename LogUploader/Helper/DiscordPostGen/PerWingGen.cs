@@ -1,6 +1,5 @@
 ﻿using LogUploader.Data;
 using LogUploader.Helper;
-using LogUploader.Languages;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Extensiones.Linq;
 using LogUploader.Data.GameAreas;
+using LogUploader.Localisation;
 
 namespace LogUploader.Helper.DiscordPostGen
 {

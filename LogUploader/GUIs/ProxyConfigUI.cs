@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LogUploader.Languages;
+
+using LogUploader.Localisation;
 using LogUploader.Properties;
 
 namespace LogUploader.GUI

@@ -11,8 +11,8 @@ using LogUploader.Properties;
 using LogUploader.Helper;
 using Extensiones;
 
-using LogUploader.Languages;
 using LogUploader.Data.Settings;
+using LogUploader.Localisation;
 
 namespace LogUploader.GUI
 {

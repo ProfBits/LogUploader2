@@ -1,6 +1,6 @@
 ﻿using Extensiones;
 using LogUploader.Data;
-using LogUploader.Languages;
+using LogUploader.Localisation;
 using LogUploader.Properties;
 
 using System;
@@ -184,27 +184,6 @@ namespace LogUploader.Helper
             var encryptedString = "";
             encryptedBytes.ToList().ForEach(b => encryptedString += b.ToString() + "|");
             settings.DiscordWebHookLink = encryptedString.TrimEnd('|');
-        }
-
-        [Obsolete]
-        internal static eLanguage GetLanguage(Settings settings)
-        {
-            try
-            {
-                return (eLanguage)Enum.Parse(typeof(eLanguage), settings.Language);
-            }
-            catch (ArgumentNullException)
-            {
-                StoreLanguage(settings, DEFAULT_LANGUAGE);
-                settings.Save();
-                return DEFAULT_LANGUAGE;
-            }
-        }
-
-        [Obsolete]
-        internal static void StoreLanguage(Settings settings, eLanguage language)
-        {
-            settings.Language = language.ToString();
         }
 
         [Obsolete]

@@ -1,5 +1,6 @@
 ﻿using LogUploader.Data.Licenses;
-using LogUploader.Languages;
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

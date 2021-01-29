@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-16"?>
+<XMLLanguage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Succsess>Erfolg</Succsess>
+  <Fail>Fehlschlag</Fail>
+  <ProxySettings>Proxy Einstellungen</ProxySettings>
+  <ProxyUse>Proxy nutzen</ProxyUse>
+  <ProxyHostename>Proxyserver Adresse</ProxyHostename>
+  <ProxyPort>Port</ProxyPort>
+  <ProxyUser>Benutzername</ProxyUser>
+  <ProxyPassword>Passwort</ProxyPassword>
+  <ColHeaderBoss>Boss</ColHeaderBoss>
+  <ColHeaderDate>Datum</ColHeaderDate>
+  <ColHeaderSize>Gröse</ColHeaderSize>
+  <ColHeaderDataCorrected>Überprüft</ColHeaderDataCorrected>
+  <ColHeaderDuration>Dauer</ColHeaderDuration>
+  <ColHeaderSuccess>Erfolg</ColHeaderSuccess>
+  <ColHeaderHpLeft>% übrig</ColHeaderHpLeft>
+  <ColHeaderCM>CM</ColHeaderCM>
+  <ColHeaderParsed>Parsed</ColHeaderParsed>
+  <ColHeaderUploaded>Uploaded</ColHeaderUploaded>
+  <FilterHeader>Filter</FilterHeader>
+  <FilterBoss>Boss</FilterBoss>
+  <FilterHPLeft>HP übrig</FilterHPLeft>
+  <FilterDuration>Dauer</FilterDuration>
+  <FilterDate>Datum</FilterDate>
+  <FilterFrom>von</FilterFrom>
+  <FilterTo>bis</FilterTo>
+  <FilterSuccess>Erfolg</FilterSuccess>
+  <FilterKill>Kill</FilterKill>
+  <FilterWipe>Wipe</FilterWipe>
+  <FilterToday>Heute</FilterToday>
+  <FilterReset>Reset</FilterReset>
+  <DetailsHeader>Details</DetailsHeader>
+  <DetailsBoss>Boss:</DetailsBoss>
+  <DetailsDate>Datum:</DetailsDate>
+  <DetailsSize>Größe:</DetailsSize>
+  <DetailsCorrected>Überprüft:</DetailsCorrected>
+  <DetailsDuration>Dauer:</DetailsDuration>
+  <DetailsSuccess>Erfolg:</DetailsSuccess>
+  <DetailsHpLeft>HP übrig:</DetailsHpLeft>
+  <DetailsCM>CM:</DetailsCM>
+  <DetailsParsed>Parsed:</DetailsParsed>
+  <DetailsUploaded>Hochgeladen:</DetailsUploaded>
+  <DetailsOpenLocal>öffnen</DetailsOpenLocal>
+  <DetailsOpenRemote>öffnen</DetailsOpenRemote>
+  <DetailsAccName>Account</DetailsAccName>
+  <DetailsSubGroup>SG</DetailsSubGroup>
+  <DetailsDPS>DPS</DetailsDPS>
+  <ActionsHeader>Aktionen</ActionsHeader>
+  <ActionsParseLocal>Parse lokal</ActionsParseLocal>
+  <ActionsOpenLocal>Öffne lokal</ActionsOpenLocal>
+  <ActionsUpload>Upload</ActionsUpload>
+  <ActionsOpenRemote>dps.report</ActionsOpenRemote>
+  <ActionsParseAndUpload>Parse lokal und upload</ActionsParseAndUpload>
+  <ActionsCopyLinks>Links kopieren</ActionsCopyLinks>
+  <ActionsCopied>kopiert</ActionsCopied>
+  <ActionsPostToDiscord>in Discord posten</ActionsPostToDiscord>
+  <ActionsViewInExplorer>Zeige im Explorer</ActionsViewInExplorer>
+  <SettingsHeader>Einstellungen</SettingsHeader>
+  <SettingsAutoParse>Auto parse neue Logs</SettingsAutoParse>
+  <SettingsAutoUpload>Auto upload neue Logs</SettingsAutoUpload>
+  <SettingsAbout>Über</SettingsAbout>
+  <SettingsSettings>Einstellungen ...</SettingsSettings>
+  <FooterElements>Elemente</FooterElements>
+  <FooterSelected>Ausgewählt</FooterSelected>
+  <FooterShown>Angezeigt</FooterShown>
+  <FooterProcessing>Verarbeite</FooterProcessing>
+  <FooterParsing>Parse</FooterParsing>
+  <FooterUploading>Uploading</FooterUploading>
+  <AboutTitle>Über</AboutTitle>
+  <AboutProjectPage>Projektseite github.com</AboutProjectPage>
+  <AboutViewLicense>Zeige Lizenz</AboutViewLicense>
+  <AboutSpecialThanks>Vielen Dank an:</AboutSpecialThanks>
+  <AboutBetaTesters>Beta Tester:</AboutBetaTesters>
+  <AboutCopyright>Copyright:</AboutCopyright>
+  <AboutView3rdParty>Zeige 3rd Party Bibliotheken, Software</AboutView3rdParty>
+  <AboutForSpellCheck>für Spell Checking</AboutForSpellCheck>
+  <AboutVersion>Version</AboutVersion>
+  <AboutViewPatchnotes>Zeige Update-Notes</AboutViewPatchnotes>
+  <LicenseTitle>Lizenz</LicenseTitle>
+  <LicenseFor>für</LicenseFor>
+  <LicenseBy>von</LicenseBy>
+  <LicensesTitle>Software dritter</LicensesTitle>
+  <LicensesClose>Schliessen</LicensesClose>
+  <SoftwareItemProject>Project</SoftwareItemProject>
+  <SoftwareItemViewLicense>zeige Lizenz</SoftwareItemViewLicense>
+  <InitTitle>First Setup</InitTitle>
+  <InitArcPaht>Arc Logs Pfad:</InitArcPaht>
+  <InitBrowse>Auswählen ...</InitBrowse>
+  <InitLanguage>Sprache:</InitLanguage>
+  <InitCancle>Abbrechen</InitCancle>
+  <InitStart>Start</InitStart>
+  <InitCancelSetupTitel>Abbruch bestätigen</InitCancelSetupTitel>
+  <InitCancelSetupText>Setup wirklich abbrechen?</InitCancelSetupText>
+  <InitInvalidPathTitel>Ungültiger Pfad</InitInvalidPathTitel>
+  <InitInvalidPathText>Pfad "...\arcdps.cbtlogs\" is ungültig!</InitInvalidPathText>
+  <ConfigTitle>Einstellungen</ConfigTitle>
+  <ConfigGeneralTitle>Allgemein</ConfigGeneralTitle>
+  <ConfigGeneralArcPaht>Arc Log Ordner Pfad</ConfigGeneralArcPaht>
+  <ConfigGeneralBrowse>Auswählen</ConfigGeneralBrowse>
+  <ConfigGeneralLanguage>Sprache</ConfigGeneralLanguage>
+  <ConfigGeneralAllowBeta>Erlaube Beta Versionen</ConfigGeneralAllowBeta>
+  <ConfigDpsReportTitle>dps.report</ConfigDpsReportTitle>
+  <ConfigDpsReportToken>User Token:</ConfigDpsReportToken>
+  <ConfigDpsReportGetToken>Token generieren:</ConfigDpsReportGetToken>
+  <ConfigDpsReportProxy>Proxy Einstellungen...</ConfigDpsReportProxy>
+  <ConfigCopyTitle>Links kopieren</ConfigCopyTitle>
+  <ConfigCopyBoss>mit Bossname</ConfigCopyBoss>
+  <ConfigCopySuccess>mit Erfolg</ConfigCopySuccess>
+  <ConfigCopyInline>Link in gleiche Zeile wie Boss</ConfigCopyInline>
+  <ConfigCopySpace>leere Zeile zwischen Logs</ConfigCopySpace>
+  <ConfigCopyEmotes>mit RisingLight Discord Emotes</ConfigCopyEmotes>
+  <ConfigDiscordTitle>Discord Webhooks</ConfigDiscordTitle>
+  <ConfigDiscordWebHookName>Name:</ConfigDiscordWebHookName>
+  <ConfigDiscordWebHookLink>Link:</ConfigDiscordWebHookLink>
+  <ConfigDiscordWebHookFormat>Format:</ConfigDiscordWebHookFormat>
+  <ConfigDiscordWebHookAvatar>Avatar URL:</ConfigDiscordWebHookAvatar>
+  <ConfigDiscordWebHookDelete>Löschen</ConfigDiscordWebHookDelete>
+  <ConfigDiscordCount>Anzahl</ConfigDiscordCount>
+  <ConfigDiscordNoHooks>Keine Webhooks vorhanden
+
+Füge einen neuen hinzu!</ConfigDiscordNoHooks>
+  <ConfigDiscordAdd>Hinzufügen</ConfigDiscordAdd>
+  <ConfigDiscordOnlyUploaded>Nur hochgeladene posten</ConfigDiscordOnlyUploaded>
+  <ConfigDiscordNameAsUsername>Name als Discord Username</ConfigDiscordNameAsUsername>
+  <ConfigEiTitle>EliteInsights</ConfigEiTitle>
+  <ConfigEiCombatReplay>Erzeuge Combat-Replay</ConfigEiCombatReplay>
+  <ConfigEiLightTheme>Nutze helles Thema</ConfigEiLightTheme>
+  <ConfigEiAutoUpdate>Auto Update</ConfigEiAutoUpdate>
+  <ConfigEiUpdate>Update / Reinstall</ConfigEiUpdate>
+  <ConfigDefault>Standard</ConfigDefault>
+  <ConfigCancel>Abbrechen</ConfigCancel>
+  <ConfigSave>Speichern</ConfigSave>
+  <ConfigDefaultMsgTitel>Einstellungen zurücksetzen</ConfigDefaultMsgTitel>
+  <ConfigDefaultMsgText>Standard Einstellungen wiederherstellen?
+Dies wird deine aktuellen Einstellungen dauerhaft löschen!</ConfigDefaultMsgText>
+  <ConfigDiscardMsgTitel>Änderungen verwerfen?</ConfigDiscardMsgTitel>
+  <ConfigDiscardMsgText>Fortfahren ohne speichern?</ConfigDiscardMsgText>
+  <ConfigRoPlusTitle>RaidOrga+</ConfigRoPlusTitle>
+  <ConfigRoPlusUser>Benutzer</ConfigRoPlusUser>
+  <ConfigRoPlusPwd>Passwort</ConfigRoPlusPwd>
+  <ConfigRoPlusNote>Hinweis:
+Nur Termine von Raids bei denen du Leiter bist, werden angezeigt.</ConfigRoPlusNote>
+  <ConfigExport>Export</ConfigExport>
+  <ConfigImport>Import</ConfigImport>
+  <ConfigExportFileFilter>LogUploaderSettings Dateien|*.lus|Alle Dateien|*.*</ConfigExportFileFilter>
+  <ConfigExportSaveTitle>Datei zum Exportieren wählen</ConfigExportSaveTitle>
+  <ConfigImportOpenTitle>Datei zum Importieren wählen</ConfigImportOpenTitle>
+  <ConfigExportPwdPromptTitle>Passwort</ConfigExportPwdPromptTitle>
+  <ConfigExportPwdPromptNewText>Passwort eingeben (leer ist kein Passwort):</ConfigExportPwdPromptNewText>
+  <ConfigExportPwdPromptText>Passwort eingeben:</ConfigExportPwdPromptText>
+  <ConfigExportPwdFailTitle>Passwort Fehler</ConfigExportPwdFailTitle>
+  <ConfigExportPwdFailText>Passwort Falsch</ConfigExportPwdFailText>
+  <ConfigExportMessageTitle>Export Status</ConfigExportMessageTitle>
+  <ConfigExportMessageFail>Export Fehlgeschlagen</ConfigExportMessageFail>
+  <ConfigExportMessageSucc>Export Abgeschlossen</ConfigExportMessageSucc>
+  <ConfigImportMessageTitle>Import Status</ConfigImportMessageTitle>
+  <ConfigImportMessageFail>Import Fehlgeschlagen</ConfigImportMessageFail>
+  <ConfigImportMessageSucc>Import Abgeschlossen</ConfigImportMessageSucc>
+  <NewTitle>Neuerungen in </NewTitle>
+  <NewHeading>Update-Notes</NewHeading>
+  <NewClose>Schliessen</NewClose>
+  <PlayerToCorrectPlayer>Spieler</PlayerToCorrectPlayer>
+  <PlayerToCorrectAccount>Account</PlayerToCorrectAccount>
+  <PlayerToCorrectMember>Mitglied</PlayerToCorrectMember>
+  <PlayerToCorrectHelper>Helfer</PlayerToCorrectHelper>
+  <PlayerToCorrectLFG>LFG</PlayerToCorrectLFG>
+  <CorrectPlayer>Spieler korrigieren</CorrectPlayer>
+  <CorrectPlayerTitle>Spieler zuordnen</CorrectPlayerTitle>
+  <CorrectPlayerDone>Fertig</CorrectPlayerDone>
+  <MiscGenericProcessing>Verarbeite</MiscGenericProcessing>
+  <MiscNoWebhookMsgTitel>Webhooks erstellen</MiscNoWebhookMsgTitel>
+  <MiscNoWebhookMsgText>Du hast aktuell keine WebHooks eingestellt
+Gehe zu Discord Webhooks in den Einstellungen und erstelle einen neuen.</MiscNoWebhookMsgText>
+  <MiscDiscordPostGenDuration>Dauer</MiscDiscordPostGenDuration>
+  <MiscDiscordPostGenHpLeft>HP übrig</MiscDiscordPostGenHpLeft>
+  <MiscDiscordPostGenGroupDPS>Gruppen DPS</MiscDiscordPostGenGroupDPS>
+  <MiscDiscordPostGenTopDPS>Top DPS</MiscDiscordPostGenTopDPS>
+  <MiscDiscordPostGenNoLink>kein Link</MiscDiscordPostGenNoLink>
+  <MiscDiscordPostErrTitle>Discord-Post Fehler</MiscDiscordPostErrTitle>
+  <MiscDiscordPostErrMsg>Es war nicht möglich über den Webhook %s zu posten.
+Stelle sicher, dass
+- die Adresse des Webhooks korrekt ist
+- der Link des genutzten Avatars korrekt ist (wenn du einen nutzt)
+- du mit dem Internet verbunden bist</MiscDiscordPostErrMsg>
+  <MiscDetailsMultibleBosses>Verschieden</MiscDetailsMultibleBosses>
+  <MiscRaidOrgaPlusNoAccount>Kein Konto hinterlegt</MiscRaidOrgaPlusNoAccount>
+  <MiscRaidOrgaPlusLoginErr>Login fehlgeschlagen</MiscRaidOrgaPlusLoginErr>
+  <MiscRaidOrgaPlusNoRaid>Kein Termin mit Leiterrechten</MiscRaidOrgaPlusNoRaid>
+</XMLLanguage>

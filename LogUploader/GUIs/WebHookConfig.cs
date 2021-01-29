@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogUploader.Data;
 using Extensiones;
-using LogUploader.Languages;
+using LogUploader.Localisation;
 
 namespace LogUploader.GUIs
 {

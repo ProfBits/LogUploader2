@@ -6,13 +6,6 @@ using System.Threading.Tasks;
 
 namespace LogUploader
 {
-    public enum eLanguage
-    {
-        [CombBoxView("English")]
-        EN,
-        [CombBoxView("German")]
-        DE
-    }
 
     public enum eDiscordPostFormat
     {

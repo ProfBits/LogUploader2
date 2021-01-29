@@ -5,7 +5,7 @@ using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Helper;
 using LogUploader.Helper.JobQueue;
-using LogUploader.Languages;
+using LogUploader.Localisation;
 using LogUploader.Properties;
 
 using System;

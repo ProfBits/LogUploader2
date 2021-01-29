@@ -324,11 +324,6 @@
       <DependentUpon>InitConfigUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDiscordPostGen.cs" />
-    <Compile Include="Language\English.cs" />
-    <Compile Include="Language\German.cs" />
-    <Compile Include="Interfaces\ILanguage.cs" />
-    <Compile Include="Language\Language.cs" />
-    <Compile Include="Language\XMLLanguage.cs" />
     <Compile Include="LogUploaderLogic.cs" />
     <Compile Include="Interfaces\ILogUploaderData.cs" />
     <Compile Include="Program.cs" />
@@ -560,6 +555,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Theme\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj">
+      <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
+      <Name>LogUploader.Localisation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.2\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.2\build\net40\System.Data.SQLite.Core.targets')" />

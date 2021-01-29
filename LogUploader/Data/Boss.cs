@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LogUploader.Data.GameAreas;
 using LogUploader.Helper;
 using LogUploader.Interfaces;
+using LogUploader.Localisation;
 
 namespace LogUploader.Data
 {

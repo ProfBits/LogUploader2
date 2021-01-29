@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Languages
+namespace LogUploader.Localisation
 {
     public class German : ILanguage
     {

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-16"?>
+<XMLLanguage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Succsess>Success</Succsess>
+  <Fail>Fail</Fail>
+  <ProxySettings>Proxy Settings</ProxySettings>
+  <ProxyUse>Use Proxy</ProxyUse>
+  <ProxyHostename>Hostname</ProxyHostename>
+  <ProxyPort>Port</ProxyPort>
+  <ProxyUser>Username</ProxyUser>
+  <ProxyPassword>Password</ProxyPassword>
+  <ColHeaderBoss>Boss</ColHeaderBoss>
+  <ColHeaderDate>Date</ColHeaderDate>
+  <ColHeaderSize>Size</ColHeaderSize>
+  <ColHeaderDataCorrected>Data checked</ColHeaderDataCorrected>
+  <ColHeaderDuration>Duration</ColHeaderDuration>
+  <ColHeaderSuccess>Kill</ColHeaderSuccess>
+  <ColHeaderHpLeft>% left</ColHeaderHpLeft>
+  <ColHeaderCM>CM</ColHeaderCM>
+  <ColHeaderParsed>Parsed</ColHeaderParsed>
+  <ColHeaderUploaded>Uploaded</ColHeaderUploaded>
+  <FilterHeader>Filter</FilterHeader>
+  <FilterBoss>Boss</FilterBoss>
+  <FilterHPLeft>HP left</FilterHPLeft>
+  <FilterDuration>Duration</FilterDuration>
+  <FilterDate>Date</FilterDate>
+  <FilterFrom>from</FilterFrom>
+  <FilterTo>to</FilterTo>
+  <FilterSuccess>Success</FilterSuccess>
+  <FilterKill>Kill</FilterKill>
+  <FilterWipe>Wipe</FilterWipe>
+  <FilterToday>Today</FilterToday>
+  <FilterReset>Reset</FilterReset>
+  <DetailsHeader>Details</DetailsHeader>
+  <DetailsBoss>Boss:</DetailsBoss>
+  <DetailsDate>Date:</DetailsDate>
+  <DetailsSize>Size:</DetailsSize>
+  <DetailsCorrected>Corrected:</DetailsCorrected>
+  <DetailsDuration>Duration:</DetailsDuration>
+  <DetailsSuccess>Success:</DetailsSuccess>
+  <DetailsHpLeft>HP left:</DetailsHpLeft>
+  <DetailsCM>CM:</DetailsCM>
+  <DetailsParsed>Parsed:</DetailsParsed>
+  <DetailsUploaded>Uploaded:</DetailsUploaded>
+  <DetailsOpenLocal>open</DetailsOpenLocal>
+  <DetailsOpenRemote>open</DetailsOpenRemote>
+  <DetailsAccName>Account</DetailsAccName>
+  <DetailsSubGroup>SG</DetailsSubGroup>
+  <DetailsDPS>DPS</DetailsDPS>
+  <ActionsHeader>Actions</ActionsHeader>
+  <ActionsParseLocal>Parse local</ActionsParseLocal>
+  <ActionsOpenLocal>Open local</ActionsOpenLocal>
+  <ActionsUpload>Upload</ActionsUpload>
+  <ActionsOpenRemote>dps.report</ActionsOpenRemote>
+  <ActionsParseAndUpload>Parse local and upload</ActionsParseAndUpload>
+  <ActionsCopyLinks>Copy links</ActionsCopyLinks>
+  <ActionsCopied>copied</ActionsCopied>
+  <ActionsPostToDiscord>Post to Discord</ActionsPostToDiscord>
+  <ActionsViewInExplorer>View in Explorer</ActionsViewInExplorer>
+  <SettingsHeader>Settings</SettingsHeader>
+  <SettingsAutoParse>Auto parse new logs</SettingsAutoParse>
+  <SettingsAutoUpload>Auto upload new logs</SettingsAutoUpload>
+  <SettingsAbout>About</SettingsAbout>
+  <SettingsSettings>Settings ...</SettingsSettings>
+  <FooterElements>Elements</FooterElements>
+  <FooterSelected>Selected</FooterSelected>
+  <FooterShown>Shown</FooterShown>
+  <FooterProcessing>Processing</FooterProcessing>
+  <FooterParsing>Parsing</FooterParsing>
+  <FooterUploading>Uploading</FooterUploading>
+  <AboutTitle>About</AboutTitle>
+  <AboutProjectPage>Projectpage github.com</AboutProjectPage>
+  <AboutViewLicense>View License</AboutViewLicense>
+  <AboutSpecialThanks>Special Thanks to:</AboutSpecialThanks>
+  <AboutBetaTesters>Beta Testers:</AboutBetaTesters>
+  <AboutCopyright>Copyright:</AboutCopyright>
+  <AboutView3rdParty>View 3rd Party Libraries, Software</AboutView3rdParty>
+  <AboutForSpellCheck>for Spell Checking</AboutForSpellCheck>
+  <AboutVersion>Version</AboutVersion>
+  <AboutViewPatchnotes>View Patchnotes</AboutViewPatchnotes>
+  <LicenseTitle>License</LicenseTitle>
+  <LicenseFor>for</LicenseFor>
+  <LicenseBy>by</LicenseBy>
+  <LicensesTitle>3rd Party Software</LicensesTitle>
+  <LicensesClose>Close</LicensesClose>
+  <SoftwareItemProject>Project</SoftwareItemProject>
+  <SoftwareItemViewLicense>view License</SoftwareItemViewLicense>
+  <InitTitle>First Setup</InitTitle>
+  <InitArcPaht>Arc Logs Path:</InitArcPaht>
+  <InitBrowse>Browse ...</InitBrowse>
+  <InitLanguage>Language:</InitLanguage>
+  <InitCancle>Cancel</InitCancle>
+  <InitStart>Start</InitStart>
+  <InitCancelSetupTitel>Confirm cancel</InitCancelSetupTitel>
+  <InitCancelSetupText>Really abort the setup?</InitCancelSetupText>
+  <InitInvalidPathTitel>Invalid path</InitInvalidPathTitel>
+  <InitInvalidPathText>...\arcdps.cbtlogs\ path is invalid!</InitInvalidPathText>
+  <ConfigTitle>Settings</ConfigTitle>
+  <ConfigGeneralTitle>General</ConfigGeneralTitle>
+  <ConfigGeneralArcPaht>Arc Log Folder Path</ConfigGeneralArcPaht>
+  <ConfigGeneralBrowse>Browse...</ConfigGeneralBrowse>
+  <ConfigGeneralLanguage>Language</ConfigGeneralLanguage>
+  <ConfigGeneralAllowBeta>Allow Beta Updates</ConfigGeneralAllowBeta>
+  <ConfigDpsReportTitle>dps.report</ConfigDpsReportTitle>
+  <ConfigDpsReportToken>User Token:</ConfigDpsReportToken>
+  <ConfigDpsReportGetToken>Generate Token:</ConfigDpsReportGetToken>
+  <ConfigDpsReportProxy>Proxy Settings...</ConfigDpsReportProxy>
+  <ConfigCopyTitle>Copy Links</ConfigCopyTitle>
+  <ConfigCopyBoss>Include encounter</ConfigCopyBoss>
+  <ConfigCopySuccess>Include success</ConfigCopySuccess>
+  <ConfigCopyInline>Link in same line as encounter</ConfigCopyInline>
+  <ConfigCopySpace>Empty line between logs</ConfigCopySpace>
+  <ConfigCopyEmotes>Include RisingLight Discord Emotes</ConfigCopyEmotes>
+  <ConfigDiscordTitle>Discord Webhooks</ConfigDiscordTitle>
+  <ConfigDiscordWebHookName>Name:</ConfigDiscordWebHookName>
+  <ConfigDiscordWebHookLink>Link:</ConfigDiscordWebHookLink>
+  <ConfigDiscordWebHookFormat>Format:</ConfigDiscordWebHookFormat>
+  <ConfigDiscordWebHookAvatar>Avatar URL:</ConfigDiscordWebHookAvatar>
+  <ConfigDiscordWebHookDelete>Delete</ConfigDiscordWebHookDelete>
+  <ConfigDiscordCount>Count</ConfigDiscordCount>
+  <ConfigDiscordNoHooks>No WebHooks configured
+
+Add a new one!</ConfigDiscordNoHooks>
+  <ConfigDiscordAdd>Add</ConfigDiscordAdd>
+  <ConfigDiscordOnlyUploaded>Only post Uploaded</ConfigDiscordOnlyUploaded>
+  <ConfigDiscordNameAsUsername>Name as Discord Username</ConfigDiscordNameAsUsername>
+  <ConfigEiTitle>EliteInsights</ConfigEiTitle>
+  <ConfigEiCombatReplay>Generate combat replay</ConfigEiCombatReplay>
+  <ConfigEiLightTheme>Use light theme</ConfigEiLightTheme>
+  <ConfigEiAutoUpdate>Auto update</ConfigEiAutoUpdate>
+  <ConfigEiUpdate>Update / Reinstall</ConfigEiUpdate>
+  <ConfigDefault>Default</ConfigDefault>
+  <ConfigCancel>Cancel</ConfigCancel>
+  <ConfigSave>Save</ConfigSave>
+  <ConfigDefaultMsgTitel>Reset Settings</ConfigDefaultMsgTitel>
+  <ConfigDefaultMsgText>Restore the Default settings?
+This will permanently delete your current settings!</ConfigDefaultMsgText>
+  <ConfigDiscardMsgTitel>Discard Changes?</ConfigDiscardMsgTitel>
+  <ConfigDiscardMsgText>Continue without saving?</ConfigDiscardMsgText>
+  <ConfigRoPlusTitle>RaidOrga+</ConfigRoPlusTitle>
+  <ConfigRoPlusUser>User</ConfigRoPlusUser>
+  <ConfigRoPlusPwd>Password</ConfigRoPlusPwd>
+  <ConfigRoPlusNote>Note:
+Only raids, where you are Raidlead, will be shown</ConfigRoPlusNote>
+  <ConfigExport>Export</ConfigExport>
+  <ConfigImport>Import</ConfigImport>
+  <ConfigExportFileFilter>LogUploaderSettings files|*.lus|All files|*.*</ConfigExportFileFilter>
+  <ConfigExportSaveTitle>Select file to export to</ConfigExportSaveTitle>
+  <ConfigImportOpenTitle>Select file to import from</ConfigImportOpenTitle>
+  <ConfigExportPwdPromptTitle>Password</ConfigExportPwdPromptTitle>
+  <ConfigExportPwdPromptNewText>Enter password (empty is no password):</ConfigExportPwdPromptNewText>
+  <ConfigExportPwdPromptText>Enter Password:</ConfigExportPwdPromptText>
+  <ConfigExportPwdFailTitle>Password Error</ConfigExportPwdFailTitle>
+  <ConfigExportPwdFailText>Invalid Password</ConfigExportPwdFailText>
+  <ConfigExportMessageTitle>Export result</ConfigExportMessageTitle>
+  <ConfigExportMessageFail>Export failed</ConfigExportMessageFail>
+  <ConfigExportMessageSucc>Export complete</ConfigExportMessageSucc>
+  <ConfigImportMessageTitle>Import result</ConfigImportMessageTitle>
+  <ConfigImportMessageFail>Import failed</ConfigImportMessageFail>
+  <ConfigImportMessageSucc>Import complete</ConfigImportMessageSucc>
+  <NewTitle>What's new in </NewTitle>
+  <NewHeading>Patchnotes</NewHeading>
+  <NewClose>Close</NewClose>
+  <PlayerToCorrectPlayer>Player</PlayerToCorrectPlayer>
+  <PlayerToCorrectAccount>Account</PlayerToCorrectAccount>
+  <PlayerToCorrectMember>Member</PlayerToCorrectMember>
+  <PlayerToCorrectHelper>Helper</PlayerToCorrectHelper>
+  <PlayerToCorrectLFG>LFG</PlayerToCorrectLFG>
+  <CorrectPlayer>Adjust Players</CorrectPlayer>
+  <CorrectPlayerTitle>Assign Players</CorrectPlayerTitle>
+  <CorrectPlayerDone>Done</CorrectPlayerDone>
+  <MiscGenericProcessing>Processing</MiscGenericProcessing>
+  <MiscNoWebhookMsgTitel>Setup Webhooks</MiscNoWebhookMsgTitel>
+  <MiscNoWebhookMsgText>You have currently no Webhooks set up.
+Go to Discord Webhooks in Settings and create a new one</MiscNoWebhookMsgText>
+  <MiscDiscordPostGenDuration>Duration</MiscDiscordPostGenDuration>
+  <MiscDiscordPostGenHpLeft>HP left</MiscDiscordPostGenHpLeft>
+  <MiscDiscordPostGenGroupDPS>Group DPS</MiscDiscordPostGenGroupDPS>
+  <MiscDiscordPostGenTopDPS>Top DPS</MiscDiscordPostGenTopDPS>
+  <MiscDiscordPostGenNoLink>no Link</MiscDiscordPostGenNoLink>
+  <MiscDiscordPostErrTitle>Discord posting Error</MiscDiscordPostErrTitle>
+  <MiscDiscordPostErrMsg>Unable to post to Webhook %s.
+Make sure
+- the address of the WebHook is correct
+- if an avatar is specified to check its link
+- you are connected to the internet</MiscDiscordPostErrMsg>
+  <MiscDetailsMultibleBosses>Multiple</MiscDetailsMultibleBosses>
+  <MiscRaidOrgaPlusNoAccount>No account configured</MiscRaidOrgaPlusNoAccount>
+  <MiscRaidOrgaPlusLoginErr>Login failed</MiscRaidOrgaPlusLoginErr>
+  <MiscRaidOrgaPlusNoRaid>No raid with leader permission</MiscRaidOrgaPlusNoRaid>
+</XMLLanguage>

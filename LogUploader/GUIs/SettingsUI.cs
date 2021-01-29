@@ -10,10 +10,10 @@ using System.Windows.Forms;
 using LogUploader.Properties;
 using LogUploader.Helper;
 using Extensiones;
-using LogUploader.Languages;
 using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Data;
+using LogUploader.Localisation;
 
 namespace LogUploader.GUI
 {

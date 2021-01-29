@@ -6,7 +6,6 @@ using System.Text;
 using System.Windows.Forms;
 using LogUploader.Helper;
 using LogUploader.Properties;
-using LogUploader.Languages;
 using System.Reflection;
 using System.Diagnostics;
 using LogUploader.GUI;
@@ -18,6 +17,7 @@ using LogUploader.Data.Settings;
 using System.Xml.Serialization;
 using System.Configuration;
 using System.ComponentModel;
+using LogUploader.Localisation;
 
 namespace LogUploader
 {
@@ -45,7 +45,8 @@ namespace LogUploader
             else Logger.Message("No args");
 
 #if CREATE_LANGUAGE_XMLS
-            WriteOutLanguageXmls();
+            Localisation.Language.WriteOutLanguageXmls();
+            Exit(ExitCode.LANG_XML_CREATION_BUILD);
 #endif
 
             Application.EnableVisualStyles();
@@ -448,36 +449,6 @@ namespace LogUploader
                 Language.Current = eLanguage.DE;
         }
 
-#if CREATE_LANGUAGE_XMLS
-        private static void WriteOutLanguageXmls()
-        {
-            var ser = new XmlSerializer(typeof(XMLLanguage));
-            using (var tw = new StringWriter())
-            {
-                var xmlLang = new XMLLanguage();
-                Jitbit.Utils.PropMapper<ILanguage, XMLLanguage>.CopyTo(new English(), xmlLang);
-                ser.Serialize(tw, xmlLang);
-                var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                File.WriteAllText(exePath + @"\Data\English.xml", tw.ToString());
-            }
-            using (var tw = new StringWriter())
-            {
-                var xmlLang = new XMLLanguage();
-                Jitbit.Utils.PropMapper<ILanguage, XMLLanguage>.CopyTo(new German(), xmlLang);
-                ser.Serialize(tw, xmlLang);
-                var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                File.WriteAllText(exePath + @"\Data\German.xml", tw.ToString());
-            }
-            var res = MessageBox.Show("Copy into project?", "Copy XMLs", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (res == DialogResult.Yes)
-            {
-                var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                File.Copy(exePath + @"\Data\English.xml", exePath + @"\..\..\Data\English.xml", true);
-                File.Copy(exePath + @"\Data\German.xml", exePath + @"\..\..\Data\German.xml", true);
-            }
-            Exit(ExitCode.LANG_XML_CREATION_BUILD);
-        }
-#endif
 
         private static Flags ProcessCommandLineArgs(params string[] args)
         {

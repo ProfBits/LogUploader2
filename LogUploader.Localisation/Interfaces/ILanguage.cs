@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace LogUploader.Languages
+namespace LogUploader.Localisation
 {
     public interface ILanguage
     {

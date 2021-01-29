@@ -4,7 +4,6 @@ using LogUploader.Data.GameAreas;
 using LogUploader.Data.Settings;
 using LogUploader.Helper.DiscordPostGen;
 using LogUploader.Interfaces;
-using LogUploader.Languages;
 using LogUploader.Properties;
 using System.Collections.Generic;
 using System.Drawing;

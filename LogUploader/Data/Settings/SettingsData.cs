@@ -1,4 +1,5 @@
 ﻿using LogUploader.Helper;
+using LogUploader.Localisation;
 using LogUploader.Properties;
 
 using Newtonsoft.Json;

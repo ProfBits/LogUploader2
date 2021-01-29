@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using LogUploader.Localisation;
 
 namespace LogUploader.Helper
 {
@@ -57,7 +58,7 @@ namespace LogUploader.Helper
                 {
                     if (Data.Count == 0)
                     {
-                        MessageBox.Show(Languages.Language.Data.MiscNoWebhookMsgText, Languages.Language.Data.MiscNoWebhookMsgTitel, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(Language.Data.MiscNoWebhookMsgText, Language.Data.MiscNoWebhookMsgTitel, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return new WebHook(null, "<No WebHooks>", -1);
                     }
                     throw new ArgumentException($"No webhook with alias \"{alias}\" registerd!");
@@ -73,7 +74,7 @@ namespace LogUploader.Helper
                     return Data[id];
                 if (Data.Count == 0)
                 {
-                    MessageBox.Show(Languages.Language.Data.MiscNoWebhookMsgText, Languages.Language.Data.MiscNoWebhookMsgTitel, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Language.Data.MiscNoWebhookMsgText, Language.Data.MiscNoWebhookMsgTitel, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return new WebHook(null, "<No WebHooks>", -1);
                 }
                 throw new ArgumentException($"No webhook with id \"{id}\" registerd!");

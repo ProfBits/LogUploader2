@@ -1,5 +1,7 @@
 ﻿using LogUploader.Helper;
 using LogUploader.Interfaces;
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace LogUploader.Data
     {
         public string NameEN { get; }
         public string NameDE { get; }
-        public virtual string Name { get => GetName(Languages.Language.Current); }
+        public virtual string Name { get => GetName(Language.Current); }
 
         public NamedObject(string nameEN, string nameDE)
         {

@@ -1,4 +1,7 @@
 ﻿using Extensiones;
+
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +30,7 @@ namespace LogUploader
         {
             get
             {
-                switch (Languages.Language.Current)
+                switch (Language.Current)
                 {
                     case eLanguage.DE:
                         return NameDE;

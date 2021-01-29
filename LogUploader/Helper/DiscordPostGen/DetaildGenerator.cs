@@ -1,7 +1,8 @@
 ﻿using Extensiones;
 using LogUploader.Data;
 using LogUploader.Helper;
-using LogUploader.Languages;
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;

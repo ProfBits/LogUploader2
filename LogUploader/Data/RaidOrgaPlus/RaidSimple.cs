@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LogUploader.Localisation;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,17 +36,17 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal static RaidSimple GetNoAccount()
         {
-            return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusNoAccount);
+            return new RaidSimpleTemplate(Language.Data.MiscRaidOrgaPlusNoAccount);
         }
 
         internal static RaidSimple GetLogInFaild()
         {
-            return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusLoginErr);
+            return new RaidSimpleTemplate(Language.Data.MiscRaidOrgaPlusLoginErr);
         }
 
         internal static RaidSimple GetNoTermine()
         {
-            return new RaidSimpleTemplate(Languages.Language.Data.MiscRaidOrgaPlusNoRaid);
+            return new RaidSimpleTemplate(Language.Data.MiscRaidOrgaPlusNoRaid);
         }
 
         [Obsolete]

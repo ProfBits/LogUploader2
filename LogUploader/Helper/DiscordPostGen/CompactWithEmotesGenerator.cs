@@ -1,5 +1,7 @@
 ﻿using LogUploader.Data;
 using LogUploader.Helper;
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,7 +27,7 @@ namespace LogUploader.Helper.DiscordPostGen
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value = $"[dps.report]({log.Link})";
             else
-                value = Languages.Language.Data.MiscDiscordPostGenNoLink;
+                value = Language.Data.MiscDiscordPostGenNoLink;
             
             return new WebHookData.Field(name, value, true);
         }

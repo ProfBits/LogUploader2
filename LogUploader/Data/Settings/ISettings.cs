@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LogUploader.Localisation;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

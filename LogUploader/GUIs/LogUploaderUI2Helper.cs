@@ -1,6 +1,7 @@
 ﻿using LogUploader.Data;
 using LogUploader.Helper;
-using LogUploader.Languages;
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -261,12 +262,12 @@ namespace LogUploader.GUIs
                 flpPlayers.Refresh();
             }
             lblDetBoss.Text = perv.Name;
-            lblDetSize.Text = perv.SizeKb.ToString(Languages.Language.Current == eLanguage.DE ? "0 'Kb'" : "0 'Kb'");
+            lblDetSize.Text = perv.SizeKb.ToString(Language.Current == eLanguage.DE ? "0 'Kb'" : "0 'Kb'");
             if (perv.MultiSelect)
-                lblDetDate.Text = perv.Date.ToString(Languages.Language.Current == eLanguage.DE ? "dd'.'MM'.'yy" : "MM'-'dd'-'yy");
+                lblDetDate.Text = perv.Date.ToString(Language.Current == eLanguage.DE ? "dd'.'MM'.'yy" : "MM'-'dd'-'yy");
             else
-                lblDetDate.Text = perv.Date.ToString(Languages.Language.Current == eLanguage.DE ? "dd'.'MM'.'yy HH':'mm" : "MM'-'dd'-'yy HH':'mm");
-            lblDetDuration.Text = perv.MaxDuratin.ToString(Languages.Language.Current == eLanguage.DE ? "h':'mm':'ss','fff" : "h':'mm':'ss'.'fff");
+                lblDetDate.Text = perv.Date.ToString(Language.Current == eLanguage.DE ? "dd'.'MM'.'yy HH':'mm" : "MM'-'dd'-'yy HH':'mm");
+            lblDetDuration.Text = perv.MaxDuratin.ToString(Language.Current == eLanguage.DE ? "h':'mm':'ss','fff" : "h':'mm':'ss'.'fff");
             lblDetHp.Text = perv.HPLeft.ToString("F2") + " %";
 
             cbDetCorrected.CheckState = perv.Corrected;
@@ -446,7 +447,7 @@ namespace LogUploader.GUIs
                 count = Logic.CopyLinks(this, logsToCopy.ToArray());
             });
             lblLinksCopied.Visible = true;
-            lblLinksCopied.Text = $"{count} {Languages.Language.Data.ActionsCopied}";
+            lblLinksCopied.Text = $"{count} {Language.Data.ActionsCopied}";
             CopyLinksTimer.Stop();
             CopyLinksTimer.Start();
             btnCopyLinks.Enabled = true;

@@ -1,4 +1,6 @@
 ﻿using LogUploader.Data;
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,7 @@ namespace LogUploader.Helper.DiscordPostGen
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value = $"[dps.report]({log.Link})";
             else
-                value = Languages.Language.Data.MiscDiscordPostGenNoLink;
+                value = Language.Data.MiscDiscordPostGenNoLink;
 
 
             if (log.DataCorrected)

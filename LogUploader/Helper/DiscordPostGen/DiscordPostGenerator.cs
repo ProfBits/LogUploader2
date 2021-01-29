@@ -3,7 +3,8 @@ using LogUploader.Data.GameAreas;
 using LogUploader.Data.Settings;
 using LogUploader.Helper;
 using LogUploader.Interfaces;
-using LogUploader.Languages;
+using LogUploader.Localisation;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
