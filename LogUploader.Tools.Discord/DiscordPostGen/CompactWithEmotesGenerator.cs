@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper.DiscordPostGen
+namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     public class CompactWithEmotesGenerator : DiscordPostGenerator
     {

@@ -10,7 +10,7 @@ using LogUploader.Interfaces;
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace LogUploader.Data
+namespace LogUploader.Tools.Discord.Data
 {
     public partial class WebHookData
     {

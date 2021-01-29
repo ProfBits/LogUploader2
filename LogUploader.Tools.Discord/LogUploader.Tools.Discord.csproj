@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +45,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Data\Class1.cs" />
+    <Compile Include="Data\WebHook.cs" />
+    <Compile Include="Data\WebHookData.cs" />
+    <Compile Include="Data\WebHookDeleteEventArgs.cs" />
+    <Compile Include="DiscordPostGen\CompactWithClasesGenerator.cs" />
+    <Compile Include="DiscordPostGen\CompactWithEmotesGenerator.cs" />
+    <Compile Include="DiscordPostGen\DetaildGenerator.cs" />
+    <Compile Include="DiscordPostGen\DiscordPostGenerator.cs" />
+    <Compile Include="DiscordPostGen\IDiscordPostGen.cs" />
+    <Compile Include="DiscordPostGen\PerBossGenerator.cs" />
+    <Compile Include="DiscordPostGen\PerWingGen.cs" />
+    <Compile Include="DiscordPostGen\PerWingWithClasses.cs" />
+    <Compile Include="DiscordPostGen\PerWingWithEmotes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebHookConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebHookConfig.Designer.cs">
+      <DependentUpon>WebHookConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebHookDB.cs" />
+    <Compile Include="WebHookHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebHookConfig.resx">
+      <DependentUpon>WebHookConfig.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Interfaces
+namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     interface IDiscordPostGen
     {

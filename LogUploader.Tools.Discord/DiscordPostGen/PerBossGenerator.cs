@@ -1,19 +1,17 @@
-﻿using Extensiones;
-using LogUploader.Data;
+﻿using LogUploader.Data;
 using LogUploader.Helper;
 using LogUploader.Localisation;
 
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper.DiscordPostGen
+namespace LogUploader.Tools.Discord.DiscordPostGen
 {
-    class DetaildGenerator : DiscordPostGenerator
+    class PerBossGenerator : DiscordPostGenerator
     {
         protected override WebHookData.Field GenerateField(CachedLog log)
         {
@@ -22,15 +20,7 @@ namespace LogUploader.Helper.DiscordPostGen
             var name = $"{log.Date:HH\\:mm}";
             var value = $"{(log.Succsess ? Language.Data.Succsess : Language.Data.Fail)}";
             if (log.DataCorrected)
-            {
-                value += $"\n";
-                if (log.IsCM)
-                    value += $"\nCM";
-                value += $"\n{Language.Data.MiscDiscordPostGenDuration}: {log.Duration.ToString(Language.Current == eLanguage.DE ? "mm':'ss','fff" : "mm':'ss'.'fff")}";
-                value += $"\n{Language.Data.MiscDiscordPostGenHpLeft}: {log.RemainingHealth:0.00'%'}";
-                value += $"\n{Language.Data.MiscDiscordPostGenGroupDPS}: {log.PlayersNew.Select(p => p.DpsAll).Sum()}";
-                value += $"\n{Language.Data.MiscDiscordPostGenTopDPS}: {log.PlayersNew.Max(p2 => p2.DpsAll)} ({log.PlayersNew.Where(p => p.DpsAll == log.PlayersNew.Max(p2 => p2.DpsAll)).First().Account})";
-            }
+                value += $" - {log.Duration.ToString(Language.Current == eLanguage.DE ? "mm':'ss','fff" : "mm':'ss'.'fff")}";
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";
             return new WebHookData.Field(name, value, true);

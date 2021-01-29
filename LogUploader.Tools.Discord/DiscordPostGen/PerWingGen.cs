@@ -10,7 +10,7 @@ using Extensiones.Linq;
 using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
 
-namespace LogUploader.Helper.DiscordPostGen
+namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     class PerWingGen : DiscordPostGenerator
     {

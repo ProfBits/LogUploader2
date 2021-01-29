@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper.DiscordPostGen
+namespace LogUploader.Tools.Discord.DiscordPostGen
 {
-    class PerWingWithClassesGenerator : PerWingGen
+    class CompactWithClasesGenerator : CompactWithEmotesGenerator
     {
         protected override WebHookData.Field GenerateField(CachedLog log)
         {
@@ -21,19 +21,13 @@ namespace LogUploader.Helper.DiscordPostGen
             if (log.IsCM)
                 name += " CM";
 
-            string value = "";
-
-            value += log.Date.ToString("HH':'mm");
-            if (log.DataCorrected)
-                value += $" - {log.Duration.Minutes}m {log.Duration.Seconds}s";
-            value += "\n";
-
-
+            string value;
             if (!string.IsNullOrWhiteSpace(log.Link))
-                value += $"[dps.report]({log.Link})";
+                value = $"[dps.report]({log.Link})";
             else
-                value += Language.Data.MiscDiscordPostGenNoLink;
-            
+                value = Language.Data.MiscDiscordPostGenNoLink;
+
+
             if (log.DataCorrected)
             {
                 var subGroups = log.PlayersNew.GroupBy(p => p.Group).OrderBy(g => g.Key);
