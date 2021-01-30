@@ -15,7 +15,7 @@ using Extensiones;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {
-    internal class RaidOrgaPlusConnector
+    public class RaidOrgaPlusConnector
     {
         //TODO implement ProxySettings
         private readonly IProxySettings ProxySettings;

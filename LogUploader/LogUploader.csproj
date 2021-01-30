@@ -152,18 +152,6 @@
     <Compile Include="GUIs\AboutUI.Designer.cs">
       <DependentUpon>AboutUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\CorrectPlayer\CorrectPlayerUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\CorrectPlayer\CorrectPlayerUI.Designer.cs">
-      <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\CorrectPlayer\PlayerToCorrect.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUIs\CorrectPlayer\PlayerToCorrect.Designer.cs">
-      <DependentUpon>PlayerToCorrect.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUIs\FatalErrorUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,10 +200,6 @@
     <Compile Include="GUIs\WhatsNewUI.Designer.cs">
       <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\RaidOrgaPlus\Encounter.cs" />
-    <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusCache.cs" />
-    <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusConnector.cs" />
-    <Compile Include="Helper\RaidOrgaPlus\RaidOrgaPlusDataWorker.cs" />
     <Compile Include="Helper\Updater.cs" />
     <Compile Include="GUIs\LoadingScreenUI.cs">
       <SubType>Form</SubType>
@@ -316,12 +300,6 @@
   <ItemGroup>
     <EmbeddedResource Include="GUIs\AboutUI.resx">
       <DependentUpon>AboutUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\CorrectPlayer\CorrectPlayerUI.resx">
-      <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\CorrectPlayer\PlayerToCorrect.resx">
-      <DependentUpon>PlayerToCorrect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\FatalErrorUI.resx">
       <DependentUpon>FatalErrorUI.cs</DependentUpon>
@@ -459,6 +437,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Helper\RaidOrgaPlus\" />
     <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
