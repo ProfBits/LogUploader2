@@ -17,7 +17,7 @@ using LogUploader.Tools.Settings;
 
 namespace LogUploader.Helper
 {
-    class Updater
+    public class Updater
     {
         private const string USER_AGENT = "LogUploader";
         private const string GitHubApiLinkStabel = @"https://api.github.com/repos/ProfBits/LogUploader2/releases/latest";
@@ -72,7 +72,7 @@ namespace LogUploader.Helper
             progress?.Report(new ProgressMessage(0.99, "Starting Installer"));
             Logger.Message("Starting Installer");
             Process.Start(installer);
-            Program.Exit(ExitCode.UPDATING);
+            GP.Exit(ExitCode.UPDATING);
         }
 
         /// <summary>

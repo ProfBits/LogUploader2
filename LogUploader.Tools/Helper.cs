@@ -1,6 +1,7 @@
 ﻿using Extensiones;
 
 using LogUploader.Data;
+using LogUploader.Tools.Logging;
 
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,12 @@ namespace LogUploader.Helper
             if (Enum.GetNames(typeof(T)).Contains(Enum.GetName(typeof(T), e)))
                 return e;
             return (T)(object)0;
+        }
+
+        public static void Exit(ExitCode exitCode)
+        {
+            Logger.Error($"Programm Exit Reason: {(int)exitCode} {exitCode}");
+            Environment.Exit((int)exitCode);
         }
     }
 }

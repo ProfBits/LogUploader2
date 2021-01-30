@@ -188,19 +188,12 @@
     <Compile Include="GUIs\SoftwareUsedUI.Designer.cs">
       <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\UpdateAvailableUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\UpdateAvailableUI.Designer.cs">
-      <DependentUpon>UpdateAvailableUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUIs\WhatsNewUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUIs\WhatsNewUI.Designer.cs">
       <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\Updater.cs" />
     <Compile Include="GUIs\LoadingScreenUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,9 +323,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\SoftwareUsedUI.resx">
       <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\UpdateAvailableUI.resx">
-      <DependentUpon>UpdateAvailableUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\WhatsNewUI.resx">
       <DependentUpon>WhatsNewUI.cs</DependentUpon>

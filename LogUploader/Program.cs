@@ -81,7 +81,7 @@ namespace LogUploader
                     //MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     var errorUI = new FatalErrorUI("Win32 error", GetWin23ExeptionMessage(e));
                     errorUI.ShowDialog(ui);
-                    Exit(ExitCode.WIN32_EXCPTION);
+                    GP.Exit(ExitCode.WIN32_EXCPTION);
                 }
                 catch (Exception e)
                 {
@@ -90,7 +90,7 @@ namespace LogUploader
                     //MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     var errorUI = new FatalErrorUI("Normal Exception", GetExceptionMessage(e));
                     errorUI.ShowDialog(ui);
-                    Exit(ExitCode.CLR_EXCPTION);
+                    GP.Exit(ExitCode.CLR_EXCPTION);
                 }
             });
 
@@ -112,14 +112,14 @@ namespace LogUploader
                 Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
                 Logger.LogException(e);
                 MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Exit(ExitCode.WIN32_EXCPTION);
+                GP.Exit(ExitCode.WIN32_EXCPTION);
             }
             catch (Exception e)
             {
                 Logger.Error("Normal ERROR");
                 Logger.LogException(e);
                 MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Exit(ExitCode.CLR_EXCPTION);
+                GP.Exit(ExitCode.CLR_EXCPTION);
             }
             Cleanup();
             return (int)ExitCode.OK;
@@ -175,7 +175,7 @@ namespace LogUploader
             SetUpLocalisation();
 
             if (!CheckForOtherInstances())
-                Exit(ExitCode.ALREADY_RUNNING);
+                GP.Exit(ExitCode.ALREADY_RUNNING);
 
             progress.Report(new ProgressMessage(0.01, "Processing command line Arguments"));
             var flags = ProcessCommandLineArgs(args);
@@ -198,7 +198,7 @@ namespace LogUploader
                 {
                     Logger.LogException(e);
                     MessageBox.Show("Faild to Load Settings", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Exit(ExitCode.LOAD_SETTINGS_ERROR);
+                    GP.Exit(ExitCode.LOAD_SETTINGS_ERROR);
                 }
             }
 
@@ -366,7 +366,7 @@ namespace LogUploader
                         {
                             MessageBox.Show("Faild to install EliteInsights", "Missing EliteInsights installation", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             //TODO really crash here?
-                            Exit(ExitCode.EI_UPDATE_FATAL_ERROR);
+                            GP.Exit(ExitCode.EI_UPDATE_FATAL_ERROR);
                         }
                     }
 
@@ -519,12 +519,6 @@ namespace LogUploader
                     MessageBox.Show("Unknown command line arguments:" + argumentErrors, "Argument parse errors", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-        }
-
-        public static void Exit(ExitCode exitCode)
-        {
-            Logger.Error($"Programm Exit Reason: {(int)exitCode} {exitCode}");
-            Environment.Exit((int)exitCode);
         }
 
         [Serializable]
