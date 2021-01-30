@@ -40,17 +40,6 @@ namespace LogUploader.Helper
             return $"{date} {time}";
         }
 
-        [Obsolete]
-        public static bool Compare<T>(T obj1, T obj2)
-        {
-            if ((object)obj1 == null)
-                return (object)obj2 == null;
-
-            return obj1.Equals(obj2);
-        }
-
-        
-
         public static Version GetVersion()
         {
             var fi = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location);

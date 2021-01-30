@@ -161,7 +161,10 @@ namespace LogUploader.Data
 
         public static bool operator ==(Boss a, Boss b)
         {
-            return GP.Compare(a, b);
+            if ((object)a == null)
+                return (object)b == null;
+
+            return a.Equals(b);
         }
 
         public static bool operator !=(Boss a, Boss b)

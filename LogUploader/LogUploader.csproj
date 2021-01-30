@@ -152,18 +152,6 @@
     <Compile Include="GUIs\AboutUI.Designer.cs">
       <DependentUpon>AboutUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\FatalErrorUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\FatalErrorUI.Designer.cs">
-      <DependentUpon>FatalErrorUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\InputDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\InputDialog.Designer.cs">
-      <DependentUpon>InputDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUIs\LoadingBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,12 +175,6 @@
     </Compile>
     <Compile Include="GUIs\SoftwareUsedUI.Designer.cs">
       <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\WhatsNewUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\WhatsNewUI.Designer.cs">
-      <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIs\LoadingScreenUI.cs">
       <SubType>Form</SubType>
@@ -293,14 +275,8 @@
     <EmbeddedResource Include="GUIs\AboutUI.resx">
       <DependentUpon>AboutUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\FatalErrorUI.resx">
-      <DependentUpon>FatalErrorUI.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUIs\InitConfigUI.resx">
       <DependentUpon>InitConfigUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\InputDialog.resx">
-      <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\LoadingBar.resx">
       <DependentUpon>LoadingBar.cs</DependentUpon>
@@ -322,9 +298,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\SoftwareUsedUI.resx">
       <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\WhatsNewUI.resx">
-      <DependentUpon>WhatsNewUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -432,6 +405,10 @@
     <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj">
       <Project>{723b2a2c-9972-4351-b8f8-0b67a04cfdc1}</Project>
       <Name>LogUploader.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.GUI\LogUploader.GUI.csproj">
+      <Project>{1e91a43e-fbb6-4b9b-b53b-3823be0fc92a}</Project>
+      <Name>LogUploader.GUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
       <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>

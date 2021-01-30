@@ -78,7 +78,10 @@ namespace LogUploader.Data.GameAreas
 
         public static bool operator ==(Strike a, Strike b)
         {
-            return GP.Compare(a, b);
+            if ((object)a == null)
+                return (object)b == null;
+
+            return a.Equals(b);
         }
         public static bool operator !=(Strike a, Strike b)
         {
