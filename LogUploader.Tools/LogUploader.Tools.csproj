@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="EnumHelper.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="InputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputDialog.Designer.cs">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="JobQueue\JobAddedEventArgs.cs" />
     <Compile Include="JobQueue\JobDoneEventArgs.cs" />
     <Compile Include="JobQueue\JobFaultedEventArgs.cs" />
@@ -83,6 +89,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="InputDialog.resx">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Updater\UpdateAvailableUI.resx">
       <DependentUpon>UpdateAvailableUI.cs</DependentUpon>
     </EmbeddedResource>

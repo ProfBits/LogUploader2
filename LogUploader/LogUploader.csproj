@@ -136,12 +136,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUIs\AboutUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\AboutUI.Designer.cs">
-      <DependentUpon>AboutUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUIs\LoadingBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,12 +166,6 @@
     <Compile Include="Helper\LogCache.cs" />
     <Compile Include="Helper\DataBuilder.cs" />
     <Compile Include="Helper\Helper.cs" />
-    <Compile Include="GUIs\InitConfigUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\InitConfigUI.Designer.cs">
-      <DependentUpon>InitConfigUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="LogUploaderLogic.cs" />
     <Compile Include="Interfaces\ILogUploaderData.cs" />
     <Compile Include="Program.cs" />
@@ -186,18 +174,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\ProxyConfigUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\ProxyConfigUI.Designer.cs">
-      <DependentUpon>ProxyConfigUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\SettingsUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\SettingsUI.Designer.cs">
-      <DependentUpon>SettingsUI.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -244,12 +220,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GUIs\AboutUI.resx">
-      <DependentUpon>AboutUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\InitConfigUI.resx">
-      <DependentUpon>InitConfigUI.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUIs\LoadingBar.resx">
       <DependentUpon>LoadingBar.cs</DependentUpon>
     </EmbeddedResource>
@@ -265,12 +235,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\ProxyConfigUI.resx">
-      <DependentUpon>ProxyConfigUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\SettingsUI.resx">
-      <DependentUpon>SettingsUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

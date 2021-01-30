@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LogUploader.Properties;
 using LogUploader.Helper;
 using Extensiones;
 using LogUploader.GUIs;
@@ -28,7 +27,7 @@ namespace LogUploader.GUI
 
         private readonly Label NoWebHooks = new Label();
 
-        internal SettingsUI()
+        public SettingsUI()
         {
             InitializeComponent();
             InitRest();
