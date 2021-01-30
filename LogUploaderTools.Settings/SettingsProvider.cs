@@ -215,7 +215,12 @@ namespace LogUploader.Tools.Settings
             var configXml = XDocument.Load(UserConfigPath);
 
             //get all of the <setting name="..." serializeAs="..."> elements.
-            var settingElements = configXml.Element(CONFIG).Element(USER_SETTINGS).Element(typeof(Properties.Settings).FullName).Elements(SETTING);
+            IEnumerable<XElement> settingElements = configXml
+                .Element(CONFIG)
+                .Element(USER_SETTINGS)
+                .Element(typeof(Properties.Settings).FullName)
+                ?.Elements(SETTING)
+                ?? configXml.Element(CONFIG).Element(USER_SETTINGS).Element("LogUploader.Properties.Settings").Elements(SETTING);
 
             //iterate through, adding them to the dictionary, (checking for nulls, xml no likey nulls)
             //using "String" as default serializeAs...just in case, no real good reason.
@@ -258,7 +263,11 @@ namespace LogUploader.Tools.Settings
             var import = XDocument.Load(UserConfigPath);
 
             //get the settings group (e.g. <Company.Project.Desktop.Settings>)
-            var settingsSection = import.Element(CONFIG).Element(USER_SETTINGS).Element(typeof(Properties.Settings).FullName);
+            XElement settingsSection = import
+                .Element(CONFIG)
+                .Element(USER_SETTINGS)
+                .Element(typeof(Properties.Settings).FullName)
+                ?? import.Element(CONFIG).Element(USER_SETTINGS).Element("LogUploader.Properties.Settings");
 
             //iterate though the dictionary, either updating the value or adding the new setting.
             foreach (var entry in SettingsDictionary)

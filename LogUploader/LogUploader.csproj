@@ -238,10 +238,8 @@
     <Compile Include="GUIs\PlayerData.Designer.cs">
       <DependentUpon>PlayerData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\EliteInsights.cs" />
     <Compile Include="Helper\LogCache.cs" />
     <Compile Include="Helper\LogDBConnector.cs" />
-    <Compile Include="Helper\DPSReport.cs" />
     <Compile Include="Helper\DataBuilder.cs" />
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="GUIs\InitConfigUI.cs">
@@ -479,6 +477,14 @@
     <ProjectReference Include="..\LogUploader.Tools.Discord\LogUploader.Tools.Discord.csproj">
       <Project>{ff738adb-f7d2-4589-a539-b158767d1647}</Project>
       <Name>LogUploader.Tools.Discord</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.DpsReport\LogUploader.Tools.DpsReport.csproj">
+      <Project>{e345ac7d-7406-4aec-b9c0-6992eac13dfa}</Project>
+      <Name>LogUploader.Tools.DpsReport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.EliteInsights\LogUploader.Tools.EliteInsights.csproj">
+      <Project>{01846398-0d9f-4f34-8705-1ab5e0799ad0}</Project>
+      <Name>LogUploader.Tools.EliteInsights</Name>
     </ProjectReference>
     <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
       <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>

@@ -41,7 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DPSReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
+      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
+      <Name>LogUploader.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
+      <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
+      <Name>LogUploader.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

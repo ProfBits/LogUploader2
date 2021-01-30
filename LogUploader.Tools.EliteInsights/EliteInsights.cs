@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LogUploader.Properties;
 using System.IO.Compression;
 using System.Reflection;
 using System.Net;
@@ -17,7 +16,7 @@ using LogUploader.Tools.Settings;
 
 namespace LogUploader.Helper
 {
-    internal static class EliteInsights
+    public static class EliteInsights
     {
         private static readonly string BASE_PATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LogUploader\EliteInsights\";
         public static IEliteInsightsSettings Settings { private get; set; }

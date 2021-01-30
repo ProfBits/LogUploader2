@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +45,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EliteInsights.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
+      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
+      <Name>LogUploader.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
+      <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
+      <Name>LogUploader.Tools.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
+      <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
+      <Name>LogUploader.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

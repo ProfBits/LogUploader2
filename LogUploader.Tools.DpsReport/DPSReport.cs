@@ -1,11 +1,12 @@
-﻿using System;
+﻿using LogUploader.Helper;
+using LogUploader.Tools.Settings;
+
+using System;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using LogUploader.Properties;
-using LogUploader.Tools.Settings;
 
-namespace LogUploader.Helper
+namespace LogUploader.Tools.DpsReport
 {
     public class DPSReport
     {
@@ -14,12 +15,12 @@ namespace LogUploader.Helper
 
         private const string BaseAddress = @"https://b.dps.report";
 
-        internal DPSReport(IProxySettings settings)
+        public DPSReport(IProxySettings settings)
         {
             Settings = settings;
         }
 
-        internal DPSReport(IProxySettings settings, string userToken) : this(settings)
+        public DPSReport(IProxySettings settings, string userToken) : this(settings)
         {
             UserToken = userToken;
         }
