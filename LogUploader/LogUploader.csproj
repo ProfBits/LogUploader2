@@ -476,13 +476,25 @@
       <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
       <Name>LogUploader.Localisation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.Discord\LogUploader.Tools.Discord.csproj">
+      <Project>{ff738adb-f7d2-4589-a539-b158767d1647}</Project>
+      <Name>LogUploader.Tools.Discord</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
       <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
       <Name>LogUploader.Tools.Logger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.RaidOrgaPlus\LogUploader.Tools.RaidOrgaPlus.csproj">
+      <Project>{23c7a472-40d7-4242-bcc7-7e9928f21868}</Project>
+      <Name>LogUploader.Tools.RaidOrgaPlus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
       <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
       <Name>LogUploader.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploaderTools.Settings\LogUploader.Tools.Settings.csproj">
+      <Project>{295add42-dc29-4716-a241-6b813be6eb69}</Project>
+      <Name>LogUploader.Tools.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,4 @@
-﻿using LogUploader.Data.Settings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,9 @@ using System.IO;
 using LogUploader.Data;
 using System.Threading;
 using Newtonsoft.Json;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
+using LogUploader.Tools.Settings;
+using Extensiones;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {
@@ -170,7 +171,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             if (ct.IsCancellationRequested) return null;
             var elementsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{elementsRAW}}}");
-            var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GP.GetRoleByAbbreviation((string)element["role"]), GetClass((string)element["class"])) });
+            var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GetRoleByAbbreviation((string)element["role"]), GetClass((string)element["class"])) });
 
             if (ct.IsCancellationRequested) return null;
             var aufstellungenParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{aufstellungenRAW}}}");
@@ -202,6 +203,16 @@ namespace LogUploader.Helper.RaidOrgaPlus
              */
             progress.Report(new ProgressMessage(0.95, "Finish up"));
             return new Raid(terminID, raidID, group, helper, inviteable, aufstellungen);
+        }
+
+        private static Role GetRoleByAbbreviation(string roleAbbreviation)
+        {
+            foreach (var r in Enum.GetValues(typeof(Role)).Cast<Role>())
+            {
+                if (r.GetAttribute<StringValueAttribute>().Value == roleAbbreviation)
+                    return r;
+            }
+            return Data.RaidOrgaPlus.Role.Empty;
         }
 
         private List<Account> GetGroup(Session session, long terminID)

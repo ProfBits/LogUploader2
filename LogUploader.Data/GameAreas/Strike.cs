@@ -17,19 +17,19 @@ namespace LogUploader.Data.GameAreas
 
         private readonly int Number = -1;
 
-        private Strike() : base(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME_EN, DEFUALT_SHORT_NAME_DE, DEFAULT_AVATAR_URL)
+        public Strike() : base(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME_EN, DEFUALT_SHORT_NAME_DE, DEFAULT_AVATAR_URL)
         {
             RegisterStrike(this);
         }
 
-        internal Strike(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
+        public Strike(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
         {
         }
 
-        internal Strike(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
+        public Strike(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
         { }
 
-        internal Strike(IBasicInfo info, int number) : base(info, $"Strike {number}", $"Angriff {number}")
+        public Strike(IBasicInfo info, int number) : base(info, $"Strike {number}", $"Angriff {number}")
         {
             Number = number;
             RegisterStrike(this);

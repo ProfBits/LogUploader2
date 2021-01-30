@@ -1,7 +1,7 @@
-﻿using LogUploader.Data.Settings;
-using LogUploader.Helper;
+﻿using LogUploader.Helper;
 using LogUploader.Localisation;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
+using LogUploader.Tools.Settings;
 
 using System;
 using System.Collections.Generic;

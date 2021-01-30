@@ -37,23 +37,23 @@ namespace LogUploader.Data.RaidOrgaPlus
         public byte RoleID { get => (byte)Role; }
 
         [JsonIgnore]
-        public Profession Profession { get; set; }
+        public IProfession Profession { get; set; }
 
         [JsonProperty("classId")]
         public int ClassID { get => Profession.RaidOrgaPlusID; }
 
-        internal bool IsLFG()
+        public bool IsLFG()
         {
             return ID == 1;
         }
 
-        internal void RemoveName()
+        public void RemoveName()
         {
             ID = 0;
             AccName = "";
         }
 
-        internal void UpdateProffessionRole(Profession @class, Role role)
+        public void UpdateProffessionRole(IProfession @class, Role role)
         {
             Profession = @class;
             if (Role == Role.Empty)
@@ -63,7 +63,7 @@ namespace LogUploader.Data.RaidOrgaPlus
                 Role = role;
         }
 
-        internal void Set(RoPlusPlayer player)
+        public void Set(RoPlusPlayer player)
         {
             Profession = player.Class;
             Role = player.Role;

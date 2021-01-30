@@ -104,8 +104,8 @@ namespace LogUploader.Helper
         #endregion
         #region Insert
 
-        public static int Insert(DBLog log) => Insert(DBConnectionString, log);
-        public static int Insert(string connectionString, DBLog log)
+        public static int Insert(IDBLog log) => Insert(DBConnectionString, log);
+        public static int Insert(string connectionString, IDBLog log)
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
@@ -142,8 +142,8 @@ SELECT CAST(last_insert_rowid() as int);";
         #endregion
         #region InsertBulk
 
-        public static void InsertBulk(IList<DBLog> logs) => InsertBulk(DBConnectionString, logs);
-        public static void InsertBulk(string connectionString, IList<DBLog> logs)
+        public static void InsertBulk(IList<IDBLog> logs) => InsertBulk(DBConnectionString, logs);
+        public static void InsertBulk(string connectionString, IList<IDBLog> logs)
         {
             var sqls = GetSqlsInBatches(logs);
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
@@ -154,7 +154,7 @@ SELECT CAST(last_insert_rowid() as int);";
                 }
             }
         }
-        private static IEnumerable<string> GetSqlsInBatches(IList<DBLog> persons)
+        private static IEnumerable<string> GetSqlsInBatches(IList<IDBLog> persons)
         {
             var insertSql = @"
 INSERT INTO [LogData]
@@ -201,8 +201,8 @@ VALUES ";
         #region Update
 
         private static readonly object UpdateLock = new object();
-        public static void Update(DBLog log) => Update(DBConnectionString, log);
-        public static void Update(string connectionString, DBLog log)
+        public static void Update(IDBLog log) => Update(DBConnectionString, log);
+        public static void Update(string connectionString, IDBLog log)
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
@@ -228,8 +228,8 @@ WHERE ID = @ID";
         #endregion
         #region Delete
 
-        public static void Delete(DBLog log) => Delete(DBConnectionString, log);
-        public static void Delete(string connectionString, DBLog log)
+        public static void Delete(IDBLog log) => Delete(DBConnectionString, log);
+        public static void Delete(string connectionString, IDBLog log)
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {

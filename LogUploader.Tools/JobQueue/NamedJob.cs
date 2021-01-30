@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Helper.JobQueue
 {
-    class NamedJob<T> : INamedJob<T>
+    public class NamedJob<T> : INamedJob<T>
     {
         private static int JobID = 0;
         public int ID { get; } = JobID++;

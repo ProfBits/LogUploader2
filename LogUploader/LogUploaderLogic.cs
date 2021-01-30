@@ -1,13 +1,16 @@
 ﻿using Extensiones.Linq;
 using LogUploader.Data;
+using LogUploader.Data.Discord;
 using LogUploader.Data.RaidOrgaPlus;
-using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Helper;
 using LogUploader.Helper.JobQueue;
 using LogUploader.Localisation;
 using LogUploader.Properties;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Discord;
+using LogUploader.Tools.Discord.DiscordPostGen;
+using LogUploader.Tools.Logging;
+using LogUploader.Tools.Settings;
 
 using System;
 using System.Collections.Generic;
@@ -191,7 +194,7 @@ namespace LogUploader
             var allFiles = Directory.EnumerateFiles(Settings.ArcLogsPath, "*.*", SearchOption.AllDirectories)
                 .Where(file => file.EndsWith(".evtc") || file.EndsWith(".zevtc") || file.EndsWith(".evtc.zip"))
                 .ToList();
-            List<DBLog> newLogs = FilterNewLogs(progress, min, allFiles);
+            List<IDBLog> newLogs = FilterNewLogs(progress, min, allFiles).Cast<IDBLog>().ToList();
             progress?.Report(0.95);
             if (newLogs.Count > 0)
                 LogDBConnector.InsertBulk(newLogs);
@@ -319,7 +322,7 @@ namespace LogUploader
                     var simpleLogJson = new SimpleLogJson(response);
                     var evtcName = Path.GetFileName(log.EvtcPath);
                     var newjson = EliteInsights.LogsPath + evtcName.Substring(0, evtcName.LastIndexOf('.')) + "_simple.json";
-                    GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                    JsonHandling.WriteJsonFile(newjson, simpleLogJson.ToString());
                     log.JsonPath = newjson;
                 }
             }
@@ -365,14 +368,14 @@ namespace LogUploader
             }
             if (!log.DataCorrected || localDataVersion < CachedLog.CurrentDataVersion)
             {
-                var jsonStr = GP.ReadJsonFile(json);
+                var jsonStr = JsonHandling.ReadJsonFile(json);
                 log.UpdateEi(jsonStr);
 
                 if (string.IsNullOrWhiteSpace(log.JsonPath))
                 {
                     var simpleLogJson = new SimpleLogJson(jsonStr);
                     var newjson = json.Substring(0, json.Length - ".json".Length) + "_simple.json";
-                    GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                    JsonHandling.WriteJsonFile(newjson, simpleLogJson.ToString());
                     log.JsonPath = newjson;
                 }
 
@@ -437,7 +440,7 @@ namespace LogUploader
                 else
                     name = log.Link.Split('/').Last();
                 var newjson = EliteInsights.LogsPath + name + "_simple.json";
-                GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                JsonHandling.WriteJsonFile(newjson, simpleLogJson.ToString());
                 log.JsonPath = newjson;
                 LogDBConnector.Update(log.GetDBLog());
                 log.ApplySimpleLog(simpleLogJson);
@@ -462,14 +465,14 @@ namespace LogUploader
                     File.Delete(log.HtmlPath);
                 if (!log.DataCorrected)
                 {
-                    var jsonStr = GP.ReadJsonFile(json);
+                    var jsonStr = JsonHandling.ReadJsonFile(json);
                     log.UpdateEi(jsonStr);
 
                     if (string.IsNullOrWhiteSpace(log.JsonPath))
                     {
                         var simpleLogJson = new SimpleLogJson(jsonStr);
                         var newjson = json.Substring(0, json.Length - ".json".Length) + "_simple.json";
-                        GP.WriteJsonFile(newjson, simpleLogJson.ToString());
+                        JsonHandling.WriteJsonFile(newjson, simpleLogJson.ToString());
                         log.JsonPath = newjson;
                     }
 
@@ -534,12 +537,11 @@ namespace LogUploader
 
         internal void ApplySettings()
         {
-            var mainSettings = new Settings();
-            Settings = new SettingsData(mainSettings);
+            Settings = SettingsData.Load();
 
             Language.SetLanguage(Settings.Language);
             EliteInsights.Settings = Settings;
-            Helper.DiscordPostGen.DiscordPostGenerator.Settings = Settings;
+            DiscordPostGenerator.Settings = Settings;
             WebHookDB = Settings.WebHookDB;
 
             OnDataChanged(new EventArgs());
@@ -706,9 +708,9 @@ namespace LogUploader
                 return;
 
             Settings.CurrentWebHook = id;
-            var mainSettings = new Settings();
-            mainSettings.CurrentWebHook = id;
-            mainSettings.Save();
+            var settings = SettingsData.Load();
+            settings.CurrentWebHook = id;
+            settings.Save();
         }
 
         public async Task PostToDiscord(long webHookID, params int[] ids)
@@ -720,7 +722,8 @@ namespace LogUploader
             //Maybe: Move post() to WebHook -> eliminate WebHookHelper
 
             var logs = ids.Select(id => CacheLog(id)).ToArray();
-            var posts = webHook.GetPosts(logs);
+            var generator = DiscordPostGenerator.Get(webHook.Format);
+            var posts = generator.Generate(logs, webHook.Name, webHook.AvatarURL);
             try {
                 await WebHookHelper.PostWebHookPosts(webHook, posts, Settings);
             }
@@ -745,12 +748,11 @@ namespace LogUploader
         {
             Settings.EnableAutoParse = eap;
             Settings.EnableAutoUpload = eau;
-            var mainSettings = new Settings
-            {
-                EnableAutoParse = eap,
-                EnableAutoUpload = eau
-            };
-            mainSettings.Save();
+
+            var settings = SettingsData.Load();
+            settings.EnableAutoParse = eap;
+            settings.EnableAutoUpload = eau;
+            settings.Save();
         }
 
         public DataTable GetData()
@@ -798,7 +800,7 @@ namespace LogUploader
             if (logs.Count == 1)
             {
                 var log = logs[0];
-                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsTargets).Select(p => GetPlayerData(p));
+                var pData = log.PlayersNew?.OrderByDescending(p => p.DpsTargets);
                 return new LogPreview(log, pData.Count() > 0 ? pData : null, 0 < log.DataVersion && log.DataVersion < CachedLog.CurrentDataVersion);
             }
             if (logs.Count > 1)
@@ -903,7 +905,7 @@ namespace LogUploader
             {
                 if (!File.Exists(log.JsonPath))
                     return log;
-                var jsonStr = GP.ReadJsonFile(log.JsonPath);
+                var jsonStr = JsonHandling.ReadJsonFile(log.JsonPath);
                 var simpleLogJson = new SimpleLogJson(jsonStr);
                 log.ApplySimpleLog(simpleLogJson);
             }
@@ -926,9 +928,10 @@ namespace LogUploader
         public void UpdateWhatsNew(string version)
         {
             Settings.WhatsNewShown = version;
-            var settings = new Settings();
-            Settings.ApplyTo(settings);
+            var settings = SettingsData.Load();
+            settings.WhatsNewShown = version;
             settings.Save();
+
         }
 
         internal void UpdateRaidOrga(RaidSimple data, List<int> list, CancellationToken ct, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)

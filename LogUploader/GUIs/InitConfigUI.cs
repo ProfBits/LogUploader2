@@ -11,8 +11,8 @@ using LogUploader.Properties;
 using LogUploader.Helper;
 using Extensiones;
 
-using LogUploader.Data.Settings;
 using LogUploader.Localisation;
+using LogUploader.Tools.Settings;
 
 namespace LogUploader.GUI
 {
@@ -26,7 +26,7 @@ namespace LogUploader.GUI
         {
             InitializeComponent();
 
-            Settings = new SettingsData(new Settings());
+            Settings = SettingsData.Load();
             bsSettings.DataSource = Settings;
 
             ApplyLanguage(Language.Data);
@@ -95,9 +95,7 @@ namespace LogUploader.GUI
                 
 
             Settings.FirstBoot = false;
-            var settings = new Settings();
-            Settings.ApplyTo(settings);
-            settings.Save();
+            Settings.Save();
 
             closeForm = true;
             Close();

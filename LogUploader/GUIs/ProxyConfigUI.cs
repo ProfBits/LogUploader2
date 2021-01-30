@@ -10,22 +10,23 @@ using System.Windows.Forms;
 
 using LogUploader.Localisation;
 using LogUploader.Properties;
+using LogUploader.Tools.Settings;
 
 namespace LogUploader.GUI
 {
     public partial class ProxyConfigUI : Form
     {
-        private readonly Settings settings;
+        private readonly IProxySettings settings;
         private TempProxySettings initState;
 
-        internal ProxyConfigUI(Settings settings)
+        internal ProxyConfigUI(IProxySettings settings)
         {
             this.settings = settings;
             InitializeComponent();
             ApplyLanguage(Language.Data);
         }
 
-        private void LoadSettings(Settings settings)
+        private void LoadSettings(IProxySettings settings)
         {
             initState = new TempProxySettings(settings);
             ApplyToForm(initState);
@@ -80,7 +81,7 @@ namespace LogUploader.GUI
             public string m_txtUser { get; set; }
             public string m_txtPassword { get; set; }
 
-            public TempProxySettings(Settings settings)
+            public TempProxySettings(IProxySettings settings)
             {
                 m_cbUseProxy = settings.UseProxy;
                 m_txtHost = settings.ProxyAddress;

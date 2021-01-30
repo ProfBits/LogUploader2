@@ -121,7 +121,7 @@
             // SettingsbindingSource
             // 
             this.SettingsbindingSource.AllowNew = true;
-            this.SettingsbindingSource.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
+            this.SettingsbindingSource.DataSource = typeof(Tools.Settings.SettingsData);
             // 
             // cbGNEmotes
             // 

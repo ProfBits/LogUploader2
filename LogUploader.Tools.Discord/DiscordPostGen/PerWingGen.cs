@@ -14,7 +14,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     class PerWingGen : DiscordPostGenerator
     {
-        protected override WebHookData.Field GenerateField(CachedLog log)
+        protected override WebHookData.Field GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -29,7 +29,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             var field = new WebHookData.Field(name, value, true);
             return field;
         }
-        protected virtual WebHookData.Field GenerateSingleBossField(CachedLog log, DPSReport remot = null)
+        protected virtual WebHookData.Field GenerateSingleBossField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -45,7 +45,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             return field;
         }
 
-        protected override Color GetColor(IEnumerable<CachedLog> logs)
+        protected override Color GetColor(IEnumerable<ICachedLog> logs)
         {
             var groups = logs.GroupBy(log => Boss.GetByID(log.BossID)).Select(group => group.Any(log => log.Succsess));
 

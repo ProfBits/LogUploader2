@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogUploader.Tools.Logger
+namespace LogUploader.Tools.Logging
 {
     public enum eLogLevel : int
     {

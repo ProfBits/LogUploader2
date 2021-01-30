@@ -13,12 +13,12 @@ using LogUploader.Data;
 using System.Threading.Tasks;
 using System.Threading;
 using LogUploader.GUIs;
-using LogUploader.Data.Settings;
 using System.Xml.Serialization;
 using System.Configuration;
 using System.ComponentModel;
 using LogUploader.Localisation;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Settings;
+using LogUploader.Tools.Logging;
 
 namespace LogUploader
 {
@@ -53,12 +53,13 @@ namespace LogUploader
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Settings settings = new Settings();
+            //Settings settings = new Settings();
+            var settings = SettingsData.Load();
             if (settings.FirstBoot)
             {
                 Logger.Message("First boot");
                 Application.Run(new InitConfigUI());
-                settings = new Settings();
+                settings = SettingsData.Load();
                 if (settings.FirstBoot)
                 {
                     Logger.Error("Exit: INIT_SETUP_FAILED");
@@ -189,11 +190,9 @@ namespace LogUploader
             progress.Report(new ProgressMessage(0.02, "Loading Settings"));
             SettingsData settings = null;
             {
-                Settings mainSettings;
                 try
                 {
-                    mainSettings = LoadSettings(flags);
-                    settings = new SettingsData(mainSettings);
+                    settings = LoadSettings(flags);
                 }
                 catch (SettingInitException e)
                 {
@@ -235,7 +234,7 @@ namespace LogUploader
             if (ct.IsCancellationRequested)
                 return null;
 
-            Helper.DiscordPostGen.DiscordPostGenerator.Settings = settings;
+            Tools.Discord.DiscordPostGen.DiscordPostGenerator.Settings = settings;
 
             Logger.Message("Setup - Logic");
             var newLogic = new LogUploaderLogic();
@@ -387,7 +386,7 @@ namespace LogUploader
         {
             progress?.Report(new ProgressMessage(0, "Processing Boss data"));
             var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            var rawDataJson = GP.ReadJsonFile(exePath + @"\Data\DataConfig.json");
+            var rawDataJson = JsonHandling.ReadJsonFile(exePath + @"\Data\DataConfig.json");
             progress?.Report(new ProgressMessage(0.5, "Processing Boss data"));
             Helper.DataBuilder.LoadDataJson(rawDataJson);
             Profession.Init(exePath + @"\Data\ProfessionData.json",
@@ -400,9 +399,9 @@ namespace LogUploader
             System.Threading.Thread.CurrentThread.CurrentUICulture = Language.Data.Culture;
         }
 
-        private static Settings LoadSettings(Flags flags)
+        private static SettingsData LoadSettings(Flags flags)
         {
-            Settings settings = new Settings();
+            SettingsData settings = SettingsData.Load();
 
             if (flags.ResetSettings)
             {

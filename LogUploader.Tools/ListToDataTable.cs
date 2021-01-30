@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Helper
 {
-    static class ListToDataTable
+    public static class ListToDataTable
     {
         public static DataTable Convert<T>(IEnumerable<T> list)
         {

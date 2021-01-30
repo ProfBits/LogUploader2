@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.RaidOrgaPlus
 {
-    class RaidOrgaPlusCacheItem
+    public class RaidOrgaPlusCacheItem
     {
         public string AccountName { get; set; }
         public long AccountID { get; set; }

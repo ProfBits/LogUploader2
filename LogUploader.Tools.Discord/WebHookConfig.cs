@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using LogUploader.Data;
 using Extensiones;
 using LogUploader.Localisation;
+using LogUploader.Data.Discord;
+using LogUploader.Tools.Discord;
 
 namespace LogUploader.GUIs
 {

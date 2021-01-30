@@ -21,7 +21,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         public int PDPS_Target { get; set; }
         public int CDPS_Target { get; set; }
         public int DPS_Target { get; set; }
-        public Profession Class { get; set; }
+        public IProfession Class { get; set; }
         public PlayerType Type { get; set; } = PlayerType.LFG;
 
         public int Condition { get; } = 0;
@@ -31,7 +31,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         public float GroupQuickness { get; } = 0;
         public float GroupAlacrity { get; } = 0;
 
-        public RoPlusPlayer(SimplePlayer player, Raid r)
+        public RoPlusPlayer(ISimplePlayer player, Raid r)
         {
             AccountName = player.Account;
             if (r.IsMember(AccountName))

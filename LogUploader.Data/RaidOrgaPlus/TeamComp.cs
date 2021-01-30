@@ -50,56 +50,56 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         private IEnumerable<Position> UnnamedPlayers { get => Players.Where(pos => string.IsNullOrEmpty(pos.AccName) || pos.AccName == "???"); }
 
-        internal bool Exists(string accountName)
+        public bool Exists(string accountName)
         {
             return Players.Any(p => p.AccName == accountName);
         }
-        internal bool Exists(Profession @class, Role role)
+        public bool Exists(IProfession @class, Role role)
         {
             return UnnamedPlayers.Any(p => p.Profession.Equals(@class) && p.Role == role);
         }
 
-        internal bool Exists(Profession @class)
+        public bool Exists(IProfession @class)
         {
             return UnnamedPlayers.Any(p => p.Profession.Equals(@class));
         }
 
-        internal bool Exists(Role role)
+        public bool Exists(Role role)
         {
             return UnnamedPlayers.Any(p => p.Role == role);
         }
 
-        internal bool Exists()
+        public bool Exists()
         {
             return UnnamedPlayers.Any();
         }
 
-        internal Position GetByName(string accountName)
+        public Position GetByName(string accountName)
         {
             return Players.First(p => p.AccName == accountName);
         }
 
-        internal Position Get(Profession @class, Role role)
+        public Position Get(IProfession @class, Role role)
         {
             return UnnamedPlayers.First(p => p.Profession.Equals(@class) && p.Role == role);
         }
 
-        internal Position Get(Profession @class)
+        public Position Get(IProfession @class)
         {
             return UnnamedPlayers.First(p => p.Profession.Equals(@class));
         }
 
-        internal Position Get(Role role)
+        public Position Get(Role role)
         {
             return UnnamedPlayers.First(p => p.Role == role);
         }
 
-        internal Position Get()
+        public Position Get()
         {
             return UnnamedPlayers.First();
         }
 
-        internal void OrderPlayers(Boss b = null)
+        public void OrderPlayers(Boss b = null)
         {
             IComparer<Role> comparator;
 

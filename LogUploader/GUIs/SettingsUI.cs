@@ -10,17 +10,18 @@ using System.Windows.Forms;
 using LogUploader.Properties;
 using LogUploader.Helper;
 using Extensiones;
-using LogUploader.Data.Settings;
 using LogUploader.GUIs;
 using LogUploader.Data;
 using LogUploader.Localisation;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
+using LogUploader.Data.Discord;
+using LogUploader.Tools.Settings;
 
 namespace LogUploader.GUI
 {
     public partial class SettingsUI : Form
     {
-        private Settings Settings;
+        //private Settings Settings;
         private SettingsData CurrentState;
         private SettingsData initState;
         private bool saved = false;
@@ -35,9 +36,9 @@ namespace LogUploader.GUI
 
         private void InitRest()
         {
-            Settings = new Settings();
-            CurrentState = new SettingsData(Settings);
-            initState = new SettingsData(Settings);
+            //Settings = new Settings();
+            CurrentState = SettingsData.Load();
+            initState = SettingsData.Load();
 
             InitNoWebHook();
 
@@ -103,8 +104,7 @@ namespace LogUploader.GUI
                 if (control is WebHookConfig whConf)
                     whConf.SaveChanges();
             }
-            CurrentState.ApplyTo(Settings);
-            Settings.Save();
+            CurrentState.Save();
             saved = true;
             Close();
         }
@@ -121,7 +121,8 @@ namespace LogUploader.GUI
                 return;
 
             Enabled = false;
-            Settings.Reset();
+            CurrentState.Reset();
+            initState.Reset();
             InitRest();
             Enabled = true;
         }

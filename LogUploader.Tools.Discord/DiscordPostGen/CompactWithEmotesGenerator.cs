@@ -13,7 +13,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     public class CompactWithEmotesGenerator : DiscordPostGenerator
     {
-        protected override WebHookData.Field GenerateField(CachedLog log)
+        protected override WebHookData.Field GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -32,7 +32,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             return new WebHookData.Field(name, value, true);
         }
 
-        protected override Color GetColor(IEnumerable<CachedLog> logs)
+        protected override Color GetColor(IEnumerable<ICachedLog> logs)
         {
             var data = logs.GroupBy(log => log.BossName).Select(grp => grp.Any(log => log.Succsess));
             if (data.All(b => b))

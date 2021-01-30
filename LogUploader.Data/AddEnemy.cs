@@ -16,19 +16,19 @@ namespace LogUploader.Data
 
         private static readonly Dictionary<int, AddEnemy> allAdds = new Dictionary<int, AddEnemy>();
 
-        internal AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.Get(), true)
+        public AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.Get(), true)
         { }
 
-        internal AddEnemy(int id, string name, GameArea area, bool isIntressting) : this(id, name, name, area, isIntressting)
-        { } 
+        public AddEnemy(int id, string name, GameArea area, bool isIntressting) : this(id, name, name, area, isIntressting)
+        { }
 
-        internal AddEnemy(int id, string nameEN, string nameDE, GameArea area, bool isIntersting) : base(id, nameEN, nameDE, area)
+        public AddEnemy(int id, string nameEN, string nameDE, GameArea area, bool isIntersting) : base(id, nameEN, nameDE, area)
         {
             IsInteresting = isIntersting;
             allAdds.Add(id, this);
         }
 
-        internal AddEnemy(BasicInfo info, bool isIntersting) : this(info.ID, info.NameEN, info.NameDE, info.GameArea, isIntersting)
+        public AddEnemy(BasicInfo info, bool isIntersting) : this(info.ID, info.NameEN, info.NameDE, info.GameArea, isIntersting)
         { }
 
         public static AddEnemy GetByID(int id)

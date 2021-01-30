@@ -36,35 +36,35 @@ namespace LogUploader.Data.GameAreas
             unknowen = this;
         }
 
-        internal static Unknowen Create()
+        public static Unknowen Create()
         {
             if (unknowen != null)
                 return unknowen;
             return new Unknowen();
         }
 
-        internal static Unknowen Create(string name, string shortName, string avatarURL)
+        public static Unknowen Create(string name, string shortName, string avatarURL)
         {
             if (unknowen != null)
                 return unknowen;
             return new Unknowen(name, shortName, avatarURL);
         }
 
-        internal static Unknowen Create(string nameEN, string nameDE, string shortName, string avatarURL)
+        public static Unknowen Create(string nameEN, string nameDE, string shortName, string avatarURL)
         {
             if (unknowen != null)
                 return unknowen;
             return new Unknowen(nameEN, nameDE, shortName, avatarURL);
         }
 
-        internal static Unknowen Create(string nameEN, string nameDE, string shortNameEN, string shortNameDE, string avatarURL)
+        public static Unknowen Create(string nameEN, string nameDE, string shortNameEN, string shortNameDE, string avatarURL)
         {
             if (unknowen != null)
                 return unknowen;
             return new Unknowen(nameEN, nameDE, shortNameEN, shortNameDE, avatarURL);
         }
 
-        internal static Unknowen Create(IExtendedInfo info)
+        public static Unknowen Create(IExtendedInfo info)
         {
             if (unknowen != null)
                 return unknowen;

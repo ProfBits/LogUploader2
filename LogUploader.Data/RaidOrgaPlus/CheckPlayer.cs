@@ -20,7 +20,7 @@ namespace LogUploader.Data.RaidOrgaPlus
                 p.Type = PlayerType.LFG;
         }
 
-        internal void Correct(RoPlusPlayer player)
+        public void Correct(RoPlusPlayer player)
         {
             if (BecomesType == PlayerType.LFG)
                 player.setLFG();

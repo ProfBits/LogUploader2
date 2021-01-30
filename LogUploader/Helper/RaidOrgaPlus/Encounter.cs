@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
 
 namespace LogUploader.Helper.RaidOrgaPlus
 {
@@ -142,8 +142,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 AssigenSupporter();
 
-                var tank = Players.Where(p => p.Role == Role.Empty || p.Role == Role.Utility && p.Class == eProfession.Chronomancer)
-                    .OrderBy(p => p.Class == eProfession.Chronomancer ? 0 : 1)
+                var tank = Players.Where(p => p.Role == Role.Empty || p.Role == Role.Utility && p.Class.Equals(eProfession.Chronomancer))
+                    .OrderBy(p => p.Class.Equals(eProfession.Chronomancer) ? 0 : 1)
                     .ThenBy(p => p.DPS)
                     .FirstOrDefault();
                 if (tank != null)
@@ -153,14 +153,14 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 AssigenSupporter();
             }
-            var kiter = Players.Where(p => p.Role == Role.Empty && (p.Class == eProfession.Deadeye || p.Class == eProfession.Daredevil))
+            var kiter = Players.Where(p => p.Role == Role.Empty && (p.Class.Equals(eProfession.Deadeye) || p.Class.Equals(eProfession.Daredevil)))
                 .OrderBy(p => p.DPS)
                 .FirstOrDefault();
             if (kiter != null)
                 kiter.Role = Role.Kiter;
             SetBS();
             var lamp = Players.Where(p => p.Role == Role.Empty)
-                .OrderBy(p => (p.Class == eProfession.Deadeye || p.Class == eProfession.Daredevil || p.Class == eProfession.Reaper) ? 0 : 1)
+                .OrderBy(p => (p.Class.Equals(eProfession.Deadeye) || p.Class.Equals(eProfession.Daredevil) || p.Class.Equals(eProfession.Reaper)) ? 0 : 1)
                     .ThenBy(p => p.DPS)
                     .FirstOrDefault();
             if (lamp != null)
@@ -189,9 +189,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 if (player.DPS <= ThreashholdDMG && player.Healing > 1)
                     player.Role = Role.Heal;
-                if (player.Class == eProfession.Chronomancer)
+                if (player.Class.Equals(eProfession.Chronomancer))
                     player.Role = Role.Utility;
-                if (player.Class == eProfession.Scrapper && player.DPS < 500)
+                if (player.Class.Equals(eProfession.Scrapper) && player.DPS < 500)
                     player.Role = Role.Special;
             }
             SetBS();
@@ -200,7 +200,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private void SetQadim2Pylons()
         {
-            var kiters = Players.OrderBy(p => p.DPS).Where(p => p.Class == eProfession.Deadeye || p.Class == eProfession.Scourge);
+            var kiters = Players.OrderBy(p => p.DPS).Where(p => p.Class.Equals(eProfession.Deadeye) || p.Class.Equals(eProfession.Scourge));
             kiters = kiters.Take(Math.Min(3, kiters.Count()));
             foreach (var kiter in kiters)
                 kiter.Role = Role.Kiter;
@@ -259,8 +259,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             if (Players.Any(p => p.Role == Role.Banner))
                 return;
-            if (Players.Any(p => (p.Class == eProfession.Warrior || p.Class == eProfession.Berserker) && p.Role == Role.Empty))
-                Players.OrderBy(p => p.DPS).First(p => (p.Class == eProfession.Warrior || p.Class == eProfession.Berserker) && p.Role == Role.Empty).Role = Role.Banner;
+            if (Players.Any(p => (p.Class.Equals(eProfession.Warrior) || p.Class.Equals(eProfession.Berserker)) && p.Role == Role.Empty))
+                Players.OrderBy(p => p.DPS).First(p => (p.Class.Equals(eProfession.Warrior) || p.Class.Equals(eProfession.Berserker)) && p.Role == Role.Empty).Role = Role.Banner;
         }
 
         private void FillUpDps()

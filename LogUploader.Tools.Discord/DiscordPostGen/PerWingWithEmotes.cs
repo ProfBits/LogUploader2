@@ -11,7 +11,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     class PerWingWithEmotes : PerWingGen
     {
-        protected override WebHookData.Field GenerateField(CachedLog log)
+        protected override WebHookData.Field GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;

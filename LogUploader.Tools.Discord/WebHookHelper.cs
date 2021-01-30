@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Discord
 {
-    internal class WebHookHelper
+    public class WebHookHelper
     {
-        internal static async Task<string> PostToDiscordWebHookAsync(string uri, IWebHookData data, IProxySettings settings)
+        public static async Task<string> PostToDiscordWebHookAsync(string uri, IWebHookData data, IProxySettings settings)
         {
             using (var wc = WebHelper.GetWebClient(settings))
             {
@@ -23,8 +23,8 @@ namespace LogUploader.Tools.Discord
             }
 
         }
-        internal static async Task PostWebHookPosts(WebHook webHook, List<IWebHookData> posts, IProxySettings settings) => await PostWebHookPosts(webHook.URL, posts, settings);
-        internal static async Task PostWebHookPosts(string webHookURL, List<IWebHookData> posts, IProxySettings settings)
+        public static async Task PostWebHookPosts(WebHook webHook, List<IWebHookData> posts, IProxySettings settings) => await PostWebHookPosts(webHook.URL, posts, settings);
+        public static async Task PostWebHookPosts(string webHookURL, List<IWebHookData> posts, IProxySettings settings)
         {
             foreach (var post in posts)
             {

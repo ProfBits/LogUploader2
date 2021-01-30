@@ -115,7 +115,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 
         protected abstract Color GetColor(IEnumerable<ICachedLog> logs);
 
-        internal static IDiscordPostGen Get(eDiscordPostFormat format)
+        public static IDiscordPostGen Get(eDiscordPostFormat format)
         {
             switch (format)
             {

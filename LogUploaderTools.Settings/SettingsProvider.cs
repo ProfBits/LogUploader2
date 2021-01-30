@@ -7,7 +7,7 @@ using System.Configuration;
 using System.Reflection;
 using System.Xml.Linq;
 using System.IO;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
 
 namespace LogUploader.Tools.Settings
 {

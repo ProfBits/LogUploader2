@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace LogUploader.Tools.Logger
+namespace LogUploader.Tools.Logging
 {
     public static class Logger
     {
@@ -52,26 +52,31 @@ namespace LogUploader.Tools.Logger
             {
                 foreach (var file in logs.OrderBy(file => file.CreationTime).Take(logs.Count() - LOGS_TO_KEEP))
                 {
-                    try
-                    {
-                        file.Delete();
-                    }
-                    catch (IOException e)
-                    {
-                        Warn("Could not delelet log (IOException) " + file.FullName);
-                        Warn(e.Message);
-                    }
-                    catch (System.Security.SecurityException e)
-                    {
-                        Warn("Could not delelet log (SecurityException) " + file.FullName);
-                        Warn(e.Message);
-                    }
-                    catch (UnauthorizedAccessException e)
-                    {
-                        Warn("Could not delelet log (UnauthorizedAccessException) " + file.FullName);
-                        Warn(e.Message);
-                    }
+                    DeleteFile(file);
                 }
+            }
+        }
+
+        private static void DeleteFile(FileInfo file)
+        {
+            try
+            {
+                file.Delete();
+            }
+            catch (IOException e)
+            {
+                Warn("Could not delelet log (IOException) " + file.FullName);
+                Warn(e.Message);
+            }
+            catch (System.Security.SecurityException e)
+            {
+                Warn("Could not delelet log (SecurityException) " + file.FullName);
+                Warn(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Warn("Could not delelet log (UnauthorizedAccessException) " + file.FullName);
+                Warn(e.Message);
             }
         }
 
@@ -106,72 +111,86 @@ namespace LogUploader.Tools.Logger
 
             string operatingSystem = "";
 
-            if (os.Platform == PlatformID.Win32Windows)
+            switch (os.Platform)
             {
-                switch (vs.Minor)
-                {
-                    case 0:
-                        operatingSystem = "95";
-                        break;
-                    case 10:
-                        if (vs.Revision.ToString() == "2222A")
-                            operatingSystem = "98SE";
-                        else
-                            operatingSystem = "98";
-                        break;
-                    case 90:
-                        operatingSystem = "Me";
-                        break;
-                    default:
-                        break;
-                }
+                case PlatformID.Win32Windows:
+                    operatingSystem = GetWin32WindowsName(vs, operatingSystem);
+                    break;
+                case PlatformID.Win32NT:
+                    operatingSystem = GetWin32NtName(vs, operatingSystem);
+                    break;
+                default:
+                    return $"{os.Platform} {os.Version}";
             }
-            else if (os.Platform == PlatformID.Win32NT)
+            if (operatingSystem != "")
             {
-                switch (vs.Major)
+                operatingSystem = "Windows " + operatingSystem;
+                if (os.ServicePack != "")
                 {
-                    case 3:
-                        operatingSystem = "NT 3.51";
-                        break;
-                    case 4:
-                        operatingSystem = "NT 4.0";
-                        break;
-                    case 5:
-                        if (vs.Minor == 0)
-                            operatingSystem = "2000";
-                        else
-                            operatingSystem = "XP";
-                        break;
-                    case 6:
-                        if (vs.Minor == 0)
-                            operatingSystem = "Vista";
-                        else if (vs.Minor == 1)
-                            operatingSystem = "7";
-                        else if (vs.Minor == 2)
-                            operatingSystem = "8";
-                        else
-                            operatingSystem = "8.1";
-                        break;
-                    case 10:
-                        operatingSystem = "10";
-                        break;
-                    default:
-                        break;
-                }
-            }
-            if (os.Platform == PlatformID.Win32Windows || os.Platform == PlatformID.Win32NT)
-            {
-                if (operatingSystem != "")
-                {
-                    operatingSystem = "Windows " + operatingSystem;
-                    if (os.ServicePack != "")
-                    {
-                        operatingSystem += " " + os.ServicePack;
-                    }
+                    operatingSystem += " " + os.ServicePack;
                 }
                 return operatingSystem;
             }
             return $"{os.Platform} {os.Version}";
+        }
+
+        private static string GetWin32NtName(Version vs, string operatingSystem)
+        {
+            switch (vs.Major)
+            {
+                case 3:
+                    operatingSystem = "NT 3.51";
+                    break;
+                case 4:
+                    operatingSystem = "NT 4.0";
+                    break;
+                case 5:
+                    if (vs.Minor == 0)
+                        operatingSystem = "2000";
+                    else
+                        operatingSystem = "XP";
+                    break;
+                case 6:
+                    if (vs.Minor == 0)
+                        operatingSystem = "Vista";
+                    else if (vs.Minor == 1)
+                        operatingSystem = "7";
+                    else if (vs.Minor == 2)
+                        operatingSystem = "8";
+                    else
+                        operatingSystem = "8.1";
+                    break;
+                case 10:
+                    operatingSystem = "10";
+                    break;
+                default:
+                    break;
+            }
+
+            return operatingSystem;
+        }
+
+        private static string GetWin32WindowsName(Version vs, string operatingSystem)
+        {
+            switch (vs.Minor)
+            {
+                case 0:
+                    operatingSystem = "95";
+                    break;
+                case 10:
+                    if (vs.Revision.ToString() == "2222A")
+                        operatingSystem = "98SE";
+                    else
+                        operatingSystem = "98";
+                    break;
+                case 90:
+                    operatingSystem = "Me";
+                    break;
+                default:
+                    break;
+            }
+
+            return operatingSystem;
         }
 
         private static void Log(string prefix, string msg)

@@ -124,7 +124,7 @@
             // 
             // bsSettings
             // 
-            this.bsSettings.DataSource = typeof(LogUploader.Data.Settings.SettingsData);
+            this.bsSettings.DataSource = typeof(Tools.Settings.SettingsData);
             // 
             // InitConfigUI
             // 

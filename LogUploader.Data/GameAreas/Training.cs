@@ -39,35 +39,35 @@ namespace LogUploader.Data.GameAreas
 
 
 
-        internal static Training Create()
+        public static Training Create()
         {
             if (training != null)
                 return training;
             return new Training();
         }
 
-        internal static Training Create(string name, string shortName, string avatarURL)
+        public static Training Create(string name, string shortName, string avatarURL)
         {
             if (training != null)
                 return training;
             return new Training(name, shortName, avatarURL);
         }
 
-        internal static Training Create(string nameEN, string nameDE, string shortName, string avatarURL)
+        public static Training Create(string nameEN, string nameDE, string shortName, string avatarURL)
         {
             if (training != null)
                 return training;
             return new Training(nameEN, nameDE, shortName, avatarURL);
         }
 
-        internal static Training Create(string nameEN, string nameDE, string shortNameEN, string shortNameDE, string avatarURL)
+        public static Training Create(string nameEN, string nameDE, string shortNameEN, string shortNameDE, string avatarURL)
         {
             if (training != null)
                 return training;
             return new Training(nameEN, nameDE, shortNameEN, shortNameDE, avatarURL);
         }
 
-        internal static Training Create(IExtendedInfo info)
+        public static Training Create(IExtendedInfo info)
         {
             if (training != null)
                 return training;

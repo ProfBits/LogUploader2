@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Settings
 {
-    class SettingsData : IGeneralSettings, ICopyLinksSettings, IProxySettings, IWebHookSettings, IEliteInsightsSettings, IRaidOrgaPlusSettings, IEquatable<SettingsData>
+    public class SettingsData : IGeneralSettings, ICopyLinksSettings, IProxySettings, IWebHookSettings, IEliteInsightsSettings, IRaidOrgaPlusSettings, IEquatable<SettingsData>
     {
         #region General Settings
 
@@ -72,7 +72,12 @@ namespace LogUploader.Tools.Settings
 
         #endregion
 
-        public SettingsData(Properties.Settings settings)
+        private SettingsData(Properties.Settings settings)
+        {
+            Set(settings);
+        }
+
+        private void Set(Properties.Settings settings)
         {
             SetGeneral(settings.ArcLogsPath, settings.UserToken, settings.FirstBoot, settings.Language, settings.EnableAutoParse, settings.EnableAutoUpload, settings.WhatsNewShown, settings.AllowPrerelases);
             SetCopyLinks(settings.EncounterName, settings.EncounterSuccsess, settings.inline, settings.EmptyLineBetween, settings.UseGnDiscordEmotes);
@@ -151,7 +156,7 @@ namespace LogUploader.Tools.Settings
 
         #endregion
 
-        public Properties.Settings ApplyTo(Properties.Settings settings)
+        private Properties.Settings ApplyTo(Properties.Settings settings)
         {
             ApplyGeneral(settings);
             ApplyCopyLinks(settings);
@@ -316,6 +321,30 @@ namespace LogUploader.Tools.Settings
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        public static SettingsData Load()
+        {
+            return new SettingsData(new Properties.Settings());
+        }
+
+        public void Save()
+        {
+            var propSettings = new Properties.Settings();
+            ApplyTo(propSettings);
+            propSettings.Save();
+        }
+        public void Reset()
+        {
+            var propSettings = new Properties.Settings();
+            propSettings.Reset();
+            Set(propSettings);
+            propSettings.Save();
+        }
+        public void Reload()
+        {
+            var propSettings = new Properties.Settings();
+            Set(propSettings);
         }
     }
 }

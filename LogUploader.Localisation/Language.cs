@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using LogUploader;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
 
 namespace LogUploader.Localisation
 {

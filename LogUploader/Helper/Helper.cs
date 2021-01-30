@@ -18,7 +18,7 @@ namespace LogUploader.Helper
     /// <summary>
     /// A general purpose helper for various tasks
     /// </summary>
-    public static class GP
+    public static class oldGP
     {
         public static string GetName(int id)
         {
@@ -51,14 +51,5 @@ namespace LogUploader.Helper
             return Data.RaidOrgaPlus.Role.Empty;
         }
 
-        public static Data.RaidOrgaPlus.Role GetRoleByAbbreviation(string roleAbbreviation)
-        {
-            foreach (var r in Enum.GetValues(typeof(Data.RaidOrgaPlus.Role)).Cast<Data.RaidOrgaPlus.Role>())
-            {
-                if (r.GetAttribute<StringValueAttribute>().Value == roleAbbreviation)
-                    return r;
-            }
-            return Data.RaidOrgaPlus.Role.Empty;
-        }
     }
 }

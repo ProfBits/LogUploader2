@@ -11,7 +11,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 {
     class CompactWithClasesGenerator : CompactWithEmotesGenerator
     {
-        protected override WebHookData.Field GenerateField(CachedLog log)
+        protected override WebHookData.Field GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -34,7 +34,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
                 foreach (var grop in subGroups)
                 {
                     value += "\n";
-                    foreach (var player in grop.OrderBy(p => p.Profession.Name))
+                    foreach (var player in grop.OrderBy(p => ((Profession)p.Profession).Name))
                     {
                         value += player.Profession.Emote;
                     }

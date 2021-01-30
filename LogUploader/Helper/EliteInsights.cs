@@ -9,11 +9,11 @@ using LogUploader.Properties;
 using System.IO.Compression;
 using System.Reflection;
 using System.Net;
-using LogUploader.Data.Settings;
 using Extensiones.HTTPClient;
 using System.Threading;
 using System.Net.Http;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
+using LogUploader.Tools.Settings;
 
 namespace LogUploader.Helper
 {

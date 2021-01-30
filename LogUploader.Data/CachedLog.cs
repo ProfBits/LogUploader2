@@ -217,7 +217,7 @@ namespace LogUploader.Data
             return new DBLog(ID, BossID, EvtcPath, JsonPath, HtmlPath, Link, SizeKb, Date, Duration, DataCorrected, Succsess, IsCM, RemainingHealth);
         }
 
-        internal void ApplySimpleLog(SimpleLogJson data)
+        public void ApplySimpleLog(SimpleLogJson data)
         {
             DataJson = data;
         }

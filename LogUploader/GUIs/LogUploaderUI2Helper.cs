@@ -1,7 +1,7 @@
 ﻿using LogUploader.Data;
 using LogUploader.Helper;
 using LogUploader.Localisation;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
 
 using System;
 using System.Collections.Generic;
@@ -257,7 +257,19 @@ namespace LogUploader.GUIs
             {
                 flpPlayers.Controls.Clear();
                 flpPlayers.Controls.Add(PlayerDataHeader);
-                flpPlayers.Controls.AddRange(perv.Players.ToArray());
+                flpPlayers.Controls.AddRange(perv.Players.Select(player =>
+                {
+                    return new PlayerData
+                    {
+                        Width = 143,
+                        Margin = new Padding(0, 1, 0, 1),
+
+                        ClassImage = player.ProfessionIcon,
+                        DisplayName = player.Account.TrimEnd("0123456789.".ToCharArray()),
+                        SubGroup = player.Group.ToString(),
+                        DPS = player.DpsTargets.ToString()
+                    };
+                }).ToArray());
                 flpPlayers.Visible = true;
 
                 flpPlayers.Refresh();
@@ -517,7 +529,7 @@ namespace LogUploader.GUIs
 
         private void ShowWhatsNew()
         {
-            var version = Helper.GP.GetVersion();
+            var version = LogUploader.Helper.GP.GetVersion();
             var versionStr = $"v{version.Major}.{version.Minor}.{version.Build}";
             if (!Logic.Settings.WhatsNewShown.Equals(versionStr))
             {

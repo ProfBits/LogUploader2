@@ -55,7 +55,7 @@ namespace LogUploader.Data
         {
             progress?.Report(0);
             var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            var strData = Helper.GP.ReadJsonFile(path);
+            var strData = Helper.JsonHandling.ReadJsonFile(path);
             progress?.Report(0.25);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(strData);
             progress?.Report(0.5);

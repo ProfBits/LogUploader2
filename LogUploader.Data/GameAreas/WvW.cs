@@ -35,35 +35,35 @@ namespace LogUploader.Data.GameAreas
         }
 
 
-        internal static WvW Create()
+        public static WvW Create()
         {
             if (wvw != null)
                 return wvw;
             return new WvW();
         }
 
-        internal static WvW Create(string name, string shortName, string avatarURL)
+        public static WvW Create(string name, string shortName, string avatarURL)
         {
             if (wvw != null)
                 return wvw;
             return new WvW(name, shortName, avatarURL);
         }
 
-        internal static WvW Create(string nameEN, string nameDE, string shortName, string avatarURL)
+        public static WvW Create(string nameEN, string nameDE, string shortName, string avatarURL)
         {
             if (wvw != null)
                 return wvw;
             return new WvW(nameEN, nameDE, shortName, avatarURL);
         }
 
-        internal static WvW Create(string nameEN, string nameDE, string shortNameEN, string shortNameDE, string avatarURL)
+        public static WvW Create(string nameEN, string nameDE, string shortNameEN, string shortNameDE, string avatarURL)
         {
             if (wvw != null)
                 return wvw;
             return new WvW(nameEN, nameDE, shortNameEN, shortNameDE, avatarURL);
         }
 
-        internal static WvW Create(IExtendedInfo info)
+        public static WvW Create(IExtendedInfo info)
         {
             if (wvw != null)
                 return wvw;

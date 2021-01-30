@@ -6,10 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LogUploader.Helper
@@ -50,14 +48,7 @@ namespace LogUploader.Helper
             return obj1.Equals(obj2);
         }
 
-        public static string ReadJsonFile(string path)
-        {
-            return File.ReadAllText(path, Encoding.GetEncoding("iso-8859-1"));
-        }
-        public static void WriteJsonFile(string path, string text)
-        {
-            File.WriteAllText(path, text, Encoding.GetEncoding("iso-8859-1"));
-        }
+        
 
         public static Version GetVersion()
         {

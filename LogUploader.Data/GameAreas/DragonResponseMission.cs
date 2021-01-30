@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.GameAreas
 {
-    class DragonResponseMission : GameArea
+    public class DragonResponseMission : GameArea
     {
         private const string DEFAULT_NAME_EN = "Unkown Dragon Response Mission";
         private const string DEFAULT_NAME_DE = "Unbekannte Drachenhilfe-Mission";
@@ -23,14 +23,14 @@ namespace LogUploader.Data.GameAreas
             RegisterDragonResponseMission(this);
         }
 
-        internal DragonResponseMission(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
+        public DragonResponseMission(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
         {
         }
 
-        internal DragonResponseMission(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
+        public DragonResponseMission(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
         { }
 
-        internal DragonResponseMission(IBasicInfo info, int number) : base(info, $"DRM {number}", $"DRM {number}")
+        public DragonResponseMission(IBasicInfo info, int number) : base(info, $"DRM {number}", $"DRM {number}")
         {
             Number = number;
             RegisterDragonResponseMission(this);

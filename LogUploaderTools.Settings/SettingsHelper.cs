@@ -145,7 +145,7 @@ namespace LogUploader.Tools.Settings
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="PathTooLongException"></exception>
-        internal static void ExportSettings(SettingsData settings, string path, string password = "")
+        public static void ExportSettings(SettingsData settings, string path, string password = "")
         {
             if (settings == null) new ArgumentNullException($"SettingsData settings was null.");
             if (path == null) new ArgumentNullException($"string path was null.");
@@ -252,7 +252,7 @@ namespace LogUploader.Tools.Settings
         /// <exception cref="IOException"></exception>
         /// <exception cref="UnauthorizedAccessException"></exception>
         /// <exception cref="FileNotFoundException"></exception>
-        internal static void ImportSettings(SettingsData settings, string path, string password = "")
+        public static void ImportSettings(SettingsData settings, string path, string password = "")
         {
             if (settings == null) new ArgumentNullException($"SettingsData settings was null.");
             if (path == null) new ArgumentNullException($"string path was null.");
@@ -284,9 +284,8 @@ namespace LogUploader.Tools.Settings
             }
 
             settings.ApplyJson(data);
-            var s = new Properties.Settings();
-            settings.ApplyTo(s);
-            s.Save();
+
+            settings.Save();
         }
 
 

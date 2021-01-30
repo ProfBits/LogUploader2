@@ -21,7 +21,7 @@ namespace LogUploader.Helper
             return wc;
         }
 
-        internal static IWebProxy GetProxy(IProxySettings settings)
+        public static IWebProxy GetProxy(IProxySettings settings)
         {
             var Proxy = new WebProxy(settings.ProxyAddress, settings.ProxyPort);
             if (!string.IsNullOrEmpty(settings.ProxyUsername))
@@ -33,7 +33,7 @@ namespace LogUploader.Helper
             return Proxy;
         }
 
-        internal static T ConfigureWebClientProxy<T>(T wc, IProxySettings settings) where T : WebClient
+        public static T ConfigureWebClientProxy<T>(T wc, IProxySettings settings) where T : WebClient
         {
             if (settings.UseProxy)
             {

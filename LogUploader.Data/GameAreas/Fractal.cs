@@ -22,13 +22,13 @@ namespace LogUploader.Data.GameAreas
             RegisterFractal(this);
         }
 
-        internal Fractal(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
+        public Fractal(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
         { }
 
-        internal Fractal(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
+        public Fractal(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
         { }
 
-        internal Fractal(IBasicInfo info, int number) : base(info, $"Fractal {number}", $"Fraktal {number}")
+        public Fractal(IBasicInfo info, int number) : base(info, $"Fractal {number}", $"Fraktal {number}")
         {
             Number = number;
             RegisterFractal(this);

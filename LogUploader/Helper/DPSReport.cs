@@ -2,8 +2,8 @@
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using LogUploader.Data.Settings;
 using LogUploader.Properties;
+using LogUploader.Tools.Settings;
 
 namespace LogUploader.Helper
 {

@@ -9,7 +9,7 @@ namespace LogUploader.Data
 {
     public class LogPreview
     {
-        public LogPreview(CachedLog log, IEnumerable<PlayerData> players, bool outDatedJson) : this(
+        public LogPreview(CachedLog log, IEnumerable<ISimplePlayer> players, bool outDatedJson) : this(
             log.BossName,
             log.SizeKb,
             log.RemainingHealth,
@@ -29,7 +29,7 @@ namespace LogUploader.Data
             )
         { }
 
-        public LogPreview(string name, int sizeKb, float hPLeft, DateTime date, bool isMaxDuration, TimeSpan maxDuratin, CheckState corrected, CheckState isCM, CheckState success, CheckState hasHtmlCb, bool multiSelect, string hTML, CheckState hasLinkCb, string link, IEnumerable<PlayerData> players, bool outDatedJson)
+        public LogPreview(string name, int sizeKb, float hPLeft, DateTime date, bool isMaxDuration, TimeSpan maxDuratin, CheckState corrected, CheckState isCM, CheckState success, CheckState hasHtmlCb, bool multiSelect, string hTML, CheckState hasLinkCb, string link, IEnumerable<ISimplePlayer> players, bool outDatedJson)
         {
             Name = name;
             SizeKb = sizeKb;
@@ -65,7 +65,7 @@ namespace LogUploader.Data
         public CheckState HasLinkCb { get; } = CheckState.Indeterminate;
         public bool HasLink { get => HasLinkCb != CheckState.Unchecked; }
         public string Link { get; } = "";
-        public IEnumerable<PlayerData> Players { get; }
+        public IEnumerable<ISimplePlayer> Players { get; }
         public bool OutDatedJson { get; }
     }
 }

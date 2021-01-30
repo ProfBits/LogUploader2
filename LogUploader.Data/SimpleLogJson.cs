@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace LogUploader.Data
 {
-    class SimpleLogJson : ISimpleLogJson
+    public class SimpleLogJson : ISimpleLogJson
     {
         public const int CurrentVersion = 2;
 

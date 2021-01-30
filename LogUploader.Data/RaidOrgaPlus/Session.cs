@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.RaidOrgaPlus
 {
-    class Session
+    public class Session
     {
         public TimeSpan Timeout => new TimeSpan(24, 0, 0);
         public string Token { get; }

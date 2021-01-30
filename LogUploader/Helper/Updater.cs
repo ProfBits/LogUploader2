@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Extensiones.HTTPClient;
-using LogUploader.Tools.Logger;
+using LogUploader.Tools.Logging;
 using LogUploader.Tools.Settings;
 
 namespace LogUploader.Helper
