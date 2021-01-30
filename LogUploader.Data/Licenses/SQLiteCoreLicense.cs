@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class SQLiteCoreLicense : ISoftwareLicense
+    public sealed class SQLiteCoreLicense : ISoftwareLicense
     {
         public string Product { get => "System.Data.SQLite.Core"; }
         public string Owner { get => "SQLite Development Team"; }

@@ -136,16 +136,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Licenses\PropMapperLicense.cs" />
-    <Compile Include="Data\Licenses\NewtonsoftJsonLicense.cs" />
-    <Compile Include="Data\Licenses\CommonMarkLicense.cs" />
-    <Compile Include="Data\Licenses\DapperLicense.cs" />
-    <Compile Include="Data\Licenses\ISoftwareLicense.cs" />
-    <Compile Include="Data\Licenses\LogUploaderLicense.cs" />
-    <Compile Include="Data\Licenses\SQLiteCoreLicense.cs" />
-    <Compile Include="Data\Licenses\WindowsAPICodePack_CoreLicense.cs" />
-    <Compile Include="Data\Licenses\WindowsAPICodePack_ShellLicense.cs" />
-    <Compile Include="Data\Licenses\MakeSFXLicense.cs" />
     <Compile Include="GUIs\AboutUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,24 +147,6 @@
     </Compile>
     <Compile Include="GUIs\LoadingBar.Designer.cs">
       <DependentUpon>LoadingBar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\SoftwareItem.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUIs\SoftwareItem.Designer.cs">
-      <DependentUpon>SoftwareItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\SoftwareLicenseUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\SoftwareLicenseUI.Designer.cs">
-      <DependentUpon>SoftwareLicenseUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\SoftwareUsedUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\SoftwareUsedUI.Designer.cs">
-      <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIs\LoadingScreenUI.cs">
       <SubType>Form</SubType>
@@ -289,15 +261,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\PlayerData.resx">
       <DependentUpon>PlayerData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\SoftwareItem.resx">
-      <DependentUpon>SoftwareItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\SoftwareLicenseUI.resx">
-      <DependentUpon>SoftwareLicenseUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\SoftwareUsedUI.resx">
-      <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class CommonMarkLicense : ISoftwareLicense
+    public sealed class CommonMarkLicense : ISoftwareLicense
     {
         public string Product { get => "CommonMark.NET"; }
         public string Owner { get => "Kārlis Gaņģis"; }

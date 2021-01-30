@@ -51,6 +51,15 @@
     <Compile Include="Boss.cs" />
     <Compile Include="CachedLog.cs" />
     <Compile Include="KeyValueList.cs" />
+    <Compile Include="Licenses\CommonMarkLicense.cs" />
+    <Compile Include="Licenses\DapperLicense.cs" />
+    <Compile Include="Licenses\LogUploaderLicense.cs" />
+    <Compile Include="Licenses\MakeSFXLicense.cs" />
+    <Compile Include="Licenses\NewtonsoftJsonLicense.cs" />
+    <Compile Include="Licenses\PropMapperLicense.cs" />
+    <Compile Include="Licenses\SQLiteCoreLicense.cs" />
+    <Compile Include="Licenses\WindowsAPICodePack_CoreLicense.cs" />
+    <Compile Include="Licenses\WindowsAPICodePack_ShellLicense.cs" />
     <Compile Include="NamedObject.cs" />
     <Compile Include="DBLog.cs" />
     <Compile Include="Discord\Author.cs" />

@@ -62,6 +62,24 @@
       <DependentUpon>InputDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoftwareItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SoftwareItem.Designer.cs">
+      <DependentUpon>SoftwareItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoftwareLicenseUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoftwareLicenseUI.Designer.cs">
+      <DependentUpon>SoftwareLicenseUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoftwareUsedUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoftwareUsedUI.Designer.cs">
+      <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhatsNewUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +115,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InputDialog.resx">
       <DependentUpon>InputDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoftwareItem.resx">
+      <DependentUpon>SoftwareItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoftwareLicenseUI.resx">
+      <DependentUpon>SoftwareLicenseUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoftwareUsedUI.resx">
+      <DependentUpon>SoftwareUsedUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WhatsNewUI.resx">
       <DependentUpon>WhatsNewUI.cs</DependentUpon>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class LogUploaderLicense : ISoftwareLicense
+    public sealed class LogUploaderLicense : ISoftwareLicense
     {
         public string Product { get => "LogUploader"; }
         public string Owner { get => "© ProfBits 2019 - 2020"; }

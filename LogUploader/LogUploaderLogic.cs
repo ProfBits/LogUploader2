@@ -27,7 +27,7 @@ namespace LogUploader
 {
     class LogUploaderLogic : IDisposable
     {
-        internal SettingsData Settings { get; private set; }
+        public SettingsData Settings { get; private set; }
         private DPSReport DPSReport { get; set; }
         private JobQueue<CachedLog> Worker { get; set; }
         private CancellationTokenSource WorkerCTS { get; set; }
@@ -883,20 +883,6 @@ namespace LogUploader
             }
             return new LogPreview("", 0, 0, DateTime.Now, false, new TimeSpan(0), CheckState.Indeterminate, CheckState.Indeterminate,
                 CheckState.Indeterminate, CheckState.Indeterminate, false, null, CheckState.Indeterminate, null, null, false);
-        }
-
-        private PlayerData GetPlayerData(SimplePlayer player)
-        {
-            return new PlayerData
-            {
-                Width = 143,
-                Margin = new Padding(0, 1, 0, 1),
-
-                ClassImage = player.ProfessionIcon,
-                DisplayName = player.Account.TrimEnd("0123456789.".ToCharArray()),
-                SubGroup = player.Group.ToString(),
-                DPS = player.DpsTargets.ToString()
-            };
         }
 
         public CachedLog CacheLog(int id)

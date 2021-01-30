@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class DapperLicense : ISoftwareLicense
+    public sealed class DapperLicense : ISoftwareLicense
     {
         public string Product { get => "Dapper"; }
         public string Owner { get => "Stack Exchange, Inc. 2019"; }

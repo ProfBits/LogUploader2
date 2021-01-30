@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class MakeSFXLicense : ISoftwareLicense
+    public sealed class MakeSFXLicense : ISoftwareLicense
     {
         public string Product { get => "Make SFX"; }
         public string Owner { get => "© RevoCue AI s.r.o. 2012 - 2020"; }

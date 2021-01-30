@@ -69,6 +69,7 @@
     <Compile Include="Interfaces\ISimpleDps.cs" />
     <Compile Include="Interfaces\ISimpleLogJson.cs" />
     <Compile Include="Interfaces\ISimplePlayer.cs" />
+    <Compile Include="Interfaces\ISoftwareLicense.cs" />
     <Compile Include="Interfaces\IThumbmail.cs" />
     <Compile Include="Interfaces\IWebHookData.cs" />
     <Compile Include="ObjectName.cs" />

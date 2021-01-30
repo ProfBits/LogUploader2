@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class WindowsAPICodePack_ShellLicense : ISoftwareLicense
+    public sealed class WindowsAPICodePack_ShellLicense : ISoftwareLicense
     {
         public string Product { get => "WindowsAPICodePack - Core"; }
         public string Owner { get => "Aybe and/or Microsoft "; }

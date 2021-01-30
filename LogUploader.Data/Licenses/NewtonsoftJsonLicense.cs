@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class NewtonsoftJsonLicense : ISoftwareLicense
+    public sealed class NewtonsoftJsonLicense : ISoftwareLicense
     {
         public string Product { get => "Newtonsoft.Json"; }
         public string Owner { get => "James Newton-King"; }

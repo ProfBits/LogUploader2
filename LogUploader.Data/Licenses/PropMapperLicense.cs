@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.Licenses
 {
-    class PropMapperLicense : ISoftwareLicense
+    public sealed class PropMapperLicense : ISoftwareLicense
     {
         public string Product { get => "PropMapper"; }
         public string Owner { get => @"Jitbit (the company behind ""Jitbit Helpdesk"" software)"; }
