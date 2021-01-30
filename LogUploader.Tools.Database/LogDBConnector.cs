@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Helper
 {
-    static class LogDBConnector
+    public static class LogDBConnector
     {
         public static string DBConnectionString { get; set; }
 

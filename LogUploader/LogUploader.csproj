@@ -216,7 +216,6 @@
       <DependentUpon>PlayerData.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\LogCache.cs" />
-    <Compile Include="Helper\LogDBConnector.cs" />
     <Compile Include="Helper\DataBuilder.cs" />
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="GUIs\InitConfigUI.cs">
@@ -427,7 +426,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helper\RaidOrgaPlus\" />
     <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +440,10 @@
     <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj">
       <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
       <Name>LogUploader.Localisation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.Database\LogUploader.Tools.Database.csproj">
+      <Project>{dceb6db7-c9e4-44cc-b8ac-8fc01b96bab6}</Project>
+      <Name>LogUploader.Tools.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\LogUploader.Tools.Discord\LogUploader.Tools.Discord.csproj">
       <Project>{ff738adb-f7d2-4589-a539-b158767d1647}</Project>
