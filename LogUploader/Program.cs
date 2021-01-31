@@ -41,6 +41,33 @@ namespace LogUploader
         static int Main(string[] args)
         {
             InitLogger();
+
+            try
+            {
+                if (!CheckForOtherInstances())
+                    Exit(ExitCode.ALREADY_RUNNING);
+            }
+            #region CheckForOtherInstances Error Handling
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
+                Logger.LogException(e);
+                //MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var errorUI = new FatalErrorUI("Win32 error", GetWin23ExeptionMessage(e));
+                errorUI.ShowDialog();
+                Exit(ExitCode.WIN32_EXCPTION);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Normal ERROR");
+                Logger.LogException(e);
+                //MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var errorUI = new FatalErrorUI("Normal Exception", GetExceptionMessage(e));
+                errorUI.ShowDialog();
+                Exit(ExitCode.CLR_EXCPTION);
+            }
+            #endregion
+
             if (args.Length > 0) Logger.Message("Args: " + args.Aggregate("", (str1, str2) => str1 + " " + str2));
             else Logger.Message("No args");
 
@@ -170,9 +197,6 @@ namespace LogUploader
         {
             //await Task.Delay(10000);
             SetUpLocalisation();
-
-            if (!CheckForOtherInstances())
-                Exit(ExitCode.ALREADY_RUNNING);
 
             progress.Report(new ProgressMessage(0.01, "Processing command line Arguments"));
             var flags = ProcessCommandLineArgs(args);
