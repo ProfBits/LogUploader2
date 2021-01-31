@@ -41,6 +41,33 @@ namespace LogUploader
         static int Main(string[] args)
         {
             InitLogger();
+
+            try
+            {
+                if (!CheckForOtherInstances())
+                    Exit(ExitCode.ALREADY_RUNNING);
+            }
+            #region CheckForOtherInstances Error Handling
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
+                Logger.LogException(e);
+                //MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var errorUI = new FatalErrorUI("Win32 error", GetWin23ExeptionMessage(e));
+                errorUI.ShowDialog();
+                Exit(ExitCode.WIN32_EXCPTION);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Normal ERROR");
+                Logger.LogException(e);
+                //MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var errorUI = new FatalErrorUI("Normal Exception", GetExceptionMessage(e));
+                errorUI.ShowDialog();
+                Exit(ExitCode.CLR_EXCPTION);
+            }
+            #endregion
+
             if (args.Length > 0) Logger.Message("Args: " + args.Aggregate("", (str1, str2) => str1 + " " + str2));
             else Logger.Message("No args");
 
@@ -171,9 +198,6 @@ namespace LogUploader
             //await Task.Delay(10000);
             SetUpLocalisation();
 
-            if (!CheckForOtherInstances())
-                Exit(ExitCode.ALREADY_RUNNING);
-
             progress.Report(new ProgressMessage(0.01, "Processing command line Arguments"));
             var flags = ProcessCommandLineArgs(args);
 
@@ -226,7 +250,7 @@ namespace LogUploader
                 return null;
 
             Logger.Message("Setup - Init DB");
-            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.20 + (p.Percent * 0.5), "Local DB" + " - " + p.Message))));
+            InitDB(new Progress<ProgressMessage>((p) => progress.Report(new ProgressMessage(0.20 + (p.Percent * 0.05), "Local DB" + " - " + p.Message))));
 
             progress.Report(new ProgressMessage(0.26, "Loading"));
 
@@ -261,33 +285,58 @@ namespace LogUploader
         {
             if (await Updater.UpdateAvailable(settings, settings, new Progress<double>(p => progress?.Report(new ProgressMessage(p * 0.2, "Checking for Update")))))
             {
-                Logger.Message("Update available.\nNew version: " + (Updater.NewestVersion?.ToString() ?? "na"));
-                switch (Updater.ShowUpdateMgsBox())
-                {
-                    case DialogResult.Yes:
-                        await Updater.Update(settings, settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((17.8 * p.Percent) + 0.2, p.Message))), ct);
-                        break;
-                    case DialogResult.No:
-                        Logger.Warn("Product updatde skipped");
-                        break;
-                    default:
-                        Logger.Error("Unexpected dialog exit");
-                        return () =>
-                        {
-                            switch (Updater.ShowUpdateMgsBox())
-                            {
-                                case DialogResult.Yes:
-                                    //TODO add progress
-                                    Updater.Update(settings, settings, null, new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token).Wait();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        };
-                }
+                return await AskForUpdate(settings, progress, ct);
             }
 
             return null;
+        }
+
+        private static async Task<Action> AskForUpdate(SettingsData settings, IProgress<ProgressMessage> progress, CancellationToken ct)
+        {
+            Logger.Message("Update available.\nNew version: " + (Updater.NewestVersion?.ToString() ?? "na"));
+            var userCoice = Updater.ShowUpdateMgsBox();
+            switch (userCoice)
+            {
+                case DialogResult.Yes:
+                    _ = await PerformUpdate(settings, progress, ct);
+                    return null;
+                case DialogResult.No:
+                    Logger.Warn("Product updatde skipped");
+                    return null;
+                default:
+                    Logger.Error("dialog exit: " + userCoice);
+                    return () =>
+                    {
+                        Logger.Message("Re ask user to update");
+                        var userSelection = Updater.ShowUpdateMgsBox();
+                        Logger.Message("user: " + userSelection);
+                        switch (userSelection)
+                        {
+                            case DialogResult.Yes:
+                                //TODO add progress
+                                PerformUpdate(settings, null, new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token).Wait();
+                                break;
+                            default:
+                                break;
+                        }
+                    };
+            }
+        }
+
+        private static async Task<bool> PerformUpdate(SettingsData settings, IProgress<ProgressMessage> progress, CancellationToken ct)
+        {
+            try
+            {
+                await Updater.Update(settings, settings, new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((17.8 * p.Percent) + 0.2, p.Message))), ct);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Update Failed");
+                Logger.LogException(e);
+                MessageBox.Show("Update Failed. Reaseon:\n" + e.Message, "Update Failed", MessageBoxButtons.OK);
+                return false;
+            }
         }
 
         private static Action Cleanup;

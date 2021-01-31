@@ -18,6 +18,9 @@ namespace LogUploader.Data.RaidOrgaPlus
         public int PDPS { get; set; }
         public int CDPS { get; set; }
         public int DPS { get; set; }
+        public int PDPS_Target { get; set; }
+        public int CDPS_Target { get; set; }
+        public int DPS_Target { get; set; }
         public Profession Class { get; set; }
         public PlayerType Type { get; set; } = PlayerType.LFG;
 
@@ -61,6 +64,9 @@ namespace LogUploader.Data.RaidOrgaPlus
             Toughness = player.Toughness;
             GroupQuickness = player.GroupQuickness;
             GroupAlacrity = player.GroupAlacrity;
+            PDPS_Target = player.DpsTargetsPower;
+            CDPS_Target = player.DpsTargetsCondi;
+            DPS_Target = player.DpsTargets;
         }
 
         public void SetAccount(Account account) => SetAccount(account, Type);

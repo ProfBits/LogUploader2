@@ -158,22 +158,22 @@ namespace LogUploader.Languages
         public string ConfigRoPlusTitle { get => "RaidOrga+"; }
         public string ConfigRoPlusUser { get => "Benutzer"; }
         public string ConfigRoPlusPwd { get => "Passwort"; }
-        public string ConfigRoPlusNote { get => "Hinweis:\nNur Termine von Raids bei denen du Leiter bist werden angezeigt."; }
+        public string ConfigRoPlusNote { get => "Hinweis:\nNur Termine von Raids bei denen du Leiter bist, werden angezeigt."; }
         public string ConfigExport { get => "Export"; }
         public string ConfigImport { get => "Import"; }
-        public string ConfigExportFileFilter { get => "LogUploaderSettings Datein|*.lus|Alle Datein|*.*"; }
-        public string ConfigExportSaveTitle { get => "Datei zum exportieren wählen"; }
-        public string ConfigImportOpenTitle { get => "Datei zum importieren wählen"; }
+        public string ConfigExportFileFilter { get => "LogUploaderSettings Dateien|*.lus|Alle Dateien|*.*"; }
+        public string ConfigExportSaveTitle { get => "Datei zum Exportieren wählen"; }
+        public string ConfigImportOpenTitle { get => "Datei zum Importieren wählen"; }
         public string ConfigExportPwdPromptTitle { get => "Passwort"; }
         public string ConfigExportPwdPromptText { get => "Passwort eingeben:"; }
         public string ConfigExportPwdPromptNewText { get => "Passwort eingeben (leer ist kein Passwort):"; }
         public string ConfigExportPwdFailTitle { get => "Passwort Fehler"; }
         public string ConfigExportPwdFailText { get => "Passwort Falsch"; }
         public string ConfigExportMessageTitle { get => "Export Status"; }
-        public string ConfigExportMessageFail { get => "Export Fehlgeschagen"; }
+        public string ConfigExportMessageFail { get => "Export Fehlgeschlagen"; }
         public string ConfigExportMessageSucc { get => "Export Abgeschlossen"; }
         public string ConfigImportMessageTitle { get => "Import Status"; }
-        public string ConfigImportMessageFail { get => "Import Fehlgeschagen"; }
+        public string ConfigImportMessageFail { get => "Import Fehlgeschlagen"; }
         public string ConfigImportMessageSucc { get => "Import Abgeschlossen"; }
 
         public string NewTitle { get => "Neuerungen in "; }
@@ -187,9 +187,9 @@ namespace LogUploader.Languages
         public string PlayerToCorrectHelper { get => "Helfer"; }
         public string PlayerToCorrectLFG { get => "LFG"; }
 
-        public string CorrectPlayer { get => "Spieler korregieren"; }
+        public string CorrectPlayer { get => "Spieler korrigieren"; }
         public string CorrectPlayerTitle { get => "Spieler zuordnen"; }
-        public string CorrectPlayerDone { get => "Ferig"; }
+        public string CorrectPlayerDone { get => "Fertig"; }
 
 
         public string MiscGenericProcessing { get => "Verarbeite"; }
@@ -213,8 +213,8 @@ namespace LogUploader.Languages
             }
         }
         public string MiscDetailsMultibleBosses { get => "Verschieden"; }
-        public string MiscRaidOrgaPlusNoAccount { get => "Kein konto eingestellt"; }
+        public string MiscRaidOrgaPlusNoAccount { get => "Kein Konto hinterlegt"; }
         public string MiscRaidOrgaPlusLoginErr { get => "Login fehlgeschlagen"; }
-        public string MiscRaidOrgaPlusNoRaid { get => "Kein Termin mit Leiter rechten"; }
+        public string MiscRaidOrgaPlusNoRaid { get => "Kein Termin mit Leiterrechten"; }
     }
 }

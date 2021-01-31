@@ -1,3 +1,65 @@
+# v1.3.4
+31.01.2021
+
+## Features
+- RaidOrga+ Integration for RaidLeads<br>
+Update all missing bosses, classes, roles and names in seconds
+- New Encounters:
+    - Strike: Cold War
+    - Fractal: Sunqua Peek
+    - Dragon Response Mission: Metrika
+    - Dragon Response Mission: Brisban
+    - Dragon Response Mission: Gendarran
+    - Dragon Response Mission: Fields of Ruin
+    - Dragon Response Mission: Thunderhead Peaks
+    - Dragon Response Mission: Lake Doric
+    - Dragon Response Mission: Snowden Drifts
+- Parse, Upload, Open local and Open dps.report buttons are now dependent on your selection
+- New Logger, Logfiles are now created<br>
+Last 30 Logs are saved in %appdata%/LogUploader/Logs/
+- New programm arguments for LogLevel (-d, -w, -i, -v | debug, warning, info, verbose)
+- Added Support for Alpha and Beta versions
+- New crash popup<br>
+It was never so easy to get the log
+- New static configuration path.<br>
+Never loose your config again after updating
+- You can now export and import your settings.
+
+
+## Improvements
+- Now Target DPS is shown next to log
+- New installer packaging. Installers should no longer be flagged as a virus
+- Improved JSON parsing performance
+- Added Caching for api.github.com request to improve performance
+- EliteInsights update now cancels after 5 min
+- Program update now cancels after 5 min
+- Loading bar on startup is smother than ever
+- Exitcodes are now labeled and logged
+- Added badges to the README.md
+- Added note for Raidlead requirement for RO+ integration
+- Fixed spelling mistakes and improved some lines
+
+
+## Bugfixes
+- Fixed loading bar on startup jumping backwards
+- License should now be properly detected by GitHub
+- Subgroup header in player perview is not displayed correctly
+- Logs with outdated metadata can now be reuploaded or reparsed
+- Added localisation for Allow Beta Updates option
+- Fixed crash on failed installer download
+- Fixed crash when starting multible instances at once
+
+# v1.3.4 Devnotes
+
+## Improvements
+- Fixed spelling mistakes and improved some lines
+- Added roldetection for Escort
+- Ajusted sorting for new Escort and Deimos encounters in RO+
+
+## Bugfixes
+- Fixed crash on failed installer download
+- Fixed crash when starting multible instances at once
+
 # v1.3.3 BETA
 27.01.2021
 
@@ -10,7 +72,7 @@
 - Added reload button for RaidOrga+ raid selection
 
 ## Improvements
-- New installer packaging. Installers should no longer be flaged as a virus
+- New installer packaging. Installers should no longer be flagged as a virus
 - Added note for Raidlead requirement for RO+ integration
 - Added experimental role detection for Quadim 1
 
