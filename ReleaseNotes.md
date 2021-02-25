@@ -1,3 +1,11 @@
+# v1.3.5
+
+## Improvements
+- Support Heralds can now be detected
+
+## Bugfixes
+- Webhook posts with 'הצü' should possible again
+
 # v1.3.4
 31.01.2021
 
