@@ -14,7 +14,15 @@ namespace LogUploader.Data
 {
     public partial class WebHookData
     {
+        private static readonly JsonSerializerSettings JsonSerializerSettings;
 
+        static WebHookData()
+        {
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
+        }
 
         public WebHookData(string username, string avaturURL, string content, List<Embed> embeds) : this(embeds)
         {
@@ -58,7 +66,7 @@ namespace LogUploader.Data
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, JsonSerializerSettings);
         }
 
         public class Embed
@@ -139,7 +147,7 @@ namespace LogUploader.Data
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
 
@@ -172,7 +180,7 @@ namespace LogUploader.Data
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
 
@@ -214,7 +222,7 @@ namespace LogUploader.Data
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
 
@@ -231,7 +239,7 @@ namespace LogUploader.Data
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
 
@@ -248,7 +256,7 @@ namespace LogUploader.Data
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
 
@@ -270,7 +278,7 @@ namespace LogUploader.Data
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
     }
