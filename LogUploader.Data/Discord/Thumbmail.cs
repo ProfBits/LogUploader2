@@ -10,6 +10,16 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
     {
         public class Thumbmail : IThumbmail
         {
+            private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+            static Thumbmail()
+            {
+                JsonSerializerSettings = new JsonSerializerSettings
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
+            }
+
             [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
             [DefaultValue("")]
             string URL { get; set; } = "";
@@ -21,7 +31,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
     }

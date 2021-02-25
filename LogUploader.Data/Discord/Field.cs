@@ -10,6 +10,16 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
     {
         public class Field : IField
         {
+            private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+            static Field()
+            {
+                JsonSerializerSettings = new JsonSerializerSettings
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
+            }
+
             public const int NAME_MAX_LENGHT = 256;
             private string name = "";
             [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -46,7 +56,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
     }

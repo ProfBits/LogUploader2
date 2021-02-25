@@ -223,11 +223,15 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Chronomancer:
                     case eProfession.Thief:
                     case eProfession.Daredevil:
-                        if (orderdPlayer.GroupQuickness >= 25 && orderdPlayer.Concentration > 0)
+                        if (orderdPlayer.GroupQuickness >= 20 && orderdPlayer.Concentration > 0)
+                            orderdPlayer.Role = Role.Utility;
+                        break;
+                    case eProfession.Herald:
+                        if (orderdPlayer.Healing < 4 && orderdPlayer.Concentration > 1)
                             orderdPlayer.Role = Role.Utility;
                         break;
                     case eProfession.Renegade:
-                        if (orderdPlayer.GroupAlacrity >= 5)
+                        if (orderdPlayer.GroupAlacrity >= 10)
                             if (orderdPlayer.Healing > 1)
                                 orderdPlayer.Role = Role.Heal;
                             else if (orderdPlayer.Concentration > 0)

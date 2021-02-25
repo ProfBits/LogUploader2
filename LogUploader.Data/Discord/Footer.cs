@@ -10,6 +10,16 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
     {
         public class Footer : IFooter
         {
+            private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+            static Footer()
+            {
+                JsonSerializerSettings = new JsonSerializerSettings
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
+            }
+
             [JsonProperty("text", DefaultValueHandling = DefaultValueHandling.Ignore)]
             [DefaultValue("")]
             public string Text { get; set; } = "";
@@ -26,7 +36,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
     }

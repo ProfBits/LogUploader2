@@ -20,6 +20,7 @@ LogUploader is a tool to help you with GW2 arcdps log management.
 - You can let LogUploader parse and upload logs automatically in the background for you
 - Post your newest logs in Discord with Discord WebHooks
 - or Copy links to uploaded logs in various formats for sharing anywhere
+- Integration with [RaidOrga+](https://github.com/Sollunad/RaidOrgaPlus) the Orgatool of the GW2 Guild [RisingLight](https://rising-light.de/)
 
 ## Requirements
 
@@ -57,6 +58,7 @@ LogUploader ein Tool, das dir mit deiner GW2 arcdps Log Verwaltung hilft.
 - Du kannst LogUploader neue Logs automatisch analysieren und hochladen lassen während du spielst
 - Poste deine neusten Logs auf Discord mit Discord WebHooks
 - oder kopiere die Links hochgeladener Logs, um sie überall zu teilen
+- Aktualisiere deine Termine in [RaidOrga+](https://github.com/Sollunad/RaidOrgaPlus), dem Orgatool der GW2 Gilde [RisingLight](https://rising-light.de/), mit nur einem Klick
 
 ## Vorraussentzungen
 

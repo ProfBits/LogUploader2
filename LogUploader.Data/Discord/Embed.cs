@@ -11,6 +11,16 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
     {
         public class Embed : IEmbed
         {
+            private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+            static Embed()
+            {
+                JsonSerializerSettings = new JsonSerializerSettings
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
+            }
+
             [JsonIgnore]
             public const int MAX_LENGHT = 6000;
             [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -87,7 +97,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
 
             public override string ToString()
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
             }
         }
     }

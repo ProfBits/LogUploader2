@@ -13,7 +13,15 @@ namespace LogUploader.Data.Discord
 {
     public partial class WebHookData : IWebHookData
     {
+        private static readonly JsonSerializerSettings JsonSerializerSettings;
 
+        static WebHookData()
+        {
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
+        }
 
         public WebHookData(string username, string avaturURL, string content, List<IEmbed> embeds) : this(embeds)
         {
@@ -57,7 +65,7 @@ namespace LogUploader.Data.Discord
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, JsonSerializerSettings);
         }
     }
 }
