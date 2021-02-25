@@ -65,6 +65,7 @@
     <Compile Include="ListToDataTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropMapper.cs" />
+    <Compile Include="SequenceHandler\SequenceHandler.cs" />
     <Compile Include="Updater\UpdateAvailableUI.cs">
       <SubType>Form</SubType>
     </Compile>
