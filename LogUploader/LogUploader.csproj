@@ -157,12 +157,6 @@
     <Compile Include="GUIs\LogUploaderUI2Helper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIs\PlayerData.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUIs\PlayerData.Designer.cs">
-      <DependentUpon>PlayerData.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helper\DataBuilder.cs" />
     <Compile Include="LogUploaderLogic.cs" />
     <Compile Include="Program.cs" />
@@ -225,9 +219,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\LogUploaderUI2.resx">
       <DependentUpon>LogUploaderUI2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\PlayerData.resx">
-      <DependentUpon>PlayerData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -322,10 +313,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Theme\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj">
       <Project>{723b2a2c-9972-4351-b8f8-0b67a04cfdc1}</Project>
