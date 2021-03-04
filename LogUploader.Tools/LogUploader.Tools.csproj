@@ -63,6 +63,7 @@
     <Compile Include="JobQueue\NamedJob.cs" />
     <Compile Include="JsonHandling.cs" />
     <Compile Include="ListToDataTable.cs" />
+    <Compile Include="LogCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropMapper.cs" />
     <Compile Include="SequenceHandler\SequenceHandler.cs" />

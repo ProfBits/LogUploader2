@@ -9,7 +9,7 @@ namespace LogUploader.Data
 {
     public class LogPreview
     {
-        public LogPreview(CachedLog log, IEnumerable<ISimplePlayer> players, bool outDatedJson) : this(
+        public LogPreview(ICachedLog log, IEnumerable<ISimplePlayer> players, bool outDatedJson) : this(
             log.BossName,
             log.SizeKb,
             log.RemainingHealth,

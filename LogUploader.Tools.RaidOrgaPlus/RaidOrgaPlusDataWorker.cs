@@ -13,7 +13,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
     {
         public const int MIN_DATA_VERSION = 2;
 
-        public static Raid UpdateRaid(Raid raid, IEnumerable<CachedLog> logs, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)
+        public static Raid UpdateRaid(Raid raid, IEnumerable<ICachedLog> logs, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)
         {
             progress?.Report(new ProgressMessage(0.01, "Remove outdated logs"));
             logs = logs.Where(l => l.DataVersion >= MIN_DATA_VERSION);
@@ -105,14 +105,14 @@ namespace LogUploader.Helper.RaidOrgaPlus
             }
         }
 
-        private static void RemoveUnused(Raid raid, IEnumerable<CachedLog> logs)
+        private static void RemoveUnused(Raid raid, IEnumerable<ICachedLog> logs)
         {
             raid.Bosses = raid.Bosses.Where(boss => 
             logs.Any(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == boss.BossID && log.IsCM == boss.IsCM)
             ).ToList();
         }
 
-        private static IEnumerable<CachedLog> OnlyGetOnePerBoss(IEnumerable<CachedLog> logs)
+        private static IEnumerable<ICachedLog> OnlyGetOnePerBoss(IEnumerable<ICachedLog> logs)
         {
             return logs.Where(log => log.DataCorrected)
                 .GroupBy(log => Boss.GetByID(log.BossID).RaidOrgaPlusID).SelectMany(group =>
@@ -120,8 +120,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 if (group.All(e => !e.IsCM) || group.All(e => e.IsCM))
                 {
                     if (group.Any(e => e.Succsess))
-                        return new List<CachedLog>() { group.Last(e => e.Succsess) };
-                    return new List<CachedLog>() { group.Last() };
+                        return new List<ICachedLog>() { group.Last(e => e.Succsess) };
+                    return new List<ICachedLog>() { group.Last() };
                 }
                 var subGroup = group.GroupBy(e => e.IsCM);
                 return subGroup.Select(grp =>
@@ -133,11 +133,11 @@ namespace LogUploader.Helper.RaidOrgaPlus
             }).OrderBy(log => log.Date);
         }
 
-        private static IEnumerable<CachedLog> CondenseStatues(IEnumerable<CachedLog> logs)
+        private static IEnumerable<ICachedLog> CondenseStatues(IEnumerable<ICachedLog> logs)
         {
             if (logs.Any(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == 18))
             {
-                CachedLog keep;
+                ICachedLog keep;
                 if (logs.Any(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess))
                     keep = logs.Last(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == 18 && log.Succsess);
                 else
@@ -206,7 +206,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             ).ToList();
         }
 
-        private static List<Encounter> GetEncounters(Raid raid, IEnumerable<CachedLog> logs)
+        private static List<Encounter> GetEncounters(Raid raid, IEnumerable<ICachedLog> logs)
         {
             var encounters = new List<Encounter>();
             foreach (var log in logs)
@@ -216,7 +216,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             return encounters;
         }
 
-        private static void InsertLogs(Raid raid, IEnumerable<CachedLog> logs)
+        private static void InsertLogs(Raid raid, IEnumerable<ICachedLog> logs)
         {
             foreach (var log in logs)
             {
@@ -226,7 +226,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             //TODO Duplicated bosses
         }
 
-        private static void InsertLog(Raid raid, CachedLog log)
+        private static void InsertLog(Raid raid, ICachedLog log)
         {
             var boss = Boss.GetByID(log.BossID);
             if (boss.RaidOrgaPlusID == -1 || raid.ExistsBoss(boss, log.IsCM))
@@ -234,7 +234,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             AddBoss(raid, boss, log);
         }
 
-        private static void AddBoss(Raid raid, Boss boss, CachedLog log)
+        private static void AddBoss(Raid raid, Boss boss, ICachedLog log)
         {
             var players = new List<Position>();
             var tc = new TeamComp(-1, boss, log.IsCM, players, log.Succsess);

@@ -39,7 +39,7 @@ namespace LogUploader.Data
         /*
          * Json Section: Additional data, may not be present
          */
-        private SimpleLogJson DataJson { get; set; }
+        private ISimpleLogJson DataJson { get; set; }
         public static int CurrentDataVersion { get => SimpleLogJson.CurrentVersion; }
         public int DataVersion { get => DataJson?.Version ?? 0; }
         public string RecordedBy { get => DataJson?.RecordedBy ?? ""; }
@@ -217,7 +217,7 @@ namespace LogUploader.Data
             return new DBLog(ID, BossID, EvtcPath, JsonPath, HtmlPath, Link, SizeKb, Date, Duration, DataCorrected, Succsess, IsCM, RemainingHealth);
         }
 
-        public void ApplySimpleLog(SimpleLogJson data)
+        public void ApplySimpleLog(ISimpleLogJson data)
         {
             DataJson = data;
         }

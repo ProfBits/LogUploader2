@@ -16,7 +16,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         public Boss Boss { get; set; }
         public TeamComp TC { get; set; }
 
-        public Encounter(TeamComp tc, CachedLog log, Raid r)
+        public Encounter(TeamComp tc, ICachedLog log, Raid r)
         {
             TC = tc;
             Boss = tc.Encounter;

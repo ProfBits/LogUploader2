@@ -29,7 +29,7 @@ namespace LogUploader
     {
         public SettingsData Settings { get; private set; }
         private DPSReport DPSReport { get; set; }
-        private JobQueue<CachedLog> Worker { get; set; }
+        private JobQueue<ICachedLog> Worker { get; set; }
         private CancellationTokenSource WorkerCTS { get; set; }
         private Task WatchDogTask { get; set; }
         private CancellationTokenSource WatchDogCTS { get; set; }
@@ -81,9 +81,9 @@ namespace LogUploader
             DataChanged?.Invoke(this, e);
         }
 
-        public delegate void JobDoneEventHandler(object sender, JobDoneEventArgs<CachedLog> e);
+        public delegate void JobDoneEventHandler(object sender, JobDoneEventArgs<ICachedLog> e);
         public event JobDoneEventHandler JobDone;
-        protected virtual void OnJobDone(JobDoneEventArgs<CachedLog> e)
+        protected virtual void OnJobDone(JobDoneEventArgs<ICachedLog> e)
         {
             JobDone?.Invoke(this, e);
         }
@@ -95,28 +95,28 @@ namespace LogUploader
             JobsDone?.Invoke(this, e);
         }
 
-        public delegate void JobAddedEventHandler(object sender, JobAddedEventArgs<CachedLog> e);
+        public delegate void JobAddedEventHandler(object sender, JobAddedEventArgs<ICachedLog> e);
         public event JobAddedEventHandler JobAdded;
-        protected virtual void OnJobAdded(JobAddedEventArgs<CachedLog> e)
+        protected virtual void OnJobAdded(JobAddedEventArgs<ICachedLog> e)
         {
             JobAdded?.Invoke(this, e);
         }
 
-        public delegate void JobStartedEventHandler(object sender, JobStartedEventArgs<CachedLog> e);
+        public delegate void JobStartedEventHandler(object sender, JobStartedEventArgs<ICachedLog> e);
         public event JobStartedEventHandler JobStarted;
-        protected virtual void OnJobStarted(JobStartedEventArgs<CachedLog> e)
+        protected virtual void OnJobStarted(JobStartedEventArgs<ICachedLog> e)
         {
             JobStarted?.Invoke(this, e);
         }
 
-        public delegate void JobFaultedEventHandler(object sender, JobFaultedEventArgs<CachedLog> e);
+        public delegate void JobFaultedEventHandler(object sender, JobFaultedEventArgs<ICachedLog> e);
         public event JobFaultedEventHandler JobFaulted;
-        protected virtual void OnJobFaulted(JobFaultedEventArgs<CachedLog> e)
+        protected virtual void OnJobFaulted(JobFaultedEventArgs<ICachedLog> e)
         {
             JobFaulted?.Invoke(this, e);
         }
 
-        private void InitJobQueueEvents(JobQueue<CachedLog> jobQueue)
+        private void InitJobQueueEvents(JobQueue<ICachedLog> jobQueue)
         {
             jobQueue.JobAdded += (sender, e) => OnJobAdded(e);
             jobQueue.JobDone += (sender, e) => OnJobDone(e);
@@ -143,7 +143,7 @@ namespace LogUploader
 
             progress?.Report(new ProgressMessage(0.03, "Starting worker"));
             WorkerCTS = new CancellationTokenSource();
-            Worker = new JobQueue<CachedLog>(WorkerCTS.Token, "LogProcessing JobQueue");
+            Worker = new JobQueue<ICachedLog>(WorkerCTS.Token, "LogProcessing JobQueue");
             InitJobQueueEvents(Worker);
 
             progress?.Report(new ProgressMessage(0.05, "Starting worker"));
@@ -250,7 +250,7 @@ namespace LogUploader
         private void FileChangedFilterHandler(FileSystemEventArgs e)
         {
             if (e.Name.EndsWith(".zevtc") || e.Name.EndsWith(".evtc"))
-                Worker.Add(new NamedJob<CachedLog>($"Adding {e.Name}", () => HandelNewFile(e.FullPath)));
+                Worker.Add(new NamedJob<ICachedLog>($"Adding {e.Name}", () => HandelNewFile(e.FullPath)));
         }
 
         private CachedLog HandelNewFile(string path)
@@ -282,7 +282,7 @@ namespace LogUploader
 
         public int Upload(int id, string name = "Uploading")
         {
-            var job = new NamedJob<CachedLog>(name, () => {
+            var job = new NamedJob<ICachedLog>(name, () => {
                 var res = UploadJob(QuickCacheLog(id));
                 OnDataChanged(new EventArgs());
                 GC.Collect();
@@ -292,7 +292,7 @@ namespace LogUploader
             return job.ID;
         }
 
-        private CachedLog UploadJob(CachedLog log)
+        private ICachedLog UploadJob(ICachedLog log)
         {
             var localDataVersion = CacheLog(log.ID).DataVersion;
             if (!string.IsNullOrEmpty(log.Link) && localDataVersion >= CachedLog.CurrentDataVersion)
@@ -336,7 +336,7 @@ namespace LogUploader
 
         public int Parse(int id, string name = "Parsing")
         {
-            var job = new NamedJob<CachedLog>(name, () => {
+            var job = new NamedJob<ICachedLog>(name, () => {
                 var res = ParseJob(QuickCacheLog(id));
                 OnDataChanged(new EventArgs());
                 GC.Collect();
@@ -345,7 +345,7 @@ namespace LogUploader
             Worker.Add(job);
             return job.ID;
         }
-        private CachedLog ParseJob(CachedLog log)
+        private ICachedLog ParseJob(ICachedLog log)
         {
             var localDataVersion = CacheLog(log.ID).DataVersion;
             if (!string.IsNullOrEmpty(log.HtmlPath) && localDataVersion >= CachedLog.CurrentDataVersion)
@@ -392,7 +392,7 @@ namespace LogUploader
 
         public int ParseAndUpload(int id, string name = "Parse and Upload")
         {
-            var job = new NamedJob<CachedLog>(name, () => {
+            var job = new NamedJob<ICachedLog>(name, () => {
                 var res = ParseAndUploadJob(QuickCacheLog(id));
                 OnDataChanged(new EventArgs());
                 return res;
@@ -401,7 +401,7 @@ namespace LogUploader
             return job.ID;
         }
 
-        private CachedLog ParseAndUploadJob(CachedLog log)
+        private ICachedLog ParseAndUploadJob(ICachedLog log)
         {
             var parse = Task.Run(() => ParseJob(log));
             var upload = Task.Run(() => UploadJob(log));
@@ -421,7 +421,7 @@ namespace LogUploader
             return log;
         }
 
-        private CachedLog ReParseData(CachedLog log)
+        private ICachedLog ReParseData(ICachedLog log)
         {
             if (!log.DataCorrected)
                 return ParseJob(log);
@@ -487,7 +487,7 @@ namespace LogUploader
             return null; // cannot upgrade data
         }
 
-        public CachedLog QuickCacheLog(int id)
+        public ICachedLog QuickCacheLog(int id)
         {
             var log = LogCache.GetLog(id);
             if (log == null)
@@ -566,7 +566,7 @@ namespace LogUploader
             return elements.Count();
         }
 
-        private IEnumerable<string> GetCopyLink(IEnumerable<CachedLog> logs)
+        private IEnumerable<string> GetCopyLink(IEnumerable<ICachedLog> logs)
         {
             foreach (var log in logs)
             {
@@ -772,7 +772,7 @@ namespace LogUploader
         {
             if (ids.Count() != 1)
                 return GetQuickPreview(token, ids);
-            List<CachedLog> logs = new List<CachedLog>();
+            List<ICachedLog> logs = new List<ICachedLog>();
             foreach (var id in ids)
             {
                 if (token.IsCancellationRequested) return null;
@@ -785,7 +785,7 @@ namespace LogUploader
 
         public LogPreview GetQuickPreview(CancellationToken token, params int[] ids)
         {
-            List<CachedLog> logs = new List<CachedLog>();
+            List<ICachedLog> logs = new List<ICachedLog>();
             foreach (var id in ids)
             {
                 if (token.IsCancellationRequested) return null;
@@ -796,7 +796,7 @@ namespace LogUploader
             return GetPreview(token, logs);
         }
 
-        private LogPreview GetPreview(CancellationToken token, List<CachedLog> logs)
+        private LogPreview GetPreview(CancellationToken token, List<ICachedLog> logs)
         {
             if (logs.Count == 1)
             {
@@ -885,7 +885,7 @@ namespace LogUploader
                 CheckState.Indeterminate, CheckState.Indeterminate, false, null, CheckState.Indeterminate, null, null, false);
         }
 
-        public CachedLog CacheLog(int id)
+        public ICachedLog CacheLog(int id)
         {
             var log = QuickCacheLog(id);
             if (!string.IsNullOrWhiteSpace(log.JsonPath) && ((log.PlayersNew?.Count ?? 0) == 0))
@@ -901,7 +901,7 @@ namespace LogUploader
             return log;
         }
 
-        public void UpdateFilePaths(CachedLog log)
+        public void UpdateFilePaths(ICachedLog log)
         {
             if (string.IsNullOrEmpty(log.EvtcPath) || !File.Exists(log.EvtcPath))
                 log.EvtcPath = null;
@@ -940,7 +940,7 @@ namespace LogUploader
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.35, "Gathering local data"));
             var PercentPerLog = 0.4 / list.Count;
-            List<CachedLog> logs = new List<CachedLog>();
+            List<ICachedLog> logs = new List<ICachedLog>();
             foreach ((var i, var id) in list.Enumerate())
             {
                 var tmp = ProcessLog(PercentPerLog, i, id, progress, ct);
@@ -983,7 +983,7 @@ namespace LogUploader
             return true;
         }
 
-        private CachedLog ProcessLog(double PercentPerLog, int i, int id, IProgress<ProgressMessage> progress, CancellationToken ct)
+        private ICachedLog ProcessLog(double PercentPerLog, int i, int id, IProgress<ProgressMessage> progress, CancellationToken ct)
         {
             var log = QuickCacheLog(id);
             var percent = i * PercentPerLog;

@@ -124,12 +124,12 @@ namespace LogUploader.GUIs
             Logic.JobStarted += Logic_JobStarted;
         }
 
-        private void Logic_JobStarted(object sender, Helper.JobQueue.JobStartedEventArgs<CachedLog> e)
+        private void Logic_JobStarted(object sender, Helper.JobQueue.JobStartedEventArgs<ICachedLog> e)
         {
             JobsDone++;
             Action setDataSource = () =>
             {
-                if (e.Job is Helper.JobQueue.NamedJob<CachedLog> job)
+                if (e.Job is Helper.JobQueue.NamedJob<ICachedLog> job)
                     lblWorkType.Text = $"{job.Name}";
                 else
                     lblWorkType.Text = Language.Data.MiscGenericProcessing;
@@ -141,11 +141,11 @@ namespace LogUploader.GUIs
             lblWorkCount.Invoke(setDataSource);
         }
 
-        private void Logic_JobDone(object sender, Helper.JobQueue.JobDoneEventArgs<Data.CachedLog> e)
+        private void Logic_JobDone(object sender, Helper.JobQueue.JobDoneEventArgs<ICachedLog> e)
         {
         }
 
-        private void Logic_JobFaulted(object sender, Helper.JobQueue.JobFaultedEventArgs<Data.CachedLog> e)
+        private void Logic_JobFaulted(object sender, Helper.JobQueue.JobFaultedEventArgs<ICachedLog> e)
         {
             JobsDone++;
             Action setDataSource = () =>
@@ -156,13 +156,13 @@ namespace LogUploader.GUIs
             };
             lblWorkCount.Invoke(setDataSource);
             var message = "";
-            if (e.Job is Helper.JobQueue.NamedJob<CachedLog> job)
+            if (e.Job is Helper.JobQueue.NamedJob<ICachedLog> job)
                 message += $"Job: {job.Name}\n\n";
             message += $"The log may be to small, corrupted or you are not connected to the internet for uploading.\nIf you belive this is a mistake feel free to contact ProfBits#3742 and send him this message\n\n";
             message += $"Exception:\n{e.Exception.Message}\n\n";
             message += $"{e.Exception.StackTrace}";
 
-            if (e.Job is Helper.JobQueue.NamedJob<CachedLog> njob)
+            if (e.Job is Helper.JobQueue.NamedJob<ICachedLog> njob)
                 Logger.Error($"Job: {njob.Name} FAULTED");
             Logger.LogException(e.Exception);
             var a = Task.Run(() => MessageBox.Show(message, $"Job Faulted", MessageBoxButtons.OK, MessageBoxIcon.Error));
@@ -186,7 +186,7 @@ namespace LogUploader.GUIs
         private int JobsTotal = 0;
         private int JobsDone = 0;
 
-        private void Logic_JobAdded(object sender, Helper.JobQueue.JobAddedEventArgs<Data.CachedLog> e)
+        private void Logic_JobAdded(object sender, Helper.JobQueue.JobAddedEventArgs<ICachedLog> e)
         {
             JobsTotal++;
             Action setDataSource = () =>

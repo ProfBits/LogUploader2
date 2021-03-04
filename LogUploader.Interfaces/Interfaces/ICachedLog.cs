@@ -28,6 +28,7 @@ namespace LogUploader.Data
         bool Succsess { get; set; }
         List<ISimmpleTarget> Targets { get; }
 
+        void ApplySimpleLog(ISimpleLogJson data);
         bool Equals(object obj);
         IDBLog GetDBLog();
         int GetHashCode();

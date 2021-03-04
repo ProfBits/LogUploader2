@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Helper
 {
-    static class LogCache
+    public static class LogCache
     {
-        private static readonly LinkedList<CachedLog> Cache = new LinkedList<CachedLog>();
+        private static readonly LinkedList<ICachedLog> Cache = new LinkedList<ICachedLog>();
 
         private static int maxSize = 128;
 
         public static int MaxSize { get => maxSize; set => maxSize = value > 0 ? value : maxSize; }
 
-        public static void Add(CachedLog log)
+        public static void Add(ICachedLog log)
         {
             lock (Cache)
             {
@@ -26,7 +26,7 @@ namespace LogUploader.Helper
                     Cache.RemoveLast();
             }
         }
-        public static void AddEnd(CachedLog log)
+        public static void AddEnd(ICachedLog log)
         {
             lock (Cache)
             {
@@ -43,13 +43,13 @@ namespace LogUploader.Helper
             Remove(GetLog(id));
         }
 
-        public static void Remove(CachedLog log)
+        public static void Remove(ICachedLog log)
         {
             lock (Cache)
                 Cache.Remove(log);
         }
 
-        public static CachedLog GetLog(int id)
+        public static ICachedLog GetLog(int id)
         {
             lock (Cache)
                return Cache.Where(log => log.ID == id).FirstOrDefault();

@@ -163,9 +163,7 @@
     <Compile Include="GUIs\PlayerData.Designer.cs">
       <DependentUpon>PlayerData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\LogCache.cs" />
     <Compile Include="Helper\DataBuilder.cs" />
-    <Compile Include="Helper\Helper.cs" />
     <Compile Include="LogUploaderLogic.cs" />
     <Compile Include="Interfaces\ILogUploaderData.cs" />
     <Compile Include="Program.cs" />
