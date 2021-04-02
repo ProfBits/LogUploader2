@@ -110,7 +110,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     (long)termin["raidID"],
                     DateTime.Parse(((string)termin["date"]).Split(' ').Last(), System.Globalization.CultureInfo.GetCultureInfo("de-de")),
                     TimeSpan.Parse((string)termin["time"] + ":00"),
-                    TimeSpan.Parse((string)termin["endtime"] + ":00"),
+                    TimeSpan.Parse(((string)termin["endtime"] ?? (string)termin["time"]) + ":00"),
                     (string)termin["name"]
                     ));
 
