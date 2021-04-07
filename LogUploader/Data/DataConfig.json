@@ -148,6 +148,24 @@
           "NameEN": "Snowdendrifts",
           "NameDE": "Schneekulenhölen",
           "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        },
+        {
+          "ID": 8,
+          "NameEN": "Caledon Forest",
+          "NameDE": "Caledonwald",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        },
+        {
+          "ID": 9,
+          "NameEN": "Bloodtide Coast",
+          "NameDE": "Blutstrom-Küste",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+        },
+        {
+          "ID": 10,
+          "NameEN": "Fireheart Rise",
+          "NameDE": "Feuerherzhügel",
+          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
         }
       ],
       "Training": [
@@ -726,7 +744,7 @@
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 2,
         "DiscordEmote": ":fire:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/f/fe/Destroyer_Crab.jpg",
         "RaidOrgaPlusID": -1
       },
       {
@@ -752,7 +770,7 @@
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 4,
         "DiscordEmote": ":fire:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Destroyer_Emberknight.jpg",
         "RaidOrgaPlusID": -1
       },
       {
@@ -765,7 +783,7 @@
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 5,
         "DiscordEmote": ":fire:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/7/77/Destroyer_Wyvern.jpg",
         "RaidOrgaPlusID": -1
       },
       {
@@ -778,7 +796,7 @@
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 6,
         "DiscordEmote": ":snowflake:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/b/b9/Bors_of_the_Ice_Gavel.jpg",
         "RaidOrgaPlusID": -1
       },
       {
@@ -791,7 +809,46 @@
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 7,
         "DiscordEmote": ":snowflake:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/34/Ryland_Steelcatcher.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23375,
+        "NameEN": "Frost Colossus",
+        "NameDE": "Frost Koloss",
+        "FolderEN": "Frost Colossus",
+        "FolderDE": "Frost Koloss",
+        "EiName": "Frost Colossus",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 8,
+        "DiscordEmote": ":snowflake:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/1/1f/Legendary_Icebrood_Construct_%28Bjora_Marches%29.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23298,
+        "NameEN": "Tribune Splitwall",
+        "NameDE": "Tribun Mauerspalter",
+        "FolderEN": "Tribune Splitwall",
+        "FolderDE": "Tribun Mauerspalter",
+        "EiName": "Tribun Spaltwand",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 9,
+        "DiscordEmote": ":snowflake:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/0/06/Tribune_Splitwall.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23432,
+        "NameEN": "Tribune Splitgold",
+        "NameDE": "Tribun Spaltgold",
+        "FolderEN": "Tribune Splitgold",
+        "FolderDE": "Tribun Spaltgold",
+        "EiName": "Tribun Splitgold",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 10,
+        "DiscordEmote": ":snowflake:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/9/90/Tribune_Splitgold.jpg",
         "RaidOrgaPlusID": -1
       },
       {
