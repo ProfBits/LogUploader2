@@ -1,10 +1,23 @@
+# v1.3.6
+
+## Features
+- New Encounters:
+    - Dragon Response Mission: Caledon Forest
+    - Dragon Response Mission: Bloodtide Coast
+    - Dragon Response Mission: Fireheart Rise
+
+## Bugfixes
+Fixed Chrash if any RaidOrga+ Termin had no endtime
+Fixed verbosity of logging on startup with no logging args
+
 # v1.3.5
+25.02.2021
 
 ## Improvements
 - Support Heralds can now be detected
 
 ## Bugfixes
-- Webhook posts with 'הצü' should possible again
+- Webhook posts with 'הצü' should be possible again
 
 # v1.3.4
 31.01.2021
