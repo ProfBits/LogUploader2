@@ -11,22 +11,43 @@ namespace LogUploader.Helper.RaidOrgaPlus
     /// </summary>
     public class Encounter
     {
-        public List<RoPlusPlayer> Players { get; set; } = new List<RoPlusPlayer>();
+        public List<RoPlusPlayer> Players { get; set; }
         public Boss Boss { get; set; }
         public TeamComp TC { get; set; }
+
+        private static readonly Boss[] BossRequiresExclude = new Boss[] { 
+            Boss.Get(eBosses.Deimos), // Frindly NPC concept - Desmina
+            Boss.Get(eBosses.Desmina), // Frindly NCP concept - Saul
+            Boss.Get(eBosses.ConjuredAmalgamate) // Sword fake Player
+        };
 
         public Encounter(TeamComp tc, CachedLog log, Raid r)
         {
             TC = tc;
             Boss = tc.Encounter;
-            Players.AddRange(log.PlayersNew.Select(p => new RoPlusPlayer(p, r)));
-            if (Boss.RaidOrgaPlusID == 20)
-            {
-                var sword = Players.Where(p => !p.AccountName.Contains('.')).FirstOrDefault();
-                if (sword != null)
-                    Players.Remove(sword);
-            }
+            Players = GetPlayersFromLog(log.PlayersNew, r, tc.Encounter);
             tc.Success = log.Succsess;
+        }
+
+        private static List<RoPlusPlayer> GetPlayersFromLog(IEnumerable<SimplePlayer> newPlayer, Raid r, Boss boss)
+        {
+            var players = new List<RoPlusPlayer>();
+            players.AddRange(newPlayer.Select(p => new RoPlusPlayer(p, r)));
+            if (BossRequiresExclude.Contains(boss))
+            {
+                RemoveFakePlayers(players);
+            }
+            return players;
+        }
+
+        private static void RemoveFakePlayers(List<RoPlusPlayer> players)
+        {
+            var nonePlayers = players.Where(p => !p.AccountName.Contains('.'));
+            foreach (var notPlayer in nonePlayers)
+            {
+                if (notPlayer != null)
+                    players.Remove(notPlayer);
+            }
         }
 
         internal void GuessRoles()
