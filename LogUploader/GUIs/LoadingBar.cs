@@ -1,5 +1,5 @@
 ﻿using LogUploader.Data;
-using LogUploader.Helper;
+using LogUploader.Tools;
 using LogUploader.Tools.Logging;
 
 using System;
@@ -46,7 +46,7 @@ namespace LogUploader.GUIs
 
         private void DoWork()
         {
-            GP.ExecuteSecure(() => Work(Cts.Token, (a) => Invoke(a), new Progress<ProgressMessage>(ProgressHandler)));
+            ExecuteHelper.ExecuteSecure(() => Work(Cts.Token, (a) => Invoke(a), new Progress<ProgressMessage>(ProgressHandler)));
             
             Action update = Close;
             this.Invoke(update);

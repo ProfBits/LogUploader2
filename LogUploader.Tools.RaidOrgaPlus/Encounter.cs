@@ -32,7 +32,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             tc.Success = log.Succsess;
         }
 
-        private static List<RoPlusPlayer> GetPlayersFromLog(IEnumerable<SimplePlayer> newPlayer, Raid r, Boss boss)
+        private static List<RoPlusPlayer> GetPlayersFromLog(IEnumerable<ISimplePlayer> newPlayer, Raid r, Boss boss)
         {
             var players = new List<RoPlusPlayer>();
             players.AddRange(newPlayer.Select(p => new RoPlusPlayer(p, r)));
@@ -225,8 +225,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             if (TC.Players.Any(p => p.Role == Role.Banner))
             {
-                var tcBanners = TC.Players.Where(p => p.Role == Role.Banner && (p.Profession == eProfession.Warrior || p.Profession == eProfession.Berserker || p.Profession == eProfession.Spellbreaker)).Select(p => p.AccName);
-                var actualWarriers = Players.Where(p => p.Class == eProfession.Warrior || p.Class == eProfession.Berserker || p.Class == eProfession.Spellbreaker);
+                var tcBanners = TC.Players.Where(p => p.Role == Role.Banner && (p.Profession.Equals(eProfession.Warrior) || p.Profession.Equals(eProfession.Berserker) || p.Profession.Equals(eProfession.Spellbreaker))).Select(p => p.AccName);
+                var actualWarriers = Players.Where(p => p.Class.Equals(eProfession.Warrior) || p.Class.Equals(eProfession.Berserker) || p.Class.Equals(eProfession.Spellbreaker));
                 if (actualWarriers.Any(p => tcBanners.Contains(p.AccountName)))
                 {
                     foreach (var actualWarrier in actualWarriers)

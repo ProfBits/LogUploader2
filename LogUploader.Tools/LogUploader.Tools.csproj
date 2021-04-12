@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumHelper.cs" />
+    <Compile Include="ExecuteHelper.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="InputDialog.cs">
       <SubType>Form</SubType>

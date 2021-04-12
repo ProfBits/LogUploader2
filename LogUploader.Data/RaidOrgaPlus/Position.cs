@@ -53,7 +53,7 @@ namespace LogUploader.Data.RaidOrgaPlus
             AccName = "";
         }
 
-        internal void UpdateProffessionRole(Profession @class, Role role, bool overrideTank = false)
+        public void UpdateProffessionRole(IProfession @class, Role role, bool overrideTank = false)
         {
             Profession = @class;
             if (Role == Role.Empty)
