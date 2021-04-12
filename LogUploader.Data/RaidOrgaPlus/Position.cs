@@ -53,13 +53,18 @@ namespace LogUploader.Data.RaidOrgaPlus
             AccName = "";
         }
 
-        public void UpdateProffessionRole(IProfession @class, Role role)
+        internal void UpdateProffessionRole(Profession @class, Role role, bool overrideTank = false)
         {
             Profession = @class;
             if (Role == Role.Empty)
                 Role = role;
             //Override if RO+ and my guess just differ by power and condi role
             else if ((Role == Role.Power || Role == Role.Condi) && (role == Role.Power || role == Role.Condi))
+                Role = role;
+            //Override toughness tanks
+            else if (overrideTank && (Role == Role.Tank || role == Role.Tank))
+                Role = role;
+            else if (!(new []{ eProfession.Warrior, eProfession.Berserker, eProfession.Spellbreaker }).Contains(@class.ProfessionEnum) && Role == Role.Banner)
                 Role = role;
         }
 

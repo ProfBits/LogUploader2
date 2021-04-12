@@ -240,9 +240,16 @@ namespace LogUploader.Tools.Logging
                 Error("Cannot log null excption", cmn, line, cfp);
                 return;
             }
-            Error("Exception: " + e.GetType().ToString(), cmn, line, cfp);
-            Error("Message:" + e.Message, cmn, line, cfp);
-            Error("Stacktrace:" + Environment.NewLine + e.StackTrace, cmn, line, cfp);
+            for (int i = 0; i < 16; i++)
+            {
+                Error("Exception: " + e.GetType().ToString(), cmn, line, cfp);
+                Error("Message:" + e.Message, cmn, line, cfp);
+                Error("Stacktrace:" + Environment.NewLine + e.StackTrace, cmn, line, cfp);
+                if (e.InnerException == null) break;
+                else e = e.InnerException;
+            }
+
+
         }
 
         private static string CreateCaller(string cmn, int line, string cfp)
