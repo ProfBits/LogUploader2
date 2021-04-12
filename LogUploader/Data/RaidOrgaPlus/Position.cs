@@ -65,6 +65,8 @@ namespace LogUploader.Data.RaidOrgaPlus
             //Override toughness tanks
             else if (overrideTank && (Role == Role.Tank || role == Role.Tank))
                 Role = role;
+            else if (!(new []{ eProfession.Warrior, eProfession.Berserker, eProfession.Spellbreaker }).Contains(@class.ProfessionEnum) && Role == Role.Banner)
+                Role = role;
         }
 
         internal void Set(RoPlusPlayer player)
