@@ -7,8 +7,9 @@
     - Dragon Response Mission: Fireheart Rise
 
 ## Bugfixes
-Fixed Chrash if any RaidOrga+ Termin had no endtime
+Fixed crash if any RaidOrga+ Termin had no endtime
 Fixed verbosity of logging on startup with no logging args
+Fixed crash wehn trying to update a River or Deimos Encounter in RO+
 
 # v1.3.5
 25.02.2021
