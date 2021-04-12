@@ -1,10 +1,12 @@
 ﻿using Extensiones;
 using LogUploader.Data;
+using LogUploader.GUIs;
 using LogUploader.Languages;
 using LogUploader.Properties;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -112,6 +114,67 @@ namespace LogUploader.Helper
                     return r;
             }
             return Data.RaidOrgaPlus.Role.Empty;
+        }
+
+        public static bool ExecuteSecure(Action a, System.Windows.Forms.IWin32Window parent = null, bool CrashProgramm = false)
+        {
+            bool res = false;
+            res = ExecuteSecure(() => { a(); return true; }, parent, CrashProgramm);
+            return res;
+        }
+
+        public static T ExecuteSecure<T>(Func<T> f, System.Windows.Forms.IWin32Window parent = null, bool CrashProgramm = false)
+        {
+            try
+            {
+                return f();
+            }
+            catch (Win32Exception e)
+            {
+                Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
+                Logger.LogException(e);
+                //MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var errorUI = new FatalErrorUI("Win32 error", GetWin23ExeptionMessage(e));
+                if (parent != null) errorUI.ShowDialog(parent);
+                if (CrashProgramm) Program.Exit(ExitCode.WIN32_EXCPTION);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Normal ERROR");
+                Logger.LogException(e);
+                //MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var errorUI = new FatalErrorUI("Normal Exception", GetExceptionMessage(e));
+                if (parent != null) errorUI.ShowDialog(parent);
+                if (CrashProgramm) Program.Exit(ExitCode.CLR_EXCPTION);
+            }
+            return default;
+        }
+
+        private static string GetExceptionMessage(Exception e)
+        {
+            return $"Exception: {e.GetType()}\n" +
+                                $"Message: {e.Message}\n" +
+                                "StacTrace:\n" +
+                                $"{e.StackTrace}";
+        }
+
+        private static string GetWin23ExeptionMessage(Win32Exception e)
+        {
+            var res = $"Exception: {e.GetType()}\n" +
+                                    $"Message: {e.Message}\n" +
+                                    $"NativeErrorCode: {e.NativeErrorCode}\n" +
+                                    $"ErrorCode: {e.ErrorCode}\n";
+            try
+            {
+                res += $"Data: {string.Join("\n", e?.Data?.Keys.Cast<object>().Select(k => k.ToString() + " : " + e.Data[k].ToString()))}\n";
+            }
+            catch (Exception)
+            { }
+            res += $"\nStackTrace: " +
+                $"{e.StackTrace}";
+
+
+            return res;
         }
     }
 
