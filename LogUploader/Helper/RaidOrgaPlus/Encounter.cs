@@ -21,6 +21,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
             Boss.Get(eBosses.ConjuredAmalgamate) // Sword fake Player
         };
 
+        private bool overrideTank = false;
+
         public Encounter(TeamComp tc, CachedLog log, Raid r)
         {
             TC = tc;
@@ -276,6 +278,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             var maxThougness = orderdPlayers.Max(p => p.Toughness);
             if (maxThougness == 0) return;
             orderdPlayers.Where(p => p.Toughness == maxThougness).First().Role = Role.Tank;
+            overrideTank = true;
         }
 
 
@@ -359,7 +362,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 if (!player.IsLFG && TC.Exists(player.AccountName))
                 {
                     Position pos = TC.GetByName(player.AccountName);
-                    pos.UpdateProffessionRole(player.Class, player.Role);
+                    pos.UpdateProffessionRole(player.Class, player.Role, overrideTank);
                 }
             }
         }
