@@ -116,14 +116,14 @@ namespace LogUploader.Helper
             return Data.RaidOrgaPlus.Role.Empty;
         }
 
-        public static bool ExecuteSecure(Action a, System.Windows.Forms.IWin32Window parent = null, bool CrashProgramm = false)
+        public static bool ExecuteSecure(Action a, bool CrashProgramm = false)
         {
             bool res = false;
-            res = ExecuteSecure(() => { a(); return true; }, parent, CrashProgramm);
+            res = ExecuteSecure(() => { a(); return true; }, CrashProgramm);
             return res;
         }
 
-        public static T ExecuteSecure<T>(Func<T> f, System.Windows.Forms.IWin32Window parent = null, bool CrashProgramm = false)
+        public static T ExecuteSecure<T>(Func<T> f, bool CrashProgramm = false)
         {
             try
             {
@@ -133,19 +133,23 @@ namespace LogUploader.Helper
             {
                 Logger.Error("Win32 Error Code: " + e.NativeErrorCode + " (native) " + e.ErrorCode + " (managed)");
                 Logger.LogException(e);
-                //MessageBox.Show(GetWin23ExeptionMessage(e), "Win32 error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                var errorUI = new FatalErrorUI("Win32 error", GetWin23ExeptionMessage(e));
-                if (parent != null) errorUI.ShowDialog(parent);
-                if (CrashProgramm) Program.Exit(ExitCode.WIN32_EXCPTION);
+                if (CrashProgramm)
+                {
+                    var errorUI = new FatalErrorUI("Win32 error", GetWin23ExeptionMessage(e));
+                    errorUI.ShowDialog();
+                    Program.Exit(ExitCode.WIN32_EXCPTION);
+                }
             }
             catch (Exception e)
             {
                 Logger.Error("Normal ERROR");
                 Logger.LogException(e);
-                //MessageBox.Show(GetExceptionMessage(e), "Normal Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                var errorUI = new FatalErrorUI("Normal Exception", GetExceptionMessage(e));
-                if (parent != null) errorUI.ShowDialog(parent);
-                if (CrashProgramm) Program.Exit(ExitCode.CLR_EXCPTION);
+                if (CrashProgramm)
+                {
+                    var errorUI = new FatalErrorUI("Normal Exception", GetExceptionMessage(e));
+                    errorUI.ShowDialog();
+                    Program.Exit(ExitCode.CLR_EXCPTION);
+                }
             }
             return default;
         }

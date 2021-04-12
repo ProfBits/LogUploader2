@@ -45,8 +45,8 @@ namespace LogUploader.GUIs
 
         private void DoWork()
         {
-            Work(Cts.Token, (a) => Invoke(a), new Progress<ProgressMessage>(ProgressHandler));
-
+            GP.ExecuteSecure(() => Work(Cts.Token, (a) => Invoke(a), new Progress<ProgressMessage>(ProgressHandler)));
+            
             Action update = Close;
             this.Invoke(update);
         }
