@@ -220,6 +220,25 @@ namespace LogUploader.Helper.RaidOrgaPlus
             FillUpDps();
         }
 
+        internal void RefineRoles()
+        {
+            if (TC.Players.Any(p => p.Role == Role.Banner))
+            {
+                var tcBanners = TC.Players.Where(p => p.Role == Role.Banner && (p.Profession == eProfession.Warrior || p.Profession == eProfession.Berserker || p.Profession == eProfession.Spellbreaker)).Select(p => p.AccName);
+                var actualWarriers = Players.Where(p => p.Class == eProfession.Warrior || p.Class == eProfession.Berserker || p.Class == eProfession.Spellbreaker);
+                if (actualWarriers.Any(p => tcBanners.Contains(p.AccountName)))
+                {
+                    foreach (var actualWarrier in actualWarriers)
+                    {
+                        if (tcBanners.Contains(actualWarrier.AccountName))
+                            actualWarrier.Role = Role.Banner;
+                        else
+                            SetDps(actualWarrier);
+                    }
+                }
+            }
+        }
+
         private void SetQadim2Pylons()
         {
             var kiters = Players.OrderBy(p => p.DPS).Where(p => p.Class == eProfession.Deadeye || p.Class == eProfession.Scourge);
@@ -294,11 +313,16 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             foreach (var player in Players.Where(p => p.Role == Role.Empty))
             {
-                if (player.PDPS < player.CDPS)
-                    player.Role = Role.Condi;
-                else
-                    player.Role = Role.Power;
+                SetDps(player);
             }
+        }
+
+        private static void SetDps(RoPlusPlayer player)
+        {
+            if (player.PDPS < player.CDPS)
+                player.Role = Role.Condi;
+            else
+                player.Role = Role.Power;
         }
 
         internal void RemoveNotAttededPlayers()

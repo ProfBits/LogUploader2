@@ -168,6 +168,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 progress?.Report(new ProgressMessage((double)(index) / (double)count, $"{(int)(count + 1)} of {count}"));
                 encounter.FillTeamComp();
                 encounter.GuessRoles();
+                encounter.RefineRoles();
                 encounter.RemoveNotAttededPlayers();
                 encounter.RemoveDuplicates();
                 encounter.UpdateNamedPlayers();

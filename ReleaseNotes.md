@@ -5,6 +5,12 @@
     - Dragon Response Mission: Caledon Forest
     - Dragon Response Mission: Bloodtide Coast
     - Dragon Response Mission: Fireheart Rise
+    
+## Improvements
+- Thoughness tanks are now overritten on RO+ update
+- Bannar role with non warrier profession is now overritten
+- If a banner warrier is in set in RO+ and was Warrier no additional banner warriors should be added on update RO+
+- Improved general programm stability
 
 ## Bugfixes
 Fixed crash if any RaidOrga+ Termin had no endtime
