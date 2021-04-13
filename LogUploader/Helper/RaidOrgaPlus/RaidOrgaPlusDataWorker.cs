@@ -21,6 +21,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
             logs = OnlyGetOnePerBoss(logs);
             CondenseStatues(logs);
 
+            MatchCMandNormal(raid, logs);
             progress?.Report(new ProgressMessage(0.03, "Remove unused bosses from RO+ data"));
             RemoveUnused(raid, logs);
 
@@ -107,9 +108,36 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         private static void RemoveUnused(Raid raid, IEnumerable<CachedLog> logs)
         {
-            raid.Bosses = raid.Bosses.Where(boss => 
+            raid.Bosses = raid.Bosses.Where(boss =>
             logs.Any(log => Boss.GetByID(log.BossID).RaidOrgaPlusID == boss.BossID && log.IsCM == boss.IsCM)
             ).ToList();
+
+        }
+
+        private static void MatchCMandNormal(Raid raid, IEnumerable<ICachedLog> logs)
+        {
+            foreach (var boss in raid.Bosses.GroupBy(b => b.BossID))
+            {
+                var count = boss.Count();
+                var anyNormal = boss.Any(b => !b.IsCM);
+                var anyCM = boss.Any(b => b.IsCM);
+
+                var raidBoss = logs.Where(b => b.ID == boss.Key);
+                var raidAnyNormal = raidBoss.Any(b => !b.IsCM);
+                var raidAnyCM = raidBoss.Any(b => !b.IsCM);
+
+                var succLogs = raidBoss.Where(b => b.Succsess);
+                if (count == 1 && ((anyCM && !anyNormal) || (!anyCM && anyNormal)))
+                {
+                    //Only one CM or one normal in RO+
+                    if (succLogs.Count() == 1)
+                        boss.First().IsCM = succLogs.First().IsCM;
+                    else if (!raidAnyNormal)
+                        boss.First().IsCM = true;
+                    else if (!raidAnyCM)
+                        boss.First().IsCM = false;
+                }
+            }
         }
 
         private static IEnumerable<CachedLog> OnlyGetOnePerBoss(IEnumerable<CachedLog> logs)
