@@ -266,3 +266,6 @@ __pycache__/
 # Will be created through LogUploaderSetUp PostBuild
 /InstallerPackager/installer/setup.exe
 /InstallerPackager/installer/LogUploaderSetup.msi
+
+# MsBuild BinaryLog
+*.binlog
