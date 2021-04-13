@@ -114,7 +114,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         }
 
-        private static void MatchCMandNormal(Raid raid, IEnumerable<ICachedLog> logs)
+        private static void MatchCMandNormal(Raid raid, IEnumerable<CachedLog> logs)
         {
             foreach (var boss in raid.Bosses.GroupBy(b => b.BossID))
             {
