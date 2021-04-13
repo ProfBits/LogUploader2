@@ -11,6 +11,7 @@
 - Bannar role with non warrier profession is now overritten
 - If a banner warrier is in set in RO+ and was Warrier no additional banner warriors should be added on update RO+
 - Improved general programm stability
+- Normal and CM missmatch between logs and RO+ can be resolved sometimes
 
 ## Bugfixes
 Fixed crash if any RaidOrga+ Termin had no endtime
