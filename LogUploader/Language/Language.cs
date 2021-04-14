@@ -48,17 +48,31 @@ namespace LogUploader.Languages
             //Exception "System.IO.FileNotFoundException: 'Die Datei oder Assembly "LogUploader.XmlSerializers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" oder eine Abhängigkeit davon wurde nicht gefunden. Das System kann die angegebene Datei nicht finden.'"
             //Will not be fixed by microsoft. cant do anything about it.
             var ser = new System.Xml.Serialization.XmlSerializer(typeof(XMLLanguage));
-            using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\Data\English.xml", Encoding.UTF8)))
+            using (StringReader sr = new StringReader(ReadFile(exePath + @"\Data\English.xml")))
             {
                 English = (XMLLanguage)ser.Deserialize(sr);
                 English.Culture = new CultureInfo("en-us");
             }
-            using (StringReader sr = new StringReader(File.ReadAllText(exePath + @"\Data\German.xml", Encoding.UTF8)))
+            using (StringReader sr = new StringReader(ReadFile(exePath + @"\Data\German.xml")))
             {
                 German = (XMLLanguage)ser.Deserialize(sr);
                 German.Culture = new CultureInfo("de-de");
             }
             Current = m_Current;
+        }
+
+        private static string ReadFile(string filePath)
+        {
+            try
+            {
+                return File.ReadAllText(filePath, Encoding.UTF8);
+            }
+            catch (Exception e)
+            {
+                Logger.Error($@"Unable to read localisation file ""{filePath}"".");
+                Logger.LogException(e);
+                throw e;
+            }
         }
 
         public static void XMLModeEnable(bool enable)
