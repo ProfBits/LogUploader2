@@ -1,4 +1,5 @@
 # v1.3.6
+14.04.2021
 
 ## Features
 - New Encounters:
@@ -8,15 +9,15 @@
     
 ## Improvements
 - Thoughness tanks are now overritten on RO+ update
-- Bannar role with non warrier profession is now overritten
-- If a banner warrier is in set in RO+ and was Warrier no additional banner warriors should be added on update RO+
+- Bannar role with non warrior profession is now overritten
+- If a banner warrior is in set in RO+ and was warrior no additional banner warriors should be added on update RO+
 - Improved general programm stability
 - Normal and CM missmatch between logs and RO+ can be resolved sometimes
 
 ## Bugfixes
-Fixed crash if any RaidOrga+ Termin had no endtime
-Fixed verbosity of logging on startup with no logging args
-Fixed crash wehn trying to update a River or Deimos Encounter in RO+
+- Fixed crash if any RaidOrga+ Termin had no endtime
+- Fixed verbosity of logging on startup with no logging args
+- Fixed crash wehn trying to update a River or Deimos Encounter in RO+
 
 # v1.3.5
 25.02.2021
