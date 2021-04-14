@@ -226,27 +226,32 @@ namespace LogUploader.GUI
             System.Diagnostics.Process.Start(@"https://dps.report/getUserToken");
         }
 
-        private async void BtnEiUpdate_Click(object sender, EventArgs e)
+        private void BtnEiUpdate_Click(object sender, EventArgs e)
         {
             Enabled = false;
             var tmp = btnEiUpdate.Text;
             btnEiUpdate.Text = "Updating ...";
             btnEiUpdate.Update();
             DialogResult res = DialogResult.OK;
-            do
+            var progressBar = new LoadingBar("EI Update", (ct, invok, progress) =>
             {
-                try
+                do
                 {
-                    //TODO Add progress window...
-                    await EliteInsights.Update(initState);
-                }
-                catch (OperationCanceledException ex)
-                {
-                    Logger.Error("Manual EI update failed");
-                    Logger.LogException(ex);
-                    res = MessageBox.Show("EI uppdate failed.\nMessage:\n" + ex.Message, "Error - EI Update", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                }
-            } while (res == DialogResult.Retry);
+                    try
+                    {
+                        EliteInsights.Update(initState,
+                                new Progress<double>(p => progress.Report(new ProgressMessage(p, "Update EI"))),
+                                ct).Wait();
+                    }
+                    catch (OperationCanceledException ex)
+                    {
+                        Logger.Error("Manual EI update failed");
+                        Logger.LogException(ex);
+                        res = MessageBox.Show("EI uppdate failed.\nMessage:\n" + ex.Message, "Error - EI Update", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    }
+                } while (res == DialogResult.Retry);
+            });
+            progressBar.ShowDialog(this);
             btnEiUpdate.Text = tmp;
             Enabled = true;
         }

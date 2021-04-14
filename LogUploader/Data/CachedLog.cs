@@ -193,7 +193,10 @@ namespace LogUploader.Data
             DataCorrected = true;
             Duration = GetDuration((string)data["duration"]);
             Succsess = (bool)data["success"];
-            RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
+            if (BossID == Boss.Get(eBosses.Desmina).ID)
+                RemainingHealth = Succsess ? 0 : 100;
+            else
+                RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
             IsCM = (bool)data["isCM"];
             ApplySimpleLog(new SimpleLogJson(data));
         }

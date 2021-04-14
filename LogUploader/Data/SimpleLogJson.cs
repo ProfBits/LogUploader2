@@ -25,6 +25,7 @@ namespace LogUploader.Data
                 .Select(targetData => new SimmpleTarget((JObject)targetData))
                 .ToList();
             Players = ((JArray)parsed["players"])
+                .Where(playerData => !(bool) (playerData["friendlyNPC"] ?? false))
                 .Select(playerData => new SimplePlayer((JObject)playerData, Version))
                 .ToList();
 

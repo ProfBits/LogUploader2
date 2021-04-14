@@ -205,7 +205,8 @@ namespace LogUploader
 #elif BETA
 #elif ALPHA
 #else
-            Logger.LogLevel = flags.LogLevel;
+            if (flags.OverrideLogLevel)
+                Logger.LogLevel = flags.LogLevel;
 #endif
 
             progress.Report(new ProgressMessage(0.02, "Loading Settings"));
@@ -524,6 +525,7 @@ namespace LogUploader
             public bool EnableAutoUpload { get; set; }
             public bool ResetSettings { get; set; }
             public eLogLevel LogLevel { get; set; }
+            public bool OverrideLogLevel { get; set; }
 
             public Flags(bool enableAutoUpload = false, bool resetSettings = false, bool enableAutoParse = false, eLogLevel logLevel = eLogLevel.WARN)
             {
@@ -531,10 +533,12 @@ namespace LogUploader
                 ResetSettings = resetSettings;
                 EnableAutoParse = enableAutoParse;
                 LogLevel = logLevel;
+                OverrideLogLevel = false;
             }
 
             public Flags(string[] args) : this()
             {
+                OverrideLogLevel = false;
                 var argumentErrors = "";
                 for (int i = 0; i < args.Length; i++)
                 {
@@ -552,15 +556,19 @@ namespace LogUploader
                             break;
                         case FlagLogLevelDebug:
                             LogLevel = eLogLevel.DEBUG;
+                            OverrideLogLevel = true;
                             break;
                         case FlagLogLevelNormal:
                             LogLevel = eLogLevel.NORMAL;
+                            OverrideLogLevel = true;
                             break;
                         case FlagLogLevelWarning:
                             LogLevel = eLogLevel.WARN;
+                            OverrideLogLevel = true;
                             break;
                         case FlagLogLevelVerbose:
                             LogLevel = eLogLevel.VERBOSE;
+                            OverrideLogLevel = true;
                             break;
                         default:
                             argumentErrors += $"\n- \"{arg}\"";
