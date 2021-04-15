@@ -234,7 +234,7 @@ namespace LogUploader.GUI
             btnEiUpdate.Text = "Updating ...";
             btnEiUpdate.Update();
             DialogResult res = DialogResult.OK;
-            var progressBar = new LoadingBar("EI Update", (ct, invok, progress) =>
+            var progressBar = Interfaces.Factroies.UiFactory.GetLoadingBarUi("EI Update", (ct, invok, progress) =>
             {
                 do
                 {

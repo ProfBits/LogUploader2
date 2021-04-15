@@ -81,6 +81,9 @@ namespace LogUploader
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            //TODO move to own section
+            Interfaces.Factroies.UiFactory.SetLoadingBarUiFactory((taskName, task) => new LoadingBar(taskName, task));
+
             //Settings settings = new Settings();
             var settings = SettingsData.Load();
             if (settings.FirstBoot)
