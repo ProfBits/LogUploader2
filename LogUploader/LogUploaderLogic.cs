@@ -22,6 +22,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LogUploader.Tools;
 
 namespace LogUploader
 {
