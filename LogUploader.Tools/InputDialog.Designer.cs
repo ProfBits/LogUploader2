@@ -1,5 +1,5 @@
 ﻿
-namespace LogUploader.GUIs
+namespace LogUploader.Tools.Dialog
 {
     partial class InputDialog
     {
