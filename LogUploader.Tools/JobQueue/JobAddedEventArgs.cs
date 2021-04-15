@@ -1,7 +1,7 @@
 ﻿using LogUploader.Interfaces;
 using System;
 
-namespace LogUploader.Helper.JobQueue
+namespace LogUploader.Tools.JobQueue
 {
     public class JobAddedEventArgs<T> : EventArgs
     {

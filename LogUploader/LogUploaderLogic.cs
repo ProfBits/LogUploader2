@@ -4,7 +4,7 @@ using LogUploader.Data.Discord;
 using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.GUIs;
 using LogUploader.Helper;
-using LogUploader.Helper.JobQueue;
+using LogUploader.Tools.JobQueue;
 using LogUploader.Localisation;
 using LogUploader.Properties;
 using LogUploader.Tools.Discord;

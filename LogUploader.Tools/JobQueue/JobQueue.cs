@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper.JobQueue
+namespace LogUploader.Tools.JobQueue
 {
 
     public class JobQueue<T>

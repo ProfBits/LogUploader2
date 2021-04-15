@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper.JobQueue
+namespace LogUploader.Tools.JobQueue
 {
     public class NamedJob<T> : INamedJob<T>
     {
