@@ -14,8 +14,9 @@ using System.Windows.Forms;
 using Extensiones.HTTPClient;
 using LogUploader.Tools.Logging;
 using LogUploader.Tools.Settings;
+using LogUploader.Helper;
 
-namespace LogUploader.Helper
+namespace LogUploader.Tools.Updater
 {
     public class Updater
     {
@@ -143,7 +144,7 @@ namespace LogUploader.Helper
         }
 
         public static DialogResult ShowUpdateMgsBox() {
-            var ui = new GUIs.UpdateAvailableUI();
+            var ui = new UpdateAvailableUI();
             return ui.ShowDialog();
         }
 

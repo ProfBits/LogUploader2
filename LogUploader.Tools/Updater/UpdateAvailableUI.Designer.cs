@@ -1,4 +1,4 @@
-﻿namespace LogUploader.GUIs
+﻿namespace LogUploader.Tools.Updater
 {
     partial class UpdateAvailableUI
     {

@@ -1,5 +1,6 @@
 ﻿using LogUploader.Data.Licenses;
 using LogUploader.Localisation;
+using LogUploader.Tools.Updater;
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace LogUploader.GUIs
 
         private void UpdateVersion()
         {
-            var version = Helper.Updater.GetLocalVersion();
+            var version = Updater.GetLocalVersion();
             lblVersion.Text += $" {version.Major}.{version.Minor}.{version.Build}";
             if (version.Revision == 0)
             {
