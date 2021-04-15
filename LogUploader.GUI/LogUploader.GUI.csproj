@@ -61,6 +61,12 @@
     <Compile Include="FatalErrorUI.Designer.cs">
       <DependentUpon>FatalErrorUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoadingBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadingBar.Designer.cs">
+      <DependentUpon>LoadingBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlayerData.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FatalErrorUI.resx">
       <DependentUpon>FatalErrorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadingBar.resx">
+      <DependentUpon>LoadingBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayerData.resx">
       <DependentUpon>PlayerData.cs</DependentUpon>
