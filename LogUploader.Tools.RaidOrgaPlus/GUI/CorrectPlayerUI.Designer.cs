@@ -1,4 +1,4 @@
-﻿namespace LogUploader.GUIs.CorrectPlayer
+﻿namespace LogUploader.Tools.RaidOrgaPlus.GUI
 {
     partial class CorrectPlayerUI
     {

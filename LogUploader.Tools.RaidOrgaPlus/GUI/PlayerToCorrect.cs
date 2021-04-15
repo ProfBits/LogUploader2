@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Localisation;
 
-namespace LogUploader.GUIs.CorrectPlayer
+namespace LogUploader.Tools.RaidOrgaPlus.GUI
 {
     public partial class PlayerToCorrect : UserControl
     {

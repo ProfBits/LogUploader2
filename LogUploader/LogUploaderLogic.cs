@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogUploader.Tools;
 using LogUploader.Tools.Database;
+using LogUploader.Tools.RaidOrgaPlus;
 
 namespace LogUploader
 {
@@ -69,7 +70,7 @@ namespace LogUploader
             }
         }
 
-        private Helper.RaidOrgaPlus.RaidOrgaPlusConnector RaidOrgaPlusConnector = null;
+        private RaidOrgaPlusConnector RaidOrgaPlusConnector = null;
         private Session RaidOrgaPlusSession = null;
         private List<RaidSimple> RaidOrgaPlusTermine = new List<RaidSimple>();
 
@@ -950,7 +951,7 @@ namespace LogUploader
                 if (tmp != null)
                     logs.Add(tmp);
             };
-            raid = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));
+            raid = RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));
 
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.95, "Updating RO+"));
@@ -993,7 +994,7 @@ namespace LogUploader
             progress?.Report(new ProgressMessage(percent + 0.4, $"Gathering local data - Caching {log.BossName} {log.Date.TimeOfDay:hh':'mm}"));
             log = CacheLog(id);
             if (ct.IsCancellationRequested) return null;
-            if (log.DataVersion < Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.MIN_DATA_VERSION)
+            if (log.DataVersion < RaidOrgaPlusDataWorker.MIN_DATA_VERSION)
             {
                 percent += PercentPerLog / 2;
                 Console.WriteLine($"Gathering local data - Updating {log.BossName} {log.Date.TimeOfDay:hh':'mm}");
@@ -1020,7 +1021,7 @@ namespace LogUploader
                 return;
             }
             progress?.Report(new ProgressMessage(0, "Login"));
-            RaidOrgaPlusConnector = new Helper.RaidOrgaPlus.RaidOrgaPlusConnector(Settings);
+            RaidOrgaPlusConnector = new RaidOrgaPlusConnector(Settings);
             RaidOrgaPlusSession = RaidOrgaPlusConnector.Connect(Settings);
             if (RaidOrgaPlusSession == null)
             {

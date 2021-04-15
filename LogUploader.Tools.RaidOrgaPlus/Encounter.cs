@@ -5,7 +5,7 @@ using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data;
 using LogUploader.Tools.Logging;
 
-namespace LogUploader.Helper.RaidOrgaPlus
+namespace LogUploader.Tools.RaidOrgaPlus
 {
     /// <summary>
     /// Connects Log with TeamComp and merges them

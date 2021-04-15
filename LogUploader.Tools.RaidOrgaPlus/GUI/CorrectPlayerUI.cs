@@ -1,5 +1,4 @@
 ﻿using LogUploader.Data.RaidOrgaPlus;
-using LogUploader.Helper.RaidOrgaPlus;
 using LogUploader.Localisation;
 
 using System;
@@ -11,9 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static LogUploader.Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker;
 
-namespace LogUploader.GUIs.CorrectPlayer
+namespace LogUploader.Tools.RaidOrgaPlus.GUI
 {
     public partial class CorrectPlayerUI : Form
     {

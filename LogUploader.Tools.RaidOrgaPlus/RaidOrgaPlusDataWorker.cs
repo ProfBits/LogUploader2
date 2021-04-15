@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data;
 using Extensiones.Linq;
+using LogUploader.Tools.RaidOrgaPlus.GUI;
 
-namespace LogUploader.Helper.RaidOrgaPlus
+namespace LogUploader.Tools.RaidOrgaPlus
 {
     public static partial class RaidOrgaPlusDataWorker
     {
@@ -179,7 +180,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
         private static void ShowCorrectPlayerUI(List<CheckPlayer> players, Raid raid, Action<Delegate> invoker)
         {
             Action a = () => {
-                var ui = new GUIs.CorrectPlayer.CorrectPlayerUI(raid, players);
+                var ui = new CorrectPlayerUI(raid, players);
                 ui.ShowDialog();
             };
             if (invoker == null)

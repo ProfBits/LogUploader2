@@ -11,7 +11,7 @@ using LogUploader.Tools;
 
 using Newtonsoft.Json;
 
-namespace LogUploader.Helper.RaidOrgaPlus
+namespace LogUploader.Tools.RaidOrgaPlus
 {
     public class RaidOrgaPlusCache
     {

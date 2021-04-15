@@ -12,8 +12,9 @@ using Newtonsoft.Json;
 using LogUploader.Tools.Logging;
 using LogUploader.Tools.Settings;
 using Extensiones;
+using LogUploader.Helper;
 
-namespace LogUploader.Helper.RaidOrgaPlus
+namespace LogUploader.Tools.RaidOrgaPlus
 {
     public class RaidOrgaPlusConnector
     {
