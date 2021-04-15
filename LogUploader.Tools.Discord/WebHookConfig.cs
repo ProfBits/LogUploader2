@@ -12,6 +12,7 @@ using Extensiones;
 using LogUploader.Localisation;
 using LogUploader.Data.Discord;
 using LogUploader.Tools.Discord;
+using LogUploader.Tools;
 
 namespace LogUploader.GUIs
 {
@@ -34,7 +35,7 @@ namespace LogUploader.GUIs
             cmbFormat.ValueMember = "val";
             cmbFormat.DisplayMember = "name";
             cmbFormat.DataSource = 
-                Helper.EnumHelper.GetValues<eDiscordPostFormat>()
+                EnumHelper.GetValues<eDiscordPostFormat>()
                 .Select(f => new { val = f, name = f.GetAttribute<ObjectName>().Name })
                 .ToList();
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LogUploader.Tools;
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -69,7 +71,7 @@ namespace LogUploader.Data
                 string emote = (string)json["Emote"];
                 int raidOrgaPlusID = (int)json["RaidOrgaPlusID"];
 
-                return new Profession(Helper.GP.IntToEnum<eProfession>(id), nameEN, nameDE, iconPath, emote, raidOrgaPlusID);
+                return new Profession(GP.IntToEnum<eProfession>(id), nameEN, nameDE, iconPath, emote, raidOrgaPlusID);
             })
             .ToDictionary(prof => prof.ProfessionEnum);
             progress?.Report(1);

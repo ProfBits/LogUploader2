@@ -20,6 +20,7 @@ using LogUploader.Localisation;
 using LogUploader.Tools.Settings;
 using LogUploader.Tools.Logging;
 using LogUploader.Tools.Updater;
+using LogUploader.Tools;
 
 namespace LogUploader
 {

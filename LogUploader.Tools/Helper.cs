@@ -11,7 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace LogUploader.Helper
+namespace LogUploader.Tools
 {
     /// <summary>
     /// A general purpose helper for various tasks

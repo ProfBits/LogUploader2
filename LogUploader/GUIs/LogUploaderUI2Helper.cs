@@ -530,7 +530,7 @@ namespace LogUploader.GUIs
 
         private void ShowWhatsNew()
         {
-            var version = LogUploader.Helper.GP.GetVersion();
+            var version = Tools.GP.GetVersion();
             var versionStr = $"v{version.Major}.{version.Minor}.{version.Build}";
             if (!Logic.Settings.WhatsNewShown.Equals(versionStr))
             {
