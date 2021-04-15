@@ -11,47 +11,76 @@ namespace InstallerPackager
 {
     class Program
     {
+        private const string INSTALL_FOLDER_NAME = "LogUploaderInstallerTEMP";
+
         static void Main(string[] args)
         {
-            var installerFolder = "LogUploaderInstallerTEMP";
+            var installerFolder = INSTALL_FOLDER_NAME;
             try
             {
-                Assembly currentAssembly = Assembly.GetExecutingAssembly();
-                var workDir = Path.GetDirectoryName(currentAssembly.Location);
-                Environment.CurrentDirectory = workDir;
-                
-                int i = 0;
-                while (Directory.Exists(installerFolder + i))
-                {
-                    i++;
-                }
-                installerFolder += i;
-                Directory.CreateDirectory(installerFolder);
+                UpdateWorkDir();
+                installerFolder = CreateTempFolder(installerFolder);
             }
             catch (Exception)
             {
-
-                if (Directory.Exists(installerFolder))
-                    Directory.Delete(installerFolder, true);
+                DeletFolderAndContent(installerFolder);
                 return;
             }
             try
             {
-                new DirectoryInfo(installerFolder).Attributes |= FileAttributes.Hidden;
+                HideFolder(installerFolder);
                 mRecreateAllExecutableResources(installerFolder);
                 File.Move(installerFolder + '\\' + "InstallerPackager.installer.LogUploaderSetup.msi", installerFolder + '\\' + "LogUploaderSetup.msi");
-                using (var p = new Process())
-                {
-                    p.StartInfo = new ProcessStartInfo(installerFolder + '\\' + "InstallerPackager.installer.setup.exe");
-                    p.Start();
-                    p.WaitForExit();
-                }
+                ExecuteAndWaitForInstaller(installerFolder);
             }
             finally
             {
-                if (Directory.Exists(installerFolder))
-                    Directory.Delete(installerFolder, true);
+                DeletFolderAndContent(installerFolder);
             }
+        }
+
+        private static void HideFolder(string installerFolder)
+        {
+            new DirectoryInfo(installerFolder).Attributes |= FileAttributes.Hidden;
+        }
+
+        private static void DeletFolderAndContent(string installerFolder)
+        {
+            if (Directory.Exists(installerFolder))
+                Directory.Delete(installerFolder, true);
+        }
+
+        private static void UpdateWorkDir()
+        {
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+            var workDir = Path.GetDirectoryName(currentAssembly.Location);
+            Environment.CurrentDirectory = workDir;
+        }
+
+        private static void ExecuteAndWaitForInstaller(string installerFolder)
+        {
+            using (var p = new Process())
+            {
+                p.StartInfo = new ProcessStartInfo(installerFolder + '\\' + "InstallerPackager.installer.setup.exe");
+                p.Start();
+                p.WaitForExit();
+            }
+        }
+
+        private static string CreateTempFolder(string installerFolder)
+        {
+            installerFolder = FindAvailabeFolderName(installerFolder);
+            Directory.CreateDirectory(installerFolder);
+            return installerFolder;
+        }
+
+        private static string FindAvailabeFolderName(string installerFolder)
+        {
+            int i = 0;
+            while (Directory.Exists(installerFolder + i))
+                i++;
+
+            return installerFolder + i;
         }
 
         /*
