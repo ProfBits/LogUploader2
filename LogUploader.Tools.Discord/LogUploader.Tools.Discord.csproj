@@ -46,6 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Author.cs" />
+    <Compile Include="Data\Embed.cs" />
+    <Compile Include="Data\Field.cs" />
+    <Compile Include="Data\Footer.cs" />
+    <Compile Include="Data\Image.cs" />
+    <Compile Include="Data\Thumbmail.cs" />
+    <Compile Include="Data\WebHook.cs" />
+    <Compile Include="Data\WebHookData.cs" />
+    <Compile Include="Data\WebHookDeleteEventArgs.cs" />
     <Compile Include="DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="DiscordPostGen\DetaildGenerator.cs" />

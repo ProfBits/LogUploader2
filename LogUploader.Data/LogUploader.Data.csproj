@@ -62,15 +62,6 @@
     <Compile Include="Licenses\WindowsAPICodePack_ShellLicense.cs" />
     <Compile Include="NamedObject.cs" />
     <Compile Include="DBLog.cs" />
-    <Compile Include="Discord\Author.cs" />
-    <Compile Include="Discord\Embed.cs" />
-    <Compile Include="Discord\Field.cs" />
-    <Compile Include="Discord\Footer.cs" />
-    <Compile Include="Discord\Image.cs" />
-    <Compile Include="Discord\Thumbmail.cs" />
-    <Compile Include="Discord\WebHook.cs" />
-    <Compile Include="Discord\WebHookData.cs" />
-    <Compile Include="Discord\WebHookDeleteEventArgs.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="FilterConfiguration.cs" />
     <Compile Include="GameAreas\DragonResponseMission.cs" />
