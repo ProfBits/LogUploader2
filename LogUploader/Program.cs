@@ -78,7 +78,7 @@ namespace LogUploader
 
 #if CREATE_LANGUAGE_XMLS
             Localisation.Language.WriteOutLanguageXmls();
-            Exit(ExitCode.LANG_XML_CREATION_BUILD);
+            GP.Exit(ExitCode.LANG_XML_CREATION_BUILD);
 #endif
 
 
