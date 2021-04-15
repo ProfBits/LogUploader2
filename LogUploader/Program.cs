@@ -22,6 +22,7 @@ using LogUploader.Tools.Logging;
 using LogUploader.Tools.Updater;
 using LogUploader.Tools;
 using LogUploader.Tools.Database;
+using LogUploader.Tools.Settings.GUI;
 
 namespace LogUploader
 {

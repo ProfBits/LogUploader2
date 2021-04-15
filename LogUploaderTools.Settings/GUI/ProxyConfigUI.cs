@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using LogUploader.Localisation;
 using LogUploader.Tools.Settings;
 
-namespace LogUploader.GUI
+namespace LogUploader.Tools.Settings.GUI
 {
     public partial class ProxyConfigUI : Form
     {

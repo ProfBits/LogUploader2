@@ -17,7 +17,7 @@ using LogUploader.Data.Discord;
 using LogUploader.Tools.Settings;
 using LogUploader.Tools.Dialog;
 
-namespace LogUploader.GUI
+namespace LogUploader.Tools.Settings.GUI
 {
     public partial class SettingsUI : Form
     {

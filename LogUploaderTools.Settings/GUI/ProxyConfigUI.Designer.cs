@@ -1,4 +1,4 @@
-﻿namespace LogUploader.GUI
+﻿namespace LogUploader.Tools.Settings.GUI
 {
     partial class ProxyConfigUI
     {

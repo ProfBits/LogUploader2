@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LogUploader.Tools.Settings.GUI;
 
 namespace LogUploader.GUIs
 {
@@ -485,7 +486,7 @@ namespace LogUploader.GUIs
         private void ShowSettings()
         {
             Logic.SetSelectedWebhook((long)cmbWebhookSelect.SelectedValue);
-            var settings = new GUI.SettingsUI();
+            var settings = new SettingsUI();
             switch (settings.ShowDialog())
             {
                 case DialogResult.OK:
