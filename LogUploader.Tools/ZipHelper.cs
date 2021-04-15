@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace LogUploader.Helper
+namespace LogUploader.Tools
 {
     public static class ZipHelper
     {
