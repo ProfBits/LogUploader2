@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
     public interface IEmbed
     {

@@ -9,11 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
     class PerBossGenerator : DiscordPostGenerator
     {
-        protected override WebHookData.Field GenerateField(ICachedLog log)
+        protected override IField GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -23,7 +23,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
                 value += $" - {log.Duration.ToString(Language.Current == eLanguage.DE ? "mm':'ss','fff" : "mm':'ss'.'fff")}";
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";
-            return new WebHookData.Field(name, value, true);
+            return new Field(name, value, true);
         }
 
         protected override Color GetColor(IEnumerable<ICachedLog> logs)

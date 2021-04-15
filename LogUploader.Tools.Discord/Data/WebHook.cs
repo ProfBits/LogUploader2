@@ -106,13 +106,5 @@ namespace LogUploader.Data.Discord
         {
             return JsonConvert.SerializeObject(this);
         }
-
-        [Obsolete("Do yourselfe", true)]
-        public List<WebHookData> GetPosts(params CachedLog[] logs)
-        {
-            //var generator = DiscordPostGenerator.Get(Format);
-            //return generator.Generate(logs, Name, avaturURL);
-            throw new NotImplementedException("do yourselve");
-        }
     }
 }

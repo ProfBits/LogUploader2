@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
     public abstract class DiscordPostGenerator : IDiscordPostGen
     {
@@ -27,13 +27,13 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             return posts.Cast<IWebHookData>().ToList();
         }
 
-        protected abstract WebHookData.Field GenerateField(ICachedLog log);
+        protected abstract IField GenerateField(ICachedLog log);
 
         protected abstract KeyValueList<Grouping, IEnumerable<ParsedData>> GroupFields(IEnumerable<ParsedData> data);
 
-        protected virtual IEnumerable<WebHookData.Embed> GetEmbeds(IEnumerable<KeyValuePair<Grouping, IEnumerable<ParsedData>>> groupedData)
+        protected virtual IEnumerable<IEmbed> GetEmbeds(IEnumerable<KeyValuePair<Grouping, IEnumerable<ParsedData>>> groupedData)
         {
-            List<WebHookData.Embed> embeds = new List<WebHookData.Embed>();
+            List<IEmbed> embeds = new List<IEmbed>();
 
             foreach (var group in groupedData)
             {
@@ -48,13 +48,13 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
                 {
                     current.Fields.Add(data.Field);
                     var currentLenght = current.ToString().Length;
-                    if (current.Fields.Count >= WebHookData.Embed.MAX_FIELDS)
+                    if (current.Fields.Count >= Embed.MAX_FIELDS)
                     {
-                        if (currentLenght > WebHookData.Embed.MAX_LENGHT)
+                        if (currentLenght > Embed.MAX_LENGHT)
                             current.Fields.RemoveAt(current.Fields.Count - 1);
                         embeds.Add(current);
-                        current = new WebHookData.Embed(null, "", color, new List<IField>(), null);
-                        if (currentLenght > WebHookData.Embed.MAX_LENGHT)
+                        current = new Embed(null, "", color, new List<IField>(), null);
+                        if (currentLenght > Embed.MAX_LENGHT)
                             current.Fields.Add(data.Field);
                     }
                 }
@@ -64,25 +64,25 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             return embeds;
         }
 
-        protected virtual WebHookData.Embed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
+        protected virtual IEmbed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
         {
             var dates = values.Select(log => log.Log.Date.Date).Distinct().ToList();
             dates.Sort();
             var authorName = GetDateString(dates.First());
             if (dates.Count > 1)
                 authorName += " - " + GetDateString(dates.Last());
-            var author = new WebHookData.Author(authorName, "", "");
-            var thumbmail = new WebHookData.Thumbmail(grouping.AvatarURL);
+            var author = new Author(authorName, "", "");
+            var thumbmail = new Thumbmail(grouping.AvatarURL);
             var name = grouping.Name;
             if (!string.IsNullOrWhiteSpace(grouping.PostFix))
                 name += " " + grouping.PostFix;
 
 
-            var current = new WebHookData.Embed(author, name, ColorDefault, new List<IField>(), thumbmail);
+            var current = new Embed(author, name, ColorDefault, new List<IField>(), thumbmail);
             return current;
         }
 
-        protected virtual IEnumerable<IWebHookData> GetPosts(IEnumerable<WebHookData.Embed> embeds, string userName, string avatarURL)
+        protected virtual IEnumerable<IWebHookData> GetPosts(IEnumerable<IEmbed> embeds, string userName, string avatarURL)
         {
             var posts = new List<IWebHookData>();
 
@@ -92,7 +92,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             var currentPost = GetDefaultPostHeader(userName, avatarURL);
             foreach (var embed in embeds)
             {
-                if (currentPost.Embeds.Count >= Data.Discord.WebHookData.MAX_Embeds)
+                if (currentPost.Embeds.Count >= WebHookData.MAX_Embeds)
                 {
                     posts.Add(currentPost);
                     currentPost = GetDefaultPostHeader(userName, avatarURL);
@@ -106,7 +106,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
         protected IWebHookData GetDefaultPostHeader(string userName, string avatarURL)
         {
             const string Username = "LogUploader";
-            IWebHookData post = new Data.Discord.WebHookData();
+            IWebHookData post = new WebHookData();
             post.Username = Settings.NameAsDiscordUser ? userName : Username;
             post.AvaturURL = avatarURL;
             post.Content = "";
@@ -155,9 +155,9 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
         protected struct ParsedData
         {
             public ICachedLog Log { get; }
-            public WebHookData.Field Field { get; }
+            public IField Field { get; }
 
-            public ParsedData(ICachedLog log, WebHookData.Field field)
+            public ParsedData(ICachedLog log, IField field)
             {
                 Log = log;
                 Field = field;

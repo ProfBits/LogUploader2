@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using System.ComponentModel;
-using LogUploader.Tools.Discord.DiscordPostGen;
+using LogUploader.Tools.Discord;
 
 namespace LogUploader.Data.Discord
 {
-    public partial class WebHookData : IWebHookData
+    internal class WebHookData : IWebHookData
     {
         private static readonly JsonSerializerSettings JsonSerializerSettings;
 

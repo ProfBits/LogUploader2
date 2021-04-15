@@ -10,11 +10,11 @@ using Extensiones.Linq;
 using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
     class PerWingGen : DiscordPostGenerator
     {
-        protected override WebHookData.Field GenerateField(ICachedLog log)
+        protected override IField GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -26,10 +26,10 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
                 value += $" - {log.Duration:mm':'ss}";
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";
-            var field = new WebHookData.Field(name, value, true);
+            var field = new Field(name, value, true);
             return field;
         }
-        protected virtual WebHookData.Field GenerateSingleBossField(ICachedLog log)
+        protected virtual Field GenerateSingleBossField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -41,7 +41,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
                 value += $" - {log.Duration:mm':'ss}";
             if (!string.IsNullOrWhiteSpace(log.Link))
                 value += $"\n[dps.report]({ log.Link})";
-            var field = new WebHookData.Field(name, value, true);
+            var field = new Field(name, value, true);
             return field;
         }
 
@@ -105,7 +105,7 @@ namespace LogUploader.Tools.Discord.DiscordPostGen
             return new Grouping(Boss.GetByID(data.First().Log.BossID).Area);
         }
 
-        protected override WebHookData.Embed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
+        protected override IEmbed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
         {
             var temp = base.GetEmbedFrame(grouping, values);
             var wing = RaidWing.RaidWings.Where(w => w.Value.Name == grouping.Name).Select(g => g.Value).FirstOrDefault();

@@ -8,7 +8,6 @@ using LogUploader.Tools.JobQueue;
 using LogUploader.Localisation;
 using LogUploader.Properties;
 using LogUploader.Tools.Discord;
-using LogUploader.Tools.Discord.DiscordPostGen;
 using LogUploader.Tools.DpsReport;
 using LogUploader.Tools.Logging;
 using LogUploader.Tools.Settings;

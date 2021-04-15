@@ -4,40 +4,37 @@ using Newtonsoft.Json;
 
 using System.ComponentModel;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
-    public partial class WebHookData
+    internal class Footer : IFooter
     {
-        public class Footer : IFooter
+        private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+        static Footer()
         {
-            private static readonly JsonSerializerSettings JsonSerializerSettings;
-
-            static Footer()
+            JsonSerializerSettings = new JsonSerializerSettings
             {
-                JsonSerializerSettings = new JsonSerializerSettings
-                {
-                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-                };
-            }
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
+        }
 
-            [JsonProperty("text", DefaultValueHandling = DefaultValueHandling.Ignore)]
-            [DefaultValue("")]
-            public string Text { get; set; } = "";
+        [JsonProperty("text", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
+        public string Text { get; set; } = "";
 
-            [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-            [DefaultValue("")]
-            public string IconURL { get; set; } = "";
+        [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
+        public string IconURL { get; set; } = "";
 
-            public Footer(string text, string iconURL)
-            {
-                Text = text;
-                IconURL = iconURL;
-            }
+        public Footer(string text, string iconURL)
+        {
+            Text = text;
+            IconURL = iconURL;
+        }
 
-            public override string ToString()
-            {
-                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
-            }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, JsonSerializerSettings);
         }
     }
 }

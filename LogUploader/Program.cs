@@ -268,7 +268,7 @@ namespace LogUploader
             if (ct.IsCancellationRequested)
                 return null;
 
-            Tools.Discord.DiscordPostGen.DiscordPostGenerator.Settings = settings;
+            Tools.Discord.DiscordPostGenerator.Settings = settings;
 
             Logger.Message("Setup - Logic");
             var newLogic = new LogUploaderLogic();

@@ -1,4 +1,4 @@
-﻿namespace LogUploader.Tools.Discord.DiscordPostGen
+﻿namespace LogUploader.Tools.Discord
 {
     public interface IAuthor
     {

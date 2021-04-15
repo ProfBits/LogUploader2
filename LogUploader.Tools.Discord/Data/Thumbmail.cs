@@ -4,35 +4,32 @@ using Newtonsoft.Json;
 
 using System.ComponentModel;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
-    public partial class WebHookData
+    internal class Thumbmail : IThumbmail
     {
-        public class Thumbmail : IThumbmail
+        private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+        static Thumbmail()
         {
-            private static readonly JsonSerializerSettings JsonSerializerSettings;
-
-            static Thumbmail()
+            JsonSerializerSettings = new JsonSerializerSettings
             {
-                JsonSerializerSettings = new JsonSerializerSettings
-                {
-                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-                };
-            }
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
+        }
 
-            [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-            [DefaultValue("")]
-            string URL { get; set; } = "";
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
+        string URL { get; set; } = "";
 
-            public Thumbmail(string uRL)
-            {
-                URL = uRL;
-            }
+        public Thumbmail(string uRL)
+        {
+            URL = uRL;
+        }
 
-            public override string ToString()
-            {
-                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
-            }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, JsonSerializerSettings);
         }
     }
 }

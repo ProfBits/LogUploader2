@@ -4,51 +4,48 @@ using Newtonsoft.Json;
 
 using System.ComponentModel;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
-    public partial class WebHookData
+    internal class Author : IAuthor
     {
-        public class Author : IAuthor
+        private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+        static Author()
         {
-            private static readonly JsonSerializerSettings JsonSerializerSettings;
-
-            static Author()
+            JsonSerializerSettings = new JsonSerializerSettings
             {
-                JsonSerializerSettings = new JsonSerializerSettings
-                {
-                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-                };
-            }
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
+        }
 
-            public const int NAME_MAX_LENGHT = 256;
-            private string name = "";
-            [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
-            [DefaultValue("")]
-            public string Name
-            {
-                get => name;
-                set => name = value.Length > NAME_MAX_LENGHT ? value.Substring(0, NAME_MAX_LENGHT) : value;
-            }
+        public const int NAME_MAX_LENGHT = 256;
+        private string name = "";
+        [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
+        public string Name
+        {
+            get => name;
+            set => name = value.Length > NAME_MAX_LENGHT ? value.Substring(0, NAME_MAX_LENGHT) : value;
+        }
 
-            [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-            [DefaultValue("")]
-            public string URL { get; set; } = "";
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
+        public string URL { get; set; } = "";
 
-            [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-            [DefaultValue("")]
-            public string IconURL { get; set; } = "";
+        [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue("")]
+        public string IconURL { get; set; } = "";
 
-            public Author(string name, string uRL, string iconURL)
-            {
-                Name = name;
-                URL = uRL;
-                IconURL = iconURL;
-            }
+        public Author(string name, string uRL, string iconURL)
+        {
+            Name = name;
+            URL = uRL;
+            IconURL = iconURL;
+        }
 
-            public override string ToString()
-            {
-                return JsonConvert.SerializeObject(this, JsonSerializerSettings);
-            }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, JsonSerializerSettings);
         }
     }
 }

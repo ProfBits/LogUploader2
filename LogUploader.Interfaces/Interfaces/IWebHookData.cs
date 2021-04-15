@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LogUploader.Tools.Discord.DiscordPostGen
+namespace LogUploader.Tools.Discord
 {
     public interface IWebHookData
     {
