@@ -49,7 +49,7 @@
     <Compile Include="DiscordPostGen\CompactWithClasesGenerator.cs" />
     <Compile Include="DiscordPostGen\CompactWithEmotesGenerator.cs" />
     <Compile Include="DiscordPostGen\DetaildGenerator.cs" />
-    <Compile Include="DiscordPostGen\DiscordPostGenerator.cs" />
+    <Compile Include="DiscordPostGenerator.cs" />
     <Compile Include="DiscordPostGen\PerBossGenerator.cs" />
     <Compile Include="DiscordPostGen\PerWingGen.cs" />
     <Compile Include="DiscordPostGen\PerWingWithClasses.cs" />
