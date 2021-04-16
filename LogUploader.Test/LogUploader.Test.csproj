@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj" />
+    <ProjectReference Include="..\LogUploader.GUI\LogUploader.GUI.csproj" />
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj" />
+    <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.Database\LogUploader.Tools.Database.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.Discord\LogUploader.Tools.Discord.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.DpsReport\LogUploader.Tools.DpsReport.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.EliteInsights\LogUploader.Tools.EliteInsights.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.RaidOrgaPlus\LogUploader.Tools.RaidOrgaPlus.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj" />
+    <ProjectReference Include="..\LogUploaderTools.Settings\LogUploader.Tools.Settings.csproj" />
+    <ProjectReference Include="..\LogUploader\LogUploader.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>

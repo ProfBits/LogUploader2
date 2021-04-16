@@ -32,9 +32,20 @@ namespace LogUploader.Tools.Logging
 
         private static readonly object sync = new object();
 
+        private static Action<string, string, Encoding> Writer;
+
+        internal static void TestInit(string version, eLogLevel logLevel, Action<string, string, Encoding> logger)
+        {
+            LogLevel = logLevel;
+            Writer = logger;
+            InitDone = true;
+        }
+
         public static void Init(string version, eLogLevel logLevel)
         {
             LogLevel = logLevel;
+            Writer = File.AppendAllText;
+
             var logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + LOG_DIR;
             Directory.CreateDirectory(logPath);
             CleanUpLogs(logPath);
@@ -201,7 +212,7 @@ namespace LogUploader.Tools.Logging
             var padding = new string(' ', header.Length);
             var lines = msg.Trim().Split('\n').Select(line => padding + line.Trim());
             var text = lines.Aggregate("", (l1, l2) => l1 + l2 + Environment.NewLine).TrimStart();
-            lock (sync) File.AppendAllText(LogFile, header + text, Encoding.UTF8);
+            lock (sync) Writer(LogFile, header + text, Encoding.UTF8);
         }
 
         public static void Message(string msg, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")
