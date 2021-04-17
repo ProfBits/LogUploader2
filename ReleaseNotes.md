@@ -1,3 +1,9 @@
+# v1.3.7
+17.04.2021
+
+## Bugfixes
+- Fixed bug in new normal and CM encounter matching
+
 # v1.3.6
 14.04.2021
 

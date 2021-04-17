@@ -123,9 +123,9 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 var anyNormal = boss.Any(b => !b.IsCM);
                 var anyCM = boss.Any(b => b.IsCM);
 
-                var raidBoss = logs.Where(b => b.ID == boss.Key);
+                var raidBoss = logs.Where(b => Boss.GetByID(b.BossID).RaidOrgaPlusID == boss.Key);
                 var raidAnyNormal = raidBoss.Any(b => !b.IsCM);
-                var raidAnyCM = raidBoss.Any(b => !b.IsCM);
+                var raidAnyCM = raidBoss.Any(b => b.IsCM);
 
                 var succLogs = raidBoss.Where(b => b.Succsess);
                 if (count == 1 && ((anyCM && !anyNormal) || (!anyCM && anyNormal)))
