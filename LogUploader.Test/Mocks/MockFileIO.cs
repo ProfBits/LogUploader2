@@ -32,8 +32,8 @@ namespace LogUploader.Test.Mocks
 
         public FileStream Create(string path)
         {
-            //TODO NotImplementedException FileStream Create(string path)
-            throw new NotImplementedException("Not sure how to implement");
+            WriteAllBytes(path, new byte[] { });
+            return null;
         }
 
         public bool Exists(string path)
@@ -92,6 +92,7 @@ namespace LogUploader.Test.Mocks
 
         public void Reset()
         {
+            MockFileSystem.Data.Reset();
         }
     }
 }

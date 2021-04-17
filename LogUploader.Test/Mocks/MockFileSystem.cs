@@ -229,10 +229,10 @@ namespace LogUploader.Test.Mocks
 
             public override void Delete(bool recursive = false)
             {
-                if (Children.Count > 0) throw new System.IO.IOException("Directory is not empty");
+                if (Children.Count > 0 && !recursive) throw new System.IO.IOException("Directory is not empty");
                 base.Delete();
                 while (Children.Count > 0)
-                    Children.First().Delete();
+                    Children.First().Delete(recursive);
             }
 
             public void AddChild(FileSystemElement element)
