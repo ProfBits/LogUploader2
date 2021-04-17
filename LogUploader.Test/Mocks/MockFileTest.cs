@@ -237,5 +237,43 @@ namespace LogUploader.Test.Mocks
             Assert.IsTrue(content.SequenceEqual(FileIO.ReadAllLines(fileNameA, Encoding.UTF8)));
         }
 
+        [Test]
+        public void ReadFileNotFound()
+        {
+            const string fileName = @"C:\UnitTest\nonExitent\virtual.dat";
+            Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllText(fileName));
+            Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllText(fileName, Encoding.UTF8));
+        }
+
+        [Test]
+        public void ReadLinesFileNotFound()
+        {
+            const string fileName = @"C:\UnitTest\nonExitent\virtual.dat";
+            Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllLines(fileName, Encoding.UTF8));
+        }
+
+        [Test]
+        public void ReadBytesFileNotFound()
+        {
+            const string fileName = @"C:\UnitTest\nonExitent\virtual.dat";
+            Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllBytes(fileName));
+        }
+
+        [Test]
+        public void CopyFileNotFoud()
+        {
+            const string fileNameA = @"C:\UnitTest\nonExitent\virtual.dat";
+            const string fileNameB = @"C:\UnitTest\nonExitent\virtual2.dat";
+            Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Copy(fileNameA, fileNameB, true));
+            Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Copy(fileNameA, fileNameB, false));
+        }
+
+        [Test]
+        public void MoveFileNotFoud()
+        {
+            const string fileNameA = @"C:\UnitTest\nonExitent\virtual.dat";
+            const string fileNameB = @"C:\UnitTest\nonExitent\virtual2.dat";
+            Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Move(fileNameA, fileNameB));
+        }
     }
 }
