@@ -45,12 +45,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
 
         private static void RemoveFakePlayers(List<RoPlusPlayer> players)
         {
-            var nonePlayers = players.Where(p => !p.AccountName.Contains('.'));
-            foreach (var notPlayer in nonePlayers)
-            {
-                if (notPlayer != null)
-                    players.Remove(notPlayer);
-            }
+            players.RemoveAll(p => !p.AccountName.Contains('.') || p == null);
         }
 
         internal void GuessRoles()

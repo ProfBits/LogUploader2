@@ -116,7 +116,7 @@ namespace LogUploader.Data.RaidOrgaPlus
                     break;
             }
 
-            Players = Players.OrderBy(p => p.Role, comparator).Select((p, i) =>
+            Players = Players.OrderBy(p => p.Role, comparator).ThenBy(p => p.ClassID).ThenBy(p => p.AccName).Select((p, i) =>
             {
                 p.Pos = i + 1;
                 return p;
@@ -142,9 +142,9 @@ namespace LogUploader.Data.RaidOrgaPlus
                 {
                     case Role.Tank:
                         return 0;
-                    case Role.Heal:
-                        return 10;
                     case Role.Utility:
+                        return 10;
+                    case Role.Heal:
                         return 20;
                     case Role.Banner:
                         return 30;
