@@ -1,3 +1,12 @@
+# v1.3.8
+18.04.2021
+
+## Improvements
+- Ordering of players on new Bosses in RO+ is now more stable
+
+## Bugfixes
+- Fixed bug when processing certain bosses for RO+
+
 # v1.3.7
 17.04.2021
 
