@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Test.Mocks
 {
-    class MockDirectroyIO : Wrapper.IDirectoryIO, IMock
+    class MockDirectoryIO : Wrapper.IDirectoryIO, IMock
     {
-        public static MockDirectroyIO Instance { get; } = new MockDirectroyIO();
+        public static MockDirectoryIO Instance { get; } = new MockDirectoryIO();
 
-        private MockDirectroyIO() { }
+        private MockDirectoryIO() { }
 
         public DirectoryInfo CreateDirectory(string path)
         {
             MockFileSystem.Data.CreateFolder(path);
             //TODO may cause issues
-            NUnit.Framework.Warn.If(true, "CreateDirectory returns DirectoryInfo null");
+            //NUnit.Framework.Warn.If(true, "CreateDirectory returns DirectoryInfo null");
+#warning CreateDirectory returns DirectoryInfo null;
             return null;
         }
 
@@ -31,17 +32,17 @@ namespace LogUploader.Test.Mocks
             return MockFileSystem.Data.DirectoryExits(path);
         }
 
-        public string[] GetFiles(string path)
-        {
-            return MockFileSystem.Data.GetDirectoryContent(path);
-        }
+        public string[] GetFiles(string path) => MockFileSystem.Data.GetDirectoryContent(path, false);
 
-        public string[] GetFiles(string path, string searchPattern)
+        public string[] GetFiles(string path, string searchPattern) => GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
+
+        public string[] GetFiles(string path, string searchPattern, SearchOption searchOption)
         {
+            var files = MockFileSystem.Data.GetDirectoryContent(path, searchOption == SearchOption.AllDirectories);
             if (searchPattern == "*.*")
-                return GetFiles(path);
+                return files;
             if (searchPattern.StartsWith("*."))
-                return GetFiles(path).Where(p => p.EndsWith(searchPattern.Substring(1))).ToArray();
+                return files.Where(p => p.EndsWith(searchPattern.Substring(1))).ToArray();
             throw new NotImplementedException();
         }
 
@@ -52,6 +53,7 @@ namespace LogUploader.Test.Mocks
 
         public void Reset()
         {
+            MockFileSystem.Data.Reset();
         }
     }
 }

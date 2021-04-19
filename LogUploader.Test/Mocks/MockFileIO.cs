@@ -33,6 +33,8 @@ namespace LogUploader.Test.Mocks
         public FileStream Create(string path)
         {
             WriteAllBytes(path, new byte[] { });
+
+#warning CreateFile returns FileStream null;
             return null;
         }
 

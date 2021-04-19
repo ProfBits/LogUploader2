@@ -44,7 +44,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUploader.Interfaces", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUploader.Tools", "LogUploader.Tools\LogUploader.Tools.csproj", "{F6548FF0-B30F-40A4-B8AA-A277D7B6C425}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUploader.Test", "LogUploader.Test\LogUploader.Test.csproj", "{FBE898F3-9BCB-4F8C-A242-F157973A9FB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Test", "LogUploader.Test\LogUploader.Test.csproj", "{FBE898F3-9BCB-4F8C-A242-F157973A9FB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

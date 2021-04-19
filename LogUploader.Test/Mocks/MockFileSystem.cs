@@ -101,17 +101,18 @@ namespace LogUploader.Test.Mocks
 
         public void MoveDirectory(string sourceDirName, string destDirName)
         {
-            if (!DirectoryExits(sourceDirName)) throw new System.IO.DirectoryNotFoundException();
-            if (!DirectoryExits(destDirName)) throw new System.IO.IOException();
-            var source = FindElement(sourceDirName);
+            if (!DirectoryExits(sourceDirName)) throw new System.IO.DirectoryNotFoundException(sourceDirName);
+            if (!DirectoryExits(destDirName)) throw new System.IO.DirectoryNotFoundException(destDirName);
+            var source = FindElement(sourceDirName) as FileSystemDirectory;
             var dest = FindElement(destDirName) as FileSystemDirectory;
+            (source.Parent as FileSystemDirectory ?? throw new System.IO.IOException("Cannot move drive root")).RemoveChild(source);
             source.Parent = null;
             dest.AddChild(source);
         }
-        public string[] GetDirectoryContent(string path)
+        public string[] GetDirectoryContent(string path, bool recursive)
         {
             if (!DirectoryExits(path)) throw new System.IO.DirectoryNotFoundException();
-            return (FindElement(path) as FileSystemDirectory).GetContent().Select(e => e.GetPath()).ToArray();
+            return (FindElement(path) as FileSystemDirectory).GetFiles(recursive).Select(f => f.GetPath()).ToArray();
         }
 
         private FileSystemElement FindElement(string path, bool create = false)
@@ -132,13 +133,15 @@ namespace LogUploader.Test.Mocks
         private FileSystemElement FindElement(string path, FileSystemDirectory e, bool create = false)
         {
             var parts = path.Split(System.IO.Path.DirectorySeparatorChar).ToList();
+            if (string.IsNullOrEmpty(parts.LastOrDefault()))
+                parts.RemoveAt(parts.Count - 1);
             if (parts.Count == 1)
             {
                 var element = e.GetContent().FirstOrDefault(el => el.Name == parts[0]);
                 if (element == null && create)
                 {
-                    if (parts[0].EndsWith("" + System.IO.Path.DirectorySeparatorChar))
-                        element = new FileSystemDirectory(parts[0]);
+                    if (path.EndsWith("" + System.IO.Path.DirectorySeparatorChar))
+                        element = new FileSystemDirectory(parts[0].TrimEnd(System.IO.Path.DirectorySeparatorChar));
                     else
                         element = new FileSystemFile(parts[0], new byte[] { });
                     e.AddChild(element);
@@ -157,7 +160,7 @@ namespace LogUploader.Test.Mocks
                     else
                         return null;
                 parts.RemoveAt(0);
-                return FindElement(string.Join("" + System.IO.Path.PathSeparator, parts), subDir, create);
+                return FindElement(string.Join("" + System.IO.Path.DirectorySeparatorChar, parts) + (path.EndsWith("" + System.IO.Path.DirectorySeparatorChar) ? "" + System.IO.Path.DirectorySeparatorChar : ""), subDir, create);
             }
         }
 
@@ -209,7 +212,7 @@ namespace LogUploader.Test.Mocks
                 {
                     if (element is FileSystemFile file)
                         subFiles.Add(file);
-                    else if (recursive && element is FileSystemDirectory dir)
+                    if (recursive && element is FileSystemDirectory dir)
                         subFiles.AddRange(dir.GetFiles(recursive));
                 }
                 return subFiles;
@@ -248,7 +251,7 @@ namespace LogUploader.Test.Mocks
 
             public override string GetPath()
             {
-                return Parent.GetPath() + Name + System.IO.Path.DirectorySeparatorChar;
+                return (Parent?.GetPath() ?? "") + Name + System.IO.Path.DirectorySeparatorChar;
             }
         }
 
@@ -264,7 +267,7 @@ namespace LogUploader.Test.Mocks
 
             public override string GetPath()
             {
-                return Parent.GetPath() + Name;
+                return (Parent?.GetPath() ?? "") + Name;
             }
 
 

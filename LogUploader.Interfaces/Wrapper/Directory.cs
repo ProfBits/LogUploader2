@@ -18,8 +18,10 @@ namespace LogUploader.Wrapper
         public static bool Exists(string path) => Backend.Exists(path);
                 
         public static string[] GetFiles(string path) => Backend.GetFiles(path);
-                
+
         public static string[] GetFiles(string path, string searchPattern) => Backend.GetFiles(path, searchPattern);
+
+        public static string[] GetFiles(string path, string searchPattern, SearchOption searchOption) => Backend.GetFiles(path, searchPattern, searchOption);
                 
         public static void Move(string sourceDirName, string destDirName) => Backend.Move(sourceDirName, destDirName);
     }
@@ -35,6 +37,8 @@ namespace LogUploader.Wrapper
         public string[] GetFiles(string path) => Directory.GetFiles(path);
 
         public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
+
+        public string[] GetFiles(string path, string searchPattern, SearchOption searchOption) => Directory.GetFiles(path, searchPattern, searchOption);
 
         public void Move(string sourceDirName, string destDirName) => Directory.Move(sourceDirName, destDirName);
     }

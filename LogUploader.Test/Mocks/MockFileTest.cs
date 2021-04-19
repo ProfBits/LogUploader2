@@ -275,5 +275,12 @@ namespace LogUploader.Test.Mocks
             const string fileNameB = @"C:\UnitTest\nonExitent\virtual2.dat";
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Move(fileNameA, fileNameB));
         }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            MockFileSystem.Data.Reset();
+        }
+
     }
 }

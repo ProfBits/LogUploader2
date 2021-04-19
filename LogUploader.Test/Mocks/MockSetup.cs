@@ -11,7 +11,7 @@ namespace LogUploader.Test.Mocks
         internal static void InjectMoks()
         {
             Wrapper.FileIO.Backend = MockFileIO.Instance;
-            Wrapper.DirectoryIO.Backend = MockDirectroyIO.Instance;
+            Wrapper.DirectoryIO.Backend = MockDirectoryIO.Instance;
         }
     }
 }
