@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 using LogUploader.Tools.Settings;
 
-namespace LogUploader.Interfaces.Wrapper
+namespace LogUploader.Wrapper
 {
     public static class WebIOFactory
     {

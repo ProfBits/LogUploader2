@@ -9,7 +9,7 @@ using System.Threading;
 using System.IO;
 using LogUploader.Tools.Settings;
 
-namespace LogUploader.Interfaces.Wrapper
+namespace LogUploader.Wrapper
 {
     public interface IWebIO : IDisposable
     {
