@@ -57,7 +57,7 @@
     <Compile Include="Interfaces\IAvatar.cs" />
     <Compile Include="Interfaces\ICachedLog.cs" />
     <Compile Include="Interfaces\IDBLog.cs" />
-    <Compile Include="Wrapper\Directory.cs" />
+    <Compile Include="Wrapper\DirectoryIO.cs" />
     <Compile Include="Wrapper\FileIO.cs" />
     <Compile Include="Wrapper\IDirectoryIO.cs" />
     <Compile Include="Interfaces\IDiscordPostGen.cs" />
@@ -82,6 +82,8 @@
     <Compile Include="ProgressMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringValueAttribute.cs" />
+    <Compile Include="Wrapper\IWebIO.cs" />
+    <Compile Include="Wrapper\WebIO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
