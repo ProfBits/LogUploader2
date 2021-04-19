@@ -12,6 +12,7 @@ namespace LogUploader.Test.Mocks
         {
             Wrapper.FileIO.Backend = MockFileIO.Instance;
             Wrapper.DirectoryIO.Backend = MockDirectoryIO.Instance;
+            Wrapper.WebIOFactory.Factory = MockWebIOFactory.Instance;
         }
     }
 }
