@@ -210,5 +210,10 @@ namespace LogUploader.Test.Mocks
             Assert.AreEqual(req, resp.RequestMessage);
         }
 
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            MockWebIO.Instance.Reset();
+        }
     }
 }
