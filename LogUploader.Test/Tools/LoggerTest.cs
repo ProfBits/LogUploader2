@@ -247,7 +247,71 @@ namespace LogUploader.Test.Tools
                 var LogFileContent = Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8);
                 Assert.IsTrue(LogFileContent.Any(m => m.Contains(e)), $"\"{e}\" is missing in the log");
             }
+        }
 
+        [Test]
+        public void LogCleanUp()
+        {
+            var toBeRemoved = Logger.FULL_LOG_DIR + "shouldBeGone" + Logger.LOG_FILE_EXT;
+            Wrapper.FileIO.Create(toBeRemoved);
+            var logsToKeep = Logger.LOGS_TO_KEEP;
+
+            for (int i = 0; i < logsToKeep + 3; i++)
+            {
+                Wrapper.FileIO.Create(Logger.FULL_LOG_DIR + "testLog" + i + Logger.LOG_FILE_EXT);
+            }
+
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+
+            Assert.LessOrEqual(Wrapper.DirectoryIO.GetFiles(Logger.FULL_LOG_DIR, "*" + Logger.LOG_FILE_EXT).Count(), logsToKeep + 1);
+            Assert.IsFalse(Wrapper.FileIO.Exists(toBeRemoved));
+            Assert.IsTrue(Wrapper.FileIO.Exists(Logger.LogFile));
+        }
+
+        [Test]
+        public void LogCleanUpOnlyAffctesLogsFiles()
+        {
+            var toBeRemoved = Logger.FULL_LOG_DIR + "shouldBeGone" + Logger.LOG_FILE_EXT;
+            var notLogExtensione = ".random";
+            Assert.AreNotEqual(Logger.LOG_FILE_EXT, notLogExtensione);
+            Wrapper.FileIO.Create(toBeRemoved);
+            var logsToKeep = Logger.LOGS_TO_KEEP;
+
+            for (int i = 0; i < logsToKeep; i++)
+            {
+                Wrapper.FileIO.Create(Logger.FULL_LOG_DIR + "thisIsNotALog" + i + ".random");
+                Wrapper.FileIO.Create(Logger.FULL_LOG_DIR + "testLog" + i + Logger.LOG_FILE_EXT);
+            }
+
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+
+            Assert.LessOrEqual(Wrapper.DirectoryIO.GetFiles(Logger.FULL_LOG_DIR, "*" + Logger.LOG_FILE_EXT).Count(), logsToKeep + 1);
+            Assert.AreEqual(logsToKeep, Wrapper.DirectoryIO.GetFiles(Logger.FULL_LOG_DIR, "*" + notLogExtensione).Count());
+            Assert.IsFalse(Wrapper.FileIO.Exists(toBeRemoved));
+            Assert.IsTrue(Wrapper.FileIO.Exists(Logger.LogFile));
+        }
+
+        [Test]
+        public void LogCleanUpOnlyIfRequired()
+        {
+            var notLogExtensione = ".random";
+            Assert.AreNotEqual(Logger.LOG_FILE_EXT, notLogExtensione);
+            int logsToKeepHalf = Logger.LOGS_TO_KEEP / 2;
+            Assert.GreaterOrEqual(logsToKeepHalf, 2);
+
+            for (int i = 0; i < logsToKeepHalf; i++)
+            {
+                Wrapper.FileIO.Create(Logger.FULL_LOG_DIR + "thisIsNotALog" + i + ".random");
+                Wrapper.FileIO.Create(Logger.FULL_LOG_DIR + "thisIsNotALogToo" + i + ".random");
+                Wrapper.FileIO.Create(Logger.FULL_LOG_DIR + "thisIsNotALogAlso" + i + ".random");
+                Wrapper.FileIO.Create(Logger.FULL_LOG_DIR + "testLog" + i + Logger.LOG_FILE_EXT);
+            }
+
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+
+            Assert.AreEqual(logsToKeepHalf + 1, Wrapper.DirectoryIO.GetFiles(Logger.FULL_LOG_DIR, "*" + Logger.LOG_FILE_EXT).Count());
+            Assert.AreEqual(logsToKeepHalf * 3, Wrapper.DirectoryIO.GetFiles(Logger.FULL_LOG_DIR, "*" + notLogExtensione).Count());
+            Assert.IsTrue(Wrapper.FileIO.Exists(Logger.LogFile));
         }
     }
 }
