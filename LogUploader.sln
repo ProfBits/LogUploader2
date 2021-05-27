@@ -37,6 +37,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUploader.Tools.Database", "LogUploader.Tools.Database\LogUploader.Tools.Database.csproj", "{DCEB6DB7-C9E4-44CC-B8AC-8FC01B96BAB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUploader.Tools.Logger", "LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj", "{69300452-4544-42BB-B283-1D46AD792843}"
+	ProjectSection(ProjectDependencies) = postProject
+		{614BC53C-0C82-4731-8A50-3B003B77F892} = {614BC53C-0C82-4731-8A50-3B003B77F892}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUploader.Tools.Settings", "LogUploaderTools.Settings\LogUploader.Tools.Settings.csproj", "{295ADD42-DC29-4716-A241-6B813BE6EB69}"
 EndProject

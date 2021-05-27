@@ -45,5 +45,11 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
+      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
+      <Name>LogUploader.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.CompilerServices;
+using LogUploader.Wrapper;
 
 namespace LogUploader.Tools.Logging
 {
@@ -17,8 +18,10 @@ namespace LogUploader.Tools.Logging
         private const string PREFIX_DEBUG = "[dbg]";
         private const string PREFIX_VERBOSE = "[veb]";
 
-        private const string LOG_DIR = "\\LogUploader\\Logs\\";
-        private const int LOGS_TO_KEEP = 29;
+        internal const string LOG_DIR = "Logs\\";
+        internal const string LOG_FILE_EXT = ".log";
+        internal static string FULL_LOG_DIR { get => DirectoryIO.AppDataLocal + LOG_DIR; }
+        internal const int LOGS_TO_KEEP = 29;
         public static string LogFile { get; private set; }
 
         private static eLogLevel logLevel;
@@ -32,25 +35,16 @@ namespace LogUploader.Tools.Logging
 
         private static readonly object sync = new object();
 
-        private static Action<string, string, Encoding> Writer;
-
-        internal static void TestInit(string version, eLogLevel logLevel, Action<string, string, Encoding> logger)
-        {
-            LogLevel = logLevel;
-            Writer = logger;
-            InitDone = true;
-        }
-
         public static void Init(string version, eLogLevel logLevel)
         {
+            InitDone = false;
             LogLevel = logLevel;
-            Writer = File.AppendAllText;
 
-            var logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + LOG_DIR;
-            Directory.CreateDirectory(logPath);
+            var logPath = FULL_LOG_DIR;
+            DirectoryIO.CreateDirectory(logPath);
             CleanUpLogs(logPath);
 
-            LogFile = logPath + DateTime.Now.ToString("yyMMdd_hhmmssfff") + ".log";
+            LogFile = logPath + DateTime.Now.ToString("yyMMdd_hhmmssfff") + LOG_FILE_EXT;
             WriteHeader(version);
             
             InitDone = true;
@@ -58,35 +52,37 @@ namespace LogUploader.Tools.Logging
 
         private static void CleanUpLogs(string logPath)
         {
-            var logs = new DirectoryInfo(logPath).GetFiles().Where(file => file.Name.EndsWith(".log"));
+            //var logs = new DirectoryInfo(logPath).GetFiles().Where(file => file.Name.EndsWith(LOG_FILE_EXT));
+
+            var logs = DirectoryIO.GetFiles(logPath, "*" + LOG_FILE_EXT);
             if (logs.Count() > LOGS_TO_KEEP)
             {
-                foreach (var file in logs.OrderBy(file => file.CreationTime).Take(logs.Count() - LOGS_TO_KEEP))
+                foreach (var file in logs.OrderBy(file => FileIO.GetCreationTime(file)).Take(logs.Count() - LOGS_TO_KEEP))
                 {
                     DeleteFile(file);
                 }
             }
         }
 
-        private static void DeleteFile(FileInfo file)
+        private static void DeleteFile(string file)
         {
             try
             {
-                file.Delete();
+                FileIO.Delete(file);
             }
             catch (IOException e)
             {
-                Warn("Could not delelet log (IOException) " + file.FullName);
+                Warn("Could not delelet log (IOException) " + file);
                 Warn(e.Message);
             }
             catch (System.Security.SecurityException e)
             {
-                Warn("Could not delelet log (SecurityException) " + file.FullName);
+                Warn("Could not delelet log (SecurityException) " + file);
                 Warn(e.Message);
             }
             catch (UnauthorizedAccessException e)
             {
-                Warn("Could not delelet log (UnauthorizedAccessException) " + file.FullName);
+                Warn("Could not delelet log (UnauthorizedAccessException) " + file);
                 Warn(e.Message);
             }
         }
@@ -112,7 +108,7 @@ namespace LogUploader.Tools.Logging
 ### LogLevel: {LogLevel}
 
 ";
-            File.AppendAllText(LogFile, text, Encoding.UTF8);
+            Wrapper.FileIO.AppendAllText(LogFile, text, Encoding.UTF8);
         }
 
         private static string GetOSString()
@@ -212,7 +208,7 @@ namespace LogUploader.Tools.Logging
             var padding = new string(' ', header.Length);
             var lines = msg.Trim().Split('\n').Select(line => padding + line.Trim());
             var text = lines.Aggregate("", (l1, l2) => l1 + l2 + Environment.NewLine).TrimStart();
-            lock (sync) Writer(LogFile, header + text, Encoding.UTF8);
+            lock (sync) Wrapper.FileIO.AppendAllText(LogFile, header + text, Encoding.UTF8);
         }
 
         public static void Message(string msg, [CallerMemberName] string cmn = "", [CallerLineNumber] int line = -1, [CallerFilePath] string cfp = "")

@@ -12,29 +12,49 @@ namespace LogUploader.Test.Tools
 {
     public class LoggerTest
     {
-        private readonly List<string> Messages = new List<string>();
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            Mocks.MockSetup.InjectMoks();
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            Mocks.MockSetup.ResetAll();
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            Mocks.MockSetup.ResetAll();
+        }
 
         [TearDown]
         public void TearDwon()
         {
-            Messages.Clear();
+            Mocks.MockSetup.ResetAll();
         }
 
-        private void AppendCallback(string _, string message, Encoding encoding)
+        [Test]
+        public void InitLogging()
         {
-            Messages.Add(message);
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            Assert.AreEqual(1, Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).Count());
         }
 
         [Test]
         public void LogLevelSwitchLoggs()
         {
-            Logger.TestInit("1.0.0", eLogLevel.NORMAL, AppendCallback);
+            Logger.Init("1.0.0", eLogLevel.NORMAL);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
 
             foreach (eLogLevel lvl in Enum.GetValues(typeof(eLogLevel)))
             {
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.LogLevel = lvl;
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1,
+                    $"Log Message for loglevle switch to {lvl} missing");
             }
         }
 
@@ -42,8 +62,8 @@ namespace LogUploader.Test.Tools
         [Test]
         public void LogDebug()
         {
-            Logger.TestInit("1.0.0", eLogLevel.DEBUG, AppendCallback);
-            Messages.Clear();
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
             eLogLevel[] sholdLog = new eLogLevel[] { eLogLevel.DEBUG };
             eLogLevel[] sholdNotLog = new eLogLevel[] { eLogLevel.SILETN, eLogLevel.ERROR, eLogLevel.WARN, eLogLevel.MINIMAL, eLogLevel.NORMAL, eLogLevel.VERBOSE };
 
@@ -55,24 +75,24 @@ namespace LogUploader.Test.Tools
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Debug("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Debug("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
         }
 
         [Test]
         public void LogVerbose()
         {
-            Logger.TestInit("1.0.0", eLogLevel.DEBUG, AppendCallback);
-            Messages.Clear();
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
             eLogLevel[] sholdLog = new eLogLevel[] { eLogLevel.DEBUG, eLogLevel.VERBOSE };
             eLogLevel[] sholdNotLog = new eLogLevel[] { eLogLevel.SILETN, eLogLevel.ERROR, eLogLevel.WARN, eLogLevel.MINIMAL, eLogLevel.NORMAL };
 
@@ -84,24 +104,24 @@ namespace LogUploader.Test.Tools
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Verbose("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Verbose("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
         }
 
         [Test]
         public void LogMessage()
         {
-            Logger.TestInit("1.0.0", eLogLevel.DEBUG, AppendCallback);
-            Messages.Clear();
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
             eLogLevel[] sholdLog = new eLogLevel[] { eLogLevel.DEBUG, eLogLevel.VERBOSE, eLogLevel.NORMAL };
             eLogLevel[] sholdNotLog = new eLogLevel[] { eLogLevel.SILETN, eLogLevel.ERROR, eLogLevel.WARN, eLogLevel.MINIMAL };
 
@@ -113,24 +133,24 @@ namespace LogUploader.Test.Tools
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Message("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Message("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
         }
 
         [Test]
         public void LogWarn()
         {
-            Logger.TestInit("1.0.0", eLogLevel.DEBUG, AppendCallback);
-            Messages.Clear();
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
             eLogLevel[] sholdLog = new eLogLevel[] { eLogLevel.DEBUG, eLogLevel.VERBOSE, eLogLevel.NORMAL, eLogLevel.MINIMAL, eLogLevel.WARN };
             eLogLevel[] sholdNotLog = new eLogLevel[] { eLogLevel.SILETN, eLogLevel.ERROR };
 
@@ -142,24 +162,24 @@ namespace LogUploader.Test.Tools
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Warn("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Warn("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
         }
 
         [Test]
         public void LogError()
         {
-            Logger.TestInit("1.0.0", eLogLevel.DEBUG, AppendCallback);
-            Messages.Clear();
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
             eLogLevel[] sholdLog = new eLogLevel[] { eLogLevel.DEBUG, eLogLevel.VERBOSE, eLogLevel.NORMAL, eLogLevel.MINIMAL, eLogLevel.WARN, eLogLevel.ERROR };
             eLogLevel[] sholdNotLog = new eLogLevel[] { eLogLevel.SILETN};
 
@@ -171,24 +191,24 @@ namespace LogUploader.Test.Tools
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Error("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.Error("Message");
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
         }
 
         [Test]
         public void LogExceptionLevel()
         {
-            Logger.TestInit("1.0.0", eLogLevel.DEBUG, AppendCallback);
-            Messages.Clear();
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
             eLogLevel[] sholdLog = new eLogLevel[] { eLogLevel.DEBUG, eLogLevel.VERBOSE, eLogLevel.NORMAL, eLogLevel.MINIMAL, eLogLevel.WARN, eLogLevel.ERROR };
             eLogLevel[] sholdNotLog = new eLogLevel[] { eLogLevel.SILETN };
 
@@ -200,31 +220,32 @@ namespace LogUploader.Test.Tools
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.LogException(new NotImplementedException("Test"));
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
             foreach (eLogLevel lvl in sholdLog)
             {
                 Logger.LogLevel = lvl;
-                Messages.Clear();
+                Mocks.MockFileIO.Instance.WriteAllText(logfile, "", Encoding.UTF8);
                 Logger.LogException(new NotImplementedException("Test"));
-                Assert.GreaterOrEqual(Messages.Count(), 1);
+                Assert.GreaterOrEqual(Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8).Length, 1);
             }
         }
 
         [Test]
         public void LogInnerException()
         {
-            Logger.TestInit("1.0.0", eLogLevel.DEBUG, AppendCallback);
-            Messages.Clear();
+            Logger.Init("1.0.0", eLogLevel.DEBUG);
+            var logfile = Mocks.MockDirectoryIO.Instance.GetFiles(Logger.FULL_LOG_DIR).First();
             var ex = new Exception("outer", new NotImplementedException("midlevel", new ArgumentNullException("inner")));
             string[] shouldBeContaind = new string[] { "outer", "midlevel", "inner", "Exception", "NotImplementedException", "ArgumentNullException" };
 
             Logger.LogException(ex);
             foreach (var e in shouldBeContaind)
             {
-                Assert.IsTrue(Messages.Any(m => m.Contains(e)), $"\"{e}\" is missing in the log");
+                var LogFileContent = Mocks.MockFileIO.Instance.ReadAllLines(logfile, Encoding.UTF8);
+                Assert.IsTrue(LogFileContent.Any(m => m.Contains(e)), $"\"{e}\" is missing in the log");
             }
 
         }
