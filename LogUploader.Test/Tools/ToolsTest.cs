@@ -14,53 +14,47 @@ namespace LogUploader.Test.Tools
 {
     class ToolsTest
     {
-        private readonly List<string> Messages = new List<string>();
-
-        private void AppendCallback(string _, string message, Encoding encoding)
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
-            Messages.Add(message);
+            Mocks.MockSetup.InjectMoks();
+            Mocks.MockSetup.SetupLogger();
         }
 
-        [Test]
+        [SetUp]
+        [TearDown]
+        public void CleanUp()
+        {
+            Mocks.MockSetup.ClearLogMessages();
+        }
+
         public void TestExecuteHelperCatchesVoid()
         {
-            Logger.TestInit("1.0.0", eLogLevel.ERROR, AppendCallback);
-            Messages.Clear();
-
             Assert.DoesNotThrow(() => ExecuteHelper.ExecuteSecure(() => throw new NotImplementedException("exMmsgTest")));
-            Assert.IsTrue(Messages.Any(m => m.Contains("exMmsgTest")));
-            Assert.IsTrue(Messages.Any(m => m.Contains("NotImplementedException")));
+            Assert.IsTrue(Mocks.MockSetup.GetLatestLogMessages().Any(m => m.Contains("exMmsgTest")));
+            Assert.IsTrue(Mocks.MockSetup.GetLatestLogMessages().Any(m => m.Contains("NotImplementedException")));
         }
 
         [Test]
         public void TestExecuteHelperRunsVoid()
         {
-            Logger.TestInit("1.0.0", eLogLevel.ERROR, AppendCallback);
-            Messages.Clear();
-
             Assert.DoesNotThrow(() => ExecuteHelper.ExecuteSecure(() => { }));
-            Assert.AreEqual(0, Messages.Count());
+            Assert.AreEqual("", string.Join("\n", Mocks.MockSetup.GetLatestLogMessages()));
         }
 
         [Test]
         public void TestExecuteHelperCatchesReturn()
         {
-            Logger.TestInit("1.0.0", eLogLevel.ERROR, AppendCallback);
-            Messages.Clear();
-
             Assert.DoesNotThrow(() => ExecuteHelper.ExecuteSecure<int>(() => throw new NotImplementedException("exMmsgTest")));
-            Assert.IsTrue(Messages.Any(m => m.Contains("exMmsgTest")));
-            Assert.IsTrue(Messages.Any(m => m.Contains("NotImplementedException")));
+            Assert.IsTrue(Mocks.MockSetup.GetLatestLogMessages().Any(m => m.Contains("exMmsgTest")));
+            Assert.IsTrue(Mocks.MockSetup.GetLatestLogMessages().Any(m => m.Contains("NotImplementedException")));
         }
 
         [Test]
         public void TestExecuteHelperRunsReturn()
         {
-            Logger.TestInit("1.0.0", eLogLevel.ERROR, AppendCallback);
-            Messages.Clear();
-
             Assert.DoesNotThrow(() => ExecuteHelper.ExecuteSecure(() => 0));
-            Assert.AreEqual(0, Messages.Count());
+            Assert.AreEqual("", string.Join("\n", Mocks.MockSetup.GetLatestLogMessages()));
         }
 
         [Test]
