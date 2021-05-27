@@ -23,5 +23,7 @@ namespace LogUploader.Wrapper
         void WriteAllLines(string path, string[] contents, Encoding encoding);
         void WriteAllText(string path, string contents, Encoding encoding);
         void Move(string sourceFileName, string destFileName);
+        void Delete(string path);
+        DateTime GetCreationTime(string path);
     }
 }

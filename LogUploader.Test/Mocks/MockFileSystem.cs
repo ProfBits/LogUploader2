@@ -18,6 +18,7 @@ namespace LogUploader.Test.Mocks
             {
                 pair.Value.Delete(true);
             }
+            Roots.Clear();
         }
 
         public byte[] ReadFile(string path)
@@ -115,6 +116,12 @@ namespace LogUploader.Test.Mocks
             return (FindElement(path) as FileSystemDirectory).GetFiles(recursive).Select(f => f.GetPath()).ToArray();
         }
 
+        public DateTime GetCreationTime(string paht)
+        {
+            var element = FindElement(paht) ?? throw new System.IO.IOException();
+            return element.CreationTime;
+        }
+
         private FileSystemElement FindElement(string path, bool create = false)
         {
             string absPath = System.IO.Path.GetFullPath(path);
@@ -166,13 +173,18 @@ namespace LogUploader.Test.Mocks
 
         private abstract class FileSystemElement
         {
-            protected FileSystemElement(string name)
+            protected FileSystemElement(string name) : this(name, DateTime.Now)
+            { }
+
+            protected FileSystemElement(string name, DateTime creation)
             {
                 Name = name;
+                CreationTime = creation;
             }
 
             public string Name { get; set; }
             public FileSystemElement Parent { get; set; } = null;
+            public DateTime CreationTime { get; internal set; }
 
             public virtual void Delete(bool recursive = false)
             {

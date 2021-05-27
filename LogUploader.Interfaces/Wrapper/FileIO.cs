@@ -21,6 +21,8 @@ namespace LogUploader.Wrapper
 
         public static FileStream Create(string path) => Backend.Create(path);
 
+        public static void Delete(string path) => Backend.Delete(path);
+
         public static bool Exists(string path) => Backend.Exists(path);
 
         public static void Move(string sourceFileName, string destFileName) => Backend.Move(sourceFileName, destFileName);
@@ -40,6 +42,8 @@ namespace LogUploader.Wrapper
         public static void WriteAllLines(string path, string[] contents, Encoding encoding) => Backend.WriteAllLines(path, contents, encoding);
 
         public static void WriteAllText(string path, string contents, Encoding encoding) => Backend.WriteAllText(path, contents, encoding);
+
+        public static DateTime GetCreationTime(string path) => Backend.GetCreationTime(path);
     }
 
     internal sealed class SystemFileIO : IFileIO
@@ -51,6 +55,8 @@ namespace LogUploader.Wrapper
         public void Copy(string sourceFileName, string destFileName, bool overwrite) => File.Copy(sourceFileName, destFileName, overwrite);
 
         public FileStream Create(string path) => File.Create(path);
+
+        public void Delete(string path) => File.Delete(path);
 
         public bool Exists(string path) => File.Exists(path);
 
@@ -71,6 +77,7 @@ namespace LogUploader.Wrapper
         public void WriteAllLines(string path, string[] contents, Encoding encoding) => File.WriteAllLines(path, contents, encoding);
 
         public void WriteAllText(string path, string contents, Encoding encoding) => File.WriteAllText(path, contents, encoding);
+        public DateTime GetCreationTime(string path) => File.GetCreationTime(path);
     }
 
 }

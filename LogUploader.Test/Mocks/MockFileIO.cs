@@ -96,5 +96,22 @@ namespace LogUploader.Test.Mocks
         {
             MockFileSystem.Data.Reset();
         }
+
+        public void Delete(string path)
+        {
+            MockFileSystem.Data.DeleteFile(path);
+        }
+
+        public DateTime GetCreationTime(string path)
+        {
+            try
+            {
+                return MockFileSystem.Data.GetCreationTime(path);
+            }
+            catch (IOException)
+            {
+                throw new FileNotFoundException(path);
+            }
+        }
     }
 }

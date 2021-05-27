@@ -276,6 +276,39 @@ namespace LogUploader.Test.Mocks
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Move(fileNameA, fileNameB));
         }
 
+        [Test]
+        public void DeleteFile()
+        {
+            const string fileName = @"C:\UnitTest\test.txt";
+            FileIO.Create(fileName);
+            Assert.DoesNotThrow(() => FileIO.Delete(fileName));
+        }
+
+        [Test]
+        public void DeleteNonExistentFile()
+        {
+            const string fileName = @"C:\UnitTest\test.txt";
+            Assert.Throws<System.IO.FileNotFoundException>(() => FileIO.Delete(fileName));
+        }
+
+        [Test]
+        public void GetCreationTime()
+        {
+            const string fileName = @"C:\UnitTest\test.txt";
+            FileIO.Create(fileName);
+            var now = DateTime.Now;
+            var delta = FileIO.GetCreationTime(fileName).Subtract(now);
+            Assert.LessOrEqual(Math.Abs(delta.Seconds), 3); //TODO Mock time provider, make tests repoduzeable
+        }
+
+        [Test]
+        public void GetCreationTimeNonExistentFile()
+        {
+            const string fileName = @"C:\UnitTest\test.txt";
+            Assert.Throws<System.IO.FileNotFoundException>(() => FileIO.GetCreationTime(fileName));
+        }
+
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
