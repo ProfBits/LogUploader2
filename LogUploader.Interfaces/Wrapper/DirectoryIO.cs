@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,10 @@ namespace LogUploader.Wrapper
     public static class DirectoryIO
     {
         internal static IDirectoryIO Backend { private get; set; } = new SystemDirectoryIO();
+
+        public static string AppDataLocal { get => Backend.AppDataLocal; }
+        public static string AppDataRoaming { get => Backend.AppDataRoaming; }
+        public static string InstallFolder { get => Backend.InstallFolder; }
 
         public static DirectoryInfo CreateDirectory(string path) => Backend.CreateDirectory(path);
                 
@@ -28,6 +33,10 @@ namespace LogUploader.Wrapper
 
     internal class SystemDirectoryIO : IDirectoryIO
     {
+        public string AppDataLocal { get => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\LogUploader\\"; }
+        public string AppDataRoaming { get => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\LogUploader\\"; }
+        public string InstallFolder { get => Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + '\\'; }
+
         public DirectoryInfo CreateDirectory(string path) => Directory.CreateDirectory(path);
 
         public void Delete(string path, bool recursive) => Directory.Delete(path, recursive);

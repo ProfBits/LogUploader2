@@ -82,6 +82,7 @@
     <Compile Include="ProgressMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringValueAttribute.cs" />
+    <Compile Include="Wrapper\ISpecialDirectories.cs" />
     <Compile Include="Wrapper\IWebIO.cs" />
     <Compile Include="Wrapper\WebIO.cs" />
   </ItemGroup>
