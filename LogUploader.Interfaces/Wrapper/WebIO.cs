@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Extensiones.Stream;
 
 using LogUploader.Tools.Settings;
 
@@ -12,11 +16,55 @@ namespace LogUploader.Wrapper
 {
     public static class WebIOFactory
     {
-        //TODO singelton HttpsClient
 
-        internal static IWebIOFactory Factory { private get; set; } = new HttpClientWebIOFactory();
+        private static IWebIOFactory factory = new HttpClientWebIOFactory();
+        private static IWebIO DefaultIO = null;
+        private static Dictionary<string, IWebIO> SiteSpecificIO = new Dictionary<string, IWebIO>();
+        private static IReadOnlyList<string> ImportantDomains = new List<string>() { "api.github.com", "wiki.guildwars2.com", "sv.rising-light.de", "dps.report", "b.dps.report" };
 
-        public static IWebIO Create(IProxySettings settings) => Factory.Create(settings);
+        internal static IWebIOFactory Factory
+        {
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            get => factory;
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            set => SetFactory(value);
+        }
+
+        internal static void SetFactory(IWebIOFactory factory)
+        {
+            WebIOFactory.factory = factory;
+            ResetWebIOs();
+        }
+
+        private static void ResetWebIOs()
+        {
+            var tmp = DefaultIO;
+            DefaultIO = null;
+            DefaultIO?.Dispose();
+            foreach (var key in SiteSpecificIO.Keys)
+            {
+                tmp = SiteSpecificIO[key];
+                SiteSpecificIO[key] = null;
+                tmp.Dispose();
+            }
+            SiteSpecificIO.Clear();
+
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static IWebIO Create(IProxySettings settings, Uri uri)
+        {
+            if (SiteSpecificIO.ContainsKey(uri.Host)) return SiteSpecificIO[uri.Host];
+            else if (ImportantDomains.Contains(uri.Host))
+            {
+                var webIO = Factory.Create(settings);
+                SiteSpecificIO.Add(uri.Host, webIO);
+                return webIO;
+            }
+
+            DefaultIO = DefaultIO ?? Factory.Create(settings);
+            return DefaultIO;
+        }
 
     }
 
