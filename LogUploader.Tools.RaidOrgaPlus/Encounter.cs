@@ -10,7 +10,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
     /// <summary>
     /// Connects Log with TeamComp and merges them
     /// </summary>
-    public class Encounter
+    internal class Encounter
     {
         public List<RoPlusPlayer> Players { get; set; }
         public Boss Boss { get; set; }

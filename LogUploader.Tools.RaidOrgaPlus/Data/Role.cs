@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.RaidOrgaPlus.Data
 {
-    public enum Role : byte
+    internal enum Role : byte
     {
         [StringValue("")]
         Empty = 0,

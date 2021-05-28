@@ -70,7 +70,7 @@ namespace LogUploader
         }
 
         private RaidOrgaPlusConnector RaidOrgaPlusConnector = null;
-        private Session RaidOrgaPlusSession = null;
+        private ISession RaidOrgaPlusSession = null;
         private List<RaidSimple> RaidOrgaPlusTermine = new List<RaidSimple>();
 
         #region Events

@@ -19,7 +19,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
     /// <summary>
     /// A general purpose helper for various tasks
     /// </summary>
-    public static class RaidOrgaHelper
+    internal static class RaidOrgaHelper
     {
         public static Role GetRoleById(int id)
         {

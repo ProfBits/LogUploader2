@@ -10,13 +10,13 @@ namespace LogUploader.RaidOrgaPlus.Data
 {
     public class RaidSimple
     {
-        public long TerminID { get; set; }
-        public long RaidID { get; set; }
+        public long TerminID { get; }
+        public long RaidID { get; }
         public DateTime Start { get; }
         public DateTime End { get; }
         public string Name { get; }
         public virtual string DisplayName { get => $"{Name} {Start:dd'.'MM' 'HH':'mm}"; }
-        
+
         //TODO is there a better way to bind
         /// <summary>
         /// Required for data binding of comboboxes
@@ -25,7 +25,7 @@ namespace LogUploader.RaidOrgaPlus.Data
 
         protected RaidSimple() { }
 
-        public RaidSimple(long terminID, long raidID, DateTime day, TimeSpan start, TimeSpan end, string name)
+        internal RaidSimple(long terminID, long raidID, DateTime day, TimeSpan start, TimeSpan end, string name)
         {
             TerminID = terminID;
             RaidID = raidID;
@@ -60,7 +60,7 @@ namespace LogUploader.RaidOrgaPlus.Data
     {
         public override string DisplayName { get; }
 
-        public RaidSimpleTemplate(string message) : base(-1, -1, DateTime.Today, TimeSpan.Zero, TimeSpan.Zero, "")
+        internal RaidSimpleTemplate(string message) : base(-1, -1, DateTime.Today, TimeSpan.Zero, TimeSpan.Zero, "")
         {
             DisplayName = message;
         }

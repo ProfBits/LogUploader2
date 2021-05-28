@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.RaidOrgaPlus.Data
 {
-    public class Position
+    internal class Position
     {
         public Position(int pos, long iD, string accName, Role role, Profession profession)
         {

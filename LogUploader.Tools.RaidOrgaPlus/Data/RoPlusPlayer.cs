@@ -7,7 +7,7 @@ namespace LogUploader.RaidOrgaPlus.Data
     /// <summary>
     /// Represents a Player form RaidOrga
     /// </summary>
-    public class RoPlusPlayer : IEquatable<RoPlusPlayer>
+    internal class RoPlusPlayer : IEquatable<RoPlusPlayer>
     {
         public string AccountName { get; set; }
         public string RaidOrgaName { get; set; }

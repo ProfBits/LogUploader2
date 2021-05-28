@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a player in the logs to be validated by the user
     /// </summary>
-    public class CheckPlayer
+    internal class CheckPlayer
     {
         public RoPlusPlayer Player { get; set; }
         public Account BecomesAccount { get; set; }

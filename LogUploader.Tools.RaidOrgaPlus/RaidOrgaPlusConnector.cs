@@ -29,12 +29,12 @@ namespace LogUploader.Tools.RaidOrgaPlus
             ProxySettings = proxySettings;
         }
 
-        public Session Connect(IRaidOrgaPlusSettings orgaSettings)
+        public ISession Connect(IRaidOrgaPlusSettings orgaSettings)
         {
             return Connect(orgaSettings, $"LogUploader{new Random().Next(0, 1000000).ToString().PadLeft(6, '0')}");
         }
 
-        public Session Connect(IRaidOrgaPlusSettings orgaSettings, string userAgent)
+        public ISession Connect(IRaidOrgaPlusSettings orgaSettings, string userAgent)
         {
 
             var httpWebRequest = GetPostRequest(BASE_ADDRESS + "/users/sessions", userAgent);
@@ -66,7 +66,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             }
         }
 
-        public List<RaidSimple> GetRaids(Session session, IProgress<double> progress = null)
+        public List<RaidSimple> GetRaids(ISession session, IProgress<double> progress = null)
         {
             if (!session?.Valid ?? false)
                 return null;
@@ -121,7 +121,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             return termine.ToList();
         }
 
-        public Raid GetRaid(Session session, long terminID, long raidID, CancellationToken ct, IProgress<ProgressMessage> progress = null)
+        public Raid GetRaid(ISession session, long terminID, long raidID, CancellationToken ct, IProgress<ProgressMessage> progress = null)
         {
             if (!session.Valid)
                 return null;
@@ -216,7 +216,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             return Role.Empty;
         }
 
-        private List<Account> GetGroup(Session session, long terminID)
+        private List<Account> GetGroup(ISession session, long terminID)
         {
             var request = GetGetRequest(BASE_ADDRESS + $@"/termine/anmeldungenAll?termin={terminID}&auth={session.Token}", session.UserAgent);
 
@@ -229,7 +229,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             return groupParsed["wrapper"].Select(player => new Account((long)player["id"], (string)player["accname"], (string)player["name"])).ToList();
         }
 
-        private List<Account> GetHelper(Session session, long terminID)
+        private List<Account> GetHelper(ISession session, long terminID)
         {
             var request = GetGetRequest(BASE_ADDRESS + $@"/termine/ersatz?termin={terminID}&auth={session.Token}", session.UserAgent);
 
@@ -242,7 +242,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             return ersatzParsed["wrapper"].Select(player => new Account((long)player["id"], (string)player["accname"], (string)player["name"])).ToList();
         }
 
-        private List<Account> GetInvitealbe(Session session, long groupID)
+        private List<Account> GetInvitealbe(ISession session, long groupID)
         {
             var request = GetGetRequest(BASE_ADDRESS + $@"/raids/invitable?raid={groupID}&auth={session.Token}", session.UserAgent);
 
@@ -296,7 +296,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             }
         }
 
-        public void SetRaid(Session session, Raid raid)
+        public void SetRaid(ISession session, Raid raid)
         {
             if (!session.Valid)
                 return;
@@ -334,7 +334,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             }
         }
 
-        public void ToggleHelper(Session session, long terminID, long userID)
+        internal void ToggleHelper(ISession session, long terminID, long userID)
         {
             var httpWebRequest = GetPostRequest(BASE_ADDRESS + "/termine/ersatz", session.UserAgent);
 

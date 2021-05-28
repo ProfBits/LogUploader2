@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.RaidOrgaPlus.Data
 {
-    public class TeamComp
+    internal class TeamComp
     {
         [JsonIgnore]
         public long ID { get; set; }

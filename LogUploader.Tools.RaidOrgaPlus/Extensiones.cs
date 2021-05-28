@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace LogUploader.Tools.RaidOrgaPlus
 {
-    public static class Extensiones
+    internal static class Extensiones
     {
         public static Role GetRoleByAbbreviation(this Role _, string roleAbbreviation)
         {

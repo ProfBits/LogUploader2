@@ -18,7 +18,7 @@ namespace LogUploader.Tools.RaidOrgaPlus.GUI
         private static List<Account> AllHelper = new List<Account>();
         private readonly CheckPlayer Player;
 
-        public static void SetRaid(Raid r)
+        internal static void SetRaid(Raid r)
         {
             Raid = r;
             AllHelper.Clear();
@@ -35,7 +35,7 @@ namespace LogUploader.Tools.RaidOrgaPlus.GUI
             public int GetHashCode(Account obj) => obj.ID.GetHashCode();
         }
 
-        public PlayerToCorrect(CheckPlayer player)
+        internal PlayerToCorrect(CheckPlayer player)
         {
             Player = player;
             InitializeComponent();

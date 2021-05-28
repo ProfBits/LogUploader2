@@ -18,7 +18,7 @@ namespace LogUploader.Tools.RaidOrgaPlus.GUI
     {
         private readonly List<PlayerToCorrect> ShowenPlayers = new List<PlayerToCorrect>();
 
-        public CorrectPlayerUI(Raid r, List<CheckPlayer> players)
+        internal CorrectPlayerUI(Raid r, List<CheckPlayer> players)
         {
             InitializeComponent();
             ApplyLanguage(Language.Data);

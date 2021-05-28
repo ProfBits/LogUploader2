@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\ISession.cs" />
     <Compile Include="Encounter.cs" />
     <Compile Include="Extensiones.cs" />
     <Compile Include="GUI\CorrectPlayerUI.cs">

@@ -43,24 +43,24 @@ namespace LogUploader.RaidOrgaPlus.Data
         public long RaidID { get; set; }
 
         [JsonIgnore()]
-        public List<Account> Players;
+        internal List<Account> Players;
 
         [JsonIgnore()]
-        public List<Account> Helper;
+        internal List<Account> Helper;
 
         [JsonIgnore()]
-        public List<Account> Inviteable;
+        internal List<Account> Inviteable;
 
         [JsonProperty("aufstellungen")]
-        public List<TeamComp> Bosses;
+        internal List<TeamComp> Bosses;
 
         [JsonIgnore()]
-        public List<string> Unknown;
+        internal List<string> Unknown;
 
         [JsonIgnore()]
-        public List<Account> ToInvite;
+        internal List<Account> ToInvite;
 
-        public Raid(long terminID, long raidID, List<Account> players, List<Account> helper, List<Account> inviteable, List<TeamComp> bosses)
+        internal Raid(long terminID, long raidID, List<Account> players, List<Account> helper, List<Account> inviteable, List<TeamComp> bosses)
         {
             TerminID = terminID;
             RaidID = raidID;
@@ -70,71 +70,71 @@ namespace LogUploader.RaidOrgaPlus.Data
             Bosses = bosses;
         }
 
-        public bool IsMember(string accountName)
+        internal bool IsMember(string accountName)
         {
             return Players.Any(p => p.AccountName == accountName);
         }
-        public bool IsMember(long id)
+        internal bool IsMember(long id)
         {
             return Players.Any(p => p.ID == id);
         }
 
-        public Account GetMember(string accountName)
+        internal Account GetMember(string accountName)
         {
             return Players.First(p => p.AccountName == accountName);
         }
-        public Account GetMember(long id)
+        internal Account GetMember(long id)
         {
             return Players.First(p => p.ID == id);
         }
 
-        public bool IsHelper(string accountName)
+        internal bool IsHelper(string accountName)
         {
             return Helper.Any(p => p.AccountName == accountName);
         }
-        public bool IsHelper(long id)
+        internal bool IsHelper(long id)
         {
             return Helper.Any(p => p.ID == id);
         }
 
-        public Account GetHelper(string accountName)
+        internal Account GetHelper(string accountName)
         {
             return Helper.First(p => p.AccountName == accountName);
         }
-        public Account GetHelper(long id)
+        internal Account GetHelper(long id)
         {
             return Helper.First(p => p.ID == id);
         }
 
-        public bool IsInviteable(string accountName)
+        internal bool IsInviteable(string accountName)
         {
             return Inviteable.Any(p => p.AccountName == accountName);
         }
-        public bool IsInviteable(long id)
+        internal bool IsInviteable(long id)
         {
             return Inviteable.Any(p => p.ID == id);
         }
 
-        public Account GetInviteable(string accountName)
+        internal Account GetInviteable(string accountName)
         {
             return Inviteable.First(p => p.AccountName == accountName);
         }
-        public Account GetInviteable(long id)
+        internal Account GetInviteable(long id)
         {
             return Inviteable.First(p => p.ID == id);
         }
 
-        public bool ExistsBoss(Boss boss, bool isCM)
+        internal bool ExistsBoss(Boss boss, bool isCM)
         {
             return Bosses.Any(b => b.Encounter.RaidOrgaPlusID == boss.RaidOrgaPlusID && b.IsCM == isCM);
         }
 
-        public TeamComp GetTeamComp(Boss boss, bool isCM)
+        internal TeamComp GetTeamComp(Boss boss, bool isCM)
         {
             return Bosses.First(b => b.Encounter.RaidOrgaPlusID == boss.RaidOrgaPlusID && b.IsCM == isCM);
         }
 
-        public Account GetAccount(string accountName, PlayerType type)
+        internal Account GetAccount(string accountName, PlayerType type)
         {
             switch (type)
             {
@@ -150,12 +150,12 @@ namespace LogUploader.RaidOrgaPlus.Data
             }
         }
 
-        private Account GetLFGPlayer()
+        internal Account GetLFGPlayer()
         {
             return new Account(1, "", "LFG");
         }
 
-        public string GetPostJson()
+        internal string GetPostJson()
         {
             return JsonConvert.SerializeObject(this);
         }
