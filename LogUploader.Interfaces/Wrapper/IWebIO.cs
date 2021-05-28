@@ -18,6 +18,6 @@ namespace LogUploader.Wrapper
 
         Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken);
         Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken);
-
+        Task DownloadAsync(string requestUri, Stream destination, IProgress<double> progress = null, CancellationToken cancellationToken = default);
     }
 }

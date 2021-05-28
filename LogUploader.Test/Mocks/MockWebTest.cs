@@ -210,6 +210,43 @@ namespace LogUploader.Test.Mocks
             Assert.AreEqual(req, resp.RequestMessage);
         }
 
+        [Test]
+        public async Task ReqeustDownloadWithProgress()
+        {
+            const string reqUri = "https://test.com/unitTest/ReqeustDownloadWithProgress.txt";
+            var resGen = new StaticWebResponseGenerator();
+            resGen.GetResponseMsg = "Hello World, this is a lot of garbage data that will only be copied in memeory," +
+                "yay i only try make this even longer and i am running out of ideas how to do that, is this already" +
+                "enough? maybe a bit more or evem more questions to my self --- This is not funny!";
+            MockWebIO.Data.Add(reqUri, resGen);
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            using (System.IO.StreamReader sr = new System.IO.StreamReader(ms, Encoding.UTF8))
+            {
+                await WebIO.DownloadAsync(reqUri, ms, new TestProgress<double>((p) => {
+                    Assert.LessOrEqual(p, 1);
+                    Assert.GreaterOrEqual(p, 0);
+                }), default);
+                ms.Seek(0, System.IO.SeekOrigin.Begin);
+                Assert.AreEqual(resGen.GetResponseMsg, sr.ReadToEnd());
+            }
+        }
+
+        private class TestProgress<T> : IProgress<T>
+        {
+            private readonly Action<T> handler;
+
+            public TestProgress(Action<T> handler)
+            {
+                this.handler = handler ?? throw new ArgumentNullException("Handler cannot be null");
+            }
+
+            public void Report(T value)
+            {
+                handler(value);
+            }
+        }
+
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {

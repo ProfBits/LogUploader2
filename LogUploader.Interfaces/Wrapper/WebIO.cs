@@ -106,6 +106,32 @@ namespace LogUploader.Wrapper
                 return await Client.SendAsync(request, completionOption, cancellationToken);
             }
 
+            public async Task DownloadAsync(string requestUri, Stream destination, IProgress<double> progress = null, CancellationToken cancellationToken = default)
+            {
+                // Get the http headers first to examine the content length
+                using (var response = await Client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var contentLength = response.Content.Headers.ContentLength;
+
+                    using (var download = await response.Content.ReadAsStreamAsync())
+                    {
+                        // Ignore progress reporting when no progress reporter was 
+                        // passed or when the content length is unknown
+                        if (progress == null || !contentLength.HasValue)
+                        {
+                            await download.CopyToAsync(destination);
+                            return;
+                        }
+
+                        // Convert absolute progress (bytes downloaded) into relative progress (0% - 100%)
+                        var relativeProgress = new Progress<long>(totalBytes => progress.Report((double)totalBytes / contentLength.Value));
+                        // Use extension method to report progress while downloading
+                        await download.CopyToAsync(destination, 81920, relativeProgress, cancellationToken);
+                        progress.Report(1);
+                    }
+                }
+            }
+
             private void Dispose(bool disposing)
             {
                 if (!disposedValue)
