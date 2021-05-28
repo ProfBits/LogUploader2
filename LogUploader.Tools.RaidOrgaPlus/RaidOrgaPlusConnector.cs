@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LogUploader.Data.RaidOrgaPlus;
+using LogUploader.RaidOrgaPlus.Data;
 using System.Net;
 using System.IO;
 using LogUploader.Data;
@@ -213,7 +213,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 if (r.GetAttribute<StringValueAttribute>().Value == roleAbbreviation)
                     return r;
             }
-            return Data.RaidOrgaPlus.Role.Empty;
+            return Role.Empty;
         }
 
         private List<Account> GetGroup(Session session, long terminID)

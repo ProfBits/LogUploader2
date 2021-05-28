@@ -1,4 +1,5 @@
-﻿using LogUploader.Data.RaidOrgaPlus;
+﻿
+using LogUploader.RaidOrgaPlus.Data;
 using LogUploader.Localisation;
 
 using System;

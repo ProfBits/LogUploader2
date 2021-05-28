@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using LogUploader.RaidOrgaPlus.Data;
 
 namespace LogUploader.Tools.RaidOrgaPlus
 {
@@ -20,21 +21,21 @@ namespace LogUploader.Tools.RaidOrgaPlus
     /// </summary>
     public static class RaidOrgaHelper
     {
-        public static Data.RaidOrgaPlus.Role GetRoleById(int id)
+        public static Role GetRoleById(int id)
         {
-            if (Enum.IsDefined(typeof(Data.RaidOrgaPlus.Role), (byte)id))
-                return (Data.RaidOrgaPlus.Role)(byte)(id);
-            return Data.RaidOrgaPlus.Role.Empty;
+            if (Enum.IsDefined(typeof(Role), (byte)id))
+                return (Role)(byte)(id);
+            return Role.Empty;
         }
 
-        public static Data.RaidOrgaPlus.Role GetRoleByAbbreviation(string roleAbbreviation)
+        public static Role GetRoleByAbbreviation(string roleAbbreviation)
         {
-            foreach (var r in Enum.GetValues(typeof(Data.RaidOrgaPlus.Role)).Cast<Data.RaidOrgaPlus.Role>())
+            foreach (var r in Enum.GetValues(typeof(Role)).Cast<Role>())
             {
                 if (r.GetAttribute<StringValueAttribute>().Value == roleAbbreviation)
                     return r;
             }
-            return Data.RaidOrgaPlus.Role.Empty;
+            return Role.Empty;
         }
     }
 }

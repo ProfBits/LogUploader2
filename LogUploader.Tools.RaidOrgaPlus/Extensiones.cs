@@ -1,4 +1,5 @@
-﻿using LogUploader.Data.RaidOrgaPlus;
+﻿
+using LogUploader.RaidOrgaPlus.Data;
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
 {
     public static class Extensiones
     {
-        public static Role GetRoleByAbbreviation(this LogUploader.Data.RaidOrgaPlus.Role _, string roleAbbreviation)
+        public static Role GetRoleByAbbreviation(this Role _, string roleAbbreviation)
         {
             return RaidOrgaHelper.GetRoleByAbbreviation(roleAbbreviation);
         }

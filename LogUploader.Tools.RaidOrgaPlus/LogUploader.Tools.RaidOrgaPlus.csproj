@@ -65,17 +65,17 @@
     <Compile Include="RaidOrgaPlusCache.cs" />
     <Compile Include="RaidOrgaPlusConnector.cs" />
     <Compile Include="RaidOrgaPlusDataWorker.cs" />
-    <Compile Include="RaidOrgaPlus\Account.cs" />
-    <Compile Include="RaidOrgaPlus\CheckPlayer.cs" />
-    <Compile Include="RaidOrgaPlus\PlayerType.cs" />
-    <Compile Include="RaidOrgaPlus\Position.cs" />
-    <Compile Include="RaidOrgaPlus\Raid.cs" />
-    <Compile Include="RaidOrgaPlus\RaidOrgaPlusCacheItem.cs" />
-    <Compile Include="RaidOrgaPlus\RaidSimple.cs" />
-    <Compile Include="RaidOrgaPlus\Role.cs" />
-    <Compile Include="RaidOrgaPlus\RoPlusPlayer.cs" />
-    <Compile Include="RaidOrgaPlus\Session.cs" />
-    <Compile Include="RaidOrgaPlus\TeamComp.cs" />
+    <Compile Include="Data\Account.cs" />
+    <Compile Include="Data\CheckPlayer.cs" />
+    <Compile Include="Data\PlayerType.cs" />
+    <Compile Include="Data\Position.cs" />
+    <Compile Include="Data\Raid.cs" />
+    <Compile Include="Data\RaidOrgaPlusCacheItem.cs" />
+    <Compile Include="Data\RaidSimple.cs" />
+    <Compile Include="Data\Role.cs" />
+    <Compile Include="Data\RoPlusPlayer.cs" />
+    <Compile Include="Data\Session.cs" />
+    <Compile Include="Data\TeamComp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj">

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.Data;
 
-namespace LogUploader.Data.RaidOrgaPlus
+namespace LogUploader.RaidOrgaPlus.Data
 {
     /// <summary>
     /// Represents a Player form RaidOrga

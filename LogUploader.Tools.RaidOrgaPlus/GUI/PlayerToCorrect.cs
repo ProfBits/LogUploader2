@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LogUploader.Data.RaidOrgaPlus;
+using LogUploader.RaidOrgaPlus.Data;
 using LogUploader.Localisation;
 
 namespace LogUploader.Tools.RaidOrgaPlus.GUI

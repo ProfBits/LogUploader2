@@ -1,7 +1,6 @@
 ﻿using Extensiones.Linq;
 using LogUploader.Data;
 using LogUploader.Data.Discord;
-using LogUploader.Data.RaidOrgaPlus;
 using LogUploader.GUIs;
 using LogUploader.Helper;
 using LogUploader.Tools.JobQueue;
@@ -24,6 +23,7 @@ using System.Windows.Forms;
 using LogUploader.Tools;
 using LogUploader.Tools.Database;
 using LogUploader.Tools.RaidOrgaPlus;
+using LogUploader.RaidOrgaPlus.Data;
 
 namespace LogUploader
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LogUploader.Data.RaidOrgaPlus;
+using LogUploader.RaidOrgaPlus.Data;
 using LogUploader.Data;
 using LogUploader.Tools.Logging;
 
