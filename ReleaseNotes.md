@@ -1,3 +1,7 @@
+# Future
+## Bugfixes
+- Enable/Disable DateFrom and DateTo filters now works properly
+
 # v1.3.8
 18.04.2021
 

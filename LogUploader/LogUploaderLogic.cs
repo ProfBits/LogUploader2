@@ -642,7 +642,7 @@ namespace LogUploader
                 filters.Add(HpFilter(filterConfiguration.HpRelation, filterConfiguration.HpValue));
             if (filterConfiguration.DateFromEnabled)
                 filters.Add(DateFromFilter(filterConfiguration.DateFrom));
-            if (filterConfiguration.DateFromEnabled)
+            if (filterConfiguration.DateToEnabled)
                 filters.Add(DateToFilter(filterConfiguration.DateTo));
             if (filterConfiguration.SuccsessEnabled)
                 filters.Add(SuccsessFilter(filterConfiguration.Succsess));
