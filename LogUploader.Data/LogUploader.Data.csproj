@@ -76,17 +76,6 @@
     <Compile Include="MiscData.cs" />
     <Compile Include="Profession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RaidOrgaPlus\Account.cs" />
-    <Compile Include="RaidOrgaPlus\CheckPlayer.cs" />
-    <Compile Include="RaidOrgaPlus\PlayerType.cs" />
-    <Compile Include="RaidOrgaPlus\Position.cs" />
-    <Compile Include="RaidOrgaPlus\Raid.cs" />
-    <Compile Include="RaidOrgaPlus\RaidOrgaPlusCacheItem.cs" />
-    <Compile Include="RaidOrgaPlus\RaidSimple.cs" />
-    <Compile Include="RaidOrgaPlus\Role.cs" />
-    <Compile Include="RaidOrgaPlus\RoPlusPlayer.cs" />
-    <Compile Include="RaidOrgaPlus\Session.cs" />
-    <Compile Include="RaidOrgaPlus\TeamComp.cs" />
     <Compile Include="SimmpleTarget.cs" />
     <Compile Include="SimpleDps.cs" />
     <Compile Include="SimpleLogJson.cs" />
