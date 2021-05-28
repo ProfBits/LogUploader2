@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using LogUploader.Tools.Discord;
 
-namespace LogUploader.Data.Discord
+namespace LogUploader.Tools.Discord
 {
     public class WebHook
     {

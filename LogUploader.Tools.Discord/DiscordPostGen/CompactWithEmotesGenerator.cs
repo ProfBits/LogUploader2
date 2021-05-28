@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Discord
 {
-    public class CompactWithEmotesGenerator : DiscordPostGenerator
+    internal class CompactWithEmotesGenerator : DiscordPostGenerator
     {
-        protected override IField GenerateField(ICachedLog log)
+        protected override Field GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;

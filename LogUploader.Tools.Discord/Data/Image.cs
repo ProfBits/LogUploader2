@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace LogUploader.Tools.Discord
 {
-    internal class Image : IImage
+    internal class Image
     {
         private static readonly JsonSerializerSettings JsonSerializerSettings;
 

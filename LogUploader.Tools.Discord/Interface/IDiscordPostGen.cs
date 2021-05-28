@@ -1,4 +1,5 @@
 ﻿using LogUploader.Data;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace LogUploader.Tools.Discord
 {
     public interface IDiscordPostGen
     {
-        List<IWebHookData> Generate(IEnumerable<ICachedLog> logs, string userName, string avatarURL);
+        List<WebHookData> Generate(IEnumerable<ICachedLog> logs, string userName, string avatarURL);
     }
 }

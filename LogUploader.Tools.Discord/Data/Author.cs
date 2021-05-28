@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace LogUploader.Tools.Discord
 {
-    internal class Author : IAuthor
+    internal class Author
     {
         private static readonly JsonSerializerSettings JsonSerializerSettings;
 

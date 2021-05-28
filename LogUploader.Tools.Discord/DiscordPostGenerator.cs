@@ -14,26 +14,26 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Discord
 {
-    public abstract class DiscordPostGenerator : IDiscordPostGen
+    internal abstract class DiscordPostGenerator : IDiscordPostGen
     {
         public static IWebHookSettings Settings { protected get; set; }
 
-        public virtual List<IWebHookData> Generate(IEnumerable<ICachedLog> logs, string userName, string avatarURL)
+        public virtual List<WebHookData> Generate(IEnumerable<ICachedLog> logs, string userName, string avatarURL)
         {
             var parsedLogs = logs.Select(log => new ParsedData(log, GenerateField(log))).Where(log => log.Field != null);
             var groupedLogs = GroupFields(parsedLogs);
             var embeds = GetEmbeds(groupedLogs);
             var posts = GetPosts(embeds, userName, avatarURL);
-            return posts.Cast<IWebHookData>().ToList();
+            return posts.Cast<WebHookData>().ToList();
         }
 
-        protected abstract IField GenerateField(ICachedLog log);
+        protected abstract Field GenerateField(ICachedLog log);
 
         protected abstract KeyValueList<Grouping, IEnumerable<ParsedData>> GroupFields(IEnumerable<ParsedData> data);
 
-        protected virtual IEnumerable<IEmbed> GetEmbeds(IEnumerable<KeyValuePair<Grouping, IEnumerable<ParsedData>>> groupedData)
+        protected virtual IEnumerable<Embed> GetEmbeds(IEnumerable<KeyValuePair<Grouping, IEnumerable<ParsedData>>> groupedData)
         {
-            List<IEmbed> embeds = new List<IEmbed>();
+            List<Embed> embeds = new List<Embed>();
 
             foreach (var group in groupedData)
             {
@@ -53,7 +53,7 @@ namespace LogUploader.Tools.Discord
                         if (currentLenght > Embed.MAX_LENGHT)
                             current.Fields.RemoveAt(current.Fields.Count - 1);
                         embeds.Add(current);
-                        current = new Embed(null, "", color, new List<IField>(), null);
+                        current = new Embed(null, "", color, new List<Field>(), null);
                         if (currentLenght > Embed.MAX_LENGHT)
                             current.Fields.Add(data.Field);
                     }
@@ -64,7 +64,7 @@ namespace LogUploader.Tools.Discord
             return embeds;
         }
 
-        protected virtual IEmbed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
+        protected virtual Embed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
         {
             var dates = values.Select(log => log.Log.Date.Date).Distinct().ToList();
             dates.Sort();
@@ -78,13 +78,13 @@ namespace LogUploader.Tools.Discord
                 name += " " + grouping.PostFix;
 
 
-            var current = new Embed(author, name, ColorDefault, new List<IField>(), thumbmail);
+            var current = new Embed(author, name, ColorDefault, new List<Field>(), thumbmail);
             return current;
         }
 
-        protected virtual IEnumerable<IWebHookData> GetPosts(IEnumerable<IEmbed> embeds, string userName, string avatarURL)
+        protected virtual IEnumerable<WebHookData> GetPosts(IEnumerable<Embed> embeds, string userName, string avatarURL)
         {
-            var posts = new List<IWebHookData>();
+            var posts = new List<WebHookData>();
 
             if (embeds.Count() == 0)
                 return posts;
@@ -103,10 +103,10 @@ namespace LogUploader.Tools.Discord
             return posts;
         }
 
-        protected IWebHookData GetDefaultPostHeader(string userName, string avatarURL)
+        protected WebHookData GetDefaultPostHeader(string userName, string avatarURL)
         {
             const string Username = "LogUploader";
-            IWebHookData post = new WebHookData();
+            WebHookData post = new WebHookData();
             post.Username = Settings.NameAsDiscordUser ? userName : Username;
             post.AvaturURL = avatarURL;
             post.Content = "";
@@ -115,27 +115,6 @@ namespace LogUploader.Tools.Discord
 
         protected abstract Color GetColor(IEnumerable<ICachedLog> logs);
 
-        public static IDiscordPostGen Get(eDiscordPostFormat format)
-        {
-            switch (format)
-            {
-                case eDiscordPostFormat.PerBoss:
-                    return new PerBossGenerator();
-                case eDiscordPostFormat.PerTryDetaild:
-                    return new DetaildGenerator();
-                case eDiscordPostFormat.PerAreaEmotes:
-                    return new PerWingWithEmotes();
-                case eDiscordPostFormat.CompactWithEmotes:
-                    return new CompactWithEmotesGenerator();
-                case eDiscordPostFormat.CompactWithClasses:
-                    return new CompactWithClasesGenerator();
-                case eDiscordPostFormat.PerAreaClasses:
-                    return new PerWingWithClassesGenerator();
-                case eDiscordPostFormat.PerArea:
-                default:
-                    return new PerWingGen();
-            }
-        }
 
         protected string GetDateString(DateTime date)
         {
@@ -155,9 +134,9 @@ namespace LogUploader.Tools.Discord
         protected struct ParsedData
         {
             public ICachedLog Log { get; }
-            public IField Field { get; }
+            public Field Field { get; }
 
-            public ParsedData(ICachedLog log, IField field)
+            public ParsedData(ICachedLog log, Field field)
             {
                 Log = log;
                 Field = field;

@@ -63,6 +63,8 @@
     <Compile Include="DiscordPostGen\PerWingGen.cs" />
     <Compile Include="DiscordPostGen\PerWingWithClasses.cs" />
     <Compile Include="DiscordPostGen\PerWingWithEmotes.cs" />
+    <Compile Include="Interface\DiscordPostGeneratorFactory.cs" />
+    <Compile Include="Interface\IDiscordPostGen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebHookConfig.cs">
       <SubType>UserControl</SubType>

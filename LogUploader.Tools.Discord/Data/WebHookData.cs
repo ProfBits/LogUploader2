@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using System.ComponentModel;
-using LogUploader.Tools.Discord;
 
-namespace LogUploader.Data.Discord
+namespace LogUploader.Tools.Discord
 {
-    internal class WebHookData : IWebHookData
+    public class WebHookData
     {
         private static readonly JsonSerializerSettings JsonSerializerSettings;
 
@@ -23,42 +22,42 @@ namespace LogUploader.Data.Discord
             };
         }
 
-        public WebHookData(string username, string avaturURL, string content, List<IEmbed> embeds) : this(embeds)
+        internal WebHookData(string username, string avaturURL, string content, List<Embed> embeds) : this(embeds)
         {
             Username = username;
             AvaturURL = avaturURL;
             Content = content;
         }
 
-        public WebHookData(List<IEmbed> embeds)
+        internal WebHookData(List<Embed> embeds)
         {
             Embeds.AddRange(embeds);
         }
 
-        public WebHookData(IEmbed embed)
+        internal WebHookData(Embed embed)
         {
             Embeds.Add(embed);
         }
 
-        public WebHookData()
+        internal WebHookData()
         {
         }
 
         [JsonProperty("username", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue("")]
-        public string Username { get; set; } = "LogUploader";
+        internal string Username { get; set; } = "LogUploader";
         [JsonProperty("avatar_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue("")]
-        public string AvaturURL { get; set; } = @"https://i.imgur.com/o0QwGPV.png";
+        internal string AvaturURL { get; set; } = @"https://i.imgur.com/o0QwGPV.png";
         [JsonProperty("content", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue("")]
-        public string Content { get; set; } = "";
+        internal string Content { get; set; } = "";
         [JsonProperty("embeds", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<IEmbed> Embeds { get; set; } = new List<IEmbed>();
+        internal List<Embed> Embeds { get; set; } = new List<Embed>();
         [JsonIgnore]
-        public const int MAX_Embeds = 10;
+        internal const int MAX_Embeds = 10;
 
-        public bool ShouldSerializeEmbeds()
+        internal bool ShouldSerializeEmbeds()
         {
             return Embeds.Count > 0;
         }

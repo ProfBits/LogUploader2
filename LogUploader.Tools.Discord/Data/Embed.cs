@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace LogUploader.Tools.Discord
 {
-    internal class Embed : IEmbed
+    internal class Embed
     {
         private static readonly JsonSerializerSettings JsonSerializerSettings;
 
@@ -23,7 +23,7 @@ namespace LogUploader.Tools.Discord
         public const int MAX_LENGHT = 6000;
         [JsonProperty("author", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue(null)]
-        public IAuthor Author { get; set; } = null;
+        public Author Author { get; set; } = null;
 
         [JsonIgnore]
         public const int TITLE_MAX_LENGHT = 256;
@@ -59,23 +59,23 @@ namespace LogUploader.Tools.Discord
         /// Max count of 25
         /// </summary>
         [JsonProperty("fields", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<IField> Fields { get; set; } = new List<IField>();
+        public List<Field> Fields { get; set; } = new List<Field>();
         [JsonIgnore]
         public const int MAX_FIELDS = 25;
 
         [JsonProperty("thumbnail", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue(null)]
-        public IThumbmail Thumbmail { get; set; } = null;
+        public Thumbmail Thumbmail { get; set; } = null;
 
         [JsonProperty("image", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue(null)]
-        public IImage Image { get; set; } = null;
+        public Image Image { get; set; } = null;
 
         [JsonProperty("footer", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue(null)]
-        public IFooter Footer { get; set; } = null;
+        public Footer Footer { get; set; } = null;
 
-        public Embed(IAuthor author, string title, Color color, List<IField> fields, IThumbmail thumbmail)
+        public Embed(Author author, string title, Color color, List<Field> fields, Thumbmail thumbmail)
         {
             Author = author;
             Title = title;
@@ -84,7 +84,7 @@ namespace LogUploader.Tools.Discord
             Thumbmail = thumbmail;
         }
 
-        public Embed(IAuthor author, string title, string uRL, string descriptione, Color color, List<IField> fields, IThumbmail thumbmail, Image image, Footer footer) :
+        public Embed(Author author, string title, string uRL, string descriptione, Color color, List<Field> fields, Thumbmail thumbmail, Image image, Footer footer) :
             this(author, title, color, fields, thumbmail)
         {
             URL = uRL;

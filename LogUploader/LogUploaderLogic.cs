@@ -24,6 +24,7 @@ using LogUploader.Tools;
 using LogUploader.Tools.Database;
 using LogUploader.Tools.RaidOrgaPlus;
 using LogUploader.RaidOrgaPlus.Data;
+using LogUploader.Tools.Discord.Interface;
 
 namespace LogUploader
 {
@@ -544,7 +545,7 @@ namespace LogUploader
 
             Language.SetLanguage(Settings.Language);
             EliteInsights.Settings = Settings;
-            DiscordPostGenerator.Settings = Settings;
+            DiscordPostGeneratorFactory.SetSettings(Settings);
             WebHookDB = Settings.WebHookDB;
 
             OnDataChanged(new EventArgs());
@@ -725,7 +726,7 @@ namespace LogUploader
             //Maybe: Move post() to WebHook -> eliminate WebHookHelper
 
             var logs = ids.Select(id => CacheLog(id)).ToArray();
-            var generator = DiscordPostGenerator.Get(webHook.Format);
+            var generator = DiscordPostGeneratorFactory.Get(webHook.Format);
             var posts = generator.Generate(logs, webHook.Name, webHook.AvatarURL);
             try {
                 await WebHookHelper.PostWebHookPosts(webHook, posts, Settings);

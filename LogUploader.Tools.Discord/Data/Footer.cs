@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace LogUploader.Tools.Discord
 {
-    internal class Footer : IFooter
+    internal class Footer
     {
         private static readonly JsonSerializerSettings JsonSerializerSettings;
 

@@ -14,7 +14,7 @@ namespace LogUploader.Tools.Discord
 {
     class PerWingGen : DiscordPostGenerator
     {
-        protected override IField GenerateField(ICachedLog log)
+        protected override Field GenerateField(ICachedLog log)
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
@@ -105,7 +105,7 @@ namespace LogUploader.Tools.Discord
             return new Grouping(Boss.GetByID(data.First().Log.BossID).Area);
         }
 
-        protected override IEmbed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
+        protected override Embed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
         {
             var temp = base.GetEmbedFrame(grouping, values);
             var wing = RaidWing.RaidWings.Where(w => w.Value.Name == grouping.Name).Select(g => g.Value).FirstOrDefault();

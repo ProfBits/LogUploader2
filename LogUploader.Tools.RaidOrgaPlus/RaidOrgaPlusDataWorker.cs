@@ -41,7 +41,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             progress?.Report(new ProgressMessage(0.10, "Applying cached players"));
             ApplyCache(players, playerCache, raid);
 
-            progress?.Report(new ProgressMessage(0.11, "Assigen players"));
+            progress?.Report(new ProgressMessage(0.11, "Assign players"));
             ShowCorrectPlayerUI(players, raid, invoker);
 
             progress?.Report(new ProgressMessage(0.15, "Update players and cache"));
