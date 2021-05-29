@@ -16,6 +16,7 @@ using LogUploader.Tools.Logging;
 using LogUploader.Data.Discord;
 using LogUploader.Tools.Settings;
 using LogUploader.Tools.Dialog;
+using LogUploader.Tools.Discord;
 
 namespace LogUploader.Tools.Settings.GUI
 {
