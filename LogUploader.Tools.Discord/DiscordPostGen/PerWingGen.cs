@@ -12,7 +12,7 @@ using LogUploader.Localisation;
 
 namespace LogUploader.Tools.Discord
 {
-    class PerWingGen : DiscordPostGenerator
+    internal class PerWingGen : DiscordPostGenerator
     {
         protected override Field GenerateField(ICachedLog log)
         {

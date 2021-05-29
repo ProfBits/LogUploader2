@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Discord
 {
-    class PerBossGenerator : DiscordPostGenerator
+    internal class PerBossGenerator : DiscordPostGenerator
     {
         protected override Field GenerateField(ICachedLog log)
         {

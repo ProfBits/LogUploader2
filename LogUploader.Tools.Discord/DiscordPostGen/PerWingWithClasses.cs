@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Discord
 {
-    class PerWingWithClassesGenerator : PerWingGen
+    internal class PerWingWithClassesGenerator : PerWingGen
     {
         protected override Field GenerateField(ICachedLog log)
         {

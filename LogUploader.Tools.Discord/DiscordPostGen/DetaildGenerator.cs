@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Discord
 {
-    class DetaildGenerator : DiscordPostGenerator
+    internal class DetaildGenerator : DiscordPostGenerator
     {
         protected override Field GenerateField(ICachedLog log)
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Tools.Discord
 {
-    class CompactWithClasesGenerator : CompactWithEmotesGenerator
+    internal class CompactWithClasesGenerator : CompactWithEmotesGenerator
     {
         protected override Field GenerateField(ICachedLog log)
         {
