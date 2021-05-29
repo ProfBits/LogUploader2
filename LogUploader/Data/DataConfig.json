@@ -405,7 +405,7 @@
         "EiName": "Deimos",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
-        "DiscordEmote": "<:deimos:501749064346632213> ",
+        "DiscordEmote": "<:deimos:501749064346632213>",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Ragged_White_Mantle_Figurehead.png",
         "RaidOrgaPlusID": 15
       },
@@ -522,7 +522,7 @@
         "EiName": "Twin Largos",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
-        "DiscordEmote": "<:larg:501865906587041807> ",
+        "DiscordEmote": "<:larg:501865906587041807>",
         "AvatarURL": "https://i.imgur.com/6O5MT7v.png",
         "RaidOrgaPlusID": 21
       },
@@ -535,7 +535,7 @@
         "EiName": "Twin Largos",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
-        "DiscordEmote": "<:larg:501865906587041807> ",
+        "DiscordEmote": "<:larg:501865906587041807>",
         "AvatarURL": "https://i.imgur.com/6O5MT7v.png",
         "RaidOrgaPlusID": 21
       },
@@ -649,7 +649,7 @@
         "NameDE": "Fraenir Jormags",
         "FolderEN": "Fraenir of Jormag",
         "FolderDE": "Fraenir Jormags",
-        "EiName": "FraenirOfJormag ",
+        "EiName": "FraenirOfJormag",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
         "DiscordEmote": "<:fbd:484839294243045416>",
@@ -678,7 +678,7 @@
         "EiName": "Boneskinner",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
-        "DiscordEmote": "<:rea:484839588876255232> ",
+        "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg",
         "RaidOrgaPlusID": -1
       },
@@ -1138,7 +1138,7 @@
       },
       {
         "ID": 15423,
-        "NameEN": "Bandit Sapper ",
+        "NameEN": "Bandit Sapper",
         "NameDE": "Banditen Pionier",
         "GameAreaName": "RaidWings",
         "GameAreaID": 2,
