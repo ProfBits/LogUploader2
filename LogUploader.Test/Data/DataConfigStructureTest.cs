@@ -374,6 +374,7 @@ namespace LogUploader.Test.Data
             Assert.NotNull(s);
             Assert.IsFalse(string.IsNullOrWhiteSpace(s), $"Invalid String \"{s}\"");
             Assert.AreEqual(s, s.Trim(), $"NotWhite space at front or end. Error: \"{s}\"");
+            Assert.AreEqual(1, s.Split('\n', '\r').Count(), $"Strings should only have one line. Error: \"{s}\"");
         }
 
         private void ValidateUrl(string s)
