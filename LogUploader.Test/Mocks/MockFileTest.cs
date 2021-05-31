@@ -11,18 +11,20 @@ namespace LogUploader.Test.Mocks
     public class MockFileTest
     {
         private const string TEST_BASE_FOLDER = @"C:\UnitTest\FileIO\";
+        private MockFileSystem TestFileSystem;
         private Wrapper.IFileIO FileIO;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            FileIO = MockFileIO.Instance;
+            TestFileSystem = new MockFileSystem();
+            FileIO = new MockFileIO(TestFileSystem);
         }
 
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
-            MockFileIO.Instance.Reset();
+            TestFileSystem.Reset();
         }
 
         [Test]
@@ -37,8 +39,13 @@ namespace LogUploader.Test.Mocks
         public void Reset()
         {
             const string fileName = TEST_BASE_FOLDER + @"Reset.txt";
+
             FileIO.Create(fileName);
-            MockFileIO.Instance.Reset();
+            TestFileSystem.Reset();
+            Assert.IsFalse(FileIO.Exists(fileName));
+
+            FileIO.Create(fileName);
+            (FileIO as MockFileIO).Reset();
             Assert.IsFalse(FileIO.Exists(fileName));
         }
 
@@ -313,7 +320,7 @@ namespace LogUploader.Test.Mocks
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            MockFileSystem.Data.Reset();
+            TestFileSystem.Reset();
         }
 
     }

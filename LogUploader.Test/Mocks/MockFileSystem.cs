@@ -8,9 +8,10 @@ namespace LogUploader.Test.Mocks
 {
     internal class MockFileSystem : IMock
     {
+        [Obsolete("do not use", true)]
         internal static MockFileSystem Data { get; } = new MockFileSystem();
-        private MockFileSystem() { }
-        private static readonly Dictionary<string, FileSystemDirectory> Roots = new Dictionary<string, FileSystemDirectory>();
+        internal MockFileSystem() { }
+        private readonly Dictionary<string, FileSystemDirectory> Roots = new Dictionary<string, FileSystemDirectory>();
 
         public void Reset()
         {
@@ -70,7 +71,7 @@ namespace LogUploader.Test.Mocks
 
         public void CreateFolder(string path)
         {
-            var discard = FindElement(path, true);
+            _ = FindElement(path, true);
         }
 
         public void DeleteFolder(string path, bool recursive = false)
@@ -173,6 +174,10 @@ namespace LogUploader.Test.Mocks
 
         private abstract class FileSystemElement
         {
+            private readonly object ParentLock = new object();
+            private FileSystemElement parent = null;
+            private string name;
+
             protected FileSystemElement(string name) : this(name, DateTime.Now)
             { }
 
@@ -182,9 +187,9 @@ namespace LogUploader.Test.Mocks
                 CreationTime = creation;
             }
 
-            public string Name { get; set; }
-            public FileSystemElement Parent { get; set; } = null;
-            public DateTime CreationTime { get; internal set; }
+            public string Name { get { lock (name) return name; } set { lock (name ?? new object()) name = value; } }
+            public FileSystemElement Parent { get { lock (ParentLock) return parent; } set { lock (ParentLock) parent = value; } }
+            public DateTime CreationTime { get; }
 
             public virtual void Delete(bool recursive = false)
             {
@@ -206,53 +211,61 @@ namespace LogUploader.Test.Mocks
             public IReadOnlyList<FileSystemDirectory> GetSubDirectories(bool recursive = false)
             {
                 List<FileSystemDirectory> subDirs = new List<FileSystemDirectory>();
-                foreach (var element in Children)
-                {
-                    if (element is FileSystemDirectory dir)
+                lock(Children)
+                    foreach (var element in Children)
                     {
-                        subDirs.Add(dir);
-                        if (recursive) subDirs.AddRange(dir.GetSubDirectories(recursive));
+                        if (element is FileSystemDirectory dir)
+                        {
+                            subDirs.Add(dir);
+                            if (recursive) subDirs.AddRange(dir.GetSubDirectories(recursive));
+                        }
                     }
-                }
                 return subDirs;
             }
 
             public IReadOnlyList<FileSystemFile> GetFiles(bool recursive = false)
             {
                 List<FileSystemFile> subFiles = new List<FileSystemFile>();
-                foreach (var element in Children)
-                {
-                    if (element is FileSystemFile file)
-                        subFiles.Add(file);
-                    if (recursive && element is FileSystemDirectory dir)
-                        subFiles.AddRange(dir.GetFiles(recursive));
-                }
+                lock(Children)
+                    foreach (var element in Children)
+                    {
+                        if (element is FileSystemFile file)
+                            subFiles.Add(file);
+                        if (recursive && element is FileSystemDirectory dir)
+                            subFiles.AddRange(dir.GetFiles(recursive));
+                    }
                 return subFiles;
             }
 
             public IReadOnlyList<FileSystemElement> GetContent(bool recursive = false)
             {
                 List<FileSystemElement> subElements = new List<FileSystemElement>();
-                foreach (var element in Children)
-                {
-                    subElements.Add(element);
-                    if (recursive && element is FileSystemDirectory dir)
-                        subElements.AddRange(dir.GetContent());
-                }
+
+                lock (Children)
+                    foreach (var element in Children)
+                    {
+                        subElements.Add(element);
+                        if (recursive && element is FileSystemDirectory dir)
+                            subElements.AddRange(dir.GetContent());
+                    }
                 return subElements;
             }
 
             public override void Delete(bool recursive = false)
             {
-                if (Children.Count > 0 && !recursive) throw new System.IO.IOException("Directory is not empty");
-                base.Delete();
-                while (Children.Count > 0)
-                    Children.First().Delete(recursive);
+                lock (Children)
+                {
+                    if (Children.Count > 0 && !recursive) throw new System.IO.IOException("Directory is not empty");
+                    base.Delete();
+                    while (Children.Count > 0)
+                        Children.First().Delete(recursive);
+                }
             }
 
             public void AddChild(FileSystemElement element)
             {
-                Children.Add(element);
+                lock (Children)
+                    Children.Add(element);
                 element.Parent = this;
             }
 
@@ -269,8 +282,13 @@ namespace LogUploader.Test.Mocks
 
         private class FileSystemFile : FileSystemElement
         {
+            private byte[] data;
 
-            public byte[] Data { get; set; }
+            public byte[] Data
+            {
+                get { lock(data) return data; }
+                set { lock (data ?? new object()) data = value; }
+            }
 
             public FileSystemFile(string name, byte[] data) : base(name)
             {

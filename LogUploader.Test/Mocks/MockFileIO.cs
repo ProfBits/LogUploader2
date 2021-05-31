@@ -11,15 +11,25 @@ namespace LogUploader.Test.Mocks
 {
     internal class MockFileIO : Wrapper.IFileIO, IMock
     {
-        internal static MockFileIO Instance = new MockFileIO();
+        internal static MockFileIO Instance
+        {
+            get => instance ?? throw new NullReferenceException("Global File IO not set yet");
+            set => instance = instance ?? value ?? throw new ArgumentNullException("Global FileIO cannot be null");
+        }
 
-        private MockFileIO() { }
+        private readonly MockFileSystem Data;
+        private static MockFileIO instance = null;
+
+        internal MockFileIO(MockFileSystem fileSystem)
+        {
+            Data = fileSystem;
+        }
 
         internal static Encoding DefaultEncoding { get; set; } = Encoding.ASCII;
 
         public void AppendAllText(string path, string contents, Encoding encoding)
         {
-            MockFileSystem.Data.AppendFile(path, encoding.GetBytes(contents));
+            Data.AppendFile(path, encoding.GetBytes(contents));
         }
 
         public void AppendAllText(string path, string contents) => AppendAllText(path, contents, DefaultEncoding);
@@ -27,7 +37,7 @@ namespace LogUploader.Test.Mocks
         public void Copy(string sourceFileName, string destFileName, bool overwrite)
         {
             if (!overwrite && Exists(destFileName)) throw new IOException("File already exists " + destFileName);
-            MockFileSystem.Data.WriteFile(destFileName, MockFileSystem.Data.ReadFile(sourceFileName));
+            Data.WriteFile(destFileName, Data.ReadFile(sourceFileName));
         }
 
         public FileStream Create(string path)
@@ -40,14 +50,14 @@ namespace LogUploader.Test.Mocks
 
         public bool Exists(string path)
         {
-            return MockFileSystem.Data.FileExits(path);
+            return Data.FileExits(path);
         }
 
         public void Move(string sourceFileName, string destFileName)
         {
             if (Exists(destFileName)) throw new IOException("File already exists " + destFileName);
-            MockFileSystem.Data.WriteFile(destFileName, MockFileSystem.Data.ReadFile(sourceFileName));
-            MockFileSystem.Data.DeleteFile(sourceFileName);
+            Data.WriteFile(destFileName, Data.ReadFile(sourceFileName));
+            Data.DeleteFile(sourceFileName);
         }
 
         public FileStream Open(string path, FileMode mode, FileAccess access, FileShare share)
@@ -58,12 +68,12 @@ namespace LogUploader.Test.Mocks
 
         public byte[] ReadAllBytes(string path)
         {
-            return MockFileSystem.Data.ReadFile(path);
+            return Data.ReadFile(path);
         }
 
         public string[] ReadAllLines(string path, Encoding encoding)
         {
-            return encoding.GetString(MockFileSystem.Data.ReadFile(path)).Split('\n').Select(p => p.Trim('\r')).ToArray();
+            return encoding.GetString(Data.ReadFile(path)).Split('\n').Select(p => p.Trim('\r')).ToArray();
         }
 
         public string ReadAllText(string path)
@@ -74,12 +84,12 @@ namespace LogUploader.Test.Mocks
 
         public string ReadAllText(string path, Encoding encoding)
         {
-            return encoding.GetString(MockFileSystem.Data.ReadFile(path));
+            return encoding.GetString(Data.ReadFile(path));
         }
 
         public void WriteAllBytes(string path, byte[] bytes)
         {
-            MockFileSystem.Data.WriteFile(path, bytes);
+            Data.WriteFile(path, bytes);
         }
 
         public void WriteAllLines(string path, string[] contents, Encoding encoding)
@@ -94,19 +104,19 @@ namespace LogUploader.Test.Mocks
 
         public void Reset()
         {
-            MockFileSystem.Data.Reset();
+            Data.Reset();
         }
 
         public void Delete(string path)
         {
-            MockFileSystem.Data.DeleteFile(path);
+            Data.DeleteFile(path);
         }
 
         public DateTime GetCreationTime(string path)
         {
             try
             {
-                return MockFileSystem.Data.GetCreationTime(path);
+                return Data.GetCreationTime(path);
             }
             catch (IOException)
             {

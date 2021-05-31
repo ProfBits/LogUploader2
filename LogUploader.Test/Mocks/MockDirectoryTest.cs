@@ -11,18 +11,22 @@ namespace LogUploader.Test.Mocks
 {
     public class MockDirectoryTest
     {
+        private MockFileSystem TestFileSystem;
         private Wrapper.IDirectoryIO DirectoryIO;
+        private Wrapper.IFileIO FileIO;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            DirectoryIO = MockDirectoryIO.Instance;
+            TestFileSystem = new MockFileSystem();
+            DirectoryIO = new MockDirectoryIO(TestFileSystem);
+            FileIO = new MockFileIO(TestFileSystem);
         }
 
         [SetUp]
         public void SetUp()
         {
-            MockDirectoryIO.Instance.Reset();
+            TestFileSystem.Reset();
         }
 
         [Test]
@@ -79,7 +83,7 @@ namespace LogUploader.Test.Mocks
             const string path = @"C:\\UnitTest\Reset\";
             DirectoryIO.CreateDirectory(path);
             Assert.IsTrue(DirectoryIO.Exists(path));
-            MockDirectoryIO.Instance.Reset();
+            TestFileSystem.Reset();
             Assert.IsFalse(DirectoryIO.Exists(path));
         }
 
@@ -111,10 +115,10 @@ namespace LogUploader.Test.Mocks
             const string path = @"C:\\UnitTest\NotDeleteDirecotryWithContent\";
             const string file = path + @"HelloWorld.txt";
             DirectoryIO.CreateDirectory(path);
-            MockFileIO.Instance.Create(file);
+            FileIO.Create(file);
             Assert.Catch<IOException>(() => DirectoryIO.Delete(path, false));
             Assert.IsTrue(DirectoryIO.Exists(path));
-            Assert.IsTrue(MockFileIO.Instance.Exists(file));
+            Assert.IsTrue(FileIO.Exists(file));
         }
 
         [Test]
@@ -135,10 +139,10 @@ namespace LogUploader.Test.Mocks
             const string path = @"C:\\UnitTest\DeleteDirecotryWithContent\";
             const string file = path + @"HelloWorld.txt";
             DirectoryIO.CreateDirectory(path);
-            MockFileIO.Instance.Create(file);
+            FileIO.Create(file);
             Assert.DoesNotThrow(() => DirectoryIO.Delete(path, true));
             Assert.IsFalse(DirectoryIO.Exists(path));
-            Assert.IsFalse(MockFileIO.Instance.Exists(file));
+            Assert.IsFalse(FileIO.Exists(file));
         }
 
         [Test]
@@ -168,8 +172,8 @@ namespace LogUploader.Test.Mocks
             const string fileA = path + @"HelloWorld.txt";
             const string fileB = path + @"secret.txt";
             DirectoryIO.CreateDirectory(path);
-            MockFileIO.Instance.Create(fileA);
-            MockFileIO.Instance.Create(fileB);
+            FileIO.Create(fileA);
+            FileIO.Create(fileB);
             var data = DirectoryIO.GetFiles(path);
             Assert.AreEqual(2, data.Length);
             Assert.Contains(fileA, data);
@@ -194,8 +198,8 @@ namespace LogUploader.Test.Mocks
             const string fileA = path + @"HelloWorld.txt";
             const string fileB = path + @"secret.dat";
             DirectoryIO.CreateDirectory(subFolder);
-            MockFileIO.Instance.Create(fileA);
-            MockFileIO.Instance.Create(fileB);
+            FileIO.Create(fileA);
+            FileIO.Create(fileB);
             var data = DirectoryIO.GetFiles(path);
             Assert.AreEqual(2, data.Length);
             Assert.Contains(fileA, data);
@@ -210,8 +214,8 @@ namespace LogUploader.Test.Mocks
             const string fileA = path + @"HelloWorld.txt";
             const string fileB = subFolder + @"secret.txt";
             DirectoryIO.CreateDirectory(subFolder);
-            MockFileIO.Instance.Create(fileA);
-            MockFileIO.Instance.Create(fileB);
+            FileIO.Create(fileA);
+            FileIO.Create(fileB);
             var data = DirectoryIO.GetFiles(path);
             Assert.AreEqual(1, data.Length);
             Assert.Contains(fileA, data);
@@ -225,8 +229,8 @@ namespace LogUploader.Test.Mocks
             const string fileA = subFolder + @"HelloWorld.txt";
             const string fileB = subFolder + @"secret.txt";
             DirectoryIO.CreateDirectory(subFolder);
-            MockFileIO.Instance.Create(fileA);
-            MockFileIO.Instance.Create(fileB);
+            FileIO.Create(fileA);
+            FileIO.Create(fileB);
             var data = DirectoryIO.GetFiles(path);
             Assert.AreEqual(0, data.Length);
         }
@@ -241,10 +245,10 @@ namespace LogUploader.Test.Mocks
             const string fileC = subFolder + @"HelloWorld.txt";
             const string fileD = subFolder + @"secret.dat";
             DirectoryIO.CreateDirectory(subFolder);
-            MockFileIO.Instance.Create(fileA);
-            MockFileIO.Instance.Create(fileB);
-            MockFileIO.Instance.Create(fileC);
-            MockFileIO.Instance.Create(fileD);
+            FileIO.Create(fileA);
+            FileIO.Create(fileB);
+            FileIO.Create(fileC);
+            FileIO.Create(fileD);
             var data = DirectoryIO.GetFiles(path, "*.*", SearchOption.AllDirectories);
             Assert.AreEqual(4, data.Length);
             Assert.Contains(fileA, data);
@@ -263,10 +267,10 @@ namespace LogUploader.Test.Mocks
             const string fileC = subFolder + @"HelloWorld.txt";
             const string fileD = subFolder + @"secret.dat";
             DirectoryIO.CreateDirectory(subFolder);
-            MockFileIO.Instance.Create(fileA);
-            MockFileIO.Instance.Create(fileB);
-            MockFileIO.Instance.Create(fileC);
-            MockFileIO.Instance.Create(fileD);
+            FileIO.Create(fileA);
+            FileIO.Create(fileB);
+            FileIO.Create(fileC);
+            FileIO.Create(fileD);
             var data = DirectoryIO.GetFiles(path, "*.txt", SearchOption.AllDirectories);
             Assert.AreEqual(2, data.Length);
             Assert.Contains(fileA, data);
@@ -286,17 +290,17 @@ namespace LogUploader.Test.Mocks
             const string newFileB = to + @"moveFrom\" + @"secret.dat";
             DirectoryIO.CreateDirectory(from);
             DirectoryIO.CreateDirectory(to);
-            MockFileIO.Instance.WriteAllText(file0, path, Encoding.UTF8);
-            MockFileIO.Instance.WriteAllText(fileA, to, Encoding.UTF8);
-            MockFileIO.Instance.Create(fileB);
+            FileIO.WriteAllText(file0, path, Encoding.UTF8);
+            FileIO.WriteAllText(fileA, to, Encoding.UTF8);
+            FileIO.Create(fileB);
             Assert.DoesNotThrow(() => DirectoryIO.Move(from, to));
-            Assert.IsFalse(MockFileIO.Instance.Exists(fileA));
-            Assert.IsFalse(MockFileIO.Instance.Exists(fileB));
-            Assert.IsTrue(MockFileIO.Instance.Exists(file0));
-            Assert.IsTrue(MockFileIO.Instance.Exists(newFileA));
-            Assert.IsTrue(MockFileIO.Instance.Exists(newFileB));
-            Assert.AreEqual(path, MockFileIO.Instance.ReadAllText(file0, Encoding.UTF8));
-            Assert.AreEqual(to, MockFileIO.Instance.ReadAllText(newFileA, Encoding.UTF8));
+            Assert.IsFalse(FileIO.Exists(fileA));
+            Assert.IsFalse(FileIO.Exists(fileB));
+            Assert.IsTrue(FileIO.Exists(file0));
+            Assert.IsTrue(FileIO.Exists(newFileA));
+            Assert.IsTrue(FileIO.Exists(newFileB));
+            Assert.AreEqual(path, FileIO.ReadAllText(file0, Encoding.UTF8));
+            Assert.AreEqual(to, FileIO.ReadAllText(newFileA, Encoding.UTF8));
         }
 
         [Test]
@@ -332,7 +336,7 @@ namespace LogUploader.Test.Mocks
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            MockFileSystem.Data.Reset();
+            TestFileSystem.Reset();
         }
 
     }

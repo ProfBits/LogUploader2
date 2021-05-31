@@ -10,16 +10,25 @@ namespace LogUploader.Test.Mocks
 {
     class MockDirectoryIO : Wrapper.IDirectoryIO, IMock
     {
-        public static MockDirectoryIO Instance { get; } = new MockDirectoryIO();
+        private static MockDirectoryIO instance = null;
+        public static MockDirectoryIO Instance
+        {
+            get => instance ?? throw new NullReferenceException("Global File IO not set yet");
+            set => instance = instance ?? value ?? throw new ArgumentNullException("Global FileIO cannot be null");
+        }
+        private readonly MockFileSystem Data;
         public string AppDataLocal { get => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\LogUploader\\"; }
         public string AppDataRoaming { get => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\LogUploader\\"; }
         public string InstallFolder { get => Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + '\\'; }
 
-        private MockDirectoryIO() { }
+        internal MockDirectoryIO(MockFileSystem fileSystem)
+        {
+            Data = fileSystem;
+        }
 
         public DirectoryInfo CreateDirectory(string path)
         {
-            MockFileSystem.Data.CreateFolder(path);
+            Data.CreateFolder(path);
             //TODO may cause issues
             //NUnit.Framework.Warn.If(true, "CreateDirectory returns DirectoryInfo null");
 #warning CreateDirectory returns DirectoryInfo null;
@@ -28,21 +37,21 @@ namespace LogUploader.Test.Mocks
 
         public void Delete(string path, bool recursive)
         {
-            MockFileSystem.Data.DeleteFolder(path, recursive);
+            Data.DeleteFolder(path, recursive);
         }
 
         public bool Exists(string path)
         {
-            return MockFileSystem.Data.DirectoryExits(path);
+            return Data.DirectoryExits(path);
         }
 
-        public string[] GetFiles(string path) => MockFileSystem.Data.GetDirectoryContent(path, false);
+        public string[] GetFiles(string path) => Data.GetDirectoryContent(path, false);
 
         public string[] GetFiles(string path, string searchPattern) => GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
 
         public string[] GetFiles(string path, string searchPattern, SearchOption searchOption)
         {
-            var files = MockFileSystem.Data.GetDirectoryContent(path, searchOption == SearchOption.AllDirectories);
+            var files = Data.GetDirectoryContent(path, searchOption == SearchOption.AllDirectories);
             if (searchPattern == "*.*")
                 return files;
             if (searchPattern.StartsWith("*."))
@@ -52,12 +61,12 @@ namespace LogUploader.Test.Mocks
 
         public void Move(string sourceDirName, string destDirName)
         {
-            MockFileSystem.Data.MoveDirectory(sourceDirName, destDirName);
+            Data.MoveDirectory(sourceDirName, destDirName);
         }
 
         public void Reset()
         {
-            MockFileSystem.Data.Reset();
+            Data.Reset();
         }
     }
 }

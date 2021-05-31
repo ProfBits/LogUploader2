@@ -10,30 +10,18 @@ using NUnit.Framework;
 
 namespace LogUploader.Test.Tools
 {
+    [NonParallelizable]
     public class LoggerTest
     {
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            Mocks.MockSetup.InjectMoks();
-        }
-
         [SetUp]
         public void Setup()
         {
-            Mocks.MockSetup.ResetAll();
-        }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            Mocks.MockSetup.ResetAll();
-        }
-
-        [TearDown]
-        public void TearDwon()
-        {
-            Mocks.MockSetup.ResetAll();
+            try
+            {
+                Mocks.MockDirectoryIO.Instance.Delete(Logger.FULL_LOG_DIR, true);
+            }
+            //If dir not found -> clean up not needed
+            catch (System.IO.DirectoryNotFoundException) { }
         }
 
         [Test]

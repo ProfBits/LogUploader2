@@ -17,7 +17,6 @@ namespace LogUploader.Test.Tools
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            Mocks.MockSetup.InjectMoks();
             Mocks.MockSetup.SetupLogger();
         }
 
