@@ -10,6 +10,7 @@ namespace LogUploader.Test.Mocks
 {
     public class MockFileTest
     {
+        private const string TEST_BASE_FOLDER = @"C:\UnitTest\FileIO\";
         private Wrapper.IFileIO FileIO;
 
         [OneTimeSetUp]
@@ -27,7 +28,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void Create()
         {
-            const string fileName = @"C:\UnitTest\test.txt";
+            const string fileName = TEST_BASE_FOLDER + @"Create.txt";
             Assert.DoesNotThrow(() => FileIO.Create(fileName));
             Assert.IsTrue(FileIO.Exists(fileName));
         }
@@ -35,7 +36,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void Reset()
         {
-            const string fileName = @"C:\UnitTest\testReset.txt";
+            const string fileName = TEST_BASE_FOLDER + @"Reset.txt";
             FileIO.Create(fileName);
             MockFileIO.Instance.Reset();
             Assert.IsFalse(FileIO.Exists(fileName));
@@ -44,7 +45,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CreateAndRead()
         {
-            const string fileName = @"C:\UnitTest\secret.txt";
+            const string fileName = TEST_BASE_FOLDER + @"CreateAndRead.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileName, content, Encoding.UTF8);
             Assert.IsTrue(FileIO.Exists(fileName));
@@ -54,7 +55,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CreateAndReadBinary()
         {
-            const string fileName = @"C:\UnitTest\data.bin";
+            const string fileName = TEST_BASE_FOLDER + @"CreateAndReadBinary.bin";
             byte[] content = new byte[] { 42, 0, 3, 8 };
             FileIO.WriteAllBytes(fileName, content);
             Assert.IsTrue(FileIO.Exists(fileName));
@@ -64,7 +65,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CreateAppendAndRead()
         {
-            const string fileName = @"C:\UnitTest\secret.txt";
+            const string fileName = TEST_BASE_FOLDER + @"CreateAppendAndRead.txt";
             const string content = @"Hello World";
             FileIO.Create(fileName);
             FileIO.AppendAllText(fileName, content, Encoding.UTF8);
@@ -75,7 +76,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void AppendAndRead()
         {
-            const string fileName = @"C:\UnitTest\secret.txt";
+            const string fileName = TEST_BASE_FOLDER + @"AppendAndRead.txt";
             const string content = @"Hello World";
             FileIO.AppendAllText(fileName, content, Encoding.UTF8);
             Assert.IsTrue(FileIO.Exists(fileName));
@@ -85,7 +86,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CreateAppendAndRead2()
         {
-            const string fileName = @"C:\UnitTest\secret.txt";
+            const string fileName = TEST_BASE_FOLDER + @"CreateAppendAndRead2.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileName, content, Encoding.UTF8);
             FileIO.AppendAllText(fileName, content, Encoding.UTF8);
@@ -96,7 +97,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CreateLinesAndRead()
         {
-            const string fileName = @"C:\UnitTest\secret.txt";
+            const string fileName = TEST_BASE_FOLDER + @"CreateLinesAndRead\secret.txt";
             const string content = @"Hello World";
             FileIO.WriteAllLines(fileName, new string[] { content, content, content }, Encoding.UTF8);
             Assert.IsTrue(FileIO.Exists(fileName));
@@ -106,8 +107,8 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void Move()
         {
-            const string fileNameA = @"C:\UnitTest\from\a.txt";
-            const string fileNameB = @"C:\UnitTest\to\b.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"Move\from\a.txt";
+            const string fileNameB = TEST_BASE_FOLDER + @"Move\to\b.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileNameA, content, Encoding.UTF8);
             Assert.IsTrue(FileIO.Exists(fileNameA));
@@ -121,8 +122,8 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void MoveError()
         {
-            const string fileNameA = @"C:\UnitTest\from\a.txt";
-            const string fileNameB = @"C:\UnitTest\to\b.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"MoveError\from\a.txt";
+            const string fileNameB = TEST_BASE_FOLDER + @"MoveError\to\b.txt";
             const string contentA = @"Hello World A";
             const string contentB = @"Hello World B";
             FileIO.WriteAllText(fileNameA, contentA, Encoding.UTF8);
@@ -137,8 +138,8 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void Copy()
         {
-            const string fileNameA = @"C:\UnitTest\from\a.txt";
-            const string fileNameB = @"C:\UnitTest\to\b.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"Copy\from\a.txt";
+            const string fileNameB = TEST_BASE_FOLDER + @"Copy\to\b.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileNameA, content, Encoding.UTF8);
             Assert.IsTrue(FileIO.Exists(fileNameA));
@@ -153,8 +154,8 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CopyNoOverrideError()
         {
-            const string fileNameA = @"C:\UnitTest\from\a.txt";
-            const string fileNameB = @"C:\UnitTest\to\b.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"CopyNoOverrideError\from\a.txt";
+            const string fileNameB = TEST_BASE_FOLDER + @"CopyNoOverrideError\to\b.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileNameA, content, Encoding.UTF8);
             FileIO.Create(fileNameB);
@@ -168,8 +169,8 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CopyNoOverrideNoError()
         {
-            const string fileNameA = @"C:\UnitTest\from\a.txt";
-            const string fileNameB = @"C:\UnitTest\to\b.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"CopyNoOverrideNoError\from\a.txt";
+            const string fileNameB = TEST_BASE_FOLDER + @"CopyNoOverrideNoError\to\b.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileNameA, content, Encoding.UTF8);
             Assert.DoesNotThrow(() => FileIO.Copy(fileNameA, fileNameB, false));
@@ -181,8 +182,8 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void CopyOverride()
         {
-            const string fileNameA = @"C:\UnitTest\from\a.txt";
-            const string fileNameB = @"C:\UnitTest\to\b.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"CopyOverride\from\a.txt";
+            const string fileNameB = TEST_BASE_FOLDER + @"CopyOverride\to\b.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileNameA, content, Encoding.UTF8);
             FileIO.WriteAllText(fileNameB, "old", Encoding.UTF8);
@@ -196,7 +197,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void WriteOverrides()
         {
-            const string fileNameA = @"C:\UnitTest\write\test.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"write\WriteOverrides.txt";
             const string content = @"Hello World";
             FileIO.WriteAllText(fileNameA, "old", Encoding.UTF8);
             FileIO.WriteAllText(fileNameA, content, Encoding.UTF8);
@@ -207,7 +208,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void WriteLinesOverrides()
         {
-            const string fileNameA = @"C:\UnitTest\write\test.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"write\WriteLinesOverrides.txt";
             const string content = @"Hello World";
             FileIO.WriteAllLines(fileNameA, new string[] { "old", "", "bla" }, Encoding.UTF8);
             FileIO.WriteAllLines(fileNameA, new string[] { content, content, content }, Encoding.UTF8);
@@ -218,7 +219,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void WriteBinaryOverrides()
         {
-            const string fileName = @"C:\UnitTest\data2.bin";
+            const string fileName = TEST_BASE_FOLDER + @"WriteBinaryOverrides\data2.bin";
             byte[] content = new byte[] { 42, 0, 3, 8 };
             byte[] contentNew = new byte[] { 0, 2, 3, 69, 54 };
             FileIO.WriteAllBytes(fileName, content);
@@ -230,7 +231,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void WriteLinesSupportsEmptyLines()
         {
-            const string fileNameA = @"C:\UnitTest\write\test.txt";
+            const string fileNameA = TEST_BASE_FOLDER + @"write\WriteLinesSupportsEmptyLines.txt";
             string[] content = new string[] { "", "old", "", "old", "", "", "", "bla", "" };
             FileIO.WriteAllLines(fileNameA, content, Encoding.UTF8);
             Assert.IsTrue(FileIO.Exists(fileNameA));
@@ -240,7 +241,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void ReadFileNotFound()
         {
-            const string fileName = @"C:\UnitTest\nonExitent\virtual.dat";
+            const string fileName = TEST_BASE_FOLDER + @"nonExitent\ReadFileNotFound\virtual.dat";
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllText(fileName));
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllText(fileName, Encoding.UTF8));
         }
@@ -248,22 +249,22 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void ReadLinesFileNotFound()
         {
-            const string fileName = @"C:\UnitTest\nonExitent\virtual.dat";
+            const string fileName = TEST_BASE_FOLDER + @"nonExitent\ReadLinesFileNotFound\virtual.dat";
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllLines(fileName, Encoding.UTF8));
         }
 
         [Test]
         public void ReadBytesFileNotFound()
         {
-            const string fileName = @"C:\UnitTest\nonExitent\virtual.dat";
+            const string fileName = TEST_BASE_FOLDER + @"nonExitent\ReadBytesFileNotFound\virtual.dat";
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.ReadAllBytes(fileName));
         }
 
         [Test]
         public void CopyFileNotFoud()
         {
-            const string fileNameA = @"C:\UnitTest\nonExitent\virtual.dat";
-            const string fileNameB = @"C:\UnitTest\nonExitent\virtual2.dat";
+            const string fileNameA = TEST_BASE_FOLDER + @"nonExitent\CopyFileNotFoud\virtual.dat";
+            const string fileNameB = TEST_BASE_FOLDER + @"nonExitent\CopyFileNotFoud\virtual2.dat";
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Copy(fileNameA, fileNameB, true));
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Copy(fileNameA, fileNameB, false));
         }
@@ -271,15 +272,15 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void MoveFileNotFoud()
         {
-            const string fileNameA = @"C:\UnitTest\nonExitent\virtual.dat";
-            const string fileNameB = @"C:\UnitTest\nonExitent\virtual2.dat";
+            const string fileNameA = TEST_BASE_FOLDER + @"nonExitent\MoveFileNotFoud\virtual.dat";
+            const string fileNameB = TEST_BASE_FOLDER + @"nonExitent\MoveFileNotFoud\virtual2.dat";
             Assert.Catch<System.IO.FileNotFoundException>(() => FileIO.Move(fileNameA, fileNameB));
         }
 
         [Test]
         public void DeleteFile()
         {
-            const string fileName = @"C:\UnitTest\test.txt";
+            const string fileName = TEST_BASE_FOLDER + @"DeleteFile.txt";
             FileIO.Create(fileName);
             Assert.DoesNotThrow(() => FileIO.Delete(fileName));
         }
@@ -287,14 +288,14 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void DeleteNonExistentFile()
         {
-            const string fileName = @"C:\UnitTest\test.txt";
+            const string fileName = TEST_BASE_FOLDER + @"DeleteNonExistentFile.txt";
             Assert.Throws<System.IO.FileNotFoundException>(() => FileIO.Delete(fileName));
         }
 
         [Test]
         public void GetCreationTime()
         {
-            const string fileName = @"C:\UnitTest\test.txt";
+            const string fileName = TEST_BASE_FOLDER + @"GetCreationTime.txt";
             FileIO.Create(fileName);
             var now = DateTime.Now;
             var delta = FileIO.GetCreationTime(fileName).Subtract(now);
@@ -304,7 +305,7 @@ namespace LogUploader.Test.Mocks
         [Test]
         public void GetCreationTimeNonExistentFile()
         {
-            const string fileName = @"C:\UnitTest\test.txt";
+            const string fileName = TEST_BASE_FOLDER + @"GetCreationTimeNonExistentFile.txt";
             Assert.Throws<System.IO.FileNotFoundException>(() => FileIO.GetCreationTime(fileName));
         }
 
