@@ -52,13 +52,17 @@ namespace LogUploader.Data
         public Image Icon { get; internal set; }
         public int RaidOrgaPlusID { get; }
 
-
         public static void Init(string path, IProgress<double> progress = null)
         {
             progress?.Report(0);
-            var exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var strData = JsonHandling.ReadJsonFile(path);
+            InitWithContent(strData, progress);
+        }
+
+        internal static void InitWithContent(string strData, IProgress<double> progress = null)
+        {
             progress?.Report(0.25);
+            var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(strData);
             progress?.Report(0.5);
             var profList = (Newtonsoft.Json.Linq.JArray)jsonData["Professions"];

@@ -111,6 +111,22 @@ namespace LogUploader.Test.Mocks
             source.Parent = null;
             dest.AddChild(source);
         }
+
+        internal void InsertProxyFile(string path, string realPath)
+        {
+            System.IO.File.OpenRead(realPath).Dispose();
+            
+            WriteFile(path, new byte[] { });
+            FileSystemFile temp = FindElement(path) as FileSystemFile;
+            FileSystemDirectory container = temp.Parent as FileSystemDirectory;
+            FileSystemProxyFile proxyFile = new FileSystemProxyFile(temp.Name, realPath);
+
+            temp.Parent = null;
+            container.RemoveChild(temp);
+            proxyFile.Parent = container;
+            container.AddChild(proxyFile);
+        }
+
         public string[] GetDirectoryContent(string path, bool recursive)
         {
             if (!DirectoryExits(path)) throw new System.IO.DirectoryNotFoundException();
@@ -284,7 +300,7 @@ namespace LogUploader.Test.Mocks
         {
             private byte[] data;
 
-            public byte[] Data
+            public virtual byte[] Data
             {
                 get { lock(data) return data; }
                 set { lock (data ?? new object()) data = value; }
@@ -293,6 +309,33 @@ namespace LogUploader.Test.Mocks
             public FileSystemFile(string name, byte[] data) : base(name)
             {
                 Data = data;
+            }
+
+            public override string GetPath()
+            {
+                return (Parent?.GetPath() ?? "") + Name;
+            }
+
+
+        }
+        private class FileSystemProxyFile : FileSystemFile
+        {
+            public override byte[] Data
+            {
+                get { lock (RealPath) return System.IO.File.ReadAllBytes(RealPath); }
+                set
+                { 
+                    lock (RealPath ?? new object())
+                        if (RealPath != null)
+                            System.IO.File.WriteAllBytes(RealPath, value);
+                }
+            }
+
+            public string RealPath { get; }
+
+            public FileSystemProxyFile(string name, string realPath) : base(name, new byte[] { })
+            {
+                RealPath = realPath;
             }
 
             public override string GetPath()

@@ -316,6 +316,36 @@ namespace LogUploader.Test.Mocks
             Assert.Throws<System.IO.FileNotFoundException>(() => FileIO.GetCreationTime(fileName));
         }
 
+        [Test]
+        [Order(1)]
+        public void ProxyFileLoadTest()
+        {
+            const string fileName = TEST_BASE_FOLDER + @"ProxyFileLoadTest.txt";
+            const string testText = "-Hello World!";
+            string realFilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\TestFiles\MockProxyFileTest.txt";
+            (FileIO as MockFileIO).InsertRealFileReference(fileName, realFilePath);
+            FileIO.WriteAllText(fileName, testText, Encoding.UTF8);
+            Assert.IsTrue(FileIO.Exists(fileName));
+            string mockData = System.IO.File.ReadAllText(realFilePath, Encoding.UTF8);
+            string realData = FileIO.ReadAllText(fileName, Encoding.UTF8);
+            Assert.AreEqual(realData, mockData);
+        }
+
+        [Test]
+        [Order(2)]
+        public void ProxyFileWriteTest()
+        {
+            const string fileName = TEST_BASE_FOLDER + @"ProxyFileWriteTest.txt";
+            string realFilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\TestFiles\MockProxyFileTest.txt";
+            const string newContent = "This is some other Text than \"Hello World!\".";
+            (FileIO as MockFileIO).InsertRealFileReference(fileName, realFilePath);
+            FileIO.WriteAllText(fileName, newContent, Encoding.UTF8);
+            string mockData = System.IO.File.ReadAllText(realFilePath, Encoding.UTF8);
+            string realData = FileIO.ReadAllText(fileName, Encoding.UTF8);
+            Assert.AreEqual(newContent, mockData);
+            Assert.AreEqual(newContent, realData);
+        }
+
 
         [OneTimeTearDown]
         public void OneTimeTearDown()

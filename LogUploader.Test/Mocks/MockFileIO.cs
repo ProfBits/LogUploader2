@@ -112,6 +112,11 @@ namespace LogUploader.Test.Mocks
             Data.DeleteFile(path);
         }
 
+        internal void InsertRealFileReference(string path, string realPath)
+        {
+            Data.InsertProxyFile(path, realPath);
+        }
+
         public DateTime GetCreationTime(string path)
         {
             try
