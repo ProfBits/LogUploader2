@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using LogUploader.Data;
 
-namespace LogUploader.Data
+namespace LogUploader.Tools.Database.JSONExtensiones
 {
     public class SimpleLogJson : ISimpleLogJson
     {

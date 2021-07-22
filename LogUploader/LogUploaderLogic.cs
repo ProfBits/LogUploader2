@@ -25,6 +25,7 @@ using LogUploader.Tools.Database;
 using LogUploader.Tools.RaidOrgaPlus;
 using LogUploader.RaidOrgaPlus.Data;
 using LogUploader.Tools.EliteInsights;
+using LogUploader.Tools.Database.JSONExtensiones;
 
 namespace LogUploader
 {
@@ -263,7 +264,7 @@ namespace LogUploader
             var date = File.GetCreationTime(absolutPath);
             var sizeKb = (int)Math.Ceiling(new FileInfo(absolutPath).Length / 1000.0);
 
-            var newLog = new CachedLog(-1, bossID, absolutPath, null, null, null, sizeKb, date);
+            var newLog = new CachedLog(new DBLog(), -1, bossID, absolutPath, null, null, null, sizeKb, date);
 
             newLog.ID = LogDBConnector.Insert(newLog.GetDBLog());
             var taskName = newLog.BossName.Length > 17 ? newLog.BossName.Substring(0, Math.Min(17, newLog.BossName.Length)) + "..." : newLog.BossName;

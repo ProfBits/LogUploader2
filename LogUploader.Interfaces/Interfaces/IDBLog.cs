@@ -2,6 +2,7 @@
 
 namespace LogUploader.Data
 {
+    [Obsolete("This will be made private and moved to the LogUploader.Tools.Database project")]
     public interface IDBLog
     {
         int BossID { get; set; }

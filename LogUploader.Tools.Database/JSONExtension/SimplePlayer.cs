@@ -3,8 +3,9 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Drawing;
+using LogUploader.Data;
 
-namespace LogUploader.Data
+namespace LogUploader.Tools.Database.JSONExtensiones
 {
     public class SimplePlayer : ISimplePlayer
     {

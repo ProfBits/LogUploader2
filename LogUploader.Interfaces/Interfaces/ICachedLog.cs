@@ -32,7 +32,6 @@ namespace LogUploader.Data
         bool Equals(object obj);
         IDBLog GetDBLog();
         int GetHashCode();
-        void UpdateDpsReport(JObject data);
         void UpdateEi(JObject data);
         void UpdateEi(string json);
     }

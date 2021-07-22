@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using LogUploader.Data;
 
-namespace LogUploader.Data
+namespace LogUploader.Tools.Database.JSONExtensiones
 {
     public class SimmpleTarget : ISimmpleTarget
     {

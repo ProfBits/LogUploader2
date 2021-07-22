@@ -1045,7 +1045,7 @@
             // 
             // dBLogBindingSource
             // 
-            this.dBLogBindingSource.DataSource = typeof(LogUploader.Data.DBLog);
+            this.dBLogBindingSource.DataSource = typeof(LogUploader.Tools.Database.DBLog);
             // 
             // btnPostToDiscord
             // 

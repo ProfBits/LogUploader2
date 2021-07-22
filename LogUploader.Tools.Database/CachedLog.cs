@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+
+using LogUploader.Data;
+using LogUploader.Tools.Database.JSONExtensiones;
+
 using Newtonsoft.Json.Linq;
 
-namespace LogUploader.Data
+namespace LogUploader.Tools.Database
 {
     public class CachedLog : ICachedLog
     {
         /*
          * DB Section: Has to be present
          */
-        private DBLog DataDB { get; set; } = new DBLog();
+        private IDBLog DataDB { get; set; }
         public int ID { get => DataDB.ID; set => DataDB.ID = value; }
         public int BossID { get => DataDB.BossID; set => DataDB.BossID = value; }
         public string BossName { get => Boss.GetByID(DataDB.BossID).Name; }
@@ -46,7 +50,8 @@ namespace LogUploader.Data
         public IReadOnlyList<ISimplePlayer> PlayersNew { get => DataJson?.Players ?? new List<ISimplePlayer>(); }
         public List<ISimmpleTarget> Targets { get => DataJson?.Targets ?? new List<ISimmpleTarget>(); }
 
-        public CachedLog(int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date, bool dataCorrected, TimeSpan duration, bool succsess, float remainingHealth, bool isCM)
+        public CachedLog(IDBLog log, int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date, bool dataCorrected, TimeSpan duration, bool succsess, float remainingHealth, bool isCM) : 
+            this(log)
         {
             ID = iD;
             BossID = bossID;
@@ -62,7 +67,8 @@ namespace LogUploader.Data
             RemainingHealth = remainingHealth;
             IsCM = isCM;
         }
-        public CachedLog(int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date) : this(
+        public CachedLog(IDBLog log, int iD, int bossID, string evtcPath, string jsonPath, string htmlPath, string link, int sizeKb, DateTime date) : this(
+            log,
             iD,
             bossID,
             evtcPath,
@@ -79,7 +85,7 @@ namespace LogUploader.Data
             )
         { }
 
-        public CachedLog(DBLog log)
+        public CachedLog(IDBLog log)
         {
             DataDB = log;
         }
@@ -200,24 +206,9 @@ namespace LogUploader.Data
             ApplySimpleLog(new SimpleLogJson(data));
         }
 
-        //TODO remove
-        [Obsolete("untested do not use!", true)]
-        public void UpdateDpsReport(JObject data)
-        {
-            BossID = (int)data["triggerID"];
-
-            Date = GetDate((string)data["timeStartStd"]);
-            DataCorrected = true;
-            Duration = TimeSpan.ParseExact((string)data["duration"], "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
-            Succsess = (bool)data["success"];
-            RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
-            IsCM = (bool)data["isCM"];
-            ApplySimpleLog(new SimpleLogJson(data));
-        }
-
         public IDBLog GetDBLog()
         {
-            return new DBLog(ID, BossID, EvtcPath, JsonPath, HtmlPath, Link, SizeKb, Date, Duration, DataCorrected, Succsess, IsCM, RemainingHealth);
+            return DataDB;
         }
 
         public void ApplySimpleLog(ISimpleLogJson data)
