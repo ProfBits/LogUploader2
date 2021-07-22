@@ -35,7 +35,7 @@ public class TestSetup
 
         InsertStaticData();
         sw.Stop();
-        Console.WriteLine($"GlobalTestSetup done in {Math.Round(sw.Elapsed.TotalMilliseconds)} ms");
+        TestContext.WriteLine($"GlobalTestSetup done in {Math.Round(sw.Elapsed.TotalMilliseconds)} ms");
     }
 
     private void InsertStaticData()
