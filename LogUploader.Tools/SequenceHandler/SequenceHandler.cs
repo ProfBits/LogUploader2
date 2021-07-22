@@ -12,18 +12,18 @@ namespace LogUploader.Tools.SequenceHandler
 {
     public class SequenceHandler
     {
-        //TODO add more Prameter null checks
-
         private const int DEFAULT_FIRST_SEQUENCE_NUMBER = 1;
-        private int NextStepId = 1;
         private List<SequenceStep> Steps = new List<SequenceStep>();
         public bool Running { get; private set; } = false;
         public bool Aborted { get; private set; } = false;
+        public int NumerOfSteps { get => Steps.Count; }
 
         public SequenceHandler()
         {
 
         }
+
+        #region Events
 
         public event SequenceStartEventHandler SequenceStart;
         public delegate void SequenceStartEventHandler(object sender, SequenceStartEventArgs e);
@@ -35,9 +35,15 @@ namespace LogUploader.Tools.SequenceHandler
         public event SequenceStepStartEventHandler SequenceStepStart;
         public delegate void SequenceStepStartEventHandler(object sender, SequenceStepStartEventArgs e);
         protected virtual void RaiseSequenceStepStartEvent(int totalStepCount, int currStepNum, string stepName,
-                                                           int stepId, bool canBeCanceled, Action cancel = null)
+                                                           int stepId)
         {
-            SequenceStepStart?.Invoke(this, new SequenceStepStartEventArgs(totalStepCount, currStepNum, stepName, stepId, canBeCanceled, cancel));
+            SequenceStepStart?.Invoke(this, new SequenceStepStartEventArgs(totalStepCount, currStepNum, stepName, stepId));
+        }
+        protected virtual void RaiseSequenceStepStartEvent(int totalStepCount, int currStepNum, string stepName,
+                                                          int stepId, Action cancel)
+        {
+            if (null == cancel) throw new ArgumentNullException($"{nameof(cancel)} action cannot be null");
+            SequenceStepStart?.Invoke(this, new SequenceStepStartEventArgs(totalStepCount, currStepNum, stepName, stepId, cancel));
         }
 
         public event SequenceStepCompletedEventHandler SequenceStepCompleted;
@@ -54,28 +60,46 @@ namespace LogUploader.Tools.SequenceHandler
             SequenceEnd?.Invoke(this, new SequenceEndEventArgs(totalStepCount, currStepNum, errors));
         }
 
+        #endregion
+        #region Modify sequence
+
         public int AddStep(Func<IProgress<ProgressMessage>, CancellationToken, Task> action, string name,
-                           int weight, bool vital = true, bool isIndividualCanceable = false)
+                           int weight, StepMode stepMode = StepMode.VITAL)
         {
             int sequenceNumber = GetNextSequenceNumber();
-            return AddStep(action, name, weight, sequenceNumber, vital, isIndividualCanceable);
+            return AddStep(action, name, weight, sequenceNumber, stepMode);
         }
 
         public int AddStep(Func<IProgress<ProgressMessage>, CancellationToken, Task> action, string name,
-                           int weight, int sequenceNumber, bool vital = true, bool isIndividualCanceable = false)
+                           int weight, int sequenceNumber, StepMode stepMode = StepMode.VITAL)
         {
-            if (action == null) throw new ArgumentNullException("action cannot be null");
-            SequenceStep step = new AsynchronusStep(action, name, sequenceNumber, weight, vital, isIndividualCanceable);
+            SequenceStep step = new AsynchronusStep(action, name, sequenceNumber, weight, stepMode);
             Steps.Add(step);
 
             return step.ID;
         }
 
         public int AddStep(Action<IProgress<ProgressMessage>, CancellationToken> action, string name,
-                           int weight, bool vital = true, bool isIndividualCanceable = false)
+                           int weight, StepMode stepMode = StepMode.VITAL)
         {
             int sequenceNumber = GetNextSequenceNumber();
-            return AddStep(action, name, weight, sequenceNumber, vital, isIndividualCanceable);
+            return AddStep(action, name, weight, sequenceNumber, stepMode);
+        }
+
+        public int AddStep(Action<IProgress<ProgressMessage>, CancellationToken> action, string name,
+                           int weight, int sequenceNumber, StepMode stepMode = StepMode.VITAL)
+        {
+            SequenceStep step = new SynchronusStep(action, name, sequenceNumber, weight, stepMode);
+            Steps.Add(step);
+
+            return step.ID;
+        }
+
+        internal void RemoveStep(int stepID)
+        {
+            if (Steps.Where(step => step.ID == stepID).Count() != 1)
+                throw new IndexOutOfRangeException($"Sequence id {stepID} does not exist in this Sequece");
+            Steps.RemoveAll(step => step.ID == stepID);
         }
 
         private int GetNextSequenceNumber()
@@ -83,66 +107,90 @@ namespace LogUploader.Tools.SequenceHandler
             return Steps.Any() ? Steps.Max(step => step.SequenceNumber) + 1 : DEFAULT_FIRST_SEQUENCE_NUMBER;
         }
 
-        public int AddStep(Action<IProgress<ProgressMessage>, CancellationToken> action, string name,
-                           int weight, int sequenceNumber, bool vital = true, bool isIndividualCanceable = false)
-        {
-            if (action == null) throw new ArgumentNullException("action cannot be null");
-            SequenceStep step = new SynchronusStep(action, name, sequenceNumber, weight, vital, isIndividualCanceable);
-            Steps.Add(step);
+        #endregion
+        #region Run sequence
 
-            return step.ID;
-        }
-
-        public async void ExecuteSequence(CancellationTokenSource cts, IProgress<ProgressMessage> progress)
+        public async Task ExecuteSequence(CancellationTokenSource cts, IProgress<ProgressMessage> progress)
         {
             Running = true;
             Aborted = false;
 
             Queue<SequenceStep> orderdSequence = GetOrderedSequence(Steps);
-            int totalWeight = GetTotalSequenceWeight(Steps);
-            int numOfSteps = orderdSequence.Count;
-            int runningWeight = 0;
-            int currentStepNum = 0;
-            RaiseSequenceStartEvent(numOfSteps, currentStepNum, () => { cts?.Cancel(); cts = null; });
+            SequenceState sequenceState = new SequenceState(GetTotalSequenceWeight(Steps), orderdSequence.Count, cts.Token);
+
+            RaiseSequenceStartEvent(sequenceState.NumberOfSteps, sequenceState.CurrentStepNumber, () => { cts?.Cancel(); cts = null; });
             List<Exception> exceptions = new List<Exception>();
 
             while (orderdSequence.Any() && !Aborted)
             {
-                Exception stepException = null;
                 SequenceStep step = orderdSequence.Dequeue();
 
-                Func<ProgressMessage, ProgressMessage> pMsgConverter = step.GetProgressMessageConverter(runningWeight, totalWeight);
-                CancellationTokenSource stepCTS = step.IsIndividualCanceable ? CancellationTokenSource.CreateLinkedTokenSource(cts.Token) : cts;
+                Exception stepException = await ExecuteStep(step, sequenceState, progress);
 
-                if (step.IsIndividualCanceable)
-                    RaiseSequenceStepStartEvent(numOfSteps, currentStepNum, step.Name, step.ID,
-                                                step.IsIndividualCanceable, () => stepCTS?.Cancel());
-                else
-                    RaiseSequenceStepStartEvent(numOfSteps, currentStepNum, step.Name, step.ID,
-                                                step.IsIndividualCanceable);
-                try
+                if (stepException != null)
+                    exceptions.Add(stepException);
+
+
+                if (sequenceState.SequenceCancellationToken.IsCancellationRequested && orderdSequence.Any())
                 {
-                    await step.Execute(new Progress<ProgressMessage>((pMsg) => progress.Report(pMsgConverter(pMsg))), stepCTS.Token);
-                }
-                catch (Exception e)
-                {
-                    stepException = e;
-                    LogStepExecutionException(step, e);
-                    exceptions.Add(e);
-                    Aborted = step.Vital;
-                }
-                finally
-                {
-                    RaiseSequenceStepCompletedEvent(numOfSteps, currentStepNum, step.Name, step.ID, stepException);
+                    exceptions.Add(new OperationCanceledException($"Sequece canceled by user at step {sequenceState.CurrentStepNumber} {step.Name}"));
+                    Aborted = true;
+                    break;
                 }
 
-                if (step.IsIndividualCanceable) stepCTS.Dispose();
+                sequenceState.Update(step);
+            }
+            RaiseSequenceEndEvent(sequenceState.NumberOfSteps, sequenceState.CurrentStepNumber, exceptions);
+            Running = false;
+        }
 
-                runningWeight += step.Weight;
+        private async Task<Exception> ExecuteStep(SequenceStep step, SequenceState sequenceState, IProgress<ProgressMessage> progress)
+        {
+            using (StepData stepData = SetUpStep(step, sequenceState))
+            {
+                Exception stepException = await RunStep(step, sequenceState, stepData, progress);
+                return stepException;
+            }
+        }
+
+        private StepData SetUpStep(SequenceStep step, SequenceState sequenceState)
+        {
+            Func<ProgressMessage, ProgressMessage> pMsgConverter = step.GetProgressMessageConverter(sequenceState.RunningWeight, sequenceState.TotalWeight);
+            CancellationTokenSource stepCTS = null;
+            if (step.IsIndividualCanceable)
+            {
+                stepCTS = CancellationTokenSource.CreateLinkedTokenSource(sequenceState.SequenceCancellationToken);
+                RaiseSequenceStepStartEvent(sequenceState.NumberOfSteps, sequenceState.CurrentStepNumber, step.Name, step.ID, () => stepCTS?.Cancel());
+            }
+            else
+                RaiseSequenceStepStartEvent(sequenceState.NumberOfSteps, sequenceState.CurrentStepNumber, step.Name, step.ID);
+            return new StepData(pMsgConverter, stepCTS);
+        }
+
+        private async Task<Exception> RunStep(SequenceStep step, SequenceState sequenceState, StepData stepData, IProgress<ProgressMessage> progress)
+        {
+            if (step == null) throw new ArgumentNullException($"{step} cannot be null");
+            if (sequenceState == null) throw new ArgumentNullException($"{sequenceState} cannot be null");
+            if (stepData == null) throw new ArgumentNullException($"{stepData} cannot be null");
+
+            Exception stepException = null;
+
+            try
+            {
+                await step.Execute(new Progress<ProgressMessage>((pMsg) => progress?.Report(stepData.ProgressMessageConverter(pMsg))), stepData.StepCancellationTokenSource?.Token ?? sequenceState.SequenceCancellationToken);
+            }
+            catch (Exception e)
+            {
+                stepException = e;
+                LogStepExecutionException(step, e);
+                Aborted = Aborted || step.Vital;
+            }
+            finally
+            {
+                RaiseSequenceStepCompletedEvent(sequenceState.NumberOfSteps, sequenceState.CurrentStepNumber, step.Name, step.ID, stepException);
             }
 
-            RaiseSequenceEndEvent(numOfSteps, currentStepNum, exceptions);
-            Running = false;
+            return stepException;
         }
 
         private int GetTotalSequenceWeight(IEnumerable<SequenceStep> steps)
@@ -169,7 +217,55 @@ namespace LogUploader.Tools.SequenceHandler
                 ex = e.InnerException;
             } while (ex != null);
         }
+
+        private class SequenceState
+        {
+            public int TotalWeight { get; }
+            public int NumberOfSteps { get; }
+            public int RunningWeight { get; private set; } = 0;
+            public int CurrentStepNumber { get; private set; } = 0;
+            public CancellationToken SequenceCancellationToken { get; }
+
+            public SequenceState(int totalWeight, int numberOfSteps, CancellationToken sequenceCancellationToken)
+            {
+                if (totalWeight <= 0) throw new ArgumentOutOfRangeException($"{nameof(totalWeight)} has to be greater than 0");
+                if (numberOfSteps <= 0) throw new ArgumentOutOfRangeException($"{nameof(numberOfSteps)} has to be greater than 0");
+
+                TotalWeight = totalWeight;
+                NumberOfSteps = numberOfSteps;
+                SequenceCancellationToken = sequenceCancellationToken;
+            }
+
+            public void Update(SequenceStep step)
+            {
+                if (step == null) throw new ArgumentNullException($"{nameof(step)} cannot be null");
+
+                RunningWeight += step.Weight;
+                CurrentStepNumber += 1;
+            }
+        }
+
+        private class StepData : IDisposable
+        {
+            public Func<ProgressMessage, ProgressMessage> ProgressMessageConverter { get; }
+            public CancellationTokenSource StepCancellationTokenSource { get; }
+
+            public StepData(Func<ProgressMessage, ProgressMessage> progressMessageConverter, CancellationTokenSource stepCancellationTokenSource)
+            {
+                ProgressMessageConverter = progressMessageConverter ?? throw new ArgumentNullException(nameof(progressMessageConverter));
+                StepCancellationTokenSource = stepCancellationTokenSource;
+            }
+
+            public void Dispose()
+            {
+                ((IDisposable)StepCancellationTokenSource)?.Dispose();
+            }
+        }
+
+        #endregion
     }
+
+    #region SequenceStep definitions
 
     internal abstract class SequenceStep
     {
@@ -182,15 +278,16 @@ namespace LogUploader.Tools.SequenceHandler
         public bool IsIndividualCanceable { get; }
         public int ID { get; } = ++currentId;
 
-        public SequenceStep(string name, int sequenceNumber, int weight, bool vital, bool isIndividualCanceable)
+        public SequenceStep(string name, int sequenceNumber, int weight, StepMode stepMode)
         {
-            if (Weight < 1) throw new ArgumentException("Weight cannot be negative or null");
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentOutOfRangeException($"{nameof(name)} cannot be null or whitespace");
+            if (weight < 1) throw new ArgumentException($"{nameof(weight)} cannot be negative or null");
 
             Name = name;
             SequenceNumber = sequenceNumber;
             Weight = weight;
-            Vital = vital;
-            IsIndividualCanceable = isIndividualCanceable;
+            Vital = stepMode == StepMode.VITAL;
+            IsIndividualCanceable = stepMode == StepMode.CAN_BE_CANCELED;
         }
 
         public abstract Task Execute(IProgress<ProgressMessage> progress, CancellationToken ct);
@@ -210,12 +307,12 @@ namespace LogUploader.Tools.SequenceHandler
 
     internal class AsynchronusStep : SequenceStep
     {
-        Func<IProgress<ProgressMessage>, CancellationToken, Task> Action;
+        readonly Func<IProgress<ProgressMessage>, CancellationToken, Task> Action;
 
-        public AsynchronusStep(Func<IProgress<ProgressMessage>, CancellationToken, Task> action, string name, int sequenceNumber, int weight, bool vital, bool isIndividualCanceable)
-            : base(name, sequenceNumber, weight, vital, isIndividualCanceable)
+        public AsynchronusStep(Func<IProgress<ProgressMessage>, CancellationToken, Task> asyncAction, string name, int sequenceNumber, int weight, StepMode stepMode)
+            : base(name, sequenceNumber, weight, stepMode)
         {
-            Action = action;
+            Action = asyncAction ?? throw new ArgumentNullException($"{nameof(asyncAction)} cannot be null");
         }
 
         public override async Task Execute(IProgress<ProgressMessage> progress, CancellationToken ct)
@@ -226,13 +323,13 @@ namespace LogUploader.Tools.SequenceHandler
 
     internal class SynchronusStep : SequenceStep
     {
-        Action<IProgress<ProgressMessage>, CancellationToken> Action;
+        readonly Action<IProgress<ProgressMessage>, CancellationToken> Action;
 
         public SynchronusStep(Action<IProgress<ProgressMessage>, CancellationToken> action, string name,
-                              int sequenceNumber, int weight, bool vital, bool isIndividualCanceable)
-            : base(name, sequenceNumber, weight, vital, isIndividualCanceable)
+                              int sequenceNumber, int weight, StepMode stepMode)
+            : base(name, sequenceNumber, weight, stepMode)
         {
-            Action = action;
+            Action = action ?? throw new ArgumentNullException($"{nameof(action)} cannot be null");
         }
 
         public override async Task Execute(IProgress<ProgressMessage> progress, CancellationToken ct)
@@ -240,6 +337,17 @@ namespace LogUploader.Tools.SequenceHandler
             await Task.Run(() => Action(progress, ct));
         }
     }
+
+    public enum StepMode
+    {
+        VITAL,
+        CAN_BE_CANCELED,
+        CAN_NOT_BE_CANCELED
+    }
+
+    #endregion
+
+    #region Sequence eventArgs
 
     public class BasicSequenceEventArgs : EventArgs
     {
@@ -282,11 +390,18 @@ namespace LogUploader.Tools.SequenceHandler
         public Action Cancel { get; }
 
         public SequenceStepStartEventArgs(int totalStepCount, int currStepNum, string stepName, int stepId,
-                                          bool canBeCanceled, Action cancel = null)
+                                          Action cancel)
             : base(totalStepCount, currStepNum, stepName, stepId)
         {
-            CanBeCanceled = canBeCanceled;
-            Cancel = cancel ?? (() => { });
+            Cancel = cancel ?? throw new ArgumentNullException($"{nameof(cancel)} action cannot be null");
+            CanBeCanceled = true;
+        }
+
+        public SequenceStepStartEventArgs(int totalStepCount, int currStepNum, string stepName, int stepId)
+            : base(totalStepCount, currStepNum, stepName, stepId)
+        {
+            CanBeCanceled = false;
+            Cancel = null;
         }
     }
 
@@ -312,5 +427,7 @@ namespace LogUploader.Tools.SequenceHandler
             Errors = errors;
         }
     }
+
+    #endregion
 
 }
