@@ -1,5 +1,4 @@
 ﻿using LogUploader.Localisation;
-using LogUploader.Tools.Discord;
 
 using System;
 using System.Collections.Generic;
@@ -37,26 +36,5 @@ namespace LogUploader.Tools.Settings
         int ProxyPort { get; set; }
         string ProxyUsername { get; set; }
         string ProxyPassword { get; set; }
-    }
-    public interface IWebHookSettings
-    {
-        string WebHookDBStr { get; set; }
-        long CurrentWebHook { get; set; }
-        eDiscordPostFormat DiscordPostFormat { get; set; }
-        bool OnlyPostUploaded { get; }
-        bool NameAsDiscordUser { get; }
-    }
-    public interface IEliteInsightsSettings
-    {
-        bool AutoUpdateEI { get; set; }
-        bool CreateCombatReplay { get; set; }
-        bool LightTheme { get; set; }
-    }
-
-    public interface IRaidOrgaPlusSettings
-    {
-        string RaitOrgaPlusUser { get; set; }
-        string RaidOrgaPlusPassword { get; set; }
-        bool RaidOrgaPlusAccoutSet { get; }
     }
 }

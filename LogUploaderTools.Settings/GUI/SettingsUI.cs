@@ -242,7 +242,7 @@ namespace LogUploader.Tools.Settings.GUI
                 {
                     try
                     {
-                        EliteInsights.Update(initState,
+                        EliteInsights.EliteInsights.Update(initState,
                                 new Progress<double>(p => progress.Report(new ProgressMessage(p, "Update EI"))),
                                 ct).Wait();
                     }

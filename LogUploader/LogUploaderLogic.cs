@@ -24,6 +24,7 @@ using LogUploader.Tools;
 using LogUploader.Tools.Database;
 using LogUploader.Tools.RaidOrgaPlus;
 using LogUploader.RaidOrgaPlus.Data;
+using LogUploader.Tools.EliteInsights;
 
 namespace LogUploader
 {

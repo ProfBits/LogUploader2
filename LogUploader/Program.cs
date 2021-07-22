@@ -23,6 +23,7 @@ using LogUploader.Tools.Updater;
 using LogUploader.Tools;
 using LogUploader.Tools.Database;
 using LogUploader.Tools.Settings.GUI;
+using LogUploader.Tools.EliteInsights;
 
 namespace LogUploader
 {

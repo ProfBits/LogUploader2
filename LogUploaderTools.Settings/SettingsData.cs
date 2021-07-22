@@ -1,4 +1,6 @@
 ﻿using LogUploader.Tools.Discord;
+using LogUploader.Tools.EliteInsights;
+using LogUploader.Tools.RaidOrgaPlus;
 
 using Newtonsoft.Json;
 

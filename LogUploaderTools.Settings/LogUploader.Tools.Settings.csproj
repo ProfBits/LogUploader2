@@ -109,6 +109,10 @@
       <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
       <Name>LogUploader.Tools.Logger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.RaidOrgaPlus\LogUploader.Tools.RaidOrgaPlus.csproj">
+      <Project>{23C7A472-40D7-4242-BCC7-7E9928F21868}</Project>
+      <Name>LogUploader.Tools.RaidOrgaPlus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
       <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
       <Name>LogUploader.Tools</Name>
