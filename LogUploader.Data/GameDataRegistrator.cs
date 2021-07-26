@@ -120,10 +120,16 @@ namespace LogUploader.Data
     internal interface IBosseRegistrator : IBosseRepository
     {
         void Register(Enemy.BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID);
+        void Register();
     }
 
     internal class BosseRegistrator : IBosseRegistrator
     {
+        public bool Exists(int id)
+        {
+            return Boss.ExistsID(id);
+        }
+
         public AbstractBoss Get(int id)
         {
             return Boss.GetByID(id);
@@ -133,15 +139,26 @@ namespace LogUploader.Data
         {
             new Boss(info, FolderNameEN, FolderNameDE, avatarURL, discordEmote, eIName, raidOrgaPlusID);
         }
+
+        public void Register()
+        {
+            new Boss();
+        }
     }
 
     internal interface IAddEnemyRegistrator : IAddEnemyRepository
     {
         void Register(Enemy.BasicInfo info, bool intresting);
+        void Register();
     }
 
     internal class AddEnemyRegistrator : IAddEnemyRegistrator
     {
+        public bool Exists(int id)
+        {
+            return AddEnemy.ExistsID(id);
+        }
+
         public AbstractAddEnemy Get(int id)
         {
             return AddEnemy.GetByID(id);
@@ -150,6 +167,11 @@ namespace LogUploader.Data
         public void Register(Enemy.BasicInfo info, bool intresting)
         {
             new AddEnemy(info, intresting);
+        }
+
+        public void Register()
+        {
+            new AddEnemy();
         }
     }
 
@@ -197,11 +219,13 @@ namespace LogUploader.Data
     public interface IBosseRepository
     {
         AbstractBoss Get(int id);
+        bool Exists(int id);
     }
 
     public interface IAddEnemyRepository
     {
         AbstractAddEnemy Get(int id);
+        bool Exists(int id);
     }
 
     public interface IMiscDataRepository

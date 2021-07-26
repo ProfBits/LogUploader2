@@ -180,8 +180,8 @@ namespace LogUploader.Data
             {
                 CreateBoss(boss);
             }
-            if (!Boss.ExistsID(0))
-                new Boss();
+            if (!Registrator.Bosses.Exists(0))
+                Registrator.SetBosses.Register();
         }
 
         private async Task CreateBossesAsync(JArray bossData)
@@ -210,19 +210,19 @@ namespace LogUploader.Data
             switch (gameAreaName)
             {
                 case TagRaidRoot:
-                    return RaidWing.RaidWings[gameAreaID];
+                    return Registrator.Areas.GetRaidWing(gameAreaID);
                 case TagStrikeRoot:
-                    return Strike.StrikeMissions[gameAreaID];
+                    return Registrator.Areas.GetStrike(gameAreaID);
                 case TagDRMRoot:
-                    return DragonResponseMission.DragonResponseMissions[gameAreaID];
+                    return Registrator.Areas.GetDragonResponseMission(gameAreaID);
                 case TagFractalRoot:
-                    return Fractal.Fractals[gameAreaID];
+                    return Registrator.Areas.GetFractal(gameAreaID);
                 case TagWvWRoot:
-                    return WvW.Get();
+                    return Registrator.Areas.GetWvW();
                 case TagTrainingRoot:
-                    return Training.Get();
+                    return Registrator.Areas.GetTraining();
                 case TagUnknownRoot:
-                    return Unknowen.Get();
+                    return Registrator.Areas.GetUnkowen();
                 default:
                     return null;
             }
@@ -234,8 +234,8 @@ namespace LogUploader.Data
             {
                CreateAdd(add);
             }
-            if (!AddEnemy.ExistsID(0))
-                new AddEnemy();
+            if (!Registrator.AddEnemies.Exists(0))
+                Registrator.SetAddEnemies.Register();
         }
         
         private async Task CreateAddsAsync(JArray addData)
@@ -249,8 +249,8 @@ namespace LogUploader.Data
             {
                 await task;
             }
-            if (!AddEnemy.ExistsID(0))
-                new AddEnemy();
+            if (!Registrator.AddEnemies.Exists(0))
+                Registrator.SetAddEnemies.Register();
         }
         
         private void CreateAdd(JObject add)
