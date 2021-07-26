@@ -15,12 +15,12 @@ namespace LogUploader.Localisation
 {
     public static class Language
     {
-        private static readonly string LANG_XML_FOLDER_PATH = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        private const string DATA_FOLDER = "LanguageData";
-        private const string BUILTIN_EN = "English (integrated)";
-        private const string BUILTIN_DE = "German (integrated)";
-        private const string BUILTIN_EN_FILE_NAME = "English";
-        private const string BUILTIN_DE_FILE_NAME = "German";
+        internal static readonly string LANG_XML_FOLDER_PATH = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        internal const string DATA_FOLDER = "LanguageData";
+        internal const string BUILTIN_EN = "English (integrated)";
+        internal const string BUILTIN_DE = "German (integrated)";
+        internal const string BUILTIN_EN_FILE_NAME = "English";
+        internal const string BUILTIN_DE_FILE_NAME = "German";
 
         public static eLanguage Current { get; private set; } = eLanguage.EN;
         public static string CurrentLanguage { get; private set; } = BUILTIN_EN;
@@ -98,7 +98,7 @@ namespace LogUploader.Localisation
             SetLanguage(CurrentLanguage);
         }
 
-        private static XMLLanguage LoadFromXML(string file)
+        internal static XMLLanguage LoadFromXML(string file)
         {
             var xmlPath = LANG_XML_FOLDER_PATH + $@"\{DATA_FOLDER}\{file}.xml";
             Logger.Message("loading " + xmlPath);
