@@ -79,7 +79,7 @@ namespace LogUploader.Data
         {
             var emotes = (JObject)json[TagMiscEmoteRoot];
             Registrator.SetMiscData.RegisterKillEmote((string)emotes[TagKill]);
-            Registrator.SetMiscData.RegisterKillEmote((string)emotes[TagWipe]);
+            Registrator.SetMiscData.RegisterWipeEmote((string)emotes[TagWipe]);
         }
 
         private JObject ParseJson(string json)
