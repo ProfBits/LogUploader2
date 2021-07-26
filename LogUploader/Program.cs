@@ -24,6 +24,7 @@ using LogUploader.Tools;
 using LogUploader.Tools.Database;
 using LogUploader.Tools.Settings.GUI;
 using LogUploader.Tools.EliteInsights;
+using LogUploader.Data.StaticDataLoader;
 
 namespace LogUploader
 {

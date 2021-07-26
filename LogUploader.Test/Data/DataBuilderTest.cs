@@ -10,7 +10,7 @@ using NUnit.Framework;
 using LogUploader.Data;
 using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
-using System.Security.AccessControl;
+using LogUploader.Data.StaticDataLoader;
 
 namespace LogUploader.Test.Data
 {

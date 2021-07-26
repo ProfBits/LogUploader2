@@ -42,7 +42,7 @@ public class TestSetup
     {
         string relPathBoss = GetPathToTestFiles("bossData_0621.json");
         string contentBoss = System.IO.File.ReadAllText(relPathBoss, Encoding.GetEncoding("iso-8859-1"));
-        LogUploader.Data.DataBuilder.LoadDataJson(contentBoss);
+        LogUploader.Data.StaticDataLoader.DataBuilder.LoadDataJson(contentBoss);
 
         string relPathProf = GetPathToTestFiles("profData_0621.json");
         string contentProf = System.IO.File.ReadAllText(relPathProf, Encoding.GetEncoding("iso-8859-1"));

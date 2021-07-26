@@ -9,7 +9,7 @@ using LogUploader.Data;
 
 using Newtonsoft.Json.Linq;
 
-namespace LogUploader.Data
+namespace LogUploader.Data.StaticDataLoader
 {
     public class DataBuilder
     {

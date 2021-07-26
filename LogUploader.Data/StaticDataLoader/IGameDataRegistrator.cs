@@ -1,4 +1,4 @@
-﻿namespace LogUploader.Data
+﻿namespace LogUploader.Data.StaticDataLoader
 {
     internal interface IGameDataRegistrator : IGameDataRepository
     {
