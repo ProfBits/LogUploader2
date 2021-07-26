@@ -147,5 +147,39 @@ namespace LogUploader.Test.Tools
             var actuel = GP.UnixTimeStampToDateTime(1627282649 + offset);
             Assert.AreEqual(exptected, actuel);
         }
+
+        [Test]
+        public void ZipHelperTest()
+        {
+            string testData = "This is a very long string with repetitive paaterns to be commpressed aaabbbaaabbbaaabbbaaabbb to be even smaller aaabbbaaabbbaaabbb";
+
+            byte[] zipped = ZipHelper.Zip(testData);
+            string unzipped = ZipHelper.Unzip(zipped);
+
+            Assert.AreEqual(testData, unzipped);
+            Assert.LessOrEqual(zipped.Length, testData.Length);
+        }
+
+        [Test]
+        public void ZipHelperSpecialCharaktersTest()
+        {
+            string testData = "öäüÖÄÜß\n\0\r\t\\";
+
+            byte[] zipped = ZipHelper.Zip(testData);
+            string unzipped = ZipHelper.Unzip(zipped);
+
+            Assert.AreEqual(testData, unzipped);
+        }
+
+        [Test]
+        public void ZipHelperExternalUnzipTest()
+        {
+            string testData = "This string is zipped in a File";
+            
+            byte[] zipped = System.IO.File.ReadAllBytes(TestSetup.GetPathToTestFiles("static", "zipHelperUnzip.zip"));
+            string unzipped = ZipHelper.Unzip(zipped);
+
+            Assert.AreEqual(testData, unzipped);
+        }
     }
 }
