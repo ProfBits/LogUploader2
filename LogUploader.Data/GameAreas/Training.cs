@@ -6,13 +6,45 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.GameAreas
 {
-    public class Training : GameArea
+    public class AbstractTraining : GameArea
     {
-        private const string DEFAULT_NAME_EN = "Special Forces Trainings Area";
-        private const string DEFAULT_NAME_DE = "Übungsgelände der Spezialkräfte";
-        private const string DEFUALT_SHORT_NAME = "Golem";
-        private const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
+        protected const string DEFAULT_NAME_EN = "Special Forces Trainings Area";
+        protected const string DEFAULT_NAME_DE = "Übungsgelände der Spezialkräfte";
+        protected const string DEFUALT_SHORT_NAME = "Golem";
+        protected const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
 
+        protected AbstractTraining(IExtendedInfo info) : base(info)
+        {
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Training)
+                return base.Equals(obj);
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+        public static bool operator ==(AbstractTraining a, AbstractTraining b)
+        {
+            return (NamedObject)a == (NamedObject)b;
+        }
+        public static bool operator !=(AbstractTraining a, AbstractTraining b)
+        {
+            return (NamedObject)a != (NamedObject)b;
+        }
+    }
+
+    public class Training : AbstractTraining
+    {
         private static Training training = null;
 
         private Training() : this(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME, DEFAULT_AVATAR_URL)
@@ -36,8 +68,6 @@ namespace LogUploader.Data.GameAreas
         {
             training = this;
         }
-
-
 
         public static Training Create()
         {
@@ -76,16 +106,9 @@ namespace LogUploader.Data.GameAreas
 
         public static Training Get() => training;
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
         public override bool Equals(object obj)
         {
-            if (obj is Training)
-                return base.Equals(obj);
-            return false;
+            return base.Equals(obj);
         }
 
         public override int GetHashCode()
@@ -95,11 +118,11 @@ namespace LogUploader.Data.GameAreas
 
         public static bool operator ==(Training a, Training b)
         {
-            return (NamedObject)a == (NamedObject)b;
+            return (AbstractTraining)a == (AbstractTraining)b;
         }
         public static bool operator !=(Training a, Training b)
         {
-            return (NamedObject)a != (NamedObject)b;
+            return (AbstractTraining)a != (AbstractTraining)b;
         }
     }
 }

@@ -49,6 +49,9 @@
     <Compile Include="AddEnemy.cs" />
     <Compile Include="Attributes\Attributes.cs" />
     <Compile Include="Boss.cs" />
+    <Compile Include="DataBuilder.cs" />
+    <Compile Include="GameDataRegistrator.cs" />
+    <Compile Include="IGameDataRegistrator.cs" />
     <Compile Include="KeyValueList.cs" />
     <Compile Include="Licenses\CommonMarkLicense.cs" />
     <Compile Include="Licenses\DapperLicense.cs" />

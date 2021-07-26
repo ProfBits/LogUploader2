@@ -4,16 +4,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static LogUploader.Data.GameAreas.GameArea;
+
 namespace LogUploader.Data.GameAreas
 {
-    public class Unknowen : GameArea
+    public class AbstractUnknowen : GameArea
     {
+        protected const string DEFAULT_NAME_EN = "Unknowen";
+        protected const string DEFAULT_NAME_DE = "Unbekannt";
+        protected const string DEFUALT_SHORT_NAME = "???";
+        protected const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
 
-        private const string DEFAULT_NAME_EN = "Unknowen";
-        private const string DEFAULT_NAME_DE = "Unbekannt";
-        private const string DEFUALT_SHORT_NAME = "???";
-        private const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
+        protected AbstractUnknowen(IExtendedInfo info) : base(info)
+        {
+        }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is Unknowen)
+                return base.Equals(obj);
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+        public static bool operator ==(AbstractUnknowen a, AbstractUnknowen b)
+        {
+            return (NamedObject)a == (NamedObject)b;
+        }
+        public static bool operator !=(AbstractUnknowen a, AbstractUnknowen b)
+        {
+            return (NamedObject)a != (NamedObject)b;
+        }
+    }
+
+    public class Unknowen : AbstractUnknowen
+    {
         private static Unknowen unknowen = null;
 
         private Unknowen() : this(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME, DEFAULT_AVATAR_URL)
@@ -73,16 +106,9 @@ namespace LogUploader.Data.GameAreas
 
         public static Unknowen Get() => unknowen;
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
         public override bool Equals(object obj)
         {
-            if (obj is Unknowen)
-                return base.Equals(obj);
-            return false;
+            return base.Equals(obj);
         }
 
         public override int GetHashCode()
@@ -92,11 +118,11 @@ namespace LogUploader.Data.GameAreas
 
         public static bool operator ==(Unknowen a, Unknowen b)
         {
-            return (NamedObject)a == (NamedObject)b;
+            return (AbstractUnknowen)a == (AbstractUnknowen)b;
         }
         public static bool operator !=(Unknowen a, Unknowen b)
         {
-            return (NamedObject)a != (NamedObject)b;
+            return (AbstractUnknowen)a != (AbstractUnknowen)b;
         }
 
     }

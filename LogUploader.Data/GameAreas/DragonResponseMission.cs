@@ -6,19 +6,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static LogUploader.Data.GameAreas.GameArea;
+
 namespace LogUploader.Data.GameAreas
 {
-    public class DragonResponseMission : GameArea
+    public class AbstractDragonResponseMission : GameArea
     {
-        private const string DEFAULT_NAME_EN = "Unkown Dragon Response Mission";
-        private const string DEFAULT_NAME_DE = "Unbekannte Drachenhilfe-Mission";
-        private const string DEFUALT_SHORT_NAME_EN = "DRM ???";
-        private const string DEFUALT_SHORT_NAME_DE = "DRM ???";
-        private const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/f/fe/Destroyer_Crab.jpg";
+        protected const string DEFAULT_NAME_EN = "Unkown Dragon Response Mission";
+        protected const string DEFAULT_NAME_DE = "Unbekannte Drachenhilfe-Mission";
+        protected const string DEFUALT_SHORT_NAME_EN = "DRM ???";
+        protected const string DEFUALT_SHORT_NAME_DE = "DRM ???";
+        protected const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/f/fe/Destroyer_Crab.jpg";
+        
+        protected readonly int Number = -1;
 
-        private readonly int Number = -1;
+        protected AbstractDragonResponseMission() : base(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME_EN, DEFUALT_SHORT_NAME_DE, DEFAULT_AVATAR_URL)
+        {
+        }
 
-        private DragonResponseMission() : base(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME_EN, DEFUALT_SHORT_NAME_DE, DEFAULT_AVATAR_URL)
+        public AbstractDragonResponseMission(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
+        {
+        }
+
+        public AbstractDragonResponseMission(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
+        { }
+
+        public AbstractDragonResponseMission(IBasicInfo info, int number) : base(info, $"DRM {number}", $"DRM {number}")
+        {
+            Number = number;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is DragonResponseMission s)
+                return Number == s.Number;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (base.GetHashCode() + Number).GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public static bool operator ==(AbstractDragonResponseMission a, AbstractDragonResponseMission b)
+        {
+            if ((object)a == null)
+                return (object)b == null;
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(AbstractDragonResponseMission a, AbstractDragonResponseMission b)
+        {
+            return !(a == b);
+        }
+    }
+
+    public class DragonResponseMission : AbstractDragonResponseMission
+    {
+        protected DragonResponseMission() : base()
         {
             RegisterDragonResponseMission(this);
         }
@@ -30,9 +81,8 @@ namespace LogUploader.Data.GameAreas
         public DragonResponseMission(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
         { }
 
-        public DragonResponseMission(IBasicInfo info, int number) : base(info, $"DRM {number}", $"DRM {number}")
+        public DragonResponseMission(IBasicInfo info, int number) : base(info, number)
         {
-            Number = number;
             RegisterDragonResponseMission(this);
         }
 
@@ -60,21 +110,14 @@ namespace LogUploader.Data.GameAreas
             RegisteredDragonResponseMissions.Add(DragonResponseMission.Number, DragonResponseMission);
         }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
         public override bool Equals(object obj)
         {
-            if (obj is DragonResponseMission s)
-                return Number == s.Number;
-            return false;
+            return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return (base.GetHashCode() + Number).GetHashCode();
+            return base.GetHashCode();
         }
 
         public static bool operator ==(DragonResponseMission a, DragonResponseMission b)

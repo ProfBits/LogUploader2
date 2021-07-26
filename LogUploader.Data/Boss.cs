@@ -11,18 +11,71 @@ using LogUploader.Localisation;
 
 namespace LogUploader.Data
 {
-    public class Boss : Enemy, IAvatar
+    public class AbstractBoss : Enemy, IAvatar
     {
+        protected readonly NamedObject m_FolderName;
         public string DiscordEmote { get; }
         public string AvatarURL { get; }
-
-        private readonly NamedObject m_FolderName;
 
         public string FolderName { get => m_FolderName.Name; }
 
         public string EIName { get; }
         public int RaidOrgaPlusID { get; }
 
+        public AbstractBoss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.Get(), @"https://www.publicdomainpictures.net/pictures/280000/velka/ghost-on-black-background.jpg", ":grey_question:", "Unknowen", -1) { }
+
+        public AbstractBoss(int id, string name, string FolderName, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(id, name, name, FolderName, FolderName, area, avatarURL, discordEmote, eIName, raidOrgaPlusID)
+        {
+
+        }
+
+        public AbstractBoss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : base(id, nameEN, nameDE, area)
+        {
+            DiscordEmote = discordEmote;
+            AvatarURL = avatarURL;
+            m_FolderName = new NamedObject(FolderNameEN, FolderNameDE);
+            EIName = eIName;
+            RaidOrgaPlusID = raidOrgaPlusID;
+        }
+
+        public AbstractBoss(BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(info.ID, info.NameEN, info.NameDE, FolderNameEN, FolderNameDE, info.GameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID)
+        { }
+
+        public AbstractBoss(BasicInfo info, string FolderName, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(info.ID, info.NameEN, info.NameDE, FolderName, FolderName, info.GameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID)
+        { }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Boss b)
+                return ID == b.ID;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ ID.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+        public static bool operator ==(AbstractBoss a, AbstractBoss b)
+        {
+            if ((object)a == null)
+                return (object)b == null;
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(AbstractBoss a, AbstractBoss b)
+        {
+            return !(a == b);
+        }
+    }
+
+    public class Boss : AbstractBoss
+    {
         private static readonly Dictionary<int, Boss> allBosses = new Dictionary<int, Boss>();
 
         public Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.Get(), @"https://www.publicdomainpictures.net/pictures/280000/velka/ghost-on-black-background.jpg", ":grey_question:", "Unknowen", -1) { }
@@ -32,13 +85,8 @@ namespace LogUploader.Data
 
         }
 
-        public Boss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : base(id, nameEN, nameDE, area)
+        public Boss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : base(id, nameEN, nameDE, FolderNameEN, FolderNameDE, area, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         {
-            DiscordEmote = discordEmote;
-            AvatarURL = avatarURL;
-            m_FolderName = new NamedObject(FolderNameEN, FolderNameDE);
-            EIName = eIName;
-            RaidOrgaPlusID = raidOrgaPlusID;
             allBosses.Add(id, this);
         }
 
@@ -137,26 +185,19 @@ namespace LogUploader.Data
             return m_FolderName.HasName(folderName);
         }
 
-        public override bool Equals(object obj)
+        public static bool ExistsID(int id)
         {
-            if (obj is Boss b)
-                return ID == b.ID;
-            return false;
+            return allBosses.ContainsKey(id);
         }
 
-        public override string ToString()
+        public override bool Equals(object obj)
         {
-            return base.ToString();
+            return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ ID.GetHashCode();
-        }
-
-        public static bool ExistsID(int id)
-        {
-            return allBosses.ContainsKey(id);
+            return base.GetHashCode();
         }
 
         public static bool operator ==(Boss a, Boss b)

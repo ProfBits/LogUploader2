@@ -6,13 +6,44 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data.GameAreas
 {
-    public class WvW : GameArea
+    public class AbstractWvW : GameArea
     {
-        private const string DEFAULT_NAME_EN = "World versus World";
-        private const string DEFAULT_NAME_DE = "Welt gegen Welt";
-        private const string DEFUALT_SHORT_NAME = "WvW";
-        private const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
+        protected const string DEFAULT_NAME_EN = "World versus World";
+        protected const string DEFAULT_NAME_DE = "Welt gegen Welt";
+        protected const string DEFUALT_SHORT_NAME = "WvW";
+        protected const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
 
+        protected AbstractWvW(IExtendedInfo info) : base(info)
+        {
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is WvW)
+                return base.Equals(obj);
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+        public static bool operator ==(AbstractWvW a, AbstractWvW b)
+        {
+            return (NamedObject)a == (NamedObject)b;
+        }
+        public static bool operator !=(AbstractWvW a, AbstractWvW b)
+        {
+            return (NamedObject)a != (NamedObject)b;
+        }
+    }
+
+    public class WvW : AbstractWvW
+    {
         private static WvW wvw = null;
 
         private WvW(): this(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME, DEFAULT_AVATAR_URL)
@@ -72,28 +103,23 @@ namespace LogUploader.Data.GameAreas
 
         public static WvW Get() => wvw;
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-        public override bool Equals(object obj)
-        {
-            if (obj is WvW)
-                return base.Equals(obj);
-            return false;
-        }
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
         public static bool operator ==(WvW a, WvW b)
         {
-            return (NamedObject)a == (NamedObject)b;
+            return (AbstractWvW)a == (AbstractWvW)b;
         }
         public static bool operator !=(WvW a, WvW b)
         {
-            return (NamedObject)a != (NamedObject)b;
+            return (AbstractWvW)a != (AbstractWvW)b;
         }
     }
 }

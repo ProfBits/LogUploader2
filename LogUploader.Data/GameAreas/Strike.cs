@@ -5,19 +5,69 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static LogUploader.Data.GameAreas.GameArea;
+
 namespace LogUploader.Data.GameAreas
 {
-    public class Strike : GameArea
+    public class AbstractStrike : GameArea
     {
-        private const string DEFAULT_NAME_EN = "Unkown Strike Mission";
-        private const string DEFAULT_NAME_DE = "Unbekannte Angriffs Mission";
-        private const string DEFUALT_SHORT_NAME_EN = "Strike ???";
-        private const string DEFUALT_SHORT_NAME_DE = "Angriff ???";
-        private const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
+        protected const string DEFAULT_NAME_EN = "Unkown Strike Mission";
+        protected const string DEFAULT_NAME_DE = "Unbekannte Angriffs Mission";
+        protected const string DEFUALT_SHORT_NAME_EN = "Strike ???";
+        protected const string DEFUALT_SHORT_NAME_DE = "Angriff ???";
+        protected const string DEFAULT_AVATAR_URL = @"https://wiki.guildwars2.com/images/d/d2/Guild_emblem_004.png";
 
-        private readonly int Number = -1;
+        protected readonly int Number = -1;
 
-        public Strike() : base(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME_EN, DEFUALT_SHORT_NAME_DE, DEFAULT_AVATAR_URL)
+        protected AbstractStrike() : base(DEFAULT_NAME_EN, DEFAULT_NAME_DE, DEFUALT_SHORT_NAME_EN, DEFUALT_SHORT_NAME_DE, DEFAULT_AVATAR_URL)
+        {
+        }
+
+        public AbstractStrike(string name, int number, string avatarURL) : this(name, name, number, avatarURL)
+        {
+        }
+
+        public AbstractStrike(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
+        { }
+
+        public AbstractStrike(IBasicInfo info, int number) : base(info, $"Strike {number}", $"Angriff {number}")
+        {
+            Number = number;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Strike s)
+                return Number == s.Number;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (base.GetHashCode() + Number).GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public static bool operator ==(AbstractStrike a, AbstractStrike b)
+        {
+            if ((object)a == null)
+                return (object)b == null;
+
+            return a.Equals(b);
+        }
+        public static bool operator !=(AbstractStrike a, AbstractStrike b)
+        {
+            return !(a == b);
+        }
+    }
+
+    public class Strike : AbstractStrike
+    {
+        protected Strike() : base()
         {
             RegisterStrike(this);
         }
@@ -29,9 +79,8 @@ namespace LogUploader.Data.GameAreas
         public Strike(string nameEN, string nameDE, int number, string avatarURL) : this(new BasicInfo(nameEN, nameDE, avatarURL), number)
         { }
 
-        public Strike(IBasicInfo info, int number) : base(info, $"Strike {number}", $"Angriff {number}")
+        public Strike(IBasicInfo info, int number) : base(info, number)
         {
-            Number = number;
             RegisterStrike(this);
         }
 
@@ -59,33 +108,5 @@ namespace LogUploader.Data.GameAreas
             RegisteredStrikes.Add(strike.Number, strike);
         }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is Strike s)
-                return Number == s.Number;
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return (base.GetHashCode() + Number).GetHashCode();
-        }
-
-        public static bool operator ==(Strike a, Strike b)
-        {
-            if ((object)a == null)
-                return (object)b == null;
-
-            return a.Equals(b);
-        }
-        public static bool operator !=(Strike a, Strike b)
-        {
-            return !(a == b);
-        }
     }
 }
