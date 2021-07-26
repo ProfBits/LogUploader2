@@ -13,9 +13,31 @@ namespace InstallerPackager
     {
         private const string INSTALL_FOLDER_NAME = "LogUploaderInstallerTEMP";
 
-        static void Main(string[] args)
+        static void Main()
         {
             var installerFolder = INSTALL_FOLDER_NAME;
+            installerFolder = PrepeareInstallFolder(installerFolder);
+            if (installerFolder == null) return;
+            RunInstaller(installerFolder);
+        }
+
+        private static void RunInstaller(string installerFolder)
+        {
+            try
+            {
+                HideFolder(installerFolder);
+                mRecreateAllExecutableResources(installerFolder);
+                File.Move(installerFolder + Path.PathSeparator + "InstallerPackager.installer.LogUploaderSetup.msi", installerFolder + Path.PathSeparator + "LogUploaderSetup.msi");
+                ExecuteAndWaitForInstaller(installerFolder);
+            }
+            finally
+            {
+                DeletFolderAndContent(installerFolder);
+            }
+        }
+
+        private static string PrepeareInstallFolder(string installerFolder)
+        {
             try
             {
                 UpdateWorkDir();
@@ -24,19 +46,10 @@ namespace InstallerPackager
             catch (Exception)
             {
                 DeletFolderAndContent(installerFolder);
-                return;
+                return null;
             }
-            try
-            {
-                HideFolder(installerFolder);
-                mRecreateAllExecutableResources(installerFolder);
-                File.Move(installerFolder + '\\' + "InstallerPackager.installer.LogUploaderSetup.msi", installerFolder + '\\' + "LogUploaderSetup.msi");
-                ExecuteAndWaitForInstaller(installerFolder);
-            }
-            finally
-            {
-                DeletFolderAndContent(installerFolder);
-            }
+
+            return installerFolder;
         }
 
         private static void HideFolder(string installerFolder)
@@ -61,7 +74,7 @@ namespace InstallerPackager
         {
             using (var p = new Process())
             {
-                p.StartInfo = new ProcessStartInfo(installerFolder + '\\' + "InstallerPackager.installer.setup.exe");
+                p.StartInfo = new ProcessStartInfo(installerFolder + Path.PathSeparator + "InstallerPackager.installer.setup.exe");
                 p.Start();
                 p.WaitForExit();
             }
@@ -85,6 +98,7 @@ namespace InstallerPackager
 
         /*
          * Thanks to https://web.archive.org/web/20140223075628/http://www.cs.nyu.edu/~vs667/articles/embed_executable_tutorial
+         * Refactored to improve readeability
          */
         //======================================================
         //Recreate all executable resources
@@ -99,38 +113,45 @@ namespace InstallerPackager
             foreach (string resourceName in arrResources)
             {
                 if (resourceName.EndsWith(".exe") || resourceName.EndsWith(".msi"))
-                { //or other extension desired
-                    //Name of the file saved on disk
-                    string saveAsName = folderName + '\\' + resourceName;
-                    FileInfo fileInfoOutputFile = new FileInfo(saveAsName);
-                    //CHECK IF FILE EXISTS AND DO SOMETHING DEPENDING ON YOUR NEEDS
-                    if (fileInfoOutputFile.Exists)
-                    {
-                        //overwrite if desired  (depending on your needs)
-                        //fileInfoOutputFile.Delete();
-                    }
-                    //OPEN NEWLY CREATING FILE FOR WRITTING
-                    FileStream streamToOutputFile = fileInfoOutputFile.OpenWrite();
-                    //GET THE STREAM TO THE RESOURCES
-                    Stream streamToResourceFile =
-                                        currentAssembly.GetManifestResourceStream(resourceName);
+                    SaveResourceToDisk(resourceName, currentAssembly, folderName);
 
-                    //---------------------------------
-                    //SAVE TO DISK OPERATION
-                    //---------------------------------
-                    const int size = 4096;
-                    byte[] bytes = new byte[4096];
-                    int numBytes;
-                    while ((numBytes = streamToResourceFile.Read(bytes, 0, size)) > 0)
-                    {
-                        streamToOutputFile.Write(bytes, 0, numBytes);
-                    }
+            }
+        }
 
-                    streamToOutputFile.Close();
-                    streamToResourceFile.Close();
-                }//end_if
+        private static void SaveResourceToDisk(string resourceName, Assembly currentAssembly, string folderName)
+        {
+            //Name of the file saved on disk
+            string saveAsName = folderName + Path.PathSeparator + resourceName;
+            using (FileStream streamToOutputFile = CreateFile(saveAsName))
+            using (Stream streamToResourceFile = currentAssembly.GetManifestResourceStream(resourceName))
+            {
+                CopyToFileStream(streamToOutputFile, streamToResourceFile);
 
-            }//end_foreach
-        }//end_mRecreateAllExecutableResources
+                streamToOutputFile.Close();
+                streamToResourceFile.Close();
+            }
+        }
+
+        private static FileStream CreateFile(string saveAsName, bool overrideExisting = false)
+        {
+            FileInfo fileInfoOutputFile = new FileInfo(saveAsName);
+
+            if (overrideExisting && fileInfoOutputFile.Exists)
+                fileInfoOutputFile.Delete();
+
+            FileStream streamToOutputFile = fileInfoOutputFile.OpenWrite();
+            return streamToOutputFile;
+        }
+
+        private static void CopyToFileStream(FileStream streamToOutputFile, Stream streamToResourceFile)
+        {
+            const int size = 4096;
+            byte[] bytes = new byte[4096];
+            int numBytes;
+            while ((numBytes = streamToResourceFile.Read(bytes, 0, size)) > 0)
+            {
+                streamToOutputFile.Write(bytes, 0, numBytes);
+            }
+        }
     }
 }
