@@ -36,7 +36,8 @@ namespace LogUploader.Test.Localisation
             {
                 if (member.CanRead && member.PropertyType == typeof(string))
                 {
-                    Assert.False(string.IsNullOrWhiteSpace((string)member.GetValue(lang, new object[] { })));
+                    Assert.False(string.IsNullOrWhiteSpace((string)member.GetValue(lang, new object[] { })),
+                        $"Property \"{member.Name}\" of \"{lang.GetType().FullName}\" should not be null or whitespace");
                 }
             }
         }
