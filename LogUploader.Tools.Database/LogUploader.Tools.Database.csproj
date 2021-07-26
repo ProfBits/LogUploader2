@@ -53,8 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connector\AbstractLogDatabaseConnector.cs" />
     <Compile Include="CachedLog.cs" />
     <Compile Include="DBLog.cs" />
+    <Compile Include="Connector\ILogDatabaseConnector.cs" />
     <Compile Include="JSONExtension\SimmpleTarget.cs" />
     <Compile Include="JSONExtension\SimpleDps.cs" />
     <Compile Include="JSONExtension\SimpleLogJson.cs" />

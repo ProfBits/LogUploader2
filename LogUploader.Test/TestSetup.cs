@@ -52,8 +52,13 @@ public class TestSetup
 
     private static string GetPathToTestFiles(string fileName)
     {
+        return GetPathToTestFiles("static", fileName);
+    }
+
+    public static string GetPathToTestFiles(string folder, string file)
+    {
         var assamblyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        var relPath = "TestFiles" + System.IO.Path.DirectorySeparatorChar + "static" + System.IO.Path.DirectorySeparatorChar + fileName;
+        var relPath = "TestFiles" + System.IO.Path.DirectorySeparatorChar + folder + System.IO.Path.DirectorySeparatorChar + file;
         return assamblyPath + System.IO.Path.DirectorySeparatorChar + relPath;
     }
 
