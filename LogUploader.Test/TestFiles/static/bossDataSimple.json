@@ -1,0 +1,190 @@
+{
+  "LogUploaderData": {
+    "GameAreas": {
+      "RaidWings": [
+        {
+          "ID": 1,
+          "NameEN": "RaidEN",
+          "NameDE": "RaidDE",
+          "AvatarURL": "https://raid.area/icon.png"
+        }
+      ],
+      "StrikeMissions": [
+        {
+          "ID": 1,
+          "NameEN": "StrikeEN",
+          "NameDE": "StriekDE",
+          "AvatarURL": "https://strike.area/icon.png"
+        }
+      ],
+      "Fractals": [
+        {
+          "Level": 1,
+          "NameEN": "FractalEN",
+          "NameDE": "FractalDE",
+          "AvatarURL": "https://fractal.area/icon.png"
+        }
+      ],
+      "WvW": [
+        {
+          "NameEN": "WvWEN",
+          "NameDE": "WvWDE",
+          "ShortNameEN": "WvWen",
+          "ShortNameDE": "WvWde",
+          "AvatarURL": "https://wvw.area/icon.png"
+        }
+      ],
+      "DragonResponseMissions": [
+        {
+          "ID": 1,
+          "NameEN": "DRMEN",
+          "NameDE": "DRMDE",
+          "AvatarURL": "https://drm.area/icon.png"
+        }
+      ],
+      "Training": [
+        {
+          "NameEN": "GolemEN",
+          "NameDE": "GolemDE",
+          "ShortNameEN": "Golemen",
+          "ShortNameDE": "Golemde",
+          "AvatarURL": "https://golem.area/icon.png"
+        }
+      ],
+      "Unknown": [
+        {
+          "NameEN": "???EN",
+          "NameDE": "???DE",
+          "ShortNameEN": "???en",
+          "ShortNameDE": "???de",
+          "AvatarURL": "https://unkown.area/icon.png"
+        }
+      ]
+    },
+    "Bosses": [
+      {
+        "ID": 0,
+        "NameEN": "B?EN",
+        "NameDE": "B?DE",
+        "FolderEN": "Bf?en",
+        "FolderDE": "Bf?de",
+        "EiName": "B?EI",
+        "GameAreaName": "Unknown",
+        "GameAreaID": 0,
+        "DiscordEmote": ":emote:",
+        "AvatarURL": "https://unkown.boss/icon.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 15438,
+        "NameEN": "Vale Guardian",
+        "NameDE": "Tal Wächter",
+        "FolderEN": "Vale Guardianf",
+        "FolderDE": "Tal-Wächterf",
+        "EiName": "Vale Guardiane",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "DiscordEmote": ":vg:",
+        "AvatarURL": "https://vg.boss/icon.png",
+        "RaidOrgaPlusID": 1
+      },
+      {
+        "ID": 22154,
+        "NameEN": "Construct",
+        "NameDE": "Konstrukt",
+        "FolderEN": "ConstructF",
+        "FolderDE": "KonstruktF",
+        "EiName": "ConstructEI",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 1,
+        "DiscordEmote": ":strike:",
+        "AvatarURL": "https://construct.boss/icon.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 23330,
+        "NameEN": "Destroyer",
+        "NameDE": "Zerstörer",
+        "FolderEN": "DestroyerF",
+        "FolderDE": "ZerstörerF",
+        "EiName": "DestroyerEI",
+        "GameAreaName": "DragonResponseMissions",
+        "GameAreaID": 1,
+        "DiscordEmote": ":drm:",
+        "AvatarURL": "https://drm.boss/icon.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 1,
+        "NameEN": "WvWEN",
+        "NameDE": "WvWDE",
+        "FolderEN": "WvWENf",
+        "FolderDE": "WvWDEf",
+        "EiName": "WvWEI",
+        "GameAreaName": "WvW",
+        "GameAreaID": 1,
+        "DiscordEmote": ":wvw:",
+        "AvatarURL": "https://wvw.boss/icon.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 17021,
+        "NameEN": "fractalEN",
+        "NameDE": "fractalDE",
+        "FolderEN": "fractalENf",
+        "FolderDE": "fractalDEf",
+        "EiName": "fractalEI",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 1,
+        "DiscordEmote": ":fractal:",
+        "AvatarURL": "https://fractal.boss/icon.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 16202,
+        "NameEN": "GolemEN",
+        "NameDE": "GolemDE",
+        "FolderEN": "GolemENf",
+        "FolderDE": "GolemDEf",
+        "EiName": "GolemEI",
+        "GameAreaName": "Training",
+        "GameAreaID": 1,
+        "DiscordEmote": ":golem:",
+        "AvatarURL": "https://golem.boss/icon.png",
+        "RaidOrgaPlusID": -1
+      }
+    ],
+    "AddEnemys": [
+      {
+        "ID": 0,
+        "NameEN": "Add?EN",
+        "NameDE": "Add?DE",
+        "GameAreaName": "Unknown",
+        "GameAreaID": 0,
+        "Intresting": true
+      },
+      {
+        "ID": 2,
+        "NameEN": "IntrestingEN",
+        "NameDE": "IntrestingDE",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": true
+      },
+      {
+        "ID": 3,
+        "NameEN": "UnintrestingEN",
+        "NameDE": "UnintrestingDE",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "Intresting": false
+      }
+    ],
+    "Misc": {
+      "Emotes": {
+        "Kill": ":kill:",
+        "Wipe": ":wipe:"
+      }
+    }
+  }
+}

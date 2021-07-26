@@ -7,11 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestFiles\static\bossDataSimple.json" />
     <None Remove="TestFiles\static\bossData_0621.json" />
     <None Remove="TestFiles\static\profData_0621.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="TestFiles\static\bossDataSimple.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestFiles\static\bossData_0621.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

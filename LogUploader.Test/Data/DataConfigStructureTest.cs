@@ -10,7 +10,40 @@ using NUnit.Framework;
 
 namespace LogUploader.Test.Data
 {
-    public class DataConfigStructureTest
+    public class DataConfigProductionTest : DataConfigStructureTest
+    {
+        protected override JObject ReadInJson()
+        {
+            var assamblyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var relPath = "Data" + System.IO.Path.DirectorySeparatorChar + "DataConfig.json";
+            JObject DataConfigContent = null;
+            Assert.DoesNotThrow(() =>
+            {
+                var jsonStr = JsonHandling.ReadJsonFile(assamblyPath + System.IO.Path.DirectorySeparatorChar + relPath);
+
+                DataConfigContent = JObject.Parse(jsonStr);
+            }, "Could not parse DataConfig.json");
+            return DataConfigContent;
+        }
+    }
+
+    public class DataConfigForDataBuilderTest : DataConfigStructureTest
+    {
+        protected override JObject ReadInJson()
+        {
+            var path = TestSetup.GetPathToTestFiles("static", "bossDataSimple.json");
+            JObject DataConfigContent = null;
+            Assert.DoesNotThrow(() =>
+            {
+                var jsonStr = JsonHandling.ReadJsonFile(path);
+
+                DataConfigContent = JObject.Parse(jsonStr);
+            }, "Could not parse bossDataSimple.json");
+            return DataConfigContent;
+        }
+    }
+
+    public abstract class DataConfigStructureTest
     {
         private JObject DataConfigContent = null;
         private const string ROOT_TAG = "LogUploaderData";
@@ -18,16 +51,11 @@ namespace LogUploader.Test.Data
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            var assamblyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var relPath = "Data" + System.IO.Path.DirectorySeparatorChar + "DataConfig.json";
-
-            Assert.DoesNotThrow(() =>
-            {
-                var jsonStr = JsonHandling.ReadJsonFile(assamblyPath + System.IO.Path.DirectorySeparatorChar + relPath);
-
-                DataConfigContent = JObject.Parse(jsonStr);
-            }, "Could not parse DataConfig.json");
+            DataConfigContent = ReadInJson();
+            Assert.That(DataConfigContent, Is.Not.Null);
         }
+
+        protected abstract JObject ReadInJson();
 
         [Test]
         public void DataConfigGeneralCompletnessTest()
