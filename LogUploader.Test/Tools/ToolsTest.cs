@@ -121,5 +121,23 @@ namespace LogUploader.Test.Tools
 
             System.IO.File.Delete(testFilePaht);
         }
+
+        [Test]
+        public void EnumHelperTest()
+        {
+            IEnumerable<TestEnumHelper> res = EnumHelper.GetValues<TestEnumHelper>();
+            Assert.AreEqual(3, res.Count());
+            CollectionAssert.AllItemsAreUnique(res);
+            CollectionAssert.Contains(res, TestEnumHelper.VarA);
+            CollectionAssert.Contains(res, TestEnumHelper.VarB);
+            CollectionAssert.Contains(res, TestEnumHelper.VarC);
+        }
+
+        private enum TestEnumHelper
+        {
+            VarA,
+            VarB,
+            VarC
+        }
     }
 }

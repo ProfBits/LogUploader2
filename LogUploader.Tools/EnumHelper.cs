@@ -10,9 +10,6 @@ namespace LogUploader.Tools
     {
         public static IEnumerable<T> GetValues<T>() where T : struct
         {
-            //var values = Enum.GetValues(typeof(T));
-            //foreach (var element in values)
-            //    yield return (T) element;
             return Enum.GetValues(typeof(T)).Cast<T>();
         }
     }
