@@ -139,5 +139,13 @@ namespace LogUploader.Test.Tools
             VarB,
             VarC
         }
+
+        [Test]
+        public void UnixTimeStampToDateTime([Values(0, 60, -60, 3600, -3600, 36000, -36000, 36500, -36500)] int offset)
+        {
+            DateTime exptected = new DateTime(2021, 7, 26, 8, 57, 29).Add(new TimeSpan(0, 0, offset));
+            var actuel = GP.UnixTimeStampToDateTime(1627282649 + offset);
+            Assert.AreEqual(exptected, actuel);
+        }
     }
 }
