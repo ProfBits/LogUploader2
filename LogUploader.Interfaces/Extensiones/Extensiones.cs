@@ -300,7 +300,7 @@ namespace Extensiones.Stream
                 throw new ArgumentNullException(nameof(destination));
             if (!destination.CanWrite)
                 throw new ArgumentException("Has to be writable", nameof(destination));
-            if (bufferSize < 0)
+            if (bufferSize <= 0)
                 throw new ArgumentOutOfRangeException(nameof(bufferSize));
 
             var buffer = new byte[bufferSize];
