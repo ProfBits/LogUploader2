@@ -52,7 +52,8 @@ namespace LogUploader.Test.Tools
         [Test]
         public void TestExecuteHelperRunsReturn()
         {
-            Assert.DoesNotThrow(() => ExecuteHelper.ExecuteSecure(() => 0));
+            int res = ExecuteHelper.ExecuteSecure(() => 42);
+            Assert.AreEqual(42, res);
             Assert.AreEqual("", string.Join("\n", Mocks.MockSetup.GetLatestLogMessages()));
         }
 
@@ -60,6 +61,65 @@ namespace LogUploader.Test.Tools
         public void ExecuteHelperGuiCallbackNotNull()
         {
            Assert.Catch<ArgumentNullException>(() => ExecuteHelper.GetExceptionUI = null);
+        }
+
+        [Test]
+        public void JsonHandlingCreateTest()
+        {
+            string testFilePaht = TestSetup.GetPathToTestFiles("temp", "jsonHandlingCreateTest.json");
+            if (System.IO.File.Exists(testFilePaht))
+                System.IO.File.Delete(testFilePaht);
+
+            JsonHandling.WriteJsonFile(testFilePaht, "");
+            FileAssert.Exists(testFilePaht);
+
+            System.IO.File.Delete(testFilePaht);
+        }
+
+        [Test]
+        public void JsonHandlingCreateAndReadTest()
+        {
+            string testFilePaht = TestSetup.GetPathToTestFiles("temp", "jsonHandlingCreateAndReadTest.json");
+            string testContent = "{\"test\":42}";
+            if (System.IO.File.Exists(testFilePaht))
+                System.IO.File.Delete(testFilePaht);
+
+            JsonHandling.WriteJsonFile(testFilePaht, testContent);
+            FileAssert.Exists(testFilePaht);
+            Assert.AreEqual(testContent, JsonHandling.ReadJsonFile(testFilePaht));
+
+            System.IO.File.Delete(testFilePaht);
+        }
+
+        [Test]
+        public void JsonHandlingOverrideAndReadTest()
+        {
+            string testFilePaht = TestSetup.GetPathToTestFiles("temp", "jsonHandlingOverrideAndReadTest.json");
+            string testContent = "{\"test\":42}";
+            if (System.IO.File.Exists(testFilePaht))
+                System.IO.File.Delete(testFilePaht);
+
+            JsonHandling.WriteJsonFile(testFilePaht, "");
+            JsonHandling.WriteJsonFile(testFilePaht, testContent);
+            FileAssert.Exists(testFilePaht);
+            Assert.AreEqual(testContent, JsonHandling.ReadJsonFile(testFilePaht));
+
+            System.IO.File.Delete(testFilePaht);
+        }
+
+        [Test]
+        public void JsonHandlingCreateAndReadSpecialCharactresTest()
+        {
+            string testFilePaht = TestSetup.GetPathToTestFiles("temp", "jsonHandlingCreateAndReadSpecialCharactresTest.json");
+            string testContent = "{\"test\":\"äöüÄÖÜß^\"}";
+            if (System.IO.File.Exists(testFilePaht))
+                System.IO.File.Delete(testFilePaht);
+
+            JsonHandling.WriteJsonFile(testFilePaht, testContent);
+            FileAssert.Exists(testFilePaht);
+            Assert.AreEqual(testContent, JsonHandling.ReadJsonFile(testFilePaht));
+
+            System.IO.File.Delete(testFilePaht);
         }
     }
 }
