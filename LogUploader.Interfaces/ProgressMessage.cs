@@ -14,7 +14,9 @@ namespace LogUploader.Data
         public ProgressMessage(double percent, string message)
         {
             Percent = percent;
-            Message = message;
+            Message = message ?? throw new ArgumentNullException($"{nameof(message)} cannot be null");
+            if (percent < 0) throw new ArgumentOutOfRangeException($"{nameof(percent)} cannot be negative");
+            if (string.IsNullOrWhiteSpace(Message)) throw new ArgumentOutOfRangeException($"{nameof(message)} cannot be only whitespace or empty");
         }
 
         public override string ToString()
