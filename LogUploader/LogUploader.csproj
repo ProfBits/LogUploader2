@@ -151,7 +151,6 @@
     <Compile Include="GUIs\LogUploaderUI2Helper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Helper\DataBuilder.cs" />
     <Compile Include="LogUploaderLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
