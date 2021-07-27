@@ -183,30 +183,14 @@ namespace LogUploader.Test.Tools
         }
 
         [Test]
-        public void ValidateDiscordEmoteInvalidStrTest([Values(null,
-            "",
-            "  ",
-            "\n\t\0\"",
-            " :emote:",
-            ":emote: ",
-            " :emote: ",
-            " :abc12: ",
-            "<::999999999999999999>",
-            "<:xxx:9999999999999999990>", 
-            "<:xxx:99999999999999999>",
-            "<:xxx:9999999a9999999999>",
-            "< :xxx:999999999999999999>",
-            "<: xxx:999999999999999999>",
-            "<:xxx :999999999999999999>",
-            "<:xxx: 999999999999999999>",
-            "<:xxx:999999999999999999 >")] string emote)
+        public void ValidateDiscordEmoteInvalidStrTest([ValueSource(typeof(TestHelper), nameof(TestHelper.InvalidDiscordEmotes))] string emote)
         {
             ArgumentException ex = Assert.Catch<ArgumentException>(() => GP.ValidateDiscordEmote(emote));
             TestHelper.ValidateArugumentException(ex);
         }
 
         [Test]
-        public void ValidateDiscordEmoteValidStrTest([Values(":emote:", "<:dgh:999999999999999999>")] string emote)
+        public void ValidateDiscordEmoteValidStrTest([ValueSource(typeof(TestHelper), nameof(TestHelper.ValidDiscordEmotes))] string emote)
         {
             Assert.DoesNotThrow(() => GP.ValidateDiscordEmote(emote));
         }
