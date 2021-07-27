@@ -10,11 +10,9 @@ using System.Windows.Forms;
 using LogUploader.Data;
 using Extensiones;
 using LogUploader.Localisation;
-using LogUploader.Data.Discord;
-using LogUploader.Tools.Discord;
-using LogUploader.Tools;
+using LogUploader.Tools.Discord.Data;
 
-namespace LogUploader.GUIs
+namespace LogUploader.Tools.Discord.GUI
 {
     public partial class WebHookConfig : UserControl
     {

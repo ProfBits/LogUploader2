@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using LogUploader.Tools.Settings;
-
 namespace LogUploader.Tools.Discord
 {
     public static class DiscordPostGeneratorFactory

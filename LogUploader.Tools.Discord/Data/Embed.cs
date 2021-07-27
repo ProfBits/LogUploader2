@@ -5,7 +5,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace LogUploader.Tools.Discord
+namespace LogUploader.Tools.Discord.Data
 {
     internal class Embed
     {

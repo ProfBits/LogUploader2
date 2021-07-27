@@ -2,6 +2,7 @@
 using LogUploader.Data;
 using LogUploader.Helper;
 using LogUploader.Localisation;
+using LogUploader.Tools.Discord.Data;
 
 using System;
 using System.Collections.Generic;

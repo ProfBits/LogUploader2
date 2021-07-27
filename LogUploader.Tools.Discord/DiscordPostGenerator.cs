@@ -1,8 +1,8 @@
 ﻿using LogUploader.Data;
-using LogUploader.Data.Discord;
 using LogUploader.Data.GameAreas;
 using LogUploader.Helper;
 using LogUploader.Localisation;
+using LogUploader.Tools.Discord.Data;
 using LogUploader.Tools.Settings;
 
 using System;

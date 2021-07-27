@@ -1,6 +1,4 @@
-﻿using LogUploader.Data.Discord;
-using LogUploader.Helper;
-using LogUploader.Tools.Discord;
+﻿using LogUploader.Tools.Discord.Data;
 using LogUploader.Tools.Settings;
 
 using System.Collections.Generic;

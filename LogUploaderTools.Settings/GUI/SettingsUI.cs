@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogUploader.Helper;
 using Extensiones;
-using LogUploader.GUIs;
 using LogUploader.Data;
 using LogUploader.Localisation;
 using LogUploader.Tools.Logging;
-using LogUploader.Data.Discord;
 using LogUploader.Tools.Settings;
 using LogUploader.Tools.Dialog;
 using LogUploader.Tools.Discord;
+using LogUploader.Tools.Discord.GUI;
+using LogUploader.Tools.Discord.Data;
 
 namespace LogUploader.Tools.Settings.GUI
 {

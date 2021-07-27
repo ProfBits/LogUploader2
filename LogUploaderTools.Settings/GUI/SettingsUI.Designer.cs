@@ -64,7 +64,7 @@
             this.btnAddWebHook = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flpWebHooks = new System.Windows.Forms.FlowLayoutPanel();
-            this.webHookConfig1 = new LogUploader.GUIs.WebHookConfig();
+            this.webHookConfig1 = new Discord.GUI.WebHookConfig();
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.gbEi = new System.Windows.Forms.GroupBox();
             this.cbEIAutoUpdate = new System.Windows.Forms.CheckBox();
@@ -676,7 +676,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Label lblWebHookCount;
         private System.Windows.Forms.Button btnAddWebHook;
-        private GUIs.WebHookConfig webHookConfig1;
+        private Discord.GUI.WebHookConfig webHookConfig1;
         private System.Windows.Forms.Label lblWebHookCountDes;
         private System.Windows.Forms.GroupBox gbEi;
         private System.Windows.Forms.CheckBox cbEiTheme;

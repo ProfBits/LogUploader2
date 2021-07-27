@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace LogUploader.Tools.Discord
+namespace LogUploader.Tools.Discord.Data
 {
     public class WebHook
     {

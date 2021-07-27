@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Extensiones.Linq;
 using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
+using LogUploader.Tools.Discord.Data;
 
 namespace LogUploader.Tools.Discord
 {

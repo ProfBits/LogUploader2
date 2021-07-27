@@ -1,4 +1,4 @@
-﻿namespace LogUploader.GUIs
+﻿namespace LogUploader.Tools.Discord.GUI
 {
     partial class WebHookConfig
     {

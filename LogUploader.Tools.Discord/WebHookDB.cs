@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using LogUploader.Localisation;
-using LogUploader.Tools.Settings;
-using LogUploader.Data.Discord;
+using LogUploader.Tools.Discord.Data;
 
 namespace LogUploader.Tools.Discord
 {

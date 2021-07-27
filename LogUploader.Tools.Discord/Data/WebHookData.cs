@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace LogUploader.Tools.Discord
+namespace LogUploader.Tools.Discord.Data
 {
     public class WebHookData
     {

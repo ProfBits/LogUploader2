@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using LogUploader.Data;
+using LogUploader.Tools.Discord.Data;
 
 namespace LogUploader.Tools.Discord
 {

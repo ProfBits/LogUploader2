@@ -1,7 +1,4 @@
-﻿using LogUploader.Tools.Discord;
-
-
-namespace LogUploader.Tools.Settings
+﻿namespace LogUploader.Tools.Discord
 {
     public interface IWebHookSettings
     {
