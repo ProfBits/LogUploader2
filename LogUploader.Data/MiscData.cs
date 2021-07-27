@@ -6,9 +6,26 @@ using System.Threading.Tasks;
 
 namespace LogUploader.Data
 {
-    public static class MiscData
+    public class MiscData
     {
+        /// <summary>
+        /// Trows an Arugemtn exception if a emote is invalid in some way
+        /// </summary>
+        /// <param name="emoteKill"></param>
+        /// <param name="emoteWipe"></param>
+        public MiscData(string emoteKill, string emoteWipe)
+        {
+            Tools.GP.ValidateDiscordEmote(emoteKill);
+            Tools.GP.ValidateDiscordEmote(emoteWipe);
+            EmoteKill = emoteKill;
+            EmoteWipe = emoteWipe;
+        }
+
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static string EmoteRaidKill { get; set; } = "";
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static string EmoteRaidWipe { get; set; } = "";
+        public string EmoteKill { get; }
+        public string EmoteWipe { get; }
     }
 }

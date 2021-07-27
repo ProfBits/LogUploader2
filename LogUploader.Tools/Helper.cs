@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace LogUploader.Tools
@@ -58,6 +59,20 @@ namespace LogUploader.Tools
         {
             Logger.Error($"Programm Exit Reason: {(int)exitCode} {exitCode}");
             Environment.Exit((int)exitCode);
+        }
+
+        private static readonly Regex DiscordEmoteRegEx = new Regex("^((:\\w+:)|(<:\\w+:\\d{18}>))$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        
+        /// <summary>
+        /// Throws a Argumgent exception if the string does not represent a valid discord emote
+        /// </summary>
+        /// <param name="emote"></param>
+        public static void ValidateDiscordEmote(string emote)
+        {
+            if (emote is null) throw new ArgumentNullException(nameof(emote), "A Discord emote can not be null");
+            if (string.IsNullOrWhiteSpace(emote)) throw new ArgumentOutOfRangeException(nameof(emote), emote, "A Discord emote can not be empty or white space");
+            if (emote != emote.Trim()) throw new ArgumentOutOfRangeException(nameof(emote), emote, "A Discord emote can not have white space at the beginning or end");
+            if (!DiscordEmoteRegEx.IsMatch(emote)) throw new ArgumentOutOfRangeException(nameof(emote), emote, "The string does not represent a valid discord emote");
         }
     }
 }
