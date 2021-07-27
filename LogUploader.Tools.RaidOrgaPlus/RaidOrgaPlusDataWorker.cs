@@ -253,7 +253,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 if (Boss.GetByID(log.BossID).RaidOrgaPlusID > 0)
                     InsertLog(raid, log);
             }
-            //TODO Duplicated bosses
+            //TODO Duplicated bosses, 2 ore more times the same boss
         }
 
         private static void InsertLog(Raid raid, ICachedLog log)

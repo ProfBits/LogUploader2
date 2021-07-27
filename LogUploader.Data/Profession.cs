@@ -20,13 +20,14 @@ namespace LogUploader.Data
 
         private Profession() : base("") { }
 
-        private Profession(eProfession profession, string nameEN, string nameDE, string iconPath, string emote, int raidOrgaPlusID) : base(nameEN, nameDE)
+        private Profession(eProfession profession, string nameEN, string nameDE, string iconPath, string emote, int raidOrgaPlusID, string abbreviation) : base(nameEN, nameDE)
         {
             ProfessionEnum = profession;
             IconPath = iconPath;
             Icon = Image.FromFile(iconPath);
             Emote = emote;
             RaidOrgaPlusID = raidOrgaPlusID;
+            Abbreviation = abbreviation;
         }
 
         public static Profession Get(eProfession profession)
@@ -44,6 +45,11 @@ namespace LogUploader.Data
             return Professions.Select(p => p.Value).Where(p => p.RaidOrgaPlusID == roPlusID).FirstOrDefault() ?? Professions[eProfession.Unknown];
         }
 
+        public static Profession GetByAbbreviation(string abbreviation)
+        {
+            return Professions.Select(p => p.Value).Where(p => p.Abbreviation == abbreviation).FirstOrDefault() ?? Professions[eProfession.Unknown];
+        }
+
         public static Profession Unknown { get => Get(eProfession.Unknown); }
 
         public eProfession ProfessionEnum { get; }
@@ -51,6 +57,7 @@ namespace LogUploader.Data
         public string Emote { get; }
         public Image Icon { get; internal set; }
         public int RaidOrgaPlusID { get; }
+        public string Abbreviation { get; }
 
         public static void Init(string path, IProgress<double> progress = null)
         {
@@ -74,8 +81,9 @@ namespace LogUploader.Data
                 string iconPath = exePath + (string)json["IconPath"];
                 string emote = (string)json["Emote"];
                 int raidOrgaPlusID = (int)json["RaidOrgaPlusID"];
+                string abbreviation = (string)json["RaidOrgaPlusAbbreviation"];
 
-                return new Profession(GP.IntToEnum<eProfession>(id), nameEN, nameDE, iconPath, emote, raidOrgaPlusID);
+                return new Profession(GP.IntToEnum<eProfession>(id), nameEN, nameDE, iconPath, emote, raidOrgaPlusID, abbreviation);
             })
             .ToDictionary(prof => prof.ProfessionEnum);
             progress?.Report(1);

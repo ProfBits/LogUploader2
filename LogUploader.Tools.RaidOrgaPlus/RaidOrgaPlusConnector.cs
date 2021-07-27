@@ -259,41 +259,10 @@ namespace LogUploader.Tools.RaidOrgaPlus
         {
             return Boss.GetByRaidOragPlusID(bosses[roPlusBossAbbreviation]);
         }
-
-        //TODO export to professiondata.json?
+        
         private Profession GetClass(string classAbbreviation)
         {
-            switch (classAbbreviation)
-            {
-                case "Ele": return Profession.Get(eProfession.Elementalist);
-                case "Tmp": return Profession.Get(eProfession.Tempest);
-                case "Wea": return Profession.Get(eProfession.Weaver);
-                case "Mes": return Profession.Get(eProfession.Mesmer);
-                case "Chr": return Profession.Get(eProfession.Chronomancer);
-                case "Mir": return Profession.Get(eProfession.Mirage);
-                case "Nec": return Profession.Get(eProfession.Necromancer);
-                case "Rea": return Profession.Get(eProfession.Reaper);
-                case "Scg": return Profession.Get(eProfession.Scourge);
-                case "Rgr": return Profession.Get(eProfession.Ranger);
-                case "Dru": return Profession.Get(eProfession.Druid);
-                case "Slb": return Profession.Get(eProfession.Soulbeast);
-                case "Eng": return Profession.Get(eProfession.Engineer);
-                case "Scr": return Profession.Get(eProfession.Scrapper);
-                case "Hls": return Profession.Get(eProfession.Holosmith);
-                case "Thf": return Profession.Get(eProfession.Thief);
-                case "Dar": return Profession.Get(eProfession.Daredevil);
-                case "Ded": return Profession.Get(eProfession.Deadeye);
-                case "War": return Profession.Get(eProfession.Warrior);
-                case "Brs": return Profession.Get(eProfession.Berserker);
-                case "Spb": return Profession.Get(eProfession.Spellbreaker);
-                case "Gdn": return Profession.Get(eProfession.Guardian);
-                case "Dgh": return Profession.Get(eProfession.Dragonhunter);
-                case "Fbd": return Profession.Get(eProfession.Firebrand);
-                case "Rev": return Profession.Get(eProfession.Revenant);
-                case "Her": return Profession.Get(eProfession.Herald);
-                case "Ren": return Profession.Get(eProfession.Renegade);
-                default: return Profession.Unknown;
-            }
+            return Profession.GetByAbbreviation(classAbbreviation);
         }
 
         public void SetRaid(ISession session, Raid raid)

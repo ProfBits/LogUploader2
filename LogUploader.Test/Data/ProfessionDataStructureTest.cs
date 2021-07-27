@@ -41,7 +41,7 @@ namespace LogUploader.Test.Data
             {
                 Assert.AreEqual(JTokenType.Object, item.Type, "At item:\n" + item.ToString());
                 JObject element = item as JObject;
-                Assert.AreEqual(6, element.Children().Count(), "6 tokens below each Profession are expected. At item:\n" + element.ToString());
+                Assert.AreEqual(7, element.Children().Count(), "7 tokens below each Profession are expected. At item:\n" + element.ToString());
 
                 Assert.NotNull(element["ID"], "A ID token is expeted. At item:\n" + element.ToString());
                 Assert.AreEqual(JTokenType.Integer, element["ID"].Type, "A ID Integer is expeted. At item:\n" + element.ToString());
@@ -60,6 +60,9 @@ namespace LogUploader.Test.Data
 
                 Assert.NotNull(element["RaidOrgaPlusID"], "A RaidOrgaPlusID token is expeted. At item:\n" + element.ToString());
                 Assert.AreEqual(JTokenType.Integer, element["RaidOrgaPlusID"].Type, "A RaidOrgaPlusID Integer is expeted. At item:\n" + element.ToString());
+
+                Assert.NotNull(element["RaidOrgaPlusAbbreviation"], "A RaidOrgaPlusAbbreviation token is expeted. At item:\n" + element.ToString());
+                Assert.AreEqual(JTokenType.String, element["RaidOrgaPlusAbbreviation"].Type, "A RaidOrgaPlusAbbreviation String is expeted. At item:\n" + element.ToString());
             }
         }
 
@@ -69,6 +72,7 @@ namespace LogUploader.Test.Data
             Assert.NotNull(DataConfigContent["Professions"]);
             List<int> ids = new List<int>();
             List<int> ropIds = new List<int>();
+            List<string> abbrivations = new List<string>();
             var assamblyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             foreach (JToken item in DataConfigContent["Professions"])
@@ -87,13 +91,18 @@ namespace LogUploader.Test.Data
                 Assert.IsTrue(fi.Exists, $"Profession icon \"{(string)element["IconPath"]}\" does not exist on disk");
 
                 ValidateDiscordEmote((string)element["Emote"]);
+
+                string abbriviation = (string)element["RaidOrgaPlusAbbreviation"];
+                ValidateString(abbriviation);
+                abbrivations.Add(abbriviation);
             }
 
             CheckForDuplicates(ids, "ID");
             CheckForDuplicates(ropIds, "RaidOrgaPlusID");
+            CheckForDuplicates(abbrivations, "RaidOrgaPlusAbbreviation");
         }
 
-        private void CheckForDuplicates(List<int> ids, string name)
+        private static void CheckForDuplicates<T>(List<T> ids, string name)
         {
             var count = ids.Count;
             var distinctCount = ids.Distinct().Count();
@@ -104,19 +113,19 @@ namespace LogUploader.Test.Data
             }
         }
 
-        private string GetDuplicateErrorMessage(IEnumerable<int> ids)
+        private static string GetDuplicateErrorMessage<T>(IEnumerable<T> ids)
         {
             var duplicates = ids
                 .Distinct()
                 .AsParallel()
-                .Where(num => ids.Count(e => e == num) > 1);
+                .Where(num => ids.Count(e => e.Equals(num)) > 1);
             return string.Join(", ", duplicates);
         }
 
         private void ValidateString(string s)
         {
-            Assert.NotNull(s);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(s), $"Invalid String \"{s}\"");
+            Assert.NotNull(s, "ValidateString not null check");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(s), $"String should not be empty or whitespace \"{s}\"");
             Assert.AreEqual(s, s.Trim(), $"NotWhite space at front or end. Error: \"{s}\"");
             Assert.AreEqual(1, s.Split('\n', '\r').Count(), $"Strings should only have one line. Error: \"{s}\"");
         }
