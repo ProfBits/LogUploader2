@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using LogUploader.Data;
 
-namespace LogUploader.RaidOrgaPlus.Data
+namespace LogUploader.Tools.RaidOrgaPlus.Data
 {
     /// <summary>
     /// Represents a Player form RaidOrga

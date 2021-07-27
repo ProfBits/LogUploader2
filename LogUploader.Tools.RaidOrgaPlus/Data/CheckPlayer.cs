@@ -1,4 +1,4 @@
-﻿namespace LogUploader.RaidOrgaPlus.Data
+﻿namespace LogUploader.Tools.RaidOrgaPlus.Data
 {
     /// <summary>
     /// Represents a player in the logs to be validated by the user

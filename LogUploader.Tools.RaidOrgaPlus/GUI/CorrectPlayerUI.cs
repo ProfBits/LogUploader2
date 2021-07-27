@@ -1,6 +1,6 @@
 ﻿
-using LogUploader.RaidOrgaPlus.Data;
 using LogUploader.Localisation;
+using LogUploader.Tools.RaidOrgaPlus.Data;
 
 using System;
 using System.Collections.Generic;

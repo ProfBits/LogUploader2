@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogUploader.RaidOrgaPlus.Data
+namespace LogUploader.Tools.RaidOrgaPlus.Data
 {
     public interface ISession
     {

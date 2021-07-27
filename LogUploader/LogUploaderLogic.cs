@@ -23,9 +23,9 @@ using System.Windows.Forms;
 using LogUploader.Tools;
 using LogUploader.Tools.Database;
 using LogUploader.Tools.RaidOrgaPlus;
-using LogUploader.RaidOrgaPlus.Data;
 using LogUploader.Tools.EliteInsights;
 using LogUploader.Tools.Database.JSONExtensiones;
+using LogUploader.Tools.RaidOrgaPlus.Data;
 
 namespace LogUploader
 {

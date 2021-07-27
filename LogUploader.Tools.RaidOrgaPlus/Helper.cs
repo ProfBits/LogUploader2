@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using LogUploader.RaidOrgaPlus.Data;
+using LogUploader.Tools.RaidOrgaPlus.Data;
 
 namespace LogUploader.Tools.RaidOrgaPlus
 {

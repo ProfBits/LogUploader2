@@ -1,9 +1,9 @@
 ﻿
-using LogUploader.RaidOrgaPlus.Data;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using LogUploader.Tools.RaidOrgaPlus.Data;
 
 namespace LogUploader.Tools.RaidOrgaPlus
 {

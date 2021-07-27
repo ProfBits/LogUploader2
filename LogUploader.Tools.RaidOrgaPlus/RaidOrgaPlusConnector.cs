@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LogUploader.RaidOrgaPlus.Data;
 using System.Net;
 using System.IO;
 using LogUploader.Data;
@@ -13,6 +12,7 @@ using LogUploader.Tools.Logging;
 using LogUploader.Tools.Settings;
 using Extensiones;
 using LogUploader.Helper;
+using LogUploader.Tools.RaidOrgaPlus.Data;
 
 namespace LogUploader.Tools.RaidOrgaPlus
 {

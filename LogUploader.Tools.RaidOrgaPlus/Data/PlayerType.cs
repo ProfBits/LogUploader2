@@ -1,5 +1,5 @@
 ﻿
-namespace LogUploader.RaidOrgaPlus.Data
+namespace LogUploader.Tools.RaidOrgaPlus.Data
 {
     /// <summary>
     /// The type of a player for RaidOrga

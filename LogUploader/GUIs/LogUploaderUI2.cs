@@ -238,7 +238,7 @@ namespace LogUploader.GUIs
             btnUpdateRaidOrga.Refresh();
             var logsToPost = dBLogDataGridView.SelectedRows.Cast<DataGridViewRow>()
                    .Select(row => (int)row.Cells["colID"].Value);
-            var raid = (RaidOrgaPlus.Data.RaidSimple)cmbRaidOrgaTermin.SelectedValue;
+            var raid = (Tools.RaidOrgaPlus.Data.RaidSimple)cmbRaidOrgaTermin.SelectedValue;
             var LoadingUI = new LoadingBar("Updating " + raid.DisplayName, (ct, a, p) => Logic.UpdateRaidOrga(raid, logsToPost.ToList(), ct, a, p));
             LoadingUI.ShowDialog();
             btnUpdateRaidOrga.Enabled = true;

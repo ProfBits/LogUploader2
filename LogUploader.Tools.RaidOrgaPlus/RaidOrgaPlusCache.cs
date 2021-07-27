@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using LogUploader.RaidOrgaPlus.Data;
 using LogUploader.Tools;
+using LogUploader.Tools.RaidOrgaPlus.Data;
 
 using Newtonsoft.Json;
 
