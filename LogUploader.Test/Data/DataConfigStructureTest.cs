@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+
+using LogUploader.Data.GameAreas;
 using LogUploader.Tools;
 
 using Newtonsoft.Json.Linq;
@@ -538,7 +540,10 @@ namespace LogUploader.Test.Data
                 ValidateUrl((string)boss["AvatarURL"]);
 
                 var RaidOrgaID = (int)boss["RaidOrgaPlusID"];
-                Assert.IsTrue(RaidOrgaID > 0 || RaidOrgaID == -1, "RaidOrgaIO should be > 0 or == -1");
+                if ((string)boss["GameAreaName"] != "RaidWings")
+                    Assert.That(RaidOrgaID, Is.EqualTo(-1), $"RaidOrgaID for {boss["EiName"]} != -1, RaidOrgaID should be -1 for non raid bosses");
+                else
+                    Assert.IsTrue(RaidOrgaID > 0 || RaidOrgaID == -1, "RaidOrgaID should be > 0 or == -1 for raid bosses");
             }
 
             var bossCount = bosses.Count;
