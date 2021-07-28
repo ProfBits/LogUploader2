@@ -193,6 +193,35 @@ namespace LogUploader.Test.Tools
         public void ValidateDiscordEmoteValidStrTest([ValueSource(typeof(TestHelper), nameof(TestHelper.ValidDiscordEmotes))] string emote)
         {
             Assert.DoesNotThrow(() => GP.ValidateDiscordEmote(emote));
+            Assert.That(GP.ValidateDiscordEmote(emote), Is.EqualTo(emote));
+        }
+
+        [Test]
+        public void ValidateOneWordInvalidStrTest([ValueSource(typeof(TestHelper), nameof(TestHelper.InvalidOneWordStrings))] string str)
+        {
+            ArgumentException ex = Assert.Catch<ArgumentException>(() => GP.ValidateStringOneWord(str));
+            TestHelper.ValidateArugumentException(ex);
+        }
+
+        [Test]
+        public void ValidateOneWordValidStrTest([ValueSource(typeof(TestHelper), nameof(TestHelper.ValidOneWordStrings))] string str)
+        {
+            Assert.DoesNotThrow(() => GP.ValidateStringOneWord(str));
+            Assert.That(GP.ValidateStringOneWord(str), Is.EqualTo(str));
+        }
+
+        [Test]
+        public void ValidateMultiWordInvalidStrTest([ValueSource(typeof(TestHelper), nameof(TestHelper.InvalidMulitWordStrings))] string str)
+        {
+            ArgumentException ex = Assert.Catch<ArgumentException>(() => GP.ValidateStringMultiWord(str));
+            TestHelper.ValidateArugumentException(ex);
+        }
+
+        [Test]
+        public void ValidateMultiWordValidStrTest([ValueSource(typeof(TestHelper), nameof(TestHelper.ValidMulitWordStrings))] string str)
+        {
+            Assert.DoesNotThrow(() => GP.ValidateStringMultiWord(str));
+            Assert.That(GP.ValidateStringMultiWord(str), Is.EqualTo(str));
         }
     }
 }

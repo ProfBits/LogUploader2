@@ -33,7 +33,7 @@ namespace LogUploader.Tools
             var Zone = TimeZone.CurrentTimeZone.StandardName;
             return Zone + " " + offest;
         }
-
+        
         public static string GetDateTimeString(DateTime dateTime)
         {
             string date = $"{dateTime.Year.ToString().PadLeft(4, '0')}-{dateTime.Month.ToString().PadLeft(2, '0')}-{dateTime.Day.ToString().PadLeft(2, '0')}";
@@ -67,12 +67,30 @@ namespace LogUploader.Tools
         /// Throws a Argumgent exception if the string does not represent a valid discord emote
         /// </summary>
         /// <param name="emote"></param>
-        public static void ValidateDiscordEmote(string emote)
+        public static string ValidateDiscordEmote(string emote)
         {
             if (emote is null) throw new ArgumentNullException(nameof(emote), "A Discord emote can not be null");
             if (string.IsNullOrWhiteSpace(emote)) throw new ArgumentOutOfRangeException(nameof(emote), emote, "A Discord emote can not be empty or white space");
             if (emote != emote.Trim()) throw new ArgumentOutOfRangeException(nameof(emote), emote, "A Discord emote can not have white space at the beginning or end");
             if (!DiscordEmoteRegEx.IsMatch(emote)) throw new ArgumentOutOfRangeException(nameof(emote), emote, "The string does not represent a valid discord emote");
+            return emote;
+        }
+
+        public static string ValidateStringMultiWord(string str)
+        {
+            if (str is null) throw new ArgumentNullException(nameof(str), "A Discord emote can not be null");
+            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentOutOfRangeException(nameof(str), str, "A Discord emote can not be empty or white space");
+            if (str != str.Trim()) throw new ArgumentOutOfRangeException(nameof(str), str, "A Discord emote can not have white space at the beginning or end");
+            return str;
+        }
+
+        public static string ValidateStringOneWord(string str)
+        {
+            if (str is null) throw new ArgumentNullException(nameof(str), "The string can not be null");
+            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentOutOfRangeException(nameof(str), str, "The string can not be empty or white space");
+            if (str != str.Trim()) throw new ArgumentOutOfRangeException(nameof(str), str, "The string can not have white space at the beginning or end");
+            if (str.Trim().Split(null).Length != 1) throw new ArgumentOutOfRangeException(nameof(str), str, "The string can not have multible section seperated by white space");
+            return str;
         }
     }
 }

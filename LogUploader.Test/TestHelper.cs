@@ -44,5 +44,55 @@ namespace LogUploader.Test
         {
             get => new string[] { ":emote:", "<:dgh:999999999999999999>" };
         }
+
+        internal static string[] InvalidOneWordStrings
+        {
+            get => new string[] {
+                null,
+                "",
+                " ",
+                "  \t\n\r",
+                "two words",
+                " spaceAtFront",
+                "spceAtBack ",
+                " spaceAround ",
+                " space AtFront",
+                "spce AtBack ",
+                " space Around "
+            };
+        }
+
+        internal static string[] ValidOneWordStrings
+        {
+            get => new string[] { "one", "WordWithNumbers12345" };
+        }
+
+        internal static string[] InvalidMulitWordStrings
+        {
+            get => new string[] {
+                null,
+                "",
+                " ",
+                "  \t\n\r",
+                " spaceAtFront",
+                "spceAtBack ",
+                " spaceAround ",
+                " spaceAround ",
+                "spce At Back ",
+                " space Around ",
+                " space Around "
+            };
+        }
+
+        internal static string[] ValidMulitWordStrings
+        {
+            get => new string[] { 
+                "one",
+                "WordWithNumbers12345",
+                "two words",
+                "three words here"
+            };
+        }
+
     }
 }
