@@ -7,8 +7,8 @@ namespace LogUploader.Data.Repositories
 {
     internal class ProfessionRepository : ProfessionProvider
     {
-        private FiveKeyInValueDictionary<eProfession, string, string, int, string, Profession> Professions =
-            new FiveKeyInValueDictionary<eProfession, string, string, int, string, Profession>(
+        private MultiKeyInValueDictionary<eProfession, string, string, int, string, Profession> Professions =
+            new MultiKeyInValueDictionary<eProfession, string, string, int, string, Profession>(
                 p => p.ProfessionEnum,
                 p => p.NameEN,
                 p => p.NameDE,
