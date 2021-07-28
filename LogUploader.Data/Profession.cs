@@ -20,36 +20,44 @@ namespace LogUploader.Data
 
         private Profession() : base("") { }
 
-        private Profession(eProfession profession, string nameEN, string nameDE, string iconPath, string emote, int raidOrgaPlusID, string abbreviation) : base(nameEN, nameDE)
+        internal Profession(eProfession profession, string nameEN, string nameDE, string iconPath, string emote, int raidOrgaPlusID, string abbreviation) : base(nameEN, nameDE)
         {
+            GP.ValidateStringOneWord(nameEN);
+            GP.ValidateStringOneWord(nameDE);
+
             ProfessionEnum = profession;
             IconPath = iconPath;
             Icon = Image.FromFile(iconPath);
-            Emote = emote;
+            Emote = GP.ValidateDiscordEmote(emote);
             RaidOrgaPlusID = raidOrgaPlusID;
-            Abbreviation = abbreviation;
+            Abbreviation = GP.ValidateStringOneWord(abbreviation);
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Profession Get(eProfession profession)
         {
             return Professions.Where(e => e.Key == profession).FirstOrDefault().Value ?? Professions[eProfession.Unknown];
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Profession Get(string name)
         {
             return Professions.Select(p => p.Value).Where(p => p.NameEN == name || p.NameDE == name).FirstOrDefault() ?? Professions[eProfession.Unknown];
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Profession Get(int roPlusID)
         {
             return Professions.Select(p => p.Value).Where(p => p.RaidOrgaPlusID == roPlusID).FirstOrDefault() ?? Professions[eProfession.Unknown];
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Profession GetByAbbreviation(string abbreviation)
         {
             return Professions.Select(p => p.Value).Where(p => p.Abbreviation == abbreviation).FirstOrDefault() ?? Professions[eProfession.Unknown];
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Profession Unknown { get => Get(eProfession.Unknown); }
 
         public eProfession ProfessionEnum { get; }
@@ -96,7 +104,7 @@ namespace LogUploader.Data
 
         public static bool operator ==(Profession a, Profession b)
         {
-            return a.ProfessionEnum == b.ProfessionEnum;
+            return a?.ProfessionEnum == b?.ProfessionEnum;
         }
         public static bool operator !=(Profession a, Profession b)
         {
