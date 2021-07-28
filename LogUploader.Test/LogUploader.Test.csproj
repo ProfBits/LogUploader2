@@ -9,7 +9,7 @@
   <ItemGroup>
     <None Remove="TestFiles\static\bossDataSimple.json" />
     <None Remove="TestFiles\static\bossData_0621.json" />
-    <None Remove="TestFiles\static\profData_0621.json" />
+    <None Remove="TestFiles\static\profData_0721.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
     <Content Include="TestFiles\static\bossData_0621.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestFiles\static\profData_0621.json">
+    <Content Include="TestFiles\static\profData_0721.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -55,6 +55,9 @@
   <ItemGroup>
     <None Update="TestFiles\MockProxyFileTest.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\static\profIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\static\zipHelperUnzip.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

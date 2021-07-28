@@ -44,7 +44,7 @@ public class TestSetup
         string contentBoss = System.IO.File.ReadAllText(relPathBoss, Encoding.GetEncoding("iso-8859-1"));
         LogUploader.Data.StaticDataLoader.DataBuilder.LoadDataJson(contentBoss);
 
-        string relPathProf = GetPathToTestFiles("profData_0621.json");
+        string relPathProf = GetPathToTestFiles("profData_0721.json");
         string contentProf = System.IO.File.ReadAllText(relPathProf, Encoding.GetEncoding("iso-8859-1"));
         LogUploader.Data.Profession.InitWithContent(contentProf);
         

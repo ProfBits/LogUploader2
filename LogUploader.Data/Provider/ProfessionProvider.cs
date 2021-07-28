@@ -7,5 +7,6 @@ namespace LogUploader.Data
 {
     public interface ProfessionProvider
     {
+        Profession Get(eProfession profession);
     }
 }
