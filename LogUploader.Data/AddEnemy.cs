@@ -72,7 +72,11 @@ namespace LogUploader.Data
 
         public AddEnemy(int id, string nameEN, string nameDE, GameArea area, bool isIntersting) : base(id, nameEN, nameDE, area, isIntersting)
         {
-            allAdds.Add(id, this);
+            try
+            {
+                allAdds.Add(id, this);
+            }
+            catch (ArgumentException) { };
         }
 
         public AddEnemy(BasicInfo info, bool isIntersting) : this(info.ID, info.NameEN, info.NameDE, info.GameArea, isIntersting)

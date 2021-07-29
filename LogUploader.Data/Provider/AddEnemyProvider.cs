@@ -1,6 +1,6 @@
 ﻿namespace LogUploader.Data
 {
-    public interface AddEnemyProvider
+    public interface AddEnemyProvider : EnemyProvider<AddEnemy>
     {
     }
 }

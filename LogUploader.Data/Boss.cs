@@ -87,7 +87,11 @@ namespace LogUploader.Data
 
         public Boss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : base(id, nameEN, nameDE, FolderNameEN, FolderNameDE, area, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         {
-            allBosses.Add(id, this);
+            try
+            {
+                allBosses.Add(id, this);
+            }
+            catch (ArgumentException) { }
         }
 
         public Boss(BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(info.ID, info.NameEN, info.NameDE, FolderNameEN, FolderNameDE, info.GameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID)
@@ -179,6 +183,8 @@ namespace LogUploader.Data
         }
 
         public static List<Boss> All { get => allBosses.Values.Where(boss => boss.ID != 23255 && boss.ID != 23256).ToList(); }
+        public string FolderNameEN { get => m_FolderName.NameEN; }
+        public string FolderNameDE { get => m_FolderName.NameEN; }
 
         private bool CheckFolderName(string folderName)
         {

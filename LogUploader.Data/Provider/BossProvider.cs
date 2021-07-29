@@ -1,6 +1,6 @@
 ﻿namespace LogUploader.Data
 {
-    public interface BossProvider
+    public interface BossProvider : EnemyProvider<Boss>
     {
     }
 }

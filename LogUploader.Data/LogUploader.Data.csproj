@@ -51,6 +51,8 @@
     <Compile Include="Boss.cs" />
     <Compile Include="GameDataStructueBuilding.cs" />
     <Compile Include="MultiKeyDictionary.cs" />
+    <Compile Include="Provider\EnemyProvider.cs" />
+    <Compile Include="Repositories\EnemyRepository.cs" />
     <Compile Include="StaticDataLoader\AddEnemyRegistrator.cs" />
     <Compile Include="StaticDataLoader\AreaRegistrator.cs" />
     <Compile Include="StaticDataLoader\BosseRegistrator.cs" />
