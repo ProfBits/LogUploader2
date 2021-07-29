@@ -574,6 +574,192 @@ namespace LogUploader.Test.Data
         }
     }
 
+    public abstract class AbstractSixKeyDictionaryTest : FiveKeyDictionaryTest
+    {
+        protected const string KEY6 = "key6";
+    
+        protected override IMultiKeyBaseDictionary<string, string, string, string, string, string> CreateIMultiKeyBaseDictionary5() => CreateIMultiKeyBaseDictionary6();
+        protected virtual IMultiKeyBaseDictionary<string, string, string, string, string, string, string> CreateIMultiKeyBaseDictionary6() => CreateDictionary6();
+        protected abstract MultiKeyDictionary<string, string, string, string, string, string, string> CreateDictionary6();
+    
+        protected override IMultiKeyBaseDictionary<string, string, string, string, string, string> CreateIMultiKeyBaseDictionaryWithData5(int count) => CreateIMultiKeyBaseDictionaryWithData6(count);
+        protected virtual IMultiKeyBaseDictionary<string, string, string, string, string, string, string> CreateIMultiKeyBaseDictionaryWithData6(int count)
+        {
+            var collection = new MultiKeyDictionary<string, string, string, string, string, string, string>();
+            for (int i = 0; i < count; i++)
+            {
+                collection.Add((GetNumberedString(KEY1, i), GetNumberedString(KEY2, i), GetNumberedString(KEY3, i), GetNumberedString(KEY4, i), GetNumberedString(KEY5, i), GetNumberedString(KEY6, i)), GetNumberedString(VALUE, i));
+            }
+            return collection;
+        }
+    
+        public override void ClearTestImpl(int number)
+        {
+            var collection = CreateIMultiKeyBaseDictionaryWithData6(number);
+            collection.Clear();
+            Assert.That(collection.Count, Is.EqualTo(0));
+            Assert.That(collection.ContainsKey(key1: GetNumberedString(KEY1, 0)), Is.False);
+            Assert.That(collection.ContainsKey(key2: GetNumberedString(KEY2, 0)), Is.False);
+            Assert.That(collection.ContainsKey(key3: GetNumberedString(KEY3, 0)), Is.False);
+            Assert.That(collection.ContainsKey(key4: GetNumberedString(KEY4, 0)), Is.False);
+            Assert.That(collection.ContainsKey(key5: GetNumberedString(KEY5, 0)), Is.False);
+            Assert.That(collection.ContainsKey(key6: GetNumberedString(KEY6, 0)), Is.False);
+        }
+    
+        public override void GetElementTestImpl([Values(1, 3)] int number)
+        {
+            var collection = CreateIMultiKeyBaseDictionaryWithData6(number);
+            for (int i = 0; i < number; i++)
+            {
+                ContainsNumberedElement(collection, i);
+            }
+        }
+    
+        public override void AddElementTestImpl(int number)
+        {
+            var collection = CreateDictionary6();
+            for (int i = 0; i < number; i++)
+            {
+                collection.Add((GetNumberedString(KEY1, i), GetNumberedString(KEY2, i), GetNumberedString(KEY3, i), GetNumberedString(KEY4, i), GetNumberedString(KEY5, i), GetNumberedString(KEY6, i)), GetNumberedString(VALUE, i));
+                Assert.That(collection.Count, Is.EqualTo(i + 1));
+                ContainsNumberedElement(collection, i);
+            }
+            collection.Add((GetNumberedString(KEY1, number), GetNumberedString(KEY2, number), GetNumberedString(KEY3, number), GetNumberedString(KEY4, number), GetNumberedString(KEY5, number), GetNumberedString(KEY6, number)), GetNumberedString(VALUE, number - 1));
+            Assert.That(collection.Count, Is.EqualTo(number + 1));
+            ContainsElement(collection, GetNumberedString(KEY1, number), GetNumberedString(KEY2, number), GetNumberedString(KEY3, number), GetNumberedString(KEY4, number), GetNumberedString(KEY5, number), GetNumberedString(KEY6, number), GetNumberedString(VALUE, number - 1));
+        }
+        public override void RemoveElementTestImpl(int number)
+        {
+            var collection = CreateIMultiKeyBaseDictionaryWithData6(RemoveElementCollectionSize);
+            collection.Remove(key1: GetNumberedString(KEY1, number));
+            Assert.That(collection.Count, Is.EqualTo(RemoveElementCollectionSize - 1));
+            Assert.That(collection.ContainsKey(key1: GetNumberedString(KEY1, number)), Is.False);
+            collection = CreateIMultiKeyBaseDictionaryWithData6(RemoveElementCollectionSize);
+            collection.Remove(key2: GetNumberedString(KEY2, number));
+            Assert.That(collection.Count, Is.EqualTo(RemoveElementCollectionSize - 1));
+            Assert.That(collection.ContainsKey(key2: GetNumberedString(KEY2, number)), Is.False);
+            collection = CreateIMultiKeyBaseDictionaryWithData6(RemoveElementCollectionSize);
+            collection.Remove(key3: GetNumberedString(KEY3, number));
+            Assert.That(collection.Count, Is.EqualTo(RemoveElementCollectionSize - 1));
+            Assert.That(collection.ContainsKey(key3: GetNumberedString(KEY3, number)), Is.False);
+            collection = CreateIMultiKeyBaseDictionaryWithData6(RemoveElementCollectionSize);
+            collection.Remove(key4: GetNumberedString(KEY4, number));
+            Assert.That(collection.Count, Is.EqualTo(RemoveElementCollectionSize - 1));
+            Assert.That(collection.ContainsKey(key4: GetNumberedString(KEY4, number)), Is.False);
+            collection = CreateIMultiKeyBaseDictionaryWithData6(RemoveElementCollectionSize);
+            collection.Remove(key5: GetNumberedString(KEY5, number));
+            Assert.That(collection.Count, Is.EqualTo(RemoveElementCollectionSize - 1));
+            Assert.That(collection.ContainsKey(key5: GetNumberedString(KEY5, number)), Is.False);
+            collection = CreateIMultiKeyBaseDictionaryWithData6(RemoveElementCollectionSize);
+            collection.Remove(key6: GetNumberedString(KEY6, number));
+            Assert.That(collection.Count, Is.EqualTo(RemoveElementCollectionSize - 1));
+            Assert.That(collection.ContainsKey(key6: GetNumberedString(KEY6, number)), Is.False);
+        }
+    
+        public override void AddElementConflictTestTestImpl()
+        {
+            var collection = CreateDictionary6();
+            collection.Add(("x", "x", "x", "x", "x", "x"), "val");
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "a", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "a", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "a", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "a", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "a", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "a", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "x", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "x", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "x", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "x", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "x", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "x", "a", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "a", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "a", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "a", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "a", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "a", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "a", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "x", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "x", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "x", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "x", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "x", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "x", "x", "a"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "a", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "a", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "a", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "a", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "a", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "a", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "x", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "x", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "x", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "x", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "x", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "x", "a", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "a", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "a", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "a", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "a", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "a", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "a", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "a", "x", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "a", "x", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "a", "x", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "a", "x", "x", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("a", "x", "x", "x", "x", "x"), "valNeu")));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => collection.Add(("x", "x", "x", "x", "x", "x"), "valNeu")));
+            ContainsElement(collection, "x", "x", "x", "x", "x", "x", "val");
+            Assert.That(collection.Count, Is.EqualTo(1));
+        }
+    
+        public override void GetNonExistingElementTestImpl()
+        {
+            var collection = CreateIMultiKeyBaseDictionaryWithData6(1);
+            var ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key1: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key2: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key3: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key4: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key5: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key6: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            Assert.That(collection.Count, Is.EqualTo(1));
+        }
+    
+        public override void GetFromEmptyTestImpl()
+        {
+            var collection = CreateIMultiKeyBaseDictionary6();
+            var ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key1: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key2: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key3: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key4: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key5: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            ex = Assert.Catch<KeyNotFoundException>(() => collection.Get(key6: "notAKey"));
+            Assert.That(string.IsNullOrWhiteSpace(ex.Message), Is.False);
+            Assert.That(collection.Count, Is.EqualTo(0));
+        }
+    
+        protected void ContainsNumberedElement(IMultiKeyBaseDictionary<string, string, string, string, string, string, string> collection, int number)
+        {
+            ContainsElement(collection, GetNumberedString(KEY1, number), GetNumberedString(KEY2, number), GetNumberedString(KEY3, number), GetNumberedString(KEY4, number), GetNumberedString(KEY5, number), GetNumberedString(KEY6, number), GetNumberedString(VALUE, number));
+        }
+    
+        protected void ContainsElement(IMultiKeyBaseDictionary<string, string, string, string, string, string, string> collection, string key1, string key2, string key3, string key4, string key5, string key6, string value)
+        {
+            Assert.That(collection.Get(key6: key6), Is.EqualTo(value));
+            base.ContainsElement(collection, key1, key2, key3, key4, key5, value);
+        }
+    }
+
     public class TwoKeyDictionaryTest : AbstractTwoKeyDictionaryTest
     {
         protected override MultiKeyDictionary<string, string, string> CreateDictionary()
@@ -603,6 +789,14 @@ namespace LogUploader.Test.Data
         protected override MultiKeyDictionary<string, string, string, string, string, string> CreateDictionary5()
         {
             return new MultiKeyDictionary<string, string, string, string, string, string>();
+        }
+    }
+
+    public class SixKeyDictionaryTest : AbstractSixKeyDictionaryTest
+    {
+        protected override MultiKeyDictionary<string, string, string, string, string, string, string> CreateDictionary6()
+        {
+            return new MultiKeyDictionary<string, string, string, string, string, string, string>();
         }
     }
 
@@ -864,6 +1058,89 @@ namespace LogUploader.Test.Data
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string>(null, s => s, s => s, null, s => s, s => s)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string>(null, s => s, s => s, s => s, null, s => s)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string>(null, s => s, s => s, s => s, s => s, null)));
+        }
+    }
+
+    public class SixKeyInValueDictionaryTest : AbstractSixKeyDictionaryTest
+    {
+        protected override MultiKeyDictionary<string, string, string, string, string, string, string> CreateDictionary6()
+        {
+            return CreateInValueDictionary();
+        }
+    
+        private static MultiKeyInValueDictionary<string, string, string, string, string, string, string> CreateInValueDictionary(IEnumerable<string> initData = null)
+        {
+            if (initData is null)
+                return new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(
+                s => $"{s[0]}",
+                s => $"{s[1]}",
+                s => $"{s[2]}",
+                s => $"{s[3]}",
+                s => $"{s[4]}",
+                s => $"{s[5]}"
+                );
+            return new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(initData,
+            s => $"{s[0]}",
+            s => $"{s[1]}",
+            s => $"{s[2]}",
+            s => $"{s[3]}",
+            s => $"{s[4]}",
+            s => $"{s[5]}"
+            );
+        }
+    
+        [Test]
+        public void AddViaKeyMapperTest()
+        {
+            var collection = CreateInValueDictionary();
+            collection.Add(value: "xxxxxxVal");
+            Assert.That(collection.Count, Is.EqualTo(1));
+            Assert.That(collection.Get(key1: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key2: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key3: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key4: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key5: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key6: "x"), Is.EqualTo("xxxxxxVal"));
+        }
+    
+        [Test]
+        public void AddConstructorTest()
+        {
+            var emptyCollection = CreateInValueDictionary(new string[] { });
+            Assert.That(emptyCollection.Count, Is.EqualTo(0));
+            var collection = CreateInValueDictionary(new string[] { "xxxxxxVal" });
+            Assert.That(collection.Count, Is.EqualTo(1));
+            Assert.That(collection.Get(key1: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key2: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key3: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key4: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key5: "x"), Is.EqualTo("xxxxxxVal"));
+            Assert.That(collection.Get(key6: "x"), Is.EqualTo("xxxxxxVal"));
+        }
+    
+    
+        [Test]
+        public void CreateWithNullKeyMapperTest()
+        {
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(null, s => s, s => s, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(s => s, null, s => s, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(s => s, s => s, null, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(s => s, s => s, s => s, null, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(s => s, s => s, s => s, s => s, null, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(s => s, s => s, s => s, s => s, s => s, null)));
+            string[] arr = new string[] { };
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(arr, null, s => s, s => s, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(arr, s => s, null, s => s, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(arr, s => s, s => s, null, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(arr, s => s, s => s, s => s, null, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(arr, s => s, s => s, s => s, s => s, null, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(arr, s => s, s => s, s => s, s => s, s => s, null)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(null, null, s => s, s => s, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(null, s => s, null, s => s, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(null, s => s, s => s, null, s => s, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(null, s => s, s => s, s => s, null, s => s, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(null, s => s, s => s, s => s, s => s, null, s => s)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => new MultiKeyInValueDictionary<string, string, string, string, string, string, string>(null, s => s, s => s, s => s, s => s, s => s, null)));
         }
     }
 }
