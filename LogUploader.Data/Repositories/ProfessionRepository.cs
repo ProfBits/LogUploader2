@@ -7,7 +7,7 @@ namespace LogUploader.Data.Repositories
 {
     internal class ProfessionRepository : ProfessionProvider
     {
-        private MultiKeyInValueDictionary<eProfession, string, string, int, string, Profession> Professions =
+        protected MultiKeyInValueDictionary<eProfession, string, string, int, string, Profession> Professions =
             new MultiKeyInValueDictionary<eProfession, string, string, int, string, Profession>(
                 p => p.ProfessionEnum,
                 p => p.NameEN,
@@ -15,6 +15,16 @@ namespace LogUploader.Data.Repositories
                 p => p.RaidOrgaPlusID,
                 p => p.Abbreviation
                 );
+
+        internal void Add(Profession prof)
+        {
+            Professions.Add(prof);
+        }
+
+        internal void Remove(eProfession prof)
+        {
+            Professions.Remove(prof);
+        }
 
         public Profession Get(eProfession profession)
         {
@@ -24,29 +34,12 @@ namespace LogUploader.Data.Repositories
             }
             catch (KeyNotFoundException)
             {
-                throw new ArgumentException($"eProfession.{profession} is not register in this profession register", nameof(profession));
-            }
-        }
-
-        internal void Add(Profession prof)
-        {
-            Professions.Add(prof);
-        }
-
-        internal object GetByAbbreviation(string abbreviation)
-        {
-            try
-            {
-                return Professions.Get(key5: abbreviation);
-            }
-            catch (KeyNotFoundException)
-            {
-                throw new ArgumentException($"Abbreviation {abbreviation} is not register in this profession register", nameof(abbreviation));
+                throw new ArgumentException($"eProfession.{profession} is not register in this profession repository", nameof(profession));
             }
         }
 
         //HACK, not a good Idea to use / index this
-        internal object Get(string name)
+        public Profession Get(string name)
         {
             try
             {
@@ -60,12 +53,12 @@ namespace LogUploader.Data.Repositories
                 }
                 catch (KeyNotFoundException)
                 {
-                    throw new ArgumentException($"Name {name} is not register in this profession register", nameof(name));
+                    throw new ArgumentException($"Name {name} is not register in this profession repository", nameof(name));
                 }
             }
         }
 
-        internal object Get(int raidOrgaPlusID)
+        public Profession Get(int raidOrgaPlusID)
         {
             try
             {
@@ -73,7 +66,19 @@ namespace LogUploader.Data.Repositories
             }
             catch (KeyNotFoundException)
             {
-                throw new ArgumentException($"RaidOrgaPlusID {raidOrgaPlusID} is not register in this profession register", nameof(raidOrgaPlusID));
+                throw new ArgumentException($"RaidOrgaPlusID {raidOrgaPlusID} is not register in this profession repository", nameof(raidOrgaPlusID));
+            }
+        }
+
+        public Profession GetByAbbreviation(string abbreviation)
+        {
+            try
+            {
+                return Professions.Get(key5: abbreviation);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ArgumentException($"Abbreviation {abbreviation} is not register in this profession repository", nameof(abbreviation));
             }
         }
     }

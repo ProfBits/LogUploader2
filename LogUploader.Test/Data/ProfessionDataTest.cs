@@ -294,14 +294,14 @@ namespace LogUploader.Test.Data
             {
                 repo.Add(profession);
             }
-
+            ProfessionProvider provider = repo;
             foreach (Profession profession in profs)
             {
-                Assert.That(profession, Is.EqualTo(repo.Get(profession.ProfessionEnum)));
-                Assert.That(profession, Is.EqualTo(repo.Get(profession.NameEN)));
-                Assert.That(profession, Is.EqualTo(repo.Get(profession.NameDE)));
-                Assert.That(profession, Is.EqualTo(repo.Get(profession.RaidOrgaPlusID)));
-                Assert.That(profession, Is.EqualTo(repo.GetByAbbreviation(profession.Abbreviation)));
+                Assert.That(profession, Is.EqualTo(provider.Get(profession.ProfessionEnum)));
+                Assert.That(profession, Is.EqualTo(provider.Get(profession.NameEN)));
+                Assert.That(profession, Is.EqualTo(provider.Get(profession.NameDE)));
+                Assert.That(profession, Is.EqualTo(provider.Get(profession.RaidOrgaPlusID)));
+                Assert.That(profession, Is.EqualTo(provider.GetByAbbreviation(profession.Abbreviation)));
             }
         }
 
@@ -318,6 +318,28 @@ namespace LogUploader.Test.Data
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => repo.Get("notAdded")));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => repo.Get(0)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => repo.GetByAbbreviation("notAdded")));
+        }
+
+        [Test]
+        public void ProfessionRepositoryRemoveTest()
+        {
+            ProfessionRepository repo = new ProfessionRepository();
+            ProfessionProvider provider = repo;
+            Profession a = new Profession(eProfession.Scourge, "ena", "dea", DefaultIconPath, DefaultEmote, 1, "aba");
+            Profession b = new Profession(eProfession.Reaper, "enb", "deb", DefaultIconPath, DefaultEmote, 2, "abb");
+
+            repo.Add(a);
+            repo.Remove(a.ProfessionEnum);
+            Assert.Catch<ArgumentException>(() => provider.Get(a.ProfessionEnum));
+
+            repo.Add(a);
+            repo.Add(b);
+            repo.Remove(a.ProfessionEnum);
+            Assert.Catch<ArgumentException>(() => provider.Get(a.ProfessionEnum));
+            Assert.That(b, Is.EqualTo(provider.Get(b.ProfessionEnum)));
+
+            repo.Remove(b.ProfessionEnum);
+            Assert.Catch<ArgumentException>(() => provider.Get(b.ProfessionEnum));
         }
     }
 }
