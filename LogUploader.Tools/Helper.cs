@@ -78,9 +78,9 @@ namespace LogUploader.Tools
 
         public static string ValidateStringMultiWord(string str)
         {
-            if (str is null) throw new ArgumentNullException(nameof(str), "A Discord emote can not be null");
-            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentOutOfRangeException(nameof(str), str, "A Discord emote can not be empty or white space");
-            if (str != str.Trim()) throw new ArgumentOutOfRangeException(nameof(str), str, "A Discord emote can not have white space at the beginning or end");
+            if (str is null) throw new ArgumentNullException(nameof(str), "A string can not be null");
+            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentOutOfRangeException(nameof(str), str, "A string can not be empty or white space");
+            if (str != str.Trim()) throw new ArgumentOutOfRangeException(nameof(str), str, "A string can not have white space at the beginning or end");
             return str;
         }
 
