@@ -106,6 +106,10 @@
       <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
       <Name>LogUploader.Localisation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
+      <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
+      <Name>LogUploader.Tools.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
       <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
       <Name>LogUploader.Tools</Name>
