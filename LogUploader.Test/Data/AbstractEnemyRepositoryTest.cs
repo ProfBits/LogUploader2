@@ -110,7 +110,7 @@ namespace LogUploader.Test.Data
             string folderNameEN = GetNumberdString("folderEN", number);
             string folderNameDE = GetNumberdString("folderDE", number);
             string avatarURL = GetNumberdString("avatarUrl", number);
-            string discordEmote = GetNumberdString("discordEmote", number);
+            string discordEmote = ":emote:";
             string eIName = GetNumberdString("eiName", number);
 
             return new Boss(id, nameEN, nameDE, folderNameEN, folderNameDE, gameArea, avatarURL, discordEmote, eIName, number);
