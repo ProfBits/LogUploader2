@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -155,42 +154,6 @@ namespace LogUploader.Test.Data
                 repo.Add(CreateNumberedEnemy(i));
             }
             return repo;
-        }
-    }
-
-    internal class TestGameArea : GameArea, IEquatable<TestGameArea>
-    {
-        internal string AreaName { get; }
-        internal int AreaNumber { get; }
-
-        public TestGameArea(string areaName, int areaNumber) : base($"Test{areaName}_{areaNumber}", $"TestArea_{areaNumber}", $"TestArea{areaNumber}IconURL")
-        {
-            this.AreaName = areaName;
-            this.AreaNumber = areaNumber;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as TestGameArea);
-        }
-
-        public bool Equals(TestGameArea other)
-        {
-            return other != null &&
-                   base.Equals(other) &&
-                   AvatarURL == other.AvatarURL &&
-                   AreaName == other.AreaName &&
-                   AreaNumber == other.AreaNumber;
-        }
-
-        public override int GetHashCode()
-        {
-            int hashCode = -1539777201;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AvatarURL);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AreaName);
-            hashCode = hashCode * -1521134295 + AreaNumber.GetHashCode();
-            return hashCode;
         }
     }
 }
