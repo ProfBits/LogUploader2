@@ -8,7 +8,7 @@ using LogUploader.Data.GameAreas;
 
 namespace LogUploader.Data
 {
-    public abstract class Enemy : NamedObject
+    public abstract class Enemy : NamedObject, IEquatable<Enemy>
     {
         public int ID { get; }
         public GameAreas.GameArea Area { get; }
@@ -28,32 +28,6 @@ namespace LogUploader.Data
         internal Enemy(BasicInfo info) : this(info.ID, info.NameEN, info.NameDE, info.GameArea)
         { }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is Enemy e)
-                return ID == e.ID;
-            return false;
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
-        public override int GetHashCode()
-        {
-            return ID.GetHashCode();
-        }
-
-        public static bool operator ==(Enemy a, Enemy b)
-        {
-            return a.Equals(b);
-        }
-
-        public static bool operator !=(Enemy a, Enemy b)
-        {
-            return !(a == b);
-        }
         public struct BasicInfo
         {
             public int ID { get; }
@@ -68,6 +42,34 @@ namespace LogUploader.Data
                 NameDE = nameDE;
                 GameArea = gameArea;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Enemy);
+        }
+
+        public bool Equals(Enemy other)
+        {
+            return other != null &&
+                   ID == other.ID;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 2082127350;
+            hashCode = hashCode * -1521134295 + ID.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(Enemy left, Enemy right)
+        {
+            return EqualityComparer<Enemy>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(Enemy left, Enemy right)
+        {
+            return !(left == right);
         }
     }
 }

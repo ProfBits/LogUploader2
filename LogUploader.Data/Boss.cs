@@ -11,7 +11,7 @@ using LogUploader.Localisation;
 
 namespace LogUploader.Data
 {
-    public class AbstractBoss : Enemy, IAvatar
+    public class AbstractBoss : Enemy, IAvatar, IEquatable<AbstractBoss>, IEquatable<eBosses>
     {
         protected readonly NamedObject m_FolderName;
         public string DiscordEmote { get; }
@@ -46,31 +46,53 @@ namespace LogUploader.Data
 
         public override bool Equals(object obj)
         {
-            if (obj is Boss b)
-                return ID == b.ID;
-            return false;
+            return Equals(obj as AbstractBoss);
+        }
+
+        public bool Equals(AbstractBoss other)
+        {
+            return other != null &&
+                   base.Equals(other);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ ID.GetHashCode();
+            return 624022166 + base.GetHashCode();
         }
 
-        public override string ToString()
+        public bool Equals(eBosses other)
         {
-            return base.ToString();
-        }
-        public static bool operator ==(AbstractBoss a, AbstractBoss b)
-        {
-            if ((object)a == null)
-                return (object)b == null;
-
-            return a.Equals(b);
+            return ID == (int)other;
         }
 
-        public static bool operator !=(AbstractBoss a, AbstractBoss b)
+        public static bool operator ==(AbstractBoss left, AbstractBoss right)
         {
-            return !(a == b);
+            return EqualityComparer<AbstractBoss>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(AbstractBoss left, AbstractBoss right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator ==(AbstractBoss left, eBosses right)
+        {
+            return left?.Equals(right) ?? false;
+        }
+
+        public static bool operator !=(AbstractBoss left, eBosses right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator ==(eBosses left, AbstractBoss right)
+        {
+            return right?.Equals(left) ?? false;
+        }
+
+        public static bool operator !=(eBosses left, AbstractBoss right)
+        {
+            return !(left == right);
         }
     }
 

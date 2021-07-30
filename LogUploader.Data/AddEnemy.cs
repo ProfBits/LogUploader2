@@ -12,7 +12,7 @@ using static LogUploader.Data.Enemy;
 
 namespace LogUploader.Data
 {
-    public class AbstractAddEnemy : Enemy
+    public class AbstractAddEnemy : Enemy, IEquatable<AbstractAddEnemy>
     {
         public bool IsInteresting { get; }
 
@@ -32,31 +32,28 @@ namespace LogUploader.Data
 
         public override bool Equals(object obj)
         {
-            if (obj is AddEnemy e)
-                return ID == e.ID;
-            return false;
+            return Equals(obj as AbstractAddEnemy);
+        }
+
+        public bool Equals(AbstractAddEnemy other)
+        {
+            return other != null &&
+                   base.Equals(other);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return 624022166 + base.GetHashCode();
         }
 
-        public override string ToString()
+        public static bool operator ==(AbstractAddEnemy left, AbstractAddEnemy right)
         {
-            return base.ToString();
-        }
-        public static bool operator ==(AbstractAddEnemy a, AbstractAddEnemy b)
-        {
-            if ((object)a == null)
-                return (object)b == null;
-
-            return a.Equals(b);
+            return EqualityComparer<AbstractAddEnemy>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(AbstractAddEnemy a, AbstractAddEnemy b)
+        public static bool operator !=(AbstractAddEnemy left, AbstractAddEnemy right)
         {
-            return !(a == b);
+            return !(left == right);
         }
     }
 

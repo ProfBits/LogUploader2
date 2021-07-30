@@ -61,6 +61,110 @@ namespace LogUploader.Test.Data
 
         public abstract void ExtendedEnemyConstructorValueAssigmentTest();
 
+        [Test]
+        public void EnemyEqualByIDTest()
+        {
+            var baseData11 = GetNumberedBaseData(11);
+            var baseData12 = GetNumberedBaseData(12);
+            var baseData13 = GetNumberedBaseData(13);
+            var baseData2 = GetNumberedBaseData(2);
+            T enemy1a = CreateNumberedEnemyObject(1, baseData11.nameEN, baseData11.nameDE, new TestGameArea("enemyEqualsTest", 11));
+            T enemy1b = CreateNumberedEnemyObject(1, baseData12.nameEN, baseData12.nameDE, new TestGameArea("enemyEqualsTest", 12));
+            T enemy1c = CreateNumberedEnemyObject(1, baseData13.nameEN, baseData13.nameDE, new TestGameArea("enemyEqualsTest", 13));
+            T enemy2 = CreateNumberedEnemyObject(2, baseData2.nameEN, baseData2.nameDE, new TestGameArea("enemyEqualsTest", 2));
+
+
+            Assert.That(enemy1a, Is.EqualTo(enemy1a), "Enemy equals should be reflexive");
+            Assert.That(enemy1a, Is.EqualTo(enemy1b), "Enemy equals should be by value");
+            Assert.That(enemy1b, Is.EqualTo(enemy1a), "Enemy equals should be symmetric");
+            Assert.That(enemy1b, Is.EqualTo(enemy1c), "Enemy equals should be by value 2");
+            Assert.That(enemy1a, Is.EqualTo(enemy1c), "Enemy equals should be transitive");
+
+            Assert.That(enemy1a, Is.Not.EqualTo(enemy2), "Enemy should not equals");
+            Assert.That(enemy2, Is.Not.EqualTo(enemy1a), "Enemy should not equals symmetric");
+            Assert.That(enemy1b, Is.Not.EqualTo(enemy2), "Enemy should not equals transitive");
+            Assert.That(enemy1c, Is.Not.EqualTo(enemy2), "Enemy should not equals transitive 2");
+        }
+
+        [Test]
+        public void EnemyGetHashCodeByIDTest()
+        {
+            var baseData11 = GetNumberedBaseData(11);
+            var baseData12 = GetNumberedBaseData(12);
+            var baseData13 = GetNumberedBaseData(13);
+            var baseData2 = GetNumberedBaseData(2);
+            int enemy1a = CreateNumberedEnemyObject(1, baseData11.nameEN, baseData11.nameDE, new TestGameArea("enemyEqualsTest", 11)).GetHashCode();
+            int enemy1b = CreateNumberedEnemyObject(1, baseData12.nameEN, baseData12.nameDE, new TestGameArea("enemyEqualsTest", 12)).GetHashCode();
+            int enemy1c = CreateNumberedEnemyObject(1, baseData13.nameEN, baseData13.nameDE, new TestGameArea("enemyEqualsTest", 13)).GetHashCode();
+            int enemy2 = CreateNumberedEnemyObject(2, baseData2.nameEN, baseData2.nameDE, new TestGameArea("enemyEqualsTest", 2)).GetHashCode();
+
+
+            Assert.That(enemy1a, Is.EqualTo(enemy1a), "Enemy getHashCode should be reflexive");
+            Assert.That(enemy1a, Is.EqualTo(enemy1b), "Enemy getHashCode should be by value");
+            Assert.That(enemy1b, Is.EqualTo(enemy1a), "Enemy getHashCode should be symmetric");
+            Assert.That(enemy1b, Is.EqualTo(enemy1c), "Enemy getHashCode should be by value 2");
+            Assert.That(enemy1a, Is.EqualTo(enemy1c), "Enemy getHashCode should be transitive");
+
+            Assert.That(enemy1a, Is.Not.EqualTo(enemy2), "Enemy getHashCode should not equals");
+            Assert.That(enemy2, Is.Not.EqualTo(enemy1a), "Enemy getHashCode should not equals symmetric");
+            Assert.That(enemy1b, Is.Not.EqualTo(enemy2), "Enemy getHashCode should not equals transitive");
+            Assert.That(enemy1c, Is.Not.EqualTo(enemy2), "Enemy getHashCode should not equals transitive 2");
+        }
+
+        [Test]
+        public void EnemyEqualOperatorByIDTest()
+        {
+            var baseData11 = GetNumberedBaseData(11);
+            var baseData12 = GetNumberedBaseData(12);
+            var baseData13 = GetNumberedBaseData(13);
+            var baseData2 = GetNumberedBaseData(2);
+            T enemy1a = CreateNumberedEnemyObject(1, baseData11.nameEN, baseData11.nameDE, new TestGameArea("enemyEqualsTest", 11));
+            T enemy1b = CreateNumberedEnemyObject(1, baseData12.nameEN, baseData12.nameDE, new TestGameArea("enemyEqualsTest", 12));
+            T enemy1c = CreateNumberedEnemyObject(1, baseData13.nameEN, baseData13.nameDE, new TestGameArea("enemyEqualsTest", 13));
+            T enemy2 = CreateNumberedEnemyObject(2, baseData2.nameEN, baseData2.nameDE, new TestGameArea("enemyEqualsTest", 2));
+
+
+#pragma warning disable CS1718 // Comparison made to same variable
+            Assert.That(enemy1a == enemy1a, Is.True, "Enemy '==' should be reflexive");
+#pragma warning restore CS1718 // Comparison made to same variable
+            Assert.That(enemy1a == enemy1b, Is.True, "Enemy '==' should be by value");
+            Assert.That(enemy1b == enemy1a, Is.True, "Enemy '==' should be symmetric");
+            Assert.That(enemy1b == enemy1c, Is.True, "Enemy '==' should be by value 2");
+            Assert.That(enemy1a == enemy1c, Is.True, "Enemy '==' should be transitive");
+
+            Assert.That(enemy1a == enemy2, Is.False, "Enemy should not equals");
+            Assert.That(enemy2 == enemy1a, Is.False, "Enemy should not equals symmetric");
+            Assert.That(enemy1b == enemy2, Is.False, "Enemy should not equals transitive");
+            Assert.That(enemy1c == enemy2, Is.False, "Enemy should not equals transitive 2");
+        }
+
+        [Test]
+        public void EnemyUnEqualOperatorByIDTest()
+        {
+            var baseData11 = GetNumberedBaseData(11);
+            var baseData12 = GetNumberedBaseData(12);
+            var baseData13 = GetNumberedBaseData(13);
+            var baseData2 = GetNumberedBaseData(2);
+            T enemy1a = CreateNumberedEnemyObject(1, baseData11.nameEN, baseData11.nameDE, new TestGameArea("enemyEqualsTest", 11));
+            T enemy1b = CreateNumberedEnemyObject(1, baseData12.nameEN, baseData12.nameDE, new TestGameArea("enemyEqualsTest", 12));
+            T enemy1c = CreateNumberedEnemyObject(1, baseData13.nameEN, baseData13.nameDE, new TestGameArea("enemyEqualsTest", 13));
+            T enemy2 = CreateNumberedEnemyObject(2, baseData2.nameEN, baseData2.nameDE, new TestGameArea("enemyEqualsTest", 2));
+
+
+#pragma warning disable CS1718 // Comparison made to same variable
+            Assert.That(enemy1a != enemy1a, Is.False, "Enemy '==' should be reflexive");
+#pragma warning restore CS1718 // Comparison made to same variable
+            Assert.That(enemy1a != enemy1b, Is.False, "Enemy '==' should be by value");
+            Assert.That(enemy1b != enemy1a, Is.False, "Enemy '==' should be symmetric");
+            Assert.That(enemy1b != enemy1c, Is.False, "Enemy '==' should be by value 2");
+            Assert.That(enemy1a != enemy1c, Is.False, "Enemy '==' should be transitive");
+
+            Assert.That(enemy1a != enemy2, Is.True, "Enemy should not equals");
+            Assert.That(enemy2 != enemy1a, Is.True, "Enemy should not equals symmetric");
+            Assert.That(enemy1b != enemy2, Is.True, "Enemy should not equals transitive");
+            Assert.That(enemy1c != enemy2, Is.True, "Enemy should not equals transitive 2");
+        }
+
         internal (int id, string nameEN, string nameDE, TestGameArea gameArea) GetNumberedBaseData(int number)
         {
             return (number, $"{DEFAULT_NAME_EN}_{number}", $"{DEFAULT_NAME_DE}_{number}", DEFAULT_AREA);
@@ -174,6 +278,19 @@ namespace LogUploader.Test.Data
             Assert.That(boss.EIName, Is.EqualTo(exptected.eiName));
             Assert.That(boss.AvatarURL, Is.EqualTo(exptected.avatarUrl));
             Assert.That(boss.DiscordEmote, Is.EqualTo(exptected.emote));
+        }
+
+        [Test]
+        public void BossEquealsBossEnumTest()
+        {
+            const eBosses boss = eBosses.ValeGuardian;
+            Boss bossObj = CreateNumberedEnemyObjectFree(gameArea: DEFAULT_AREA, id: (int)boss);
+
+            Assert.That(bossObj.Equals(boss), Is.True);
+            Assert.That(bossObj == boss, Is.True);
+            Assert.That(bossObj != boss, Is.False);
+            Assert.That(boss == bossObj, Is.True);
+            Assert.That(boss != bossObj, Is.False);
         }
     }
 }
