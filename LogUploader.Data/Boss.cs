@@ -31,10 +31,10 @@ namespace LogUploader.Data
 
         public AbstractBoss(int id, string nameEN, string nameDE, string FolderNameEN, string FolderNameDE, GameArea area, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : base(id, nameEN, nameDE, area)
         {
-            DiscordEmote = discordEmote;
-            AvatarURL = avatarURL;
-            m_FolderName = new NamedObject(FolderNameEN, FolderNameDE);
-            EIName = eIName;
+            DiscordEmote = Tools.GP.ValidateDiscordEmote(discordEmote);
+            AvatarURL = Tools.GP.ValidateStringMultiWord(avatarURL);
+            m_FolderName = new NamedObject(Tools.GP.ValidateStringMultiWord(FolderNameEN), Tools.GP.ValidateStringMultiWord(FolderNameDE));
+            EIName = Tools.GP.ValidateStringMultiWord(eIName);
             RaidOrgaPlusID = raidOrgaPlusID;
         }
 
@@ -184,7 +184,7 @@ namespace LogUploader.Data
 
         public static List<Boss> All { get => allBosses.Values.Where(boss => boss.ID != 23255 && boss.ID != 23256).ToList(); }
         public string FolderNameEN { get => m_FolderName.NameEN; }
-        public string FolderNameDE { get => m_FolderName.NameEN; }
+        public string FolderNameDE { get => m_FolderName.NameDE; }
 
         private bool CheckFolderName(string folderName)
         {

@@ -18,10 +18,11 @@ namespace LogUploader.Data
 
         }
 
-        internal Enemy(int id, string nameEN, string nameDE, GameArea area) : base(nameEN, nameDE)
+        internal Enemy(int id, string nameEN, string nameDE, GameArea area) : base(Tools.GP.ValidateStringMultiWord(nameEN), Tools.GP.ValidateStringMultiWord(nameDE))
         {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id), id, "The id of an enemy cannot be less than 0.");
             ID = id;
-            Area = area;
+            Area = area ?? throw new ArgumentNullException(nameof(area), "The area of an enemy cannot be null.");
         }
 
         internal Enemy(BasicInfo info) : this(info.ID, info.NameEN, info.NameDE, info.GameArea)
