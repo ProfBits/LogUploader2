@@ -284,13 +284,22 @@ namespace LogUploader.Test.Data
         public void BossEquealsBossEnumTest()
         {
             const eBosses boss = eBosses.ValeGuardian;
+            const eBosses otherBoss = eBosses.Gorseval;
             Boss bossObj = CreateNumberedEnemyObjectFree(gameArea: DEFAULT_AREA, id: (int)boss);
+
+            Assume.That(boss, Is.Not.EqualTo(otherBoss), $"{nameof(otherBoss)} and {nameof(boss)} need to be diffrent!");
 
             Assert.That(bossObj.Equals(boss), Is.True);
             Assert.That(bossObj == boss, Is.True);
             Assert.That(bossObj != boss, Is.False);
             Assert.That(boss == bossObj, Is.True);
             Assert.That(boss != bossObj, Is.False);
+
+            Assert.That(bossObj.Equals(otherBoss), Is.Not.True);
+            Assert.That(bossObj == otherBoss, Is.Not.True);
+            Assert.That(bossObj != otherBoss, Is.Not.False);
+            Assert.That(otherBoss == bossObj, Is.Not.True);
+            Assert.That(otherBoss != bossObj, Is.Not.False);
         }
     }
 }
