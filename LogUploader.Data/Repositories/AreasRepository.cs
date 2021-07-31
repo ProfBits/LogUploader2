@@ -8,7 +8,7 @@ using LogUploader.Data.GameAreas;
 
 namespace LogUploader.Data.Repositories
 {
-    internal class AreasRepository
+    internal class AreasRepository : AreasProvider
     {
         public MultiAreaProvider<RaidWing> RaidWings { get; }
         public MultiAreaProvider<Strike> Strikes { get; }

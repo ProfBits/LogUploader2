@@ -57,6 +57,7 @@
     <Compile Include="Repositories\AreasRepository.cs" />
     <Compile Include="Repositories\EnemyRepository.cs" />
     <Compile Include="Provider\MultiAreaProvider.cs" />
+    <Compile Include="Provider\AreasProvider.cs" />
     <Compile Include="Repositories\MultiAreaRepository.cs" />
     <Compile Include="StaticDataLoader\AddEnemyRegistrator.cs" />
     <Compile Include="StaticDataLoader\AreaRegistrator.cs" />

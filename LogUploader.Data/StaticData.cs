@@ -4,8 +4,8 @@ namespace LogUploader.Data
 {
     public static class StaticData
     {
-        public static AreaProvider Areas { get => AreaRepository; }
-        internal static AreaRepository AreaRepository { get; } = new AreaRepository();
+        public static AreasProvider Areas { get => AreaRepository; }
+        internal static AreasRepository AreaRepository { get; } = new AreasRepository();
         public static BossProvider Bosses { get => BossRepository; }
         internal static BossRepository BossRepository { get; } = new BossRepository();
         public static AddEnemyProvider AddEnemies { get => AddEnemyRepository; }
