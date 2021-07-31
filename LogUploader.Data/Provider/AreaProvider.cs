@@ -1,6 +1,6 @@
 ﻿namespace LogUploader.Data
 {
-    public interface AreaProvider
+    public interface AreaProvider<T>
     {
     }
 }

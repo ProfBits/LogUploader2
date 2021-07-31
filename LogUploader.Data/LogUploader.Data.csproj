@@ -49,10 +49,15 @@
     <Compile Include="AddEnemy.cs" />
     <Compile Include="Attributes\Attributes.cs" />
     <Compile Include="Boss.cs" />
+    <Compile Include="GameArea.cs" />
     <Compile Include="GameDataStructueBuilding.cs" />
+    <Compile Include="MultiGameArea.cs" />
     <Compile Include="MultiKeyDictionary.cs" />
     <Compile Include="Provider\EnemyProvider.cs" />
+    <Compile Include="Repositories\AreasRepository.cs" />
     <Compile Include="Repositories\EnemyRepository.cs" />
+    <Compile Include="Provider\MultiAreaProvider.cs" />
+    <Compile Include="Repositories\MultiAreaRepository.cs" />
     <Compile Include="StaticDataLoader\AddEnemyRegistrator.cs" />
     <Compile Include="StaticDataLoader\AreaRegistrator.cs" />
     <Compile Include="StaticDataLoader\BosseRegistrator.cs" />
