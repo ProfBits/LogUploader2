@@ -159,10 +159,10 @@ namespace LogUploader.Test.Data
             Assert.That(enemy1b != enemy1c, Is.False, "Enemy '==' should be by value 2");
             Assert.That(enemy1a != enemy1c, Is.False, "Enemy '==' should be transitive");
 
-            Assert.That(enemy1a != enemy2, Is.True, "Enemy should not equals");
-            Assert.That(enemy2 != enemy1a, Is.True, "Enemy should not equals symmetric");
-            Assert.That(enemy1b != enemy2, Is.True, "Enemy should not equals transitive");
-            Assert.That(enemy1c != enemy2, Is.True, "Enemy should not equals transitive 2");
+            Assert.That(enemy1a != enemy2, Is.True, "Enemy should not not equals");
+            Assert.That(enemy2 != enemy1a, Is.True, "Enemy should not not equals symmetric");
+            Assert.That(enemy1b != enemy2, Is.True, "Enemy should not not equals transitive");
+            Assert.That(enemy1c != enemy2, Is.True, "Enemy should not not equals transitive 2");
         }
 
         internal (int id, string nameEN, string nameDE, TestGameArea gameArea) GetNumberedBaseData(int number)
