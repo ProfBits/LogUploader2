@@ -53,6 +53,7 @@
         Skorvald = 17632,
         Artsariiv = 17949,
         Arkk = 17759,
+        Ai = 23254,
         // Golems
         MassiveGolem = 16202,
         AvgGolem = 16177,
