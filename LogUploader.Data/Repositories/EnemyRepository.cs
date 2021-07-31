@@ -13,17 +13,17 @@ namespace LogUploader.Data.Repositories
         public int Count { get => BaseData.Count; }
         internal abstract IMultiKeyBaseDictionary<int, string, string, T> BaseData { get; }
 
-        public bool Exists(int id)
+        public virtual bool Exists(int id)
         {
             return BaseData.ContainsKey(id);
         }
 
-        public bool Exists(string name)
+        public virtual bool Exists(string name)
         {
             return BaseData.ContainsKey(key2: name) || BaseData.ContainsKey(key3: name);
         }
 
-        public bool Exists(string name, eLanguage lang)
+        public virtual bool Exists(string name, eLanguage lang)
         {
             switch (lang)
             {
@@ -35,12 +35,12 @@ namespace LogUploader.Data.Repositories
             }
         }
 
-        public T Get(int id)
+        public virtual T Get(int id)
         {
             return BaseData.Get(id);
         }
 
-        public T Get(string name)
+        public virtual T Get(string name)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace LogUploader.Data.Repositories
             }
         }
 
-        public List<T> Get(GameArea area)
+        public virtual List<T> Get(GameArea area)
         {
             return this.Where(e => e.Area.Equals(area)).ToList();
         }
