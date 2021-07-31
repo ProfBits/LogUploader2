@@ -98,6 +98,7 @@ namespace LogUploader.Data
 
     public class Boss : AbstractBoss
     {
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         private static readonly Dictionary<int, Boss> allBosses = new Dictionary<int, Boss>();
 
         public Boss() : this(0, "Unknwon", "Unbekannt", "UnknownFolder", "UnbekannterOrdner", Unknowen.Get(), @"https://www.publicdomainpictures.net/pictures/280000/velka/ghost-on-black-background.jpg", ":grey_question:", "Unknowen", -1) { }
@@ -122,13 +123,16 @@ namespace LogUploader.Data
         public Boss(BasicInfo info, string FolderName, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) : this(info.ID, info.NameEN, info.NameDE, FolderName, FolderName, info.GameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID)
         { }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss Unknown { get => Get(eBosses.Unknown); }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss Get(eBosses boss)
         {
             return GetByID((int)boss);
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss GetByID(int id)
         {
             switch (id)
@@ -149,6 +153,7 @@ namespace LogUploader.Data
                 return GetByID(0);
             }
         }
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss GetByRaidOragPlusID(int id)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.RaidOrgaPlusID == id).Value;
@@ -157,6 +162,7 @@ namespace LogUploader.Data
             return boss;
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss GetByName(string name)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.Name == name).Value;
@@ -165,6 +171,7 @@ namespace LogUploader.Data
             return boss;
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss GetByName(string name, eLanguage lang)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.GetName(lang) == name).Value;
@@ -173,6 +180,7 @@ namespace LogUploader.Data
             return boss;
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss GetByFolderName(string name)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.CheckFolderName(name)).Value;
@@ -191,6 +199,7 @@ namespace LogUploader.Data
             return boss;
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static Boss GetByEIName(string name)
         {
             var boss = allBosses.FirstOrDefault((e) => e.Value.EIName == name).Value;
@@ -199,11 +208,13 @@ namespace LogUploader.Data
             return boss;
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static List<Boss> GetByArea(GameArea area)
         {
             return allBosses.Where(e => e.Value.Area == area).Select(e => e.Value).ToList();
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static List<Boss> All { get => allBosses.Values.Where(boss => boss.ID != 23255 && boss.ID != 23256).ToList(); }
         public string FolderNameEN { get => m_FolderName.NameEN; }
         public string FolderNameDE { get => m_FolderName.NameDE; }
@@ -213,6 +224,7 @@ namespace LogUploader.Data
             return m_FolderName.HasName(folderName);
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static bool ExistsID(int id)
         {
             return allBosses.ContainsKey(id);
