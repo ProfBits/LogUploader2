@@ -59,6 +59,7 @@ namespace LogUploader.Data
 
     public class AddEnemy : AbstractAddEnemy
     {
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         private static readonly Dictionary<int, AddEnemy> allAdds = new Dictionary<int, AddEnemy>();
 
         public AddEnemy() : this(0, "Unknown", "Unbekannt", Unknowen.Get(), true)
@@ -79,6 +80,7 @@ namespace LogUploader.Data
         public AddEnemy(BasicInfo info, bool isIntersting) : this(info.ID, info.NameEN, info.NameDE, info.GameArea, isIntersting)
         { }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static AddEnemy GetByID(int id)
         {
             try
@@ -91,23 +93,28 @@ namespace LogUploader.Data
             }
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static AddEnemy GetByName(string name)
         {
             return allAdds.FirstOrDefault((e) => e.Value.Name == name).Value;
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static AddEnemy GetByName(string name, eLanguage lang)
         {
             return allAdds.FirstOrDefault((e) => e.Value.GetName(lang) == name).Value;
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static List<AddEnemy> GetByArea(GameArea area)
         {
             return allAdds.Where(e => e.Value.Area == area).Select(e => e.Value).ToList();
         }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static List<AddEnemy> All { get => allAdds.Values.ToList(); }
 
+        [Obsolete("Replaced with instance version xxxTBRxxx")]
         public static bool ExistsID(int id)
         {
             return allAdds.ContainsKey(id);
