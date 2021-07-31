@@ -9,15 +9,16 @@ using LogUploader.Data;
 using LogUploader.Tools;
 using LogUploader.Data.Repositories;
 using LogUploader.Data.GameAreas;
+using LogUploader.Localisation;
 
 namespace LogUploader.Test.Data
 {
     internal abstract class AbstractEnemyRepositoryTest<T> where T : Enemy
     {
-        protected virtual string DEFAULT_NAME_EN { get => "Enemy"; }
-        protected virtual string DEFAULT_NAME_DE { get => "Gegner"; }
+        protected const string DEFAULT_NAME_EN = "Enemy";
+        protected const string DEFAULT_NAME_DE = "Gegner";
 
-        protected (int id, string nameEN, string nameDE, TestGameArea gameArea) GetNubmerElement(int number)
+        protected (int id, string nameEN, string nameDE, TestGameArea gameArea) GetNumberedBaseData(int number)
         {
             return (number, GetNumberdString(DEFAULT_NAME_EN, number), GetNumberdString(DEFAULT_NAME_DE, number), new TestGameArea(nameof(T), number));
         }
@@ -32,21 +33,23 @@ namespace LogUploader.Test.Data
         {
             Assume.That(() => GP.ValidateStringOneWord(DEFAULT_NAME_EN), Throws.Nothing);
             Assume.That(() => GP.ValidateStringOneWord(DEFAULT_NAME_DE), Throws.Nothing);
+            Assume.That(DEFAULT_NAME_EN, Is.Not.EqualTo(DEFAULT_NAME_DE));
         }
 
         internal abstract EnemyRepository<T> CreateEmptyRepository();
         internal abstract EnemyRepository<T> CreatePreFilledRepository(int number);
-        public abstract T CreateNumberedEnemy(int number);
+        internal abstract T CreateNumberedEnemyObject(int number);
+        internal abstract T CreateNumberedEnemyObject(int number, string nameEN, string nameDE, GameArea gameArea);
 
         [Test]
-        public void CreateEmptyRepositoryDoesNotThrow()
+        public void CreateEmptyRepositoryDoesNotThrowTest()
         {
             Assert.That(() => CreateEmptyRepository(), Throws.Nothing);
             Assert.That(CreateEmptyRepository(), Is.Not.Null);
         }
 
         [Test]
-        public void CreatePreFilledRepositoryDoesNotThrow([Values(1, 2, 5)] int number)
+        public void CreatePreFilledRepositoryDoesNotThrowTest([Values(1, 2, 5)] int number)
         {
             Assert.That(() => CreatePreFilledRepository(number), Throws.Nothing);
             var repo = CreatePreFilledRepository(number);
@@ -57,37 +60,131 @@ namespace LogUploader.Test.Data
             {
                 Assert.That(() => provider.Get(i), Throws.Nothing);
                 T enemy = provider.Get(i);
-                ValidateNumberedEnemy(enemy, GetNubmerElement(i));
+                ValidateNumberedEnemy(enemy, GetNumberedBaseData(i));
             }
         }
         
         [Test]
-        public void AddElementToRepository()
+        public void AddElementToRepositoryTest()
         {
             var repo = CreateEmptyRepository();
-            T enemy = CreateNumberedEnemy(1);
+            T enemy = CreateNumberedEnemyObject(1);
             Assert.That(() => repo.Add(enemy), Throws.Nothing);
             Assert.That(repo.Get(enemy.ID), Is.EqualTo(enemy));
         }
 
         [Test]
-        public void CannotAddNullToRepository()
+        public void CannotAddNullToRepositoryTest()
         {
             var repo = CreateEmptyRepository();
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => repo.Add(null)));
         }
 
         [Test]
-        public void GetElementByBasicData([Values(0, 1, 2)] int num)
+        public void GetElementByBasicDataTest([Values(0, 1, 2)] int num)
         {
             const int NUM_OF_ELEMENTS = 3;
-            var expected = GetNubmerElement(num);
+            var expected = GetNumberedBaseData(num);
             var repo = CreatePreFilledRepository(NUM_OF_ELEMENTS);
             EnemyProvider<T> provider = repo;
 
             ValidateNumberedEnemy(provider.Get(expected.id), expected);
             ValidateNumberedEnemy(provider.Get(expected.nameEN), expected);
             ValidateNumberedEnemy(provider.Get(expected.nameDE), expected);
+        }
+
+        [Test]
+        public void GetEnmiesByAreaData()
+        {
+            GameArea area = new TestGameArea("Area1", 1);
+            GameArea area2 = new TestGameArea("Area2", 2);
+            var repo = CreateEmptyRepository();
+            var enemy1 = CreateNumberedEnemyObject(1, "en1", "de1", area);
+            var enemy2 = CreateNumberedEnemyObject(2, "en2", "de2", area);
+            repo.Add(enemy1);
+            repo.Add(enemy2);
+            EnemyProvider<T> provider = repo;
+
+            Assert.That(() => provider.Get(area), Throws.Nothing);
+            Assert.That(provider.Get(area), Is.Not.Null);
+            Assert.That(provider.Get(area), Has.Exactly(2).Items);
+            Assert.That(provider.Get(area), Does.Contain(enemy1));
+            Assert.That(provider.Get(area), Does.Contain(enemy2));
+
+            Assert.That(() => provider.Get(area2), Throws.Nothing);
+            Assert.That(provider.Get(area2), Is.Not.Null);
+            Assert.That(provider.Get(area2), Is.Empty);
+
+            Assert.That(() => provider.Get((GameArea)null), Throws.Nothing);
+            Assert.That(provider.Get((GameArea)null), Is.Not.Null);
+            Assert.That(provider.Get((GameArea)null), Is.Empty);
+        }
+
+        [Test]
+        public void ExistsTest()
+        {
+            const int NUM_OF_ELEMENTS = 1;
+            var expected = GetNumberedBaseData(NUM_OF_ELEMENTS - 1);
+            var repo = CreatePreFilledRepository(NUM_OF_ELEMENTS);
+            EnemyProvider<T> provider = repo;
+
+            Assert.That(provider.Exists(expected.id), Is.True);
+            Assert.That(provider.Exists(expected.nameEN), Is.True);
+            Assert.That(provider.Exists(expected.nameDE), Is.True);
+            Assert.That(provider.Exists(expected.nameEN, eLanguage.EN), Is.True);
+            Assert.That(provider.Exists(expected.nameDE, eLanguage.DE), Is.True);
+        }
+
+        [Test]
+        public void ExistsNotTest()
+        {
+            const int NUM_OF_ELEMENTS = 1;
+            var expected = GetNumberedBaseData(NUM_OF_ELEMENTS + 1);
+            var repo = CreatePreFilledRepository(NUM_OF_ELEMENTS);
+            ExistsNotAsserts(expected, repo);
+        }
+
+        [Test]
+        public void ExistNotEmptyTest()
+        {
+            var expected = GetNumberedBaseData(1);
+            var repo = CreateEmptyRepository();
+            ExistsNotAsserts(expected, repo);
+        }
+
+        [Test]
+        public void EnumreableEnemyRepositoryTest([Values(0, 1, 5)] int numberOfElements)
+        {
+            var repo = CreatePreFilledRepository(numberOfElements);
+            Assert.That(repo.GetEnumerator(), Is.Not.Null);
+            Assert.That(repo.Count(), Is.EqualTo(numberOfElements));
+            for (int i = 0; i < numberOfElements; i++)
+            {
+                Assert.That(repo, Does.Contain(CreateNumberedEnemyObject(i)));
+            }
+        }
+
+        [Test]
+        public void EnemyRepositoryCountTest([Values(0, 1, 5)] int numberOfElements)
+        {
+            var repo = CreatePreFilledRepository(numberOfElements);
+            Assert.That(repo.Count, Is.EqualTo(numberOfElements));
+        }
+
+
+        private static void ExistsNotAsserts((int id, string nameEN, string nameDE, TestGameArea gameArea) expected, EnemyProvider<T> provider)
+        {
+            Assert.That(() => provider.Exists(-1), Throws.Nothing);
+            Assert.That(() => provider.Exists(null), Throws.Nothing);
+
+            Assert.That(() => provider.Exists(expected.id), Throws.Nothing);
+            Assert.That(() => provider.Exists(expected.nameEN), Throws.Nothing);
+            Assert.That(() => provider.Exists(expected.nameDE), Throws.Nothing);
+            Assert.That(provider.Exists(expected.id), Is.False);
+            Assert.That(provider.Exists(expected.nameEN), Is.False);
+            Assert.That(provider.Exists(expected.nameDE), Is.False);
+            Assert.That(provider.Exists(expected.nameEN, eLanguage.DE), Is.False);
+            Assert.That(provider.Exists(expected.nameDE, eLanguage.EN), Is.False);
         }
 
         protected void ValidateNumberedEnemy(T enemy, (int id, string nameEN, string nameDE, TestGameArea gameArea) values)
@@ -102,18 +199,39 @@ namespace LogUploader.Test.Data
 
     internal class BossRepositoryTest : AbstractEnemyRepositoryTest<Boss>
     {
+        private const string DEFAULT_FOLDER_NAME_EN = "foderEN";
+        private const string DEFAULT_FOLDER_NAME_DE = "foderDE";
+        private const string DEFAULT_EI = "eiName";
+        private const string DEFAULT_AVATAR_URL = "avatarUrl";
+        private const string DEFAULT_EMOTE = ":emote:";
 
-
-        public override Boss CreateNumberedEnemy(int number)
+        private (string folderNameEN, string folderNameDE, string eiName, string avatarUrl, string emote) GetNumberedExtededData(int number)
         {
-            (int id, string nameEN, string nameDE, TestGameArea gameArea) = GetNubmerElement(number);
-            string folderNameEN = GetNumberdString("folderEN", number);
-            string folderNameDE = GetNumberdString("folderDE", number);
-            string avatarURL = GetNumberdString("avatarUrl", number);
-            string discordEmote = ":emote:";
-            string eIName = GetNumberdString("eiName", number);
+            string folderNameEN = $"{DEFAULT_FOLDER_NAME_EN}_{number}";
+            string folderNameDE = $"{DEFAULT_FOLDER_NAME_DE}_{number}";
+            string eiName = $"{DEFAULT_EI}_{number}";
+            string avatarUrl = $"{DEFAULT_AVATAR_URL}_{number}";
+            string emote = DEFAULT_EMOTE;
+            return (folderNameEN, folderNameDE, eiName, avatarUrl, emote);
+        }
 
-            return new Boss(id, nameEN, nameDE, folderNameEN, folderNameDE, gameArea, avatarURL, discordEmote, eIName, number);
+        internal override Boss CreateNumberedEnemyObject(int number)
+        {
+            (int id, string nameEN, string nameDE, TestGameArea gameArea) = GetNumberedBaseData(number);
+            return CreateNumberedEnemyObject(id, nameEN, nameDE, gameArea);
+        }
+
+        internal override Boss CreateNumberedEnemyObject(int number, string nameEN, string nameDE, GameArea gameArea)
+        {
+            (string folderNameEN, string folderNameDE, string eiName, string avatarUrl, string emote) = GetNumberedExtededData(number);
+            return CreateNumberedEnemyObjectFree(number, nameEN, nameDE, folderNameEN, folderNameDE, gameArea, avatarUrl, emote, eiName, number);
+        }
+
+        private Boss CreateNumberedEnemyObjectFree(int id = 1, string nameEN = DEFAULT_NAME_EN, string nameDE = DEFAULT_NAME_DE,
+            string folderNameEN = DEFAULT_FOLDER_NAME_EN, string folderNameDE = DEFAULT_FOLDER_NAME_DE, GameArea gameArea = null,
+            string avatarUrl = DEFAULT_AVATAR_URL, string emote = DEFAULT_EMOTE, string eiName = DEFAULT_EI, int ropID = 0)
+        {
+            return new Boss(id, nameEN, nameDE, folderNameEN, folderNameDE, gameArea, avatarUrl, emote, eiName, ropID);
         }
 
         internal override EnemyRepository<Boss> CreateEmptyRepository()
@@ -126,7 +244,7 @@ namespace LogUploader.Test.Data
             BossRepository repo = new BossRepository();
             for (int i = 0; i < number; i++)
             {
-                repo.Add(CreateNumberedEnemy(i));
+                repo.Add(CreateNumberedEnemyObject(i));
             }
             return repo;
         }
@@ -134,11 +252,18 @@ namespace LogUploader.Test.Data
 
     internal class AddEnemyRepositoryTest : AbstractEnemyRepositoryTest<AddEnemy>
     {
-        public override AddEnemy CreateNumberedEnemy(int number)
-        {
-            (int id, string nameEN, string nameDE, TestGameArea area) = GetNubmerElement(number);
+        private const bool DEFAULT_INTRESTRING = true;
 
-            return new AddEnemy(id, nameEN, nameDE, area, false);
+        internal override AddEnemy CreateNumberedEnemyObject(int number)
+        {
+            (int id, string nameEN, string nameDE, TestGameArea gameArea) = GetNumberedBaseData(number);
+            return CreateNumberedEnemyObject(id, nameEN, nameDE, gameArea);
+        }
+
+        internal override AddEnemy CreateNumberedEnemyObject(int number, string nameEN, string nameDE, GameArea gameArea)
+        {
+            bool isIntresting = DEFAULT_INTRESTRING;
+            return new AddEnemy(number, nameEN, nameDE, gameArea, isIntresting);
         }
 
         internal override EnemyRepository<AddEnemy> CreateEmptyRepository()
@@ -151,7 +276,7 @@ namespace LogUploader.Test.Data
             AddEnemyRepository repo = new AddEnemyRepository();
             for (int i = 0; i < number; i++)
             {
-                repo.Add(CreateNumberedEnemy(i));
+                repo.Add(CreateNumberedEnemyObject(i));
             }
             return repo;
         }

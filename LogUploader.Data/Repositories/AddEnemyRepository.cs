@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LogUploader.Data.Repositories
 {
@@ -20,6 +22,11 @@ namespace LogUploader.Data.Repositories
         {
             if (enemy is null) throw new ArgumentNullException(nameof(enemy), "Cannot add a null addEnemy to the repository");
             Data.Add(enemy);
+        }
+
+        public override IEnumerator<AddEnemy> GetEnumerator()
+        {
+            return Data.Select(b => b.Value).GetEnumerator();
         }
     }
 }

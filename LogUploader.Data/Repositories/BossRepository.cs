@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using LogUploader.Data.GameAreas;
 
 namespace LogUploader.Data.Repositories
 {
@@ -19,6 +23,11 @@ namespace LogUploader.Data.Repositories
         }
 
         internal override IMultiKeyBaseDictionary<int, string, string, Boss> BaseData { get => Data; }
+
+        public override IEnumerator<Boss> GetEnumerator()
+        {
+            return Data.Select(b => b.Value).GetEnumerator();
+        }
 
         internal override void Add(Boss enemy)
         {
