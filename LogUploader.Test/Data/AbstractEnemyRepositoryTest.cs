@@ -10,6 +10,7 @@ using LogUploader.Tools;
 using LogUploader.Data.Repositories;
 using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
+using Newtonsoft.Json.Linq;
 
 namespace LogUploader.Test.Data
 {
@@ -234,12 +235,14 @@ namespace LogUploader.Test.Data
             return new Boss(id, nameEN, nameDE, folderNameEN, folderNameDE, gameArea, avatarUrl, emote, eiName, ropID);
         }
 
-        internal override EnemyRepository<Boss> CreateEmptyRepository()
+        internal override EnemyRepository<Boss> CreateEmptyRepository() => CreateEmptyBossRepository();
+        private BossRepository CreateEmptyBossRepository()
         {
             return new BossRepository();
         }
 
-        internal override EnemyRepository<Boss> CreatePreFilledRepository(int number)
+        internal override EnemyRepository<Boss> CreatePreFilledRepository(int number) => CreatePreFilledBossRepository(number);
+        private BossRepository CreatePreFilledBossRepository(int number)
         {
             BossRepository repo = new BossRepository();
             for (int i = 0; i < number; i++)
@@ -247,6 +250,105 @@ namespace LogUploader.Test.Data
                 repo.Add(CreateNumberedEnemyObject(i));
             }
             return repo;
+        }
+
+
+        [Test]
+        public void GetBossByExtendedDataTest([Values(0, 1, 2)] int num)
+        {
+            const int NUM_OF_ELEMENTS = 3;
+            var expected = GetNumberedExtededData(num);
+            var repo = CreatePreFilledBossRepository(NUM_OF_ELEMENTS);
+            BossProvider provider = repo;
+
+            ValidateNumberedBoss(provider.GetByFolderName(expected.folderNameDE), expected);
+            ValidateNumberedBoss(provider.GetByFolderName(expected.folderNameEN), expected);
+            ValidateNumberedBoss(provider.GetByFolderName(expected.folderNameDE, eLanguage.DE), expected);
+            ValidateNumberedBoss(provider.GetByFolderName(expected.folderNameEN, eLanguage.EN), expected);
+            ValidateNumberedBoss(provider.GetByEiName(expected.eiName), expected);
+        }
+
+        [Test]
+        public void GetBossByRaidOrgaPlusIDTest()
+        {
+            var expected = CreateNumberedEnemyObject(1);
+            var ropIDDupe = CreateNumberedEnemyObjectFree(2, gameArea: new TestGameArea("BossRepoRopIDTest", 1), ropID: expected.RaidOrgaPlusID);
+            var repo = CreateEmptyBossRepository();
+            repo.Add(expected);
+            BossProvider provider = repo;
+
+            Assert.That(provider.GetByRaidOrgaPlusID(expected.ID), Is.EqualTo(expected));
+            Assert.That(() => provider.GetByRaidOrgaPlusID(expected.ID + 1), Throws.InstanceOf<System.Collections.Generic.KeyNotFoundException>());
+            repo.Add(ropIDDupe);
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => provider.GetByRaidOrgaPlusID(expected.ID)));
+        }
+
+        [Test]
+        public void GetBossByeBossTest()
+        {
+            eBosses contained = eBosses.ValeGuardian;
+            eBosses notContained = eBosses.Gorseval;
+            Assume.That(contained, Is.Not.EqualTo(notContained));
+            
+            Boss expected = CreateNumberedEnemyObject((int)contained);
+            BossRepository repo = CreateEmptyBossRepository();
+            repo.Add(expected);
+            BossProvider provider = repo;
+
+            Assert.That(provider.Get(contained), Is.EqualTo(expected));
+            Assert.That(() => provider.Get(notContained), Throws.InstanceOf<System.Collections.Generic.KeyNotFoundException>());
+
+        }
+
+        [Test, Category(TestCategory.Regression)]
+        public void GetSunquaAiFakeIDOverride([Values(23255, 23256)] int fakeAiId)
+        {
+            eBosses Ai = eBosses.Ai;
+
+            Boss expected = CreateNumberedEnemyObject((int)Ai);
+            BossRepository repo = CreateEmptyBossRepository();
+            repo.Add(expected);
+            BossProvider provider = repo;
+
+            Assert.That(provider.Get(fakeAiId), Is.EqualTo(expected));
+
+            Boss fakeAi = CreateNumberedEnemyObject(fakeAiId);
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => repo.Add(fakeAi)));
+
+
+            Assert.That(provider.Exists(fakeAiId), Is.True);
+        }
+
+
+        [Test, Category(TestCategory.Regression)]
+        public void GetBrokenKingFolderNameDEOverride([Values("Gebrochener König", "Bezwungener König")] string bokenKingFolderNamesDE)
+        {
+            eBosses BrokenKing = eBosses.BrokenKing;
+
+            Boss expected = CreateNumberedEnemyObject((int)BrokenKing);
+            BossRepository repo = CreateEmptyBossRepository();
+            repo.Add(expected);
+            BossProvider provider = repo;
+
+            Assert.That(provider.GetByFolderName(bokenKingFolderNamesDE), Is.EqualTo(expected));
+            Assert.That(provider.GetByFolderName(bokenKingFolderNamesDE, eLanguage.DE), Is.EqualTo(expected));
+        }
+
+        private void ValidateNumberedBoss(Boss boss, (string folderNameEN, string folderNameDE, string eiName, string avatarUrl, string emote) values)
+        {
+            Assert.That(boss.FolderNameEN, Is.EqualTo(values.folderNameEN));
+            Assert.That(boss.FolderNameDE, Is.EqualTo(values.folderNameDE));
+            Assert.That(boss.EIName, Is.EqualTo(values.eiName));
+            Assert.That(boss.AvatarURL, Is.EqualTo(values.avatarUrl));
+            Assert.That(boss.DiscordEmote, Is.EqualTo(values.emote));
+        }
+
+        private void ValidateNumberedBoss(Boss boss,
+            (string folderNameEN, string folderNameDE, string eiName, string avatarUrl, string emote) values,
+            (int id, string nameEN, string nameDE, TestGameArea gameArea) basicValues)
+        {
+            ValidateNumberedEnemy(boss, basicValues);
+            ValidateNumberedBoss(boss, values);
         }
     }
 
