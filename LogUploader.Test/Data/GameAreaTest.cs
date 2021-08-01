@@ -23,29 +23,9 @@ namespace LogUploader.Test.Data
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            classesToTest = GetAllSubClassesOfType(typeof(GameArea)).Count();
+            classesToTest = TestHelper.GetAllSubClassesOfType(typeof(GameArea)).Count();
             everyGameAreaDefaultCount = GetEveryGameAreaDefault().Count();
             everyGameAreaSameArgsCount = GetEveryGameAreaSameArgs().Count(); ;
-        }
-
-        internal static IEnumerable<Type> GetAllSubClassesOfType(Type baseType)
-        {
-            foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (Type type in GetValidSubTypes(asm, baseType))
-                {
-                    yield return type;
-                }
-            }
-        }
-
-        private static IEnumerable<Type> GetValidSubTypes(Assembly asm, Type baseType)
-        {
-            foreach (Type type in asm.GetTypes())
-            {
-                if (type.IsSubclassOf(baseType) && !type.IsAbstract)
-                    yield return type;
-            }
         }
 
         public static IEnumerable<GameArea> GetEveryGameAreaDefault()
@@ -119,7 +99,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void AllAreasAreTestedTest()
         {
-            int concreteTestClasses = GetAllSubClassesOfType(typeof(AbstractGameAreaTest)).Count();
+            int concreteTestClasses = TestHelper.GetAllSubClassesOfType(typeof(AbstractGameAreaTest)).Count();
             Assert.That(classesToTest, Is.EqualTo(concreteTestClasses), $"All concrete children of {nameof(GameArea)} should have exactly 1 concret testclass," +
                 $"that extends {nameof(GameAreaTest<GameArea>)}");
         }

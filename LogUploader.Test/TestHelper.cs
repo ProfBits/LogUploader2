@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,26 @@ namespace LogUploader.Test
             Assert.That(ex.Message, Is.Not.Null, "The ArugmentException.Message should be set");
             Assert.That(string.IsNullOrWhiteSpace(ex.ParamName), Is.False, "The ArugmentException.Message should be set to a none empty string");
             if (ex.InnerException is ArgumentException inner) ValidateArugumentException(inner);
+        }
+
+        internal static IEnumerable<Type> GetAllSubClassesOfType(Type baseType)
+        {
+            foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (Type type in GetValidSubTypes(asm, baseType))
+                {
+                    yield return type;
+                }
+            }
+        }
+
+        private static IEnumerable<Type> GetValidSubTypes(Assembly asm, Type baseType)
+        {
+            foreach (Type type in asm.GetTypes())
+            {
+                if (type.IsSubclassOf(baseType) && !type.IsAbstract)
+                    yield return type;
+            }
         }
 
         internal static string[] InvalidDiscordEmotes { get => new string[] {
