@@ -114,12 +114,12 @@ namespace LogUploader.Test.Data
         {
             return new UnkowenAreaRepository();
         }
-
+    
         internal override UnkowenGameArea GetDefaultAreaInstace()
         {
             return new UnkowenGameArea();
         }
-
+    
         internal override UnkowenGameArea GetNonDefaultAreaInstace()
         {
             return new UnkowenGameArea("testAreaEN", "testAreaDE", "taen", "tade", "testAreaAvatar");
