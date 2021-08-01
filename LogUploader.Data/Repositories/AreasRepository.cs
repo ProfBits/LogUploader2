@@ -10,12 +10,12 @@ namespace LogUploader.Data.Repositories
 {
     internal class AreasRepository : AreasProvider
     {
-        public MultiAreaProvider<RaidWing> RaidWings { get; }
-        public MultiAreaProvider<Strike> Strikes { get; }
-        public MultiAreaProvider<Fractal> Fractals { get; }
-        public MultiAreaProvider<DragonResponseMission> DragonResponseMissions { get; }
-        public AreaProvider<Training> Training { get; }
-        public AreaProvider<WvW> WvW { get; }
-        public AreaProvider<Unknowen> Unknowen { get; }
+        public MultiAreaProvider<New.Raid> RaidWings { get; }
+        public MultiAreaProvider<New.Strike> Strikes { get; }
+        public MultiAreaProvider<New.Fractal> Fractals { get; }
+        public MultiAreaProvider<New.DragonResponseMission> DragonResponseMissions { get; }
+        public AreaProvider<New.Training> Training { get; }
+        public AreaProvider<New.WvW> WvW { get; }
+        public AreaProvider<New.UnkowenGameArea> Unknowen { get; }
     }
 }

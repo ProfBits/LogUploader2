@@ -4,12 +4,12 @@ namespace LogUploader.Data.Repositories
 {
     public interface AreasProvider
     {
-        MultiAreaProvider<DragonResponseMission> DragonResponseMissions { get; }
-        MultiAreaProvider<Fractal> Fractals { get; }
-        MultiAreaProvider<RaidWing> RaidWings { get; }
-        MultiAreaProvider<Strike> Strikes { get; }
-        AreaProvider<Training> Training { get; }
-        AreaProvider<Unknowen> Unknowen { get; }
-        AreaProvider<WvW> WvW { get; }
-    }
+        MultiAreaProvider<New.DragonResponseMission> DragonResponseMissions { get; }
+        MultiAreaProvider<New.Fractal> Fractals { get; }
+        MultiAreaProvider<New.Raid> RaidWings { get; }
+        MultiAreaProvider<New.Strike> Strikes { get; }
+        AreaProvider<New.Training> Training { get; }
+        AreaProvider<New.UnkowenGameArea> Unknowen { get; }
+        AreaProvider<New.WvW> WvW { get; }
+    }                
 }
