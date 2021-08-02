@@ -11,6 +11,7 @@ using NUnit.Framework;
 
 namespace LogUploader.Test.Data
 {
+    [Parallelizable]
     public class MiscDataTest
     {
         private const string EMOTE_KILL = ":kill:";

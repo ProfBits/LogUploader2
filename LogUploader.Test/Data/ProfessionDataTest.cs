@@ -11,6 +11,7 @@ using LogUploader.Data.Repositories;
 
 namespace LogUploader.Test.Data
 {
+    [Parallelizable]
     public class ProfessionDataTest
     {
         private const eProfession DefualtEProfession = eProfession.Scourge;
