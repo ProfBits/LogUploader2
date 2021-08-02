@@ -262,7 +262,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
         
         private Profession GetClass(string classAbbreviation)
         {
-            return Profession.GetByAbbreviation(classAbbreviation);
+            return StaticData.Professions.GetByAbbreviation(classAbbreviation);
         }
 
         public void SetRaid(ISession session, Data.Raid raid)

@@ -395,14 +395,14 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 if (!TC.Exists(player.AccountName) && TC.Exists(player.Class, player.Role))
                     TC.Get(player.Class, player.Role).Set(player);
             foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown, player.Role))
-                    TC.Get(Profession.Unknown, player.Role).Set(player);
+                if (!TC.Exists(player.AccountName) && TC.Exists(StaticData.Professions.Unknown, player.Role))
+                    TC.Get(StaticData.Professions.Unknown, player.Role).Set(player);
             foreach (var player in relevantPlayers)
                 if (!TC.Exists(player.AccountName) && TC.Exists(player.Class, Role.Empty))
                     TC.Get(player.Class, Role.Empty).Set(player);
             foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown, Role.Empty))
-                    TC.Get(Profession.Unknown, Role.Empty).Set(player);
+                if (!TC.Exists(player.AccountName) && TC.Exists(StaticData.Professions.Unknown, Role.Empty))
+                    TC.Get(StaticData.Professions.Unknown, Role.Empty).Set(player);
 
             relevantPlayers = Players.Where(p => !TC.Exists(p.AccountName));
             foreach (var player in relevantPlayers)
@@ -417,8 +417,8 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 if (!TC.Exists(player.AccountName) && TC.Exists(Role.Empty))
                     TC.Get(Role.Empty).Set(player);
             foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown))
-                    TC.Get(Profession.Unknown).Set(player);
+                if (!TC.Exists(player.AccountName) && TC.Exists(StaticData.Professions.Unknown))
+                    TC.Get(StaticData.Professions.Unknown).Set(player);
             foreach (var player in relevantPlayers)
                 if (!TC.Exists(player.AccountName) && TC.Exists())
                     TC.Get().Set(player);
@@ -435,14 +435,14 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 if (TC.Exists(player.Class, player.Role))
                     TC.Get(player.Class, player.Role).Set(player);
             foreach (var player in relevantPlayers)
-                if (TC.Exists(Profession.Unknown, player.Role))
-                    TC.Get(Profession.Unknown, player.Role).Set(player);
+                if (TC.Exists(StaticData.Professions.Unknown, player.Role))
+                    TC.Get(StaticData.Professions.Unknown, player.Role).Set(player);
             foreach (var player in relevantPlayers)
                 if (TC.Exists(player.Class, Role.Empty))
                     TC.Get(player.Class, Role.Empty).Set(player);
             foreach (var player in relevantPlayers)
-                if (TC.Exists(Profession.Unknown, Role.Empty))
-                    TC.Get(Profession.Unknown, Role.Empty).Set(player);
+                if (TC.Exists(StaticData.Professions.Unknown, Role.Empty))
+                    TC.Get(StaticData.Professions.Unknown, Role.Empty).Set(player);
 
             relevantPlayers = Players
                 .Where(p => Players.Where(p2 => p.RaidOrgaID == p2.RaidOrgaID).Count() > TC.Players.Where(p2 => p2.ID == p.RaidOrgaID).Count())
@@ -463,8 +463,8 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 if (TC.Exists(Role.Empty))
                     TC.Get(Role.Empty).Set(player);
             foreach (var player in relevantPlayers)
-                if (TC.Exists(Profession.Unknown))
-                    TC.Get(Profession.Unknown).Set(player);
+                if (TC.Exists(StaticData.Professions.Unknown))
+                    TC.Get(StaticData.Professions.Unknown).Set(player);
             foreach (var player in relevantPlayers)
                 if (TC.Exists())
                     TC.Get().Set(player);
@@ -492,7 +492,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
         {
             for (int i = 1; i <= 10; i++)
                 if (!TC.Players.Any(p => p.Pos == i))
-                    TC.Players.Add(new Position(i, 0, "", Role.Empty, Profession.Unknown));
+                    TC.Players.Add(new Position(i, 0, "", Role.Empty, StaticData.Professions.Unknown));
         }
 
         internal void SortIfNew()

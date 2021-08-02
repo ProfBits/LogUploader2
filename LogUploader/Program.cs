@@ -425,7 +425,7 @@ namespace LogUploader
             var rawDataJson = JsonHandling.ReadJsonFile(exePath + @"\Data\DataConfig.json");
             progress?.Report(new ProgressMessage(0.5, "Processing Boss data"));
             DataBuilder.LoadDataJson(rawDataJson);
-            Profession.Init(exePath + @"\Data\ProfessionData.json",
+            ProfessionDataBuilder.ParseFile(exePath + @"\Data\ProfessionData.json",
                 new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.5) + 0.5, "Processing Class data"))));
         }
 

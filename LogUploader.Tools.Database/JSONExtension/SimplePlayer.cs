@@ -52,7 +52,7 @@ namespace LogUploader.Tools.Database.JSONExtensiones
                     Account = (string)data["account"];
                     Name = (string)data["name"];
                     ProfessionStr = (string)data["profession"];
-                    Profession = Data.Profession.Get(ProfessionStr);
+                    Profession = StaticData.Professions.Get(ProfessionStr);
                     Group = (int)data["group"];
                     if (data["dpsAll"] is JArray)
                     {

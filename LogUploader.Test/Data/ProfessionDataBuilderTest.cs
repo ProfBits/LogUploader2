@@ -120,8 +120,8 @@ namespace LogUploader.Test.Data
         {
             ProfessionRepository testProfessionRepo = new ProfessionRepository();
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => ProfessionDataBuilder.ParseJson(null, testProfessionRepo)));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => ProfessionDataBuilder.ParseJson(SmallValidTestJson, null)));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => ProfessionDataBuilder.ParseJson(null, null)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => ProfessionDataBuilder.ParseJson(SmallValidTestJson, (ProfessionRepository)null)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => ProfessionDataBuilder.ParseJson(null, (ProfessionRepository)null)));
         }
 
         [Test]

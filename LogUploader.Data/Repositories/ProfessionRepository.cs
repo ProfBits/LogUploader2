@@ -16,6 +16,8 @@ namespace LogUploader.Data.Repositories
                 p => p.Abbreviation
                 );
 
+        public Profession Unknown { get => Get(eProfession.Unknown); }
+
         internal void Add(Profession prof)
         {
             Professions.Add(prof);

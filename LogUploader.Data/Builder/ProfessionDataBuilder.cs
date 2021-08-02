@@ -22,16 +22,28 @@ namespace LogUploader.Data
         private const string TAG_ROP_ID = "RaidOrgaPlusID";
         private const string TAG_ROP_ABBREVIATION = "RaidOrgaPlusAbbreviation";
 
-        public static void ParseJson(string json) => ParseJson(json, StaticData.ProfessionRepository);
+        public static void ParseFile(string path, IProgress<double> progress = null)
+        {
+            progress?.Report(0);
+            string json = JsonHandling.ReadJsonFile(path);
+            progress?.Report(0.50);
+            ParseJson(json, (double p) => progress?.Report(p * 0.5 + 0.5));
+        }
 
-        internal static void ParseJson(string json, ProfessionRepository professionRepo)
+        public static void ParseJson(string json, Action<double> progress = null) => ParseJson(json, StaticData.ProfessionRepository, progress);
+
+        internal static void ParseJson(string json, ProfessionRepository professionRepo, Action<double> progress = null)
         {
             if (json is null) throw new ArgumentNullException(nameof(json), "The JSON string cannot be null");
             if (professionRepo is null) throw new ArgumentNullException(nameof(professionRepo), "ProfessionRepository cannot be null");
 
+            progress?.Invoke(0.01);
             JArray parsedData = ParseString(json);
+            progress?.Invoke(0.60);
             IEnumerable<Profession> professions = LoadProfessionsInToRepo(parsedData);
+            progress?.Invoke(0.95);
             StoreProfessions(professions, professionRepo);
+            progress?.Invoke(1);
         }
 
         private static void StoreProfessions(IEnumerable<Profession> professions, ProfessionRepository professionRepo)
@@ -104,5 +116,6 @@ namespace LogUploader.Data
                 throw jsonEx;
             }
         }
+
     }
 }

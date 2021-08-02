@@ -11,5 +11,6 @@ namespace LogUploader.Data
         Profession Get(string name);
         Profession Get(int raidOrgaPlusID);
         Profession GetByAbbreviation(string abbreviation);
+        Profession Unknown { get; }
     }
 }
