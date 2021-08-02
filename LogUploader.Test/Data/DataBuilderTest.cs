@@ -8,9 +8,9 @@ using System.Xml.Linq;
 using NUnit.Framework;
 
 using LogUploader.Data;
-using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
 using LogUploader.Data.StaticDataLoader;
+using LogUploader.Data.Repositories;
 
 namespace LogUploader.Test.Data
 {
@@ -33,7 +33,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void DataBuilderRaidWingTest()
         {
-            TestDataRegistrator.TestRaidWing wing = null;
+            Raid wing = null;
             Assert.DoesNotThrow(() => wing = TestRegistrator.TestAreas.TestGetRaidWing(1));
             BasicGameAreaAssertions(wing, "RaidEN", "RaidDE", "https://raid.area/icon.png");
         }
@@ -41,7 +41,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void DataBuilderStrikeTest()
         {
-            TestDataRegistrator.TestStrike strike = null;
+            Strike strike = null;
             Assert.DoesNotThrow(() => strike = TestRegistrator.TestAreas.TestGetStrike(1));
             BasicGameAreaAssertions(strike, "StrikeEN", "StriekDE", "https://strike.area/icon.png");
         }
@@ -49,7 +49,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void DataBuilderFractalTest()
         {
-            TestDataRegistrator.TestFractal fractal = null;
+            Fractal fractal = null;
             Assert.DoesNotThrow(() => fractal = TestRegistrator.TestAreas.TestGetFractal(1));
             BasicGameAreaAssertions(fractal, "FractalEN", "FractalDE", "https://fractal.area/icon.png");
         }
@@ -57,7 +57,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void DataBuilderDrmTest()
         {
-            TestDataRegistrator.TestDragonResponseMission drm = null;
+            DragonResponseMission drm = null;
             Assert.DoesNotThrow(() => drm = TestRegistrator.TestAreas.TestGetDragonResponseMission(1));
             BasicGameAreaAssertions(drm, "DRMEN", "DRMDE", "https://drm.area/icon.png");
         }
@@ -65,7 +65,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void DataBuilderWvWTest()
         {
-            TestDataRegistrator.TestWvW wvw = null;
+            WvW wvw = null;
             Assert.DoesNotThrow(() => wvw = TestRegistrator.TestAreas.TestGetWvW());
             BasicGameAreaAssertions(wvw, "WvWEN", "WvWDE", "https://wvw.area/icon.png");
             ExtendedGameAreaAssertions(wvw, "WvWen", "WvWde");
@@ -74,7 +74,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void DataBuilderTrainingTest()
         {
-            TestDataRegistrator.TestTraining training = null;
+            Training training = null;
             Assert.DoesNotThrow(() => training = TestRegistrator.TestAreas.TestGetTraining());
             BasicGameAreaAssertions(training, "GolemEN", "GolemDE", "https://golem.area/icon.png");
             ExtendedGameAreaAssertions(training, "Golemen", "Golemde");
@@ -83,7 +83,7 @@ namespace LogUploader.Test.Data
         [Test]
         public void DataBuilderUnknownTest()
         {
-            TestDataRegistrator.TestUnknowen unknowen = null;
+            UnkowenGameArea unknowen = null;
             Assert.DoesNotThrow(() => unknowen = TestRegistrator.TestAreas.TestGetUnkowen());
             BasicGameAreaAssertions(unknowen, "???EN", "???DE", "https://unkown.area/icon.png");
             ExtendedGameAreaAssertions(unknowen, "???en", "???de");
@@ -108,23 +108,23 @@ namespace LogUploader.Test.Data
         public void DataBuilderBossTest()
         {
             Assert.That(TestRegistrator.TestBosses.Bosses.Count, Is.EqualTo(7));
-            TestBoss(0, "B?EN", "B?DE", "Bf?en", "Bf?de", "B?EI", typeof(AbstractUnknowen), ":emote:", "https://unkown.boss/icon.png", -1);
-            TestBoss(15438, "Vale Guardian", "Tal Wächter", "Vale Guardianf", "Tal-Wächterf", "Vale Guardiane", typeof(AbstractRaidWing), ":vg:", "https://vg.boss/icon.png", 1);
-            TestBoss(22154, "Construct", "Konstrukt", "ConstructF", "KonstruktF", "ConstructEI", typeof(AbstractStrike), ":strike:", "https://construct.boss/icon.png", -1);
-            TestBoss(23330, "Destroyer", "Zerstörer", "DestroyerF", "ZerstörerF", "DestroyerEI", typeof(AbstractDragonResponseMission), ":drm:", "https://drm.boss/icon.png", -1);
-            TestBoss(1, "WvWEN", "WvWDE", "WvWENf", "WvWDEf", "WvWEI", typeof(AbstractWvW), ":wvw:", "https://wvw.boss/icon.png", -1);
-            TestBoss(17021, "fractalEN", "fractalDE", "fractalENf", "fractalDEf", "fractalEI", typeof(AbstractFractal), ":fractal:", "https://fractal.boss/icon.png", -1);
-            TestBoss(16202, "GolemEN", "GolemDE", "GolemENf", "GolemDEf", "GolemEI", typeof(AbstractTraining), ":golem:", "https://golem.boss/icon.png", -1);
+            TestBoss(0, "B?EN", "B?DE", "Bf?en", "Bf?de", "B?EI", typeof(UnkowenGameArea), ":emote:", "https://unkown.boss/icon.png", -1);
+            TestBoss(15438, "Vale Guardian", "Tal Wächter", "Vale Guardianf", "Tal-Wächterf", "Vale Guardiane", typeof(Raid), ":vg:", "https://vg.boss/icon.png", 1);
+            TestBoss(22154, "Construct", "Konstrukt", "ConstructF", "KonstruktF", "ConstructEI", typeof(Strike), ":strike:", "https://construct.boss/icon.png", -1);
+            TestBoss(23330, "Destroyer", "Zerstörer", "DestroyerF", "ZerstörerF", "DestroyerEI", typeof(DragonResponseMission), ":drm:", "https://drm.boss/icon.png", -1);
+            TestBoss(1, "WvWEN", "WvWDE", "WvWENf", "WvWDEf", "WvWEI", typeof(WvW), ":wvw:", "https://wvw.boss/icon.png", -1);
+            TestBoss(17021, "fractalEN", "fractalDE", "fractalENf", "fractalDEf", "fractalEI", typeof(Fractal), ":fractal:", "https://fractal.boss/icon.png", -1);
+            TestBoss(16202, "GolemEN", "GolemDE", "GolemENf", "GolemDEf", "GolemEI", typeof(Training), ":golem:", "https://golem.boss/icon.png", -1);
         }
 
         private void TestBoss(int id, string nameEN, string nameDE, string folderNameEN, string folderNameDE,
             string eiName, Type areaType, string discordEmote, string avatarURL, int raidOrgaPlusID)
         {
             Assert.That(TestRegistrator.TestBosses.Exists(id), Is.True);
-            TestDataRegistrator.TestBoss boss = (TestDataRegistrator.TestBoss)TestRegistrator.TestBosses.Get(id);
+            Boss boss = (Boss)TestRegistrator.TestBosses.Get(id);
             TestBasicEnemy(boss, id, nameEN, nameDE, areaType);
-            Assert.That(boss.GetFolderName(eLanguage.EN), Is.EqualTo(folderNameEN));
-            Assert.That(boss.GetFolderName(eLanguage.DE), Is.EqualTo(folderNameDE));
+            Assert.That(boss.FolderNameEN, Is.EqualTo(folderNameEN));
+            Assert.That(boss.FolderNameDE, Is.EqualTo(folderNameDE));
             Assert.That(boss.EIName, Is.EqualTo(eiName));
             Assert.That(boss.DiscordEmote, Is.EqualTo(discordEmote));
             Assert.That(boss.AvatarURL, Is.EqualTo(avatarURL));
@@ -135,16 +135,16 @@ namespace LogUploader.Test.Data
         public void DataBuilderAddEnemyTest()
         {
             Assert.That(TestRegistrator.TestAddEnemies.Adds.Count, Is.EqualTo(3));
-            TestAdd(0, "Add?EN", "Add?DE", typeof(AbstractUnknowen), true);
-            TestAdd(2, "IntrestingEN", "IntrestingDE", typeof(AbstractRaidWing), true);
-            TestAdd(3, "UnintrestingEN", "UnintrestingDE", typeof(AbstractRaidWing), false);
+            TestAdd(0, "Add?EN", "Add?DE", typeof(UnkowenGameArea), true);
+            TestAdd(2, "IntrestingEN", "IntrestingDE", typeof(Raid), true);
+            TestAdd(3, "UnintrestingEN", "UnintrestingDE", typeof(Raid), false);
         }
 
 
         private void TestAdd(int id, string nameEN, string nameDE, Type areaType, bool interesting)
         {
             Assert.That(TestRegistrator.TestAddEnemies.Exists(id), Is.True);
-            TestDataRegistrator.TestAddEnemy add = (TestDataRegistrator.TestAddEnemy)TestRegistrator.TestAddEnemies.Get(id);
+            AddEnemy add = (AddEnemy)TestRegistrator.TestAddEnemies.Get(id);
             TestBasicEnemy(add, id, nameEN, nameDE, areaType);
             Assert.That(add.IsInteresting, Is.EqualTo(interesting));
         }
@@ -170,14 +170,10 @@ namespace LogUploader.Test.Data
             public TestBosseRegistrator TestBosses { get; }
             public TestAddEnemyRegistrator TestAddEnemies { get; }
             public TestMiscDataRegistrator TestMiscData { get; }
-            public IAreaRegistrator SetAreas { get => TestAreas; }
-            public IBosseRegistrator SetBosses { get => TestBosses; }
-            public IAddEnemyRegistrator SetAddEnemies { get => TestAddEnemies; }
-            public IMiscDataRegistrator SetMiscData { get => TestMiscData; }
-            public IAreaRepository Areas { get => SetAreas; }
-            public IBosseRepository Bosses { get => SetBosses; }
-            public IAddEnemyRepository AddEnemies { get => SetAddEnemies; }
-            public IMiscDataRepository MiscData { get => SetMiscData; }
+            public IAreaRegistrator Areas { get => TestAreas; }
+            public IBosseRegistrator Bosses { get => TestBosses; }
+            public IAddEnemyRegistrator AddEnemies { get => TestAddEnemies; }
+            public IMiscDataRegistrator MiscData { get => TestMiscData; }
 
             public TestDataRegistrator()
             {
@@ -189,223 +185,207 @@ namespace LogUploader.Test.Data
 
             public class TestAreaRegistrator : IAreaRegistrator
             {
-                private Dictionary<int, TestDragonResponseMission> drms = new Dictionary<int, TestDragonResponseMission>();
-                private Dictionary<int, TestFractal> fractals = new Dictionary<int, TestFractal>();
-                private Dictionary<int, TestRaidWing> wings = new Dictionary<int, TestRaidWing>();
-                private Dictionary<int, TestStrike> strikes = new Dictionary<int, TestStrike>();
-                private List<TestTraining> trainings = new List<TestTraining>();
-                private List<TestUnknowen> unknowens = new List<TestUnknowen>();
-                private List<TestWvW> wvws = new List<TestWvW>();
+                private Dictionary<int, DragonResponseMission> drms = new Dictionary<int, DragonResponseMission>();
+                private Dictionary<int, Fractal> fractals = new Dictionary<int, Fractal>();
+                private Dictionary<int, Raid> wings = new Dictionary<int, Raid>();
+                private Dictionary<int, Strike> strikes = new Dictionary<int, Strike>();
+                private List<Training> trainings = new List<Training>();
+                private List<UnkowenGameArea> unknowens = new List<UnkowenGameArea>();
+                private List<WvW> wvws = new List<WvW>();
 
-                public AbstractDragonResponseMission GetDragonResponseMission(int id) => TestGetDragonResponseMission(id);
+                public DragonResponseMission GetDragonResponseMission(int id) => TestGetDragonResponseMission(id);
 
-                public AbstractFractal GetFractal(int id) => TestGetFractal(id);
+                public Fractal GetFractal(int id) => TestGetFractal(id);
 
-                public AbstractRaidWing GetRaidWing(int id) => TestGetRaidWing(id);
+                public Raid GetRaidWing(int id) => TestGetRaidWing(id);
 
-                public AbstractStrike GetStrike(int id) => TestGetStrike(id);
+                public Strike GetStrike(int id) => TestGetStrike(id);
 
-                public AbstractTraining GetTraining() => TestGetTraining();
+                public Training GetTraining() => TestGetTraining();
 
-                public AbstractUnknowen GetUnkowen() => TestGetUnkowen();
+                public UnkowenGameArea GetUnkowen() => TestGetUnkowen();
 
-                public AbstractWvW GetWvW() => TestGetWvW();
+                public WvW GetWvW() => TestGetWvW();
 
-                public TestDragonResponseMission TestGetDragonResponseMission(int id)
+                public DragonResponseMission TestGetDragonResponseMission(int id)
                 {
                     return drms[id];
                 }
 
-                public TestFractal TestGetFractal(int id)
+                public Fractal TestGetFractal(int id)
                 {
                     return fractals[id];
                 }
 
-                public TestRaidWing TestGetRaidWing(int id)
+                public Raid TestGetRaidWing(int id)
                 {
                     return wings[id];
                 }
 
-                public TestStrike TestGetStrike(int id)
+                public Strike TestGetStrike(int id)
                 {
                     return strikes[id];
                 }
 
-                public TestTraining TestGetTraining()
+                public Training TestGetTraining()
                 {
-                    return trainings.FirstOrDefault();
+                    return trainings.LastOrDefault();
                 }
 
-                public TestUnknowen TestGetUnkowen()
+                public UnkowenGameArea TestGetUnkowen()
                 {
-                    return unknowens.FirstOrDefault();
+                    return unknowens.LastOrDefault();
                 }
 
-                public TestWvW TestGetWvW()
+                public WvW TestGetWvW()
                 {
-                    return wvws.FirstOrDefault();
+                    return wvws.LastOrDefault();
                 }
 
-                public void RegisterDragonResponseMission(GameArea.BasicInfo basicInfo, int id)
+                public void RegisterDragonResponseMission(int id, (string nameEN, string nameDE, string avatarURL) basicData)
                 {
-                    drms.Add(id, new TestDragonResponseMission(basicInfo, id));
+                    (string nameEN, string nameDE, string avatarURL) = basicData;
+                    DragonResponseMission drm = new DragonResponseMission(id, nameEN, nameDE, avatarURL);
+                    drms.Add(id, drm);
                 }
 
-                public void RegisterFractal(GameArea.BasicInfo basicInfo, int id)
+                public void RegisterFractal(int id, (string nameEN, string nameDE, string avatarURL) basicData)
                 {
-                    fractals.Add(id, new TestFractal(basicInfo, id));
+                    (string nameEN, string nameDE, string avatarURL) = basicData;
+                    Fractal fractal = new Fractal(id, nameEN, nameDE, avatarURL);
+                    fractals.Add(id, fractal);
                 }
 
-                public void RegisterRaidWing(GameArea.BasicInfo basicInfo, int id)
+                public void RegisterRaidWing(int id, (string nameEN, string nameDE, string avatarURL) basicData)
                 {
-                    wings.Add(id, new TestRaidWing(basicInfo, id));
+                    (string nameEN, string nameDE, string avatarURL) = basicData;
+                    Raid raid = new Raid(id, nameEN, nameDE, avatarURL);
+                    wings.Add(id, raid);
                 }
 
-                public void RegisterStrike(GameArea.BasicInfo basicInfo, int id)
+                public void RegisterStrike(int id, (string nameEN, string nameDE, string avatarURL) basicData)
                 {
-                    strikes.Add(id, new TestStrike(basicInfo, id));
+                    (string nameEN, string nameDE, string avatarURL) = basicData;
+                    Strike strike = new Strike(id, nameEN, nameDE, avatarURL);
+                    strikes.Add(id, strike);
                 }
 
-                public void RegisterTraining(GameArea.ExtendedInfo basicInfo)
+                public void RegisterTraining((string nameEN, string nameDE, string avatarURL) basicData, (string shortNameEN, string shortNameDE) extendedData)
                 {
-                    trainings.Add(new TestTraining(basicInfo));
+                    (string nameEN, string nameDE, string avatarURL) = basicData;
+                    (string shortNameEN, string shortNameDE) = extendedData;
+                    Training training = new Training(nameEN, nameDE, shortNameEN, shortNameDE, avatarURL);
+                    trainings.Add(training);
                 }
 
-                public void RegisterUnkowen(GameArea.ExtendedInfo basicInfo)
+                public void RegisterUnkowen((string nameEN, string nameDE, string avatarURL) basicData, (string shortNameEN, string shortNameDE) extendedData)
                 {
-                    unknowens.Add(new TestUnknowen(basicInfo));
+                    (string nameEN, string nameDE, string avatarURL) = basicData;
+                    (string shortNameEN, string shortNameDE) = extendedData;
+                    UnkowenGameArea unkowen = new UnkowenGameArea(nameEN, nameDE, shortNameEN, shortNameDE, avatarURL);
+                    unknowens.Add(unkowen);
                 }
 
-                public void RegisterWvW(GameArea.ExtendedInfo basicInfo)
+                public void RegisterWvW((string nameEN, string nameDE, string avatarURL) basicData, (string shortNameEN, string shortNameDE) extendedData)
                 {
-                    wvws.Add(new TestWvW(basicInfo));
+                    (string nameEN, string nameDE, string avatarURL) = basicData;
+                    (string shortNameEN, string shortNameDE) = extendedData;
+                    WvW wvw = new WvW(nameEN, nameDE, shortNameEN, shortNameDE, avatarURL);
+                    wvws.Add(wvw);
                 }
-            }
 
-            public class TestDragonResponseMission : AbstractDragonResponseMission
-            {
-                public TestDragonResponseMission(IBasicInfo info, int number) : base(info, number)
+                public bool ExitsRaidWing(int id)
                 {
+                    return wings.ContainsKey(id);
                 }
-            }
 
-            public class TestFractal : AbstractFractal
-            {
-                public TestFractal(IBasicInfo info, int number) : base(info, number)
+                public bool ExitsStrike(int id)
                 {
+                    return strikes.ContainsKey(id);
                 }
-            }
 
-            public class TestRaidWing : AbstractRaidWing
-            {
-                public TestRaidWing(IBasicInfo info, int number) : base(info, number)
+                public bool ExitsFractal(int id)
                 {
+                    return fractals.ContainsKey(id);
                 }
-            }
 
-            public class TestStrike : AbstractStrike
-            {
-                public TestStrike(IBasicInfo info, int number) : base(info, number)
+                public bool ExitsWvW()
                 {
+                    return wvws.Count > 0;
                 }
-            }
 
-            public class TestTraining : AbstractTraining
-            {
-                public TestTraining(IExtendedInfo info) : base(info)
+                public bool ExitsDragonResponseMission(int id)
                 {
+                    return drms.ContainsKey(id);
                 }
-            }
 
-            public class TestUnknowen : AbstractUnknowen
-            {
-                public TestUnknowen(IExtendedInfo info) : base(info)
+                public bool ExitsTraining()
                 {
+                    return wvws.Count > 0;
                 }
-            }
 
-            public class TestWvW : AbstractWvW
-            {
-                public TestWvW(IExtendedInfo info) : base(info)
+                public bool ExitsUnkowen()
                 {
+                    return wvws.Count > 0;
                 }
             }
 
             public class TestBosseRegistrator : IBosseRegistrator
             {
-                public Dictionary<int, TestBoss> Bosses = new Dictionary<int, TestBoss>();
+                public Dictionary<int, Boss> Bosses = new Dictionary<int, Boss>();
 
                 public bool Exists(int id)
                 {
                     return Bosses.ContainsKey(id);
                 }
 
-                public AbstractBoss Get(int id)
+                public Boss Get(int id)
                 {
                     return Bosses[id];
                 }
 
-                public void Register(Enemy.BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID)
+                public void Register((int iD, string nameEN, string nameDE, GameArea gameArea) basicInfo,
+                    (string folderNameEN, string folderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) extendedInfo)
                 {
-                    Bosses.Add(info.ID, new TestBoss(info, FolderNameEN, FolderNameDE, avatarURL, discordEmote, eIName, raidOrgaPlusID));
+                    (int iD, string nameEN, string nameDE, GameArea gameArea) = basicInfo;
+                    (string folderNameEN, string folderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) = extendedInfo;
+                    Boss boss = new Boss(iD, nameEN, nameDE, folderNameEN, folderNameDE, gameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID);
+                    Bosses.Add(iD, boss);
                 }
 
                 public void Register()
                 {
-                    var boss = new TestBoss();
+                    var boss = new Boss();
                     Bosses.Add(boss.ID, boss);
-                }
-            }
-
-            public class TestBoss : AbstractBoss
-            {
-                public TestBoss() : base()
-                { }
-
-                public TestBoss(BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) :
-                    base(info, FolderNameEN, FolderNameDE, avatarURL, discordEmote, eIName, raidOrgaPlusID)
-                { }
-
-                internal string GetFolderName(eLanguage lang)
-                {
-                    return m_FolderName.GetName(lang);
                 }
             }
 
             public class TestAddEnemyRegistrator : IAddEnemyRegistrator
             {
-                public Dictionary<int, TestAddEnemy> Adds = new Dictionary<int, TestAddEnemy>();
+                public Dictionary<int, AddEnemy> Adds = new Dictionary<int, AddEnemy>();
 
                 public bool Exists(int id)
                 {
                     return Adds.ContainsKey(id);
                 }
 
-                public AbstractAddEnemy Get(int id)
+                public AddEnemy Get(int id)
                 {
                     return Adds[id];
                 }
 
-                public void Register(Enemy.BasicInfo info, bool intresting)
+                public void Register((int iD, string nameEN, string nameDE, GameArea gameArea) basicInfo, bool intresting)
                 {
-                    Adds.Add(info.ID, new TestAddEnemy(info, intresting));
+                    (int iD, string nameEN, string nameDE, GameArea gameArea) = basicInfo;
+                    AddEnemy add = new AddEnemy(iD, nameEN, nameDE, gameArea, intresting);
+                    Adds.Add(iD, add);
                 }
 
                 public void Register()
-                {
-                    var add = new TestAddEnemy();
+{
+                    AddEnemy add = new AddEnemy();
                     Adds.Add(add.ID, add);
                 }
-            }
-
-            public class TestAddEnemy : AbstractAddEnemy
-            {
-                public TestAddEnemy() : base()
-                { }
-
-                public TestAddEnemy(BasicInfo info, bool interesting) :
-                    base(info, interesting)
-                { }
             }
 
             public class TestMiscDataRegistrator : IMiscDataRegistrator

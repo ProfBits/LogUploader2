@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using LogUploader.Localisation;
 
-namespace LogUploader.Data.New
+namespace LogUploader.Data
 {
     public abstract class GameArea : NamedObject, IAvatar, IEquatable<GameArea>
     {

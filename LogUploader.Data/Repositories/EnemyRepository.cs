@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
 
 namespace LogUploader.Data.Repositories
@@ -11,7 +10,8 @@ namespace LogUploader.Data.Repositories
     internal abstract class EnemyRepository<T> : EnemyProvider<T> where T : Enemy
     {
         public int Count { get => BaseData.Count; }
-        internal abstract IMultiKeyBaseDictionary<int, string, string, T> BaseData { get; }
+        internal abstract IDictionary<int, T> BaseData { get; }
+        
 
         public virtual bool Exists(int id)
         {
@@ -20,7 +20,7 @@ namespace LogUploader.Data.Repositories
 
         public virtual bool Exists(string name)
         {
-            return BaseData.ContainsKey(key2: name) || BaseData.ContainsKey(key3: name);
+            return BaseData.Values.Any(e => e.NameEN == name || e.NameDE == name);
         }
 
         public virtual bool Exists(string name, eLanguage lang)
@@ -28,28 +28,21 @@ namespace LogUploader.Data.Repositories
             switch (lang)
             {
                 case eLanguage.DE:
-                    return BaseData.ContainsKey(key3: name);
+                    return BaseData.Values.Any(e => e.NameDE == name);
                 case eLanguage.EN:
                 default:
-                    return BaseData.ContainsKey(key2: name);
+                    return BaseData.Values.Any(e => e.NameEN == name);
             }
         }
 
         public virtual T Get(int id)
         {
-            return BaseData.Get(id);
+            return BaseData.ContainsKey(id) ? BaseData[id] : BaseData[0];
         }
 
         public virtual T Get(string name)
         {
-            try
-            {
-                return BaseData.Get(key2: name);
-            }
-            catch (KeyNotFoundException)
-            {
-                return BaseData.Get(key3: name);
-            }
+            return BaseData.Values.FirstOrDefault(e => e.NameEN == name || e.NameDE == name) ?? throw new KeyNotFoundException();
         }
 
         public virtual List<T> Get(GameArea area)

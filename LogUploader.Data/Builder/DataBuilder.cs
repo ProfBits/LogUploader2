@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using LogUploader.Data.GameAreas;
 using LogUploader.Data;
 
 using Newtonsoft.Json.Linq;
+using System.Xml.Linq;
 
 namespace LogUploader.Data.StaticDataLoader
 {
@@ -78,8 +78,8 @@ namespace LogUploader.Data.StaticDataLoader
         private void CreateMiscData(JObject json)
         {
             var emotes = (JObject)json[TagMiscEmoteRoot];
-            Registrator.SetMiscData.RegisterKillEmote((string)emotes[TagKill]);
-            Registrator.SetMiscData.RegisterWipeEmote((string)emotes[TagWipe]);
+            Registrator.MiscData.RegisterKillEmote((string)emotes[TagKill]);
+            Registrator.MiscData.RegisterWipeEmote((string)emotes[TagWipe]);
         }
 
         private JObject ParseJson(string json)
@@ -107,10 +107,10 @@ namespace LogUploader.Data.StaticDataLoader
         {
             foreach (JObject raidWing in wingsData)
             {
-                var ID = (int) raidWing[TagID];
+                var id = (int) raidWing[TagID];
                 var basicInfo = GetAreaBasicInfo(raidWing);
 
-                Registrator.SetAreas.RegisterRaidWing(basicInfo, ID);
+                Registrator.Areas.RegisterRaidWing(id, basicInfo);
             }
         }
 
@@ -118,10 +118,10 @@ namespace LogUploader.Data.StaticDataLoader
         {
             foreach (JObject strike in strikesData)
             {
-                var ID = (int) strike[TagID];
+                var id = (int) strike[TagID];
                 var basicInfo = GetAreaBasicInfo(strike);
 
-                Registrator.SetAreas.RegisterStrike(basicInfo, ID);
+                Registrator.Areas.RegisterStrike(id, basicInfo);
             }
         }
 
@@ -129,10 +129,10 @@ namespace LogUploader.Data.StaticDataLoader
         {
             foreach (JObject drm in drmData)
             {
-                var ID = (int) drm[TagID];
+                var id = (int) drm[TagID];
                 var basicInfo = GetAreaBasicInfo(drm);
 
-                Registrator.SetAreas.RegisterDragonResponseMission(basicInfo, ID);
+                Registrator.Areas.RegisterDragonResponseMission(id, basicInfo);
             }
         }
 
@@ -143,7 +143,7 @@ namespace LogUploader.Data.StaticDataLoader
                 var level = (int) fractal[TagLevel];
                 var basicInfo = GetAreaBasicInfo(fractal);
 
-                Registrator.SetAreas.RegisterFractal(basicInfo, level);
+                Registrator.Areas.RegisterFractal(level, basicInfo);
             }
         }
 
@@ -151,8 +151,9 @@ namespace LogUploader.Data.StaticDataLoader
         {
             foreach (JObject wvw in wvwData)
             {
+                var basicInfo = GetAreaBasicInfo(wvw);
                 var info = GetAreaExtendedInfo(wvw);
-                Registrator.SetAreas.RegisterWvW(info);
+                Registrator.Areas.RegisterWvW(basicInfo, info);
             }
         }
 
@@ -160,8 +161,9 @@ namespace LogUploader.Data.StaticDataLoader
         {
             foreach (JObject training in trainingsData)
             {
+                var basicInfo = GetAreaBasicInfo(training);
                 var info = GetAreaExtendedInfo(training);
-                Registrator.SetAreas.RegisterTraining(info);
+                Registrator.Areas.RegisterTraining(basicInfo, info);
             }
         }
 
@@ -169,8 +171,9 @@ namespace LogUploader.Data.StaticDataLoader
         {
             foreach (JObject unknown in unknownData)
             {
+                var basicInfo = GetAreaBasicInfo(unknown);
                 var info = GetAreaExtendedInfo(unknown);
-                Registrator.SetAreas.RegisterUnkowen(info);
+                Registrator.Areas.RegisterUnkowen(basicInfo, info);
             }
         }
         
@@ -181,7 +184,7 @@ namespace LogUploader.Data.StaticDataLoader
                 CreateBoss(boss);
             }
             if (!Registrator.Bosses.Exists(0))
-                Registrator.SetBosses.Register();
+                Registrator.Bosses.Register();
         }
 
         private async Task CreateBossesAsync(JArray bossData)
@@ -202,7 +205,7 @@ namespace LogUploader.Data.StaticDataLoader
             var DiscordEmote = (string)boss[TagDiscordEmote];
             var raidOrgaPlusId = (int)boss[TagRaidOrgaPlusID];
 
-            Registrator.SetBosses.Register(basics, folderEN, folderDE, avatarURL, DiscordEmote, EiName, raidOrgaPlusId);
+            Registrator.Bosses.Register(basics, (folderEN, folderDE, avatarURL, DiscordEmote, EiName, raidOrgaPlusId));
         }
 
         private GameArea DetimenGameArea(string gameAreaName, int gameAreaID)
@@ -235,7 +238,7 @@ namespace LogUploader.Data.StaticDataLoader
                CreateAdd(add);
             }
             if (!Registrator.AddEnemies.Exists(0))
-                Registrator.SetAddEnemies.Register();
+                Registrator.AddEnemies.Register();
         }
         
         private async Task CreateAddsAsync(JArray addData)
@@ -250,33 +253,33 @@ namespace LogUploader.Data.StaticDataLoader
                 await task;
             }
             if (!Registrator.AddEnemies.Exists(0))
-                Registrator.SetAddEnemies.Register();
+                Registrator.AddEnemies.Register();
         }
         
         private void CreateAdd(JObject add)
         {
             var basics = GetBasicEnemyInfo(add);
             var intresting = (bool)add[TagIntresting];
-            Registrator.SetAddEnemies.Register(basics, intresting);
+            Registrator.AddEnemies.Register(basics, intresting);
         }
 
-        private Enemy.BasicInfo GetBasicEnemyInfo(JObject enemy)
+        private (int iD, string nameEN, string nameDE, GameArea gameArea) GetBasicEnemyInfo(JObject enemy)
         {
             var ID = (int)enemy[TagID];
-            var name = GetNameInfo(enemy);
+            (string nameEN, string nameDE) = GetNameInfo(enemy);
             var gameAreaName = (string)enemy[TagGameAreaName];
             var gameAreaID = (int)enemy[TagGameAreaID];
             var gameArea = DetimenGameArea(gameAreaName, gameAreaID);
             
-            return new Enemy.BasicInfo(ID, name.EN, name.DE, gameArea);
+            return (ID, nameEN, nameDE, gameArea);
         }
 
-        private GameArea.BasicInfo GetAreaBasicInfo(JObject area)
+        private (string nameEN, string nameDE, string avatarURL) GetAreaBasicInfo(JObject area)
         {
-            var name = GetNameInfo(area);
+            (string nameEN, string nameDE) = GetNameInfo(area);
             string avatarURL = GetAvatarUrl(area);
 
-            return new GameArea.BasicInfo(name.EN, name.DE, avatarURL);
+            return (nameEN, nameDE, avatarURL);
         }
 
         private string GetAvatarUrl(JObject obj)
@@ -284,32 +287,19 @@ namespace LogUploader.Data.StaticDataLoader
             return (string)obj[TagAvatarURL];
         }
 
-        private GameArea.ExtendedInfo GetAreaExtendedInfo(JObject area)
+        private (string shortNameEN, string shortNameDE) GetAreaExtendedInfo(JObject area)
         {
             var shortNameEN = (string)area[TagShortNameEN];
             var shortNameDE = (string)area[TagShortNameDE];
 
-            return new GameArea.ExtendedInfo(GetAreaBasicInfo(area), shortNameEN, shortNameDE);
+            return (shortNameEN, shortNameDE);
         }
 
-        private NameInfo GetNameInfo(JObject obj)
+        private (string nameEN, string nameDE) GetNameInfo(JObject obj)
         {
             var nameEN = (string)obj[TagNameEN];
             var nameDE = (string)obj[TagNameDE];
-            return new NameInfo(nameEN, nameDE);
+            return (nameEN, nameDE);
         }
-
-        private struct NameInfo
-        {
-            public string EN { get; }
-            public string DE { get; }
-
-            public NameInfo(string nameEN, string nameDE)
-            {
-                EN = nameEN;
-                DE = nameDE;
-            }
-        }
-
     }
 }

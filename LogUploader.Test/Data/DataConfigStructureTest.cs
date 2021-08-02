@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using LogUploader.Data.GameAreas;
 using LogUploader.Tools;
 
 using Newtonsoft.Json.Linq;

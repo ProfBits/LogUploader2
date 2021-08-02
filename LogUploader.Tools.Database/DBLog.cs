@@ -68,7 +68,7 @@ namespace LogUploader.Tools.Database
         public int ID { get; set; } = -1;
 
         public int BossID { get; set; }
-        public string BossName { get => Boss.GetByID(BossID).Name; }
+        public string BossName { get => StaticData.Bosses.Get(BossID).Name; }
 
         public string EvtcPath
         {

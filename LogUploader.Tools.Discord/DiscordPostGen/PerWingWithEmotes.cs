@@ -17,7 +17,7 @@ namespace LogUploader.Tools.Discord
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
             string name = $"{log.Date:HH\\:mm}";
-            string value = $"{(log.Succsess ? MiscData.EmoteRaidKill : MiscData.EmoteRaidWipe)} {Boss.GetByID(log.BossID).DiscordEmote}";
+            string value = $"{(log.Succsess ? StaticData.Misc.KillEmote : StaticData.Misc.WipeEmote)} {StaticData.Bosses.Get(log.BossID).DiscordEmote}";
             if (log.IsCM)
                 value += $" CM";
             if (log.DataCorrected)
@@ -30,9 +30,9 @@ namespace LogUploader.Tools.Discord
 
         protected override Grouping GetGrouping(IEnumerable<ParsedData> data)
         {
-            if (data.Select(log => Boss.GetByID(log.Log.BossID)).Distinct().Count() == 1)
-                return new Grouping(Boss.GetByID(data.First().Log.BossID), Boss.GetByID(data.First().Log.BossID).Prefix(Boss.GetByID(data.First().Log.BossID).DiscordEmote + " "));
-            return new Grouping(Boss.GetByID(data.First().Log.BossID).Area);
+            if (data.Select(log => StaticData.Bosses.Get(log.Log.BossID)).Distinct().Count() == 1)
+                return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID), StaticData.Bosses.Get(data.First().Log.BossID).Prefix(StaticData.Bosses.Get(data.First().Log.BossID).DiscordEmote + " "));
+            return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID).Area);
         }
     }
 }

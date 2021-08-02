@@ -17,14 +17,14 @@ namespace LogUploader.Tools.RaidOrgaPlus
         public TeamComp TC { get; set; }
 
         private static readonly Boss[] BossRequiresExclude = new Boss[] { 
-            Boss.Get(eBosses.Deimos), // Frindly NPC concept - Desmina
-            Boss.Get(eBosses.Desmina), // Frindly NCP concept - Saul
-            Boss.Get(eBosses.ConjuredAmalgamate) // Sword fake Player
+            StaticData.Bosses.Get(eBosses.Deimos), // Frindly NPC concept - Desmina
+            StaticData.Bosses.Get(eBosses.Desmina), // Frindly NCP concept - Saul
+            StaticData.Bosses.Get(eBosses.ConjuredAmalgamate) // Sword fake Player
         };
 
         private bool overrideTank = false;
 
-        public Encounter(TeamComp tc, ICachedLog log, Raid r)
+        public Encounter(TeamComp tc, ICachedLog log, Data.Raid r)
         {
             TC = tc;
             Boss = tc.Encounter;
@@ -32,7 +32,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             tc.Success = log.Succsess;
         }
 
-        private static List<RoPlusPlayer> GetPlayersFromLog(IEnumerable<ISimplePlayer> newPlayer, Raid r, Boss boss)
+        private static List<RoPlusPlayer> GetPlayersFromLog(IEnumerable<ISimplePlayer> newPlayer, Data.Raid r, Boss boss)
         {
             var players = new List<RoPlusPlayer>();
             players.AddRange(newPlayer.Select(p => new RoPlusPlayer(p, r)));

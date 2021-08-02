@@ -1,6 +1,6 @@
 ﻿namespace LogUploader.Data
 {
-    public interface AreaProvider<T> where T : New.GameArea
+    public interface AreaProvider<T> where T : GameArea
     {
         string Name { get; }
         string NameEN { get; }

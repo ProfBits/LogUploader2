@@ -124,13 +124,12 @@ namespace LogUploader.Tools.Database.JSONExtensiones
         public List<ISimpleDps> DpsTarget { get; } = new List<ISimpleDps>();
 
         [JsonIgnore]
-        public int DpsTargets { get => DpsTarget.Where(e => Boss.ExistsID(e.Id)).Sum(e => e.Damage); }
+        public int DpsTargets { get => DpsTarget.Where(e => StaticData.Bosses.Exists(e.Id)).Sum(e => e.Damage); }
+[JsonIgnore]
+        public int DpsTargetsPower { get => DpsTarget.Where(e => StaticData.Bosses.Exists(e.Id)).Sum(e => e.Power); }
 
         [JsonIgnore]
-        public int DpsTargetsPower { get => DpsTarget.Where(e => Boss.ExistsID(e.Id)).Sum(e => e.Power); }
-
-        [JsonIgnore]
-        public int DpsTargetsCondi { get => DpsTarget.Where(e => Boss.ExistsID(e.Id)).Sum(e => e.Condi); }
+        public int DpsTargetsCondi { get => DpsTarget.Where(e => StaticData.Bosses.Exists(e.Id)).Sum(e => e.Condi); }
 
         public void UpdateTargetIDs(Dictionary<int, int> table)
         {

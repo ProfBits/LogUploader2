@@ -1,25 +1,41 @@
-﻿namespace LogUploader.Data.StaticDataLoader
+﻿using System;
+
+using LogUploader.Data.Repositories;
+
+
+namespace LogUploader.Data.StaticDataLoader
 {
     internal class BosseRegistrator : IBosseRegistrator
     {
+        BossRepository Repo;
+
+        public BosseRegistrator(BossRepository repo)
+        {
+            Repo = repo ?? throw new ArgumentNullException(nameof(repo));
+        }
+
         public bool Exists(int id)
         {
-            return Boss.ExistsID(id);
+            return Repo.Exists(id);
         }
 
-        public AbstractBoss Get(int id)
+        public Boss Get(int id)
         {
-            return Boss.GetByID(id);
+            return Repo.Get(id);
         }
 
-        public void Register(Enemy.BasicInfo info, string FolderNameEN, string FolderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID)
+        public void Register((int iD, string nameEN, string nameDE, GameArea gameArea) basicInfo, (string folderNameEN, string folderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) extendedInfo)
         {
-            new Boss(info, FolderNameEN, FolderNameDE, avatarURL, discordEmote, eIName, raidOrgaPlusID);
+            (int iD, string nameEN, string nameDE, GameArea gameArea) = basicInfo;
+            (string folderNameEN, string folderNameDE, string avatarURL, string discordEmote, string eIName, int raidOrgaPlusID) = extendedInfo;
+            Boss boss = new Boss(iD, nameEN, nameDE, folderNameEN, folderNameDE, gameArea, avatarURL, discordEmote, eIName, raidOrgaPlusID);
+            Repo.Add(boss);
         }
 
         public void Register()
         {
-            new Boss();
+            Boss boss = new Boss();
+            Repo.Add(boss);
         }
     }
 

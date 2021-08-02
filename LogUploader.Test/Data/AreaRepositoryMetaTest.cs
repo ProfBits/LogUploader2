@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-using LogUploader.Data.New;
+using LogUploader.Data;
 using LogUploader.Data.Repositories;
 
 using NUnit.Framework;

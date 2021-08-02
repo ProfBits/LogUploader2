@@ -8,7 +8,6 @@ using NUnit.Framework;
 using LogUploader.Data;
 using LogUploader.Tools;
 using LogUploader.Data.Repositories;
-using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
 using Newtonsoft.Json.Linq;
 
@@ -92,6 +91,27 @@ namespace LogUploader.Test.Data
             ValidateNumberedEnemy(provider.Get(expected.id), expected);
             ValidateNumberedEnemy(provider.Get(expected.nameEN), expected);
             ValidateNumberedEnemy(provider.Get(expected.nameDE), expected);
+        }
+
+        [Test]
+        public void GetElementByIDDefaultsTest()
+        {
+            var repo = CreateEmptyRepository();
+            T defaultEnemy = CreateNumberedEnemyObject(0);
+            repo.Add(defaultEnemy);
+            EnemyProvider<T> provider = repo;
+
+            Assert.That(provider.Get(defaultEnemy.ID + 1), Is.EqualTo(defaultEnemy));
+        }
+
+        [Test]
+        public void GetElementByIDDefaultsFailsTest()
+        {
+            var repo = CreateEmptyRepository();
+            EnemyProvider<T> provider = repo;
+
+            Assert.Catch<System.Collections.Generic.KeyNotFoundException>(() => provider.Get(1));
+            Assert.Catch<System.Collections.Generic.KeyNotFoundException>(() => provider.Get(0));
         }
 
         [Test]
@@ -252,7 +272,6 @@ namespace LogUploader.Test.Data
             return repo;
         }
 
-
         [Test]
         public void GetBossByExtendedDataTest([Values(0, 1, 2)] int num)
         {
@@ -266,6 +285,37 @@ namespace LogUploader.Test.Data
             ValidateNumberedBoss(provider.GetByFolderName(expected.folderNameDE, eLanguage.DE), expected);
             ValidateNumberedBoss(provider.GetByFolderName(expected.folderNameEN, eLanguage.EN), expected);
             ValidateNumberedBoss(provider.GetByEiName(expected.eiName), expected);
+        }
+
+        [Test]
+        public void GetBossByFolderNameDefaultsDataTest()
+        {
+            var repo = CreateEmptyBossRepository();
+            var defaultBoss = new Boss();
+            BossProvider provider = repo;
+
+            repo.Add(defaultBoss);
+
+            Assert.That(() => provider.GetByFolderName("noneExistingDE"), Throws.Nothing);
+            Assert.That(() => provider.GetByFolderName("noneExistingEN"), Throws.Nothing);
+            Assert.That(() => provider.GetByFolderName("noneExistingDE", eLanguage.DE), Throws.Nothing);
+            Assert.That(() => provider.GetByFolderName("noneExistingEN", eLanguage.EN), Throws.Nothing);
+            Assert.That(provider.GetByFolderName("noneExistingDE"), Is.EqualTo(defaultBoss));
+            Assert.That(provider.GetByFolderName("noneExistingEN"), Is.EqualTo(defaultBoss));
+            Assert.That(provider.GetByFolderName("noneExistingDE", eLanguage.DE), Is.EqualTo(defaultBoss));
+            Assert.That(provider.GetByFolderName("noneExistingEN", eLanguage.EN), Is.EqualTo(defaultBoss));
+        }
+
+        [Test]
+        public void GetBossByFolderNameDefaultsFailsDataTest()
+        {
+            var repo = CreateEmptyBossRepository();
+            BossProvider provider = repo;
+
+            Assert.Catch<System.Collections.Generic.KeyNotFoundException>(() => provider.GetByFolderName("noneExistingDE"));
+            Assert.Catch<System.Collections.Generic.KeyNotFoundException>(() => provider.GetByFolderName("noneExistingEN"));
+            Assert.Catch<System.Collections.Generic.KeyNotFoundException>(() => provider.GetByFolderName("noneExistingDE", eLanguage.DE));
+            Assert.Catch<System.Collections.Generic.KeyNotFoundException>(() => provider.GetByFolderName("noneExistingEN", eLanguage.EN));
         }
 
         [Test]
@@ -313,9 +363,11 @@ namespace LogUploader.Test.Data
             Assert.That(provider.Get(fakeAiId), Is.EqualTo(expected));
 
             Boss fakeAi = CreateNumberedEnemyObject(fakeAiId);
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => repo.Add(fakeAi)));
+            Assert.That(() => repo.Add(fakeAi), Throws.Nothing);
 
+            Assert.That(provider.Get(fakeAiId), Is.EqualTo(expected));
 
+            Assert.That(provider.Exists((int)Ai), Is.True);
             Assert.That(provider.Exists(fakeAiId), Is.True);
         }
 

@@ -16,8 +16,8 @@ namespace LogUploader.Tools.Discord
         {
             if (Settings.OnlyPostUploaded && string.IsNullOrWhiteSpace(log.Link))
                 return null;
-            string name = log.Succsess ? MiscData.EmoteRaidKill : MiscData.EmoteRaidWipe;
-            name += Boss.GetByID(log.BossID).DiscordEmote;
+            string name = log.Succsess ? StaticData.Misc.KillEmote : StaticData.Misc.WipeEmote;
+            name += StaticData.Bosses.Get(log.BossID).DiscordEmote;
             name += " " + log.BossName;
             if (log.IsCM)
                 name += " CM";

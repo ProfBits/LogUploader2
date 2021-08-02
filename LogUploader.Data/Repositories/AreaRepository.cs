@@ -1,7 +1,5 @@
 ﻿using System;
 
-using LogUploader.Data.New;
-
 namespace LogUploader.Data.Repositories
 {
     internal abstract class AreaRepository<T> : AreaProvider<T> where T : GameArea

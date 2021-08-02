@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using LogUploader.Data.GameAreas;
-
 namespace LogUploader.Data
 {
     public abstract class Enemy : NamedObject, IEquatable<Enemy>
     {
         public int ID { get; }
-        public GameAreas.GameArea Area { get; }
+        public GameArea Area { get; }
 
         internal Enemy(int id, string name, GameArea area) : this(id, name, name, area)
         {

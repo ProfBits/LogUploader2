@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-using LogUploader.Data.New;
+using LogUploader.Data;
 using LogUploader.Data.Repositories;
 
 namespace LogUploader.Test.Data

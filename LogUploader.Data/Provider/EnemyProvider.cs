@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
 
 namespace LogUploader.Data

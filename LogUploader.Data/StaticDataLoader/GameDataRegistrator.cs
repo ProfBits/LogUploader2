@@ -8,25 +8,23 @@ namespace LogUploader.Data.StaticDataLoader
 {
     internal class GameDataRegistrator : IGameDataRegistrator
     {
-        public IAreaRegistrator SetAreas { get; }
-        public IBosseRegistrator SetBosses { get; }
-        public IAddEnemyRegistrator SetAddEnemies { get; }
-        public IMiscDataRegistrator SetMiscData { get; }
-        public IAreaRepository Areas { get => SetAreas; }
-        public IBosseRepository Bosses { get => SetBosses; }
-        public IAddEnemyRepository AddEnemies { get => SetAddEnemies; }
-        public IMiscDataRepository MiscData { get => SetMiscData; }
+        public IAreaRegistrator Areas { get; }
+        public IBosseRegistrator Bosses { get; }
+        public IAddEnemyRegistrator AddEnemies { get; }
+        public IMiscDataRegistrator MiscData { get; }
 
-        public GameDataRegistrator() : this(new AreaRegistrator(), new BosseRegistrator(), new AddEnemyRegistrator(), new MiscDataRegistrator())
+        public GameDataRegistrator() :
+            this(new AreaRegistrator(StaticData.AreaRepository), new BosseRegistrator(StaticData.BossRepository),
+                new AddEnemyRegistrator(StaticData.AddEnemyRepository), new MiscDataRegistrator(StaticData.MiscRepository))
         {
         }
 
         public GameDataRegistrator(IAreaRegistrator areas, IBosseRegistrator bosses, IAddEnemyRegistrator addEnemies, IMiscDataRegistrator miscData)
         {
-            SetAreas = areas ?? throw new ArgumentNullException(nameof(areas));
-            SetBosses = bosses ?? throw new ArgumentNullException(nameof(bosses));
-            SetAddEnemies = addEnemies ?? throw new ArgumentNullException(nameof(addEnemies));
-            SetMiscData = miscData ?? throw new ArgumentNullException(nameof(miscData));
+            Areas = areas ?? throw new ArgumentNullException(nameof(areas));
+            Bosses = bosses ?? throw new ArgumentNullException(nameof(bosses));
+            AddEnemies = addEnemies ?? throw new ArgumentNullException(nameof(addEnemies));
+            MiscData = miscData ?? throw new ArgumentNullException(nameof(miscData));
         }
 
     }

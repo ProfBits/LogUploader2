@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-using LogUploader.Data.GameAreas;
 using LogUploader.Localisation;
 
 namespace LogUploader.Data.Repositories
 {
     internal class BossRepository : EnemyRepository<Boss>, BossProvider
     {
-        private readonly MultiKeyInValueDictionary<int, string, string, string, string, string, Boss> Data;
+        private readonly MultiKeyInValueDictionary<int, string, string, Boss> Data;
 
         public BossRepository()
         {
-            Data = new MultiKeyInValueDictionary<int, string, string, string, string, string, Boss>(
+            Data = new MultiKeyInValueDictionary<int, string, string, Boss>(
                 boss => boss.ID,
-                boss => boss.NameEN,
-                boss => boss.NameDE,
                 boss => boss.FolderNameEN,
-                boss => boss.FolderNameDE,
-                boss => boss.EIName
+                boss => boss.FolderNameDE
                 );
         }
 
-        internal override IMultiKeyBaseDictionary<int, string, string, Boss> BaseData { get => Data; }
+        internal override IDictionary<int, Boss> BaseData { get => GetBaseData(); }
+
+        private IDictionary<int, Boss> GetBaseData()
+        {
+            return Data.ToDictionary(e => e.Key.Item1, e => e.Value);
+        }
 
         public override Boss Get(int id)
         {
@@ -48,18 +49,25 @@ namespace LogUploader.Data.Repositories
 
         public Boss GetByEiName(string eiName)
         {
-            return Data.Get(key6: eiName);
+            return Data.Select(e => e.Value).FirstOrDefault(e => e.EIName == eiName) ?? throw new KeyNotFoundException();
         }
 
         public Boss GetByFolderName(string folderName)
         {
             try
             {
-                return Data.Get(key4: folderName);
+                return GetByFolderNameEN(folderName);
             }
             catch (KeyNotFoundException)
             {
-                return GetByFolderNameDE(folderName);
+                try
+                {
+                    return GetByFolderNameDE(folderName);
+                }
+                catch (KeyNotFoundException)
+                {
+                    return Get(eBosses.Unknown);
+                }
             }
         }
 
@@ -71,19 +79,34 @@ namespace LogUploader.Data.Repositories
                 case "Bezwungener König":
                     return Get(eBosses.BrokenKing);
                 default:
-                    return Data.Get(key5: folderNameDE);
+                    return Data.Get(key3: folderNameDE);
+            }
+        }
+        private Boss GetByFolderNameEN(string folderNameEN)
+        {
+            switch (folderNameEN)
+            {
+                default:
+                    return Data.Get(key2: folderNameEN);
             }
         }
 
         public Boss GetByFolderName(string folderName, eLanguage lang)
         {
-            switch (lang)
+            try
             {
-                case eLanguage.DE:
-                    return GetByFolderNameDE(folderName);
-                case eLanguage.EN:
-                default:
-                    return Data.Get(key4: folderName);
+                switch (lang)
+                {
+                    case eLanguage.DE:
+                        return GetByFolderNameDE(folderName);
+                    case eLanguage.EN:
+                    default:
+                        return GetByFolderNameEN(folderName);
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                return Get(eBosses.Unknown);
             }
         }
 
@@ -113,7 +136,7 @@ namespace LogUploader.Data.Repositories
         internal override void Add(Boss enemy)
         {
             if (enemy is null) throw new ArgumentNullException(nameof(enemy), "Cannot add a null boss to the repository");
-            if (enemy.ID != CorrectID(enemy.ID)) throw new ArgumentOutOfRangeException(nameof(enemy), enemy.ID, "The ID seems to be a virtual/fake boss id. The boss cannot be added.");
+            //if (enemy.ID != CorrectID(enemy.ID)) throw new ArgumentOutOfRangeException(nameof(enemy), enemy.ID, "The ID seems to be a virtual/fake boss id. The boss cannot be added.");
             Data.Add(enemy);
         }
     }

@@ -1,18 +1,29 @@
-﻿namespace LogUploader.Data.StaticDataLoader
+﻿using System;
+
+using LogUploader.Data.Repositories;
+
+namespace LogUploader.Data.StaticDataLoader
 {
     internal class MiscDataRegistrator : IMiscDataRegistrator
     {
-        public string KillEmote { get => MiscData.EmoteRaidKill; }
-        public string WipeEmote { get => MiscData.EmoteRaidWipe; }
+        MiscRepository Repo;
+
+        public MiscDataRegistrator(MiscRepository repo)
+        {
+            Repo = repo ?? throw new ArgumentNullException(nameof(repo));
+        }
+
+        public string KillEmote { get => Repo.KillEmote; }
+        public string WipeEmote { get => Repo.WipeEmote; }
 
         public void RegisterKillEmote(string emote)
         {
-            MiscData.EmoteRaidKill = emote;
+            Repo.KillEmote = emote;
         }
 
         public void RegisterWipeEmote(string emote)
         {
-            MiscData.EmoteRaidWipe = emote;
+            Repo.WipeEmote = emote;
         }
     }
 

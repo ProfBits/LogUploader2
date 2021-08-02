@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LogUploader.Data.New
+namespace LogUploader.Data
 {
     public abstract class MultiGameArea : GameArea, IEquatable<MultiGameArea>
     {

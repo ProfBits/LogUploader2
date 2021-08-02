@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using NUnit.Framework;
 
-using LogUploader.Data.New;
 using LogUploader.Data;
 using System.Reflection;
 using LogUploader.Test.Localisation;
@@ -24,6 +23,7 @@ namespace LogUploader.Test.Data
         public void OneTimeSetup()
         {
             classesToTest = TestHelper.GetAllSubClassesOfType(typeof(GameArea)).Count();
+            classesToTest -= 1; // Remove the TetGameArea from the count
             everyGameAreaDefaultCount = GetEveryGameAreaDefault().Count();
             everyGameAreaSameArgsCount = GetEveryGameAreaSameArgs().Count(); ;
         }
@@ -100,7 +100,7 @@ namespace LogUploader.Test.Data
         public void AllAreasAreTestedTest()
         {
             int concreteTestClasses = TestHelper.GetAllSubClassesOfType(typeof(AbstractGameAreaTest)).Count();
-            Assert.That(classesToTest, Is.EqualTo(concreteTestClasses), $"All concrete children of {nameof(GameArea)} should have exactly 1 concret testclass," +
+            Assert.That(classesToTest, Is.EqualTo(concreteTestClasses), $"All concrete children of {nameof(GameArea)} should have exactly 1 concret testclass, " +
                 $"that extends {nameof(GameAreaTest<GameArea>)}");
         }
 

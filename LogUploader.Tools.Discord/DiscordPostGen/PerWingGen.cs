@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Extensiones.Linq;
-using LogUploader.Data.GameAreas;
+using LogUploader.Data;
 using LogUploader.Localisation;
 using LogUploader.Tools.Discord.Data;
 
@@ -48,7 +48,7 @@ namespace LogUploader.Tools.Discord
 
         protected override Color GetColor(IEnumerable<ICachedLog> logs)
         {
-            var groups = logs.GroupBy(log => Boss.GetByID(log.BossID)).Select(group => group.Any(log => log.Succsess));
+            var groups = logs.GroupBy(log => StaticData.Bosses.Get(log.BossID)).Select(group => group.Any(log => log.Succsess));
 
             var succsess = groups.Any(log => log);
             var fail = groups.Any(log => !log);
@@ -70,9 +70,9 @@ namespace LogUploader.Tools.Discord
             foreach (var log in data.ToList().OrderBy(d => d.Log.Date))
             {
                 if (currentGroup == null)
-                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID).Area);
+                    currentGroup = new Grouping(StaticData.Bosses.Get(log.Log.BossID).Area);
 
-                if (!currentGroup.Equals(Boss.GetByID(log.Log.BossID).Area))
+                if (!currentGroup.Equals(StaticData.Bosses.Get(log.Log.BossID).Area))
                 {
                     if (currentLogs.Count > 0)
                     {
@@ -81,7 +81,7 @@ namespace LogUploader.Tools.Discord
                             currentGroup.PostFix = "CM";
                         res.Add(currentGroup, currentLogs);
                     }
-                    currentGroup = new Grouping(Boss.GetByID(log.Log.BossID).Area);
+                    currentGroup = new Grouping(StaticData.Bosses.Get(log.Log.BossID).Area);
                     currentLogs = new List<ParsedData>();
                 }
 
@@ -101,27 +101,28 @@ namespace LogUploader.Tools.Discord
 
         protected virtual Grouping GetGrouping(IEnumerable<ParsedData> data)
         {
-            if (data.Select(log => Boss.GetByID(log.Log.BossID)).Distinct().Count() == 1)
-                return new Grouping(Boss.GetByID(data.First().Log.BossID));
-            return new Grouping(Boss.GetByID(data.First().Log.BossID).Area);
+            if (data.Select(log => StaticData.Bosses.Get(log.Log.BossID)).Distinct().Count() == 1)
+                return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID));
+            return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID).Area);
         }
 
         protected override Embed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)
         {
+            //TODO dragon response Missions
             var temp = base.GetEmbedFrame(grouping, values);
-            var wing = RaidWing.RaidWings.Where(w => w.Value.Name == grouping.Name).Select(g => g.Value).FirstOrDefault();
+            var wing = StaticData.Areas.RaidWings.Where(w => w.Name == grouping.Name).FirstOrDefault();
             if (wing != null)
             {
                 temp.Title = wing.ShortName + " - " + temp.Title;
                 return temp;
             }
-            var frac = Fractal.Fractals.Where(f => f.Value.Name == grouping.Name).Select(g => g.Value).FirstOrDefault();
+            var frac = StaticData.Areas.Fractals.Where(f => f.Name == grouping.Name).FirstOrDefault();
             if (frac != null)
             {
                 temp.Title = frac.ShortName + " - " + temp.Title;
                 return temp;
             }
-            var strike = Strike.StrikeMissions.Where(s => s.Value.Name == grouping.Name).Select(g => g.Value).FirstOrDefault();
+            var strike = StaticData.Areas.Strikes.Where(s => s.Name == grouping.Name).FirstOrDefault();
             if (strike != null)
             {
                 temp.Title = strike.ShortName + " - " + temp.Title;

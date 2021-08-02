@@ -518,11 +518,11 @@ namespace LogUploader
                 folder = Path.Trim('\\').Split('\\').LastOrDefault();
 
             if (folder == null)
-                return Boss.GetByID(0);
+                return StaticData.Bosses.Get(0);
             else if (ushort.TryParse(folder, out ushort id))
-                return Boss.GetByID((int)id);
+                return StaticData.Bosses.Get((int)id);
             else
-                return Boss.GetByFolderName(folder);
+                return StaticData.Bosses.GetByFolderName(folder);
         }
 
         private static string GetBossPartFromPath(string Path)
@@ -577,7 +577,7 @@ namespace LogUploader
                 if (string.IsNullOrEmpty(log.Link))
                     continue;
                 
-                var boss = Boss.GetByID(log.BossID) ?? Boss.GetByID(0);
+                var boss = StaticData.Bosses.Get(log.BossID) ?? StaticData.Bosses.Get(0);
                 var str = "";
 
                 if (Settings.UseGnDiscordEmotes)
@@ -940,7 +940,7 @@ namespace LogUploader
             if (!CheckRaidOrgaSession(invoker, progress)) return;
 
             progress?.Report(new ProgressMessage(0.05, "Gathering RO+ data"));
-            Raid raid = RaidOrgaPlusConnector.GetRaid(RaidOrgaPlusSession, data.TerminID, data.RaidID, ct, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.35) + 0.05, "Gathering RO+ data - " + p.Message))));
+            var raid = RaidOrgaPlusConnector.GetRaid(RaidOrgaPlusSession, data.TerminID, data.RaidID, ct, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.35) + 0.05, "Gathering RO+ data - " + p.Message))));
             if (ct.IsCancellationRequested) return;
             progress?.Report(new ProgressMessage(0.35, "Gathering local data"));
             var PercentPerLog = 0.4 / list.Count;

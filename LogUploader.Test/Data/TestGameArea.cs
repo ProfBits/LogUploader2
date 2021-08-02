@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using LogUploader.Data.GameAreas;
+using LogUploader.Data;
 
 namespace LogUploader.Test.Data
 {
@@ -10,7 +10,7 @@ namespace LogUploader.Test.Data
         internal string AreaName { get; }
         internal int AreaNumber { get; }
 
-        public TestGameArea(string areaName, int areaNumber) : base($"Test{areaName}_{areaNumber}", $"TestArea_{areaNumber}", $"TestArea{areaNumber}IconURL")
+        public TestGameArea(string areaName, int areaNumber) : base($"Test{areaName}_{areaNumber}", $"TestArea_{areaNumber}", $"t{areaName}_{areaNumber}", $"ta_{areaNumber}", $"TestArea{areaNumber}IconURL")
         {
             this.AreaName = areaName;
             this.AreaNumber = areaNumber;

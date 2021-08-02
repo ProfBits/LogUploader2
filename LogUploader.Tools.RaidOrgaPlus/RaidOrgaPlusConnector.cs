@@ -121,7 +121,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             return termine.ToList();
         }
 
-        public Raid GetRaid(ISession session, long terminID, long raidID, CancellationToken ct, IProgress<ProgressMessage> progress = null)
+        public Data.Raid GetRaid(ISession session, long terminID, long raidID, CancellationToken ct, IProgress<ProgressMessage> progress = null)
         {
             if (!session.Valid)
                 return null;
@@ -203,7 +203,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
              * [{"id":201,"name":"xyz","accname":"xyz.1234"}]
              */
             progress.Report(new ProgressMessage(0.95, "Finish up"));
-            return new Raid(terminID, raidID, group, helper, inviteable, aufstellungen);
+            return new Data.Raid(terminID, raidID, group, helper, inviteable, aufstellungen);
         }
 
         private static Role GetRoleByAbbreviation(string roleAbbreviation)
@@ -257,7 +257,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
 
         private Boss GetBoss(Dictionary<string, int> bosses, string roPlusBossAbbreviation)
         {
-            return Boss.GetByRaidOragPlusID(bosses[roPlusBossAbbreviation]);
+            return StaticData.Bosses.GetByRaidOrgaPlusID(bosses[roPlusBossAbbreviation]);
         }
         
         private Profession GetClass(string classAbbreviation)
@@ -265,7 +265,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
             return Profession.GetByAbbreviation(classAbbreviation);
         }
 
-        public void SetRaid(ISession session, Raid raid)
+        public void SetRaid(ISession session, Data.Raid raid)
         {
             if (!session.Valid)
                 return;

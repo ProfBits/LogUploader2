@@ -21,10 +21,6 @@ namespace LogUploader.Data
             EmoteWipe = emoteWipe;
         }
 
-        [Obsolete("Replaced with instance version xxxTBRxxx")]
-        public static string EmoteRaidKill { get; set; } = "";
-        [Obsolete("Replaced with instance version xxxTBRxxx")]
-        public static string EmoteRaidWipe { get; set; } = "";
         public string EmoteKill { get; }
         public string EmoteWipe { get; }
 

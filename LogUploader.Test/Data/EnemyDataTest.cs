@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 using LogUploader.Data;
-using LogUploader.Data.GameAreas;
 
 namespace LogUploader.Test.Data
 {
