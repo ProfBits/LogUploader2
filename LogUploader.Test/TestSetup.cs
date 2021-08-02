@@ -57,9 +57,14 @@ public class TestSetup
 
     public static string GetPathToTestFiles(string folder, string file)
     {
-        var assamblyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        var relPath = "TestFiles" + System.IO.Path.DirectorySeparatorChar + folder + System.IO.Path.DirectorySeparatorChar + file;
+        string assamblyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        string relPath = GetRelativePathToTestFiles(folder, file);
         return assamblyPath + System.IO.Path.DirectorySeparatorChar + relPath;
+    }
+
+    internal static string GetRelativePathToTestFiles(string folder, string file)
+    {
+        return "TestFiles" + System.IO.Path.DirectorySeparatorChar + folder + System.IO.Path.DirectorySeparatorChar + file;
     }
 
     private void CreateBasicFileSystemFake()

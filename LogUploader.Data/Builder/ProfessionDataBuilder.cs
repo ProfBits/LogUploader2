@@ -87,10 +87,13 @@ namespace LogUploader.Data
                 int id = (int)professionData[TAG_ID];
                 string nameEN = (string)professionData[TAG_NAME_EN];
                 string nameDE = (string)professionData[TAG_NAME_DE];
-                string iconPath = (string)professionData[TAG_ICON_PATH];
+                string relIconPath = (string)professionData[TAG_ICON_PATH];
                 string emote = (string)professionData[TAG_EMOTE];
                 int raidOrgaPlusID = (int)professionData[TAG_ROP_ID];
                 string raidOrgaPlusAbbreviation = (string)professionData[TAG_ROP_ABBREVIATION];
+
+                string iconPath = Wrapper.FileIO.AbsolutPathToMainFolder + relIconPath;
+
                 return new Profession(GP.IntToEnum<eProfession>(id), nameEN, nameDE, iconPath, emote, raidOrgaPlusID, raidOrgaPlusAbbreviation);
             }
             catch (JsonReaderException readerEx)

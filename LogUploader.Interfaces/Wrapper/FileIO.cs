@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace LogUploader.Wrapper
     public static class FileIO
     {
         private static IFileIO backend = new SystemFileIO();
+        private static string absolutPathToMainFolder;
 
         internal static IFileIO Backend { private get => backend; set => backend = value ?? throw new ArgumentException("FileIO backend cannot be null!"); }
 
@@ -44,6 +46,22 @@ namespace LogUploader.Wrapper
         public static void WriteAllText(string path, string contents, Encoding encoding) => Backend.WriteAllText(path, contents, encoding);
 
         public static DateTime GetCreationTime(string path) => Backend.GetCreationTime(path);
+
+        public static string AbsolutPathToMainFolder
+        {
+            get
+            {
+                if (absolutPathToMainFolder is null)
+                {
+                    string absolutMainExePath = Assembly.GetAssembly(typeof(FileIO)).Location;
+                    string absolutMainDir = Path.GetDirectoryName(absolutMainExePath);
+                    absolutPathToMainFolder = absolutMainDir + Path.DirectorySeparatorChar;
+                }
+                return absolutPathToMainFolder;
+            }
+            private set => absolutPathToMainFolder = value;
+        }
+
     }
 
     internal sealed class SystemFileIO : IFileIO

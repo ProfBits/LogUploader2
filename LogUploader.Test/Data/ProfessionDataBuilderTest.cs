@@ -13,7 +13,8 @@ namespace LogUploader.Test.Data
 {
     class ProfessionDataBuilderTest
     {
-        private string ProfessionIconPath { get => TestSetup.GetPathToTestFiles("static", "profIcon.png"); }
+        private string ProfessionIconPath { get => TestSetup.GetRelativePathToTestFiles("static", "profIcon.png"); }
+        private string AbsolutProfessionIconPath { get => TestSetup.GetPathToTestFiles("static", "profIcon.png"); }
         private string SmallValidTestJson { get => $@"
 {{
   ""Professions"": [
@@ -97,8 +98,8 @@ namespace LogUploader.Test.Data
             TestProfessionRepo testProfessionRepo = new TestProfessionRepo();
             ProfessionDataBuilder.ParseJson(SmallValidTestJson, testProfessionRepo);
             Assert.That(testProfessionRepo.Count, Is.EqualTo(2));
-            ValidateProfessionCorrectlyParsed(testProfessionRepo, eProfession.Guardian, "Guardian", "Wächter", "Gdn", 8, "<:gdn:999999999999999999>", ProfessionIconPath);
-            ValidateProfessionCorrectlyParsed(testProfessionRepo, eProfession.Unknown, "Unknown", "Unbekannt", "XXX", 0, ":ghost:", ProfessionIconPath);
+            ValidateProfessionCorrectlyParsed(testProfessionRepo, eProfession.Guardian, "Guardian", "Wächter", "Gdn", 8, "<:gdn:999999999999999999>", AbsolutProfessionIconPath);
+            ValidateProfessionCorrectlyParsed(testProfessionRepo, eProfession.Unknown, "Unknown", "Unbekannt", "XXX", 0, ":ghost:", AbsolutProfessionIconPath);
         }
 
         private void ValidateProfessionCorrectlyParsed(ProfessionProvider professionProvider, eProfession profession, string nameEN, string nameDE, string abbreviation, int ropId, string emote, string professionIconPath)
@@ -140,7 +141,7 @@ namespace LogUploader.Test.Data
         {
             TestProfessionRepo testProfessionRepo = new TestProfessionRepo();
             const eProfession prof = eProfession.Scourge;
-            testProfessionRepo.Add(new Profession(prof, "Scourge", "Scourge", ProfessionIconPath, ":emote:", 99, "scg"));
+            testProfessionRepo.Add(new Profession(prof, "Scourge", "Scourge", AbsolutProfessionIconPath, ":emote:", 99, "scg"));
             
             Assert.Catch<ArgumentException>(() => ProfessionDataBuilder.ParseJson("", testProfessionRepo));
             Assert.That(testProfessionRepo.Count, Is.EqualTo(1), "There should have nothing been added or removed with empty string");
