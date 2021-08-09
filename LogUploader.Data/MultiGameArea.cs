@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using LogUploader.Interfaces;
+
 namespace LogUploader.Data
 {
-    public abstract class MultiGameArea : GameArea, IEquatable<MultiGameArea>
+    public abstract class MultiGameArea : GameArea, IMultiGameArea
     {
         public int ID { get; }
 
         internal MultiGameArea(int id, string nameEN, string nameDE, string shortNameEN, string shortNameDE, string avatarURL) :
-            base (nameEN, nameDE, shortNameEN, shortNameDE, avatarURL)
+            base(nameEN, nameDE, shortNameEN, shortNameDE, avatarURL)
         {
             ID = id;
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as MultiGameArea);
+            return Equals(obj as IMultiGameArea);
         }
 
-        public bool Equals(MultiGameArea other)
+        public bool Equals(IMultiGameArea other)
         {
             return other != null &&
                    base.Equals(other) &&
@@ -81,7 +83,7 @@ namespace LogUploader.Data
         public override int GetHashCode()
         {
             int hashCode = 2082127350;
-            hashCode = hashCode * -1521134295 + GetType().GetHashCode();
+            hashCode = hashCode * -1521134295 + this.GetType().GetHashCode();
             hashCode = hashCode * -1521134295 + ID.GetHashCode();
             return hashCode;
         }
@@ -134,7 +136,7 @@ namespace LogUploader.Data
         public override int GetHashCode()
         {
             int hashCode = 2082127350;
-            hashCode = hashCode * -1521134295 + GetType().GetHashCode();
+            hashCode = hashCode * -1521134295 + this.GetType().GetHashCode();
             hashCode = hashCode * -1521134295 + ID.GetHashCode();
             return hashCode;
         }
@@ -187,7 +189,7 @@ namespace LogUploader.Data
         public override int GetHashCode()
         {
             int hashCode = 2082127350;
-            hashCode = hashCode * -1521134295 + GetType().GetHashCode();
+            hashCode = hashCode * -1521134295 + this.GetType().GetHashCode();
             hashCode = hashCode * -1521134295 + ID.GetHashCode();
             return hashCode;
         }
@@ -240,7 +242,7 @@ namespace LogUploader.Data
         public override int GetHashCode()
         {
             int hashCode = 2082127350;
-            hashCode = hashCode * -1521134295 + GetType().GetHashCode();
+            hashCode = hashCode * -1521134295 + this.GetType().GetHashCode();
             hashCode = hashCode * -1521134295 + ID.GetHashCode();
             return hashCode;
         }

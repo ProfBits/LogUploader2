@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace LogUploader.Interfaces.Interfaces
+namespace LogUploader.Interfaces
 {
-    interface LogPreview : LogBasic
+    public interface LogPreview : LogBasic
     {
         IReadOnlyList<LogPreviewPlayer> Players { get; }
-        bool EvtcExists { get; }
-        bool UpgradeAvailable { get; }
     }
 }
 

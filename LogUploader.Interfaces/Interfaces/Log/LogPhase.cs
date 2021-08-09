@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace LogUploader.Interfaces.Interfaces
+namespace LogUploader.Interfaces
 {
-    interface LogPhase
+    public interface LogPhase
     {
         LogDps DpsAll { get; }
         IReadOnlyDictionary<int, LogDps> DpsTarget { get; }

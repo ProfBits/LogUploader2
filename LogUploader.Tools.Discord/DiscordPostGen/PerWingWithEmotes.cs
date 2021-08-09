@@ -32,7 +32,7 @@ namespace LogUploader.Tools.Discord
         {
             if (data.Select(log => StaticData.Bosses.Get(log.Log.BossID)).Distinct().Count() == 1)
                 return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID), StaticData.Bosses.Get(data.First().Log.BossID).Prefix(StaticData.Bosses.Get(data.First().Log.BossID).DiscordEmote + " "));
-            return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID).Area);
+            return new Grouping((GameArea)StaticData.Bosses.Get(data.First().Log.BossID).Area);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LogUploader.Data;
 using LogUploader.Helper;
+using LogUploader.Interfaces;
 using LogUploader.Localisation;
 using LogUploader.Tools.Discord.Data;
 using LogUploader.Tools.Settings;

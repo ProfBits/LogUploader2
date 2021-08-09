@@ -1,10 +1,12 @@
-﻿namespace LogUploader.Interfaces.Interfaces
+﻿namespace LogUploader.Interfaces
 {
-    interface LogTarget
+    public interface LogTarget
     {
-        string Name { get; }
-        byte SubGroup { get; }
-        int Dps { get; }
+        int ID { get; }
+        int MaxHealth { get; }
+        int RemainingHealth { get; }
+        int FirstAware { get; }
+        int LastAware { get; }
     }
 }
 

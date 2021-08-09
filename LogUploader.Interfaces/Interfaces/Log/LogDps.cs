@@ -1,4 +1,4 @@
-﻿namespace LogUploader.Interfaces.Interfaces
+﻿namespace LogUploader.Interfaces
 {
     public interface LogDps
     {

@@ -53,6 +53,11 @@
     <Compile Include="Enums\eProfession.cs" />
     <Compile Include="Extensiones\Extensiones.cs" />
     <Compile Include="Factroies\UiFactory.cs" />
+    <Compile Include="Interfaces\Enemy\IAddEnemy.cs" />
+    <Compile Include="Interfaces\Enemy\IBoss.cs" />
+    <Compile Include="Interfaces\Enemy\IEnemy.cs" />
+    <Compile Include="Interfaces\GameArea\IGameArea.cs" />
+    <Compile Include="Interfaces\GameArea\IMultiGameArea.cs" />
     <Compile Include="Interfaces\IAvatar.cs" />
     <Compile Include="Interfaces\ICachedLog.cs" />
     <Compile Include="Interfaces\IDBLog.cs" />
@@ -92,5 +97,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

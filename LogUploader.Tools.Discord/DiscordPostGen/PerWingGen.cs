@@ -70,7 +70,7 @@ namespace LogUploader.Tools.Discord
             foreach (var log in data.ToList().OrderBy(d => d.Log.Date))
             {
                 if (currentGroup == null)
-                    currentGroup = new Grouping(StaticData.Bosses.Get(log.Log.BossID).Area);
+                    currentGroup = new Grouping((GameArea)StaticData.Bosses.Get(log.Log.BossID).Area);
 
                 if (!currentGroup.Equals(StaticData.Bosses.Get(log.Log.BossID).Area))
                 {
@@ -81,7 +81,7 @@ namespace LogUploader.Tools.Discord
                             currentGroup.PostFix = "CM";
                         res.Add(currentGroup, currentLogs);
                     }
-                    currentGroup = new Grouping(StaticData.Bosses.Get(log.Log.BossID).Area);
+                    currentGroup = new Grouping((GameArea)StaticData.Bosses.Get(log.Log.BossID).Area);
                     currentLogs = new List<ParsedData>();
                 }
 
@@ -103,7 +103,7 @@ namespace LogUploader.Tools.Discord
         {
             if (data.Select(log => StaticData.Bosses.Get(log.Log.BossID)).Distinct().Count() == 1)
                 return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID));
-            return new Grouping(StaticData.Bosses.Get(data.First().Log.BossID).Area);
+            return new Grouping((GameArea)StaticData.Bosses.Get(data.First().Log.BossID).Area);
         }
 
         protected override Embed GetEmbedFrame(Grouping grouping, IEnumerable<ParsedData> values)

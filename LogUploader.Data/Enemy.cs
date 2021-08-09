@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using LogUploader.Interfaces;
+
 namespace LogUploader.Data
 {
-    public abstract class Enemy : NamedObject, IEquatable<Enemy>
+    public abstract class Enemy : NamedObject, IEnemy
     {
         public int ID { get; }
-        public GameArea Area { get; }
+        public IGameArea Area { get; }
 
         internal Enemy(int id, string name, GameArea area) : this(id, name, name, area)
         {
@@ -44,10 +46,10 @@ namespace LogUploader.Data
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as Enemy);
+            return Equals(obj as IEnemy);
         }
 
-        public bool Equals(Enemy other)
+        public bool Equals(IEnemy other)
         {
             return other != null &&
                    ID == other.ID;

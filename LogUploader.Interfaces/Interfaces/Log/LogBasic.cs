@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace LogUploader.Interfaces.Interfaces
+namespace LogUploader.Interfaces
 {
-    interface LogBasic : Log
+    public interface LogBasic : Log
     {
         TimeSpan Duration { get; }
         bool Uploaded { get; }
@@ -10,7 +10,7 @@ namespace LogUploader.Interfaces.Interfaces
         bool Succcess { get; }
         bool IsCm { get; }
         float RemainingHealth { get; }
-        DataLevel DataLevel { get; }
+        bool UpgradeAvailable { get; }
     }
 }
 

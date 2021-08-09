@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using LogUploader.Interfaces;
 using LogUploader.Localisation;
 
 namespace LogUploader.Data
 {
-    public abstract class GameArea : NamedObject, IAvatar, IEquatable<GameArea>
+    public abstract class GameArea : NamedObject, IGameArea
     {
         private readonly NamedObject shortName;
 
@@ -31,15 +28,21 @@ namespace LogUploader.Data
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as GameArea);
+            return Equals(obj as IGameArea);
         }
 
-        public bool Equals(GameArea other)
+        public bool Equals(IGameArea other)
         {
+            if (other is GameArea otherArea)
+            return otherArea != null &&
+                   base.Equals(otherArea) &&
+                   this.GetType().Equals(otherArea.GetType()) &&
+                   EqualityComparer<NamedObject>.Default.Equals(shortName, otherArea.shortName) &&
+                   AvatarURL == otherArea.AvatarURL;
             return other != null &&
                    base.Equals(other) &&
-                   GetType().Equals(other.GetType()) &&
-                   EqualityComparer<NamedObject>.Default.Equals(shortName, other.shortName) &&
+                   ShortNameEN == other.ShortNameEN &&
+                   ShortNameDE == other.ShortNameDE &&
                    AvatarURL == other.AvatarURL;
         }
 
@@ -47,7 +50,7 @@ namespace LogUploader.Data
         {
             int hashCode = -1988182647;
             hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + GetType().GetHashCode();
+            hashCode = hashCode * -1521134295 + this.GetType().GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<NamedObject>.Default.GetHashCode(shortName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AvatarURL);
             return hashCode;

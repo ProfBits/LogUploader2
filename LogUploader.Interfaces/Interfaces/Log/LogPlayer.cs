@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace LogUploader.Interfaces.Interfaces
+using LogUploader.Data;
+
+namespace LogUploader.Interfaces
 {
-    interface LogPlayer
+    public interface LogPlayer
     {
         string AccountName { get; }
         string CharakterName { get; }
+        IProfession Profession { get; }
         byte SubGroup { get; }
         LogPhase FullFight { get; }
-        IReadOnlyList<LogPhase> PhaseData { get; }
+        IReadOnlyList<LogPhase> Phases { get; }
     }
 }
 

@@ -10,7 +10,7 @@ using LogUploader.Localisation;
 
 namespace LogUploader.Data
 {
-    public class Boss : Enemy, IAvatar, IEquatable<Boss>, IEquatable<eBosses>
+    public class Boss : Enemy, IBoss
     {
         protected readonly NamedObject m_FolderName;
         public string DiscordEmote { get; }
@@ -46,10 +46,10 @@ namespace LogUploader.Data
         }
         public override bool Equals(object obj)
         {
-            return Equals(obj as Boss);
+            return Equals(obj as IBoss);
         }
 
-        public bool Equals(Boss other)
+        public bool Equals(IBoss other)
         {
             return other != null &&
                    base.Equals(other);

@@ -3,14 +3,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUploader.Interfaces.Interfaces
+namespace LogUploader.Interfaces
 {
-    interface Log
+    public interface Log
     {
-        //Boss Boss { get; }
+        IBoss Boss { get; }
         DateTime Date { get; }
         int SizeKb { get; }
-        string EvtcPath { get; }
+        bool EvtcExists { get; }
     }
 }
 

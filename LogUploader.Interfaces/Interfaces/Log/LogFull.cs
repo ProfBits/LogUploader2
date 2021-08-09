@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace LogUploader.Interfaces.Interfaces
+namespace LogUploader.Interfaces
 {
-    interface LogFull : LogBasic
+    public interface LogFull : LogBasic
     {
         IReadOnlyList<LogTarget> Targets { get; }
         IReadOnlyList<LogPlayer> Players { get; }

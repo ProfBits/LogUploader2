@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using LogUploader.Helper;
+using LogUploader.Interfaces;
 using LogUploader.Localisation;
 
 using static LogUploader.Data.Enemy;
 
 namespace LogUploader.Data
 {
-    public class AddEnemy : Enemy, IEquatable<AddEnemy>
+    public class AddEnemy : Enemy, IAddEnemy
     {
         public bool IsInteresting { get; }
 
@@ -31,7 +32,7 @@ namespace LogUploader.Data
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as AddEnemy);
+            return Equals(obj as IAddEnemy);
         }
 
         public override int GetHashCode()
@@ -39,7 +40,7 @@ namespace LogUploader.Data
             return base.GetHashCode();
         }
 
-        public bool Equals(AddEnemy other)
+        public bool Equals(IAddEnemy other)
         {
             return other != null &&
                    base.Equals(other);

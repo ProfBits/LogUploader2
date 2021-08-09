@@ -1,4 +1,5 @@
-﻿using LogUploader.Localisation;
+﻿using LogUploader.Interfaces;
+using LogUploader.Localisation;
 
 using System;
 using System.Collections.Generic;
