@@ -56,6 +56,17 @@
     <Compile Include="Interfaces\IAvatar.cs" />
     <Compile Include="Interfaces\ICachedLog.cs" />
     <Compile Include="Interfaces\IDBLog.cs" />
+    <Compile Include="Interfaces\Log\DataLevel.cs" />
+    <Compile Include="Interfaces\Log\Log.cs" />
+    <Compile Include="Interfaces\Log\LogBasic.cs" />
+    <Compile Include="Interfaces\Log\LogBuffs.cs" />
+    <Compile Include="Interfaces\Log\LogDps.cs" />
+    <Compile Include="Interfaces\Log\LogFull.cs" />
+    <Compile Include="Interfaces\Log\LogPhase.cs" />
+    <Compile Include="Interfaces\Log\LogPlayer.cs" />
+    <Compile Include="Interfaces\Log\LogPreview.cs" />
+    <Compile Include="Interfaces\Log\LogPreviewPlayer.cs" />
+    <Compile Include="Interfaces\Log\LogTarget.cs" />
     <Compile Include="Wrapper\DirectoryIO.cs" />
     <Compile Include="Wrapper\FileIO.cs" />
     <Compile Include="Wrapper\IDirectoryIO.cs" />
