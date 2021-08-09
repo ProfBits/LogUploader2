@@ -50,7 +50,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                     sessionToken = streamReader.ReadToEnd();
 
-                if (sessionToken.Length <= 3)
+                if (sessionToken.Length != 36)
                     return null;
 
                 return new Session(sessionToken, userAgent);

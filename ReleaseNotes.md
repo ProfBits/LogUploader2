@@ -1,3 +1,9 @@
+# v1.3.9
+t.b.a.
+
+## Bugfixes
+- Fixed bug that caused a invalid RaidOrga+ login not to be detected properly
+
 # v1.3.8
 18.04.2021
 
