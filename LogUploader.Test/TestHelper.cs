@@ -123,5 +123,30 @@ namespace LogUploader.Test
 
             return new Profession(profession, $"{profession}EN", $"{profession}DE", DefaultIconPath, $":{profession}:", (int)profession, $"{profession}".Substring(0, 3));
         }
+
+
+
+        [Test]
+        public void TestSynchronProgressCreateTest()
+        {
+            Assert.That(() => new SynchronProgress<double>(p => { }), Throws.Nothing);
+
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => new SynchronProgress<string>(null)));
+        }
+
+        [Test]
+        public void TestSynchronProgressReportTest()
+        {
+            double reported = 0;
+            IProgress<double> progress = new SynchronProgress<double>(p => reported = p);
+
+            progress.Report(1);
+            Assert.That(reported, Is.EqualTo(1));
+
+            reported = 0;
+            IProgress<double> progressInterseption = new SynchronProgress<double>(p => progress.Report(p));
+            progress.Report(2);
+            Assert.That(reported, Is.EqualTo(2));
+        }
     }
 }

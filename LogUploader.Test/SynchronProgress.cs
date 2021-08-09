@@ -12,7 +12,7 @@ namespace LogUploader.Test
 
         public SynchronProgress(Action<T> handler)
         {
-            this.handler = handler ?? throw new ArgumentNullException("Handler cannot be null");
+            this.handler = handler ?? throw new ArgumentNullException(nameof(handler), "Handler cannot be null");
         }
 
         public void Report(T value)
