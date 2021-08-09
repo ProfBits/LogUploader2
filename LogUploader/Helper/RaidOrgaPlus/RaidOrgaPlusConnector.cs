@@ -95,7 +95,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 .Select(termin => new RaidSimple(
                     (long)termin["id"],
                     (long)termin["raidID"],
-                    ((DateTime)termin["date"]).Date.AddDays(1),
+                    ((DateTime)termin["date"]).Date,
                     TimeSpan.Parse((string)termin["time"] + ":00"),
                     TimeSpan.Parse(((string)termin["endtime"] ?? (string)termin["time"]) + ":00"),
                     (string)termin["name"]
