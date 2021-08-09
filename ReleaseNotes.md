@@ -1,6 +1,9 @@
 # v1.3.9
 t.b.a.
 
+## Improvements
+- Added support for the new RaidOrga+ Lieutenants feature
+
 ## Bugfixes
 - Fixed bug that caused a invalid RaidOrga+ login not to be detected properly
 

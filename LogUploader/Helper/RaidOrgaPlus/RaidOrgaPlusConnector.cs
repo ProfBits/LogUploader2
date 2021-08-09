@@ -98,7 +98,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
              */
 
             var raidsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{raidsRAW}}}");
-            var raids = raidsParsed["wrapper"].ToDictionary(raid => (long)raid["id"], raid => (int)raid["role"] == 2);
+            var raids = raidsParsed["wrapper"].ToDictionary(raid => (long)raid["id"], raid => (int)raid["role"] >= 1);
 
             progress?.Report(0.9);
 
