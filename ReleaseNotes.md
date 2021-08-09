@@ -3,6 +3,7 @@ t.b.a.
 
 ## Improvements
 - Added support for the new RaidOrga+ Lieutenants feature
+- Imporove prformance of loading RaidOrga+ raids
 
 ## Bugfixes
 - Fixed that a invalid RaidOrga+ login was not properly detected and displayed
