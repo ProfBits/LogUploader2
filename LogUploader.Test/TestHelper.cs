@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+using LogUploader.Data;
+
 using NUnit.Framework;
 
 namespace LogUploader.Test
@@ -115,5 +117,11 @@ namespace LogUploader.Test
             };
         }
 
+        internal static Profession CreateProfession(eProfession profession)
+        {
+            string DefaultIconPath = TestSetup.GetPathToTestFiles("static", "profIcon.png");
+
+            return new Profession(profession, $"{profession}EN", $"{profession}DE", DefaultIconPath, $":{profession}:", (int)profession, $"{profession}".Substring(0, 3));
+        }
     }
 }
