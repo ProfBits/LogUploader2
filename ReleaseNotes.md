@@ -5,7 +5,8 @@ t.b.a.
 - Added support for the new RaidOrga+ Lieutenants feature
 
 ## Bugfixes
-- Fixed bug that caused a invalid RaidOrga+ login not to be detected properly
+- Fixed that a invalid RaidOrga+ login was not properly detected and displayed
+- Fixed RaidOrga+ raid date and time not displying correctly
 
 # v1.3.8
 18.04.2021
