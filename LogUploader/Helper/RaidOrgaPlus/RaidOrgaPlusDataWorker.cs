@@ -16,7 +16,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
         public static Raid UpdateRaid(Raid raid, IEnumerable<CachedLog> logs, Action<Delegate> invoker, IProgress<ProgressMessage> progress = null)
         {
             progress?.Report(new ProgressMessage(0.01, "Remove outdated logs"));
-            logs = logs.Where(l => l.DataVersion >= MIN_DATA_VERSION);
+            logs = logs.Where(l => l.DataVersion >= MIN_DATA_VERSION)
+                .Where(l => Boss.GetByID(l.BossID).RaidOrgaPlusID >= 1);
             progress?.Report(new ProgressMessage(0.02, "Remove duplicated bosses"));
             logs = OnlyGetOnePerBoss(logs);
             CondenseStatues(logs);
