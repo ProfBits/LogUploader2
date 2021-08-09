@@ -69,6 +69,7 @@
 
   <ItemGroup>
     <Folder Include="TestFiles\Database\" />
+    <Folder Include="TestFiles\eiJsonZips\" />
   </ItemGroup>
 
 </Project>

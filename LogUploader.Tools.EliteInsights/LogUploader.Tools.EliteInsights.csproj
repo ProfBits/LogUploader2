@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="EliteInsights.cs" />
     <Compile Include="IEliteInsightsSettings.cs" />
+    <Compile Include="Json\EliteInsightJsonProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
