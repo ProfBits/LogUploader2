@@ -9,5 +9,6 @@ namespace LogUploader.Test
     public static class TestCategory
     {
         public const string Regression = "Regression";
+        public const string LogRunning = "LongRunning";
     }
 }
