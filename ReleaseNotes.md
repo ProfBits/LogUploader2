@@ -4,12 +4,12 @@ t.b.a.
 ## Improvements
 - Added support for the new RaidOrga+ Lieutenants feature
 - Imporove prformance of loading RaidOrga+ raids
+- Only logs with a boss that has a valid RaidOrga+ linking, will be processed on 'Update Termin'
 
 ## Bugfixes
 - Fixed that a invalid RaidOrga+ login was not properly detected and displayed
 - Fixed RaidOrga+ raid date and time not displying correctly
-- New escort logs that are consireded Unkowen will no longer crash on upload
-- Only logs with a boss that has a valid RaidOrga+ linking, will be processed on 'Update Termin'
+- Fixed new escort logs crashing on upload
 
 # v1.3.8
 18.04.2021
