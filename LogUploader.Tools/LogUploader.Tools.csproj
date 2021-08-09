@@ -67,6 +67,7 @@
     <Compile Include="LogCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SequenceHandler\SequenceHandler.cs" />
+    <Compile Include="SynchronusProgress.cs" />
     <Compile Include="Updater\UpdateAvailableUI.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -223,5 +223,28 @@ namespace LogUploader.Test.Tools
             Assert.DoesNotThrow(() => GP.ValidateStringMultiWord(str));
             Assert.That(GP.ValidateStringMultiWord(str), Is.EqualTo(str));
         }
+
+        [Test]
+        public void SynchronusProgressCreateTest()
+        {
+            Assert.That(() => new SynchronusProgress<double>(p => { }), Throws.Nothing);
+
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => new SynchronusProgress<string>(null)));
+        }
+
+        [Test]
+        public void SynchronusProgressReportTest()
+        {
+            double reported = 0;
+            IProgress<double> progress = new SynchronusProgress<double>(p => reported = p);
+
+            progress.Report(1);
+            Assert.That(reported, Is.EqualTo(1));
+
+            reported = 0;
+            IProgress<double> progressInterseption = new SynchronusProgress<double>(p => progress.Report(p));
+            progress.Report(2);
+            Assert.That(reported, Is.EqualTo(2));
+        }
     }
 }
