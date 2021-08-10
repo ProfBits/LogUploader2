@@ -1,5 +1,5 @@
 # v1.3.9
-t.b.a.
+10.08.2021
 
 ## Improvements
 - Added support for the new RaidOrga+ Lieutenants feature
