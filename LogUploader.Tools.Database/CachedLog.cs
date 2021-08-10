@@ -202,6 +202,8 @@ namespace LogUploader.Tools.Database
                 RemainingHealth = Succsess ? 0 : 100;
             else
                 RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
+            if (!(0 <= RemainingHealth && RemainingHealth <= 100))
+                RemainingHealth = Succsess ? 0 : 100;
             IsCM = (bool)data["isCM"];
             ApplySimpleLog(new SimpleLogJson(data));
         }
