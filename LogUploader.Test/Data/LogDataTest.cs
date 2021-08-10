@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 using LogUploader.Interfaces;
+using LogUploader.Tools.EliteInsights.Data;
 
 namespace LogUploader.Test.Data.Logs
 {
@@ -87,6 +88,10 @@ namespace LogUploader.Test.Data.Logs
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, new TimeSpan(0, -1, 0), Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, 100.1f, UpgradeAvailable)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, -1f, UpgradeAvailable)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, float.NaN, UpgradeAvailable)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, 0f / 0f, UpgradeAvailable)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, float.MaxValue, UpgradeAvailable)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, float.MinValue, UpgradeAvailable)));
         }
     }
 
@@ -238,16 +243,18 @@ namespace LogUploader.Test.Data.Logs
         }
     }
 
-    public class EiLogBasicDataTest : LogBasicDataTest<LogBasic>
+    internal class EiLogBasicDataTest : LogBasicDataTest<LogBasicEi>
     {
-        public override LogBasic GetLogBasic(IBoss boss, DateTime date, int sizeKb, bool evtcExists, TimeSpan duration, bool uploaded, bool parsed, bool succcess, bool isCm, float remainingHealth, bool upgradeAvailable)
+        public override LogBasicEi GetLogBasic(IBoss boss, DateTime date, int sizeKb, bool evtcExists, TimeSpan duration, bool uploaded, bool parsed, bool succcess, bool isCm, float remainingHealth, bool upgradeAvailable)
         {
-            throw new NotImplementedException();
+            Assert.That(boss, Is.InstanceOf<LogUploader.Data.Boss>().Or.Null);
+            return new LogBasicEi(new LogBasicEi((duration, uploaded, parsed, succcess, IsCm, remainingHealth, upgradeAvailable),
+                new LogEi((boss as LogUploader.Data.Boss, date, sizeKb, evtcExists))));
         }
 
         protected override void AbstractOneTimeSetUp()
         {
-            Assume.That(false, "EiLogBasicDataTest not implemented yet");
+            Assume.That(true, "EiLogBasicDataTest implemented now");
         }
     }
 
@@ -562,7 +569,7 @@ namespace LogUploader.Test.Data.Logs
         public static IEnumerable<(int id, int maxHealth, int remainingHealth, int firstAware, int lastAware)> ValidAarguments()
         {
             yield return (0, MaxHealth, RemainingHealth, FirstAware, LastAware);
-            yield return (ID, 0, RemainingHealth, FirstAware, LastAware);
+            yield return (ID, 0, 0, FirstAware, LastAware);
             yield return (ID, MaxHealth, 0, FirstAware, LastAware);
             yield return (ID, MaxHealth, RemainingHealth, 0, LastAware);
             yield return (ID, MaxHealth, RemainingHealth, FirstAware, 0);
@@ -596,8 +603,13 @@ namespace LogUploader.Test.Data.Logs
         {
             (int id, int maxHealth, int remainingHealth, int firstAware, int lastAware) = args;
 
-            Assert.That(() => CreateLogTarget(id, maxHealth, remainingHealth, firstAware, lastAware), Throws.Nothing);
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => CreateLogTarget(id, maxHealth, remainingHealth, firstAware, lastAware)));
+        }
+
+        [Test]
+        public void LogTargetConstructorMaxLessThanRemainingTest()
+        {
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => CreateLogTarget(ID, 200, 404, FirstAware, LastAware)));
         }
 
     }
@@ -614,16 +626,16 @@ namespace LogUploader.Test.Data.Logs
         }
     }
 
-    public class EiLogTargetTest : AbstractLogTargetTest<LogTarget>
+    internal class EiLogTargetTest : AbstractLogTargetTest<LogTargetEi>
     {
         protected override void AbstractOneTimeSetup()
         {
-            Assume.That(false, "EiLogTargetTest not Implemented yet");
+            Assume.That(true, "EiLogTargetTest Implemented now");
         }
 
-        public override LogTarget CreateLogTarget(int id, int maxHealth, int remainingHealth, int firstAware, int lastAware)
+        public override LogTargetEi CreateLogTarget(int id, int maxHealth, int remainingHealth, int firstAware, int lastAware)
         {
-            throw new NotImplementedException();
+            return new LogTargetEi(id, maxHealth, remainingHealth, firstAware, lastAware);
         }
     }
 
@@ -636,9 +648,9 @@ namespace LogUploader.Test.Data.Logs
             => CreateLogPhase(logDps, logBuffs, dpsTargets.Select(e => new Tuple<int, LogDps>(e.tagetId, e.targetDps)));
         protected abstract T CreateLogPhase(LogDps logDps, LogBuffs logBuffs, IEnumerable<Tuple<int, LogDps>> dpsTargets);
         protected abstract LogBuffs CreateBuffs();
-        protected abstract LogDps CreateDps();
+        protected abstract LogDps CreateDps(int num = 0);
 
-        (int tagetId, LogDps targetDps) GetTargetDps(int id) => (id, CreateDps());
+        (int tagetId, LogDps targetDps) GetTargetDps(int id) => (id, CreateDps(id));
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -646,8 +658,9 @@ namespace LogUploader.Test.Data.Logs
             AbstractOneTimeSetUp();
             Assume.That(CreateBuffs(), Is.Not.EqualTo(CreateBuffs()));
             Assume.That(CreateDps(), Is.Not.EqualTo(CreateDps()));
-            Assume.That(GetTargetDps(1), Is.Not.EqualTo(GetTargetDps(2)));
-            Assume.That(GetTargetDps(1), Is.EqualTo(GetTargetDps(1)));
+            Assume.That(GetTargetDps(1).targetDps, Is.Not.EqualTo(GetTargetDps(2).targetDps));
+            Assume.That(GetTargetDps(1).tagetId, Is.EqualTo(GetTargetDps(1).tagetId));
+            Assume.That(GetTargetDps(41).targetDps.All, Is.EqualTo(GetTargetDps(41).targetDps.All));
         }
 
         protected abstract void AbstractOneTimeSetUp();
@@ -664,9 +677,9 @@ namespace LogUploader.Test.Data.Logs
             Assert.That(phase.DpsAll, Is.EqualTo(dps));
             Assert.That(phase.Buffs, Is.EqualTo(buffs));
             Assert.That(phase.DpsTarget, Contains.Key(target1.tagetId));
-            Assert.That(phase.DpsTarget[target1.tagetId], Is.EqualTo(target1.targetDps));
+            Assert.That(phase.DpsTarget[target1.tagetId].All, Is.EqualTo(target1.targetDps.All));
             Assert.That(phase.DpsTarget, Contains.Key(target2.tagetId));
-            Assert.That(phase.DpsTarget[target2.tagetId], Is.EqualTo(target2.targetDps));
+            Assert.That(phase.DpsTarget[target2.tagetId].All, Is.EqualTo(target2.targetDps.All));
         }
 
         [Test]
@@ -681,9 +694,9 @@ namespace LogUploader.Test.Data.Logs
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(null, buffs, new (int tagetId, LogDps targetDps)[] { target1, target2 })));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, null, new (int tagetId, LogDps targetDps)[] { target1, target2 })));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, buffs, (IEnumerable<Tuple<int, LogDps>>)null)));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, buffs, new Tuple<int, LogDps>[] { null, new Tuple<int, LogDps>(target2.tagetId, target2.targetDps) })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, buffs, new Tuple<int, LogDps>[] { new Tuple<int, LogDps>(target1.tagetId, target1.targetDps), null })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, buffs, new Tuple<int, LogDps>[] { null, null })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, buffs, new Tuple<int, LogDps>[] { new Tuple<int, LogDps>(target1.tagetId, null), new Tuple<int, LogDps>(target2.tagetId, target2.targetDps) })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, buffs, new Tuple<int, LogDps>[] { new Tuple<int, LogDps>(target1.tagetId, target1.targetDps), new Tuple<int, LogDps>(target2.tagetId, null) })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => CreateLogPhase(dps, buffs, new Tuple<int, LogDps>[] { new Tuple<int, LogDps>(target1.tagetId, null), new Tuple<int, LogDps>(target2.tagetId, null) })));
         }
 
     }
@@ -701,7 +714,7 @@ namespace LogUploader.Test.Data.Logs
             throw new NotImplementedException();
         }
 
-        protected override LogDps CreateDps()
+        protected override LogDps CreateDps(int num = 0)
         {
             throw new NotImplementedException();
         }
@@ -712,27 +725,37 @@ namespace LogUploader.Test.Data.Logs
         }
     }
 
-    public class EiLogPhaseTest : AbstractLogPhaseTest<LogPhase>
+    internal class EiLogPhaseTest : AbstractLogPhaseTest<LogPhaseEi>
     {
 
         protected override void AbstractOneTimeSetUp()
         {
-            Assume.That(false, "EiLogPhaseTest not Implemented yet");
+            Assume.That(true, "EiLogPhaseTest Implemented now");
         }
 
         protected override LogBuffs CreateBuffs()
         {
-            throw new NotImplementedException();
+            return new LogBuffsEi((0f, 0f), (0f, 0f, 0f, 0f, 0f, 0f), (0f, 0f));
         }
 
-        protected override LogDps CreateDps()
+        protected override LogDps CreateDps(int num = 0)
         {
-            throw new NotImplementedException();
+            return new LogDpsEi((num, num, num), num);
         }
 
-        protected override LogPhase CreateLogPhase(LogDps logDps, LogBuffs logBuffs, IEnumerable<Tuple<int, LogDps>> dpsTargets)
+        protected override LogPhaseEi CreateLogPhase(LogDps logDps, LogBuffs logBuffs, IEnumerable<Tuple<int, LogDps>> dpsTargets)
         {
-            throw new NotImplementedException();
+            Assume.That(logDps, Is.TypeOf<LogDpsEi>().Or.Null);
+            Assume.That(logBuffs, Is.TypeOf<LogBuffsEi>().Or.Null);
+            if (!(dpsTargets is null))
+            {
+                foreach (var element in dpsTargets)
+                {
+                    Assume.That(element?.Item2, Is.TypeOf<LogDpsEi>().Or.Null);
+                }
+            }
+
+            return new LogPhaseEi(logDps as LogDpsEi, dpsTargets?.ToDictionary(e => e.Item1, e => e.Item2 as LogDpsEi), logBuffs as LogBuffsEi);
         }
     }
 
@@ -797,7 +820,6 @@ namespace LogUploader.Test.Data.Logs
         {
             (int all, int power, int condi, int cc) = args;
 
-            Assert.That(() => CreateLogDps(all, power, condi, cc), Throws.Nothing);
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => CreateLogDps(all, power, condi, cc)));
         }
 
@@ -816,16 +838,16 @@ namespace LogUploader.Test.Data.Logs
         }
     }
 
-    public class EiLogDpsTest : AbstractLogDpsTest<LogDps>
+    internal class EiLogDpsTest : AbstractLogDpsTest<LogDpsEi>
     {
         protected override void AbstractOneTimeSetup()
         {
-            Assume.That(false, "EiLogDpsTest not Implemented yet");
+            Assume.That(true, "EiLogDpsTest Implemented now");
         }
 
-        public override LogDps CreateLogDps(int all, int power, int condi, int cc)
+        public override LogDpsEi CreateLogDps(int all, int power, int condi, int cc)
         {
-            throw new NotImplementedException();
+            return new LogDpsEi((all, power, condi), cc);
         }
     }
 
@@ -968,17 +990,49 @@ namespace LogUploader.Test.Data.Logs
             throw new NotImplementedException();
         }
     }
-    
-    public class EiLogBuffsTest : AbstractLogBuffsTest<LogBuffs>
+
+    internal class EiLogBuffsTest : AbstractLogBuffsTest<LogBuffsEi>
     {
         protected override void AbstractOneTimeSetup()
         {
-            Assume.That(false, "EiLogBuffsTest not Implemented yet");
+            Assume.That(true, "EiLogBuffsTest Implemented now");
         }
 
-        public override LogBuffs CreateLogBuffs(float groupQuickness, float groupAlacrety, float squadQuickness, float squadAlacrety, float squadMight, float squadFury, float squadProtection, float squadRegeneration, float squadBannerStrength, float squadBannerTactics)
+        public override LogBuffsEi CreateLogBuffs(float groupQuickness, float groupAlacrety, float squadQuickness, float squadAlacrety, float squadMight, float squadFury, float squadProtection, float squadRegeneration, float squadBannerStrength, float squadBannerTactics)
+        {
+            return new LogBuffsEi((groupQuickness, groupAlacrety),
+                (squadQuickness, squadAlacrety, squadMight, squadFury, squadProtection, squadRegeneration),
+                (squadBannerStrength, squadBannerTactics));
+        }
+    }
+
+    #endregion
+    #region LogTest
+
+    public class DbLogTest : LogDataTest<Log>
+    {
+        public override Log GetLog(IBoss boss, DateTime date, int sizeKb, bool evtcExists)
         {
             throw new NotImplementedException();
+        }
+
+        protected override void AbstractOneTimeSetUp()
+        {
+            Assume.That(false, "DbLogTest not Implemented yet");
+        }
+    }
+
+    internal class EiLogTest : LogDataTest<LogEi>
+    {
+        public override LogEi GetLog(IBoss boss, DateTime date, int sizeKb, bool evtcExists)
+        {
+            Assume.That(boss, Is.InstanceOf<LogUploader.Data.Boss>().Or.Null);
+            return new LogEi(new LogEi((boss as LogUploader.Data.Boss, date, sizeKb, evtcExists)));
+        }
+    
+        protected override void AbstractOneTimeSetUp()
+        {
+            Assume.That(true, "EiLogTest implemented now");
         }
     }
 

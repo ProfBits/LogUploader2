@@ -45,12 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\LogFullEi.cs" />
     <Compile Include="EliteInsights.cs" />
     <Compile Include="IEliteInsightsSettings.cs" />
     <Compile Include="Json\EliteInsightJsonProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj">
+      <Project>{723b2a2c-9972-4351-b8f8-0b67a04cfdc1}</Project>
+      <Name>LogUploader.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
       <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
       <Name>LogUploader.Interfaces</Name>

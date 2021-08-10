@@ -20,6 +20,10 @@ namespace LogUploader.Test
             Assert.That(ex.ParamName.Split(null).Length, Is.EqualTo(1), "The ArugmentException.ParamName should only contain a single identifier");
             Assert.That(ex.Message, Is.Not.Null, "The ArugmentException.Message should be set");
             Assert.That(string.IsNullOrWhiteSpace(ex.ParamName), Is.False, "The ArugmentException.Message should be set to a none empty string");
+            if (ex is ArgumentOutOfRangeException rangeEx)
+            {
+                Assert.That(rangeEx.ActualValue, Is.Not.Null, "The actual value of an ArgumentOutOfRangeException should be set and not null.");
+            }
             if (ex.InnerException is ArgumentException inner) ValidateArugumentException(inner);
         }
 
