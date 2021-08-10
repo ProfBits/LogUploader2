@@ -1,3 +1,17 @@
+# v1.3.9
+10.08.2021
+
+## Improvements
+- Added support for the new RaidOrga+ Lieutenants feature
+- Imporove prformance of loading RaidOrga+ raids
+- Only logs with a boss that has a valid RaidOrga+ linking, will be processed on 'Update Termin'
+
+## Bugfixes
+- Fixed that a invalid RaidOrga+ login was not properly detected and displayed
+- Fixed RaidOrga+ raid date and time not displying correctly
+- Fixed new escort logs crashing on upload
+- Hopefully fixed a bug when updating a raid in RaidOrga+
+
 # v1.3.8
 18.04.2021
 

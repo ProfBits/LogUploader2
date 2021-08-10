@@ -50,7 +50,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                     sessionToken = streamReader.ReadToEnd();
 
-                if (sessionToken.Length <= 3)
+                if (sessionToken.Length != 36)
                     return null;
 
                 return new Session(sessionToken, userAgent);
@@ -77,45 +77,35 @@ namespace LogUploader.Helper.RaidOrgaPlus
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 termineRAW = streamReader.ReadToEnd();
 
-            progress?.Report(0.4);
-
-            request = GetGetRequest(BASE_ADDRESS + $@"/raids?auth={session.Token}", session.UserAgent);
-
-            string raidsRAW;
-            httpResponse = (HttpWebResponse)request.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                raidsRAW = streamReader.ReadToEnd();
+            /* Fromat
+             * Termine
+             * old: [{"id":582,"raidID":1351,"name":"xyz","icon":null,"role":2,"date":"Fr, 17.07.2020","time":"19:00","endtime":"22:00","type":0}]
+             * new: [[{"id":222,"raidID":1111,"name":"xyz","icon":null,"role":2,"date":"2021-08-07T22:00:00.000Z","time":"20:00","endtime":"22:00","type":2,"dateString":"So, 08.08.2021"}
+             * 
+             * Role=2 == leader
+             * Role=1 == leutnant
+             * Role=0 == member
+             */
 
             progress?.Report(0.8);
 
-            /* Fromat
-             * Termine
-             * [{"id":582,"raidID":1351,"name":"xyz","icon":null,"role":2,"date":"Fr, 17.07.2020","time":"19:00","endtime":"22:00","type":0}]
-             * 
-             * Raids
-             * [{"id":6,"name":"xyz","icon":"","role":0}]
-             * Role=2 == leader
-             */
-
-            var raidsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{raidsRAW}}}");
-            var raids = raidsParsed["wrapper"].ToDictionary(raid => (long)raid["id"], raid => (int)raid["role"] == 2);
-
-            progress?.Report(0.9);
-
             var termineParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{termineRAW}}}");
             var termine = termineParsed["wrapper"]
-                .Where(termin => raids[(long)termin["raidID"]])
+                .Where(termin => (int)termin["role"] >= 1)
                 .Select(termin => new RaidSimple(
                     (long)termin["id"],
                     (long)termin["raidID"],
-                    DateTime.Parse(((string)termin["date"]).Split(' ').Last(), System.Globalization.CultureInfo.GetCultureInfo("de-de")),
+                    ((DateTime)termin["date"]).Date,
                     TimeSpan.Parse((string)termin["time"] + ":00"),
                     TimeSpan.Parse(((string)termin["endtime"] ?? (string)termin["time"]) + ":00"),
                     (string)termin["name"]
-                    ));
+                    )).ToList();
 
+            request = null;
+            termineRAW = null;
+            termineParsed = null;
             progress?.Report(1);
-            return termine.ToList();
+            return termine;
         }
 
         public Raid GetRaid(Session session, long terminID, long raidID, CancellationToken ct, IProgress<ProgressMessage> progress = null)
