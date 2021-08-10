@@ -18,7 +18,7 @@ namespace LogUploader.Tools.RaidOrgaPlus
         {
             progress?.Report(new ProgressMessage(0.01, "Remove outdated logs"));
             logs = logs.Where(l => l.DataVersion >= MIN_DATA_VERSION)
-                .Where(l => Boss.GetByID(l.BossID).RaidOrgaPlusID >= 1);
+                .Where(l => StaticData.Bosses.Get(l.BossID).RaidOrgaPlusID >= 1);
             progress?.Report(new ProgressMessage(0.02, "Remove duplicated bosses"));
             logs = OnlyGetOnePerBoss(logs);
             CondenseStatues(logs);
@@ -250,11 +250,11 @@ namespace LogUploader.Tools.RaidOrgaPlus
                 catch (InvalidOperationException e)
                 {
                     //Ignore, something went worng, can't do anything about it. Just log it with debug info.
-
-                    Logger.Error($"Failed to get team comp for log with boss id {log.BossID} (\"{Boss.GetByID(log.BossID)}\") and isCM:{log.IsCM}");
-                    Logger.Error($"Availabe teamcomps: {string.Join(", ", raid.Bosses.Select(b => $"{b.Encounter.NameEN} isCM:{b.IsCM}"))}");
-                    Logger.Error($"Exception ");
-                    Logger.LogException(e);
+                    
+                    Logging.Logger.Error($"Failed to get team comp for log with boss id {log.BossID} (\"{StaticData.Bosses.Get(log.BossID)}\") and isCM:{log.IsCM}");
+                    Logging.Logger.Error($"Availabe teamcomps: {string.Join(", ", raid.Bosses.Select(b => $"{b.Encounter.NameEN} isCM:{b.IsCM}"))}");
+                    Logging.Logger.Error($"Exception ");
+                    Logging.Logger.LogException(e);
                 }
                 
             }
