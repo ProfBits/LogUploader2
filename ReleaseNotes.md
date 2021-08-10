@@ -10,6 +10,7 @@ t.b.a.
 - Fixed that a invalid RaidOrga+ login was not properly detected and displayed
 - Fixed RaidOrga+ raid date and time not displying correctly
 - Fixed new escort logs crashing on upload
+- Hopefully fixed a bug when updating a raid in RaidOrga+
 
 # v1.3.8
 18.04.2021

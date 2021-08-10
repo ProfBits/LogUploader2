@@ -241,7 +241,20 @@ namespace LogUploader.Helper.RaidOrgaPlus
             var encounters = new List<Encounter>();
             foreach (var log in logs)
             {
-                encounters.Add(new Encounter(raid.GetTeamComp(Boss.GetByID(log.BossID), log.IsCM), log, raid));
+                try
+                {
+                    var tc = raid.GetTeamComp(Boss.GetByID(log.BossID), log.IsCM);
+                    encounters.Add(new Encounter(tc, log, raid));
+                }
+                catch (InvalidOperationException e)
+                {
+                    //Ignore, something went worng, can't do anything about it. Just log it with debug info.
+
+                    Logger.Error($"Failed to get team comp for log with boss id {log.BossID} (\"{Boss.GetByID(log.BossID)}\") and isCM:{log.IsCM}");
+                    Logger.Error($"Availabe teamcomps: {string.Join(", ", raid.Bosses.Select(b => $"{b.Encounter.NameEN} isCM:{b.IsCM}"))}");
+                    Logger.Error($"Exception ");
+                    Logger.LogException(e);
+                }
             }
             return encounters;
         }
