@@ -11,10 +11,14 @@ namespace LogUploader.Tools.EliteInsights.Data
 {
     internal class LogFullEi : LogBasicEi, LogFull
     {
-        internal LogFullEi(List<LogTargetEi> targetsData, List<LogPlayerEi> playersData, LogBasicEi log) : base(log)
+        internal LogFullEi(IEnumerable<LogTargetEi> targetsData, IEnumerable<LogPlayerEi> playersData, LogBasicEi log) : base(log)
         {
-            TargetsData = targetsData ?? throw new ArgumentNullException(nameof(targetsData));
-            PlayersData = playersData ?? throw new ArgumentNullException(nameof(playersData));
+            if (targetsData is null) throw new ArgumentNullException(nameof(targetsData));
+            if (targetsData.Any(e => e is null)) throw new ArgumentException($"A element of {nameof(targetsData)} cannot be null", nameof(targetsData));
+            TargetsData = targetsData.ToList();
+            if (playersData is null) throw new ArgumentNullException(nameof(playersData));
+            if (playersData.Any(e => e is null)) throw new ArgumentException($"A element of {nameof(playersData)} cannot be null", nameof(playersData));
+            PlayersData = playersData.ToList();
         }
 
         internal List<LogTargetEi> TargetsData { get; }
@@ -95,13 +99,17 @@ namespace LogUploader.Tools.EliteInsights.Data
 
     internal class LogPlayerEi : LogPlayer
     {
-        internal LogPlayerEi((string AccountName, string CharakterName, Profession Profession, byte SubGroup) basic, LogPhaseEi fullFightData, List<LogPhaseEi> phasesData)
+        internal LogPlayerEi((string AccountName, string CharakterName, Profession Profession, byte SubGroup) basic, LogPhaseEi fullFightData, IEnumerable<LogPhaseEi> phasesData)
         {
             ProfessionData = basic.Profession ?? throw new ArgumentNullException(nameof(basic.Profession));
             FullFightData = fullFightData ?? throw new ArgumentNullException(nameof(fullFightData));
-            PhasesData = phasesData ?? throw new ArgumentNullException(nameof(phasesData));
-            AccountName = basic.AccountName ?? throw new ArgumentNullException(nameof(basic.AccountName));
-            CharakterName = basic.CharakterName ?? throw new ArgumentNullException(nameof(basic.CharakterName));
+            if (phasesData is null) throw new ArgumentNullException(nameof(phasesData));
+            if (phasesData.Any(e => e is null)) throw new ArgumentException($"A element of {nameof(phasesData)} cannot be null", nameof(phasesData));
+            PhasesData = phasesData.ToList();
+            if (basic.AccountName is null) throw new ArgumentNullException(nameof(basic.AccountName));
+            AccountName = GP.ValidateStringOneWord(basic.AccountName);
+            if (basic.CharakterName is null) throw new ArgumentNullException(nameof(basic.CharakterName));
+            CharakterName = GP.ValidateStringMultiWord(basic.CharakterName);
             SubGroup = basic.SubGroup;
         }
 
@@ -193,4 +201,5 @@ namespace LogUploader.Tools.EliteInsights.Data
         public int Condi { get; }
         public int CC { get; }
     }
+
 }

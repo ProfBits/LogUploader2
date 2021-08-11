@@ -179,20 +179,19 @@ namespace LogUploader.Test.Data.Logs
         [Test]
         public void LogPreviewDataConstructorInvalidArgumentsTest()
         {
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLog(null, Date, SizeKb, EvtcExists)));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLog(null, Date, SizeKb, EvtcExists)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLog(Boss, Date, -1, EvtcExists)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, new TimeSpan(0, -1, 0), Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, 100.1f, UpgradeAvailable)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, -1f, UpgradeAvailable)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, null, new LogTarget[] { Target1, Target2 })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { null, Player2 }, new LogTarget[] { Target1, Target2 })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, null }, new LogTarget[] { Target1, Target2 })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { null, null }, new LogTarget[] { Target1, Target2 })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { null, Player2 }, new LogTarget[] { Target1, Target2 })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, null }, new LogTarget[] { Target1, Target2 })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { null, null }, new LogTarget[] { Target1, Target2 })));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, null)));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, null)));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, new LogTarget[] { null, Target2 })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, new LogTarget[] { Target1, null })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, new LogTarget[] { null, null })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, new LogTarget[] { null, Target2 })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, new LogTarget[] { Target1, null })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogFull(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPlayer[] { Player1, Player2 }, new LogTarget[] { null, null })));
         }
     }
 
@@ -274,21 +273,49 @@ namespace LogUploader.Test.Data.Logs
         }
     }
 
-    public class EiLogFullDataTest : LogFullDataTest<LogFull>
+    internal class EiLogFullDataTest : LogFullDataTest<LogFullEi>
     {
-        public override LogPlayer Player1 { get; }
-        public override LogPlayer Player2 { get; }
-        public override LogTarget Target1 { get; }
-        public override LogTarget Target2 { get; }
+        public override LogPlayer Player1 { get; } = CreatePlayerEi(1);
+        public override LogPlayer Player2 { get; } = CreatePlayerEi(2);
+        public override LogTarget Target1 { get; } = CreateTargetEi(1);
+        public override LogTarget Target2 { get; } = CreateTargetEi(2);
 
-        public override LogFull GetLogFull(IBoss boss, DateTime date, int sizeKb, bool evtcExists, TimeSpan duration, bool uploaded, bool parsed, bool succcess, bool isCm, float remainingHealth, bool upgradeAvailable, IEnumerable<LogPlayer> players, IEnumerable<LogTarget> targets)
+        private static LogPlayerEi CreatePlayerEi(int i)
         {
-            throw new NotImplementedException();
+            LogDpsEi dps = new LogDpsEi((0, 0, 0), 0);
+            Dictionary<int, LogDpsEi> targetDps = new Dictionary<int, LogDpsEi>() { { 1, dps } };
+            LogBuffsEi logBuffs = new LogBuffsEi((0f, 0f), (0f, 0f, 0f, 0f, 0f, 0f), (0f, 0f));
+            LogPhaseEi phase = new LogPhaseEi(dps, targetDps, logBuffs);
+            LogPhaseEi phase1 = new LogPhaseEi(dps, targetDps, logBuffs);
+            LogPhaseEi phase2 = new LogPhaseEi(dps, targetDps, logBuffs);
+
+
+            return new LogPlayerEi(("account.123" + i, "char class" + i, TestHelper.CreateProfession(eProfession.Chronomancer), 3), phase, new LogPhaseEi[] { phase1, phase2});
+        }
+
+        private static LogTargetEi CreateTargetEi(int i)
+        {
+            return new LogTargetEi(i, 404, 41, 0, 404);
+        }
+
+        public override LogFullEi GetLogFull(IBoss boss, DateTime date, int sizeKb, bool evtcExists,
+            TimeSpan duration, bool uploaded, bool parsed, bool succcess, bool isCm, float remainingHealth, bool upgradeAvailable,
+            IEnumerable<LogPlayer> players, IEnumerable<LogTarget> targets)
+        {
+            Assume.That(boss, Is.InstanceOf<LogUploader.Data.Boss>().Or.Null);
+            if (!(players is null))
+                Assume.That(players, Has.All.InstanceOf<LogPlayerEi>().Or.Null);
+            if (!(targets is null))
+                Assume.That(targets, Has.All.InstanceOf<LogTargetEi>().Or.Null);
+
+            return new LogFullEi(targets?.Cast<LogTargetEi>(), players?.Cast<LogPlayerEi>(),
+                new LogBasicEi((duration, uploaded, parsed, succcess, isCm, remainingHealth, upgradeAvailable),
+                new LogEi((boss as LogUploader.Data.Boss, date, sizeKb, evtcExists))));
         }
 
         protected override void AbstractOneTimeSetUp()
         {
-            Assume.That(false, "EiLogFullDataTest not implemented yet");
+            Assume.That(true, "EiLogFullDataTest implemented now");
         }
     }
 
@@ -492,11 +519,11 @@ namespace LogUploader.Test.Data.Logs
                 CreateLogPlayer(accountName, charakterName, profession, subGroup, null, new LogPhase[] { phase1, phase2 })));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() =>
                 CreateLogPlayer(accountName, charakterName, profession, subGroup, fullFight, null)));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() =>
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() =>
                 CreateLogPlayer(accountName, charakterName, profession, subGroup, fullFight, new LogPhase[] { null, phase2 })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() =>
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() =>
                 CreateLogPlayer(accountName, charakterName, profession, subGroup, fullFight, new LogPhase[] { phase1, null })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() =>
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() =>
                 CreateLogPlayer(accountName, charakterName, profession, subGroup, fullFight, new LogPhase[] { null, null })));
         }
 
@@ -520,21 +547,28 @@ namespace LogUploader.Test.Data.Logs
         }
     }
 
-    public class EiLogPlayerTest : AbstractLogPlayerTest<LogPlayer>
+    internal class EiLogPlayerTest : AbstractLogPlayerTest<LogPlayerEi>
     {
         public override LogPhase CreateLogPhase()
         {
-            throw new NotImplementedException();
+            LogDpsEi dps = new LogDpsEi((0, 0, 0), 0);
+            Dictionary<int, LogDpsEi> targetDps = new Dictionary<int, LogDpsEi>() { { 1, dps } };
+            LogBuffsEi logBuffs = new LogBuffsEi((0f, 0f), (0f, 0f, 0f, 0f, 0f, 0f), (0f, 0f));
+            return new LogPhaseEi(dps, targetDps, logBuffs);
         }
 
-        public override LogPlayer CreateLogPlayer(string accountName, string charackterName, LogUploader.Data.IProfession profession, byte subgroup, LogPhase fullFight, IEnumerable<LogPhase> Phasees)
+        public override LogPlayerEi CreateLogPlayer(string accountName, string charackterName, LogUploader.Data.IProfession profession, byte subgroup, LogPhase fullFight, IEnumerable<LogPhase> Phasees)
         {
-            throw new NotImplementedException();
+            Assume.That(profession, Is.InstanceOf<LogUploader.Data.Profession>().Or.Null);
+            Assume.That(fullFight, Is.InstanceOf<LogPhaseEi>().Or.Null);
+            if (!(Phasees is null))
+                Assert.That(Phasees, Has.All.InstanceOf<LogPhaseEi>().Or.Null);
+            return new LogPlayerEi((accountName, charackterName, profession as LogUploader.Data.Profession, subgroup), fullFight as LogPhaseEi, Phasees.Cast<LogPhaseEi>());
         }
 
         protected override void AbstractOneTimeSetUp()
         {
-            Assume.That(false, "EiLogPlayerTest not Implemented yet");
+            Assume.That(true, "EiLogPlayerTest Implemented now");
         }
     }
 
