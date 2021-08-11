@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 using LogUploader.Interfaces;
 using LogUploader.Tools.EliteInsights.Data;
+using System.Xml.Linq;
 
 namespace LogUploader.Test.Data.Logs
 {
@@ -132,9 +133,9 @@ namespace LogUploader.Test.Data.Logs
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, 100.1f, UpgradeAvailable)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentOutOfRangeException>(() => GetLogBasic(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, -1f, UpgradeAvailable)));
             TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogPreview(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, null)));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogPreview(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPreviewPlayer[] { null, Player2 })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogPreview(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPreviewPlayer[] { Player1, null })));
-            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentNullException>(() => GetLogPreview(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPreviewPlayer[] { null, null })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogPreview(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPreviewPlayer[] { null, Player2 })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogPreview(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPreviewPlayer[] { Player1, null })));
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => GetLogPreview(Boss, Date, SizeKb, EvtcExists, Duration, Uploaded, Parsed, Succcess, IsCm, RemainingHealth, UpgradeAvailable, new LogPreviewPlayer[] { null, null })));
         }
     }
 
@@ -257,19 +258,35 @@ namespace LogUploader.Test.Data.Logs
         }
     }
 
-    public class EiLogPreviewDataTest : LogPreviewDataTest<LogPreview>
+    internal class EiLogPreviewDataTest : LogPreviewDataTest<LogPreviewEi>
     {
-        public override LogPreviewPlayer Player1 { get; }
-        public override LogPreviewPlayer Player2 { get; }
+        public override LogPreviewPlayer Player1 { get; } = CreatePreviewPlayer(1);
+        public override LogPreviewPlayer Player2 { get; } = CreatePreviewPlayer(2);
 
-        public override LogPreview GetLogPreview(IBoss boss, DateTime date, int sizeKb, bool evtcExists, TimeSpan duration, bool uploaded, bool parsed, bool succcess, bool isCm, float remainingHealth, bool upgradeAvailable, IEnumerable<LogPreviewPlayer> players)
+        public static LogPreviewPlayerEi CreatePreviewPlayer(int num)
         {
-            throw new NotImplementedException();
+            Assume.That(num, Is.Positive.Or.Zero);
+            LogDpsEi logDps = new LogDpsEi((num, num * 2, num * 3), num * 7);
+            LogBuffsEi buffs = new LogBuffsEi((0, 0), (0, 0, 0, 0, 0, 0), (0, 0));
+            LogPhaseEi phaseFullFight = new LogPhaseEi(logDps, new Dictionary<int, LogDpsEi>(), buffs);
+            LogPlayerEi player = new LogPlayerEi(("accoutn.123" + num, $"char number{num}", TestHelper.CreateProfession(eProfession.Scourge), 3), phaseFullFight, new LogPhaseEi[] { });
+            return new LogPreviewPlayerEi(player);
+        }
+
+        public override LogPreviewEi GetLogPreview(IBoss boss, DateTime date, int sizeKb, bool evtcExists, TimeSpan duration, bool uploaded, bool parsed, bool succcess, bool isCm, float remainingHealth, bool upgradeAvailable, IEnumerable<LogPreviewPlayer> players)
+        {
+            Assume.That(boss, Is.InstanceOf<LogUploader.Data.Boss>().Or.Null);
+            if (!(players is null))
+                Assume.That(players, Has.All.InstanceOf<LogPreviewPlayerEi>().Or.Null);
+
+            LogBasicEi baseLog = new LogBasicEi((duration, uploaded, parsed, succcess, isCm, remainingHealth, upgradeAvailable),
+                new LogEi((boss as LogUploader.Data.Boss, date, sizeKb, evtcExists)));
+            return new LogPreviewEi(baseLog, players);
         }
 
         protected override void AbstractOneTimeSetUp()
         {
-            Assume.That(false, "EiLogPreviewDataTest not implemented yet");
+            Assume.That(true, "EiLogPreviewDataTest implemented now");
         }
     }
 
@@ -330,7 +347,7 @@ namespace LogUploader.Test.Data.Logs
         protected abstract void AbstractOneTimeSetup();
 
         [Test]
-        public void LogPreviewPlayerConstructorAssigenTest([ValueSource(typeof(TestHelper), nameof(TestHelper.ValidMulitWordStrings))] string validName)
+        public void LogPreviewPlayerConstructorAssigenTest([ValueSource(typeof(TestHelper), nameof(TestHelper.ValidOneWordStrings))] string validName)
         {
             LogUploader.Data.IProfession profession = TestHelper.CreateProfession(eProfession.Scourge);
             const byte subGroup = 1;
@@ -345,13 +362,13 @@ namespace LogUploader.Test.Data.Logs
         }
 
         [Test]
-        public void LogPreviewPlayerConstructorInvalidNameTest([ValueSource(typeof(TestHelper), nameof(TestHelper.InvalidMulitWordStrings))] string invalidName)
+        public void LogPreviewPlayerConstructorInvalidNameTest([ValueSource(typeof(TestHelper), nameof(TestHelper.InvalidOneWordStrings))] string invalidName)
         {
             LogUploader.Data.IProfession profession = TestHelper.CreateProfession(eProfession.Scourge);
             const byte subGroup = 1;
             const int dps = 10410;
 
-            T prevPlayer = CreatePreviewPlayer(invalidName, profession, subGroup, dps);
+            TestHelper.ValidateArugumentException(Assert.Catch<ArgumentException>(() => CreatePreviewPlayer(invalidName, profession, subGroup, dps)));
         }
 
         [Test]
@@ -387,12 +404,16 @@ namespace LogUploader.Test.Data.Logs
     {
         public override LogPreviewPlayer CreatePreviewPlayer(string name, LogUploader.Data.IProfession profession, byte subGroup, int dps)
         {
-            throw new NotImplementedException();
+            LogDpsEi logDps = new LogDpsEi((dps, dps + 1, dps + 2), dps + 3);
+            LogBuffsEi buffs = new LogBuffsEi((0, 0), (0, 0, 0, 0, 0, 0), (0, 0));
+            LogPhaseEi phaseFullFight = new LogPhaseEi(logDps, new Dictionary<int, LogDpsEi>(), buffs);
+            LogPlayerEi player = new LogPlayerEi((name, $"char of {name}", profession as LogUploader.Data.Profession, subGroup), phaseFullFight, new LogPhaseEi[] { });
+            return new LogPreviewPlayerEi(player);
         }
 
         protected override void AbstractOneTimeSetup()
         {
-            Assume.That(false, "EiLogPreviewPlayerTest not Implemented yet");
+            Assume.That(true, "EiLogPreviewPlayerTest Implemented now");
         }
 
     }

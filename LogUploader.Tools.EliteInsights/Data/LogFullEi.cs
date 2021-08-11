@@ -202,4 +202,62 @@ namespace LogUploader.Tools.EliteInsights.Data
         public int CC { get; }
     }
 
+    internal class LogPreviewEi : Interfaces.LogPreview
+    {
+        private readonly LogBasicEi BackingLogData;
+
+        private readonly List<LogPreviewPlayer> PlayerData = new List<LogPreviewPlayer>();
+
+        internal LogPreviewEi(LogFullEi logData) : this(new LogBasicEi(logData), logData.Players.Select(p => new LogPreviewPlayerEi(p)))
+        {
+
+        }
+
+        internal LogPreviewEi(LogBasicEi logData, IEnumerable<LogPreviewPlayer> players)
+        {
+            BackingLogData = new LogBasicEi(logData);
+            if (players.Any(p => p is null)) throw new ArgumentException($"A element of {nameof(players)} cannot be null", nameof(players));
+            PlayerData.AddRange(players);
+        }
+
+        public IReadOnlyList<LogPreviewPlayer> Players => PlayerData;
+
+        public TimeSpan Duration => BackingLogData.Duration;
+
+        public bool Uploaded => BackingLogData.Uploaded;
+
+        public bool Parsed => BackingLogData.Parsed;
+
+        public bool Succcess => BackingLogData.Succcess;
+
+        public bool IsCm => BackingLogData.IsCm;
+
+        public float RemainingHealth => BackingLogData.RemainingHealth;
+
+        public bool UpgradeAvailable => BackingLogData.UpgradeAvailable;
+
+        public IBoss Boss => BackingLogData.Boss;
+
+        public DateTime Date => BackingLogData.Date;
+
+        public int SizeKb => BackingLogData.SizeKb;
+
+        public bool EvtcExists => BackingLogData.EvtcExists;
+    }
+
+    internal class LogPreviewPlayerEi : LogPreviewPlayer
+    {
+        public LogPreviewPlayerEi(LogPlayer p)
+        {
+            Name = p.AccountName;
+            Profession = p.Profession;
+            SubGroup = p.SubGroup;
+            Dps = p.FullFight.DpsAll.All;
+        }
+
+        public string Name { get; }
+        public IProfession Profession { get; }
+        public byte SubGroup { get; }
+        public int Dps { get; }
+    }
 }
