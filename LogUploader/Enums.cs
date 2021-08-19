@@ -64,7 +64,11 @@ namespace LogUploader
         Deadeye = 24,
         Weaver = 25,
         Mirage = 26,
-        Scourge = 27
+        Scourge = 27,
+
+        Willbender = 29,
+        Virtuoso = 35,
+        Harbinger = 36
     }
     public enum eBosses : int
     {

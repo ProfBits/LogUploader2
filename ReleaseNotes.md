@@ -1,3 +1,15 @@
+# v1.3.10
+19.08.2021
+
+## Improvements
+- Added support for the new EoD specs
+  - Harbinger
+  - Virtuoso
+  - Willbender
+
+## Bugfixes
+- Fix broken Wing 3 image
+
 # v1.3.9
 10.08.2021
 
