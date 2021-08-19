@@ -1,5 +1,5 @@
 # v1.3.10
-t.b.a.
+19.08.2021
 
 ## Improvements
 - Added support for the new EoD specs
