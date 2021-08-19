@@ -33,6 +33,14 @@
       "RaidOrgaPlusID": 26
     },
     {
+      "ID": 29,
+      "NameEN": "Willbender",
+      "NameDE": "Willensverdreher",
+      "IconPath": "\\images\\Professions\\Willbender.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 35
+    },
+    {
       "ID": 3,
       "NameEN": "Revenant",
       "NameDE": "Widergänger",
@@ -201,6 +209,14 @@
       "RaidOrgaPlusID": 20
     },
     {
+      "ID": 35,
+      "NameEN": "Virtuoso",
+      "NameDE": "Virtuose",
+      "IconPath": "\\images\\Professions\\Virtuoso.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 29
+    },
+    {
       "ID": 9,
       "NameEN": "Necromancer",
       "NameDE": "Nekromant",
@@ -223,6 +239,14 @@
       "IconPath": "\\images\\Professions\\Scourge.png",
       "Emote": "<:scg:484839927121575950>",
       "RaidOrgaPlusID": 21
+    },
+    {
+      "ID": 36,
+      "NameEN": "Harbinger",
+      "NameDE": "Vorbote",
+      "IconPath": "\\images\\Professions\\Harbinger.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 30
     }
   ]
 }
