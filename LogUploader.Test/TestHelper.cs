@@ -47,7 +47,9 @@ namespace LogUploader.Test
             }
         }
 
-        internal static string[] InvalidDiscordEmotes { get => new string[] {
+        internal static string[] InvalidDiscordEmotes
+        {
+            get => new string[] {
             null,
             "",
             "  ",
@@ -102,18 +104,17 @@ namespace LogUploader.Test
                 " ",
                 "  \t\n\r",
                 " spaceAtFront",
-                "spceAtBack ",
+                " space At Front",
                 " spaceAround ",
-                " spaceAround ",
-                "spce At Back ",
                 " space Around ",
-                " space Around "
+                "spceAtBack ",
+                "spce At Back "
             };
         }
 
         internal static string[] ValidMulitWordStrings
         {
-            get => new string[] { 
+            get => new string[] {
                 "one",
                 "WordWithNumbers12345",
                 "two words",
