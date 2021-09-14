@@ -45,7 +45,7 @@ namespace LogUploader.Test.Data
             [ValueSource(nameof(GetEveryGameAreaDefault))] GameArea b)
         {
             if (everyGameAreaDefaultCount != classesToTest)
-                Assert.Warn($"Nuber of subclasses in {nameof(GetEveryGameAreaDefault)} is not equal to number of concred implementaion of {nameof(GameArea)}.\n" +
+                Assert.Warn($"Nuber of subclasses in {nameof(GetEveryGameAreaDefault)} is not equal to the number of concret implementations of {nameof(GameArea)}.\n" +
                     $"Expected: {classesToTest}\n" +
                     $"Got: {everyGameAreaDefaultCount}");
 
@@ -80,7 +80,7 @@ namespace LogUploader.Test.Data
             [ValueSource(nameof(GetEveryGameAreaSameArgs))] GameArea b)
         {
             if (everyGameAreaSameArgsCount != classesToTest)
-                Assert.Warn($"Nuber of subclasses in {nameof(GetEveryGameAreaSameArgs)} is not equal to number of concred implementaion of {nameof(GameArea)}.\n" +
+                Assert.Warn($"Nuber of subclasses in {nameof(GetEveryGameAreaSameArgs)} is not equal to the number of concret implementations of {nameof(GameArea)}.\n" +
                     $"Expected: {classesToTest}\n" +
                     $"Got: {everyGameAreaSameArgsCount}");
 
