@@ -1,17 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\build\LogUploader.build.props" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-
     <IsPackable>false</IsPackable>
+    <AssemblyTitle>LogUploader.Test</AssemblyTitle>
+    <Configurations>Debug;Release;CreateLanguageXMLs;AlphaRelease;BetaRelease</Configurations>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="TestFiles\static\bossDataSimple.json" />
     <None Remove="TestFiles\static\bossData_0621.json" />
     <None Remove="TestFiles\static\profData_0721.json" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="TestFiles\static\bossDataSimple.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -23,14 +22,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj" />
     <ProjectReference Include="..\LogUploader.GUI\LogUploader.GUI.csproj" />
@@ -46,12 +44,10 @@
     <ProjectReference Include="..\LogUploaderTools.Settings\LogUploader.Tools.Settings.csproj" />
     <ProjectReference Include="..\LogUploader\LogUploader.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="TestFiles\MockProxyFileTest.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -66,10 +62,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="TestFiles\Database\" />
     <Folder Include="TestFiles\eiJsonZips\" />
   </ItemGroup>
-
 </Project>

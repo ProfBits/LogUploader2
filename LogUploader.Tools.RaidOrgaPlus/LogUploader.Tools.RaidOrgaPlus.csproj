@@ -1,116 +1,47 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\build\LogUploader.build.props" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{23C7A472-40D7-4242-BCC7-7E9928F21868}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogUploader.Tools.RaidOrgaPlus</RootNamespace>
-    <AssemblyName>LogUploader.Tools.RaidOrgaPlus</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyTitle>LogUploader.Tools.RaidOrgaPlus</AssemblyTitle>
+    <Configurations>Debug;Release;CreateLanguageXMLs;AlphaRelease;BetaRelease</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\ISession.cs" />
-    <Compile Include="Encounter.cs" />
-    <Compile Include="Extensiones.cs" />
-    <Compile Include="GUI\CorrectPlayerUI.cs">
+    <Compile Update="GUI\CorrectPlayerUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\CorrectPlayerUI.Designer.cs">
+    <Compile Update="GUI\CorrectPlayerUI.Designer.cs">
       <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\PlayerToCorrect.cs">
+    <Compile Update="GUI\PlayerToCorrect.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\PlayerToCorrect.Designer.cs">
+    <Compile Update="GUI\PlayerToCorrect.Designer.cs">
       <DependentUpon>PlayerToCorrect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper.cs" />
-    <Compile Include="Interface\IRaidOrgaPlusSettings.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RaidOrgaPlusCache.cs" />
-    <Compile Include="RaidOrgaPlusConnector.cs" />
-    <Compile Include="RaidOrgaPlusDataWorker.cs" />
-    <Compile Include="Data\Account.cs" />
-    <Compile Include="Data\CheckPlayer.cs" />
-    <Compile Include="Data\PlayerType.cs" />
-    <Compile Include="Data\Position.cs" />
-    <Compile Include="Data\Raid.cs" />
-    <Compile Include="Data\RaidOrgaPlusCacheItem.cs" />
-    <Compile Include="Data\RaidSimple.cs" />
-    <Compile Include="Data\Role.cs" />
-    <Compile Include="Data\RoPlusPlayer.cs" />
-    <Compile Include="Data\Session.cs" />
-    <Compile Include="Data\TeamComp.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj">
-      <Project>{723b2a2c-9972-4351-b8f8-0b67a04cfdc1}</Project>
-      <Name>LogUploader.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
-      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
-      <Name>LogUploader.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj">
-      <Project>{0a993a3e-b632-4af6-a981-1e40db6fe5fe}</Project>
-      <Name>LogUploader.Localisation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
-      <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
-      <Name>LogUploader.Tools.Logger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj">
-      <Project>{f6548ff0-b30f-40a4-b8aa-a277d7b6c425}</Project>
-      <Name>LogUploader.Tools</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Data\LogUploader.Data.csproj" />
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj" />
+    <ProjectReference Include="..\LogUploader.Localisation\LogUploader.Localisation.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GUI\CorrectPlayerUI.resx">
+    <EmbeddedResource Update="GUI\CorrectPlayerUI.resx">
       <DependentUpon>CorrectPlayerUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\PlayerToCorrect.resx">
+    <EmbeddedResource Update="GUI\PlayerToCorrect.resx">
       <DependentUpon>PlayerToCorrect.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

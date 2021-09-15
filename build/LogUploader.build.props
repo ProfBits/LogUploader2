@@ -1,0 +1,27 @@
+<Project>
+  <PropertyGroup>
+    <Company>Bits Inc.</Company>
+    <Product>Log Uploader</Product>
+    <Copyright>Copyright © ProfBits 2019 - 2021</Copyright>
+    <FileVersion>1.3.10.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+	<!-- Maybe add ruleset -->
+    <LangVersion>7.3</LangVersion>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)' == 'CreateLanguageXMLs'">
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;DEBUG;CREATE_LANGUAGE_XMLS</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'AlphaRelease'">
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;DEBUG;ALPHA</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'BetaRelease'">
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;BETA</DefineConstants>
+  </PropertyGroup>
+</Project>
