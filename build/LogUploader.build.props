@@ -2,13 +2,14 @@
   <PropertyGroup>
     <Company>Bits Inc.</Company>
     <Product>Log Uploader</Product>
-    <Copyright>Copyright © ProfBits 2019 - 2021</Copyright>
+    <Copyright>Copyright © ProfBits 2019 - $([System.DateTime]::Now.Year)</Copyright>
     <FileVersion>1.3.10.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup>
 	<!-- Maybe add ruleset -->
     <LangVersion>7.3</LangVersion>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)' == 'CreateLanguageXMLs'">
