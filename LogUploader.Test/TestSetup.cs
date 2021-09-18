@@ -38,6 +38,12 @@ public class TestSetup
         TestContext.WriteLine($"GlobalTestSetup done in {Math.Round(sw.Elapsed.TotalMilliseconds)} ms");
     }
 
+    [OneTimeTearDown]
+    public void GlobalOneTimeTearDown()
+    {
+        Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection.UnloadAllProjects();
+    }
+
     private void InsertStaticData()
     {
         string relPathBoss = GetPathToTestFiles("bossData_0621.json");

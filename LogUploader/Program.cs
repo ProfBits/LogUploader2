@@ -347,6 +347,7 @@ namespace LogUploader
             {
                 Logger.Error("Update Failed");
                 Logger.LogException(e);
+                //TODO localize error
                 MessageBox.Show("Update Failed. Reaseon:\n" + e.Message, "Update Failed", MessageBoxButtons.OK);
                 return false;
             }

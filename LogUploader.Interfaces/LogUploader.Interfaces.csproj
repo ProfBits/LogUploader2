@@ -1,102 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\build\LogUploader.build.props" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{614BC53C-0C82-4731-8A50-3B003B77F892}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogUploader.Interfaces</RootNamespace>
-    <AssemblyName>LogUploader.Interfaces</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyTitle>LogUploader.Interfaces</AssemblyTitle>
+    <Configurations>Debug;Release;CreateLanguageXMLs;AlphaRelease;BetaRelease</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Enums\eBosses.cs" />
-    <Compile Include="Enums\eDiscordPostFormat.cs" />
-    <Compile Include="Enums\eLanguage.cs" />
-    <Compile Include="Enums\ExitCode.cs" />
-    <Compile Include="Enums\eProfession.cs" />
-    <Compile Include="Extensiones\Extensiones.cs" />
-    <Compile Include="Factroies\UiFactory.cs" />
-    <Compile Include="Interfaces\Enemy\IAddEnemy.cs" />
-    <Compile Include="Interfaces\Enemy\IBoss.cs" />
-    <Compile Include="Interfaces\Enemy\IEnemy.cs" />
-    <Compile Include="Interfaces\GameArea\IGameArea.cs" />
-    <Compile Include="Interfaces\GameArea\IMultiGameArea.cs" />
-    <Compile Include="Interfaces\IAvatar.cs" />
-    <Compile Include="Interfaces\ICachedLog.cs" />
-    <Compile Include="Interfaces\IDBLog.cs" />
-    <Compile Include="Interfaces\Log\DataLevel.cs" />
-    <Compile Include="Interfaces\Log\Log.cs" />
-    <Compile Include="Interfaces\Log\LogBasic.cs" />
-    <Compile Include="Interfaces\Log\LogBuffs.cs" />
-    <Compile Include="Interfaces\Log\LogDps.cs" />
-    <Compile Include="Interfaces\Log\LogFull.cs" />
-    <Compile Include="Interfaces\Log\LogPhase.cs" />
-    <Compile Include="Interfaces\Log\LogPlayer.cs" />
-    <Compile Include="Interfaces\Log\LogPreview.cs" />
-    <Compile Include="Interfaces\Log\LogPreviewPlayer.cs" />
-    <Compile Include="Interfaces\Log\LogTarget.cs" />
-    <Compile Include="Wrapper\DirectoryIO.cs" />
-    <Compile Include="Wrapper\FileIO.cs" />
-    <Compile Include="Wrapper\IDirectoryIO.cs" />
-    <Compile Include="Wrapper\IFileIO.cs" />
-    <Compile Include="Interfaces\IJob.cs" />
-    <Compile Include="Interfaces\ILanguage.cs" />
-    <Compile Include="Interfaces\INamedObject.cs" />
-    <Compile Include="Interfaces\IProfession.cs" />
-    <Compile Include="Interfaces\ISettings.cs" />
-    <Compile Include="Interfaces\ISimmpleTarget.cs" />
-    <Compile Include="Interfaces\ISimpleDps.cs" />
-    <Compile Include="Interfaces\ISimpleLogJson.cs" />
-    <Compile Include="Interfaces\ISimplePlayer.cs" />
-    <Compile Include="Interfaces\ISoftwareLicense.cs" />
-    <Compile Include="ObjectName.cs" />
-    <Compile Include="ProgressMessage.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringValueAttribute.cs" />
-    <Compile Include="Wrapper\ISpecialDirectories.cs" />
-    <Compile Include="Wrapper\IWebIO.cs" />
-    <Compile Include="Wrapper\WebIO.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

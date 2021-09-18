@@ -1,103 +1,44 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\build\LogUploader.build.props" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F6548FF0-B30F-40A4-B8AA-A277D7B6C425}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogUploader.Tools</RootNamespace>
-    <AssemblyName>LogUploader.Tools</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyTitle>LogUploader.Tools</AssemblyTitle>
+    <Configurations>Debug;Release;CreateLanguageXMLs;AlphaRelease;BetaRelease</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumHelper.cs" />
-    <Compile Include="ExecuteHelper.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="InputDialog.cs">
+    <Compile Update="InputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputDialog.Designer.cs">
+    <Compile Update="InputDialog.Designer.cs">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="JobQueue\JobAddedEventArgs.cs" />
-    <Compile Include="JobQueue\JobDoneEventArgs.cs" />
-    <Compile Include="JobQueue\JobFaultedEventArgs.cs" />
-    <Compile Include="JobQueue\JobQueue.cs" />
-    <Compile Include="JobQueue\JobQueueEmptyEventArgs.cs" />
-    <Compile Include="JobQueue\JobStartedEventArgs.cs" />
-    <Compile Include="JobQueue\NamedJob.cs" />
-    <Compile Include="JsonHandling.cs" />
-    <Compile Include="ListToDataTable.cs" />
-    <Compile Include="LogCache.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SequenceHandler\SequenceHandler.cs" />
-    <Compile Include="SynchronusProgress.cs" />
-    <Compile Include="Updater\UpdateAvailableUI.cs">
+    <Compile Update="Updater\UpdateAvailableUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Updater\UpdateAvailableUI.Designer.cs">
+    <Compile Update="Updater\UpdateAvailableUI.Designer.cs">
       <DependentUpon>UpdateAvailableUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Updater\Updater.cs" />
-    <Compile Include="WebHelper.cs" />
-    <Compile Include="ZipHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj">
-      <Project>{614bc53c-0c82-4731-8a50-3b003b77f892}</Project>
-      <Name>LogUploader.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj">
-      <Project>{69300452-4544-42bb-b283-1d46ad792843}</Project>
-      <Name>LogUploader.Tools.Logger</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\LogUploader.Interfaces\LogUploader.Interfaces.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="InputDialog.resx">
+    <EmbeddedResource Update="InputDialog.resx">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Updater\UpdateAvailableUI.resx">
+    <EmbeddedResource Update="Updater\UpdateAvailableUI.resx">
       <DependentUpon>UpdateAvailableUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
