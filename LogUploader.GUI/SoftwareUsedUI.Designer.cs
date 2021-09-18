@@ -40,6 +40,9 @@
             this.CommonMark = new LogUploader.GUIs.SoftwareItem();
             this.NewtonsoftJson = new LogUploader.GUIs.SoftwareItem();
             this.PropMapper = new LogUploader.GUIs.SoftwareItem();
+            this.MicrosoftBuild = new LogUploader.GUIs.SoftwareItem();
+            this.MicrosoftBuildUtilitiesCore = new LogUploader.GUIs.SoftwareItem();
+            this.SystemResourcesExtensions = new LogUploader.GUIs.SoftwareItem();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +80,9 @@
             this.flowLayoutPanel1.Controls.Add(this.CommonMark);
             this.flowLayoutPanel1.Controls.Add(this.NewtonsoftJson);
             this.flowLayoutPanel1.Controls.Add(this.PropMapper);
+            this.flowLayoutPanel1.Controls.Add(this.MicrosoftBuild);
+            this.flowLayoutPanel1.Controls.Add(this.MicrosoftBuildUtilitiesCore);
+            this.flowLayoutPanel1.Controls.Add(this.SystemResourcesExtensions);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -198,6 +204,48 @@
             this.PropMapper.Software = "PropMapper";
             this.PropMapper.TabIndex = 7;
             // 
+            // MicrosoftBuild
+            // 
+            this.MicrosoftBuild.Copyright = "© .NET Foundation and Contributors";
+            this.MicrosoftBuild.Image = ((System.Drawing.Image)(resources.GetObject("MicrosoftBuild.Image")));
+            this.MicrosoftBuild.ImageUsed = true;
+            this.MicrosoftBuild.License = null;
+            this.MicrosoftBuild.LicenseStr = "MIT";
+            this.MicrosoftBuild.Location = new System.Drawing.Point(3, 899);
+            this.MicrosoftBuild.Name = "MicrosoftBuild";
+            this.MicrosoftBuild.ProjectLink = "https://www.nuget.org/packages/Microsoft.Build/16.11.0";
+            this.MicrosoftBuild.Size = new System.Drawing.Size(300, 106);
+            this.MicrosoftBuild.Software = "Microsoft.Build";
+            this.MicrosoftBuild.TabIndex = 8;
+            // 
+            // MicrosoftBuildUtilitiesCore
+            // 
+            this.MicrosoftBuildUtilitiesCore.Copyright = "© .NET Foundation and Contributors";
+            this.MicrosoftBuildUtilitiesCore.Image = ((System.Drawing.Image)(resources.GetObject("MicrosoftBuildUtilitiesCore.Image")));
+            this.MicrosoftBuildUtilitiesCore.ImageUsed = true;
+            this.MicrosoftBuildUtilitiesCore.License = null;
+            this.MicrosoftBuildUtilitiesCore.LicenseStr = "MIT";
+            this.MicrosoftBuildUtilitiesCore.Location = new System.Drawing.Point(3, 1011);
+            this.MicrosoftBuildUtilitiesCore.Name = "MicrosoftBuildUtilitiesCore";
+            this.MicrosoftBuildUtilitiesCore.ProjectLink = "https://www.nuget.org/packages/Microsoft.Build.Utilities.Core/16.11.0";
+            this.MicrosoftBuildUtilitiesCore.Size = new System.Drawing.Size(300, 106);
+            this.MicrosoftBuildUtilitiesCore.Software = "Microsoft.Build.Utilities.Core";
+            this.MicrosoftBuildUtilitiesCore.TabIndex = 9;
+            // 
+            // SystemResourcesExtensions
+            // 
+            this.SystemResourcesExtensions.Copyright = "© .NET Foundation and Contributors";
+            this.SystemResourcesExtensions.Image = ((System.Drawing.Image)(resources.GetObject("SystemResourcesExtensions.Image")));
+            this.SystemResourcesExtensions.ImageUsed = true;
+            this.SystemResourcesExtensions.License = null;
+            this.SystemResourcesExtensions.LicenseStr = "MIT";
+            this.SystemResourcesExtensions.Location = new System.Drawing.Point(3, 1123);
+            this.SystemResourcesExtensions.Name = "SystemResourcesExtensions";
+            this.SystemResourcesExtensions.ProjectLink = "https://www.nuget.org/packages/System.Resources.Extensions/5.0.0";
+            this.SystemResourcesExtensions.Size = new System.Drawing.Size(300, 106);
+            this.SystemResourcesExtensions.Software = "System.Resources.Extensions";
+            this.SystemResourcesExtensions.TabIndex = 10;
+            // 
             // SoftwareUsedUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,5 +280,8 @@
         private SoftwareItem CommonMark;
         private SoftwareItem NewtonsoftJson;
         private SoftwareItem PropMapper;
+        private SoftwareItem MicrosoftBuild;
+        private SoftwareItem MicrosoftBuildUtilitiesCore;
+        private SoftwareItem SystemResourcesExtensions;
     }
 }

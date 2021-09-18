@@ -32,6 +32,9 @@ namespace LogUploader.GUIs
             CommonMark.License = new CommonMarkLicense();
             NewtonsoftJson.License = new NewtonsoftJsonLicense();
             PropMapper.License = new PropMapperLicense();
+            MicrosoftBuild.License = new MicrosoftBuildLicense();
+            MicrosoftBuildUtilitiesCore.License = new MicrosoftBuildUtilitiesCoreLicense();
+            SystemResourcesExtensions.License = new SystemResourcesExtensionsLicense();
         }
 
         private void ApplyLanguage(ILanguage lang)
