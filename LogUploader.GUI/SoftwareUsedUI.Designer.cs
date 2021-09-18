@@ -206,7 +206,7 @@
             // 
             // MicrosoftBuild
             // 
-            this.MicrosoftBuild.Copyright = "© .NET Foundation and Contributors";
+            this.MicrosoftBuild.Copyright = "© .Microsoft Corporation. All rights reserved.";
             this.MicrosoftBuild.Image = ((System.Drawing.Image)(resources.GetObject("MicrosoftBuild.Image")));
             this.MicrosoftBuild.ImageUsed = true;
             this.MicrosoftBuild.License = null;
@@ -220,7 +220,7 @@
             // 
             // MicrosoftBuildUtilitiesCore
             // 
-            this.MicrosoftBuildUtilitiesCore.Copyright = "© .NET Foundation and Contributors";
+            this.MicrosoftBuildUtilitiesCore.Copyright = "© Microsoft Corporation. All rights reserved.";
             this.MicrosoftBuildUtilitiesCore.Image = ((System.Drawing.Image)(resources.GetObject("MicrosoftBuildUtilitiesCore.Image")));
             this.MicrosoftBuildUtilitiesCore.ImageUsed = true;
             this.MicrosoftBuildUtilitiesCore.License = null;
@@ -234,7 +234,7 @@
             // 
             // SystemResourcesExtensions
             // 
-            this.SystemResourcesExtensions.Copyright = "© .NET Foundation and Contributors";
+            this.SystemResourcesExtensions.Copyright = "© Microsoft Corporation. All rights reserved.";
             this.SystemResourcesExtensions.Image = ((System.Drawing.Image)(resources.GetObject("SystemResourcesExtensions.Image")));
             this.SystemResourcesExtensions.ImageUsed = true;
             this.SystemResourcesExtensions.License = null;
