@@ -118,6 +118,6 @@
     <ProjectReference Include="..\LogUploader.Tools.Logger\LogUploader.Tools.Logger.csproj" />
     <ProjectReference Include="..\LogUploader.Tools.RaidOrgaPlus\LogUploader.Tools.RaidOrgaPlus.csproj" />
     <ProjectReference Include="..\LogUploader.Tools\LogUploader.Tools.csproj" />
-    <ProjectReference Include="..\LogUploaderTools.Settings\LogUploader.Tools.Settings.csproj" />
+    <ProjectReference Include="..\LogUploader.Tools.Settings\LogUploader.Tools.Settings.csproj" />
   </ItemGroup>
 </Project>

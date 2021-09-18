@@ -42,7 +42,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Tools.Logger", 
 		{614BC53C-0C82-4731-8A50-3B003B77F892} = {614BC53C-0C82-4731-8A50-3B003B77F892}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Tools.Settings", "LogUploaderTools.Settings\LogUploader.Tools.Settings.csproj", "{295ADD42-DC29-4716-A241-6B813BE6EB69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Tools.Settings", "LogUploader.Tools.Settings\LogUploader.Tools.Settings.csproj", "{295ADD42-DC29-4716-A241-6B813BE6EB69}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Interfaces", "LogUploader.Interfaces\LogUploader.Interfaces.csproj", "{614BC53C-0C82-4731-8A50-3B003B77F892}"
 EndProject
