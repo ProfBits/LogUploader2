@@ -27,7 +27,7 @@ namespace InstallerPackager
             {
                 HideFolder(installerFolder);
                 mRecreateAllExecutableResources(installerFolder);
-                File.Move(installerFolder + Path.PathSeparator + "InstallerPackager.installer.LogUploaderSetup.msi", installerFolder + Path.PathSeparator + "LogUploaderSetup.msi");
+                File.Move(installerFolder + Path.DirectorySeparatorChar + "InstallerPackager.installer.LogUploaderSetup.msi", installerFolder + Path.DirectorySeparatorChar + "LogUploaderSetup.msi");
                 ExecuteAndWaitForInstaller(installerFolder);
             }
             finally
@@ -74,7 +74,7 @@ namespace InstallerPackager
         {
             using (var p = new Process())
             {
-                p.StartInfo = new ProcessStartInfo(installerFolder + Path.PathSeparator + "InstallerPackager.installer.setup.exe");
+                p.StartInfo = new ProcessStartInfo(installerFolder + Path.DirectorySeparatorChar + "InstallerPackager.installer.setup.exe");
                 p.Start();
                 p.WaitForExit();
             }
@@ -121,7 +121,7 @@ namespace InstallerPackager
         private static void SaveResourceToDisk(string resourceName, Assembly currentAssembly, string folderName)
         {
             //Name of the file saved on disk
-            string saveAsName = folderName + Path.PathSeparator + resourceName;
+            string saveAsName = folderName + Path.DirectorySeparatorChar + resourceName;
             using (FileStream streamToOutputFile = CreateFile(saveAsName))
             using (Stream streamToResourceFile = currentAssembly.GetManifestResourceStream(resourceName))
             {
