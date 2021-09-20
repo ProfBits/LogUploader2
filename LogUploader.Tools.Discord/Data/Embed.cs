@@ -73,7 +73,7 @@ namespace LogUploader.Tools.Discord.Data
 
         [JsonProperty("footer", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue(null)]
-        public Footer Footer { get; set; } = null;
+        public Footer Footer { get; set; } = new Footer();
 
         public Embed(Author author, string title, Color color, List<Field> fields, Thumbmail thumbmail)
         {

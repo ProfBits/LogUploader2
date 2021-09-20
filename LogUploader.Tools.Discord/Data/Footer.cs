@@ -20,11 +20,13 @@ namespace LogUploader.Tools.Discord.Data
 
         [JsonProperty("text", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue("")]
-        public string Text { get; set; } = "";
+        public string Text { get; set; } = $"LogUploader v{GP.GetVersion()}";
 
         [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue("")]
-        public string IconURL { get; set; } = "";
+        public string IconURL { get; set; } = @"https://i.imgur.com/o0QwGPV.png";
+
+        public Footer() { }
 
         public Footer(string text, string iconURL)
         {
