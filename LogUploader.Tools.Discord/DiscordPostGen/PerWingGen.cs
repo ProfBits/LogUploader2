@@ -72,7 +72,7 @@ namespace LogUploader.Tools.Discord
                 if (currentGroup == null)
                     currentGroup = new Grouping((GameArea)StaticData.Bosses.Get(log.Log.BossID).Area);
 
-                if (!currentGroup.Equals(StaticData.Bosses.Get(log.Log.BossID).Area))
+                if (!currentGroup.Equals((GameArea)StaticData.Bosses.Get(log.Log.BossID).Area))
                 {
                     if (currentLogs.Count > 0)
                     {
