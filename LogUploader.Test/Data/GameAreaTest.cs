@@ -10,6 +10,7 @@ using LogUploader.Data;
 using System.Reflection;
 using LogUploader.Test.Localisation;
 using System.Security.AccessControl;
+using LogUploader.Localisation;
 
 namespace LogUploader.Test.Data
 {
@@ -242,6 +243,21 @@ namespace LogUploader.Test.Data
             Assert.That(area2 != area1a, Is.True, $"Area{nameof(T)} '!=' should not not equals symmetric");
             Assert.That(area1b != area2, Is.True, $"Area{nameof(T)} '!=' should not not equals transitive");
             Assert.That(area1c != area2, Is.True, $"Area{nameof(T)} '!=' should not not equals transitive 2");
+        }
+
+        [Test]
+        public void GameAreaLocalizedPropertiesTest()
+        {
+            const string ExpectedNameEN = "nameEN";
+            const string ExpectedNameDE = "nameDE";
+            const string ExpectedShortEN = "sNameEN";
+            const string ExpectedShortDE = "sNameDE";
+            const string ExpectedAvatar = "avatarUrl";
+
+            T area = CreateGameAarea((ExpectedNameEN, ExpectedNameDE, ExpectedShortEN, ExpectedShortDE, ExpectedAvatar));
+
+            Assert.That(area.Name, Is.EqualTo(Language.Current == eLanguage.EN ? ExpectedNameEN : ExpectedNameDE));
+            Assert.That(area.ShortName, Is.EqualTo(Language.Current == eLanguage.EN ? ExpectedShortEN : ExpectedShortDE));
         }
 
         protected virtual void ValidateNumberedArea(T area, int number)

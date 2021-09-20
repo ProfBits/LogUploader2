@@ -16,7 +16,7 @@ namespace LogUploader.Data
             AvatarURL = Tools.GP.ValidateStringMultiWord(avatarURL);
         }
 
-        public string ShortName { get; }
+        public string ShortName { get => shortName.Name; }
         public string ShortNameEN { get => shortName.NameEN; }
         public string ShortNameDE { get => shortName.NameDE; }
         public string AvatarURL { get; }
