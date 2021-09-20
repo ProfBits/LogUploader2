@@ -728,7 +728,7 @@ namespace LogUploader
 
             var logs = ids.Select(id => CacheLog(id)).ToArray();
             var generator = DiscordPostGeneratorFactory.Get(webHook.Format);
-            var posts = generator.Generate(logs, webHook.Name, webHook.AvatarURL);
+            var posts = generator.Generate(logs, webHook.Name, webHook.AvatarUrl);
             try {
                 await WebHookHelper.PostWebHookPosts(webHook, posts, Settings);
             }

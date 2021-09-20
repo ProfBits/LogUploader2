@@ -66,6 +66,9 @@ namespace LogUploader.Tools.Discord.Data
             set => avaturURL = value == "<Default>" || string.IsNullOrWhiteSpace(value) ? DEFAULT_AVATAR_URL : value;
         }
 
+        [JsonIgnore]
+        public string AvatarUrl { get => avaturURL; }
+
         public WebHook(string uRL, string name, eDiscordPostFormat format = DEFAULT_FROMAT) : this(uRL, name, nextID + 1, format)
         {
         }
