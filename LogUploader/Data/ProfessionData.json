@@ -73,6 +73,14 @@
       "RaidOrgaPlusAbbreviation": "Ren"
     },
     {
+      "ID": 30,
+      "NameEN": "Vindicator",
+      "NameDE": "Rechtssuchende",
+      "IconPath": "\\images\\Professions\\Vindicator.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 36
+    },
+    {
       "ID": 1,
       "NameEN": "Warrior",
       "NameDE": "Krieger",
@@ -98,6 +106,14 @@
       "Emote": "<:spb:484840071007305738>",
       "RaidOrgaPlusID": 25,
       "RaidOrgaPlusAbbreviation": "Spb"
+    },
+    {
+      "ID": 28,
+      "NameEN": "Bladesworn",
+      "NameDE": "Klingengeschworene",
+      "IconPath": "\\images\\Professions\\Bladesworn.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 25
     },
     {
       "ID": 4,
@@ -206,6 +222,14 @@
       "Emote": "<:wea:484840211084476426>",
       "RaidOrgaPlusID": 19,
       "RaidOrgaPlusAbbreviation": "Wea"
+    },
+    {
+      "ID": 34,
+      "NameEN": "Catalyst",
+      "NameDE": "Katalysierer",
+      "IconPath": "\\images\\Professions\\Catalyst.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 28
     },
     {
       "ID": 8,

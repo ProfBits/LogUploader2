@@ -2,6 +2,15 @@
 ## Bugfixes
 - Enable/Disable DateFrom and DateTo filters now works properly
 
+# v1.3.11
+24.09.2021
+
+## Improvements
+- Added support for the new EoD specs
+  - Bladesworn
+  - Catalyst
+  - Vindicator
+
 # v1.3.10
 19.08.2021
 

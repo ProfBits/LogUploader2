@@ -34,7 +34,10 @@
         Mirage = 26,
         Scourge = 27,
 
+        Bladesworn = 28,
         Willbender = 29,
+        Vindicator = 30,
+        Catalyst = 34,
         Virtuoso = 35,
         Harbinger = 36
     }
