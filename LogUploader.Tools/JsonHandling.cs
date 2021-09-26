@@ -5,7 +5,7 @@ namespace LogUploader.Tools
 {
     public static class JsonHandling
     {
-        private static readonly Encoding FILE_ENCODING = Encoding.GetEncoding("iso-8859-1");
+        internal static readonly Encoding FILE_ENCODING = Encoding.GetEncoding("iso-8859-1");
 
         public static string ReadJsonFile(string path)
         {
