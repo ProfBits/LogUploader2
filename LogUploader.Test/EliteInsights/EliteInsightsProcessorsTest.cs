@@ -7,121 +7,128 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 using LogUploader.Tools.EliteInsights.Json;
-using System.IO.Compression;
 using LogUploader.Interfaces;
-using Newtonsoft.Json.Linq;
+using Throws = LogUploader.Test.Constraints.Throws;
 
 namespace LogUploader.Test.EliteInsights
 {
-    [Explicit]
-    [Category(TestCategory.LogRunning)]
     internal abstract class AbstractEliteInsightsProcessorTest
     {
-        private const string VALIDATE_FILE_EXT = ".validate.json";
-
-        protected abstract string TestJsonZipName { get; }
-        protected abstract string TestTempFolderName { get; }
-        internal string AbsolutePathToTestJsonsZip { get => TestSetup.GetPathToTestFiles("eiJsonZips", TestJsonZipName); }
-        internal string AbsolutePathToTestTempFolder { get => TestSetup.GetPathToTestFiles("temp", TestTempFolderName); }
+        protected string GetFullPahtForFile(string jsonName)
+        {
+            string path = TestSetup.GetPathToTestFiles($"static{System.IO.Path.DirectorySeparatorChar}EiJson", jsonName + ".json");
+            Assert.That(path, Does.Exist);
+            return path;
+        }
 
         protected abstract IEiProcessor GetProcesor();
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            ZipFile.ExtractToDirectory(AbsolutePathToTestJsonsZip, AbsolutePathToTestTempFolder);
-        }
+        protected abstract IValidator GetValidator(string paht);
 
-        [Test]
-        public void CanProcessJsonsTest()
+        public abstract void CanProcessJsonsTest(string jsons);
+
+        protected void CanProcessJsonsTestImpl(string json)
         {
-            foreach (string file in System.IO.Directory.GetFiles(AbsolutePathToTestTempFolder, $"*{VALIDATE_FILE_EXT}"))
+            string path = GetFullPahtForFile(json);
+
+            var processor = GetProcesor();
+            object result = null;
+
+            using (var fs = System.IO.File.OpenRead(GetFullPahtForFile(json)))
             {
-                StringAssert.EndsWith(VALIDATE_FILE_EXT, file);
-                string dataFile = file.Substring(0, file.Length - VALIDATE_FILE_EXT.Length) + ".json";
-                FileAssert.Exists(dataFile);
-
-                LogFull actual = ProcessJson(dataFile);
-                LogFull expected = ProcessJson(file);
-                Validate(actual, expected);
+                Assert.That(() => result = processor.Process(fs), Throws.Nothing);
             }
+
+            Assert.That(result, Is.Not.Null);
         }
 
-        private LogFull ProcessJson(string absPathToDataJson)
+        public abstract void ProgressReportTest();
+        protected void ProgressReportTestImpl(string json)
         {
-            string json = LogUploader.Tools.JsonHandling.ReadJsonFile(absPathToDataJson);
-            JObject parsed = JObject.Parse(json);
-            return GetProcesor().Process(parsed);
+            string path = GetFullPahtForFile(json);
+
+            var processor = GetProcesor();
+
+            List<double> progressReports = new List<double>();
+
+            using (var fs = System.IO.File.OpenRead(GetFullPahtForFile(json)))
+            {
+                _ = processor.Process(fs, new SynchronProgress<double>(p => progressReports.Add(p)));
+            }
+
+            TestHelper.ValidateProgressReports(progressReports);
+
         }
 
-        private LogFull PrepeareValidation(string absPathToValidateJson)
+        public abstract void ProcessedCorrectlyTest(string json);
+        public void ProcessedCorrectlyTestImpl(string json)
         {
-            string json = LogUploader.Tools.JsonHandling.ReadJsonFile(absPathToValidateJson);
-            JObject parsed = JObject.Parse(json);
-            return GetProcesor().Process(parsed);
+            string path = GetFullPahtForFile(json);
+
+            var processor = GetProcesor();
+            var validator = GetValidator(json);
+            Assert.That(validator, Is.Not.Null);
+            if (validator.Skip) Assert.Warn($"Skipped {nameof(ProcessedCorrectlyTest)} for {nameof(json)} = \"{json}\"");
+
+            LogFull result = null;
+
+            using (var fs = System.IO.File.OpenRead(GetFullPahtForFile(json)))
+            {
+                result = processor.Process(fs);
+                Assume.That(result, Is.Not.Null);
+            }
+
+            validator.Validate(result);
         }
 
-        protected virtual LogFull CreateValidation(JObject data)
+        public void ArgumentNullValidationTest()
         {
-            Assert.Warn("CreateValidation not Implemented");
-            return null;
-        }
-
-        protected virtual void Validate(LogFull actual, LogFull exptected)
-        {
-            Assert.Warn("Validate not Implemented");
+            IEiProcessor eiProcessor = GetProcesor();
+            Assert.That(() => eiProcessor.Process(null), Throws.ValidateArgumentNullException);
         }
     }
 
-    [Explicit]
-    [Category(TestCategory.LogRunning)]
-    internal class EiProcessor_LegacyTest : AbstractEliteInsightsProcessorTest
+    internal class LegacyEiProcessorTest : AbstractEliteInsightsProcessorTest
     {
-        protected override string TestJsonZipName { get => "legacy.zip"; }
-        protected override string TestTempFolderName { get => "legacy"; }
+        internal static string[] JSONS
+        {
+            get => new string[]
+            {
+                "ei2_10_0_0.json.small",
+                "ei2_11_0_0.json.small",
+                "ei2_12_0_0.json.small",
+                "ei2_13_0_0.json.small",
+                "ei2_14_1_0.json.small",
+                "ei2_15_0_0.json.small"
+            };
+        }
+
+        [Test]
+        public override void CanProcessJsonsTest([ValueSource(nameof(JSONS))] string jsons)
+        {
+            CanProcessJsonsTestImpl(jsons);
+        }
+
+        [Test]
+        public override void ProcessedCorrectlyTest(string json)
+        {
+            Assert.Warn("not implemented");
+        }
+
+        [Test]
+        public override void ProgressReportTest()
+        {
+            ProgressReportTestImpl(JSONS.Last());
+        }
 
         protected override IEiProcessor GetProcesor()
         {
             return new EiProcessor_Legacy();
         }
-    }
 
-    [Explicit]
-    [Category(TestCategory.LogRunning)]
-    internal class EiProcessor_2_29_0_0Test : AbstractEliteInsightsProcessorTest
-    {
-        protected override string TestJsonZipName { get => "2_29_0_0.zip"; }
-        protected override string TestTempFolderName { get => "2_29_0_0"; }
-
-        protected override IEiProcessor GetProcesor()
+        protected override IValidator GetValidator(string paht)
         {
-            return new EiProcessor_2_29_0_0();
-        }
-    }
-
-    [Explicit]
-    [Category(TestCategory.LogRunning)]
-    internal class EiProcessor_2_33_0_0Test : AbstractEliteInsightsProcessorTest
-    {
-        protected override string TestJsonZipName { get => "2_33_0_0.zip"; }
-        protected override string TestTempFolderName { get => "2_33_0_0"; }
-
-        protected override IEiProcessor GetProcesor()
-        {
-            return new EiProcessor_2_33_0_0();
-        }
-    }
-
-    [Explicit]
-    [Category(TestCategory.LogRunning)]
-    internal class EiProcessor_2_35_0_0Test : AbstractEliteInsightsProcessorTest
-    {
-        protected override string TestJsonZipName { get => "2_35_0_0.zip"; }
-        protected override string TestTempFolderName { get => "2_35_0_0"; }
-
-        protected override IEiProcessor GetProcesor()
-        {
-            return new EiProcessor_2_35_0_0();
+            return new SkipValidator();
         }
     }
 }
