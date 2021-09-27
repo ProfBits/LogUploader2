@@ -101,39 +101,54 @@ namespace LogUploader.Tools.EliteInsights.MinifyJson
 
                 Console.WriteLine("\tReducing...");
 
-                removeTokens(data, organizedeToExclude);
+                RemoveTokens(data, organizedeToExclude);
 
                 Console.WriteLine("\tFinding players...");
-
-                List<(string acc, string name, int num)> players = new List<(string acc, string name, int num)>();
-                int num = 1;
-
-                foreach (var player in data["players"])
-                {
-                    string acc = (string)player["account"];
-                    string name = (string)player["name"];
-                    int i = num++;
-                    players.Add((acc, name, i));
-                }
+                List<(string acc, string name, int num)> players = FindPlayers(data);
 
                 Console.WriteLine("\tCreateing new json...");
 
                 result = data.ToString(Formatting.None);
 
                 Console.WriteLine("\tRenaming players...");
-
-                foreach (var element in players)
-                {
-                    result = result.Replace(element.acc, $"Account.{1000 + element.num}");
-                    result = result.Replace(element.name, $"Player {element.num}");
-                }
+                result = RenamePlayers(result, players);
             }
 
             return result;
         }
 
-        private static void removeTokens(JToken data, HashSet<string> toExclude)
+        internal static string RenamePlayers(string result, List<(string acc, string name, int num)> players)
         {
+            foreach ((string acc, string name, int num) in players)
+            {
+                result = result.Replace(acc, $"Account.{1000 + num}");
+                result = result.Replace(name, $"Player {num}");
+            }
+
+            return result;
+        }
+
+        internal static List<(string acc, string name, int num)> FindPlayers(JToken data)
+        {
+            List<(string acc, string name, int num)> players = new List<(string acc, string name, int num)>();
+            int num = 1;
+
+            foreach (var player in data["players"])
+            {
+                string acc = (string)player["account"];
+                string name = (string)player["name"];
+                int i = num++;
+                players.Add((acc, name, i));
+            }
+
+            return players;
+        }
+
+        internal static void RemoveTokens(JToken data, HashSet<string> toExclude)
+        {
+            if (data is null) throw new ArgumentNullException(nameof(data));
+            if (toExclude is null) throw new ArgumentNullException(nameof(toExclude));
+
             var children = data.Children<JProperty>().ToList();
             foreach (var child in children)
             {
@@ -143,7 +158,7 @@ namespace LogUploader.Tools.EliteInsights.MinifyJson
 
             foreach (var child in data.Children())
             {
-                removeTokens(child, toExclude);
+                RemoveTokens(child, toExclude);
             }
         }
     }
