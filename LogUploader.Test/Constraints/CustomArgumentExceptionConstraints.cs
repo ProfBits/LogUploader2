@@ -12,12 +12,29 @@ namespace LogUploader.Test.Constraints
     {
         public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
-            if (actual is ArgExType ex)
+            if (actual?.GetType()?.Equals(typeof(NUnit.Framework.TestDelegate)) ?? false)
             {
-                return ValidateArgumentException(ex);
+                NUnit.Framework.TestDelegate del = actual as NUnit.Framework.TestDelegate;
+                try
+                {
+                    del();
+                }
+                catch (ArgExType argEx)
+                {
+                    return ValidateArgumentException(argEx);
+                }
+                catch (Exception ex)
+                {
+                    Description = $"The type of given exeption {ex.GetType().FullName} does not match the expected {typeof(ArgExType).FullName}";
+                    return new ConstraintResult(this, typeof(TActual).FullName, false);
+                }
             }
-            Description = $"The type of given exeption does not match the expected {typeof(ArgExType).FullName}";
-            return new ConstraintResult(this, typeof(TActual).FullName, false);
+            else if (actual is ArgExType argEx)
+            {
+                return ValidateArgumentException(argEx);
+            }
+            Description = $"{typeof(ArgExType).FullName} to be trowen, however none was.";
+            return new ConstraintResult(this, actual, false);
         }
 
         protected virtual ConstraintResult ValidateArgumentException(ArgExType argEx)

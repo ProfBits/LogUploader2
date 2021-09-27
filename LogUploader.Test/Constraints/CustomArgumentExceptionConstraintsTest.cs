@@ -11,6 +11,7 @@ namespace LogUploader.Test.Constraints
     class CustomArgumentExceptionConstraintsTest
     {
     }
+
     public abstract class CustomArgumentExceptionConstraintsTestBase<TException>
     {
         [Test]
@@ -162,6 +163,101 @@ namespace LogUploader.Test.Constraints
 
             Assert.That(obj.ValidateActualValue);
             Assert.That(obj.ExpectedActualValue, Is.EqualTo(expected));
+        }
+    }
+
+    public abstract class ConstraintIntegrationTest
+    {
+        protected abstract NUnit.Framework.Constraints.IConstraint GetConstrint();
+
+        protected abstract object GetValidActualValue();
+        protected abstract object GetInvalidActualValue();
+
+        [Test]
+        public void ConstraintPositiveTest()
+        {
+            var res = CallConstraint(GetValidActualValue(), GetConstrint());
+            Assert.That((res as AssertionException)?.ResultState?.Status, Is.EqualTo(NUnit.Framework.Interfaces.TestStatus.Passed).Or.Null);
+        }
+        
+        [Test]
+        public void ConstraintNegativeTest()
+        {
+            var res = CallConstraint(GetInvalidActualValue(), GetConstrint());
+            Assert.That((res as AssertionException)?.ResultState?.Status, Is.EqualTo(NUnit.Framework.Interfaces.TestStatus.Failed));
+        }
+
+        protected Exception CallConstraint(object actual, NUnit.Framework.Constraints.IConstraint constraint)
+        {
+            return TestHelper.SafelyCatchAnNUnitException(() => Assert.That(actual, constraint));
+        }
+    }
+
+    public class ArgumentExceptionConstraintIntegrationTest : ConstraintIntegrationTest
+    {
+        protected override object GetValidActualValue()
+        {
+            return new ArgumentException("A message", "paramName");
+        }
+        protected override object GetInvalidActualValue()
+        {
+            return new ArgumentException("A message");
+        }
+
+        protected override NUnit.Framework.Constraints.IConstraint GetConstrint()
+        {
+            return new CustomArgumentExceptionConstraint();
+        }
+    }
+
+    public class ArgumentNullExceptionConstraintIntegrationTest : ConstraintIntegrationTest
+    {
+        protected override object GetValidActualValue()
+        {
+            return new ArgumentNullException("paramName");
+        }
+        protected override object GetInvalidActualValue()
+        {
+            return new ArgumentNullException();
+        }
+
+        protected override NUnit.Framework.Constraints.IConstraint GetConstrint()
+        {
+            return new CustomArgumentNullExceptionConstraint();
+        }
+    }
+
+    public class ArgumentOutOfRangeExceptionConstraintIntegrationTest : ConstraintIntegrationTest
+    {
+        protected override object GetValidActualValue()
+        {
+            return new ArgumentOutOfRangeException("paramName", new object(), "A message");
+        }
+        protected override object GetInvalidActualValue()
+        {
+            return new ArgumentOutOfRangeException("paramName", null, "A message");
+        }
+
+        protected override NUnit.Framework.Constraints.IConstraint GetConstrint()
+        {
+            return new CustomArgumentOutOfRangeExceptionConstraint();
+        }
+    }
+
+    public class ArgumentOutOfRangeExceptionConstraintWithValueIntegrationTest : ConstraintIntegrationTest
+    {
+        protected override object GetValidActualValue()
+        {
+            return new ArgumentOutOfRangeException("paramName", 42, "A message");
+        }
+        protected override object GetInvalidActualValue()
+        {
+            return new ArgumentOutOfRangeException("paramName", null, "A message");
+        }
+
+        protected override NUnit.Framework.Constraints.IConstraint GetConstrint()
+        {
+            return new CustomArgumentOutOfRangeExceptionConstraint(42);
         }
     }
 }
