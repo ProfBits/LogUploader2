@@ -42,6 +42,7 @@ public class TestSetup
     public void GlobalOneTimeTearDown()
     {
         Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection.UnloadAllProjects();
+        FileSystem.Reset();
     }
 
     private void InsertStaticData()
@@ -77,11 +78,5 @@ public class TestSetup
     {
         //TODO CreateBasicFileSystemFake()
         //throw new NotImplementedException();
-    }
-
-    [OneTimeTearDown]
-    public void GlobalTeardown()
-    {
-        FileSystem.Reset();
     }
 }
