@@ -1,3 +1,8 @@
+# v1.3.12
+
+## Improvements
+- Updating a raid in RaidOrga+ no longer overrides secondary roles
+
 # v1.3.11
 24.09.2021
 

@@ -159,7 +159,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             if (ct.IsCancellationRequested) return null;
             var elementsParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{elementsRAW}}}");
-            var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], GP.GetRoleByAbbreviation((string)element["role"]), GetClass((string)element["class"])) });
+            var elements = elementsParsed["wrapper"].Select(element => new { id = (long)element["aufstellung"], pos = new Position((int)element["pos"], (long)element["id"], (string)element["accname"], element["roles"].Select(r => (Role)(byte)r["id"]).ToArray(), GetClass((string)element["class"])) });
 
             if (ct.IsCancellationRequested) return null;
             var aufstellungenParsed = Newtonsoft.Json.Linq.JObject.Parse($@"{{""wrapper"":{aufstellungenRAW}}}");
