@@ -1,11 +1,12 @@
 # v1.3.12
+07.01.2022
 
 ## Improvements
 - Updating a raid in RaidOrga+ no longer overrides secondary roles
 - Added support for the new EoD specs
   - Mechanist
   - Untamed
-  - Specter
+  - Specter (no icon available)
 
 # v1.3.11
 24.09.2021
