@@ -11,6 +11,12 @@ namespace LogUploader.Data.RaidOrgaPlus
     public class Position
     {
         public Position(int pos, long iD, string accName, Role role, Profession profession)
+            : this(pos, iD, accName, new Role[] { role }, profession)
+        {
+
+        }
+
+        public Position(int pos, long iD, string accName, Role[] role, Profession profession)
         {
             Pos = pos;
             ID = iD;
@@ -18,7 +24,14 @@ namespace LogUploader.Data.RaidOrgaPlus
                 AccName = accName;
             else
                 AccName = "";
-            Role = role;
+            if (role != null && role.Length > 0)
+            {
+                Roles = role;
+            }
+            else
+            {
+                Roles = new Role[] { Role.Empty };
+            }
             Profession = profession;
         }
 
@@ -32,10 +45,26 @@ namespace LogUploader.Data.RaidOrgaPlus
         public string AccName { get; set; }
 
         [JsonIgnore]
-        public Role Role { get; set; }
+        public Role Role { get => Roles[0]; 
+            set
+            {
+                if (Roles.Length > 1 || Roles.Contains(value))
+                {
+                    var i = Array.FindIndex(Roles, (e) => e == value);
+                    if (i > 0)
+                    {
+                        Roles[i] = Roles[0];
+                    }
+                }
+
+                Roles[0] = value;
+            }
+        }
+
+        private Role[] Roles { get; set; }
 
         [JsonProperty("roleId")]
-        public byte RoleID { get => (byte)Role; }
+        public string RoleID { get => string.Join(", ", Roles.Select(r => (byte)r)); }
 
         [JsonIgnore]
         public Profession Profession { get; set; }

@@ -40,6 +40,7 @@
             this.CommonMark = new LogUploader.GUIs.SoftwareItem();
             this.NewtonsoftJson = new LogUploader.GUIs.SoftwareItem();
             this.PropMapper = new LogUploader.GUIs.SoftwareItem();
+            this.ProfessionIcons = new LogUploader.GUIs.SoftwareItem();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +78,7 @@
             this.flowLayoutPanel1.Controls.Add(this.CommonMark);
             this.flowLayoutPanel1.Controls.Add(this.NewtonsoftJson);
             this.flowLayoutPanel1.Controls.Add(this.PropMapper);
+            this.flowLayoutPanel1.Controls.Add(this.ProfessionIcons);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -198,6 +200,20 @@
             this.PropMapper.Software = "PropMapper";
             this.PropMapper.TabIndex = 7;
             // 
+            // ProfessionIcons
+            // 
+            this.ProfessionIcons.Copyright = "Copyright © GW2 Wiki and Contributors";
+            this.ProfessionIcons.Image = null;
+            this.ProfessionIcons.ImageUsed = false;
+            this.ProfessionIcons.License = null;
+            this.ProfessionIcons.LicenseStr = "GFDL 1.3";
+            this.ProfessionIcons.Location = new System.Drawing.Point(3, 899);
+            this.ProfessionIcons.Name = "Profession and specialization images";
+            this.ProfessionIcons.ProjectLink = "https://wiki.guildwars2.com/";
+            this.ProfessionIcons.Size = new System.Drawing.Size(300, 106);
+            this.ProfessionIcons.Software = "Profession and specialization images";
+            this.ProfessionIcons.TabIndex = 8;
+            // 
             // SoftwareUsedUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,5 +248,6 @@
         private SoftwareItem CommonMark;
         private SoftwareItem NewtonsoftJson;
         private SoftwareItem PropMapper;
+        private SoftwareItem ProfessionIcons;
     }
 }

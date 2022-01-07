@@ -69,6 +69,9 @@ namespace LogUploader
         Bladesworn = 28,
         Willbender = 29,
         Vindicator = 30,
+        Mechanist = 31,
+        Untamed = 32,
+        Specter = 33,
         Catalyst = 34,
         Virtuoso = 35,
         Harbinger = 36

@@ -129,6 +129,14 @@
       "RaidOrgaPlusID": 23
     },
     {
+      "ID": 31,
+      "NameEN": "Mechanist",
+      "NameDE": "Mech-Lenker",
+      "IconPath": "\\images\\Professions\\Mechanist.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 32
+    },
+    {
       "ID": 5,
       "NameEN": "Ranger",
       "NameDE": "Waldläufer",
@@ -153,6 +161,14 @@
       "RaidOrgaPlusID": 22
     },
     {
+      "ID": 32,
+      "NameEN": "Untamed",
+      "NameDE": "Ungezähmter",
+      "IconPath": "\\images\\Professions\\Untamed.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 31
+    },
+    {
       "ID": 6,
       "NameEN": "Thief",
       "NameDE": "Dieb",
@@ -175,6 +191,14 @@
       "IconPath": "\\images\\Professions\\Deadeye.png",
       "Emote": "<:ded:484839130123993090>",
       "RaidOrgaPlusID": 24
+    },
+    {
+      "ID": 33,
+      "NameEN": "Specter",
+      "NameDE": "Phantom",
+      "IconPath": "\\images\\Professions\\Unknown.png",
+      "Emote": ":test_tube:",
+      "RaidOrgaPlusID": 33
     },
     {
       "ID": 7,

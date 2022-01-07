@@ -250,6 +250,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 switch (orderdPlayer.Class.ProfessionEnum)
                 {
                     case eProfession.Firebrand:
+                    case eProfession.Harbinger:
+                    case eProfession.Catalyst:
                         if (orderdPlayer.GroupQuickness >= 10)
                             if (orderdPlayer.Healing > 2)
                                 orderdPlayer.Role = Role.Heal;
@@ -272,6 +274,11 @@ namespace LogUploader.Helper.RaidOrgaPlus
                                 orderdPlayer.Role = Role.Heal;
                             else if (orderdPlayer.Concentration > 0)
                                 orderdPlayer.Role = Role.Utility;
+                        break;
+                    case eProfession.Willbender:
+                    case eProfession.Mechanist:
+                        if (orderdPlayer.GroupAlacrity >= 10)
+                            orderdPlayer.Role = Role.Utility;
                         break;
                     case eProfession.Druid:
                     case eProfession.Tempest:
