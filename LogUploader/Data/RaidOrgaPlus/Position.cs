@@ -45,7 +45,21 @@ namespace LogUploader.Data.RaidOrgaPlus
         public string AccName { get; set; }
 
         [JsonIgnore]
-        public Role Role { get => Roles[0]; set => Roles[0] = value; }
+        public Role Role { get => Roles[0]; 
+            set
+            {
+                if (Roles.Length > 1 || Roles.Contains(value))
+                {
+                    var i = Array.FindIndex(Roles, (e) => e == value);
+                    if (i > 0)
+                    {
+                        Roles[i] = Roles[0];
+                    }
+                }
+
+                Roles[0] = value;
+            }
+        }
 
         private Role[] Roles { get; set; }
 
