@@ -149,6 +149,7 @@
     <Compile Include="Data\GameAreas\RaidWing.cs" />
     <Compile Include="Data\GameAreas\Strike.cs" />
     <Compile Include="Data\GameAreas\Unknowen.cs" />
+    <Compile Include="Data\Licenses\ProfessionImagesLicense.cs" />
     <Compile Include="Data\Licenses\PropMapperLicense.cs" />
     <Compile Include="Data\Licenses\NewtonsoftJsonLicense.cs" />
     <Compile Include="Data\Licenses\CommonMarkLicense.cs" />
