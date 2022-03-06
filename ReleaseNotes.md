@@ -1,4 +1,5 @@
 # v1.3.13
+06.03.2022
 
 ## Improvements
 - Specter icon added
