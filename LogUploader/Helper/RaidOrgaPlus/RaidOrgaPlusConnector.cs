@@ -249,7 +249,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 case "Mes": return Profession.Get(eProfession.Mesmer);
                 case "Chr": return Profession.Get(eProfession.Chronomancer);
                 case "Mir": return Profession.Get(eProfession.Mirage);
-                case "Vir": return Profession.Get(eProfession.Virtuoso);
+                case "Vit": return Profession.Get(eProfession.Virtuoso);
                 case "Nec": return Profession.Get(eProfession.Necromancer);
                 case "Rea": return Profession.Get(eProfession.Reaper);
                 case "Scg": return Profession.Get(eProfession.Scourge);
@@ -257,7 +257,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 case "Rgr": return Profession.Get(eProfession.Ranger);
                 case "Dru": return Profession.Get(eProfession.Druid);
                 case "Slb": return Profession.Get(eProfession.Soulbeast);
-                case "Unt": return Profession.Get(eProfession.Untamed);
+                case "Utd": return Profession.Get(eProfession.Untamed);
                 case "Eng": return Profession.Get(eProfession.Engineer);
                 case "Scr": return Profession.Get(eProfession.Scrapper);
                 case "Hls": return Profession.Get(eProfession.Holosmith);
@@ -265,15 +265,15 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 case "Thf": return Profession.Get(eProfession.Thief);
                 case "Dar": return Profession.Get(eProfession.Daredevil);
                 case "Ded": return Profession.Get(eProfession.Deadeye);
-                case "Spe": return Profession.Get(eProfession.Specter);
+                case "Spc": return Profession.Get(eProfession.Specter);
                 case "War": return Profession.Get(eProfession.Warrior);
                 case "Brs": return Profession.Get(eProfession.Berserker);
                 case "Spb": return Profession.Get(eProfession.Spellbreaker);
-                case "Bla": return Profession.Get(eProfession.Bladesworn);
+                case "Bls": return Profession.Get(eProfession.Bladesworn);
                 case "Gdn": return Profession.Get(eProfession.Guardian);
                 case "Dgh": return Profession.Get(eProfession.Dragonhunter);
                 case "Fbd": return Profession.Get(eProfession.Firebrand);
-                case "Wil": return Profession.Get(eProfession.Willbender);
+                case "Wlb": return Profession.Get(eProfession.Willbender);
                 case "Rev": return Profession.Get(eProfession.Revenant);
                 case "Her": return Profession.Get(eProfession.Herald);
                 case "Ren": return Profession.Get(eProfession.Renegade);

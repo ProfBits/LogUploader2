@@ -1,3 +1,12 @@
+# v1.3.13
+
+## Improvements
+- Specter icon added
+- Catalyst icon updated
+
+## Bugfixes
+- Fix incorrect RaidOrga+ profession abbreviations
+
 # v1.3.12
 07.01.2022
 

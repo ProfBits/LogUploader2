@@ -277,6 +277,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         break;
                     case eProfession.Willbender:
                     case eProfession.Mechanist:
+                    case eProfession.Specter:
                         if (orderdPlayer.GroupAlacrity >= 10)
                             orderdPlayer.Role = Role.Utility;
                         break;

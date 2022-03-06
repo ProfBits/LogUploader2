@@ -102,7 +102,7 @@
       "NameDE": "Klingengeschworene",
       "IconPath": "\\images\\Professions\\Bladesworn.png",
       "Emote": ":test_tube:",
-      "RaidOrgaPlusID": 25
+      "RaidOrgaPlusID": 34
     },
     {
       "ID": 4,
@@ -196,7 +196,7 @@
       "ID": 33,
       "NameEN": "Specter",
       "NameDE": "Phantom",
-      "IconPath": "\\images\\Professions\\Unknown.png",
+      "IconPath": "\\images\\Professions\\Specter.png",
       "Emote": ":test_tube:",
       "RaidOrgaPlusID": 33
     },
