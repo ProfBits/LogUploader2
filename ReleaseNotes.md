@@ -1,3 +1,8 @@
+# v1.3.14
+
+## Improvements
+- Add discord icons for EoD specs
+
 # v1.3.13
 06.03.2022
 
