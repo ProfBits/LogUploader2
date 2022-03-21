@@ -112,19 +112,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3DF04A203084DA78F1AC22E8A0C59BC4"
+        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_EA5CBAF54BA546259C42521889337F4A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -179,6 +173,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4DA52FEED72909480248181EEDC69AFE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3DF04A203084DA78F1AC22E8A0C59BC4"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -882,15 +882,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log Uploader"
-        "ProductCode" = "8:{1F2DDC42-9763-4A0F-AA89-E84F70D1650F}"
-        "PackageCode" = "8:{F82042F5-1BCB-47AA-8080-DA6DA18A007C}"
+        "ProductCode" = "8:{5D0C03F0-50C7-4BF5-BE2B-DBCBC9324EC2}"
+        "PackageCode" = "8:{23103958-F58E-491E-9E22-13FE16491929}"
         "UpgradeCode" = "8:{3F3DD479-F9CF-48EE-8590-B34CEB67C1B3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.13"
+        "ProductVersion" = "8:1.3.14"
         "Manufacturer" = "8:Bits Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/ProfBits/LogUploader2"
