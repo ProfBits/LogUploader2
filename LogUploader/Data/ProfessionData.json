@@ -37,7 +37,7 @@
       "NameEN": "Willbender",
       "NameDE": "Willensverdreher",
       "IconPath": "\\images\\Professions\\Willbender.png",
-      "Emote": ":test_tube:",
+      "Emote": "<:wlb:950460251549872198>",
       "RaidOrgaPlusID": 35
     },
     {
@@ -69,7 +69,7 @@
       "NameEN": "Vindicator",
       "NameDE": "Rechtssuchende",
       "IconPath": "\\images\\Professions\\Vindicator.png",
-      "Emote": ":test_tube:",
+      "Emote": "<:vin:950460219807375390>",
       "RaidOrgaPlusID": 36
     },
     {
@@ -101,8 +101,8 @@
       "NameEN": "Bladesworn",
       "NameDE": "Klingengeschworene",
       "IconPath": "\\images\\Professions\\Bladesworn.png",
-      "Emote": ":test_tube:",
-      "RaidOrgaPlusID": 25
+      "Emote": "<:bls:950459930698211418>",
+      "RaidOrgaPlusID": 34
     },
     {
       "ID": 4,
@@ -133,7 +133,7 @@
       "NameEN": "Mechanist",
       "NameDE": "Mech-Lenker",
       "IconPath": "\\images\\Professions\\Mechanist.png",
-      "Emote": ":test_tube:",
+      "Emote": "<:mec:950460059895349258>",
       "RaidOrgaPlusID": 32
     },
     {
@@ -165,7 +165,7 @@
       "NameEN": "Untamed",
       "NameDE": "Ungezähmter",
       "IconPath": "\\images\\Professions\\Untamed.png",
-      "Emote": ":test_tube:",
+      "Emote": "<:utd:950460200450682940>",
       "RaidOrgaPlusID": 31
     },
     {
@@ -196,8 +196,8 @@
       "ID": 33,
       "NameEN": "Specter",
       "NameDE": "Phantom",
-      "IconPath": "\\images\\Professions\\Unknown.png",
-      "Emote": ":test_tube:",
+      "IconPath": "\\images\\Professions\\Specter.png",
+      "Emote": "<:spc:950460170176167936>",
       "RaidOrgaPlusID": 33
     },
     {
@@ -229,7 +229,7 @@
       "NameEN": "Catalyst",
       "NameDE": "Katalysierer",
       "IconPath": "\\images\\Professions\\Catalyst.png",
-      "Emote": ":test_tube:",
+      "Emote": "<:cat:950462141729738762>",
       "RaidOrgaPlusID": 28
     },
     {
@@ -261,7 +261,7 @@
       "NameEN": "Virtuoso",
       "NameDE": "Virtuose",
       "IconPath": "\\images\\Professions\\Virtuoso.png",
-      "Emote": ":test_tube:",
+      "Emote": "<:vit:950460235796054026>",
       "RaidOrgaPlusID": 29
     },
     {
@@ -293,7 +293,7 @@
       "NameEN": "Harbinger",
       "NameDE": "Vorbote",
       "IconPath": "\\images\\Professions\\Harbinger.png",
-      "Emote": ":test_tube:",
+      "Emote": "<:har:950460026043117628>",
       "RaidOrgaPlusID": 30
     }
   ]
