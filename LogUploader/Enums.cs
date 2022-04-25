@@ -122,6 +122,10 @@ namespace LogUploader
         Boneskinner = 22521,
         WhisperOfJormag = 22711,
         VariniaStormsounder = 22836,
+        MaiTrin = 24033,
+        Ankka = 23957,
+        MinisterLi = 24485,
+        TheDragonvoid = 24375,
         // Fract
         MAMA = 17021,
         Siax = 17028,
