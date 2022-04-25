@@ -12,7 +12,7 @@ namespace LogUploader.Helper
         internal string UserToken { private get; set; } = "";
         private IProxySettings Settings { get; set; }
 
-        private const string BaseAddress = @"https://b.dps.report";
+        private const string BaseAddress = @"https://dps.report";
 
         internal DPSReport(IProxySettings settings)
         {

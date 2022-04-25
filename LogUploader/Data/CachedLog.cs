@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using LogUploader.Helper;
 
 namespace LogUploader.Data
 {
@@ -170,9 +171,72 @@ namespace LogUploader.Data
                     var healthAi = (ai?.totalHealth ?? 14905666) + (darkAi?.totalHealth ?? 14905666);
                     var remainingAi = (ai?.finalHealth ?? (darkAi == null ? 14905666 : 0)) + (darkAi?.finalHealth ?? 14905666);
                     return (float)Math.Round((double)remainingAi / healthAi * 100, 2);
+                case 24033: //Aetherblade Hideout
+                    var maiTrin = data.Where(target => target.id == 24033).FirstOrDefault();
+                    var scalet = data.Where(target => target.id == 24768).FirstOrDefault();
+                    var healthHideout = (maiTrin?.totalHealth) ?? 5898600 + (scalet?.totalHealth ?? 17695800);
+                    var remainingHideout = (maiTrin?.finalHealth) ?? 5898600 + (scalet?.finalHealth ?? 17695800);
+                    return (float)Math.Round((double)remainingHideout / healthHideout * 100, 2);
+                case 24485: //Minister Li
+                    var Li = data.Where(target => target.id == 24485).FirstOrDefault();
+                    var Enforcer = data.Where(target => target.id == 24261).FirstOrDefault();
+                    var Mindblade = data.Where(target => target.id == 24254).FirstOrDefault();
+                    var MechRider = data.Where(target => target.id == 24660).FirstOrDefault();
+                    var Ritualist = data.Where(target => target.id == 23618).FirstOrDefault();
+                    var Sniper = data.Where(target => target.id == 23612).FirstOrDefault();
+                    var healthLiTotal =
+                          (Li?.totalHealth ?? 29493000)
+                        + (Enforcer?.totalHealth ?? 8680800)
+                        + (Mindblade?.totalHealth ?? 8680800)
+                        + (MechRider?.totalHealth ?? 19662000)
+                        + (Ritualist?.totalHealth ?? 8684800)
+                        + (Sniper?.totalHealth ?? 5731968);
+                    var remainingLiTotal =
+                          (Li?.finalHealth ?? 29493000)
+                        + (Enforcer?.finalHealth ?? 8680800)
+                        + (Mindblade?.finalHealth ?? 8680800)
+                        + (MechRider?.finalHealth ?? 19662000)
+                        + (Ritualist?.finalHealth ?? 8684800)
+                        + (Sniper?.finalHealth ?? 5731968);
+                    return (float)Math.Round((double)remainingLiTotal / healthLiTotal * 100, 2);
+                case 24375: //Harvest Temple
+                    var JormagVoid = data.Where(target => target.id == -21).FirstOrDefault();
+                    var PrimordiusVoid = data.Where(target => target.id == -22).FirstOrDefault();
+                    var KralkatorrikVoid = data.Where(target => target.id == -19).FirstOrDefault();
+                    var VoidTimeCaster = data.Where(target => target.id == 25025).FirstOrDefault();
+                    var MordremothVoid = data.Where(target => target.id == -20).FirstOrDefault();
+                    var ZhaitanVoid = data.Where(target => target.id == -17).FirstOrDefault();
+                    var VoidSaltsprayDragon = data.Where(target => target.id == 23846).FirstOrDefault();
+                    var SooWonVoid = data.Where(target => target.id == -18).FirstOrDefault();
+                    var VoidObliterator = data.Where(target => target.id == 23995).FirstOrDefault();
+                    var totalHealth =
+                          (JormagVoid?.totalHealth ?? 6723000)
+                        + (PrimordiusVoid?.totalHealth ?? 6723000)
+                        + (KralkatorrikVoid?.totalHealth ?? 6723000)
+                        + (VoidTimeCaster?.totalHealth ?? 1769600)
+                        + (MordremothVoid?.totalHealth ?? 6723000)
+                        + (ZhaitanVoid?.totalHealth ?? 6723000)
+                        + (VoidSaltsprayDragon?.totalHealth ?? 2123520)
+                        + (SooWonVoid?.totalHealth ?? 9711000)
+                        + (VoidObliterator?.totalHealth ?? 1769600);
+                    var remainingHealth =
+                          (JormagVoid?.finalHealth ?? 6723000)
+                        + (PrimordiusVoid?.finalHealth ?? 6723000)
+                        + (KralkatorrikVoid?.finalHealth ?? 6723000)
+                        + (VoidTimeCaster?.finalHealth ?? 1769600)
+                        + (MordremothVoid?.finalHealth ?? 6723000)
+                        + (ZhaitanVoid?.finalHealth ?? 6723000)
+                        + (VoidSaltsprayDragon?.finalHealth ?? 2123520)
+                        + (SooWonVoid?.finalHealth ?? 9711000)
+                        + (VoidObliterator?.finalHealth ?? 1769600);
+                    return (float)Math.Round((double)remainingHealth / totalHealth * 100, 2);
                 default:
                     var boss = data.Where(target => target.id == BossID).FirstOrDefault();
-                    return (float)((double)boss?.finalHealth / boss?.totalHealth * 100 ?? 100);
+                    if (boss is null)
+                    {
+                        return 100f;
+                    }
+                    return (float)((double)boss.finalHealth / boss.totalHealth * 100);
             }
         }
 
@@ -181,8 +245,36 @@ namespace LogUploader.Data
             return playerRawData.Select(data => new SimplePlayer((JObject)data)).ToList();
         }
 
+        private readonly ISet<string> TokensToIgnore = new HashSet<string>
+        {
+            "combatReplayMetaData",
+            "personalBuffs",
+            "damageModMap",
+            "buffMap",
+            "skillMap",
+            "combatReplayData",
+            "breakbarDamage1S",
+            "conditionDamage1S",
+            "powerDamage1S",
+            "damage1S",
+            "rotation",
+            "targetBreakbarDamage1S",
+            "targetConditionDamage1S",
+            "targetPowerDamage1S",
+            "targetDamage1S",
+            "buffs",
+            "buffUptimes", //Hepfull now, later not
+            "barrierPercents",
+            "healthPercents",
+            "boonsStates",
+            "conditionsStates",
+            "statsTargets",
+            "targetDamageDist",
+            "damageModifiersTarget",
+            "damageModifiers",
+        };
 
-        public void UpdateEi(string json) => UpdateEi(JObject.Parse(json));
+        public void UpdateEi(string json) => UpdateEi(JObject.Load(new SkippingJsonReader(json, TokensToIgnore)));
         public void UpdateEi(JObject data)
         {
             BossID = (int)data["triggerID"];
@@ -195,25 +287,12 @@ namespace LogUploader.Data
             Succsess = (bool)data["success"];
             if (BossID == Boss.Get(eBosses.Desmina).ID)
                 RemainingHealth = Succsess ? 0 : 100;
+            else if (BossID == Boss.Get(eBosses.TheDragonvoid).ID)
+                RemainingHealth = Succsess ? 0 : GetRemainingHealth((JArray)data["targets"], BossID);
             else
                 RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
             if (!(0 <= RemainingHealth && RemainingHealth <= 100))
                 RemainingHealth = Succsess ? 0 : 100;
-            IsCM = (bool)data["isCM"];
-            ApplySimpleLog(new SimpleLogJson(data));
-        }
-
-        //TODO remove
-        [Obsolete("untested do not use!", true)]
-        public void UpdateDpsReport(JObject data)
-        {
-            BossID = (int)data["triggerID"];
-
-            Date = GetDate((string)data["timeStartStd"]);
-            DataCorrected = true;
-            Duration = TimeSpan.ParseExact((string)data["duration"], "mm'm 'ss's 'fff'ms'", CultureInfo.InvariantCulture);
-            Succsess = (bool)data["success"];
-            RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
             IsCM = (bool)data["isCM"];
             ApplySimpleLog(new SimpleLogJson(data));
         }

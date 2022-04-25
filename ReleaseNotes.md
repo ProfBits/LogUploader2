@@ -1,3 +1,16 @@
+# v1.3.15
+25.04.2022
+
+## Features
+- New Encounters:
+    - Strike Mission: Aetherblade Hideout
+    - Strike Mission: Xunlai Jade Junkyard
+    - Strike Mission: Kaineng Overlook
+    - Strike Mission: Harvest Temple
+
+## Improvements
+- Improve memory usage when processing a log
+
 # v1.3.14
 21.03.2022
 
