@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using LogUploader.Helper;
 
 namespace LogUploader.Data
 {
@@ -244,8 +245,36 @@ namespace LogUploader.Data
             return playerRawData.Select(data => new SimplePlayer((JObject)data)).ToList();
         }
 
+        private readonly ISet<string> TokensToIgnore = new HashSet<string>
+        {
+            "combatReplayMetaData",
+            "personalBuffs",
+            "damageModMap",
+            "buffMap",
+            "skillMap",
+            "combatReplayData",
+            "breakbarDamage1S",
+            "conditionDamage1S",
+            "powerDamage1S",
+            "damage1S",
+            "rotation",
+            "targetBreakbarDamage1S",
+            "targetConditionDamage1S",
+            "targetPowerDamage1S",
+            "targetDamage1S",
+            "buffs",
+            "buffUptimes", //Hepfull now, later not
+            "barrierPercents",
+            "healthPercents",
+            "boonsStates",
+            "conditionsStates",
+            "statsTargets",
+            "targetDamageDist",
+            "damageModifiersTarget",
+            "damageModifiers",
+        };
 
-        public void UpdateEi(string json) => UpdateEi(JObject.Parse(json));
+        public void UpdateEi(string json) => UpdateEi(JObject.Load(new SkippingJsonReader(json, TokensToIgnore)));
         public void UpdateEi(JObject data)
         {
             BossID = (int)data["triggerID"];
