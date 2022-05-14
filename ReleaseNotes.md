@@ -1,5 +1,8 @@
 # v1.3.16
 
+## Features
+- Strikes are now grouped by expansion when posting to discord using any per wing formatting
+
 ## Bugfixes
 - Fix crash when cerain characters were used in a charakter name
 
