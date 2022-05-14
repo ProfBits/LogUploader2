@@ -1,3 +1,8 @@
+# v1.3.16
+
+## Bugfixes
+- Fix crash when cerain characters were used in a charakter name
+
 # v1.3.15
 25.04.2022
 
