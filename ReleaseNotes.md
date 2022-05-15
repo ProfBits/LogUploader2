@@ -1,3 +1,13 @@
+# v1.3.16
+15.05.2022
+
+## Features
+- Strikes are now grouped by expansion when posting to discord using any per wing formatting
+
+## Bugfixes
+- Fix crash when cerain characters were used in a charakter name
+- Fix hint text in settings to include RO+ Lieutenants feature
+
 # v1.3.15
 25.04.2022
 

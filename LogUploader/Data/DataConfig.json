@@ -48,51 +48,15 @@
       "StrikeMissions": [
         {
           "ID": 1,
-          "NameEN": "Shiverpeeks Pass",
-          "NameDE": "Zittergipfelpass",
-          "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/A_Race_to_Arms_loading_screen.jpg"
+          "NameEN": "Icebrood Saga",
+          "NameDE": "Eisbrut-Saga",
+          "AvatarURL": "https://wiki.guildwars2.com/images/a/a8/Eye_of_the_North_loading_screen.jpg"
         },
         {
           "ID": 2,
-          "NameEN": "Raven Sanctum",
-          "NameDE": "Raben-Refugium",
-          "AvatarURL": "https://wiki.guildwars2.com/images/e/ec/The_Invitation_loading_screen.jpg"
-        },
-        {
-          "ID": 3,
-          "NameEN": "Whisper of Jormag",
-          "NameDE": "Geflüster des Jormag",
-          "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Voice_in_the_Deep_loading_screen.jpg"
-        },
-        {
-          "ID": 4,
-          "NameEN": "Cold War",
-          "NameDE": "Kalter Krieg",
-          "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg"
-        },
-        {
-          "ID": 5,
-          "NameEN": "Aetherblade Hideout",
-          "NameDE": "Ätherklingen Versteck",
-          "AvatarURL": "https://wiki.guildwars2.com/images/d/d3/Strike_Mission-_Aetherblade_Hideout_loading_screen.png"
-        },
-        {
-          "ID": 6,
-          "NameEN": "Xunlai Jade Junkyard",
-          "NameDE": "Xunlai Müllhalde",
-          "AvatarURL": "https://wiki.guildwars2.com/images/e/e9/Empty_loading_screen.png"
-        },
-        {
-          "ID": 7,
-          "NameEN": "Kaineng Overlook",
-          "NameDE": "Kaineng Ausschitspunkt",
-          "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Ministry_of_Security-_Main_Headquarters_loading_screen.png"
-        },
-        {
-          "ID": 8,
-          "NameEN": "Harvest Temple",
-          "NameDE": "Ernte Tempel",
-          "AvatarURL": "https://wiki.guildwars2.com/images/c/ce/The_Only_One_loading_screen.png"
+          "NameEN": "End of Dragons",
+          "NameDE": "End of Dragons",
+          "AvatarURL": "https://wiki.guildwars2.com/images/4/48/Arborstone_loading_screen.png"
         },
         {
           "ID": 255,
@@ -625,7 +589,7 @@
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 1,
         "DiscordEmote": "<:dgh:484839155155599360>",
-        "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/A_Race_to_Arms_loading_screen.jpg",
         "RaidOrgaPlusID": -1
       },
       {
@@ -636,7 +600,7 @@
         "FolderDE": "Stimme der Gefallenen",
         "EiName": "VoiceOfTheFallen",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 2,
+        "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Voice_of_the_Fallen.jpg",
         "RaidOrgaPlusID": -1
@@ -649,7 +613,7 @@
         "FolderDE": "Klaue der Gefallenen",
         "EiName": "ClawOfTheFallen",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 2,
+        "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/Claw_of_the_Fallen.jpg",
         "RaidOrgaPlusID": -1
@@ -662,7 +626,7 @@
         "FolderDE": "Die Stimme und die Klaue",
         "EiName": "VoiceAndClaw",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 2,
+        "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Whisper_in_the_Dark_09.jpg",
         "RaidOrgaPlusID": -1
@@ -675,7 +639,7 @@
         "FolderDE": "Fraenir Jormags",
         "EiName": "FraenirOfJormag ",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 2,
+        "GameAreaID": 1,
         "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/67/Fraenir_of_Jormag.jpg",
         "RaidOrgaPlusID": -1
@@ -688,7 +652,7 @@
         "FolderDE": "Eisbrut-Konstrukt",
         "EiName": "IcebroodConstructFraenir",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 2,
+        "GameAreaID": 1,
         "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/7f/Icebrood_Construct_%28Sanctum_Arena%29.jpg",
         "RaidOrgaPlusID": -1
@@ -701,7 +665,7 @@
         "FolderDE": "Knochenhäuter",
         "EiName": "Boneskinner",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 2,
+        "GameAreaID": 1,
         "DiscordEmote": "<:rea:484839588876255232> ",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg",
         "RaidOrgaPlusID": -1
@@ -714,9 +678,9 @@
         "FolderDE": "Geflüster des Jormag",
         "EiName": "Whisper of Jormag",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 3,
+        "GameAreaID": 1,
         "DiscordEmote": "<:mes:484839435578507295>",
-        "AvatarURL": "https://i.imgur.com/8GLwgfL.png",
+        "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Voice_in_the_Deep_loading_screen.jpg",
         "RaidOrgaPlusID": -1
       },
       {
@@ -727,7 +691,7 @@
         "FolderDE": "Varinia Sturmschall",
         "EiName": "Whisper of Jormag",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 4,
+        "GameAreaID": 1,
         "DiscordEmote": "<:dgh:484839155155599360>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg",
         "RaidOrgaPlusID": -1
@@ -740,7 +704,7 @@
         "FolderDE": "Kapitän Mai Trin",
         "EiName": "Aetherblade Hideout",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 5,
+        "GameAreaID": 2,
         "DiscordEmote": ":pirate_flag:",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d3/Strike_Mission-_Aetherblade_Hideout_loading_screen.png",
         "RaidOrgaPlusID": -1
@@ -753,7 +717,7 @@
         "FolderDE": "Ankka",
         "EiName": "Ankka",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 6,
+        "GameAreaID": 2,
         "DiscordEmote": ":skull_crossbones:",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e9/Empty_loading_screen.png",
         "RaidOrgaPlusID": -1
@@ -766,7 +730,7 @@
         "FolderDE": "Minister Li",
         "EiName": "Minister Li",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 7,
+        "GameAreaID": 2,
         "DiscordEmote": ":cityscape:",
         "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Ministry_of_Security-_Main_Headquarters_loading_screen.png",
         "RaidOrgaPlusID": -1
@@ -779,9 +743,9 @@
         "FolderDE": "Die Drachenleere",
         "EiName": "The Dragonvoid",
         "GameAreaName": "StrikeMissions",
-        "GameAreaID": 8,
+        "GameAreaID": 2,
         "DiscordEmote": ":alien:",
-        "AvatarURL": "https://wiki.guildwars2.com/images/1/1b/The_Dragonvoid.jpg",
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/ce/The_Only_One_loading_screen.png",
         "RaidOrgaPlusID": -1
       },
       {

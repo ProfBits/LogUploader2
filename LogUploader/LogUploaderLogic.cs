@@ -903,10 +903,24 @@ namespace LogUploader
                 if (!File.Exists(log.JsonPath))
                     return log;
                 var jsonStr = GP.ReadJsonFile(log.JsonPath);
-                var simpleLogJson = new SimpleLogJson(jsonStr);
-                log.ApplySimpleLog(simpleLogJson);
+                try
+                {
+                    var simpleLogJson = new SimpleLogJson(jsonStr);
+                    log.ApplySimpleLog(simpleLogJson);
+                }
+                catch (Newtonsoft.Json.JsonReaderException e)
+                {
+                    Logger.Warn($"Failed to load simple log json file. {e.Message} | Text: {jsonStr.Substring(e.LinePosition - 10 > 0 ? e.LinePosition - 10 : 0, e.LinePosition + 10 < jsonStr.Length ? e.LinePosition + 10 : jsonStr.Length - 1)}");
+                    File.Delete(log.JsonPath);
+                    log.JsonPath = "";
+                    LogDBConnector.Update(log.GetDBLog());
+                    return log;
+                }
+                finally
+                {
+                    GC.Collect();
+                }
             }
-            GC.Collect();
             LogCache.Add(log);
             return log;
         }

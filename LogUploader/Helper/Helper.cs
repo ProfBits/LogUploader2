@@ -76,13 +76,28 @@ namespace LogUploader.Helper
             return obj1.Equals(obj2);
         }
 
+        private static UTF8Encoding JsonEncoding = new UTF8Encoding(true, true);
+        private static Encoding OldJsonEncoding = Encoding.GetEncoding("iso-8859-1");
+
         public static string ReadJsonFile(string path)
         {
-            return File.ReadAllText(path, Encoding.GetEncoding("iso-8859-1"));
+            var data = File.ReadAllBytes(path);
+            Encoding encoding;
+            if (!JsonEncoding.GetPreamble().Where((b, i) => data[i] != b).Any()) //Test for BOM
+            {
+                encoding = JsonEncoding;
+            }
+            else
+            {
+                encoding = OldJsonEncoding;
+            }
+            
+            var str = encoding.GetString(data);
+            return str;
         }
         public static void WriteJsonFile(string path, string text)
         {
-            File.WriteAllText(path, text, Encoding.GetEncoding("iso-8859-1"));
+            File.WriteAllText(path, text, JsonEncoding);
         }
 
         public static Version GetVersion()
