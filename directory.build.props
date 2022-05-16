@@ -1,0 +1,11 @@
+<Project>
+ <PropertyGroup>
+   <Copyright>Copyright © ProfBits 2019 - 2022</Copyright>
+   <Company>Bits Inc.</Company>
+   <Product>Log Uploader</Product>
+   <LangVersion>10.0</LangVersion>
+   <Version>2.0.0.0</Version>
+   <FileVersion>$(Version)</FileVersion>
+   <AssemblyVersion>$(Version)</AssemblyVersion>
+ </PropertyGroup>
+</Project>
