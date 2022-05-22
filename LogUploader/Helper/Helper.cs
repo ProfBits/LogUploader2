@@ -86,6 +86,7 @@ namespace LogUploader.Helper
             if (!JsonEncoding.GetPreamble().Where((b, i) => data[i] != b).Any()) //Test for BOM
             {
                 encoding = JsonEncoding;
+                data = data.Skip(JsonEncoding.GetPreamble().Length).ToArray();
             }
             else
             {
@@ -95,6 +96,13 @@ namespace LogUploader.Helper
             var str = encoding.GetString(data);
             return str;
         }
+
+        public static string ReadJsonFileUTF8(string path)
+        {
+            var str = File.ReadAllText(path, JsonEncoding);
+            return str;
+        }
+
         public static void WriteJsonFile(string path, string text)
         {
             File.WriteAllText(path, text, JsonEncoding);

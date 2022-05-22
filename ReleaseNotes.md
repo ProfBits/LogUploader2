@@ -1,3 +1,8 @@
+# v1.3.17
+
+## Bugfixes
+- Fix issue with certain characters when parsing log locally
+
 # v1.3.16
 15.05.2022
 

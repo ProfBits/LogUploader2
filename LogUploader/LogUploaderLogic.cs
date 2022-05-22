@@ -364,7 +364,7 @@ namespace LogUploader
             }
             if (!log.DataCorrected || localDataVersion < CachedLog.CurrentDataVersion)
             {
-                var jsonStr = GP.ReadJsonFile(json);
+                var jsonStr = GP.ReadJsonFileUTF8(json);
                 log.UpdateEi(jsonStr);
 
                 if (string.IsNullOrWhiteSpace(log.JsonPath))
@@ -461,7 +461,7 @@ namespace LogUploader
                     File.Delete(log.HtmlPath);
                 if (!log.DataCorrected)
                 {
-                    var jsonStr = GP.ReadJsonFile(json);
+                    var jsonStr = GP.ReadJsonFileUTF8(json);
                     log.UpdateEi(jsonStr);
 
                     if (string.IsNullOrWhiteSpace(log.JsonPath))
