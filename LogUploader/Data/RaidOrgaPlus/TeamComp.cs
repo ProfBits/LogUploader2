@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogUploader.Data.RaidOrgaPlus
 {
@@ -54,9 +53,9 @@ namespace LogUploader.Data.RaidOrgaPlus
         {
             return Players.Any(p => p.AccName == accountName);
         }
-        internal bool Exists(Profession @class, Role role)
+        internal bool Exists(Profession @class, ISet<Role> roles)
         {
-            return UnnamedPlayers.Any(p => p.Profession.Equals(@class) && p.Role == role);
+            return UnnamedPlayers.Any(p => p.Profession.Equals(@class) && roles.SetEquals(p.Roles));
         }
 
         internal bool Exists(Profession @class)
@@ -64,14 +63,9 @@ namespace LogUploader.Data.RaidOrgaPlus
             return UnnamedPlayers.Any(p => p.Profession.Equals(@class));
         }
 
-        internal bool Exists(Role role)
+        internal bool Exists(ISet<Role> roles)
         {
-            return UnnamedPlayers.Any(p => p.Role == role);
-        }
-
-        internal bool Exists()
-        {
-            return UnnamedPlayers.Any();
+            return UnnamedPlayers.Any(p => roles.SetEquals(p.Roles));
         }
 
         internal Position GetByName(string accountName)
@@ -79,9 +73,9 @@ namespace LogUploader.Data.RaidOrgaPlus
             return Players.First(p => p.AccName == accountName);
         }
 
-        internal Position Get(Profession @class, Role role)
+        internal Position Get(Profession @class, ISet<Role> roles)
         {
-            return UnnamedPlayers.First(p => p.Profession.Equals(@class) && p.Role == role);
+            return UnnamedPlayers.First(p => p.Profession.Equals(@class) && roles.SetEquals(p.Roles));
         }
 
         internal Position Get(Profession @class)
@@ -89,46 +83,68 @@ namespace LogUploader.Data.RaidOrgaPlus
             return UnnamedPlayers.First(p => p.Profession.Equals(@class));
         }
 
-        internal Position Get(Role role)
+        internal Position Get(ISet<Role> roles)
         {
-            return UnnamedPlayers.First(p => p.Role == role);
+            return UnnamedPlayers.First(p => roles.SetEquals(p.Roles));
         }
 
         internal Position Get()
         {
-            return UnnamedPlayers.First();
+            if (UnnamedPlayers.Any())
+            {
+                return UnnamedPlayers.First();
+            }
+            else
+            {
+                var dupes = UnnamedPlayers.GroupBy(p => p.AccName).Where(g => g.Count() > 0).ToArray();
+                if (dupes.Any())
+                {
+                    return dupes.First().First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
         internal void OrderPlayers(Boss b = null)
         {
-            IComparer<Role> comparator;
+            IComparer<IEnumerable<Role>> comparator;
 
-            switch (b.ID)
+            switch ((eBosses)(b?.ID ?? 0))
             {
-                case 17154:
-                    comparator = new DeimosRoleComparator();
+                case eBosses.Deimos:
+                    comparator = new RolesComparator(RolesComparator.Deimos);
                     break;
-                case 16253:
-                    comparator = new EscortRoleComparator();
+                case eBosses.Escort:
+                    comparator = new RolesComparator(RolesComparator.Escort);
                     break;
                 default:
-                    comparator = new RoleComparator();
+                    comparator = new RolesComparator(RolesComparator.General);
                     break;
             }
 
-            Players = Players.OrderBy(p => p.Role, comparator).ThenBy(p => p.ClassID).ThenBy(p => p.AccName).Select((p, i) =>
+            Players = Players.OrderBy(p => p.Roles, comparator).ThenBy(p => p.ClassID).ThenBy(p => p.AccName).Select((p, i) =>
             {
                 p.Pos = i + 1;
                 return p;
             }).ToList();
         }
 
-        private class RoleComparator : IComparer<Role>
+        private class RolesComparator : IComparer<IEnumerable<Role>>
         {
-            public int Compare(Role x, Role y)
+            private readonly Func<Role, int> GetRoleWeight;
+
+            public RolesComparator(Func<Role, int> getRoleWeight)
             {
-                var x1 = GetRoleNumber(x);
-                var y1 = GetRoleNumber(y);
+                GetRoleWeight = getRoleWeight;
+            }
+
+            public int Compare(IEnumerable<Role> x, IEnumerable<Role> y)
+            {
+                var x1 = x.Select(GetRoleWeight).Min();
+                var y1 = y.Select(GetRoleWeight).Min();
                 if (x1 > y1)
                     return 1;
                 if (x1 < y1)
@@ -136,15 +152,19 @@ namespace LogUploader.Data.RaidOrgaPlus
                 return 0;
             }
 
-            protected virtual int GetRoleNumber(Role r)
+            public static int General(Role r)
             {
                 switch (r)
                 {
                     case Role.Tank:
                         return 0;
-                    case Role.Utility:
-                        return 10;
+                    case Role.Quickness:
+                        return 5;
                     case Role.Heal:
+                        return 10;
+                    case Role.Alacrity:
+                        return 15;
+                    case Role.Utility:
                         return 20;
                     case Role.Banner:
                         return 30;
@@ -162,48 +182,23 @@ namespace LogUploader.Data.RaidOrgaPlus
                         return 100;
                 }
             }
-        }
-
-        private class EscortRoleComparator : RoleComparator
-        {
-            protected override int GetRoleNumber(Role r)
+            public static int Escort(Role r)
             {
-
-                switch (r)
-                {
-                    case Role.Special:
-                        return 0;
-                    case Role.Utility:
-                        return 10;
-                    case Role.Heal:
-                        return 20;
-                    case Role.Banner:
-                        return 40;
-                    case Role.Kiter:
-                        return 50;
-                    case Role.Power:
-                        return 60;
-                    case Role.Condi:
-                        return 70;
-                    case Role.Tank:
-                        return 75;
-                    case Role.Empty:
-                        return 80;
-                    default:
-                        return 100;
-                }
+                if (r == Role.Special)
+                    return -10;
+                else if (r == Role.Tank)
+                    return 110;
+                else
+                    return General(r);
             }
-        }
-
-        private class DeimosRoleComparator : RoleComparator
-        {
-            protected override int GetRoleNumber(Role r)
+            public static int Deimos(Role r)
             {
                 if (r == Role.Special)
                     return 110;
                 else
-                    return base.GetRoleNumber(r);
+                    return General(r);
             }
+
         }
     }
 }

@@ -23,7 +23,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         internal void Correct(RoPlusPlayer player)
         {
             if (BecomesType == PlayerType.LFG)
-                player.setLFG();
+                player.SetLFG();
             else
                 player.SetAccount(BecomesAccount, BecomesType);
         }

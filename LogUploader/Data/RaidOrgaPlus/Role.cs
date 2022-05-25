@@ -1,11 +1,5 @@
 ﻿using LogUploader.Helper;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace LogUploader.Data.RaidOrgaPlus
 {
     public enum Role : byte
@@ -28,5 +22,9 @@ namespace LogUploader.Data.RaidOrgaPlus
         Special = 7,
         [StringValue("K")]
         Kiter = 8,
+        [StringValue("Q")]
+        Quickness = 9,
+        [StringValue("A")]
+        Alacrity = 10,
     }
 }

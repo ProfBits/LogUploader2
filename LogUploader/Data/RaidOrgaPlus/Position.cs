@@ -1,10 +1,6 @@
-﻿using LogUploader.Helper.RaidOrgaPlus;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogUploader.Data.RaidOrgaPlus
 {
@@ -45,23 +41,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         public string AccName { get; set; }
 
         [JsonIgnore]
-        public Role Role { get => Roles[0]; 
-            set
-            {
-                if (Roles.Length > 1 || Roles.Contains(value))
-                {
-                    var i = Array.FindIndex(Roles, (e) => e == value);
-                    if (i > 0)
-                    {
-                        Roles[i] = Roles[0];
-                    }
-                }
-
-                Roles[0] = value;
-            }
-        }
-
-        private Role[] Roles { get; set; }
+        public Role[] Roles { get; set; }
 
         [JsonProperty("roleId")]
         public string RoleID { get => string.Join(", ", Roles.Select(r => (byte)r)); }
@@ -83,27 +63,28 @@ namespace LogUploader.Data.RaidOrgaPlus
             AccName = "";
         }
 
-        internal void UpdateProffessionRole(Profession @class, Role role, bool overrideTank = false)
-        {
-            Profession = @class;
-            if (Role == Role.Empty)
-                Role = role;
-            //Override if RO+ and my guess just differ by power and condi role
-            else if ((Role == Role.Power || Role == Role.Condi) && (role == Role.Power || role == Role.Condi))
-                Role = role;
-            //Override toughness tanks
-            else if (overrideTank && (Role == Role.Tank || role == Role.Tank))
-                Role = role;
-            else if (!(new []{ eProfession.Warrior, eProfession.Berserker, eProfession.Spellbreaker }).Contains(@class.ProfessionEnum) && Role == Role.Banner)
-                Role = role;
-        }
-
         internal void Set(RoPlusPlayer player)
         {
             Profession = player.Class;
-            Role = player.Role;
+            Roles = player.Roles.ToArray();
             AccName = player.AccountName;
             ID = player.RaidOrgaID;
+        }
+
+        internal void Free()
+        {
+            ID = 0;
+            AccName = "";
+        }
+
+        internal bool IsFree()
+        {
+            return ID == 0;
+        }
+
+        internal bool IsPlayer()
+        {
+            return ID > 1;
         }
     }
 }
