@@ -1,5 +1,8 @@
 # v1.3.17
 
+## Features
+- Strikes can now be updated in added to RaidOrga+ via update Termin
+
 ## Bugfixes
 - Fix issue with certain characters when parsing log locally
 

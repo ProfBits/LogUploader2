@@ -590,7 +590,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:dgh:484839155155599360>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/A_Race_to_Arms_loading_screen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 37
       },
       {
         "ID": 22343,
@@ -603,7 +603,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Voice_of_the_Fallen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 38
       },
       {
         "ID": 22481,
@@ -616,7 +616,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/Claw_of_the_Fallen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 38
       },
       {
         "ID": 22315,
@@ -629,7 +629,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Whisper_in_the_Dark_09.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 38
       },
       {
         "ID": 22492,
@@ -642,7 +642,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/67/Fraenir_of_Jormag.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 39
       },
       {
         "ID": 22436,
@@ -655,7 +655,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/7f/Icebrood_Construct_%28Sanctum_Arena%29.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 39
       },
       {
         "ID": 22521,
@@ -668,7 +668,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:rea:484839588876255232> ",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 40
       },
       {
         "ID": 22711,
@@ -681,7 +681,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:mes:484839435578507295>",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Voice_in_the_Deep_loading_screen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 41
       },
       {
         "ID": 22836,
@@ -694,7 +694,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:dgh:484839155155599360>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 43
       },
       {
         "ID": 24033,
@@ -707,7 +707,7 @@
         "GameAreaID": 2,
         "DiscordEmote": ":pirate_flag:",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d3/Strike_Mission-_Aetherblade_Hideout_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 44
       },
       {
         "ID": 23957,
@@ -720,7 +720,7 @@
         "GameAreaID": 2,
         "DiscordEmote": ":skull_crossbones:",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e9/Empty_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 45
       },
       {
         "ID": 24485,
@@ -733,7 +733,7 @@
         "GameAreaID": 2,
         "DiscordEmote": ":cityscape:",
         "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Ministry_of_Security-_Main_Headquarters_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 46
       },
       {
         "ID": 24375,
@@ -746,7 +746,7 @@
         "GameAreaID": 2,
         "DiscordEmote": ":alien:",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/ce/The_Only_One_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 47
       },
       {
         "ID": 21333,
