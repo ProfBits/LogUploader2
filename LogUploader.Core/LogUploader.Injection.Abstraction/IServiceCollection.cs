@@ -6,4 +6,5 @@ public interface IServiceCollection
     bool Contains<T>();
     IServiceProvider BuildProvider();
     void Add<T>(T instance);
+    void Add(Type item1, Type item2);
 }
