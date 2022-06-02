@@ -736,6 +736,19 @@
         "RaidOrgaPlusID": 46
       },
       {
+        "ID": 24266,
+        "NameEN": "Minister Li",
+        "NameDE": "Minister Li",
+        "FolderEN": "Minister Li",
+        "FolderDE": "Minister Li",
+        "EiName": "Minister Li",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":cityscape:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Ministry_of_Security-_Main_Headquarters_loading_screen.png",
+        "RaidOrgaPlusID": 46
+      },
+      {
         "ID": 24375,
         "NameEN": "Harvest Temple",
         "NameDE": "Ernte Tempel",

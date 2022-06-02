@@ -6,6 +6,7 @@
 ## Improvements
 - Add support for new two new RaidOrga+ roles Alacrity and Quickness
 - Rework role detection for update RaidOrga+ to support multiple roles
+- Add detection for Minister Li CM
 
 ## Bugfixes
 - Fix issue with certain characters when parsing log locally
