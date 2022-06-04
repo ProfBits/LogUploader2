@@ -1,19 +1,23 @@
 ﻿using System.Reflection;
 
+using LogUploader.Logging;
+
 namespace LogUploader.Injection;
 
 public class ServiceCollector : IServiceCollector
 {
     private readonly ITypeProvider TypeProvider;
+    private readonly ILogger logger;
 
-    internal ServiceCollector(ITypeProvider typeProvider)
+    internal ServiceCollector(ITypeProvider typeProvider, ILogger logger)
     {
         TypeProvider = typeProvider;
+        this.logger = logger;
     }
 
-    public static IServiceCollector Create()
+    public static IServiceCollector Create(ILogger logger)
     {
-        return new ServiceCollector(new AssemblyTypeProvider(new TestAssemblieIgnoringProvider()));
+        return new ServiceCollector(new AssemblyTypeProvider(new TestAssemblieIgnoringProvider()), logger);
     }
 
     public async Task<IServiceCollection> CollectServicesAsync(IServiceCollection serviceCollection)
@@ -34,19 +38,19 @@ public class ServiceCollector : IServiceCollector
         return serviceCollection;
     }
 
-    private static void FindDeclarationAndRegister(Type t, IEnumerable<Type> possibleImpls, IServiceCollection serviceCollection)
+    private void FindDeclarationAndRegister(Type t, IEnumerable<Type> possibleImpls, IServiceCollection serviceCollection)
     {
         var impls = possibleImpls.AsParallel().Where(possibleImpls => possibleImpls.IsAssignableTo(t)).ToList();
         if (impls.Count == 0)
         {
-            //Log.Warn(no impl for t found)
+            logger.Warning("No implementation for {ServiceDeclaration} found.", new object?[] { t.FullName });
             return;
         }
         if (impls.Count > 1)
         {
-            //Log.Warn(multiple impls for t found, using impls.first(). All imples string.join(", ", impls)
+            logger.Warning("Multiple implementations for {ServiceDeclaration} found, using {UsedType}.\nImplementations are {AllImplementations}", new object?[] { t.FullName, impls.First().FullName, impls });
         }
-        //Log.Debug(Load service t.FullName form impls.First()
+        logger.Debug("Load service {Service} from {ServiceImplementatation}", new object?[] { t.FullName, impls.First().FullName });
         serviceCollection.Add(t, impls.First());
     }
 }

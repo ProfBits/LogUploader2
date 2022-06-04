@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using LogUploader.Logging;
+
+using Moq;
 
 namespace LogUploader.Injection.Test;
 
@@ -7,19 +9,19 @@ internal class CollectionTests
     [Test]
     public void ServiceCollectorCreateShouldNotThrow()
     {
-        Assert.That(ServiceCollector.Create, Throws.Nothing);
+        Assert.That(() => ServiceCollector.Create(new Mock<ILogger>().Object), Throws.Nothing);
     }
 
     [Test]
     public void ServiceCollectorCreateShouldNotReturnNull()
-    {
-        Assert.That(ServiceCollector.Create(), Is.Not.Null);
+    {   
+        Assert.That(ServiceCollector.Create(new Mock<ILogger>().Object), Is.Not.Null);
     }
 
     [Test]
     public void ServiceCollectorCollectoShouldNotThrow()
     {
-        var collector = ServiceCollector.Create();
+        var collector = ServiceCollector.Create(new Mock<ILogger>().Object);
         var sc = new ServiceCollection();
 
         Assert.That(async () => await collector.CollectServicesAsync(sc), Throws.Nothing);
@@ -28,7 +30,7 @@ internal class CollectionTests
     [Test]
     public void ServiceCollectorCollectoShouldThrowIfCollectionIsNull()
     {
-        var collector = ServiceCollector.Create();
+        var collector = ServiceCollector.Create(new Mock<ILogger>().Object);
 
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.That(async () => await collector.CollectServicesAsync(null), Throws.ArgumentNullException);
@@ -38,7 +40,7 @@ internal class CollectionTests
     [Test]
     public async Task FilledServiceCollectionShouldBeBuildeable()
     {
-        var collector = ServiceCollector.Create();
+        var collector = ServiceCollector.Create(new Mock<ILogger>().Object);
         IServiceCollection sc = new ServiceCollection();
 
         sc = await collector.CollectServicesAsync(sc);
@@ -49,7 +51,7 @@ internal class CollectionTests
     [Test]
     public async Task FilledServiceCollectionShouldNotContainAnyTestCalsses()
     {
-        var collector = ServiceCollector.Create();
+        var collector = ServiceCollector.Create(new Mock<ILogger>().Object);
         IServiceCollection sc = new ServiceCollection();
 
         sc = await collector.CollectServicesAsync(sc);
@@ -63,7 +65,7 @@ internal class CollectionTests
         var typeProvider = new Mock<ITypeProvider>();
         typeProvider.Setup(tp => tp.GetTypes()).Returns(new[] { typeof(ServiceInTest), typeof(ISericeInTest) });
 
-        var collector = new ServiceCollector(typeProvider.Object);
+        var collector = new ServiceCollector(typeProvider.Object, new Mock<ILogger>().Object);
         IServiceCollection sc = new ServiceCollection();
 
         sc = await collector.CollectServicesAsync(sc);
@@ -79,7 +81,7 @@ internal class CollectionTests
         var typeProvider = new Mock<ITypeProvider>();
         typeProvider.Setup(tp => tp.GetTypes()).Returns(new[] { typeof(ServiceInTest), typeof(ServiceInTest2), typeof(ISericeInTest) });
 
-        var collector = new ServiceCollector(typeProvider.Object);
+        var collector = new ServiceCollector(typeProvider.Object, new Mock<ILogger>().Object);
         IServiceCollection sc = new ServiceCollection();
 
         sc = await collector.CollectServicesAsync(sc);
@@ -95,7 +97,7 @@ internal class CollectionTests
         var typeProvider = new Mock<ITypeProvider>();
         typeProvider.Setup(tp => tp.GetTypes()).Returns(new[] { typeof(ISericeInTest) });
 
-        var collector = new ServiceCollector(typeProvider.Object);
+        var collector = new ServiceCollector(typeProvider.Object, new Mock<ILogger>().Object);
         IServiceCollection sc = new ServiceCollection();
 
         sc = await collector.CollectServicesAsync(sc);

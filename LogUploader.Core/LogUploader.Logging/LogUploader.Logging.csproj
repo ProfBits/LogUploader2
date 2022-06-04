@@ -16,4 +16,9 @@
     <PackageReference Include="Serilog.Sinks.File.Archive" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.IO.Abstractions\LogUploader.IO.Abstractions.csproj" />
+    <ProjectReference Include="..\LogUploader.Logging.Abstractions\LogUploader.Logging.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
