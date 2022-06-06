@@ -394,7 +394,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
             private static void SimpleHealPredictor(RoPlusPlayer player, int pos)
             {
-                if (pos <= 3 || player.Healing >= 5)
+                if (player.Healing >= 5)
                 {
                     player.Roles.Add(Role.Heal);
                 }
