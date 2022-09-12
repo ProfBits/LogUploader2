@@ -10,7 +10,7 @@ namespace LogUploader.Logging;
 
 public static class LoggerFactory
 {
-    public static void CreateLogger(IFileIO fileIO)
+    public static ILogger CreateLogger(IFileIO fileIO)
     {
 #if DEBUG
         var logLevel = Serilog.Events.LogEventLevel.Verbose;
@@ -30,6 +30,7 @@ public static class LoggerFactory
 
              .MinimumLevel.Verbose()
              .CreateLogger();
+        return GetInstance();
     }
 
     internal static ILogger GetInstance()

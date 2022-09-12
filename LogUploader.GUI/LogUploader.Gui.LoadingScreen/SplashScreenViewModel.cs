@@ -42,6 +42,7 @@ internal class SplashScreenViewModel : ISplashScreenViewModel
         });
         this.window = window;
         this.window.Closed += (_, _) => window.Dispatcher.InvokeShutdown();
+
     }
 
     public string Edition { get; }

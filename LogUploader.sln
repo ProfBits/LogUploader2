@@ -48,6 +48,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Logging.Test", "LogUploader.Core\LogUploader.Logging.Test\LogUploader.Logging.Test.csproj", "{2BAE7B46-1973-454C-A719-D651C4CA298D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Gui.Shared", "LogUploader.Gui\LogUploader.Gui.Shared\LogUploader.Gui.Shared.csproj", "{D302A7DA-91E6-4A84-A78C-F6023428F074}"
+	ProjectSection(ProjectDependencies) = postProject
+		{90C98B75-B072-491E-8990-1190E44E2217} = {90C98B75-B072-491E-8990-1190E44E2217}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Localization", "LogUploader.Core\LogUploader.Localization\LogUploader.Localization.csproj", "{9C9FD18F-727B-4B7D-829F-55D53F505960}"
 EndProject
@@ -59,7 +62,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Test.Integratio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Gui.LoadingScreen", "LogUploader.GUI\LogUploader.Gui.LoadingScreen\LogUploader.Gui.LoadingScreen.csproj", "{DE267975-46E7-4091-BFFE-CA92F9EA6625}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogUploader.Gui.Main", "LogUploader.GUI\LogUploader.Gui.Main\LogUploader.Gui.Main.csproj", "{D84BEDA1-7AE6-4D00-9D6D-9A6EC677B591}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogUploader.Gui.Main", "LogUploader.GUI\LogUploader.Gui.Main\LogUploader.Gui.Main.csproj", "{D84BEDA1-7AE6-4D00-9D6D-9A6EC677B591}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

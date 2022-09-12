@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace LogUploader.IO
 {
-    internal class FileIOFactory
+    public class FileIOFactory
     {
-        public static IFileIO? Instance;
+        private static IFileIO? Instance;
 
-        public static IFileIO Create()
+        private static IFileIO Create()
         {
             var roots = new Dictionary<RootFolder, string>
             {
                 { RootFolder.AppDataLocal, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LogUploader") },
                 { RootFolder.AppDataRoaming, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LogUploader") },
                 { RootFolder.EliteInsightsOutput, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LogUploader", "EiLogs") },
-                { RootFolder.EliteInsightsOutput, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LogUploader", "EliteInsights") },
+                { RootFolder.EliteInsights, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LogUploader", "EliteInsights") },
                 { RootFolder.Logs, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LogUploader", "Logs") },
-                { RootFolder.StaticData, Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location ?? throw new NotImplementedException()), "data") },
-                { RootFolder.ProgrammFiles, Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location ?? throw new NotImplementedException())) },
+                //TODO
+                //{ RootFolder.StaticData, Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location ?? throw new NotImplementedException()), "data") },
+                //{ RootFolder.ProgrammFiles, Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location ?? "sdg")) },
                 { RootFolder.Custom, "" },
             };
 
@@ -28,11 +29,11 @@ namespace LogUploader.IO
             return Instance;
         }
 
-        internal static IFileIO GetInstance()
+        public static IFileIO GetInstance()
         {
             if (Instance is null)
             {
-                throw new NotImplementedException();
+                Instance = Create();
             }
             return Instance;
         }

@@ -4,126 +4,240 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:LogUploader.Gui.Main"
-        x:ClassModifier="internal"
-        d:DataContext="{d:DesignData Type=local:MainWindowViewModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-                      
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel, IsDesignTimeCreatable=True}"
+        x:ClassModifier="internal"
+        Title="{Binding StringProvider.Title}" Height="810" Width="1440" WindowStyle="None"
+
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="{materialDesign:MaterialDesignFont}">
+        FontFamily="{materialDesign:MaterialDesignFont}" WindowState="{Binding WindowState, Mode=TwoWay}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0" NonClientFrameEdges="None" GlassFrameThickness="0" CornerRadius="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/LogUploader.Gui.Shared;component/GlobalDesigenTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">6</sys:Double>
-            <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarHeightKey}">6</sys:Double>
         </ResourceDictionary>
     </Window.Resources>
-    <materialDesign:DialogHost
-        IsOpen="True">
-        <materialDesign:DialogHost.DialogContent>
-            <local:ShareDialog VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50">
-                
-            </local:ShareDialog>
-        </materialDesign:DialogHost.DialogContent>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="250"/>
-        </Grid.ColumnDefinitions>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Margin" Value="0" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                        <Setter Property="Margin" Value="7, 7, 7, 3" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" AutoGenerateColumns="False" IsReadOnly="True"
-            
-                  >
-            <DataGrid.Columns>
-                <materialDesign:DataGridTextColumn Header="Boss"/>
-                <materialDesign:DataGridTextColumn Header="Date"/>
-                <materialDesign:DataGridTextColumn Header="Size"/>
-                <DataGridCheckBoxColumn CanUserSort="False" Header="Success" IsThreeState="True"/>
-                <materialDesign:DataGridTextColumn Header="Duration"/>
-                <DataGridCheckBoxColumn CanUserSort="False" Header="CM" IsThreeState="True"/>
-            </DataGrid.Columns>
+        <DockPanel Grid.Column="0" Grid.Row="0" Background="{DynamicResource MaterialDesignDarkSeparatorBackground}"
+                   MouseDown="DockPanel_MouseDown" Height="32"
+                   >
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
+                <Image></Image>
+                <Menu VerticalAlignment="Center" VerticalContentAlignment="Stretch" Height="32">
+                    <MenuItem Header="{Binding StringProvider.Menu_Log}" Height="32">
+                        <MenuItem Header="_Open"/>
+                        <MenuItem Header="Open in _Exporer"/>
+                    </MenuItem>
+                    <MenuItem Header="{Binding StringProvider.Menu_Tools}" Height="32">
 
-        </DataGrid>
-        <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,6,0,0" Grid.RowSpan="2"
-            >
+                    </MenuItem>
+                    <MenuItem Header="{Binding StringProvider.Menu_Settings}" Height="32">
 
+                    </MenuItem>
+                    <MenuItem Header="{Binding StringProvider.Menu_About}" Height="32">
 
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <ResourceDictionary>
+                        <Style x:Key="CloseButton" 
+                            BasedOn="{StaticResource MaterialDesignFlatButton}"
+                            TargetType="{x:Type Button}">
+                            <Style.Resources>
+                                <Color x:Key="PrimaryHueMidBrushColor">Red</Color>
+                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Red" />
+                            </Style.Resources>
+                        </Style>
+                        <Style x:Key="ChangeButton" 
+                            BasedOn="{StaticResource MaterialDesignFlatButton}"
+                            TargetType="{x:Type Button}">
+                            <Style.Resources>
+                                <Color x:Key="PrimaryHueMidBrushColor">White</Color>
+                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="White" />
+                            </Style.Resources>
+                        </Style>
+                    </ResourceDictionary>
+                </StackPanel.Resources>
+                <Button Style="{DynamicResource ChangeButton}" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="44" Padding="0"
+                        Command="{Binding Controller.MinimizeCommand}">
+                    <materialDesign:ColorZone Mode="Standard" Background="Transparent">
+                        <materialDesign:PackIcon Kind="WindowMinimize" VerticalAlignment="Center" Height="24" Width="24" />
+                    </materialDesign:ColorZone>
+                </Button>
+                <Button Style="{DynamicResource ChangeButton}" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="44" Padding="0"
+                        Command="{Binding Controller.ToggleWindowStateCommand}">
+                    <materialDesign:ColorZone Mode="Standard" Background="Transparent">
+                        <materialDesign:PackIcon Kind="{Binding MaximizeIcon}" VerticalAlignment="Center" Height="24" Width="24"/>
+                    </materialDesign:ColorZone>
+                </Button>
+                <Button Style="{DynamicResource CloseButton}" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="44" Padding="0"
+                        Command="{Binding Controller.CloseWindowCommand}">
+                    <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" Height="24" Width="24"/>
+                </Button>
+            </StackPanel>
         </DockPanel>
-        <ScrollViewer Grid.Row="0" Grid.Column="1"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
-                      VerticalContentAlignment="Top"
-            >
-            <StackPanel Orientation="Vertical">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:Chip IsDeletable="True">
-                            Today
-                        </materialDesign:Chip>
-                        <materialDesign:Chip IsDeletable="True">
-                            Filter
-                        </materialDesign:Chip>
-                        <materialDesign:Chip IsDeletable="True">
-                            Kill
-                        </materialDesign:Chip>
-                        <materialDesign:Chip IsDeletable="True">
-                            Kill
-                        </materialDesign:Chip>
+        <materialDesign:DialogHost CloseOnClickAway="True" Grid.Column="0" Grid.Row="1">
+            <materialDesign:DialogHost.DialogContent>
+                <Button Margin="100">Close</Button>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="20*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" Width="1" 
+                        BorderBrush="{DynamicResource MaterialDesignSelection}"
+                        BorderThickness="1"/>
+                <Grid Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch">
+                    <materialDesign:ColorZone VerticalAlignment="Stretch">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <Expander>
+                                    <Expander.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="InfoCircleOutline" VerticalAlignment="Stretch" Width="auto"/>
+                                            <Label Margin="8,0,0,0" Content="{Binding StringProvider.Details_Header}"/>
+                                        </StackPanel>
+                                    </Expander.Header>
+                                </Expander>
+                                <Separator Style="{StaticResource MaterialDesignSeparator}"/>
+                                <Expander>
+                                    <Expander.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="FilterOutline" VerticalAlignment="Stretch" Width="auto"/>
+                                            <Label Margin="8,0,0,0" Content="{Binding StringProvider.Filter_Header}"/>
+                                        </StackPanel>
+                                    </Expander.Header>
+
+                                </Expander>
+                                <Separator Style="{StaticResource MaterialDesignSeparator}"/>
+                                <Expander IsExpanded="False">
+                                    <Expander.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="DotsVertical" VerticalAlignment="Stretch" Width="auto"/>
+                                            <Label Margin="8,0,0,0" Content="{Binding StringProvider.QuickActions_Header}"/>
+                                        </StackPanel>
+                                    </Expander.Header>
+                                </Expander>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </materialDesign:ColorZone>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="16"
+                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                        <materialDesign:PackIcon Kind="ShareVariant" Height="24" Width="24"/>
+                    </Button>
+                </Grid>
+                <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource MaterialDesignDarkSeparatorBackground}">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="8,8,8,4" >
+                        <Label>#</Label>
+                        <Label Margin="0,0,8,0">Logs</Label>
+                        <Label>#</Label>
+                        <Label Margin="0,0,8,0">Selected</Label>
                     </StackPanel>
-                </ScrollViewer>
-                <Expander Header="Filter" IsExpanded="False">
-                    <TextBlock>FilterOptions</TextBlock>
-                </Expander>
-                <Expander Header="Actions" IsExpanded="False">
-                    <TextBlock>Actions</TextBlock>
-                </Expander>
-                <Expander Header="Details" IsExpanded="True">
-                    <TextBlock>Details</TextBlock>
-                </Expander>
-            </StackPanel>
-        </ScrollViewer>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"
-                    HorizontalAlignment="Left"
-            >
-            <Button Margin="6,0,3,0" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=About}" />
-            <Button Margin="3,0,6,0" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=Settings}"/>
-        </StackPanel>
-        <materialDesign:PopupBox Style="{DynamicResource MaterialDesignMultiFloatingActionPopupBox}"
-                                 Grid.ColumnSpan="2"
-                                 Grid.RowSpan="3"
-                                 HorizontalAlignment="Right"
-                                 VerticalAlignment="Bottom"
-                                 Margin="25"
-                                 IsPopupOpen="False"
-                                 PlacementMode="TopAndAlignCentres"
-                                 PopupMode="Click"
-                                 >
-            <StackPanel VerticalAlignment="Top" Background="Transparent">
-                <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Margin="3">U</Button>
-                <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Margin="3">S</Button>
-                <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" Margin="3">P</Button>
-            </StackPanel>
-            <materialDesign:PopupBox.ToggleContent>
-                <materialDesign:PackIcon Kind="Add" />
-            </materialDesign:PopupBox.ToggleContent>
-            <materialDesign:PopupBox.ToggleCheckedContent>
-                <materialDesign:PackIcon Kind="Close" />
-            </materialDesign:PopupBox.ToggleCheckedContent>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="8,8,8,4" >
+                        <Label>#</Label>
+                        <Label>of</Label>
+                        <Label>#</Label>
+                        <ProgressBar Width="100" Height="8" Margin="16,0,16,0" Value="50"
+                                     materialDesign:TransitionAssist.DisableTransitions="True"
+                                     >
 
-        </materialDesign:PopupBox>
+                        </ProgressBar>
+                    </StackPanel>
+                </DockPanel>
+                <DataGrid ItemsSource="{Binding LogData}" AutoGenerateColumns="False" CanUserSortColumns="True" IsReadOnly="True"
+                          SelectionMode="Extended" SelectionUnit="FullRow"
+                          materialDesign:DataGridAssist.CellPadding="8 4 4 4">
+                    <DataGrid.Resources>
+                        <ResourceDictionary>
+                            <Style x:Key="CenteredTextColumnStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </ResourceDictionary>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Boss" Binding="{Binding Encounter}" ElementStyle="{StaticResource CenteredTextColumnStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Result" Binding="{Binding Result}" ElementStyle="{StaticResource CenteredTextColumnStyle}"></DataGridTextColumn>
+                        <DataGridCheckBoxColumn Header="CM" Binding="{Binding CM}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"></DataGridCheckBoxColumn>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=\{0:d\}}" ElementStyle="{StaticResource CenteredTextColumnStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Duration" Binding="{Binding Duration, StringFormat=\{0:mm\\:ss\\.fff\}}" ElementStyle="{StaticResource CenteredTextColumnStyle}">
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Players" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListBox ItemsSource="{Binding Professions}" Padding="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Icon}" ToolTip="{Binding ToolTip}" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                       Width="20" Margin="0"/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="0"/>
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                                <Setter Property="Margin" Value="0" />
+                                                <Setter Property="Padding" Value="4, 0, 4, 0" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </ListBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
+            </Grid>
+        </materialDesign:DialogHost>
     </Grid>
-
-
-    </materialDesign:DialogHost>
 </local:MainWindowBase>

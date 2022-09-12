@@ -1,15 +1,20 @@
-﻿namespace LogUploader
+﻿using LogUploader.Gui.Main;
+using LogUploader.Injection;
+
+namespace LogUploader
 {
     internal class Program
     {
-        [STAThread]
+        private static readonly object loadingLock = new object();
+
         static void Main(string[] args)
         {
             Thread.CurrentThread.Name = "main";
 
-            //RunSplashScreen(args);
-            Gui.Main.MainWindowFactory.Run();
-            
+            lock (loadingLock)
+            {
+                RunSplashScreen(args);
+            }
         }
 
         private static void RunSplashScreen(string[] args)
@@ -28,26 +33,58 @@
             splashScreen.Show();
             var loadingTask = splashScreen.Run(async (p, ct) =>
             {
-                await LoadingSequence(args, p, ct);
-                splashScreen.Close();
+                try
+                {
+                    await LoadingSequence(args, p, ct);
+                }
+                finally
+                {
+                    splashScreen.Close();
+                }
             });
-            System.Windows.Threading.Dispatcher.Run();
 
+            try
+            {
+                System.Windows.Threading.Dispatcher.Run();
+            }
+            catch (InvalidOperationException) { }
+            loadingTask.Wait();
         }
 
-        static async Task LoadingSequence(string[] args, IProgress<IProgressMessage> progress, CancellationToken ct)
+        private static async Task LoadingSequence(string[] args, IProgress<IProgressMessage> progress, CancellationToken ct)
         {
-            for (double i = 0; i <= 1 ; i += 0.005)
+            progress.Report(new ProgressMessage("Initialize", 0));
+            var io = LogUploader.IO.FileIOFactory.GetInstance();
+            var logger = LogUploader.Logging.LoggerFactory.CreateLogger(io);
+
+            progress.Report(new ProgressMessage("Initialize", 0.05));
+            var sc = new ServiceCollection();
+            var dpLoader = new DependencyLoader();
+            await dpLoader.Load(sc, logger, progress.Split(0.05, 0.25), ct);
+            progress.Report(new ProgressMessage("Linking Modules", 0.25));
+            var services = sc.BuildProvider();
+            progress.Report(new ProgressMessage("Loading Modules", 0.35));
+            var loadingProgress = progress.Split(0.35, 0.95);
+            var delta = 1.0 / services.CountOfLoadedServices;
+            foreach (var (module, i) in services.GetLoadedServices().WithIndex())
             {
-                progress.Report(new ProgressMessage($"Progressing {i}", i));
-                Console.WriteLine($"Progressing {i}");
-                if (ct.IsCancellationRequested)
-                {
-                    Console.WriteLine("Aborting");
-                    break;
-                }
-                await Task.Delay(100);
+                await module.Load(ct, loadingProgress.Split("Loading Module " + module.Name() + " - ", delta * i, delta * (i + 1)));
             }
+            progress.Report(new ProgressMessage("Creating UI", 0.95));
+            var mainWindowThread = new Thread(() =>
+            {
+                var mainView = services.Create<IMainWindowFactory>().CreateMainView(progress.WithStaticMessage("Creating UI", 0.95, 0.99));
+                lock(loadingLock)
+                {
+                    mainView.Run();
+                };
+            });
+            mainWindowThread.Name = "UI_Main";
+            mainWindowThread.IsBackground = false;
+            mainWindowThread.SetApartmentState(ApartmentState.STA);
+            mainWindowThread.Start();
+
+            progress.Report(new ProgressMessage("Finishing up", 1));
         }
     }
 }

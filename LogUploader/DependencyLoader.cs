@@ -1,23 +1,28 @@
 ﻿using LogUploader.Injection;
 using LogUploader.Logging;
 
+using Serilog.Core;
+
 namespace LogUploader;
 
 internal class DependencyLoader
 {
     private static readonly Func<IServiceCollection, ILogger, Task>[] RegistratorsHandels = new Func<IServiceCollection, ILogger, Task>[] {
-        (sc, logger) => ExecuteRegistrator<IO.IoRegistrator>(sc, logger),
-        (sc, logger) => ExecuteRegistrator<LoggingRegistrator>(sc, logger)
+        (sc, logger) => ExecuteRegistrator<IO.Registrator>(sc, logger),
+        (sc, logger) => ExecuteRegistrator<Logging.Registrator>(sc, logger),
+        (sc, logger) => ExecuteRegistrator<Localization.Registrator>(sc, logger),
+        (sc, logger) => ExecuteRegistrator<Gui.Main.Registrator>(sc, logger)
     };
 
-    public async Task Load(IServiceCollection serviceCollection, ILogger logger, IProgress<IProgressMessage>? progress)
+    public async Task Load(IServiceCollection serviceCollection, ILogger logger, IProgress<IProgressMessage>? progress, CancellationToken ct)
     {
         var loadTasks = RegistratorsHandels.Select(handel => handel(serviceCollection, logger)).ToArray();
         var numberOfTasks = loadTasks.Length;
         for (int i = 0; i < numberOfTasks; i++)
         {
-            await loadTasks[i];
             progress?.Report(new ProgressMessage("Collection modules", (double)i / numberOfTasks));
+            if (ct.IsCancellationRequested) break;
+            await loadTasks[i];
         }
     }
 

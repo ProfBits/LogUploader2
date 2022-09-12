@@ -7,4 +7,8 @@
 	<RootNamespace>LogUploader.Localization</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Injection.Abstraction\LogUploader.Injection.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>

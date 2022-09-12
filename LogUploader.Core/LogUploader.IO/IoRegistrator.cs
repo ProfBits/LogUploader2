@@ -2,7 +2,7 @@
 
 namespace LogUploader.IO;
 
-public class IoRegistrator : IServiceRegistrator
+public class Registrator : IServiceRegistrator
 {
     public async Task Load(IServiceCollection serviceCollection)
     {

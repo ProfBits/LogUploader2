@@ -2,6 +2,8 @@
 
 public interface ILoadedService
 {
+    string Name() => GetType().Name;
+
     Task Load(CancellationToken ct, IProgress<IProgressMessage>? progress = null);
 }
 
