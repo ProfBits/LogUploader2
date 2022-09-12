@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Shared.Abstractions\LogUploader.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Shared\LogUploader.Shared.csproj" />
+    <ProjectReference Include="..\LogUploader.Gui.Shared\LogUploader.Gui.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

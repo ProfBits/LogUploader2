@@ -13,10 +13,7 @@ internal class Logger : ILogger
     
     private const string MessagePrefix = "{CallerFile}{CallerMember}{CallerLine} ";
 
-    [InjectionConstructor]
-    private Logger() { }
-
-    private Logger(Serilog.ILogger logger)
+    internal Logger(Serilog.ILogger logger)
     {
         _logger = logger;
     }

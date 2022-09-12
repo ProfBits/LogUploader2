@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Injection.Abstraction\LogUploader.Injection.Abstraction.csproj" />
     <ProjectReference Include="..\LogUploader.IO.Abstractions\LogUploader.IO.Abstractions.csproj" />
     <ProjectReference Include="..\LogUploader.Logging.Abstractions\LogUploader.Logging.Abstractions.csproj" />
   </ItemGroup>

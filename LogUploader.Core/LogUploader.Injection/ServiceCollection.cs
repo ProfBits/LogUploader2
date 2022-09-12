@@ -4,16 +4,22 @@ namespace LogUploader.Injection;
 
 public class ServiceCollection : IServiceCollection
 {
-    private Dictionary<Type, IServiceDescriptor> ServiceData = new Dictionary<Type, IServiceDescriptor>();
+    private readonly Dictionary<Type, IServiceDescriptor> ServiceData = new Dictionary<Type, IServiceDescriptor>();
 
     private void Add(Type declaration, IServiceDescriptor descriptor)
     {
-        ServiceData.Add(declaration, descriptor);
+        lock (ServiceData)
+            ServiceData.Add(declaration, descriptor);
     }
 
     private void ThrowIfAlreadExists(Type declaration)
     {
-        if (ServiceData.ContainsKey(declaration) || declaration.Equals(typeof(IServiceProvider)))
+        var containd = false;
+
+        lock (ServiceData)
+            containd = ServiceData.ContainsKey(declaration);
+
+        if (containd || declaration.Equals(typeof(IServiceProvider)))
         {
             throw new DuplicatedServiceException(declaration);
         }
@@ -59,7 +65,9 @@ public class ServiceCollection : IServiceCollection
         {
             return true;
         }
-        return ServiceData.ContainsKey(type);
+
+        lock (ServiceData)
+            return ServiceData.ContainsKey(type);
     }
 
     public bool Contains<T>()
@@ -69,7 +77,8 @@ public class ServiceCollection : IServiceCollection
 
     public IServiceProvider BuildProvider()
     {
-        return ServiceBuilder.Build(ServiceData.Values);
+        lock (ServiceData)
+            return ServiceBuilder.Build(ServiceData.Values);
     }
 
     public void Add<T>(T instance)
@@ -89,6 +98,8 @@ public class ServiceCollection : IServiceCollection
         {
             throw new ServiceInstanceNullException(declaration);
         }
-        ServiceData.Add(declaration, new PreInitSingeltonDescriptor(declaration, instance));
+
+        lock (ServiceData)
+            ServiceData.Add(declaration, new PreInitSingeltonDescriptor(declaration, instance));
     }
 }

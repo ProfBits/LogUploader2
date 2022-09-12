@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Moq" Version="4.18.1" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Injection.Abstraction\LogUploader.Injection.Abstraction.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Injection\LogUploader.Injection.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.IO.Abstractions\LogUploader.IO.Abstractions.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.IO\LogUploader.IO.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Localization.Abstraction\LogUploader.Localization.Abstraction.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Localization\LogUploader.Localization.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Logging.Abstractions\LogUploader.Logging.Abstractions.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Logging\LogUploader.Logging.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Shared.Abstractions\LogUploader.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Core\LogUploader.Shared\LogUploader.Shared.csproj" />
+    <ProjectReference Include="..\..\LogUploader.Gui\LogUploader.Gui.Shared\LogUploader.Gui.Shared.csproj" />
+    <ProjectReference Include="..\..\LogUploader\LogUploader.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,14 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.Injection.Abstraction\LogUploader.Injection.Abstraction.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.Injection\LogUploader.Injection.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.IO.Abstractions\LogUploader.IO.Abstractions.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.IO\LogUploader.IO.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.Localization.Abstraction\LogUploader.Localization.Abstraction.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.Localization\LogUploader.Localization.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.Logging.Abstractions\LogUploader.Logging.Abstractions.csproj" />
     <ProjectReference Include="..\LogUploader.Core\LogUploader.Logging\LogUploader.Logging.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.Shared.Abstractions\LogUploader.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\LogUploader.Core\LogUploader.Shared\LogUploader.Shared.csproj" />
+    <ProjectReference Include="..\LogUploader.GUI\LogUploader.Gui.LoadingScreen\LogUploader.Gui.LoadingScreen.csproj" />
+    <ProjectReference Include="..\LogUploader.GUI\LogUploader.Gui.Main\LogUploader.Gui.Main.csproj" />
+    <ProjectReference Include="..\LogUploader.Gui\LogUploader.Gui.Shared\LogUploader.Gui.Shared.csproj" />
   </ItemGroup>
 
 </Project>

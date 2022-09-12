@@ -32,6 +32,11 @@ public static class LoggerFactory
              .CreateLogger();
     }
 
+    internal static ILogger GetInstance()
+    {
+        return new Logger(Log.Logger);
+    }
+
     public static void StopLogger()
     {
         Log.CloseAndFlush();
