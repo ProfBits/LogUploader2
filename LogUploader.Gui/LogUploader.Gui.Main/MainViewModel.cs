@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -56,6 +57,9 @@ namespace LogUploader.Gui.Main
         public PackIconKind MaximizeIcon { get => maximizeIcon; set => SetProperty(ref maximizeIcon, value); }
 
         public ObservableCollection<DisplayLog> LogData { get; set; } = new ObservableCollection<DisplayLog>();
+        private float _filterhplimit = 0;
+        public float filterhplimit { get => _filterhplimit; set => SetProperty(ref _filterhplimit, value); }
+        public ObservableCollection<DisplayFilter> DisplayerFilters { get; set; } = new ObservableCollection<DisplayFilter>();
 
         public MainViewModel() : base(null, new MainController(), new MainStringProvider(new DummyLocalisation()))
         {
@@ -63,6 +67,11 @@ namespace LogUploader.Gui.Main
             LogData.Add(new DisplayLog("Log2", false, 42.1f, true, TimeSpan.FromSeconds(66), DateTime.Now, new List<Profession>() { Profession.Scourge, Profession.Scourge, Profession.Mechanist, Profession.Scourge }));
             LogData.Add(new DisplayLog("Log3", true, 0, true, TimeSpan.FromSeconds(256), DateTime.Now, new List<Profession>() { Profession.Scourge, Profession.Heral, Profession.Mechanist, Profession.Scourge }));
             LogData.Add(new DisplayLog("Log4", false, 26.128f, false, TimeSpan.FromSeconds(468), DateTime.Now, new List<Profession>() { Profession.Mechanist, Profession.Heral, Profession.Mechanist, Profession.Mechanist, Profession.Mechanist }));
+
+            DisplayerFilters.Add(new DisplayFilter("Wing 1"));
+            DisplayerFilters.Add(new DisplayFilter("Carin"));
+            DisplayerFilters.Add(new DisplayFilter("CM"));
+            DisplayerFilters.Add(new DisplayFilter("Wipe"));
         }
 
         public MainViewModel(MainWindowBase view, MainController controller, MainStringProvider stringProvider) : base(view, controller, stringProvider)
@@ -71,6 +80,11 @@ namespace LogUploader.Gui.Main
             LogData.Add(new DisplayLog("Log2", false, 42.1f, true, TimeSpan.FromSeconds(66), DateTime.Now, new List<Profession>() { Profession.Scourge, Profession.Scourge, Profession.Mechanist, Profession.Scourge }));
             LogData.Add(new DisplayLog("Log3", true, 0, true, TimeSpan.FromSeconds(256), DateTime.Now, new List<Profession>() { Profession.Scourge, Profession.Heral, Profession.Mechanist, Profession.Scourge }));
             LogData.Add(new DisplayLog("Log4", false, 26.128f, false, TimeSpan.FromSeconds(468), DateTime.Now, new List<Profession>() { Profession.Mechanist, Profession.Heral, Profession.Mechanist, Profession.Mechanist, Profession.Mechanist }));
+
+            DisplayerFilters.Add(new DisplayFilter("Wing 1"));
+            DisplayerFilters.Add(new DisplayFilter("Carin"));
+            DisplayerFilters.Add(new DisplayFilter("CM"));
+            DisplayerFilters.Add(new DisplayFilter("Wipe"));
         }
 
         public void Run()
@@ -155,6 +169,17 @@ namespace LogUploader.Gui.Main
             public string ToolTip { get; init; }
             public ImageSource Icon { get; init; }
         }
+
+        public class DisplayFilter : NotifyPropertyChangedBase
+        {
+            private string _displayString;
+            public string DisplayString { get => _displayString; set => SetProperty(ref _displayString, value); }
+
+            public DisplayFilter(string displayString)
+            {
+                _displayString = displayString;
+            }
+        }
     }
 
     public interface IMainView
@@ -167,6 +192,7 @@ namespace LogUploader.Gui.Main
         public ICommand? MinimizeCommand { get; private set; }
         public ICommand? ToggleWindowStateCommand { get; private set; }
         public ICommand? CloseWindowCommand { get; private set; }
+        public ICommand? RemoveDisplayFilterCommand { get; private set; }
 
         public override void InitCommands(MainViewModel viewModel)
         {
@@ -185,6 +211,11 @@ namespace LogUploader.Gui.Main
             CloseWindowCommand = new ActionCommand(args =>
             {
                 viewModel.View.Close();
+            });
+            RemoveDisplayFilterCommand = new ActionCommand(args =>
+            {
+                if (args is MainViewModel.DisplayFilter filter)
+                    _ = viewModel.DisplayerFilters.Remove(filter);
             });
         }
     }

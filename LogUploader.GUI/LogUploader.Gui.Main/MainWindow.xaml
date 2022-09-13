@@ -43,9 +43,11 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <!-- Header -->
         <DockPanel Grid.Column="0" Grid.Row="0" Background="{DynamicResource MaterialDesignDarkSeparatorBackground}"
                    MouseDown="DockPanel_MouseDown" Height="32"
                    >
+            <!-- Top Menue -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
                 <Image></Image>
                 <Menu VerticalAlignment="Center" VerticalContentAlignment="Stretch" Height="32">
@@ -64,6 +66,8 @@
                     </MenuItem>
                 </Menu>
             </StackPanel>
+            
+            <!-- Minimize, Maximize, Close -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
                 <StackPanel.Resources>
                     <ResourceDictionary>
@@ -103,27 +107,33 @@
                 </Button>
             </StackPanel>
         </DockPanel>
+
+        <!-- Body -->
         <materialDesign:DialogHost CloseOnClickAway="True" Grid.Column="0" Grid.Row="1">
+            <!-- Dialog -->
             <materialDesign:DialogHost.DialogContent>
                 <Button Margin="100">Close</Button>
             </materialDesign:DialogHost.DialogContent>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80*" />
+                    <ColumnDefinition Width="75*" />
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="25*" MinWidth="300" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
+                <!-- Vertical Sidebar -->
                 <Border Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" Width="1" 
                         BorderBrush="{DynamicResource MaterialDesignSelection}"
                         BorderThickness="1"/>
+                <!-- SideBar -->
                 <Grid Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch">
                     <materialDesign:ColorZone VerticalAlignment="Stretch">
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                             <StackPanel>
+                                <!-- Details -->
                                 <Expander>
                                     <Expander.Header>
                                         <StackPanel Orientation="Horizontal">
@@ -133,6 +143,7 @@
                                     </Expander.Header>
                                 </Expander>
                                 <Separator Style="{StaticResource MaterialDesignSeparator}"/>
+                                <!-- Filter -->
                                 <Expander>
                                     <Expander.Header>
                                         <StackPanel Orientation="Horizontal">
@@ -140,9 +151,164 @@
                                             <Label Margin="8,0,0,0" Content="{Binding StringProvider.Filter_Header}"/>
                                         </StackPanel>
                                     </Expander.Header>
+                                    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="False">
+                                        <materialDesign:DialogHost.Style>
+                                            <Style TargetType="materialDesign:DialogHost" BasedOn="{StaticResource MaterialDesignEmbeddedDialogHost}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsExpanded, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Expander}}}" Value="False">
+                                                        <Setter Property="IsOpen" Value="False" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </materialDesign:DialogHost.Style>
+                                        <materialDesign:DialogHost.DialogContent>
+                                            <!-- Filter selection -->
+                                            <materialDesign:Card Padding="16">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Margin="4, 0, 0, 8" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                                                               Text="Add Filter"/>
+                                                    <!-- Filter kill/wipe -->
+                                                    <DockPanel>
+                                                        <Button DockPanel.Dock="Right" Width="25" Height="25" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}">+</Button>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <RadioButton IsChecked="True" Content="Kill" 
+                                                                         Style="{StaticResource MaterialDesignTabRadioButton}"/>
+                                                            <RadioButton IsChecked="False" Content="Wipe" 
+                                                                         Style="{StaticResource MaterialDesignTabRadioButton}"/>
+                                                        </StackPanel>
+                                                    </DockPanel>
+                                                    <Separator Style="{DynamicResource MaterialDesignSeparator}"/>
+                                                    <!-- Filter boss -->
+                                                    <DockPanel>
+                                                        <Button DockPanel.Dock="Right" Width="25" Height="25" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}">+</Button>
 
+                                                        <Label DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0, 0, 8, 0"
+                                                                Content="Boss"/>
+                                                        <ComboBox DockPanel.Dock="Left" Margin="0, 0, 8, 0"
+                                                                  VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                                  materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+                                                                  materialDesign:TextFieldAssist.HasClearButton="True">
+                                                            <ComboBox.ItemsSource>
+                                                                <x:Array Type="sys:String"
+                                                                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                                                         xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                                                    <sys:String>Wing 1</sys:String>
+                                                                    <sys:String>Wing 2</sys:String>
+                                                                    <sys:String>Vale Guardian</sys:String>
+                                                                </x:Array>
+
+                                                            </ComboBox.ItemsSource>
+                                                        </ComboBox>
+                                                    </DockPanel>
+                                                    <Separator Style="{DynamicResource MaterialDesignSeparator}"/>
+                                                    <!-- Filter CM -->
+                                                    <DockPanel>
+                                                        <Button DockPanel.Dock="Right" Width="25" Height="25" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}">+</Button>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <RadioButton IsChecked="False" Content="Normal" 
+                                                                         Style="{StaticResource MaterialDesignTabRadioButton}"/>
+                                                            <RadioButton IsChecked="True" Content="CM" 
+                                                                         Style="{StaticResource MaterialDesignTabRadioButton}"/>
+                                                        </StackPanel>
+                                                    </DockPanel>
+                                                    <Separator Style="{DynamicResource MaterialDesignSeparator}"/>
+                                                    <!-- Filter Date -->
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="6*"/>
+                                                            <ColumnDefinition Width="4*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"/>
+                                                            <RowDefinition Height="auto"/>
+                                                            <RowDefinition Height="auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+                                                            <Label DockPanel.Dock="Left" Content="Date"
+                                                                   HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                                                            <Button DockPanel.Dock="Right" Margin="4, 0, 0, 0" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}"
+                                                                    Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center">+</Button>
+                                                            <Button DockPanel.Dock="Right" Margin="0, 0, 4, 0" Style="{DynamicResource MaterialDesignFlatSecondaryButton}"
+                                                                    HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                                                                    Content="Today"/>
+                                                        </DockPanel>
+                                                        <DatePicker Grid.Column="0" Grid.Row="1" Margin="4, 0, 4, 0" MinWidth="95"
+                                                                    materialDesign:HintAssist.Hint="from Date"
+                                                                    Style="{DynamicResource MaterialDesignFloatingHintDatePicker}"/>
+                                                        <materialDesign:TimePicker Grid.Column="1" Grid.Row="1" Margin="4, 0, 4, 0" Is24Hours="True"
+                                                                                   materialDesign:HintAssist.Hint="from Time"
+                                                                                   Style="{DynamicResource MaterialDesignFloatingHintTimePicker}"/>
+                                                        <DatePicker Grid.Column="0" Grid.Row="2" Margin="4, 0, 4, 0" MinWidth="95"
+                                                                    materialDesign:HintAssist.Hint="to Date"
+                                                                    Style="{DynamicResource MaterialDesignFloatingHintDatePicker}"/>
+                                                        <materialDesign:TimePicker Grid.Column="1" Grid.Row="2" Margin="4, 0, 4, 0" Is24Hours="True"
+                                                                                   materialDesign:HintAssist.Hint="to Time"
+                                                                                   Style="{DynamicResource MaterialDesignFloatingHintTimePicker}"/>
+                                                    </Grid>
+                                                    <Separator Style="{DynamicResource MaterialDesignSeparator}"/>
+                                                    <!-- Filter Duration -->
+                                                    <DockPanel HorizontalAlignment="Stretch">
+                                                        <Label DockPanel.Dock="Left" VerticalAlignment="Center">Duration</Label>
+                                                        <ComboBox DockPanel.Dock="Left" SelectedIndex="0">
+                                                            <ComboBox.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <materialDesign:PackIcon Kind="{Binding}" />
+                                                                </DataTemplate>
+                                                            </ComboBox.ItemTemplate>
+                                                            <ComboBox.ItemsSource>
+                                                                <x:Array Type="materialDesign:PackIconKind">
+                                                                    <materialDesign:PackIconKind>GreaterThanOrEqual</materialDesign:PackIconKind>
+                                                                    <materialDesign:PackIconKind>GreaterThan</materialDesign:PackIconKind>
+                                                                    <materialDesign:PackIconKind>LessThanOrEqual</materialDesign:PackIconKind>
+                                                                    <materialDesign:PackIconKind>LessThan</materialDesign:PackIconKind>
+                                                                    <materialDesign:PackIconKind>Equal</materialDesign:PackIconKind>
+                                                                </x:Array>
+                                                            </ComboBox.ItemsSource>
+
+                                                        </ComboBox>
+                                                        <Button DockPanel.Dock="Right" Width="25" Height="25" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}">+</Button>
+                                                        <materialDesign:TimePicker DockPanel.Dock="Left" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right"
+                                                                                   Margin="0, 0, 8, 0"
+                                                                 />
+                                                    </DockPanel>
+                                                    <Separator Style="{DynamicResource MaterialDesignSeparator}"/>
+                                                    
+                                                </StackPanel>
+                                            </materialDesign:Card>
+                                        </materialDesign:DialogHost.DialogContent>
+                                        <Grid Margin="4, 0, 4, 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="1*"/>
+                                            </Grid.RowDefinitions>
+                                            <ListBox Grid.Row="0" MinHeight="50" materialDesign:ListBoxItemAssist.ShowSelection="False"
+                                                     ItemsSource="{Binding DisplayerFilters}">
+                                                <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel>
+
+                                                        </WrapPanel>
+                                                    </ItemsPanelTemplate>
+                                                </ListBox.ItemsPanel>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <materialDesign:Chip IsDeletable="True" Margin="0"
+                                                                             DeleteCommand="{Binding DataContext.Controller.RemoveDisplayFilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindowBase}}}"
+                                                                             DeleteCommandParameter="{Binding}"
+                                                                             Content="{Binding DisplayString}"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <Button Grid.Row="1" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}"
+                                                    HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                                    Margin="0, 4, 16, 8" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                                +
+                                            </Button>
+                                        </Grid>
+                                    </materialDesign:DialogHost>
                                 </Expander>
                                 <Separator Style="{StaticResource MaterialDesignSeparator}"/>
+                                <!-- Quickactions -->
                                 <Expander IsExpanded="False">
                                     <Expander.Header>
                                         <StackPanel Orientation="Horizontal">
@@ -154,37 +320,43 @@
                             </StackPanel>
                         </ScrollViewer>
                     </materialDesign:ColorZone>
+                    <!-- Share Button -->
                     <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
                             VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="16"
                             Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
                         <materialDesign:PackIcon Kind="ShareVariant" Height="24" Width="24"/>
                     </Button>
                 </Grid>
+                <!-- Footer -->
                 <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource MaterialDesignDarkSeparatorBackground}">
+                    <!-- Grid Status -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="8,8,8,4" >
-                        <Label>#</Label>
-                        <Label Margin="0,0,8,0">Logs</Label>
-                        <Label>#</Label>
-                        <Label Margin="0,0,8,0">Selected</Label>
+                        <Label Content="{Binding Items.Count, ElementName=dataGrid, FallbackValue=0, Mode=OneWay, TargetNullValue=0}"/>
+                        <Label Margin="0,0,8,0" Content="{Binding StringProvider.Footer_LogsTotal}"/>
+                        <Label Content="{Binding SelectedItems.Count, ElementName=dataGrid, FallbackValue=0, Mode=OneWay, TargetNullValue=0}"/>
+                        <Label Margin="0,0,8,0" Content="{Binding StringProvider.Footer_LogsSelected}"/>
                     </StackPanel>
+                    <!-- Task Status -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="8,8,8,4" >
                         <Label>#</Label>
-                        <Label>of</Label>
+                        <Label Content="{Binding StringProvider.Footer_TasksOf}"/>
                         <Label>#</Label>
                         <ProgressBar Width="100" Height="8" Margin="16,0,16,0" Value="50"
-                                     materialDesign:TransitionAssist.DisableTransitions="True"
+                                     materialDesign:TransitionAssist.DisableTransitions="False"
                                      >
-
                         </ProgressBar>
                     </StackPanel>
                 </DockPanel>
-                <DataGrid ItemsSource="{Binding LogData}" AutoGenerateColumns="False" CanUserSortColumns="True" IsReadOnly="True"
+                <!-- Main Grid -->
+                <DataGrid x:Name="dataGrid" ItemsSource="{Binding LogData}" AutoGenerateColumns="False" CanUserSortColumns="True" IsReadOnly="True"
                           SelectionMode="Extended" SelectionUnit="FullRow"
-                          materialDesign:DataGridAssist.CellPadding="8 4 4 4">
+                          materialDesign:DataGridAssist.CellPadding="0">
                     <DataGrid.Resources>
                         <ResourceDictionary>
                             <Style x:Key="CenteredTextColumnStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
                                 <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="8 4 4 4" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
                             </Style>
                         </ResourceDictionary>
                     </DataGrid.Resources>
@@ -198,7 +370,8 @@
                         <DataGridTemplateColumn Header="Players" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ListBox ItemsSource="{Binding Professions}" Padding="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <ListBox ItemsSource="{Binding Professions}" Padding="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                             materialDesign:ListBoxItemAssist.ShowSelection="False">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding Icon}" ToolTip="{Binding ToolTip}" HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -213,16 +386,7 @@
                                         <ListBox.ItemContainerStyle>
                                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
                                                 <Setter Property="Margin" Value="0" />
-                                                <Setter Property="Padding" Value="4, 0, 4, 0" />
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
+                                                <Setter Property="Padding" Value="4, 4, 4, 4" />
                                             </Style>
                                         </ListBox.ItemContainerStyle>
                                     </ListBox>
