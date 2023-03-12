@@ -229,25 +229,38 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 switch (professionEnum)
                 {
-                    case eProfession.Warrior:
                     case eProfession.Berserker:
-                    case eProfession.Spellbreaker:
                     case eProfession.Bladesworn:
-                        return SimpleDpsClassPredictor;
-                    case eProfession.Scourge:
-                    case eProfession.Tempest:
-                    case eProfession.Druid:
-                        return SimpleHealPredictor;
-                    case eProfession.Mechanist:
-                    case eProfession.Renegade:
-                    case eProfession.Vindicator:
-                        return HealAlacPredictor;
+                    case eProfession.Catalyst:
+                    case eProfession.Harbinger:
+                        return CombinedPredictor(
+                            SimpleQuicknessPredictor,
+                            SimpleDpsClassPredictor
+                            );
                     case eProfession.Mirage:
-                    case eProfession.Willbender:
                     case eProfession.Specter:
+                    case eProfession.Untamed:
+                    case eProfession.Willbender:
                         return CombinedPredictor(
                             SimpleAlacPredictor,
                             SimpleDpsClassPredictor
+                            );
+                    case eProfession.Druid:
+                    case eProfession.Tempest:
+                    case eProfession.Scourge:
+                        return SimpleHealOrDpsPredictor;
+                    case eProfession.Herald:
+                    case eProfession.Scrapper:
+                    case eProfession.Firebrand:
+                        return CombinedPredictor(
+                            SimpleQuicknessPredictor,
+                            SimpleHealOrDpsPredictor
+                            );
+                    case eProfession.Renegade:
+                    case eProfession.Mechanist:
+                        return CombinedPredictor(
+                            SimpleAlacPredictor,
+                            SimpleHealOrDpsPredictor
                             );
                     case eProfession.Chronomancer:
                         return CombinedPredictor(
@@ -255,34 +268,26 @@ namespace LogUploader.Helper.RaidOrgaPlus
                             SimpleQuicknessPredictor,
                             SimpleDpsClassPredictor
                             );
-                    case eProfession.Harbinger:
-                    case eProfession.Catalyst:
-                        return CombinedPredictor(
-                            SimpleQuicknessPredictor,
-                            SimpleDpsClassPredictor
-                            );
-                    case eProfession.Daredevil:
                     case eProfession.Thief:
+                    case eProfession.Daredevil:
                         return BoonThiefPredictor;
-                    case eProfession.Firebrand:
-                    case eProfession.Scrapper:
-                        return HealQuicknessPredictor;
-                    case eProfession.Guardian:
-                    case eProfession.Revenant:
-                    case eProfession.Engineer:
-                    case eProfession.Ranger:
-                    case eProfession.Elementalist:
-                    case eProfession.Mesmer:
                     case eProfession.Necromancer:
-                    case eProfession.Dragonhunter:
-                    case eProfession.Herald:
                     case eProfession.Reaper:
+                    case eProfession.Mesmer:
+                    case eProfession.Virtuoso:
+                    case eProfession.Engineer:
                     case eProfession.Holosmith:
                     case eProfession.Deadeye:
+                    case eProfession.Ranger:
                     case eProfession.Soulbeast:
+                    case eProfession.Revenant:
+                    case eProfession.Guardian:
+                    case eProfession.Dragonhunter:
+                    case eProfession.Vindicator:
+                    case eProfession.Elementalist:
                     case eProfession.Weaver:
-                    case eProfession.Untamed:
-                    case eProfession.Virtuoso:
+                    case eProfession.Warrior:
+                    case eProfession.Spellbreaker:
                     case eProfession.Unknown:
                     default:
                         return SimpleDpsClassPredictor;
@@ -338,38 +343,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 SimpleDpsClassPredictor(player, pos);
             }
 
-            private static void HealQuicknessPredictor(RoPlusPlayer player, int pos)
-            {
-                if (player.GroupQuickness > 10)
-                {
-                    player.Roles.Add(Role.Quickness);
-                }
-                if (pos <= 3 || player.Healing >= 5)
-                {
-                    player.Roles.Add(Role.Heal);
-                } else
-                {
-                    SimpleDpsClassPredictor(player, pos);
-                }
-            }
-
-            private static void HealAlacPredictor(RoPlusPlayer player, int pos)
-            {
-                if (player.GroupAlacrity > 10)
-                {
-                    player.Roles.Add(Role.Alacrity);
-                }
-                if (pos <= 3 || player.Healing >= 5)
-                {
-                    player.Roles.Add(Role.Heal);
-                }
-                else
-                {
-                    SimpleDpsClassPredictor(player, pos);
-                }
-            }
-
-            private static void SimpleHealPredictor(RoPlusPlayer player, int pos)
+            private static void SimpleHealOrDpsPredictor(RoPlusPlayer player, int pos)
             {
                 if (player.Healing >= 5)
                 {
@@ -601,16 +575,15 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 switch (r)
                 {
                     case Role.Empty:
+                    case Role.Banner:
+                    case Role.Utility:
                         return 0;
                     case Role.Power:
                     case Role.Condi:
                         return 1;
-                    case Role.Banner:
-                        return 2;
                     case Role.Quickness:
                     case Role.Alacrity:
                         return 3;
-                    case Role.Utility:
                     case Role.Heal:
                         return 4;
                     case Role.Special:
