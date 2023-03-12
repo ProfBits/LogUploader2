@@ -762,6 +762,45 @@
         "RaidOrgaPlusID": 47
       },
       {
+        "ID": 25413,
+        "NameEN": "Old Lion's Court",
+        "NameDE": "Alter Löwenhof",
+        "FolderEN": "Prototype Vermilion",
+        "FolderDE": "Prototyp Vermillion",
+        "EiName": "Old Lion's Court",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":lion:",
+        "AvatarURL": "https://dps.report/cache/https_i.imgur.com_Q2g9aLD.png",
+        "RaidOrgaPlusID": 49
+      },
+      {
+        "ID": 25419,
+        "NameEN": "Old Lion's Court",
+        "NameDE": "Alter Löwenhof",
+        "FolderEN": "Prototype Indigo",
+        "FolderDE": "Prototyp Indigo",
+        "EiName": "Old Lion's Court",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":lion:",
+        "AvatarURL": "https://dps.report/cache/https_i.imgur.com_Q2g9aLD.png",
+        "RaidOrgaPlusID": 49
+      },
+      {
+        "ID": 25415,
+        "NameEN": "Old Lion's Court",
+        "NameDE": "Alter Löwenhof",
+        "FolderEN": "Prototype Arsenite",
+        "FolderDE": "Prototyp Arsenit",
+        "EiName": "Old Lion's Court",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":lion:",
+        "AvatarURL": "https://dps.report/cache/https_i.imgur.com_Q2g9aLD.png",
+        "RaidOrgaPlusID": 49
+      },
+      {
         "ID": 21333,
         "NameEN": "Freezie",
         "NameDE": "Frostie",
