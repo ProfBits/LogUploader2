@@ -155,7 +155,7 @@
             this.lblCopyright.Name = "lblCopyright";
             this.lblCopyright.Size = new System.Drawing.Size(194, 16);
             this.lblCopyright.TabIndex = 2;
-            this.lblCopyright.Text = "© ProfBits 2019 - 2022";
+            this.lblCopyright.Text = "© ProfBits 2019 - 2023";
             // 
             // llProjectPage
             // 
