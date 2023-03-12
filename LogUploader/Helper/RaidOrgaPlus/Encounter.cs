@@ -52,29 +52,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         internal void RefineRoles()
         {
-            if (TC.Players.Any(p => p.Roles.Contains(Role.Banner)))
-            {
-                var tcBanners = TC.Players.Where(p => p.Roles.Contains(Role.Banner))
-                    .Where(p => p.Profession == eProfession.Warrior
-                                    || p.Profession == eProfession.Berserker
-                                    || p.Profession == eProfession.Spellbreaker);
-                var logWarriers = Players.Where(p => p.Class == eProfession.Warrior
-                                    || p.Class == eProfession.Berserker
-                                    || p.Class == eProfession.Spellbreaker);
-
-                foreach (var actualWarrier in logWarriers)
-                {
-                    if (tcBanners.Select(p => p.AccName).Contains(actualWarrier.AccountName) && actualWarrier.Roles.Count < 4)
-                    {
-                        actualWarrier.Roles.Add(Role.Banner);
-                    }
-                    else
-                    {
-                        actualWarrier.Roles.Remove(Role.Banner);
-                    }
-                }
-            }
-
         }
 
         internal void RemoveNotAttededPlayers()
@@ -412,35 +389,30 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         return CombinedCorrector(
                             ThoughnessTankCorrector,
                             QadimCorrector,
-                            BannerWarrierCorrector,
                             RoleReduce
                             );
                     case eBosses.SoullessHorror:
                         return CombinedCorrector(
                             DoubleTankCorrector,
                             GolemPusherCorrector,
-                            BannerWarrierCorrector,
                             RoleReduce
                             );
                     case eBosses.PeerlessQadim:
                         return CombinedCorrector(
                             ThoughnessTankCorrector,
                             PeerlessQadimPylons,
-                            BannerWarrierCorrector,
                             RoleReduce
                             );
                     case eBosses.Deimos:
                         return CombinedCorrector(
                             ThoughnessTankCorrector,
                             DeimosHKCorrector,
-                            BannerWarrierCorrector,
                             RoleReduce
                             );
                     case eBosses.Nikare:
                     case eBosses.Kenut:
                         return CombinedCorrector(
                             DoubleTankCorrector,
-                            BannerWarrierCorrector,
                             RoleReduce
                             );
                     case eBosses.MassiveGolem:
@@ -461,12 +433,10 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eBosses.Sabir:
                         return CombinedCorrector(
                             ThoughnessTankCorrector,
-                            BannerWarrierCorrector,
                             RoleReduce
                             );
                     default:
                         return CombinedCorrector(
-                            BannerWarrierCorrector,
                             RoleReduce
                             );
 
@@ -482,21 +452,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         corrector(players);
                     }
                 };
-            }
-
-            private static void BannerWarrierCorrector(IEnumerable<(RoPlusPlayer player, int pos)> players)
-            {
-                var bs = players.Where(p => p.player.Class == eProfession.Berserker
-                                                                           || p.player.Class == eProfession.Warrior
-                                                                           || p.player.Class == eProfession.Spellbreaker)
-                    .OrderBy(p => p.pos)
-                    .Select(p => p.player)
-                    .FirstOrDefault();
-
-                if (!(bs is null))
-                {
-                    bs.Roles.Add(Role.Banner);
-                }
             }
 
             private static void ThoughnessTankCorrector(IEnumerable<(RoPlusPlayer player, int pos)> players)
