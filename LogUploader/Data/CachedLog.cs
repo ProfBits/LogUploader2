@@ -289,7 +289,9 @@ namespace LogUploader.Data
             BossID = (int)data["triggerID"];
             //Correction for Ai, EI uses 3 names depended of phases
             if (BossID == 23255 || BossID == 23256 /*Fake Ai's*/) BossID = 23254;
-            
+            //Correction if 'triggerID' is -1 for river, backup detction via 'eiEncounterID'
+            if (BossID == -1 && data.ContainsKey("eiEncounterID") && (int)data["eiEncounterID"] == 132354) BossID = (int)eBosses.Desmina;
+
             Date = GetDate((string)data["timeStartStd"]);
             DataCorrected = true;
             Duration = GetDuration((string)data["duration"]);
