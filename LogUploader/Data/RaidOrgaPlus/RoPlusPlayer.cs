@@ -124,28 +124,28 @@ internal class DefaultRoleOrdering : IComparer<Role>
         switch (r)
         {
             case Role.Power:
-                return 41;
-            case Role.Condi:
-                return 40;
-            case Role.Tank:
-                return 1;
-            case Role.Heal:
-                return 2;
-            case Role.Utility:
-                return 20;
-            case Role.Banner:
-                return 30;
-            case Role.Special:
-                return 31;
-            case Role.Kiter:
-                return 20;
-            case Role.Quickness:
-                return 10;
-            case Role.Alacrity:
                 return 11;
+            case Role.Condi:
+                return 12;
+            case Role.Heal:
+                return 13;
+            case Role.Quickness:
+                return 21;
+            case Role.Alacrity:
+                return 22;
+            case Role.Utility:
+                return 23;
+            case Role.Tank:
+                return 31;
+            case Role.Special:
+                return 32;
+            case Role.Kiter:
+                return 33;
+            case Role.Banner:
             case Role.Empty:
-            default:
                 return 99;
+            default:
+                return 40;
         }
     }
 }

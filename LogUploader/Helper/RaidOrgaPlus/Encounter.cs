@@ -52,44 +52,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         internal void RefineRoles()
         {
-            ArrageRoles();
-        }
-
-        private void ArrageRoles()
-        {
-            foreach (var p in TC.Players)
-            {
-                p.Roles = p.Roles.OrderBy(r => GetRolePriority(r)).ToArray();
-            }
-        }
-
-        private int GetRolePriority(Role role)
-        {
-            switch (role)
-            {
-                case Role.Power:
-                    return 1;
-                case Role.Condi:
-                    return 2;
-                case Role.Heal:
-                    return 3;
-                case Role.Quickness:
-                    return 4;
-                case Role.Alacrity:
-                    return 5;
-                case Role.Utility:
-                    return 6;
-                case Role.Tank:
-                    return 7;
-                case Role.Special:
-                    return 8;
-                case Role.Kiter:
-                    return 9;
-                case Role.Banner:
-                case Role.Empty:
-                default:
-                    return 10;
-            }
         }
 
         internal void RemoveNotAttededPlayers()
@@ -283,8 +245,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
                             SimpleAlacPredictor,
                             SimpleDpsClassPredictor
                             );
-                    case eProfession.Druid:
-                    case eProfession.Tempest:
                     case eProfession.Scourge:
                         return SimpleHealOrDpsPredictor;
                     case eProfession.Herald:
@@ -294,6 +254,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                             SimpleQuicknessPredictor,
                             SimpleHealOrDpsPredictor
                             );
+                    case eProfession.Druid:
+                    case eProfession.Tempest:
                     case eProfession.Renegade:
                     case eProfession.Mechanist:
                         return CombinedPredictor(
