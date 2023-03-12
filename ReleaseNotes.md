@@ -6,12 +6,13 @@
 - Add support for two new RaidOrga+ roles: Alacrity and Quickness
 
 ## Improvements
+- Add detection for Minister Li CM
 - Rework role detection for RaidOrga+ to support multiple roles
 - Update role detection for RaidOrga+ to new balance patch
 - Update role detection for RaidOrga+ to order the roles consistantly
 - Remove banner role from role detection for RaidOrga+
-- Add detection for Minister Li CM
 - Add support for rate limiting of dps.report
+- DRM's are combined into Primordus and Jormag as areas
 
 ## Bugfixes
 - Fix issue with certain characters when parsing log locally
