@@ -17,6 +17,7 @@
 ## Bugfixes
 - Fix issue with certain characters when parsing log locally
 - Fix issue with detecting cerain river logs
+- Fix issue with icon of What's New dialog
 
 # v1.3.16
 15.05.2022
