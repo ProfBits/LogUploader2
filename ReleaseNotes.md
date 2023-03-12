@@ -2,14 +2,19 @@
 
 ## Features
 - Strikes can now be updated in added to RaidOrga+ via update Termin
+- Add support for Old Lion's Cort Strike
+- Add support for two new RaidOrga+ roles: Alacrity and Quickness
 
 ## Improvements
-- Add support for new two new RaidOrga+ roles Alacrity and Quickness
-- Rework role detection for update RaidOrga+ to support multiple roles
+- Rework role detection for RaidOrga+ to support multiple roles
+- Update role detection for RaidOrga+ to new balance patch
+- Update role detection for RaidOrga+ to order the roles consistantly
+- Remove banner role from role detection for RaidOrga+
 - Add detection for Minister Li CM
 
 ## Bugfixes
 - Fix issue with certain characters when parsing log locally
+- Fix issue with detecting cerain river logs
 
 # v1.3.16
 15.05.2022
