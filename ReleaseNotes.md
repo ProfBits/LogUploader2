@@ -11,6 +11,7 @@
 - Update role detection for RaidOrga+ to order the roles consistantly
 - Remove banner role from role detection for RaidOrga+
 - Add detection for Minister Li CM
+- Add support for rate limiting of dps.report
 
 ## Bugfixes
 - Fix issue with certain characters when parsing log locally
