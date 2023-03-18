@@ -6,7 +6,7 @@
 
 ## Features
 - Strikes can now be updated in added to RaidOrga+ via update Termin
-- Add support for Old Lion's Cort Strike
+- Add support for Old Lion's Court Strike
 - Add support for two new RaidOrga+ roles: Alacrity and Quickness
 
 ## Improvements
