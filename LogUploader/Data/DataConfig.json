@@ -97,63 +97,15 @@
       "DragonResponseMissions": [
         {
           "ID": 1,
-          "NameEN": "Metrica Province",
-          "NameDE": "Provinz Metrica",
-          "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg"
+          "NameEN": "DRM Primordus",
+          "NameDE": "DHM Primordus",
+          "AvatarURL": "https://wiki.guildwars2.com/images/4/42/Primordus_Energy.png"
         },
         {
           "ID": 2,
-          "NameEN": "Brisban Wildlands",
-          "NameDE": "Brisban-Wildnis",
-          "AvatarURL": "https://wiki.guildwars2.com/images/7/7d/Destroyer_Troll.jpg"
-        },
-        {
-          "ID": 3,
-          "NameEN": "Gendarran Fields",
-          "NameDE": "Gendarran-Felder",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
-        },
-        {
-          "ID": 4,
-          "NameEN": "Ebonhawk",
-          "NameDE": "Ebonfalke",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
-        },
-        {
-          "ID": 5,
-          "NameEN": "Thunderhead Peaks",
-          "NameDE": "Donnerkopf Gipfel",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
-        },
-        {
-          "ID": 6,
-          "NameEN": "Lake Doric",
-          "NameDE": "Doric-See",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
-        },
-        {
-          "ID": 7,
-          "NameEN": "Snowdendrifts",
-          "NameDE": "Schneekulenhölen",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
-        },
-        {
-          "ID": 8,
-          "NameEN": "Caledon Forest",
-          "NameDE": "Caledonwald",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
-        },
-        {
-          "ID": 9,
-          "NameEN": "Bloodtide Coast",
-          "NameDE": "Blutstrom-Küste",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
-        },
-        {
-          "ID": 10,
-          "NameEN": "Fireheart Rise",
-          "NameDE": "Feuerherzhügel",
-          "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg"
+          "NameEN": "DRM Jormag",
+          "NameDE": "DHM Jormag",
+          "AvatarURL": "https://wiki.guildwars2.com/images/f/f5/Jormag_Energy.png"
         }
       ],
       "Training": [
@@ -590,7 +542,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:dgh:484839155155599360>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/A_Race_to_Arms_loading_screen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 37
       },
       {
         "ID": 22343,
@@ -603,7 +555,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e4/Voice_of_the_Fallen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 38
       },
       {
         "ID": 22481,
@@ -616,7 +568,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/4/4c/Claw_of_the_Fallen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 38
       },
       {
         "ID": 22315,
@@ -629,7 +581,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:ren:484839875841884161>",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b8/Whisper_in_the_Dark_09.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 38
       },
       {
         "ID": 22492,
@@ -642,7 +594,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/67/Fraenir_of_Jormag.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 39
       },
       {
         "ID": 22436,
@@ -655,7 +607,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:fbd:484839294243045416>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/7f/Icebrood_Construct_%28Sanctum_Arena%29.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 39
       },
       {
         "ID": 22521,
@@ -668,7 +620,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:rea:484839588876255232> ",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b4/Whisper_in_the_Dark_06.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 40
       },
       {
         "ID": 22711,
@@ -681,7 +633,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:mes:484839435578507295>",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d4/Voice_in_the_Deep_loading_screen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 41
       },
       {
         "ID": 22836,
@@ -694,7 +646,7 @@
         "GameAreaID": 1,
         "DiscordEmote": "<:dgh:484839155155599360>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/7e/Strike_Mission-_Cold_War_loading_screen.jpg",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 43
       },
       {
         "ID": 24033,
@@ -707,7 +659,7 @@
         "GameAreaID": 2,
         "DiscordEmote": ":pirate_flag:",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/d3/Strike_Mission-_Aetherblade_Hideout_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 44
       },
       {
         "ID": 23957,
@@ -720,7 +672,7 @@
         "GameAreaID": 2,
         "DiscordEmote": ":skull_crossbones:",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e9/Empty_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 45
       },
       {
         "ID": 24485,
@@ -733,7 +685,20 @@
         "GameAreaID": 2,
         "DiscordEmote": ":cityscape:",
         "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Ministry_of_Security-_Main_Headquarters_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 46
+      },
+      {
+        "ID": 24266,
+        "NameEN": "Minister Li",
+        "NameDE": "Minister Li",
+        "FolderEN": "Minister Li",
+        "FolderDE": "Minister Li",
+        "EiName": "Minister Li",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":cityscape:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/Ministry_of_Security-_Main_Headquarters_loading_screen.png",
+        "RaidOrgaPlusID": 46
       },
       {
         "ID": 24375,
@@ -746,7 +711,46 @@
         "GameAreaID": 2,
         "DiscordEmote": ":alien:",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/ce/The_Only_One_loading_screen.png",
-        "RaidOrgaPlusID": -1
+        "RaidOrgaPlusID": 47
+      },
+      {
+        "ID": 25413,
+        "NameEN": "Old Lion's Court",
+        "NameDE": "Alter Löwenhof",
+        "FolderEN": "Prototype Vermilion",
+        "FolderDE": "Prototyp Vermillion",
+        "EiName": "Old Lion's Court",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":lion:",
+        "AvatarURL": "https://dps.report/cache/https_i.imgur.com_Q2g9aLD.png",
+        "RaidOrgaPlusID": 49
+      },
+      {
+        "ID": 25419,
+        "NameEN": "Old Lion's Court",
+        "NameDE": "Alter Löwenhof",
+        "FolderEN": "Prototype Indigo",
+        "FolderDE": "Prototyp Indigo",
+        "EiName": "Old Lion's Court",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":lion:",
+        "AvatarURL": "https://dps.report/cache/https_i.imgur.com_Q2g9aLD.png",
+        "RaidOrgaPlusID": 49
+      },
+      {
+        "ID": 25415,
+        "NameEN": "Old Lion's Court",
+        "NameDE": "Alter Löwenhof",
+        "FolderEN": "Prototype Arsenite",
+        "FolderDE": "Prototyp Arsenit",
+        "EiName": "Old Lion's Court",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":lion:",
+        "AvatarURL": "https://dps.report/cache/https_i.imgur.com_Q2g9aLD.png",
+        "RaidOrgaPlusID": 49
       },
       {
         "ID": 21333,
@@ -763,8 +767,8 @@
       },
       {
         "ID": 23330,
-        "NameEN": "Destroyer of the Ironhammer Line",
-        "NameDE": "Zerstörer der Eisenhammer Linie",
+        "NameEN": "Metrica Province",
+        "NameDE": "Provinz Metrica",
         "FolderEN": "Destroyer of the Ironhammer Line",
         "FolderDE": "Zerstörer der Eisenhammer Linie",
         "EiName": "Destroyer of the Ironhammer Line",
@@ -776,117 +780,117 @@
       },
       {
         "ID": 23321,
-        "NameEN": "Destroyer of the Crystal Fields",
-        "NameDE": "Zerstörer der Kristallfelder",
+        "NameEN": "Brisban Wildlands",
+        "NameDE": "Brisban-Wildnis",
         "FolderEN": "Destroyer of the Crystal Fields",
         "FolderDE": "Zerstörer der Kristallfelder",
         "EiName": "Destroyer of the Crystal Fields",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 2,
+        "GameAreaID": 1,
         "DiscordEmote": ":fire:",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/fe/Destroyer_Crab.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23302,
-        "NameEN": "Destroyer of the Great Bridge",
-        "NameDE": "Zerstörer der Großen Brücke",
+        "NameEN": "Gendarran Fields",
+        "NameDE": "Gendarran-Felder",
         "FolderEN": "Destroyer of the Great Bridge",
         "FolderDE": "Zerstörer der Großen Brücke",
         "EiName": "Destroyer of the Great Bridge",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 3,
+        "GameAreaID": 1,
         "DiscordEmote": ":fire:",
         "AvatarURL": "https://wiki.guildwars2.com/images/0/05/Destroyer_Harpy.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23367,
-        "NameEN": "Destroyer of the Third Fortress",
-        "NameDE": "Zerstörer der dritten Festung",
+        "NameEN": "Ebonhawk",
+        "NameDE": "Ebonfalke",
         "FolderEN": "Destroyer of the Third Fortress",
         "FolderDE": "Zerstörer der dritten Festung",
         "EiName": "Destroyer of the Third Fortress",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 4,
+        "GameAreaID": 1,
         "DiscordEmote": ":fire:",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Destroyer_Emberknight.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23413,
-        "NameEN": "Destroyer of the Last Forge",
-        "NameDE": "Zerstörer der letzten Schmiede",
+        "NameEN": "Thunderhead Peaks",
+        "NameDE": "Donnerkopf Gipfel",
         "FolderEN": "Destroyer of the Last Forge",
         "FolderDE": "Zerstörer der letzten Schmiede",
         "EiName": "Destroyer of the Last Forge",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 5,
+        "GameAreaID": 1,
         "DiscordEmote": ":fire:",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/77/Destroyer_Wyvern.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23325,
-        "NameEN": "Bors of the Ice Gavel",
-        "NameDE": "Bors vom Eishammer",
+        "NameEN": "Lake Doric",
+        "NameDE": "Doric-See",
         "FolderEN": "Bors of the Ice Gavel",
         "FolderDE": "Bors vom Eishammer",
         "EiName": "Bors of the Ice Gavel",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 6,
+        "GameAreaID": 2,
         "DiscordEmote": ":snowflake:",
         "AvatarURL": "https://wiki.guildwars2.com/images/b/b9/Bors_of_the_Ice_Gavel.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23414,
-        "NameEN": "Ryland Steelcatcher",
-        "NameDE": "Ryland Stahlfänger",
+        "NameEN": "Snowdendrifts",
+        "NameDE": "Schneekulenhölen",
         "FolderEN": "Ryland Steelcatcher",
         "FolderDE": "Ryland Stahlfänger",
         "EiName": "Ryland Steelcatcher",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 7,
+        "GameAreaID": 2,
         "DiscordEmote": ":snowflake:",
         "AvatarURL": "https://wiki.guildwars2.com/images/3/34/Ryland_Steelcatcher.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23375,
-        "NameEN": "Frost Colossus",
-        "NameDE": "Frost Koloss",
+        "NameEN": "Caledon Forest",
+        "NameDE": "Caledonwald",
         "FolderEN": "Frost Colossus",
         "FolderDE": "Frost Koloss",
         "EiName": "Frost Colossus",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 8,
+        "GameAreaID": 2,
         "DiscordEmote": ":snowflake:",
         "AvatarURL": "https://wiki.guildwars2.com/images/1/1f/Legendary_Icebrood_Construct_%28Bjora_Marches%29.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23298,
-        "NameEN": "Tribune Splitwall",
-        "NameDE": "Tribun Mauerspalter",
+        "NameEN": "Bloodtide Coast",
+        "NameDE": "Blutstrom-Küste",
         "FolderEN": "Tribune Splitwall",
         "FolderDE": "Tribun Mauerspalter",
         "EiName": "Tribun Spaltwand",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 9,
+        "GameAreaID": 2,
         "DiscordEmote": ":snowflake:",
         "AvatarURL": "https://wiki.guildwars2.com/images/0/06/Tribune_Splitwall.jpg",
         "RaidOrgaPlusID": -1
       },
       {
         "ID": 23432,
-        "NameEN": "Tribune Splitgold",
-        "NameDE": "Tribun Spaltgold",
+        "NameEN": "Fireheart Rise",
+        "NameDE": "Feuerherzhügel",
         "FolderEN": "Tribune Splitgold",
         "FolderDE": "Tribun Spaltgold",
         "EiName": "Tribun Splitgold",
         "GameAreaName": "DragonResponseMissions",
-        "GameAreaID": 10,
+        "GameAreaID": 2,
         "DiscordEmote": ":snowflake:",
         "AvatarURL": "https://wiki.guildwars2.com/images/9/90/Tribune_Splitgold.jpg",
         "RaidOrgaPlusID": -1

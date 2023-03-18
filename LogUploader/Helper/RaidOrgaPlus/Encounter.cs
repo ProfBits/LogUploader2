@@ -21,8 +21,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
             Boss.Get(eBosses.ConjuredAmalgamate) // Sword fake Player
         };
 
-        private bool overrideTank = false;
-
         public Encounter(TeamComp tc, CachedLog log, Raid r)
         {
             TC = tc;
@@ -49,450 +47,148 @@ namespace LogUploader.Helper.RaidOrgaPlus
 
         internal void GuessRoles()
         {
-            switch (Boss.ID)
-            {
-                //Special Bosses
-                case 17154: //Deimos
-                    SetTank();
-                    SetDeimosHK();
-                    AssigenSupporter();
-                    SetBS();
-                    FillUpDps();
-                    break;
-                case 19651: //Eyes
-                case 19844: //Eyes
-                    AssigenSupporter();
-                    SetBS();
-                    FillUpDps();
-                    break;
-                case 19828: //River
-                    GuessRiver();
-                    break;
-                case 20934: //Qadim1
-                    GuessQadim1();
-                    break;
-                case 22000: //Qadim2
-                    SetTank();
-                    SetQadim2Pylons();
-                    AssigenSupporter();
-                    SetBS();
-                    FillUpDps();
-                    break;
-                case 19767: //SH
-                    SetTank();
-                    goto default;
-                case 21105: //Largos
-                case 21089:
-                    SetLargosTank();
-                    goto default;
-                case 16253: //Escort
-                    SetTower();
-                    goto case 43974;
-
-                //No Tank
-                case 15375: //Sabeta
-                case 16123: //Sloth
-                case 16088: //Trio
-                case 16137: //Trio
-                case 16125: //Trio
-                case 16115: //Mathias
-                case 16247: //TC
-                case 17194: //Carin
-                case 17172: //Mo
-                case 17188: //Samarog
-                case 43974: //CA
-                    AssigenSupporter();
-                    SetBS();
-                    FillUpDps();
-                    return;
-
-                default:
-                    SetTank();
-                    AssigenSupporter();
-                    SetBS();
-                    FillUpDps();
-                    return;
-            }
-
-        }
-
-        private void SetTower()
-        {
-            var validProfessions = new eProfession[] { eProfession.Chronomancer, eProfession.Mirage, eProfession.Mesmer };
-            var orderdPlayers = Players
-                .Where(p => p.Role == Role.Empty && p.Toughness > 0 && p.DPS_Target < 500)
-                .Where(p => validProfessions.Contains(p.Class.ProfessionEnum))
-                .OrderByDescending(p => p.Toughness)
-                .ThenBy(p => p.DPS);
-                
-            if (orderdPlayers.Count() > 0)
-            {
-                foreach (var p in orderdPlayers.Take(Math.Max(orderdPlayers.Count(), 2)))
-                    p.Role = Role.Special;
-            }
-        }
-
-        private void GuessQadim1()
-        {
-            /*
-                case 20934: //Qadim1
-        "ID": 21285,
-        "NameEN": "Ancient Invoked Hydra",
-        "ID": 21183,
-        "NameEN": "Wyvern Patriarch",
-        "ID": 21073,
-        "NameEN": "Apocalypse Bringer",
-        "ID": 20997,
-        "NameEN": "Wyvern Matriarch",
-             */
-
-            /* 1. Tank least damage chrono? toughness
-             * 2. Healer least damage healing power
-             * 3. kite deadeye or deardeaviel least overall dps
-             * ?. bs warrier least dps ??
-             * 4. lamp deadeye or deardeaviel or reaper or anyting? least overall dps
-             * 5. res is dps
-             */
-
-            SetTank();
-            if (!Players.Any(p => p.Role == Role.Tank))
-            {
-                AssigenSupporter();
-
-                var tank = Players.Where(p => p.Role == Role.Empty || p.Role == Role.Utility && p.Class == eProfession.Chronomancer)
-                    .OrderBy(p => p.Class == eProfession.Chronomancer ? 0 : 1)
-                    .ThenBy(p => p.DPS)
-                    .FirstOrDefault();
-                if (tank != null)
-                    tank.Role = Role.Tank;
-            }
-            else
-            {
-                AssigenSupporter();
-            }
-            var kiter = Players.Where(p => p.Role == Role.Empty && (p.Class == eProfession.Deadeye || p.Class == eProfession.Daredevil))
-                .OrderBy(p => p.DPS)
-                .FirstOrDefault();
-            if (kiter != null)
-                kiter.Role = Role.Kiter;
-            SetBS();
-            var lamp = Players.Where(p => p.Role == Role.Empty)
-                .OrderBy(p => (p.Class == eProfession.Deadeye || p.Class == eProfession.Daredevil || p.Class == eProfession.Reaper) ? 0 : 1)
-                    .ThenBy(p => p.DPS)
-                    .FirstOrDefault();
-            if (lamp != null)
-                lamp.Role = Role.Special;
-            FillUpDps();
-
-        }
-
-        private void SetLargosTank()
-        {
-            if (Players.Where(p => p.Toughness >= 5).Count() >= 2)
-                SetTank();
-        }
-
-        private void SetDeimosHK()
-        {
-            var hk = Players.Where(p => p.Role == Role.Empty).OrderBy(p => p.DPS).FirstOrDefault();
-            if (hk != null)
-                hk.Role = Role.Special;
-        }
-
-        private void GuessRiver()
-        {
-            var ThreashholdDMG = Players.Max(p => p.DPS) / 2;
-            foreach (var player in Players)
-            {
-                if (player.DPS <= ThreashholdDMG && player.Healing > 1)
-                    player.Role = Role.Heal;
-                if (player.Class == eProfession.Chronomancer)
-                    player.Role = Role.Utility;
-                if (player.Class == eProfession.Scrapper && player.DPS < 500)
-                    player.Role = Role.Special;
-            }
-            SetBS();
-            FillUpDps();
+            RolePedictor.PredictRoles((eBosses)Boss.ID, Players);
         }
 
         internal void RefineRoles()
         {
-            if (TC.Players.Any(p => p.Role == Role.Banner))
-            {
-                var tcBanners = TC.Players.Where(p => p.Role == Role.Banner && (p.Profession == eProfession.Warrior || p.Profession == eProfession.Berserker || p.Profession == eProfession.Spellbreaker)).Select(p => p.AccName);
-                var actualWarriers = Players.Where(p => p.Class == eProfession.Warrior || p.Class == eProfession.Berserker || p.Class == eProfession.Spellbreaker);
-                if (actualWarriers.Any(p => tcBanners.Contains(p.AccountName)))
-                {
-                    foreach (var actualWarrier in actualWarriers)
-                    {
-                        if (tcBanners.Contains(actualWarrier.AccountName))
-                            actualWarrier.Role = Role.Banner;
-                        else
-                            SetDps(actualWarrier);
-                    }
-                }
-            }
-        }
-
-        private void SetQadim2Pylons()
-        {
-            var kiters = Players.OrderBy(p => p.DPS).Where(p => p.Class == eProfession.Deadeye || p.Class == eProfession.Scourge);
-            kiters = kiters.Take(Math.Min(3, kiters.Count()));
-            foreach (var kiter in kiters)
-                kiter.Role = Role.Kiter;
-        }
-
-        private void AssigenSupporter()
-        {
-            var orderdPlayers = Players.Where(p => p.Role == Role.Empty).OrderBy(p => p.DPS);
-            foreach (var orderdPlayer in orderdPlayers)
-            {
-                switch (orderdPlayer.Class.ProfessionEnum)
-                {
-                    case eProfession.Firebrand:
-                    case eProfession.Harbinger:
-                    case eProfession.Catalyst:
-                        if (orderdPlayer.GroupQuickness >= 10)
-                            if (orderdPlayer.Healing > 2)
-                                orderdPlayer.Role = Role.Heal;
-                            else
-                                orderdPlayer.Role = Role.Utility;
-                        break;
-                    case eProfession.Chronomancer:
-                    case eProfession.Thief:
-                    case eProfession.Daredevil:
-                        if (orderdPlayer.GroupQuickness >= 20 && orderdPlayer.Concentration > 0)
-                            orderdPlayer.Role = Role.Utility;
-                        break;
-                    case eProfession.Herald:
-                        if (orderdPlayer.Healing < 4 && orderdPlayer.Concentration > 1)
-                            orderdPlayer.Role = Role.Utility;
-                        break;
-                    case eProfession.Renegade:
-                        if (orderdPlayer.GroupAlacrity >= 10)
-                            if (orderdPlayer.Healing > 1)
-                                orderdPlayer.Role = Role.Heal;
-                            else if (orderdPlayer.Concentration > 0)
-                                orderdPlayer.Role = Role.Utility;
-                        break;
-                    case eProfession.Willbender:
-                    case eProfession.Mechanist:
-                    case eProfession.Specter:
-                        if (orderdPlayer.GroupAlacrity >= 10)
-                            orderdPlayer.Role = Role.Utility;
-                        break;
-                    case eProfession.Druid:
-                    case eProfession.Tempest:
-                    case eProfession.Scourge:
-                    //Maybe special healer dectection
-                    default:
-                        if (orderdPlayer.Healing > 2)
-                            orderdPlayer.Role = Role.Heal;
-                        break;
-                }
-            }
-        }
-
-        private void SetTank()
-        {
-            var orderdPlayers = Players.Where(p => p.Role == Role.Empty).OrderBy(p => p.DPS);
-            if (orderdPlayers.Count() <= 0) return;
-            var maxThougness = orderdPlayers.Max(p => p.Toughness);
-            if (maxThougness == 0) return;
-            orderdPlayers.Where(p => p.Toughness == maxThougness).First().Role = Role.Tank;
-            overrideTank = true;
-        }
-
-
-        private void SetBS()
-        {
-            if (Players.Any(p => p.Role == Role.Banner))
-                return;
-            if (Players.Any(p => (p.Class == eProfession.Warrior || p.Class == eProfession.Berserker) && p.Role == Role.Empty))
-                Players.OrderBy(p => p.DPS).First(p => (p.Class == eProfession.Warrior || p.Class == eProfession.Berserker) && p.Role == Role.Empty).Role = Role.Banner;
-        }
-
-        private void FillUpDps()
-        {
-            foreach (var player in Players.Where(p => p.Role == Role.Empty))
-            {
-                SetDps(player);
-            }
-        }
-
-        private static void SetDps(RoPlusPlayer player)
-        {
-            if (player.PDPS < player.CDPS)
-                player.Role = Role.Condi;
-            else
-                player.Role = Role.Power;
         }
 
         internal void RemoveNotAttededPlayers()
         {
-            foreach (var player in TC.Players)
+            foreach (var position in TC.Players)
             {
-                if (player.ID >= 0 && !Players.Any(p => p.RaidOrgaID == player.ID))
-                    player.RemoveName();
-            }
-
-            var ROplusLFGCount = TC.Players.Where(p => p.IsLFG()).Count();
-            var TargetLFGCount = Players.Where(p => p.IsLFG).Count();
-
-            if (ROplusLFGCount > TargetLFGCount)
-                foreach (var p in TC.Players.Where(p => p.IsLFG()).Take(ROplusLFGCount - TargetLFGCount))
-                    p.RemoveName();
-        }
-
-        //TODO has to improve
-        internal void RemoveDuplicates()
-        {
-            var dupes = TC.Players.Where(p => !(p.IsLFG() || string.IsNullOrEmpty(p.AccName))).GroupBy(p => p.AccName).Where(g => g.Count() > 1);
-            foreach (var dupe in dupes)
-            {
-                var player = Players.Find(p => p.AccountName == dupe.Key);
-
-                if (dupe.Any(pos => pos.Profession == player.Class && pos.Role == player.Role))
+                if (position.IsLFG())
                 {
-                    var hit = dupe.First(pos => pos.Profession == player.Class && pos.Role == player.Role);
-                    foreach (var pos in dupe.Where(p => p != hit))
-                        pos.RemoveName();
+                    position.Free();
+                } 
+                else if (!Players.Any(p => p.RaidOrgaID == position.ID))
+                {
+                    position.Free();
                 }
-                else if (dupe.Any(pos => pos.Role == player.Role))
+                else if (position.IsFree())
                 {
-                    var hit = dupe.First(pos => pos.Role == player.Role);
-                    foreach (var pos in dupe.Where(p => p != hit))
-                        pos.RemoveName();
-                    hit.Set(player);
-                }
-                else if (dupe.Any(pos => pos.Profession == player.Class))
-                {
-                    var hit = dupe.First(pos => pos.Profession == player.Class);
-                    foreach (var pos in dupe.Where(p => p != hit))
-                        pos.RemoveName();
-                    hit.Set(player);
-                }
-                else
-                {
-                    var hit = dupe.First();
-                    foreach (var pos in dupe.Where(p => p != hit))
-                        pos.RemoveName();
-                    hit.Set(player);
+                    continue;
                 }
             }
         }
 
-        internal void UpdateNamedPlayers()
+        internal void MergePlayers()
         {
-            foreach (var player in Players)
+            MergeNamedPlayers();
+            MergeUnnamedPlayers();
+            OverrideRemaining();
+            MergeDuplicatedPlayers();
+        }
+
+        private void MergeNamedPlayers()
+        {
+            foreach (var player in Players.GroupBy(p => p.AccountName).Where(g => TC.Exists(g.Key)))
             {
-                if (!player.IsLFG && TC.Exists(player.AccountName))
-                {
-                    Position pos = TC.GetByName(player.AccountName);
-                    pos.UpdateProffessionRole(player.Class, player.Role, overrideTank);
-                }
+                MergePlayer(TC.GetByName(player.First().AccountName), player.First());
             }
         }
 
-        internal void UpdateUnnamedPlayers()
+        private void MergeUnnamedPlayers()
         {
-            var relevantPlayers = Players.Where(p => !TC.Exists(p.AccountName));
-
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(player.Class, player.Role))
-                    TC.Get(player.Class, player.Role).Set(player);
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown, player.Role))
-                    TC.Get(Profession.Unknown, player.Role).Set(player);
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(player.Class, Role.Empty))
-                    TC.Get(player.Class, Role.Empty).Set(player);
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown, Role.Empty))
-                    TC.Get(Profession.Unknown, Role.Empty).Set(player);
-
-            relevantPlayers = Players.Where(p => !TC.Exists(p.AccountName));
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(player.Role))
-                    TC.Get(player.Role).Set(player);
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(player.Class))
-                    TC.Get(player.Class).Set(player);
-
-            relevantPlayers = Players.Where(p => !TC.Exists(p.AccountName));
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(Role.Empty))
-                    TC.Get(Role.Empty).Set(player);
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists(Profession.Unknown))
-                    TC.Get(Profession.Unknown).Set(player);
-            foreach (var player in relevantPlayers)
-                if (!TC.Exists(player.AccountName) && TC.Exists())
-                    TC.Get().Set(player);
-        }
-
-        internal void InsertDuplicatesPlayers()
-        {
-            var relevantPlayers = Players
-                .Where(p => Players.Where(p2 => p.RaidOrgaID == p2.RaidOrgaID).Count() > TC.Players.Where(p2 => p2.ID == p.RaidOrgaID).Count())
-                .Where(p => !TC.Players.Exists(p2 => p.AccountName == p2.AccName && p.Class.RaidOrgaPlusID == p2.ClassID))
-                .Distinct();
-
-            foreach (var player in relevantPlayers)
-                if (TC.Exists(player.Class, player.Role))
-                    TC.Get(player.Class, player.Role).Set(player);
-            foreach (var player in relevantPlayers)
-                if (TC.Exists(Profession.Unknown, player.Role))
-                    TC.Get(Profession.Unknown, player.Role).Set(player);
-            foreach (var player in relevantPlayers)
-                if (TC.Exists(player.Class, Role.Empty))
-                    TC.Get(player.Class, Role.Empty).Set(player);
-            foreach (var player in relevantPlayers)
-                if (TC.Exists(Profession.Unknown, Role.Empty))
-                    TC.Get(Profession.Unknown, Role.Empty).Set(player);
-
-            relevantPlayers = Players
-                .Where(p => Players.Where(p2 => p.RaidOrgaID == p2.RaidOrgaID).Count() > TC.Players.Where(p2 => p2.ID == p.RaidOrgaID).Count())
-                .Where(p => !TC.Players.Exists(p2 => p.AccountName == p2.AccName && p.Class.RaidOrgaPlusID == p2.ClassID))
-                .Distinct();
-            foreach (var player in relevantPlayers)
-                if (TC.Exists(player.Role))
-                    TC.Get(player.Role).Set(player);
-            foreach (var player in relevantPlayers)
+            foreach (var player in Players.Where(p => !TC.Exists(p.AccountName)))
+            {
+                if (TC.Exists(player.Class, player.Roles))
+                    MergePlayer(TC.Get(player.Class, player.Roles), player);
                 if (TC.Exists(player.Class))
-                    TC.Get(player.Class).Set(player);
-
-            relevantPlayers = Players
-                .Where(p => Players.Where(p2 => p.RaidOrgaID == p2.RaidOrgaID).Count() > TC.Players.Where(p2 => p2.ID == p.RaidOrgaID).Count())
-                .Where(p => !TC.Players.Exists(p2 => p.AccountName == p2.AccName && p.Class.RaidOrgaPlusID == p2.ClassID))
-                .Distinct();
-            foreach (var player in relevantPlayers)
-                if (TC.Exists(Role.Empty))
-                    TC.Get(Role.Empty).Set(player);
-            foreach (var player in relevantPlayers)
-                if (TC.Exists(Profession.Unknown))
-                    TC.Get(Profession.Unknown).Set(player);
-            foreach (var player in relevantPlayers)
-                if (TC.Exists())
-                    TC.Get().Set(player);
+                    MergePlayer(TC.Get(player.Class), player);
+                if (TC.Exists(player.Roles))
+                    MergePlayer(TC.Get(player.Roles), player);
+            }
         }
 
-        internal bool EnsureAllPlayers()
+        private static void MergePlayer(Position position, RoPlusPlayer player)
         {
-            var LogData = Players.Select(p => p.RaidOrgaID).Distinct().ToDictionary(e => e, e => Players.Where(p => p.RaidOrgaID == e).Count());
-            var RopData = TC.Players.Select(p => p.ID).Distinct().ToDictionary(e => e, e => TC.Players.Where(p => p.ID == e).Count());
-            if (!LogData.All(l => RopData[l.Key] == l.Value))
+            if (position == null)
             {
-                string err = "Players in TeamComp do not match up";
-                Logger.Error(err);
-                Logger.Debug("LogData");
-                foreach (var p in LogData) Logger.Error($"{{{p.Key}; {p.Value}}}");
-                Logger.Debug("TcData");
-                foreach (var p in RopData) Logger.Error($"{{{p.Key}; {p.Value}}}");
-
-                return false;
+                return;
             }
-            return true;
+
+            position.Set(player);
+        }
+
+        private void OverrideRemaining()
+        {
+            foreach (var player in Players.Where(p => !TC.Exists(p.AccountName)))
+            {
+                MergePlayer(TC.Get(), player);
+            }
+        }
+
+        private void MergeDuplicatedPlayers()
+        {
+            foreach (var player in Players.GroupBy(p => p.AccountName).Where(g => TC.Exists(g.Key)).Where(g => g.Count() > 1))
+            {
+                var dupes = player.Skip(1).ToList();
+                MergeDuplicatedPlayer(dupes);
+            }
+        }
+
+        private void MergeDuplicatedPlayer(List<RoPlusPlayer> dupes)
+        {
+            for (int i = 0; i < dupes.Count(); i++)
+            {
+                var dupe = dupes[0];
+
+                var pos = TC.Players.Where(p => p.AccName == dupe.AccountName).Skip(i + 1).FirstOrDefault();
+                if (pos is null)
+                {
+                    pos = GetBackpuPosForDupe(dupe);
+                }
+
+                MergePlayer(pos, dupe);
+            }
+        }
+
+        private Position GetBackpuPosForDupe(RoPlusPlayer dupe)
+        {
+            if (TC.Exists(dupe.Class, dupe.Roles))
+            {
+                return TC.Get(dupe.Class, dupe.Roles);
+            }
+            if (TC.Exists(dupe.Class))
+            {
+                return TC.Get(dupe.Class, dupe.Roles);
+            }
+            if (TC.Exists(dupe.Roles))
+            {
+                return TC.Get(dupe.Class, dupe.Roles);
+            }
+            return TC.Get();
+        }
+
+        internal void EnsureAllPlayers()
+        {
+            var playersInLog = Players.Count;
+            var playersInTC = TC.Players.Count(pos => pos.IsPlayer() || pos.IsLFG());
+
+            if (playersInLog != playersInTC)
+            {
+                Logger.Warn("Failed to merge log and teamcomp. Number of players differ.");
+                Logger.Debug("Actual players:\n" + string.Join("\n", Players.Select(p => GetPlayerString(p))));
+                Logger.Debug("TC elments:\n" + string.Join("\n", TC.Players.Select(p => GetElementString(p))));
+            }
+        }
+
+        private string GetPlayerString(RoPlusPlayer player)
+        {
+            var res = "";
+            res += $"{player.AccountName}:{player.RaidOrgaID} {player.Class} Roles: ";
+            res += string.Join(", ", player.Roles.Select(r => r.ToString()));
+            return res;
+        }
+
+        private string GetElementString(Position pos)
+        {
+            var res = "";
+            res += $"{pos.AccName}:{pos.ID} {pos.Profession} Roles: ";
+            res += string.Join(", ", pos.Roles.Select(r => r.ToString()));
+            return res;
         }
 
         internal void FillTeamComp()
@@ -506,6 +202,399 @@ namespace LogUploader.Helper.RaidOrgaPlus
         {
             if (!TC.AufstellungsID.HasValue)
                 TC.OrderPlayers(Boss);
+        }
+
+        private class RolePedictor
+        {
+            public static void PredictRoles(eBosses encounter, IEnumerable<RoPlusPlayer> players)
+            {
+                var orderedPlayers = OrderPlayersByDps(players);
+                foreach (var e in orderedPlayers)
+                {
+                    GetPlayerPredictor(e.player.Class.ProfessionEnum)(e.player, e.relativePos);
+                }
+                GetEncounterCorrector(encounter)(orderedPlayers);
+            }
+
+            private static IEnumerable<(RoPlusPlayer player, int relativePos)> OrderPlayersByDps(IEnumerable<RoPlusPlayer> players)
+            {
+                var orderedPLayers = players.OrderBy(p => p.DPS).ToList();
+                for (int i = 0; i < orderedPLayers.Count; i++)
+                {
+                    yield return (orderedPLayers[i], i);
+                }
+            }
+
+            private static Action<RoPlusPlayer, int> GetPlayerPredictor(eProfession professionEnum)
+            {
+                switch (professionEnum)
+                {
+                    case eProfession.Berserker:
+                    case eProfession.Bladesworn:
+                    case eProfession.Catalyst:
+                    case eProfession.Harbinger:
+                        return CombinedPredictor(
+                            SimpleQuicknessPredictor,
+                            SimpleDpsClassPredictor
+                            );
+                    case eProfession.Mirage:
+                    case eProfession.Specter:
+                    case eProfession.Untamed:
+                    case eProfession.Willbender:
+                        return CombinedPredictor(
+                            SimpleAlacPredictor,
+                            SimpleDpsClassPredictor
+                            );
+                    case eProfession.Scourge:
+                        return SimpleHealOrDpsPredictor;
+                    case eProfession.Herald:
+                    case eProfession.Scrapper:
+                    case eProfession.Firebrand:
+                        return CombinedPredictor(
+                            SimpleQuicknessPredictor,
+                            SimpleHealOrDpsPredictor
+                            );
+                    case eProfession.Druid:
+                    case eProfession.Tempest:
+                    case eProfession.Renegade:
+                    case eProfession.Mechanist:
+                        return CombinedPredictor(
+                            SimpleAlacPredictor,
+                            SimpleHealOrDpsPredictor
+                            );
+                    case eProfession.Chronomancer:
+                        return CombinedPredictor(
+                            SimpleAlacPredictor,
+                            SimpleQuicknessPredictor,
+                            SimpleDpsClassPredictor
+                            );
+                    case eProfession.Thief:
+                    case eProfession.Daredevil:
+                        return BoonThiefPredictor;
+                    case eProfession.Necromancer:
+                    case eProfession.Reaper:
+                    case eProfession.Mesmer:
+                    case eProfession.Virtuoso:
+                    case eProfession.Engineer:
+                    case eProfession.Holosmith:
+                    case eProfession.Deadeye:
+                    case eProfession.Ranger:
+                    case eProfession.Soulbeast:
+                    case eProfession.Revenant:
+                    case eProfession.Guardian:
+                    case eProfession.Dragonhunter:
+                    case eProfession.Vindicator:
+                    case eProfession.Elementalist:
+                    case eProfession.Weaver:
+                    case eProfession.Warrior:
+                    case eProfession.Spellbreaker:
+                    case eProfession.Unknown:
+                    default:
+                        return SimpleDpsClassPredictor;
+                }
+            }
+
+            private static Action<RoPlusPlayer, int> CombinedPredictor(params Action<RoPlusPlayer, int>[]  predictors)
+            {
+                return (RoPlusPlayer player, int pos) =>
+                {
+                    foreach (var predictor in predictors)
+                    {
+                        predictor(player, pos);
+                    }
+                };
+            }
+
+            private static void SimpleQuicknessPredictor(RoPlusPlayer player, int _)
+            {
+                if (player.GroupQuickness > 10)
+                {
+                    player.Roles.Add(Role.Quickness);
+                }
+            }
+
+            private static void SimpleAlacPredictor(RoPlusPlayer player, int _)
+            {
+                if (player.GroupAlacrity > 10)
+                {
+                    player.Roles.Add(Role.Alacrity);
+                }
+            }
+
+            private static void SimpleDpsClassPredictor(RoPlusPlayer player, int _)
+            {
+                if ((double)player.PDPS / player.DPS > 0.40)
+                {
+                    player.Roles.Add(Role.Power);
+                }
+                if ((double)player.CDPS / player.DPS > 0.40)
+                {
+                    player.Roles.Add(Role.Condi);
+                }
+            }
+
+            private static void BoonThiefPredictor(RoPlusPlayer player, int pos)
+            {
+                if (player.GroupQuickness > 20)
+                {
+                    player.Roles.Add(Role.Utility);
+                    return;
+                }
+                SimpleDpsClassPredictor(player, pos);
+            }
+
+            private static void SimpleHealOrDpsPredictor(RoPlusPlayer player, int pos)
+            {
+                if (player.Healing >= 5)
+                {
+                    player.Roles.Add(Role.Heal);
+                }
+                else
+                {
+                    SimpleDpsClassPredictor(player, pos);
+                }
+            }
+
+            private static Action<IEnumerable<(RoPlusPlayer player, int pos)>> GetEncounterCorrector(eBosses encounter)
+            {
+                switch (encounter)
+                {
+                    case eBosses.Qadim:
+                        return CombinedCorrector(
+                            ThoughnessTankCorrector,
+                            QadimCorrector,
+                            RoleReduce
+                            );
+                    case eBosses.SoullessHorror:
+                        return CombinedCorrector(
+                            DoubleTankCorrector,
+                            GolemPusherCorrector,
+                            RoleReduce
+                            );
+                    case eBosses.PeerlessQadim:
+                        return CombinedCorrector(
+                            ThoughnessTankCorrector,
+                            PeerlessQadimPylons,
+                            RoleReduce
+                            );
+                    case eBosses.Deimos:
+                        return CombinedCorrector(
+                            ThoughnessTankCorrector,
+                            DeimosHKCorrector,
+                            RoleReduce
+                            );
+                    case eBosses.Nikare:
+                    case eBosses.Kenut:
+                        return CombinedCorrector(
+                            DoubleTankCorrector,
+                            RoleReduce
+                            );
+                    case eBosses.MassiveGolem:
+                    case eBosses.AvgGolem:
+                    case eBosses.LGolem:
+                    case eBosses.MedGolem:
+                    case eBosses.StdGolem:
+                        return _ => { };
+                    case eBosses.ValeGuardian:
+                    case eBosses.Gorseval:
+                    case eBosses.KeepConstruct:
+                    case eBosses.Xera:
+                    case eBosses.Desmina:
+                    case eBosses.BrokenKing:
+                    case eBosses.SoulEater:
+                    case eBosses.Dhuum:
+                    case eBosses.Adina:
+                    case eBosses.Sabir:
+                        return CombinedCorrector(
+                            ThoughnessTankCorrector,
+                            RoleReduce
+                            );
+                    default:
+                        return CombinedCorrector(
+                            RoleReduce
+                            );
+
+                }
+            }
+
+            private static Action<IEnumerable<(RoPlusPlayer player, int pos)>> CombinedCorrector(params Action<IEnumerable<(RoPlusPlayer player, int pos)>>[] correctors)
+            {
+                return players =>
+                {
+                    foreach (var corrector in correctors)
+                    {
+                        corrector(players);
+                    }
+                };
+            }
+
+            private static void ThoughnessTankCorrector(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+                var maxThougness = players.Max(p => p.player.Toughness);
+                if (maxThougness == 0) return;
+                players.OrderBy(p => p.pos).Where(p => p.player.Toughness == maxThougness).First().player.Roles.Add(Role.Tank);
+            }
+
+            private static void DoubleTankCorrector(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+                foreach (var tank in players.Select(p => p.player)
+                    .Where(p => p.Toughness > 0)
+                    .OrderByDescending(p => p.Toughness)
+                    .ThenBy(p => p.DPS)
+                    .Take(2))
+                {
+                    tank.Roles.Add(Role.Tank);
+                }
+                
+            }
+
+            private static void DeimosHKCorrector(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+                if (players.Where(p => !p.player.Roles.Contains(Role.Tank)).Any())
+                {
+                    var hk = players.Where(p => !p.player.Roles.Contains(Role.Tank))
+                        .OrderBy(p => p.pos)
+                        .First().player;
+                    hk.Roles.Clear();
+                    hk.Roles.Add(Role.Special);
+                }
+            }
+
+            private static void PeerlessQadimPylons(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+                var kiters = players.OrderBy(p => p.pos)
+                    .Where(p => !p.player.Roles.Contains(Role.Tank))
+                    .Where(p => p.player.Class == eProfession.Deadeye 
+                                                     || p.player.Class == eProfession.Scourge 
+                                                     || p.player.Class == eProfession.Virtuoso);
+                kiters = kiters.Take(Math.Min(3, kiters.Count()));
+                foreach (var kiter in kiters)
+                    kiter.player.Roles.Add(Role.Kiter);
+            }
+
+            private static void GolemPusherCorrector(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+                var kanidats = players.Where(p => p.player.Class == eProfession.Druid && p.player.Roles.Contains(Role.Heal)).ToList();
+                if (kanidats.Count == 0)
+                {
+                    kanidats = players.Where(p => p.player.Roles.Contains(Role.Heal)).ToList();
+                }
+                if (kanidats.Count == 1)
+                {
+                    kanidats[0].player.Roles.Add(Role.Special);
+                }
+                else if (kanidats.Count > 1)
+                {
+                    kanidats.OrderBy(p => p.pos).First().player.Roles.Add(Role.Special);
+                }
+            }
+            
+            private static void QadimCorrector(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+                /*
+                    case 20934: //Qadim1
+            "ID": 21285,
+            "NameEN": "Ancient Invoked Hydra",
+            "ID": 21183,
+            "NameEN": "Wyvern Patriarch",
+            "ID": 21073,
+            "NameEN": "Apocalypse Bringer",
+            "ID": 20997,
+            "NameEN": "Wyvern Matriarch",
+                 */
+
+                /* 1. Tank least damage chrono? toughness
+                 * 2. Healer least damage healing power
+                 * 3. kite deadeye or deardeaviel least overall dps
+                 * ?. bs warrier least dps ??
+                 * 4. lamp deadeye or deardeaviel or reaper or anyting? least overall dps
+                 * 5. rest is dps
+                 */
+
+                if (!players.Any(p => p.player.Roles.Contains(Role.Tank)))
+                {
+                    //Tank without thoughness
+                    var tank = players.Where(p => p.player.Class == eProfession.Chronomancer || p.player.Class == eProfession.Mechanist)
+                        .OrderBy(p => p.pos);
+                    if (tank.Any())
+                    {
+                        tank.First().player.Roles.Add(Role.Tank);
+                    }
+                }
+
+                var kiters = players.Where(p => 
+                           p.player.Class == eProfession.Deadeye
+                        || p.player.Class == eProfession.Daredevil
+                        || p.player.Class == eProfession.Mechanist)
+                    .Where(p => !p.player.Roles.Contains(Role.Tank))
+                    .OrderBy(p => p.pos);
+                if (kiters.Any())
+                {
+                    kiters.First().player.Roles.Add(Role.Kiter);
+                }
+
+
+                var lamps = players.Where(p =>
+                           p.player.Class == eProfession.Reaper
+                        || p.player.Class == eProfession.Daredevil)
+                    .Where(p => !p.player.Roles.Contains(Role.Tank))
+                    .Where(p => !p.player.Roles.Contains(Role.Kiter))
+                    .OrderBy(p => p.pos);
+                if (lamps.Any())
+                {
+                    lamps.First().player.Roles.Add(Role.Special);
+                }
+            }
+
+            private static void RoleReduce(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+                foreach (var player in players.Select(p => p.player))
+                {
+                    if (player.Roles.Contains(Role.Tank) || player.Roles.Contains(Role.Heal))
+                    {
+                        player.Roles.Remove(Role.Power);
+                        player.Roles.Remove(Role.Condi);
+                    }
+
+                    if (player.Roles.Contains(Role.Utility) && (player.Roles.Contains(Role.Alacrity) || player.Roles.Contains(Role.Quickness)))
+                    {
+                        player.Roles.Remove(Role.Alacrity);
+                        player.Roles.Remove(Role.Quickness);
+                    }
+
+                    if (player.Roles.Count > 4)
+                    {
+                        var mostRelevantRoles = player.Roles.OrderByDescending(r => GetRoleImportance(r)).Take(4);
+                        player.Roles.IntersectWith(mostRelevantRoles);
+                    }
+                }
+            }
+
+            private static int GetRoleImportance(Role r)
+            {
+                switch (r)
+                {
+                    case Role.Empty:
+                    case Role.Banner:
+                    case Role.Utility:
+                        return 0;
+                    case Role.Power:
+                    case Role.Condi:
+                        return 1;
+                    case Role.Quickness:
+                    case Role.Alacrity:
+                        return 3;
+                    case Role.Heal:
+                        return 4;
+                    case Role.Special:
+                    case Role.Kiter:
+                        return 5;
+                    case Role.Tank:
+                        return 6;
+                    default:
+                        return 0;
+                }
+            }
         }
     }
 }

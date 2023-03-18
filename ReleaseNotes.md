@@ -1,3 +1,30 @@
+# v1.3.18
+
+
+# v1.3.17
+18.03.2023
+
+## Features
+- Strikes can now be updated in added to RaidOrga+ via update Termin
+- Add support for Old Lion's Cort Strike
+- Add support for two new RaidOrga+ roles: Alacrity and Quickness
+
+## Improvements
+- Add detection for Minister Li CM
+- Rework role detection for RaidOrga+ to support multiple roles
+- Update role detection for RaidOrga+ to new balance patch
+- Update role detection for RaidOrga+ to order the roles consistantly
+- Remove banner role from role detection for RaidOrga+
+- Add support for rate limiting of dps.report
+- DRM's are combined into Primordus and Jormag as areas
+- Improve comatibility when GW2 account name differ by capitalization in Game and RaidOrga+
+
+## Bugfixes
+- Fix issue with certain characters when parsing log locally
+- Fix issue with detecting cerain river logs
+- Fix issue with icon of What's New dialog
+- Fix issue when unparseable log is included in RO+ update selection
+
 # v1.3.16
 15.05.2022
 

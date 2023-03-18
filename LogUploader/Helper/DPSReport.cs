@@ -51,7 +51,7 @@ namespace LogUploader.Helper
 
         public string UpladContent(string path)
         {
-            return UploadFile(URLUpladContent(), path);
+            return UploadFileRateLimited(URLUpladContent(), path);
         }
 
         public string GetEncounterData(string id)
@@ -113,8 +113,21 @@ namespace LogUploader.Helper
             return data;
         }
 
-        private string UploadFile(string address, string path)
+        private static Task RateLimitDelay = Task.CompletedTask;
+
+        private string UploadFileRateLimited(string address, string path)
         {
+            //Ratelimit is 10 per 60s -> max. every 6s one file
+            lock (RateLimitDelay)
+            {
+                RateLimitDelay.Wait();
+                RateLimitDelay = Task.Delay(7_000);
+            }
+            return UploadFile(address, path);
+        }
+
+        private string UploadFile(string address, string path)
+        {   
             string answerStr;
             using (MyWebClient wc = GetWebClient(Settings))
             {

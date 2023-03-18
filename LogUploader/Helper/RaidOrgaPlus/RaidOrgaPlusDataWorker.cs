@@ -199,12 +199,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 encounter.GuessRoles();
                 encounter.RefineRoles();
                 encounter.RemoveNotAttededPlayers();
-                encounter.RemoveDuplicates();
-                encounter.UpdateNamedPlayers();
-                encounter.UpdateUnnamedPlayers();
-                for (int i = 0; i < 10 && !encounter.EnsureAllPlayers(); i++)
-                    encounter.InsertDuplicatesPlayers();
-                
+                encounter.MergePlayers();
+                encounter.EnsureAllPlayers();
+
                 encounter.SortIfNew();
             }
         }

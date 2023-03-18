@@ -230,6 +230,15 @@ namespace LogUploader.Data
                         + (SooWonVoid?.finalHealth ?? 9711000)
                         + (VoidObliterator?.finalHealth ?? 1769600);
                     return (float)Math.Round((double)remainingHealth / totalHealth * 100, 2);
+                case 25413: //OLC
+                case 25419:
+                case 25415:
+                    var vermilion = data.Where(target => target.id == 25413).FirstOrDefault();
+                    var indigo = data.Where(target => target.id == 25419).FirstOrDefault();
+                    var arsenite = data.Where(target => target.id == 25415).FirstOrDefault();
+                    var healthOLC = (vermilion?.totalHealth ?? 14156640) + (indigo?.totalHealth ?? 14156640) + (arsenite?.totalHealth ?? 14156640);
+                    var remainingOLC = (vermilion?.finalHealth ?? 14156640) + (indigo?.finalHealth ?? 14156640) + (arsenite?.finalHealth ?? 14156640);
+                    return (float)Math.Round((double)remainingOLC / healthOLC * 100, 2);
                 default:
                     var boss = data.Where(target => target.id == BossID).FirstOrDefault();
                     if (boss is null)
@@ -280,6 +289,8 @@ namespace LogUploader.Data
             BossID = (int)data["triggerID"];
             //Correction for Ai, EI uses 3 names depended of phases
             if (BossID == 23255 || BossID == 23256 /*Fake Ai's*/) BossID = 23254;
+            //Correction if 'triggerID' is -1 for river, backup detction via 'eiEncounterID'
+            if (BossID == -1 && data.ContainsKey("eiEncounterID") && (int)data["eiEncounterID"] == 132354) BossID = (int)eBosses.Desmina;
 
             Date = GetDate((string)data["timeStartStd"]);
             DataCorrected = true;

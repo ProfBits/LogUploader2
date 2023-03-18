@@ -71,7 +71,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal bool IsMember(string accountName)
         {
-            return Players.Any(p => p.AccountName == accountName);
+            return Players.Any(p => p.AccountName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
         internal bool IsMember(long id)
         {
@@ -80,7 +80,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal Account GetMember(string accountName)
         {
-            return Players.First(p => p.AccountName == accountName);
+            return Players.First(p => p.AccountName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
         internal Account GetMember(long id)
         {
@@ -89,7 +89,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal bool IsHelper(string accountName)
         {
-            return Helper.Any(p => p.AccountName == accountName);
+            return Helper.Any(p => p.AccountName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
         internal bool IsHelper(long id)
         {
@@ -98,7 +98,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal Account GetHelper(string accountName)
         {
-            return Helper.First(p => p.AccountName == accountName);
+            return Helper.First(p => p.AccountName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
         internal Account GetHelper(long id)
         {
@@ -107,7 +107,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal bool IsInviteable(string accountName)
         {
-            return Inviteable.Any(p => p.AccountName == accountName);
+            return Inviteable.Any(p => p.AccountName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
         internal bool IsInviteable(long id)
         {
@@ -116,7 +116,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal Account GetInviteable(string accountName)
         {
-            return Inviteable.First(p => p.AccountName == accountName);
+            return Inviteable.First(p => p.AccountName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
         internal Account GetInviteable(long id)
         {

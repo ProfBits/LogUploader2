@@ -364,7 +364,7 @@ namespace LogUploader
             }
             if (!log.DataCorrected || localDataVersion < CachedLog.CurrentDataVersion)
             {
-                var jsonStr = GP.ReadJsonFile(json);
+                var jsonStr = GP.ReadJsonFileUTF8(json);
                 log.UpdateEi(jsonStr);
 
                 if (string.IsNullOrWhiteSpace(log.JsonPath))
@@ -419,7 +419,7 @@ namespace LogUploader
         private CachedLog ReParseData(CachedLog log)
         {
             if (!log.DataCorrected)
-                return ParseJob(log);
+                return TryParseJob(log);
 
             if (!string.IsNullOrWhiteSpace(log.Link))
             {
@@ -461,7 +461,7 @@ namespace LogUploader
                     File.Delete(log.HtmlPath);
                 if (!log.DataCorrected)
                 {
-                    var jsonStr = GP.ReadJsonFile(json);
+                    var jsonStr = GP.ReadJsonFileUTF8(json);
                     log.UpdateEi(jsonStr);
 
                     if (string.IsNullOrWhiteSpace(log.JsonPath))
@@ -480,6 +480,23 @@ namespace LogUploader
                 LogDBConnector.Update(log.GetDBLog());
             }
             return null; // cannot upgrade data
+        }
+
+        /// <summary>
+        /// Tries to parse the log, if not successful null is returned
+        /// </summary>
+        /// <param name="log">the log to parse</param>
+        /// <returns>the parsed log or null if it fails</returns>
+        private CachedLog TryParseJob(CachedLog log)
+        {
+            try
+            {
+                return ParseJob(log);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public CachedLog QuickCacheLog(int id)
@@ -968,7 +985,7 @@ namespace LogUploader
             {
                 var tmp = ProcessLog(PercentPerLog, i, id, progress, ct);
                 if (ct.IsCancellationRequested) return;
-                if (tmp != null)
+                if (tmp != null && tmp.DataCorrected)
                     logs.Add(tmp);
             };
             raid = Helper.RaidOrgaPlus.RaidOrgaPlusDataWorker.UpdateRaid(raid, logs, invoker, new Progress<ProgressMessage>((p) => progress?.Report(new ProgressMessage((p.Percent * 0.1) + 0.8, "Processing data - " + p.Message))));

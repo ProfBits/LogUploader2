@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using LogUploader.Data.RaidOrgaPlus;
-using LogUploader.Data;
 
 namespace LogUploader.Data.RaidOrgaPlus
 {
@@ -14,7 +13,7 @@ namespace LogUploader.Data.RaidOrgaPlus
         public string RaidOrgaName { get; set; }
         public long RaidOrgaID { get; set; }
         public bool IsLFG { get => RaidOrgaID == 1; }
-        public Role Role { get; set; } = Role.Empty;
+        public ISet<Role> Roles { get; } = new SortedSet<Role>(new DefaultRoleOrdering());
         public int PDPS { get; set; }
         public int CDPS { get; set; }
         public int DPS { get; set; }
@@ -78,7 +77,7 @@ namespace LogUploader.Data.RaidOrgaPlus
             Type = type;
         }
 
-        public void setLFG()
+        public void SetLFG()
         {
             RaidOrgaName = "";
             RaidOrgaID = 1;
@@ -93,12 +92,12 @@ namespace LogUploader.Data.RaidOrgaPlus
         public bool Equals(RoPlusPlayer other)
         {
             return other != null &&
-                   AccountName == other.AccountName;
+                   AccountName.ToLowerInvariant() == other.AccountName.ToLowerInvariant();
         }
 
         public override int GetHashCode()
         {
-            return -220601745 + EqualityComparer<string>.Default.GetHashCode(AccountName);
+            return -220601745 + EqualityComparer<string>.Default.GetHashCode(AccountName.ToLowerInvariant());
         }
 
         public static bool operator ==(RoPlusPlayer left, RoPlusPlayer right)
@@ -109,6 +108,44 @@ namespace LogUploader.Data.RaidOrgaPlus
         public static bool operator !=(RoPlusPlayer left, RoPlusPlayer right)
         {
             return !(left == right);
+        }
+    }
+}
+
+internal class DefaultRoleOrdering : IComparer<Role>
+{
+    public int Compare(Role x, Role y)
+    {
+        return GetWeight(x) - GetWeight(y);
+    }
+
+    protected virtual int GetWeight(Role r)
+    {
+        switch (r)
+        {
+            case Role.Power:
+                return 11;
+            case Role.Condi:
+                return 12;
+            case Role.Heal:
+                return 13;
+            case Role.Quickness:
+                return 21;
+            case Role.Alacrity:
+                return 22;
+            case Role.Utility:
+                return 23;
+            case Role.Tank:
+                return 31;
+            case Role.Special:
+                return 32;
+            case Role.Kiter:
+                return 33;
+            case Role.Banner:
+            case Role.Empty:
+                return 99;
+            default:
+                return 40;
         }
     }
 }
