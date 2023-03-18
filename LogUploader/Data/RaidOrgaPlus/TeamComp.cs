@@ -51,7 +51,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal bool Exists(string accountName)
         {
-            return Players.Any(p => p.AccName == accountName);
+            return Players.Any(p => p.AccName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
         internal bool Exists(Profession @class, ISet<Role> roles)
         {
@@ -70,7 +70,7 @@ namespace LogUploader.Data.RaidOrgaPlus
 
         internal Position GetByName(string accountName)
         {
-            return Players.First(p => p.AccName == accountName);
+            return Players.First(p => p.AccName.ToLowerInvariant() == accountName.ToLowerInvariant());
         }
 
         internal Position Get(Profession @class, ISet<Role> roles)
@@ -96,7 +96,7 @@ namespace LogUploader.Data.RaidOrgaPlus
             }
             else
             {
-                var dupes = UnnamedPlayers.GroupBy(p => p.AccName).Where(g => g.Count() > 0).ToArray();
+                var dupes = UnnamedPlayers.GroupBy(p => p.AccName.ToLowerInvariant()).Where(g => g.Count() > 0).ToArray();
                 if (dupes.Any())
                 {
                     return dupes.First().First();
@@ -125,7 +125,7 @@ namespace LogUploader.Data.RaidOrgaPlus
                     break;
             }
 
-            Players = Players.OrderBy(p => p.Roles, comparator).ThenBy(p => p.ClassID).ThenBy(p => p.AccName).Select((p, i) =>
+            Players = Players.OrderBy(p => p.Roles, comparator).ThenBy(p => p.ClassID).ThenBy(p => p.AccName.ToLowerInvariant()).Select((p, i) =>
             {
                 p.Pos = i + 1;
                 return p;

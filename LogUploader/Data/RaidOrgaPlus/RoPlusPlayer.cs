@@ -92,12 +92,12 @@ namespace LogUploader.Data.RaidOrgaPlus
         public bool Equals(RoPlusPlayer other)
         {
             return other != null &&
-                   AccountName == other.AccountName;
+                   AccountName.ToLowerInvariant() == other.AccountName.ToLowerInvariant();
         }
 
         public override int GetHashCode()
         {
-            return -220601745 + EqualityComparer<string>.Default.GetHashCode(AccountName);
+            return -220601745 + EqualityComparer<string>.Default.GetHashCode(AccountName.ToLowerInvariant());
         }
 
         public static bool operator ==(RoPlusPlayer left, RoPlusPlayer right)

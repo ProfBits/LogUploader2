@@ -13,6 +13,7 @@
 - Remove banner role from role detection for RaidOrga+
 - Add support for rate limiting of dps.report
 - DRM's are combined into Primordus and Jormag as areas
+- Improve comatibility when GW2 account name differ by capitalization in Game and RaidOrga+
 
 ## Bugfixes
 - Fix issue with certain characters when parsing log locally
