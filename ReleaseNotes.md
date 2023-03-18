@@ -1,4 +1,8 @@
+# v1.3.18
+
+
 # v1.3.17
+18.03.2023
 
 ## Features
 - Strikes can now be updated in added to RaidOrga+ via update Termin
