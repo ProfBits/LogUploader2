@@ -1,4 +1,7 @@
+# v1.3.19
+
 # v1.3.18
+12.09.2023
 
 ## Features
 - Add support for Secrets of the Obscure Strikes
@@ -7,6 +10,9 @@
     
 ## Improvements
 - Update role detection to august 2023 balance patch
+
+## Bugfixes
+- Update year of copyright notice in the installer to 2023
 
 # v1.3.17
 18.05.2023
