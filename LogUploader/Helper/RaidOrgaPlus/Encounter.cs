@@ -230,23 +230,21 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 switch (professionEnum)
                 {
                     case eProfession.Berserker:
-                    case eProfession.Bladesworn:
                     case eProfession.Catalyst:
                     case eProfession.Harbinger:
+                    case eProfession.Untamed:
+                    case eProfession.Deadeye:
                         return CombinedPredictor(
                             SimpleQuicknessPredictor,
                             SimpleDpsClassPredictor
                             );
                     case eProfession.Mirage:
-                    case eProfession.Specter:
-                    case eProfession.Untamed:
                     case eProfession.Willbender:
+                    case eProfession.Bladesworn:
                         return CombinedPredictor(
                             SimpleAlacPredictor,
                             SimpleDpsClassPredictor
                             );
-                    case eProfession.Scourge:
-                        return SimpleHealOrDpsPredictor;
                     case eProfession.Herald:
                     case eProfession.Scrapper:
                     case eProfession.Firebrand:
@@ -258,6 +256,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Tempest:
                     case eProfession.Renegade:
                     case eProfession.Mechanist:
+                    case eProfession.Scourge:
+                    case eProfession.Specter:
                         return CombinedPredictor(
                             SimpleAlacPredictor,
                             SimpleHealOrDpsPredictor
@@ -277,7 +277,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Virtuoso:
                     case eProfession.Engineer:
                     case eProfession.Holosmith:
-                    case eProfession.Deadeye:
                     case eProfession.Ranger:
                     case eProfession.Soulbeast:
                     case eProfession.Revenant:

@@ -4,6 +4,9 @@
 - Add support for Secrets of the Obscure Strikes
     - Cosmic Observatory - Dagda
     - Temple of Febe - Cerus
+    
+## Improvements
+- Update role detection to august 2023 balance patch
 
 # v1.3.17
 18.05.2023
