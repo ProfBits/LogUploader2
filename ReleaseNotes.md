@@ -1,12 +1,25 @@
-# v1.3.18
+# v1.3.19
 
+# v1.3.18
+12.09.2023
+
+## Features
+- Add support for Secrets of the Obscure Strikes
+    - Cosmic Observatory - Dagda
+    - Temple of Febe - Cerus
+    
+## Improvements
+- Update role detection to august 2023 balance patch
+
+## Bugfixes
+- Update year of copyright notice in the installer to 2023
 
 # v1.3.17
-18.03.2023
+18.05.2023
 
 ## Features
 - Strikes can now be updated in added to RaidOrga+ via update Termin
-- Add support for Old Lion's Cort Strike
+- Add support for Old Lion's Court Strike
 - Add support for two new RaidOrga+ roles: Alacrity and Quickness
 
 ## Improvements
