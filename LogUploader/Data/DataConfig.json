@@ -59,6 +59,12 @@
           "AvatarURL": "https://wiki.guildwars2.com/images/4/48/Arborstone_loading_screen.png"
         },
         {
+          "ID": 3,
+          "NameEN": "Secrets of the Obscure",
+          "NameDE": "Secrets of the Obscure",
+          "AvatarURL": "https://wiki.guildwars2.com/images/thumb/2/26/The_Wizard%27s_Tower_loading_screen.png/1920px-The_Wizard%27s_Tower_loading_screen.png"
+        },
+        {
           "ID": 255,
           "NameEN": "Freeze",
           "NameDE": "Frostie",
@@ -751,6 +757,32 @@
         "DiscordEmote": ":lion:",
         "AvatarURL": "https://dps.report/cache/https_i.imgur.com_Q2g9aLD.png",
         "RaidOrgaPlusID": 49
+      },
+      {
+        "ID": 25705,
+        "NameEN": "Dagda",
+        "NameDE": "Dagda",
+        "FolderEN": "Dagda",
+        "FolderDE": "Dagda",
+        "EiName": "Cosmic Observatory",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 3,
+        "DiscordEmote": ":stars:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/52/Mini_Dagda.png",
+        "RaidOrgaPlusID": 50
+      },
+      {
+        "ID": 25989,
+        "NameEN": "Cerus",
+        "NameDE": "Cerus",
+        "FolderEN": "Cerus",
+        "FolderDE": "Cerus",
+        "EiName": "Temple of Febe",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 3,
+        "DiscordEmote": ":japanese_ogre:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Cerus.png",
+        "RaidOrgaPlusID": 51
       },
       {
         "ID": 21333,

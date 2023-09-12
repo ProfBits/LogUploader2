@@ -1,8 +1,12 @@
 # v1.3.18
 
+## Features
+- Add support for Secrets of the Obscure Strikes
+    - Cosmic Observatory - Dagda
+    - Temple of Febe - Cerus
 
 # v1.3.17
-18.03.2023
+18.05.2023
 
 ## Features
 - Strikes can now be updated in added to RaidOrga+ via update Termin
