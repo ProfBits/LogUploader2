@@ -720,6 +720,19 @@
         "RaidOrgaPlusID": 47
       },
       {
+        "ID": 43488,
+        "NameEN": "Harvest Temple",
+        "NameDE": "Ernte Tempel",
+        "FolderEN": "The Dragonvoid",
+        "FolderDE": "Die Drachenleere",
+        "EiName": "Harvest Temple",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 2,
+        "DiscordEmote": ":alien:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/c/ce/The_Only_One_loading_screen.png",
+        "RaidOrgaPlusID": 47
+      },
+      {
         "ID": 25413,
         "NameEN": "Old Lion's Court",
         "NameDE": "Alter Löwenhof",
