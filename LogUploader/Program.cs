@@ -345,7 +345,14 @@ namespace LogUploader
         private static void InitDB(IProgress<ProgressMessage> progress)
         {
             progress?.Report(new ProgressMessage(0, "Init"));
-            string dbFilePaht = $@"{ Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\LogUploader\LogDB.db";
+
+#if DEBUG
+            const string DbName = "LogDB_Debug.db";
+#else
+            const string DbName = "LogDB.db";
+#endif
+
+            var dbFilePaht = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\LogUploader\{DbName}";
             LogDBConnector.DBConnectionString = $@"Data Source=""{dbFilePaht}""; Version=3;Connect Timeout=30";
             try
             {

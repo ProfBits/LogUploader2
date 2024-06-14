@@ -16,5 +16,6 @@ namespace LogUploader.Interfaces
         string GetName(eLanguage language);
 
         bool HasName(string name);
+        bool ContainsName(string str);
     }
 }

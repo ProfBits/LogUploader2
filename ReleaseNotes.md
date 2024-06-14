@@ -1,4 +1,18 @@
+# v1.3.20
+
 # v1.3.19
+14.06.24
+
+## Features
+- Add support for End of Dragons and Secrets of the Obscure Fractals
+    - Silent Surf - Kanaxai
+    - Lonely Tower - Cerus and Deimos
+    - Lonely Tower - Eparch
+
+## Bugfixes
+- Fix crash when certain characters were present in the path of an .evtc file
+- Fix issue with some Encounters not being properly detected by folder name
+- Update year of copyright notice to 2024
 
 # v1.3.18
 12.09.2023

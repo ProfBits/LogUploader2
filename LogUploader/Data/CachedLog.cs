@@ -239,6 +239,13 @@ namespace LogUploader.Data
                     var healthOLC = (vermilion?.totalHealth ?? 14156640) + (indigo?.totalHealth ?? 14156640) + (arsenite?.totalHealth ?? 14156640);
                     var remainingOLC = (vermilion?.finalHealth ?? 14156640) + (indigo?.finalHealth ?? 14156640) + (arsenite?.finalHealth ?? 14156640);
                     return (float)Math.Round((double)remainingOLC / healthOLC * 100, 2);
+                case 26257: //Lonely Tower Cerus and Deimos
+                case 26226:
+                    var cerus = data.Where(target => target.id == 26257).FirstOrDefault();
+                    var deimos = data.Where(target => target.id == 26226).FirstOrDefault();
+                    var healthLtCD = (cerus?.totalHealth ?? 5247611) + (deimos?.totalHealth ?? 5247611);
+                    var remainingLtCD = (cerus?.finalHealth ?? 5247611) + (deimos?.finalHealth ?? 5247611);
+                    return (float)Math.Round((double)healthLtCD / healthLtCD * 100, 2);
                 default:
                     var boss = data.Where(target => target.id == BossID).FirstOrDefault();
                     if (boss is null)
