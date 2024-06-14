@@ -160,7 +160,7 @@
             this.lblCopyright.Name = "lblCopyright";
             this.lblCopyright.Size = new System.Drawing.Size(115, 13);
             this.lblCopyright.TabIndex = 0;
-            this.lblCopyright.Text = "© ProfBits 2019 - 2023";
+            this.lblCopyright.Text = "© ProfBits 2019 - 2024";
             this.lblCopyright.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragWindow);
             // 
             // lblTask
