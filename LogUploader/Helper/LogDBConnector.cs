@@ -77,7 +77,7 @@ namespace LogUploader.Helper
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
-                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE EvtcPath LIKE '{evtc}'").ToList();
+                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE EvtcPath LIKE '@Path'", new { Path = evtc }).ToList();
                 return t;
             }
         }
@@ -87,7 +87,7 @@ namespace LogUploader.Helper
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
-                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE BossID == {id} AND NOT EvtcPath IS NULL").ToList();
+                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE BossID == @Id AND NOT EvtcPath IS NULL", new { Id = id }).ToList();
                 return t;
             }
         }
