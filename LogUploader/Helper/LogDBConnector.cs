@@ -143,20 +143,9 @@ SELECT CAST(last_insert_rowid() as int);";
         #region InsertBulk
 
         public static void InsertBulk(IList<DBLog> logs) => InsertBulk(DBConnectionString, logs);
-        public static void InsertBulk(string connectionString, IList<DBLog> logs)
+        private static void InsertBulk(string connectionString, IEnumerable<DBLog> logs)
         {
-            var sqls = GetSqlsInBatches(logs);
-            using (IDbConnection cnn = new SQLiteConnection(connectionString))
-            {
-                foreach (var sql in sqls)
-                {
-                    cnn.ExecuteAsync(sql);
-                }
-            }
-        }
-        private static IEnumerable<string> GetSqlsInBatches(IList<DBLog> persons)
-        {
-            var insertSql = @"
+            var sqlStatement = @"
 INSERT INTO [LogData]
 (BossID
 ,EvtcPath
@@ -168,33 +157,30 @@ INSERT INTO [LogData]
 ,DurationMs
 ,Flags
 ,RemainingHealth)
-VALUES ";
-            var valuesSql = "({0}, '{1}', '{2}', '{3}', '{4}', {5}, {6}, {7}, {8}, {9})";
-            var batchSize = 1000;
+VALUES (@BossID
+,@EvtcPath
+,@JsonPath
+,@HtmlPath
+,@Link
+,@SizeKb
+,@TimeStamp
+,@DurationMs
+,@Flags
+,@RemainingHealth);";
 
-            var sqlsToExecute = new List<string>();
-            var numberOfBatches = (int)Math.Ceiling((double)persons.Count / batchSize);
-            var invariant = System.Globalization.CultureInfo.InvariantCulture;
-
-            for (int i = 0; i < numberOfBatches; i++)
+            using (var cnn = new SQLiteConnection(connectionString))
             {
-                var userToInsert = persons.Skip(i * batchSize).Take(batchSize);
-                var valuesToInsert = userToInsert.Select(log => string.Format(valuesSql,
-                    log.BossID,
-                    log.EvtcPath,
-                    log.JsonPath,
-                    log.HtmlPath,
-                    log.Link,
-                    log.SizeKb,
-                    log.TimeStamp,
-                    log.DurationMs,
-                    log.Flags,
-                    log.RemainingHealth.ToString(invariant)
-                    ));
-                sqlsToExecute.Add(insertSql + string.Join(",", valuesToInsert));
-            }
+                cnn.Open();
+                using (var transaction = cnn.BeginTransaction())
+                {
+                    foreach(var log in logs)
+                    {
+                        cnn.Execute(sqlStatement, log, transaction);
+                    }
 
-            return sqlsToExecute;
+                    transaction.Commit();
+                }
+            }
         }
 
         #endregion
