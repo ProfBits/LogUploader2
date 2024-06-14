@@ -1,4 +1,7 @@
+# v1.3.20
+
 # v1.3.19
+14.06.24
 
 ## Features
 - Add support for End of Dragons and Secrets of the Obscure Fractals
