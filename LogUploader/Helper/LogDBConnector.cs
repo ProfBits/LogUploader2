@@ -57,7 +57,7 @@ namespace LogUploader.Helper
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
-                return cnn.Query<DBLog>("SELECT * FROM [LogData] WHERE ID = @ID", new { ID = id}).FirstOrDefault();
+                return cnn.Query<DBLog>("SELECT * FROM [LogData] WHERE ID = @ID", new { ID = id }).FirstOrDefault();
             }
         }
         public static DBLog GetNewest() => GetNewest(DBConnectionString);
