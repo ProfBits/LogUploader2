@@ -73,21 +73,33 @@
       ],
       "Fractals": [
         {
-          "Level": 98,
+          "Level": 96,
           "NameEN": "Nightmare Factal",
           "NameDE": "Albtraum Fraktal",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         },
         {
-          "Level": 99,
+          "Level": 97,
           "NameEN": "Shattered Observartory",
           "NameDE": "Zerschmettertes Observatorium",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         },
         {
-          "Level": 100,
+          "Level": 98,
           "NameEN": "Sunqua Peak",
           "NameDE": "Sunqua-Gipfel",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
+        },
+        {
+          "Level": 99,
+          "NameEN": "Silent Surf",
+          "NameDE": "Stumme Brandung",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
+        },
+        {
+          "Level": 100,
+          "NameEN": "Lonely Tower",
+          "NameDE": "Lonely Tower",
           "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
         }
       ],
@@ -961,7 +973,7 @@
         "FolderDE": "MAMA",
         "EiName": "M A M A",
         "GameAreaName": "Fractals",
-        "GameAreaID": 98,
+        "GameAreaID": 96,
         "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/6/61/Twisted_Nightmare.jpg",
         "RaidOrgaPlusID": -1
@@ -974,7 +986,7 @@
         "FolderDE": "Albtraum-Oratuss",
         "EiName": "Siax the Corrupted",
         "GameAreaName": "Fractals",
-        "GameAreaID": 98,
+        "GameAreaID": 96,
         "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/d/dc/Siax_the_Corrupted.jpg",
         "RaidOrgaPlusID": -1
@@ -987,7 +999,7 @@
         "FolderDE": "Ensolyss der endlosen Pein",
         "EiName": "Ensolyss of the Endless Torment",
         "GameAreaName": "Fractals",
-        "GameAreaID": 98,
+        "GameAreaID": 96,
         "DiscordEmote": "<:rea:484839588876255232>",
         "AvatarURL": "https://wiki.guildwars2.com/images/f/f6/Ensolyss_of_the_Endless_Torment.jpg",
         "RaidOrgaPlusID": -1
@@ -1000,7 +1012,7 @@
         "FolderDE": "Skorvald der Zerschmetterte",
         "EiName": "Skorvald the Shattered",
         "GameAreaName": "Fractals",
-        "GameAreaID": 98,
+        "GameAreaID": 97,
         "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/c/c1/Skorvald_the_Shattered.jpg",
         "RaidOrgaPlusID": -1
@@ -1013,7 +1025,7 @@
         "FolderDE": "Artsariiv",
         "EiName": "Artsariiv",
         "GameAreaName": "Fractals",
-        "GameAreaID": 98,
+        "GameAreaID": 97,
         "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/7/76/Viirastra.jpg",
         "RaidOrgaPlusID": -1
@@ -1026,7 +1038,7 @@
         "FolderDE": "Arkk",
         "EiName": "Arkk",
         "GameAreaName": "Fractals",
-        "GameAreaID": 98,
+        "GameAreaID": 97,
         "DiscordEmote": "<:chr:484840237684621323>",
         "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
         "RaidOrgaPlusID": -1
@@ -1039,7 +1051,7 @@
         "FolderDE": "###",
         "EiName": "Elemental Ai, Keeper of the Peak",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:ele:484839211388764162>",
         "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
         "RaidOrgaPlusID": -1
@@ -1052,7 +1064,7 @@
         "FolderDE": "###",
         "EiName": "Dark Ai, Keeper of the Peak",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:ele:484839211388764162>",
         "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
         "RaidOrgaPlusID": -1
@@ -1065,9 +1077,74 @@
         "FolderDE": "Sorrowful Spellcaster",
         "EiName": "Ai, Keeper of the Peak",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "DiscordEmote": "<:ele:484839211388764162>",
         "AvatarURL": "https://wiki.guildwars2.com/images/archive/5/5f/20170801045936%21Arkk.jpg",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 25577,
+        "NameEN": "Kanaxai",
+        "NameDE": "Kanaxai",
+        "FolderEN": "Kanaxai, Scythe of House Aurkus",
+        "FolderDE": "Kanaxai, Sense des Hauses Aurkus",
+        "EiName": "Kanaxai, Scythe of House Aurkus",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "DiscordEmote": ":japanese_ogre:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/31/Mini_Kanaxai.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 25572,
+        "NameEN": "Kanaxai",
+        "NameDE": "Kanaxai",
+        "FolderEN": "Kanaxai, Scythe of House Aurkus",
+        "FolderDE": "Kanaxai, Sense des Hauses Aurkus",
+        "EiName": "Kanaxai, Scythe of House Aurkus",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 99,
+        "DiscordEmote": ":japanese_ogre:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/3/31/Mini_Kanaxai.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 26257,
+        "NameEN": "Cerus (Fractal)",
+        "NameDE": "Cerus (Fraktal)",
+        "FolderEN": "###",
+        "FolderDE": "###",
+        "EiName": "Cerus and Deimos",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": ":meat_on_bone:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Cerus.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 26226,
+        "NameEN": "Deimos (Fractal)",
+        "NameDE": "Deimos (Fraktal)",
+        "FolderEN": "###",
+        "FolderDE": "###",
+        "EiName": "Cerus and Deimos",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": ":meat_on_bone:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Cerus.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 26231,
+        "NameEN": "Eparch",
+        "NameDE": "Eparch",
+        "FolderEN": "Eparch",
+        "FolderDE": "Eparch",
+        "EiName": "Eparch",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 100,
+        "DiscordEmote": ":meat_on_bone:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/5/5a/Mini_Eparch.png",
         "RaidOrgaPlusID": -1
       },
       {
@@ -2454,7 +2531,7 @@
         "NameEN": "Wütender Wasser Geist",
         "NameDE": "Enrage Water Sprite",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2462,7 +2539,7 @@
         "NameEN": "Dämon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2470,7 +2547,7 @@
         "NameEN": "Dämon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2478,7 +2555,7 @@
         "NameEN": "Dämon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2486,7 +2563,7 @@
         "NameEN": "Dämon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2494,7 +2571,7 @@
         "NameEN": "Dämon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2502,7 +2579,7 @@
         "NameEN": "Dämon des Zwifels",
         "NameDE": "Doubt Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2510,7 +2587,7 @@
         "NameEN": "Dämon der Furcht",
         "NameDE": "Fear Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       },
       {
@@ -2518,7 +2595,7 @@
         "NameEN": "Dämon der Schuld",
         "NameDE": "Guilt Demon",
         "GameAreaName": "Fractals",
-        "GameAreaID": 100,
+        "GameAreaID": 98,
         "Intresting": false
       }
     ],
