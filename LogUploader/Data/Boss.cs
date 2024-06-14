@@ -98,12 +98,12 @@ namespace LogUploader.Data
             return boss;
         }
 
-        public static Boss GetByFolderName(string name)
+        public static Boss GetByFolderName(string folder)
         {
-            var boss = allBosses.FirstOrDefault((e) => e.Value.CheckFolderName(name)).Value;
+            var boss = allBosses.FirstOrDefault((e) => e.Value.CheckFolderName(folder)).Value;
             if (boss == null)
             {
-                switch (name)
+                switch (folder)
                 {
                     case "Gebrochener König":
                     case "Bezwungener König":
@@ -133,7 +133,7 @@ namespace LogUploader.Data
 
         private bool CheckFolderName(string folderName)
         {
-            return m_FolderName.HasName(folderName);
+            return m_FolderName.ContainsName(folderName);
         }
 
         public override bool Equals(object obj)

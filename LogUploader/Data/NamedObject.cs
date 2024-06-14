@@ -73,6 +73,12 @@ namespace LogUploader.Data
                 || NameDE == name;
         }
 
+        public bool ContainsName(string str)
+        {
+            return str.Contains(NameEN)
+                || str.Contains(NameDE);
+        }
+
         public Prefixed Prefix(string prefix) => new Prefixed(this, prefix);
 
         public class Prefixed : NamedObject
