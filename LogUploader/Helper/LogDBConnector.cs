@@ -72,12 +72,22 @@ namespace LogUploader.Helper
             }
         }
 
-        public static List<DBLog> GetByEvtcPaht(string evtc) => GetByEvtcPaht(DBConnectionString, evtc);
-        public static List<DBLog> GetByEvtcPaht(string connectionString, string evtc)
+        public static List<string> GetDuplicatedPaths() => GetDuplicatedPaths(DBConnectionString);
+        private static List<string> GetDuplicatedPaths(string connectionString)
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
-                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE EvtcPath LIKE '@Path'", new { Path = evtc }).ToList();
+                var t = cnn.Query<string>($"SELECT EvtcPath FROM [LogData] WHERE EvtcPath IS NOT NULL GROUP BY EvtcPath HAVING COUNT(*) > 1").ToList();
+                return t;
+            }
+        }
+
+        public static List<DBLog> GetByEvtcPath(string evtc) => GetByEvtcPath(DBConnectionString, evtc);
+        public static List<DBLog> GetByEvtcPath(string connectionString, string evtc)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(connectionString))
+            {
+                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE EvtcPath LIKE @Path", new { Path = evtc }).ToList();
                 return t;
             }
         }
