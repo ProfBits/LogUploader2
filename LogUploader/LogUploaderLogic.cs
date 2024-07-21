@@ -150,7 +150,7 @@ namespace LogUploader
 
             await Task.Run(() => RemoveDuplicatesFromDb(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.03), "Updating Local Files")))));
 
-            await Task.Run(() => UpdateUnkowen(new Progress<double>(p => progress?.Report(new ProgressMessage(0.33 + (p * 0.18), "Updating Local Files")))));
+            await Task.Run(() => UpdateUnknown(new Progress<double>(p => progress?.Report(new ProgressMessage(0.33 + (p * 0.18), "Updating Local Files")))));
 
             await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.5 + (p * 0.5), "Updating Local Files New")))));
         }
@@ -203,7 +203,7 @@ namespace LogUploader
             progress?.Report(1);
         }
 
-        private void UpdateUnkowen(IProgress<double> progress = null)
+        private void UpdateUnknown(IProgress<double> progress = null)
         {
             progress?.Report(0);
             var logs = LogDBConnector.GetByBossIdWithPath(0);
