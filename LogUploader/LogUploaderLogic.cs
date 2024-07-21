@@ -147,10 +147,60 @@ namespace LogUploader
 
             progress?.Report(new ProgressMessage(0.06, "RO+"));
             await Task.Run(() => LoadTermine(new Progress<ProgressMessage>(p => progress?.Report(new ProgressMessage((0.24 * p.Percent) + 0.06, "RO+ " + p.Message)))));
-            
-            await Task.Run(() => UpdateUnkowen(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.2), "Updating Local Files Old")))));
+
+            await Task.Run(() => RemoveDuplicatesFromDb(new Progress<double>(p => progress?.Report(new ProgressMessage(0.3 + (p * 0.03), "Updating Local Files")))));
+
+            await Task.Run(() => UpdateUnkowen(new Progress<double>(p => progress?.Report(new ProgressMessage(0.33 + (p * 0.18), "Updating Local Files")))));
 
             await Task.Run(() => CheckForNewLogs(new Progress<double>(p => progress?.Report(new ProgressMessage(0.5 + (p * 0.5), "Updating Local Files New")))));
+        }
+        private void RemoveDuplicatesFromDb(IProgress<double> progress = null)
+        {
+            progress?.Report(0);
+            var dupeCases = LogDBConnector.GetDuplicatedPaths();
+            var towDays = TimeSpan.FromDays(2);
+
+            var reportOffset = 0.1;
+            var reportStep = 0.9 / dupeCases.Count();
+
+            for (var i = 0; i < dupeCases.Count; i++)
+            {
+                progress?.Report(reportOffset + (reportStep * i));
+
+                var records = LogDBConnector.GetByEvtcPath(dupeCases[i]);
+
+                IEnumerable<DBLog> entriesToRemove;
+                if (records.Count(record => record.DataCorrected) == 0)
+                {
+                    entriesToRemove = records.OrderBy(record => record.ID).Skip(1);
+                }
+                else if (records.Count(record => record.DataCorrected) == 1)
+                {
+                    entriesToRemove = records.Where(record => !record.DataCorrected);
+                }
+                else
+                {
+                    entriesToRemove = records.Where(record => !record.DataCorrected);
+
+                    var e = records.Where(record => record.DataCorrected).GetEnumerator();
+                    e.MoveNext();
+                    var mainLog = e.Current;
+                    while (e.MoveNext())
+                    {
+                        mainLog.HtmlPath = e.Current.HtmlPath ?? mainLog.HtmlPath;
+                        mainLog.JsonPath = e.Current.JsonPath ?? mainLog.JsonPath;
+                        mainLog.Link = e.Current.JsonPath ?? mainLog.JsonPath;
+                        entriesToRemove = entriesToRemove.Append(e.Current);
+                    }
+                    LogDBConnector.Update(mainLog);
+                }
+
+                foreach (DBLog entry in entriesToRemove)
+                {
+                    LogDBConnector.Delete(entry);
+                }
+            }
+            progress?.Report(1);
         }
 
         private void UpdateUnkowen(IProgress<double> progress = null)
