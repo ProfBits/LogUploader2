@@ -209,7 +209,7 @@ namespace LogUploader
                 }
                 var path = allFiles[i];
                 var Fi = new FileInfo(path);
-                if (Fi.LastWriteTime < min || LogDBConnector.GetByEvtcPaht(path).Count() != 0)
+                if (Fi.LastWriteTime < min || LogDBConnector.GetByEvtcPath(path).Count() != 0)
                     continue;
                 var id = GetBoss(path).ID;
                 newLogs.Add(new DBLog(id, path, null, null, null, (int)Math.Ceiling(Fi.Length / 1000.0), Fi.LastWriteTime));

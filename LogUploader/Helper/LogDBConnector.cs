@@ -72,8 +72,8 @@ namespace LogUploader.Helper
             }
         }
 
-        public static List<DBLog> GetByEvtcPaht(string evtc) => GetByEvtcPaht(DBConnectionString, evtc);
-        public static List<DBLog> GetByEvtcPaht(string connectionString, string evtc)
+        public static List<DBLog> GetByEvtcPath(string evtc) => GetByEvtcPath(DBConnectionString, evtc);
+        public static List<DBLog> GetByEvtcPath(string connectionString, string evtc)
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
