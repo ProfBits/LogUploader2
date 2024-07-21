@@ -1,5 +1,8 @@
 # v1.3.20
 
+## Bugfixes
+- Fix recent logs being detected and added multiple times
+
 # v1.3.19
 14.06.24
 

@@ -77,7 +77,7 @@ namespace LogUploader.Helper
         {
             using (IDbConnection cnn = new SQLiteConnection(connectionString))
             {
-                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE EvtcPath LIKE '@Path'", new { Path = evtc }).ToList();
+                var t = cnn.Query<DBLog>($"SELECT * FROM [LogData] WHERE EvtcPath LIKE @Path", new { Path = evtc }).ToList();
                 return t;
             }
         }
