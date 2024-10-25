@@ -1,5 +1,8 @@
 # v1.3.21
 
+## Improvements
+- Update role detection to autumn 2024 balance
+
 ## Bugfixes
 - Fix unhanded exception during startup related to EI version checking
 
