@@ -70,7 +70,7 @@ namespace LogUploader.Helper
             }
             catch (HttpRequestException e)
             {
-                Logger.Error("Faild to update EI-Version");
+                Logger.Error("Failed to update EI-Version");
                 Logger.LogException(e);
                 Logger.LogException(e.InnerException);
                 NewestVersion = new Version(0, 0, 0, 0);
@@ -87,7 +87,7 @@ namespace LogUploader.Helper
             return NewestVersion;
         }
 
-        public static bool UpdateAviable()
+        public static bool UpdateAvailable()
         {
             return NewestVersion > LocalVersion;
         }
@@ -98,7 +98,7 @@ namespace LogUploader.Helper
         }
 
         /// <summary>
-        /// Updates Ei to the newest verion available
+        /// Updates Ei to the newest version available
         /// </summary>
         /// <param name="settings">the proxy settings</param>
         /// <param name="progress">the progress callback</param>

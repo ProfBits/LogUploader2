@@ -375,7 +375,7 @@ namespace LogUploader
             progress?.Report(new ProgressMessage(0, "Init"));
             EliteInsights.Init(settings);
             await EliteInsights.UpdateNewestVersion(proxySettings, new Progress<double>(p => progress?.Report(new ProgressMessage((p * 0.2) + 0.05, "Checking for Update"))));
-            var newVersion = EliteInsights.UpdateAviable();
+            var newVersion = EliteInsights.UpdateAvailable();
             if (EliteInsights.IsInstalled()) Logger.Message($"Installed EI Version: {EliteInsights.LocalVersion}"); else Logger.Warn("EI not installed");
             if (newVersion)
             {
