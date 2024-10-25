@@ -81,7 +81,7 @@ namespace LogUploader.Helper
             progress?.Report(0.5);
             var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
             DownloadURLCache = GetDownloadURL(jsonData);
-            var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
+            var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V', '.', ' ');
             progress?.Report(0.9);
             NewestVersion = new Version(tag);
             return NewestVersion;

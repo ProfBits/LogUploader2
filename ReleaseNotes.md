@@ -1,5 +1,8 @@
 # v1.3.21
 
+## Bugfixes
+- Fix unhanded exception during startup related to EI version checking
+
 # v1.3.20
 21.06.24
 
