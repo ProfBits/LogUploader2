@@ -173,6 +173,19 @@
         "RaidOrgaPlusID": 1
       },
       {
+        "ID": 15415,
+        "NameEN": "Spirit Woods",
+        "NameDE": "Geister Wald",
+        "FolderEN": "Ethereal Barrier",
+        "FolderDE": "Ätherische Barrieren",
+        "EiName": "Spirit Race",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 1,
+        "DiscordEmote": ":man_running:",
+        "AvatarURL": "https://dps.report/cache/https_wiki.guildwars2.com_images_e_e5_Spirit_Thread.png",
+        "RaidOrgaPlusID": 2
+      },
+      {
         "ID": 15429,
         "NameEN": "Gorseval",
         "NameDE": "Gorseval",

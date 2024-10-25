@@ -2,6 +2,7 @@
 
 ## Improvements
 - Update role detection to autumn 2024 balance
+- Add Spirit Woods encounter detection
 
 ## Bugfixes
 - Fix unhanded exception during startup related to EI version checking
