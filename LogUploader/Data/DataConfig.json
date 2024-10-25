@@ -1,4 +1,4 @@
-{
+Ôªø{
   "LogUploaderData": {
     "GameAreas": {
       "RaidWings": [
@@ -11,7 +11,7 @@
         {
           "ID": 2,
           "NameEN": "Salvation Pass",
-          "NameDE": "Erlˆsungspass",
+          "NameDE": "Erl√∂sungspass",
           "AvatarURL": "https://wiki.guildwars2.com/images/2/23/Salvation_Pass_loading_screen.png"
         },
         {
@@ -41,7 +41,7 @@
         {
           "ID": 7,
           "NameEN": "The Key of Ahdashim",
-          "NameDE": "Der Schl¸ssel von Ahdashim",
+          "NameDE": "Der Schl√ºssel von Ahdashim",
           "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/The_Key_of_Ahdashim_loading_screen.jpg"
         }
       ],
@@ -129,7 +129,7 @@
       "Training": [
         {
           "NameEN": "Special Forces Training Area",
-          "NameDE": "‹bungsgel‰nde der Spezialkr‰fte",
+          "NameDE": "√úbungsgel√§nde der Spezialkr√§fte",
           "ShortNameEN": "Golem",
           "ShortNameDE": "Golem",
           "AvatarURL": "https://wiki.guildwars2.com/images/2/2a/Lion%27s_Arch_Aerodrome_Loading_Screen.jpg"
@@ -162,9 +162,9 @@
       {
         "ID": 15438,
         "NameEN": "Vale Guardian",
-        "NameDE": "Tal W‰chter",
+        "NameDE": "Tal W√§chter",
         "FolderEN": "Vale Guardian",
-        "FolderDE": "Tal-W‰chter",
+        "FolderDE": "Tal-W√§chter",
         "EiName": "Vale Guardian",
         "GameAreaName": "RaidWings",
         "GameAreaID": 1,
@@ -396,9 +396,9 @@
       {
         "ID": 19691,
         "NameEN": "Broken King",
-        "NameDE": "Gebrochener Kˆnig",
+        "NameDE": "Gebrochener K√∂nig",
         "FolderEN": "Broken King",
-        "FolderDE": "Bezwungener Kˆnig",
+        "FolderDE": "Bezwungener K√∂nig",
         "EiName": "Broken King",
         "GameAreaName": "RaidWings",
         "GameAreaID": 5,
@@ -630,9 +630,9 @@
       {
         "ID": 22521,
         "NameEN": "Boneskinner",
-        "NameDE": "Knochenh‰uter",
+        "NameDE": "Knochenh√§uter",
         "FolderEN": "Boneskinner",
-        "FolderDE": "Knochenh‰uter",
+        "FolderDE": "Knochenh√§uter",
         "EiName": "Boneskinner",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 1,
@@ -643,9 +643,9 @@
       {
         "ID": 22711,
         "NameEN": "Whisper of Jormag",
-        "NameDE": "Gefl¸ster des Jormag",
+        "NameDE": "Gefl√ºster des Jormag",
         "FolderEN": "Whisper of Jormag",
-        "FolderDE": "Gefl¸ster des Jormag",
+        "FolderDE": "Gefl√ºster des Jormag",
         "EiName": "Whisper of Jormag",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 1,
@@ -669,9 +669,9 @@
       {
         "ID": 24033,
         "NameEN": "Aetherblade Hideout",
-        "NameDE": "ƒtherklingen Versteck",
+        "NameDE": "√Ñtherklingen Versteck",
         "FolderEN": "Captain Mai Trin",
-        "FolderDE": "Kapit‰n Mai Trin",
+        "FolderDE": "Kapit√§n Mai Trin",
         "EiName": "Aetherblade Hideout",
         "GameAreaName": "StrikeMissions",
         "GameAreaID": 2,
@@ -747,7 +747,7 @@
       {
         "ID": 25413,
         "NameEN": "Old Lion's Court",
-        "NameDE": "Alter Lˆwenhof",
+        "NameDE": "Alter L√∂wenhof",
         "FolderEN": "Prototype Vermilion",
         "FolderDE": "Prototyp Vermillion",
         "EiName": "Old Lion's Court",
@@ -760,7 +760,7 @@
       {
         "ID": 25419,
         "NameEN": "Old Lion's Court",
-        "NameDE": "Alter Lˆwenhof",
+        "NameDE": "Alter L√∂wenhof",
         "FolderEN": "Prototype Indigo",
         "FolderDE": "Prototyp Indigo",
         "EiName": "Old Lion's Court",
@@ -773,7 +773,7 @@
       {
         "ID": 25415,
         "NameEN": "Old Lion's Court",
-        "NameDE": "Alter Lˆwenhof",
+        "NameDE": "Alter L√∂wenhof",
         "FolderEN": "Prototype Arsenite",
         "FolderDE": "Prototyp Arsenit",
         "EiName": "Old Lion's Court",
@@ -827,7 +827,7 @@
         "NameEN": "Metrica Province",
         "NameDE": "Provinz Metrica",
         "FolderEN": "Destroyer of the Ironhammer Line",
-        "FolderDE": "Zerstˆrer der Eisenhammer Linie",
+        "FolderDE": "Zerst√∂rer der Eisenhammer Linie",
         "EiName": "Destroyer of the Ironhammer Line",
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 1,
@@ -840,7 +840,7 @@
         "NameEN": "Brisban Wildlands",
         "NameDE": "Brisban-Wildnis",
         "FolderEN": "Destroyer of the Crystal Fields",
-        "FolderDE": "Zerstˆrer der Kristallfelder",
+        "FolderDE": "Zerst√∂rer der Kristallfelder",
         "EiName": "Destroyer of the Crystal Fields",
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 1,
@@ -853,7 +853,7 @@
         "NameEN": "Gendarran Fields",
         "NameDE": "Gendarran-Felder",
         "FolderEN": "Destroyer of the Great Bridge",
-        "FolderDE": "Zerstˆrer der Groﬂen Br¸cke",
+        "FolderDE": "Zerst√∂rer der Gro√üen Br√ºcke",
         "EiName": "Destroyer of the Great Bridge",
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 1,
@@ -866,7 +866,7 @@
         "NameEN": "Ebonhawk",
         "NameDE": "Ebonfalke",
         "FolderEN": "Destroyer of the Third Fortress",
-        "FolderDE": "Zerstˆrer der dritten Festung",
+        "FolderDE": "Zerst√∂rer der dritten Festung",
         "EiName": "Destroyer of the Third Fortress",
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 1,
@@ -879,7 +879,7 @@
         "NameEN": "Thunderhead Peaks",
         "NameDE": "Donnerkopf Gipfel",
         "FolderEN": "Destroyer of the Last Forge",
-        "FolderDE": "Zerstˆrer der letzten Schmiede",
+        "FolderDE": "Zerst√∂rer der letzten Schmiede",
         "EiName": "Destroyer of the Last Forge",
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 1,
@@ -903,9 +903,9 @@
       {
         "ID": 23414,
         "NameEN": "Snowdendrifts",
-        "NameDE": "Schneekulenhˆlen",
+        "NameDE": "Schneekulenh√∂len",
         "FolderEN": "Ryland Steelcatcher",
-        "FolderDE": "Ryland Stahlf‰nger",
+        "FolderDE": "Ryland Stahlf√§nger",
         "EiName": "Ryland Steelcatcher",
         "GameAreaName": "DragonResponseMissions",
         "GameAreaID": 2,
@@ -929,7 +929,7 @@
       {
         "ID": 23298,
         "NameEN": "Bloodtide Coast",
-        "NameDE": "Blutstrom-K¸ste",
+        "NameDE": "Blutstrom-K√ºste",
         "FolderEN": "Tribune Splitwall",
         "FolderDE": "Tribun Mauerspalter",
         "EiName": "Tribun Spaltwand",
@@ -942,7 +942,7 @@
       {
         "ID": 23432,
         "NameEN": "Fireheart Rise",
-        "NameDE": "Feuerherzh¸gel",
+        "NameDE": "Feuerherzh√ºgel",
         "FolderEN": "Tribune Splitgold",
         "FolderDE": "Tribun Spaltgold",
         "EiName": "Tribun Splitgold",
@@ -1150,9 +1150,9 @@
       {
         "ID": 16202,
         "NameEN": "Massive Kitty Golem",
-        "NameDE": "Massiver K‰tzchen-Golem",
+        "NameDE": "Massiver K√§tzchen-Golem",
         "FolderEN": "Massive Kitty Golem",
-        "FolderDE": "Massiver K‰tzchen-Golem",
+        "FolderDE": "Massiver K√§tzchen-Golem",
         "EiName": "Massive Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
@@ -1163,9 +1163,9 @@
       {
         "ID": 16177,
         "NameEN": "Average Kitty Golem",
-        "NameDE": "Durchschnittlicher K‰tzchen-Golem",
+        "NameDE": "Durchschnittlicher K√§tzchen-Golem",
         "FolderEN": "Average Kitty Golem",
-        "FolderDE": "Durchschnittlicher K‰tzchen-Golem",
+        "FolderDE": "Durchschnittlicher K√§tzchen-Golem",
         "EiName": "Average Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
@@ -1176,9 +1176,9 @@
       {
         "ID": 19676,
         "NameEN": "Large Kitty Golem",
-        "NameDE": "Groﬂer K‰tzchen-Golem",
+        "NameDE": "Gro√üer K√§tzchen-Golem",
         "FolderEN": "Large Kitty Golem",
-        "FolderDE": "Groﬂer K‰tzchen-Golem",
+        "FolderDE": "Gro√üer K√§tzchen-Golem",
         "EiName": "Large Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
@@ -1189,9 +1189,9 @@
       {
         "ID": 19645,
         "NameEN": "Medium Kitty Golem",
-        "NameDE": "Mittlerer K‰tzchen-Golem",
+        "NameDE": "Mittlerer K√§tzchen-Golem",
         "FolderEN": "Medium Kitty Golem",
-        "FolderDE": "Mittlerer K‰tzchen-Golem",
+        "FolderDE": "Mittlerer K√§tzchen-Golem",
         "EiName": "Medium Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
@@ -1202,9 +1202,9 @@
       {
         "ID": 16199,
         "NameEN": "Standard Kitty Golem",
-        "NameDE": "Standard-K‰tzchen-Golem",
+        "NameDE": "Standard-K√§tzchen-Golem",
         "FolderEN": "Standard Kitty Golem",
-        "FolderDE": "Standard-K‰tzchen-Golem",
+        "FolderDE": "Standard-K√§tzchen-Golem",
         "EiName": "Standard Kitty Golem",
         "GameAreaName": "Training",
         "GameAreaID": 1,
@@ -1561,7 +1561,7 @@
       {
         "ID": 16221,
         "NameEN": "White Mantle Battle Mage",
-        "NameDE": "Weiﬂer Mantel Kampfmagier",
+        "NameDE": "Wei√üer Mantel Kampfmagier",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "Intresting": false
@@ -1577,7 +1577,7 @@
       {
         "ID": 16226,
         "NameEN": "White Mantle Battle Mage",
-        "NameDE": "Weiﬂer Mantel Kampfmagier",
+        "NameDE": "Wei√üer Mantel Kampfmagier",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "Intresting": false
@@ -1625,7 +1625,7 @@
       {
         "ID": 16238,
         "NameEN": "White Mantle Seeker",
-        "NameDE": "Weiﬂer Mantel Sucher",
+        "NameDE": "Wei√üer Mantel Sucher",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "Intresting": false
@@ -1657,7 +1657,7 @@
       {
         "ID": 16251,
         "NameEN": "White Mantle Seeker",
-        "NameDE": "Weiﬂer Mantel Sucher",
+        "NameDE": "Wei√üer Mantel Sucher",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "Intresting": false
@@ -1729,7 +1729,7 @@
       {
         "ID": 16283,
         "NameEN": "White Mantle Seeker",
-        "NameDE": "Weiﬂer Mantel Sucher",
+        "NameDE": "Wei√üer Mantel Sucher",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "Intresting": false
@@ -1737,7 +1737,7 @@
       {
         "ID": 16287,
         "NameEN": "White Mantle Seeker",
-        "NameDE": "Weiﬂer Mantel Sucher",
+        "NameDE": "Wei√üer Mantel Sucher",
         "GameAreaName": "RaidWings",
         "GameAreaID": 4,
         "Intresting": false
@@ -2305,7 +2305,7 @@
       {
         "ID": 21150,
         "NameEN": "Greater Magma Elemental",
-        "NameDE": "Gr\u00F6ﬂerer Magma Elementar",
+        "NameDE": "Gr\u00F6√üerer Magma Elementar",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "Intresting": false
@@ -2353,7 +2353,7 @@
       {
         "ID": 21223,
         "NameEN": "Greater Magma Elemental",
-        "NameDE": "Gr\u00F6ﬂerer Magma Elementar",
+        "NameDE": "Gr\u00F6√üerer Magma Elementar",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "Intresting": false
@@ -2369,7 +2369,7 @@
       {
         "ID": 21255,
         "NameEN": "Conjured Greatsword",
-        "NameDE": "Beschworenes Groﬂschwert",
+        "NameDE": "Beschworenes Gro√üschwert",
         "GameAreaName": "RaidWings",
         "GameAreaID": 6,
         "Intresting": false
@@ -2449,7 +2449,7 @@
       {
         "ID": 21987,
         "NameEN": "Big Killer Tornado",
-        "NameDE": "Groﬂer Todes Tornado",
+        "NameDE": "Gro√üer Todes Tornado",
         "GameAreaName": "RaidWings",
         "GameAreaID": 7,
         "Intresting": false
@@ -2528,7 +2528,7 @@
       },
       {
         "ID": 23270,
-        "NameEN": "W¸tender Wasser Geist",
+        "NameEN": "W√ºtender Wasser Geist",
         "NameDE": "Enrage Water Sprite",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2536,7 +2536,7 @@
       },
       {
         "ID": 23265,
-        "NameEN": "D‰mon der Trauer",
+        "NameEN": "D√§mon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2544,7 +2544,7 @@
       },
       {
         "ID": 23242,
-        "NameEN": "D‰mon der Trauer",
+        "NameEN": "D√§mon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2552,7 +2552,7 @@
       },
       {
         "ID": 23279,
-        "NameEN": "D‰mon der Trauer",
+        "NameEN": "D√§mon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2560,7 +2560,7 @@
       },
       {
         "ID": 23245,
-        "NameEN": "D‰mon der Trauer",
+        "NameEN": "D√§mon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2568,7 +2568,7 @@
       },
       {
         "ID": 23256,
-        "NameEN": "D‰mon der Trauer",
+        "NameEN": "D√§mon der Trauer",
         "NameDE": "Sorrow Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2576,7 +2576,7 @@
       },
       {
         "ID": 23268,
-        "NameEN": "D‰mon des Zwifels",
+        "NameEN": "D√§mon des Zwifels",
         "NameDE": "Doubt Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2584,7 +2584,7 @@
       },
       {
         "ID": 23264,
-        "NameEN": "D‰mon der Furcht",
+        "NameEN": "D√§mon der Furcht",
         "NameDE": "Fear Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
@@ -2592,7 +2592,7 @@
       },
       {
         "ID": 23252,
-        "NameEN": "D‰mon der Schuld",
+        "NameEN": "D√§mon der Schuld",
         "NameDE": "Guilt Demon",
         "GameAreaName": "Fractals",
         "GameAreaID": 98,
