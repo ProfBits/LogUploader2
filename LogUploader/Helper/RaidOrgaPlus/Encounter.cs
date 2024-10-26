@@ -229,8 +229,6 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 switch (professionEnum)
                 {
-                    case eProfession.Berserker:
-                    case eProfession.Catalyst:
                     case eProfession.Harbinger:
                     case eProfession.Untamed:
                     case eProfession.Deadeye:
@@ -239,12 +237,13 @@ namespace LogUploader.Helper.RaidOrgaPlus
                             SimpleDpsClassPredictor
                             );
                     case eProfession.Mirage:
-                    case eProfession.Willbender:
                     case eProfession.Bladesworn:
                         return CombinedPredictor(
                             SimpleAlacPredictor,
                             SimpleDpsClassPredictor
                             );
+                    case eProfession.Catalyst:
+                    case eProfession.Berserker:
                     case eProfession.Herald:
                     case eProfession.Scrapper:
                     case eProfession.Firebrand:
@@ -258,6 +257,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Mechanist:
                     case eProfession.Scourge:
                     case eProfession.Specter:
+                    case eProfession.Willbender:
                         return CombinedPredictor(
                             SimpleAlacPredictor,
                             SimpleHealOrDpsPredictor
@@ -266,7 +266,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                         return CombinedPredictor(
                             SimpleAlacPredictor,
                             SimpleQuicknessPredictor,
-                            SimpleDpsClassPredictor
+                            SimpleHealOrDpsPredictor
                             );
                     case eProfession.Thief:
                     case eProfession.Daredevil:

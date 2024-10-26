@@ -61,33 +61,43 @@ namespace LogUploader.Helper
 
         public static async Task<Version> UpdateNewestVersion(IProxySettings settings, IProgress<double> progress = null)
         {
-            string res = null;
-            progress?.Report(0);
-            var httpClient = GetHttpClient(settings);
             try
             {
-                res = await httpClient.GetStringAsync(GitHubApiLink);
-            }
-            catch (HttpRequestException e)
-            {
-                Logger.Error("Faild to update EI-Version");
-                Logger.LogException(e);
-                Logger.LogException(e.InnerException);
-                NewestVersion = new Version(0, 0, 0, 0);
-                res = null;
-            }
+                string res = null;
+                progress?.Report(0);
+                var httpClient = GetHttpClient(settings);
+                try
+                {
+                    res = await httpClient.GetStringAsync(GitHubApiLink);
+                }
+                catch (HttpRequestException e)
+                {
+                    Logger.Error("Failed to update EI-Version: HttpRequestException");
+                    Logger.LogException(e);
+                    Logger.LogException(e.InnerException);
+                    NewestVersion = new Version(0, 0, 0, 0);
+                    return NewestVersion;
+                }
 
-            if (res == null) return NewestVersion;
-            progress?.Report(0.5);
-            var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
-            DownloadURLCache = GetDownloadURL(jsonData);
-            var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V');
-            progress?.Report(0.9);
-            NewestVersion = new Version(tag);
+                progress?.Report(0.5);
+                var jsonData = Newtonsoft.Json.Linq.JObject.Parse(res);
+                DownloadURLCache = GetDownloadURL(jsonData);
+                var tag = ((string)jsonData["tag_name"]).TrimStart('v', 'V', '.', ' ');
+                progress?.Report(0.9);
+                NewestVersion = new Version(tag);
+                return NewestVersion;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Failed to update EI-Version: {ex.GetType().Name}");
+                Logger.LogException(ex);
+                Logger.LogException(ex.InnerException);
+            }
+            NewestVersion = new Version(0, 0, 0, 0);
             return NewestVersion;
         }
 
-        public static bool UpdateAviable()
+        public static bool UpdateAvailable()
         {
             return NewestVersion > LocalVersion;
         }
@@ -98,7 +108,7 @@ namespace LogUploader.Helper
         }
 
         /// <summary>
-        /// Updates Ei to the newest verion available
+        /// Updates Ei to the newest version available
         /// </summary>
         /// <param name="settings">the proxy settings</param>
         /// <param name="progress">the progress callback</param>

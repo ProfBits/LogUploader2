@@ -1,4 +1,14 @@
+# v1.3.22
+
 # v1.3.21
+26.10.24
+
+## Improvements
+- Update role detection to autumn 2024 balance
+- Add Spirit Woods encounter detection
+
+## Bugfixes
+- Fix unhanded exception during startup related to EI version checking
 
 # v1.3.20
 21.06.24

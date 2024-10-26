@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using LogUploader.Helper;
+using System.Runtime.Remoting.Messaging;
 
 namespace LogUploader.Data
 {
@@ -246,6 +247,11 @@ namespace LogUploader.Data
                     var healthLtCD = (cerus?.totalHealth ?? 5247611) + (deimos?.totalHealth ?? 5247611);
                     var remainingLtCD = (cerus?.finalHealth ?? 5247611) + (deimos?.finalHealth ?? 5247611);
                     return (float)Math.Round((double)healthLtCD / healthLtCD * 100, 2);
+                case 15415: // Spirit Woods
+                    var barriers = data.Where(target => target.id == -61).ToArray();
+                    var healthSpiritWoods = barriers.Sum(barrier => barrier.totalHealth) + ((4 - barriers.Length) * (barriers.FirstOrDefault()?.totalHealth ?? 1494000));
+                    var remainingSpiritWoods = barriers.Sum(barrier => barrier.finalHealth) + ((4 - barriers.Length) * (barriers.FirstOrDefault()?.totalHealth ?? 1494000));
+                    return (float)Math.Round((double)remainingSpiritWoods / healthSpiritWoods * 100, 2);
                 default:
                     var boss = data.Where(target => target.id == BossID).FirstOrDefault();
                     if (boss is null)
