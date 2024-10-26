@@ -1,4 +1,7 @@
+# v1.3.22
+
 # v1.3.21
+26.10.24
 
 ## Improvements
 - Update role detection to autumn 2024 balance
