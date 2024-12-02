@@ -43,6 +43,12 @@
           "NameEN": "The Key of Ahdashim",
           "NameDE": "Der Schlüssel von Ahdashim",
           "AvatarURL": "https://wiki.guildwars2.com/images/2/2d/The_Key_of_Ahdashim_loading_screen.jpg"
+        },
+        {
+          "ID": 8,
+          "NameEN": "Mount Balrior",
+          "NameDE": "Berg Balrior",
+          "AvatarURL": "https://wiki.guildwars2.com/images/8/83/Mount_Balrior_loading_screen.png"
         }
       ],
       "StrikeMissions": [
@@ -561,6 +567,45 @@
         "DiscordEmote": "<:qad2:591359616189988864>",
         "AvatarURL": "https://wiki.guildwars2.com/images/8/8b/Mini_Qadim_the_Peerless.png",
         "RaidOrgaPlusID": 25
+      },
+      {
+        "ID": 26725,
+        "NameEN": "Greer",
+        "NameDE": "Greer",
+        "FolderEN": "Greer, the Blightbringer",
+        "FolderDE": "Greer",
+        "EiName": "Greer, the Blightbringer",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 8,
+        "DiscordEmote": "<:greer:1312075892419330048>",
+        "AvatarURL": "https://i.imgur.com/19lr7VM.png",
+        "RaidOrgaPlusID": 52
+      },
+      {
+        "ID": 26774,
+        "NameEN": "Decima",
+        "NameDE": "Decima",
+        "FolderEN": "Decima, the Stormsinger",
+        "FolderDE": "Decima",
+        "EiName": "Decima, the Stormsinger",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 8,
+        "DiscordEmote": "<:decima:1312075891119099924>",
+        "AvatarURL": "https://i.imgur.com/EJJRx02.png",
+        "RaidOrgaPlusID": 53
+      },
+      {
+        "ID": 26712,
+        "NameEN": "Ura",
+        "NameDE": "Ura",
+        "FolderEN": "Ura",
+        "FolderDE": "Ura",
+        "EiName": "Ura, the Steamshrieker",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 8,
+        "DiscordEmote": "<:ura:1312075893878952069>",
+        "AvatarURL": "https://i.imgur.com/hUdfF7h.png",
+        "RaidOrgaPlusID": 54
       },
       {
         "ID": 22154,
