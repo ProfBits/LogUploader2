@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using LogUploader.Properties;
 using System.IO.Compression;
 using System.Reflection;
-using System.Net;
 using LogUploader.Data.Settings;
 using Extensiones.HTTPClient;
 using System.Threading;
@@ -27,12 +24,14 @@ namespace LogUploader.Helper
         private const string GitHubApiLink = @"https://api.github.com/repos/baaron4/GW2-Elite-Insights-Parser/releases/latest";
         private const string USER_AGENT = "LogUploader";
         private const string ZIP_NAME = "NewEI.zip";
+        private const string EI_EXECUTABLE = "GuildWars2EliteInsights-CLI.exe";
 
         public static string LogsPath { get => BASE_PATH + LOGS; }
         private static string TempPath { get => BASE_PATH + TEMP_FOLDER; }
         private static string TempOldPath { get => BASE_PATH + TEMP_OLD_FOLDER; }
         private static string BinPath { get => BASE_PATH + BIN; }
         private static string ZipFilePath { get => BASE_PATH + ZIP_NAME; }
+        private static string EiPath { get => BASE_PATH + BIN + EI_EXECUTABLE; }
 
         private static string DownloadURLCache { get; set; } = null;
 
@@ -49,9 +48,9 @@ namespace LogUploader.Helper
 
         public static Version UpdateLocalVersion()
         {
-            if (File.Exists(BASE_PATH + BIN + "GuildWars2EliteInsights.exe"))
+            if (File.Exists(EiPath))
             {
-                var fi = FileVersionInfo.GetVersionInfo(BASE_PATH + BIN + "GuildWars2EliteInsights.exe");
+                var fi = FileVersionInfo.GetVersionInfo(EiPath);
                 LocalVersion = new Version(fi.ProductMajorPart, fi.ProductMinorPart, fi.ProductBuildPart, fi.ProductPrivatePart);
             }
             else
@@ -104,7 +103,7 @@ namespace LogUploader.Helper
 
         public static bool IsInstalled()
         {
-            return File.Exists(BASE_PATH + BIN + "GuildWars2EliteInsights.exe");
+            return File.Exists(EiPath);
         }
 
         /// <summary>
@@ -190,7 +189,7 @@ namespace LogUploader.Helper
             }
             catch (Exception e)
             {
-                Logger.Error("Unkown EI Update error");
+                Logger.Error("Unknown EI Update error");
                 Logger.LogException(e);
                 FolderCleanup();
                 return LocalVersion;
@@ -220,7 +219,7 @@ namespace LogUploader.Helper
         private static string GetDownloadURL(Newtonsoft.Json.Linq.JObject jsonData)
         {
             return jsonData["assets"]
-                .Where(json => (string)json["name"] == "GW2EI.zip")
+                .Where(json => (string)json["name"] == "GW2EICLI.zip")
                 .Select(json => (string)json["browser_download_url"])
                 .First();
         }
@@ -252,14 +251,13 @@ namespace LogUploader.Helper
                 throw new NotSupportedException($"EliteInsights version too low.\nInstalled {LocalVersion}\nMin required {new Version(2, 24)}\nPlease update EI via the settings.");
             }
 
-            string destConf = PrepearConfig();
-            //-p requiered for silent execution!!
-            var args = $"-p -c \"{destConf}\" \"{log}\"";
+            string destConf = PrepareConfig();
+            var args = $"-c \"{destConf}\" \"{log}\"";
             var psi = new ProcessStartInfo
             {
-                FileName = BASE_PATH + BIN + "GuildWars2EliteInsights.exe",
+                FileName = EiPath,
                 WorkingDirectory = BinPath,
-                CreateNoWindow = false,
+                CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -304,7 +302,7 @@ namespace LogUploader.Helper
             return lines;
         }
 
-        private static string PrepearConfig()
+        private static string PrepareConfig()
         {
             var defaultConf = $"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\Data\EIconf.conf"}";
             var destConf = BASE_PATH + "EIconf.conf";

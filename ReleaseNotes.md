@@ -1,4 +1,13 @@
+# v1.3.23
+
 # v1.3.22
+02.12.24
+
+## Features
+- Add support for Wing 8 - Mount Balrior
+
+## Bugfixes
+- Fix local log parsing for EI 3.0.0 and onward
 
 # v1.3.21
 26.10.24
