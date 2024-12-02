@@ -1,4 +1,7 @@
+# v1.3.23
+
 # v1.3.22
+02.12.24
 
 ## Features
 - Add support for Wing 8 - Mount Balrior
