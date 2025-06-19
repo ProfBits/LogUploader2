@@ -244,10 +244,12 @@ namespace LogUploader.Helper
         {
             if (!IsInstalled())
             {
+                Logger.Warn("Cannot parse no EliteInsights installation present.");
                 throw new OperationCanceledException("Can't parse log locally: No EliteInsights installation present!");
             }
             if (LocalVersion < new Version(2, 24))
             {
+                Logger.Warn($"Cannot parse, EliteInsights installation outdated. Installed version: {LocalVersion}");
                 throw new NotSupportedException($"EliteInsights version too low.\nInstalled {LocalVersion}\nMin required {new Version(2, 24)}\nPlease update EI via the settings.");
             }
 
@@ -272,12 +274,26 @@ namespace LogUploader.Helper
             {
                 p.StartInfo = psi;
 
+                Logger.Message("Starting EliteInsights. Args: {args}");
                 p.Start();
                 p.WaitForExit();
 
                 stdOut = ReadLinesFromStream(p.StandardOutput);
-                //TODO proper error handling
-                //stdErr = ReadLinesFromStream(p.StandardError);
+                var stdErr = ReadLinesFromStream(p.StandardError);
+                if (stdErr.Count == 0)
+                {
+                    Logger.Debug("EliteInsights Output:");
+                    Logger.Debug(string.Join("\n", stdOut));
+                    Logger.Error("EliteInsights Errors:");
+                    Logger.Error(string.Join("\n", stdErr));
+                }
+                else
+                {
+                    Logger.Warn("EliteInsights Output:");
+                    Logger.Warn(string.Join("\n", stdOut));
+                    Logger.Error("EliteInsights Errors:");
+                    Logger.Error(string.Join("\n", stdErr));
+                }
             }
 
             return GetGeneratedFiles(stdOut);

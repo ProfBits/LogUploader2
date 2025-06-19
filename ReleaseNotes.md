@@ -1,5 +1,8 @@
 # v1.3.23
 
+## Improvements
+- Add additional logging messages to better diagnose errors when parsing logs
+
 # v1.3.22
 02.12.24
 
