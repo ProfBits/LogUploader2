@@ -9,11 +9,11 @@ namespace LogUploader.Data.Licenses
     class LogUploaderLicense : ISoftwareLicense
     {
         public string Product { get => "LogUploader"; }
-        public string Owner { get => "© ProfBits 2019 - 2024"; }
+        public string Owner { get => "© ProfBits 2019 - 2025"; }
         public string Type { get => "MIT"; }
         public string Text { get => @"MIT License
 
-Copyright (c) 2019 - 2024 ProfBits
+Copyright (c) 2019 - 2025 ProfBits
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the ""Software""), to deal
