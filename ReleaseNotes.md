@@ -1,4 +1,6 @@
 # v1.3.23
+## Features
+- Add initial support for Visions of Eternity Elite specializations
 
 ## Improvements
 - Add additional logging messages to better diagnose errors when parsing logs

@@ -74,7 +74,17 @@ namespace LogUploader
         Specter = 33,
         Catalyst = 34,
         Virtuoso = 35,
-        Harbinger = 36
+        Harbinger = 36,
+
+        Paragon = 37,
+        Luminary = 38,
+        Conduit = 39,
+        Amalgam = 40,
+        Galeshot = 41,
+        Antiquary = 42,
+        Evoker = 43,
+        Troubadour = 44,
+        Ritualist = 45
     }
     public enum eBosses : int
     {
