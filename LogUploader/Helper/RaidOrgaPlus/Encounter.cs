@@ -367,6 +367,12 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 switch (encounter)
                 {
+                    case eBosses.Decima:
+                    case eBosses.DecimaCM:
+                        return CombinedCorrector(
+                            DecimaArrowKite,
+                            RoleReduce
+                            );
                     case eBosses.Qadim:
                         return CombinedCorrector(
                             ThoughnessTankCorrector,
@@ -552,6 +558,11 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 {
                     lamps.First().player.Roles.Add(Role.Special);
                 }
+            }
+
+            private static void DecimaArrowKite(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+
             }
 
             private static void RoleReduce(IEnumerable<(RoPlusPlayer player, int pos)> players)

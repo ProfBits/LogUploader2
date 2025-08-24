@@ -3,6 +3,7 @@
 - Add initial support for Visions of Eternity Elite specializations
 
 ## Improvements
+- Improved remaining health detection for Greer, Largos and Aetherblade Hideout
 - Add additional logging messages to better diagnose errors when parsing logs
 
 # v1.3.22

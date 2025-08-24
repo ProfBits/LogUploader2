@@ -121,6 +121,11 @@ namespace LogUploader
         Adina = 22006,
         Sabir = 21964,
         PeerlessQadim = 22000,
+        Greer = 26725,
+        Decima = 26774,
+        DecimaCM = 26867,
+        Ura = 26712,
+
         Freezie = 21333,
         // Strike Missions
         IcebroodConstruct = 22154,

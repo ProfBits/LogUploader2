@@ -595,6 +595,19 @@
         "RaidOrgaPlusID": 53
       },
       {
+        "ID": 26867,
+        "NameEN": "Decima",
+        "NameDE": "Decima",
+        "FolderEN": "Decima, the Stormsinger",
+        "FolderDE": "Decima",
+        "EiName": "Decima, the Stormsinger",
+        "GameAreaName": "RaidWings",
+        "GameAreaID": 8,
+        "DiscordEmote": "<:decima:1312075891119099924>",
+        "AvatarURL": "https://i.imgur.com/EJJRx02.png",
+        "RaidOrgaPlusID": 53
+      },
+      {
         "ID": 26712,
         "NameEN": "Ura",
         "NameDE": "Ura",
