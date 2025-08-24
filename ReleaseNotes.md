@@ -1,5 +1,6 @@
 # v1.3.23
 ## Features
+- Add support for Kinfall Fractal
 - Add initial support for Visions of Eternity Elite specializations
 
 ## Improvements

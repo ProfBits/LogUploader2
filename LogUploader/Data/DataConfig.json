@@ -79,6 +79,12 @@
       ],
       "Fractals": [
         {
+          "Level": 95,
+          "NameEN": "Kinfall Fractal",
+          "NameDE": "Sippenfall",
+          "AvatarURL": "https://wiki.guildwars2.com/images/9/93/Fractals_of_the_Mists_loading_screen.jpg"
+        },
+        {
           "Level": 96,
           "NameEN": "Nightmare Factal",
           "NameDE": "Albtraum Fraktal",
@@ -1216,6 +1222,19 @@
         "GameAreaID": 100,
         "DiscordEmote": ":meat_on_bone:",
         "AvatarURL": "https://wiki.guildwars2.com/images/5/5a/Mini_Eparch.png",
+        "RaidOrgaPlusID": -1
+      },
+      {
+        "ID": 27010,
+        "NameEN": "Whispering Shadow",
+        "NameDE": "Flüsternden Schatten",
+        "FolderEN": "Whispering Shadow",
+        "FolderDE": "Flüsternden Schatten",
+        "EiName": "Whispering Shadow",
+        "GameAreaName": "Fractals",
+        "GameAreaID": 95,
+        "DiscordEmote": ":ice_cube:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/a/af/Legendary_Whispering_Shadow.jpg",
         "RaidOrgaPlusID": -1
       },
       {

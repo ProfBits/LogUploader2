@@ -148,6 +148,7 @@ namespace LogUploader
         Skorvald = 17632,
         Artsariiv = 17949,
         Arkk = 17759,
+        WhisperingShadow = 27010,
         // Golems
         MassiveGolem = 16202,
         AvgGolem = 16177,
