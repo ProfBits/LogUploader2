@@ -1,4 +1,6 @@
 # v1.3.24
+## Improvements
+- Update year of copyright notice to 2025
 
 # v1.3.23
 24.08.25
