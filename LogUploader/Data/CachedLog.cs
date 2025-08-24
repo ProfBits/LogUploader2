@@ -1,12 +1,10 @@
-﻿using LogUploader.Languages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using LogUploader.Helper;
-using System.Runtime.Remoting.Messaging;
 
 namespace LogUploader.Data
 {
@@ -129,7 +127,22 @@ namespace LogUploader.Data
             }
         }
 
-        private float GetRemainingHealth(JArray list, int bossID)
+        private float GetRemainingHealth(JObject data, bool isCm)
+        {
+            float health;
+            if (BossID == Boss.Get(eBosses.Desmina).ID)
+                health = Succsess ? 0 : 100;
+            else if (BossID == Boss.Get(eBosses.TheDragonvoid).ID)
+                health = Succsess ? 0 : GetRemainingHealth((JArray)data["targets"], BossID);
+            else
+                health = GetRemainingHealth((JArray)data["targets"], BossID, isCm);
+            
+            if (!(0 <= health && health <= 100))
+                health = Succsess ? 0 : 100;
+            return health;
+        }
+
+        private float GetRemainingHealth(JArray list, int bossID, bool isCm = false)
         {
             var data = list.Select(target => new
             {
@@ -140,7 +153,17 @@ namespace LogUploader.Data
 
             switch (bossID)
             {
-
+                case 26725: //Greer
+                case 26742: //Reeg
+                case 26771: //Gree
+                case 26859: //Ereg
+                    var greer = data.Where(target => target.id == 26725).FirstOrDefault();
+                    var reeg = data.Where(target => target.id == 26742).FirstOrDefault();
+                    var gree = data.Where(target => target.id == 26771).FirstOrDefault();
+                    var ereg = data.Where(target => target.id == 26859).FirstOrDefault();
+                    var healthGreer = (greer?.totalHealth ?? 47188800) + (reeg?.totalHealth ?? 23594400) + (gree?.totalHealth ?? 23594400) + (!isCm ? 0 : (ereg?.totalHealth ?? 23594400));
+                    var remainingGreer = (greer?.finalHealth ?? 47188800) + (reeg?.finalHealth ?? 23594400) + (gree?.finalHealth ?? 23594400) + (!isCm ? 0 : (ereg?.finalHealth ?? 23594400));
+                    return (float)Math.Round((double)remainingGreer / healthGreer * 100, 2);
                 case 16088: //Trio
                 case 16137:
                 case 16125:
@@ -161,8 +184,8 @@ namespace LogUploader.Data
                 case 21089:
                     var Nikare = data.Where(target => target.id == 21105).FirstOrDefault();
                     var Kenut = data.Where(target => target.id == 21089).FirstOrDefault();
-                    var healthLargos = (Nikare?.totalHealth ?? 17548336) + (Kenut?.totalHealth ?? 15877066);
-                    var remainingLargos = (Nikare?.finalHealth ?? 17548336) + (Kenut?.finalHealth ?? 15877066);
+                    var healthLargos = (Nikare?.totalHealth ?? (!isCm ? 17548336 : 19219604)) + (Kenut?.totalHealth ?? (!isCm ? 15877066 : 17548336));
+                    var remainingLargos = (Nikare?.finalHealth ?? (!isCm ? 17548336 : 19219604)) + (Kenut?.finalHealth ?? (!isCm ? 15877066 : 17548336));
                     return (float)Math.Round((double)remainingLargos / healthLargos * 100, 2);
                 case 16247: //TwistedCastle
                     return 0;
@@ -175,8 +198,8 @@ namespace LogUploader.Data
                 case 24033: //Aetherblade Hideout
                     var maiTrin = data.Where(target => target.id == 24033).FirstOrDefault();
                     var scalet = data.Where(target => target.id == 24768).FirstOrDefault();
-                    var healthHideout = (maiTrin?.totalHealth) ?? 5898600 + (scalet?.totalHealth ?? 17695800);
-                    var remainingHideout = (maiTrin?.finalHealth) ?? 5898600 + (scalet?.finalHealth ?? 17695800);
+                    var healthHideout = (maiTrin?.totalHealth) ?? (!isCm ? 5898600 : 8898600) + (scalet?.totalHealth ?? (!isCm ? 17695800 : 40082400));
+                    var remainingHideout = (maiTrin?.finalHealth) ?? (!isCm ? 5898600 : 8898600) + (scalet?.finalHealth ?? (!isCm ? 17695800 : 40082400));
                     return (float)Math.Round((double)remainingHideout / healthHideout * 100, 2);
                 case 24485: //Minister Li
                     var Li = data.Where(target => target.id == 24485).FirstOrDefault();
@@ -309,15 +332,8 @@ namespace LogUploader.Data
             DataCorrected = true;
             Duration = GetDuration((string)data["duration"]);
             Succsess = (bool)data["success"];
-            if (BossID == Boss.Get(eBosses.Desmina).ID)
-                RemainingHealth = Succsess ? 0 : 100;
-            else if (BossID == Boss.Get(eBosses.TheDragonvoid).ID)
-                RemainingHealth = Succsess ? 0 : GetRemainingHealth((JArray)data["targets"], BossID);
-            else
-                RemainingHealth = GetRemainingHealth((JArray)data["targets"], BossID);
-            if (!(0 <= RemainingHealth && RemainingHealth <= 100))
-                RemainingHealth = Succsess ? 0 : 100;
             IsCM = (bool)data["isCM"];
+            RemainingHealth = GetRemainingHealth(data, IsCM);
             ApplySimpleLog(new SimpleLogJson(data));
         }
 

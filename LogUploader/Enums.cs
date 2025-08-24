@@ -74,7 +74,17 @@ namespace LogUploader
         Specter = 33,
         Catalyst = 34,
         Virtuoso = 35,
-        Harbinger = 36
+        Harbinger = 36,
+
+        Paragon = 37,
+        Luminary = 38,
+        Conduit = 39,
+        Amalgam = 40,
+        Galeshot = 41,
+        Antiquary = 42,
+        Evoker = 43,
+        Troubadour = 44,
+        Ritualist = 45
     }
     public enum eBosses : int
     {
@@ -111,6 +121,11 @@ namespace LogUploader
         Adina = 22006,
         Sabir = 21964,
         PeerlessQadim = 22000,
+        Greer = 26725,
+        Decima = 26774,
+        DecimaCM = 26867,
+        Ura = 26712,
+
         Freezie = 21333,
         // Strike Missions
         IcebroodConstruct = 22154,
@@ -133,6 +148,14 @@ namespace LogUploader
         Skorvald = 17632,
         Artsariiv = 17949,
         Arkk = 17759,
+        AiKeeperOfThePeak = 23254,
+        AiKeeperOfThePeak2 = -8,
+        KanaxaiScytheOfHouseAurkusNM = 25572,
+        KanaxaiScytheOfHouseAurkusCM = 25577,
+        CerusLonelyTower = 26257,
+        DeimosLonelyTower = 26226,
+        EparchLonelyTower = 26231,
+        WhisperingShadow = 27010,
         // Golems
         MassiveGolem = 16202,
         AvgGolem = 16177,

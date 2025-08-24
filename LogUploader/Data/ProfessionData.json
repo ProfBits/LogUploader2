@@ -41,12 +41,20 @@
       "RaidOrgaPlusID": 35
     },
     {
+      "ID": 38,
+      "NameEN": "Luminary",
+      "NameDE": "Lichtgestalt",
+      "IconPath": "\\images\\Professions\\Luminary.png",
+      "Emote": "<:gdn:484839339474288650>",
+      "RaidOrgaPlusID": 35
+    },
+    {
       "ID": 3,
       "NameEN": "Revenant",
       "NameDE": "Widergänger",
       "IconPath": "\\images\\Professions\\Revenant.png",
       "Emote": "<:rev:484839906170896437>",
-      "RaidOrgaPlusID": 9
+      "RaidOrgaPlusID": 8
     },
     {
       "ID": 12,
@@ -71,6 +79,14 @@
       "IconPath": "\\images\\Professions\\Vindicator.png",
       "Emote": "<:vin:950460219807375390>",
       "RaidOrgaPlusID": 36
+    },
+    {
+      "ID": 39,
+      "NameEN": "Conduit",
+      "NameDE": "Medium",
+      "IconPath": "\\images\\Professions\\Conduit.png",
+      "Emote": "<:rev:484839906170896437>",
+      "RaidOrgaPlusID": 8
     },
     {
       "ID": 1,
@@ -105,6 +121,14 @@
       "RaidOrgaPlusID": 34
     },
     {
+      "ID": 37,
+      "NameEN": "Paragon",
+      "NameDE": "Paragon",
+      "IconPath": "\\images\\Professions\\Paragon.png",
+      "Emote": "<:war:484840192834797569>",
+      "RaidOrgaPlusID": 7
+    },
+    {
       "ID": 4,
       "NameEN": "Engineer",
       "NameDE": "Ingenieur",
@@ -135,6 +159,14 @@
       "IconPath": "\\images\\Professions\\Mechanist.png",
       "Emote": "<:mec:950460059895349258>",
       "RaidOrgaPlusID": 32
+    },
+    {
+      "ID": 40,
+      "NameEN": "Amalgam",
+      "NameDE": "Amalgam",
+      "IconPath": "\\images\\Professions\\Amalgam.png",
+      "Emote": "<:eng:484839253830926337>",
+      "RaidOrgaPlusID": 5
     },
     {
       "ID": 5,
@@ -169,6 +201,14 @@
       "RaidOrgaPlusID": 31
     },
     {
+      "ID": 41,
+      "NameEN": "Galeshot",
+      "NameDE": "Orkanschütze",
+      "IconPath": "\\images\\Professions\\Galeshot.png",
+      "Emote": "<:rgr:484839548971646976>",
+      "RaidOrgaPlusID": 4
+    },
+    {
       "ID": 6,
       "NameEN": "Thief",
       "NameDE": "Dieb",
@@ -199,6 +239,14 @@
       "IconPath": "\\images\\Professions\\Specter.png",
       "Emote": "<:spc:950460170176167936>",
       "RaidOrgaPlusID": 33
+    },
+    {
+      "ID": 42,
+      "NameEN": "Antiquary",
+      "NameDE": "Antiquar",
+      "IconPath": "\\images\\Professions\\Antiquary.png",
+      "Emote": "<:thf:484840156290088962>",
+      "RaidOrgaPlusID": 6
     },
     {
       "ID": 7,
@@ -233,6 +281,14 @@
       "RaidOrgaPlusID": 28
     },
     {
+      "ID": 43,
+      "NameEN": "Evoker",
+      "NameDE": "Beschwörer",
+      "IconPath": "\\images\\Professions\\Evoker.png",
+      "Emote": "<:ele:484839211388764162>",
+      "RaidOrgaPlusID": 1
+    },
+    {
       "ID": 8,
       "NameEN": "Mesmer",
       "NameDE": "Mesmer",
@@ -265,6 +321,14 @@
       "RaidOrgaPlusID": 29
     },
     {
+      "ID": 44,
+      "NameEN": "Troubadour",
+      "NameDE": "Troubadour",
+      "IconPath": "\\images\\Professions\\Troubadour.png",
+      "Emote": "<:mes:484839435578507295>",
+      "RaidOrgaPlusID": 2
+    },
+    {
       "ID": 9,
       "NameEN": "Necromancer",
       "NameDE": "Nekromant",
@@ -295,6 +359,14 @@
       "IconPath": "\\images\\Professions\\Harbinger.png",
       "Emote": "<:har:950460026043117628>",
       "RaidOrgaPlusID": 30
+    },
+    {
+      "ID": 45,
+      "NameEN": "Ritualist",
+      "NameDE": "Ritualist",
+      "IconPath": "\\images\\Professions\\Ritualist.png",
+      "Emote": "<:nec:484839499478597642>",
+      "RaidOrgaPlusID": 3
     }
   ]
 }

@@ -1,4 +1,15 @@
+# v1.3.24
+
 # v1.3.23
+24.08.25
+
+## Features
+- Add support for Kinfall Fractal
+- Add initial support for Visions of Eternity Elite specializations
+
+## Improvements
+- Improved remaining health detection for Greer, Largos and Aetherblade Hideout
+- Add additional logging messages to better diagnose errors when parsing logs
 
 # v1.3.22
 02.12.24

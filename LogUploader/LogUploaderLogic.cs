@@ -392,15 +392,21 @@ namespace LogUploader
         }
         private CachedLog ParseJob(CachedLog log)
         {
+            Logger.Message($"Parse log: {log.EvtcPath}");
             var localDataVersion = CacheLog(log.ID).DataVersion;
             if (!string.IsNullOrEmpty(log.HtmlPath) && localDataVersion >= CachedLog.CurrentDataVersion)
+            {
+                Logger.Message($"Parse log: Skipping, already parsed.");
                 return log;
+            }
             if (string.IsNullOrEmpty(log.EvtcPath) || !File.Exists(log.EvtcPath))
             {
+                Logger.Message($"Parse log: Log missing, updating log in db and aborting.");
                 UpdateFilePaths(log);
                 return log;
             }
             var res = EliteInsights.Parse(log.EvtcPath);
+            Logger.Message($"Parse log: Results\n{string.Join("\n", res)}");
             var html = res.Where(path => path.EndsWith(".html")).FirstOrDefault();
             var json = res.Where(path => path.EndsWith(".json")).FirstOrDefault();
             //Maybe Add corrupted flag if no output is generated

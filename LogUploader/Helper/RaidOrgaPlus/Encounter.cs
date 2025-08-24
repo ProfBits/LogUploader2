@@ -232,6 +232,8 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Harbinger:
                     case eProfession.Untamed:
                     case eProfession.Deadeye:
+                    case eProfession.Evoker:
+                    case eProfession.Galeshot:
                         return CombinedPredictor(
                             SimpleQuicknessPredictor,
                             SimpleDpsClassPredictor
@@ -247,6 +249,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Herald:
                     case eProfession.Scrapper:
                     case eProfession.Firebrand:
+                    case eProfession.Ritualist:
                         return CombinedPredictor(
                             SimpleQuicknessPredictor,
                             SimpleHealOrDpsPredictor
@@ -258,6 +261,9 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Scourge:
                     case eProfession.Specter:
                     case eProfession.Willbender:
+                    case eProfession.Troubadour:
+                    case eProfession.Luminary:
+                    case eProfession.Paragon:
                         return CombinedPredictor(
                             SimpleAlacPredictor,
                             SimpleHealOrDpsPredictor
@@ -277,9 +283,11 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Virtuoso:
                     case eProfession.Engineer:
                     case eProfession.Holosmith:
+                    case eProfession.Amalgam:
                     case eProfession.Ranger:
                     case eProfession.Soulbeast:
                     case eProfession.Revenant:
+                    case eProfession.Conduit:
                     case eProfession.Guardian:
                     case eProfession.Dragonhunter:
                     case eProfession.Vindicator:
@@ -287,6 +295,7 @@ namespace LogUploader.Helper.RaidOrgaPlus
                     case eProfession.Weaver:
                     case eProfession.Warrior:
                     case eProfession.Spellbreaker:
+                    case eProfession.Antiquary:
                     case eProfession.Unknown:
                     default:
                         return SimpleDpsClassPredictor;
@@ -358,6 +367,12 @@ namespace LogUploader.Helper.RaidOrgaPlus
             {
                 switch (encounter)
                 {
+                    case eBosses.Decima:
+                    case eBosses.DecimaCM:
+                        return CombinedCorrector(
+                            DecimaArrowKite,
+                            RoleReduce
+                            );
                     case eBosses.Qadim:
                         return CombinedCorrector(
                             ThoughnessTankCorrector,
@@ -543,6 +558,11 @@ namespace LogUploader.Helper.RaidOrgaPlus
                 {
                     lamps.First().player.Roles.Add(Role.Special);
                 }
+            }
+
+            private static void DecimaArrowKite(IEnumerable<(RoPlusPlayer player, int pos)> players)
+            {
+
             }
 
             private static void RoleReduce(IEnumerable<(RoPlusPlayer player, int pos)> players)
