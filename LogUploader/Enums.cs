@@ -148,6 +148,13 @@ namespace LogUploader
         Skorvald = 17632,
         Artsariiv = 17949,
         Arkk = 17759,
+        AiKeeperOfThePeak = 23254,
+        AiKeeperOfThePeak2 = -8,
+        KanaxaiScytheOfHouseAurkusNM = 25572,
+        KanaxaiScytheOfHouseAurkusCM = 25577,
+        CerusLonelyTower = 26257,
+        DeimosLonelyTower = 26226,
+        EparchLonelyTower = 26231,
         WhisperingShadow = 27010,
         // Golems
         MassiveGolem = 16202,
