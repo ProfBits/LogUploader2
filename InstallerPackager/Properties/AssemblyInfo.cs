@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bits Inc.")]
 [assembly: AssemblyProduct("LogUploader Installer Package")]
-[assembly: AssemblyCopyright("Copyright © ProfBits 2021 - 2024")]
+[assembly: AssemblyCopyright("Copyright © ProfBits 2021 - 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

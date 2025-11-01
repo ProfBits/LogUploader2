@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1B1A648FB9647A809B7AB07F258EBEEE"
-        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1C372724C400B06122FAB56432C0BE17"
         "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
         "MsmSig" = "8:_UNDEFINED"
@@ -45,12 +39,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_55A637E3DECC29B9DABFB2CE8DBC18BD"
-        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_572E0E1B3E9D45AEA481EF57D67422E7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -58,6 +46,12 @@
         "Entry"
         {
         "MsmKey" = "8:_59F0F9EA8987B8BF5EB23EF00F761C58"
+        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8E7CAE4B708DBCD2A81BA5451443C2AB"
         "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -76,6 +70,12 @@
         "Entry"
         {
         "MsmKey" = "8:_BE22E2316D25310B6A219F85E7A0B3FF"
+        "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C7CABD7D48014672858D522EF7695E61"
         "OwnerKey" = "8:_5478B3399FDE4598B2B307E4402FE1AE"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -136,13 +136,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_55A637E3DECC29B9DABFB2CE8DBC18BD"
+        "OwnerKey" = "8:_C7CABD7D48014672858D522EF7695E61"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1B1A648FB9647A809B7AB07F258EBEEE"
+        "OwnerKey" = "8:_8E7CAE4B708DBCD2A81BA5451443C2AB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -372,37 +372,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1B1A648FB9647A809B7AB07F258EBEEE"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_1B1A648FB9647A809B7AB07F258EBEEE"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Newtonsoft.Json.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C372724C400B06122FAB56432C0BE17"
             {
             "AssemblyRegister" = "3:1"
@@ -496,37 +465,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_55A637E3DECC29B9DABFB2CE8DBC18BD"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.112.1, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_55A637E3DECC29B9DABFB2CE8DBC18BD"
-                    {
-                    "Name" = "8:System.Data.SQLite.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Data.SQLite.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_572E0E1B3E9D45AEA481EF57D67422E7"
             {
             "SourcePath" = "8:..\\LogUploader\\assamblies\\x86\\SQLite.Interop.dll"
@@ -561,6 +499,37 @@
                     }
                 }
             "SourcePath" = "8:CommonMark.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8E7CAE4B708DBCD2A81BA5451443C2AB"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_8E7CAE4B708DBCD2A81BA5451443C2AB"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
@@ -660,6 +629,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C7CABD7D48014672858D522EF7695E61"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C7CABD7D48014672858D522EF7695E61"
+                    {
+                    "Name" = "8:System.Data.SQLite.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Data.SQLite.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CF0299DF9CAC41DE8E050937D6AC9BE3"
             {
             "SourcePath" = "8:InstallLicense.rtf"
@@ -713,7 +713,7 @@
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\packages\\Newtonsoft.Json.13.0.1\\lib\\net45\\Newtonsoft.Json.dll"
+            "SourcePath" = "8:..\\packages\\Newtonsoft.Json.13.0.4\\lib\\net45\\Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_748D937327AF47B299A3DC5BBB98E3D6"
@@ -882,15 +882,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Log Uploader"
-        "ProductCode" = "8:{9AE93AFC-6125-4EE5-A1E1-3D6C59D647D2}"
-        "PackageCode" = "8:{7498E90D-0A6B-4F6F-AA18-0457544B36AB}"
+        "ProductCode" = "8:{2B1F1F4C-1B7E-4FA5-BBDA-79AEC186C8A3}"
+        "PackageCode" = "8:{34E30594-7EC0-4BDD-9F0C-C346011AE109}"
         "UpgradeCode" = "8:{3F3DD479-F9CF-48EE-8590-B34CEB67C1B3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.23"
+        "ProductVersion" = "8:1.3.24"
         "Manufacturer" = "8:Bits Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/ProfBits/LogUploader2"
