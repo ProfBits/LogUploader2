@@ -9,7 +9,7 @@ namespace LogUploader.Data.Licenses
     class ProfessionImagesLicense : ISoftwareLicense
     {
         public string Product { get => "Profession and specialization images"; }
-        public string Owner { get => "GW2 Wiki"; }
+        public string Owner { get => "GW2 Wiki and Contributors"; }
         public string Type { get => "GFDL 1.3"; }
         public string Text { get => @"Copyright (c) GW2 Wiki and Contributors
 All rights reserved.
