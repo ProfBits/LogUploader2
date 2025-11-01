@@ -1,6 +1,7 @@
 # v1.3.24
 ## Improvements
 - Update year of copyright notice to 2025
+- Update Visions of Eternity elite specializations icons
 
 # v1.3.23
 24.08.25
