@@ -3,6 +3,7 @@
 - Update year of copyright notice to 2025
 - Update Visions of Eternity elite specializations icons
 - Update role detection after Visions of Eternity launch
+- Update some dependencies
 
 # v1.3.23
 24.08.25
