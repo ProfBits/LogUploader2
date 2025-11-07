@@ -1,4 +1,4 @@
-{
+Ôªø{
   "Professions": [
     {
       "ID": 0,
@@ -11,7 +11,7 @@
     {
       "ID": 2,
       "NameEN": "Guardian",
-      "NameDE": "W‰chter",
+      "NameDE": "W√§chter",
       "IconPath": "\\images\\Professions\\Guardian.png",
       "Emote": "<:gdn:484839339474288650>",
       "RaidOrgaPlusID": 8
@@ -19,7 +19,7 @@
     {
       "ID": 11,
       "NameEN": "Dragonhunter",
-      "NameDE": "Drachenj‰ger",
+      "NameDE": "Drachenj√§ger",
       "IconPath": "\\images\\Professions\\Dragonhunter.png",
       "Emote": "<:dgh:484839155155599360>",
       "RaidOrgaPlusID": 17
@@ -46,12 +46,12 @@
       "NameDE": "Lichtgestalt",
       "IconPath": "\\images\\Professions\\Luminary.png",
       "Emote": "<:gdn:484839339474288650>",
-      "RaidOrgaPlusID": 35
+      "RaidOrgaPlusID": 44
     },
     {
       "ID": 3,
       "NameEN": "Revenant",
-      "NameDE": "Widerg‰nger",
+      "NameDE": "Widerg√§nger",
       "IconPath": "\\images\\Professions\\Revenant.png",
       "Emote": "<:rev:484839906170896437>",
       "RaidOrgaPlusID": 8
@@ -67,7 +67,7 @@
     {
       "ID": 21,
       "NameEN": "Renegade",
-      "NameDE": "Abtr¸nniger",
+      "NameDE": "Abtr√ºnniger",
       "IconPath": "\\images\\Professions\\Renegade.png",
       "Emote": "<:ren:484839875841884161>",
       "RaidOrgaPlusID": 27
@@ -86,7 +86,7 @@
       "NameDE": "Medium",
       "IconPath": "\\images\\Professions\\Conduit.png",
       "Emote": "<:rev:484839906170896437>",
-      "RaidOrgaPlusID": 8
+      "RaidOrgaPlusID": 45
     },
     {
       "ID": 1,
@@ -126,7 +126,7 @@
       "NameDE": "Paragon",
       "IconPath": "\\images\\Professions\\Paragon.png",
       "Emote": "<:war:484840192834797569>",
-      "RaidOrgaPlusID": 7
+      "RaidOrgaPlusID": 43
     },
     {
       "ID": 4,
@@ -166,12 +166,12 @@
       "NameDE": "Amalgam",
       "IconPath": "\\images\\Professions\\Amalgam.png",
       "Emote": "<:eng:484839253830926337>",
-      "RaidOrgaPlusID": 5
+      "RaidOrgaPlusID": 41
     },
     {
       "ID": 5,
       "NameEN": "Ranger",
-      "NameDE": "Waldl‰ufer",
+      "NameDE": "Waldl√§ufer",
       "IconPath": "\\images\\Professions\\Ranger.png",
       "Emote": "<:rgr:484839548971646976>",
       "RaidOrgaPlusID": 4
@@ -195,7 +195,7 @@
     {
       "ID": 32,
       "NameEN": "Untamed",
-      "NameDE": "Ungez‰hmter",
+      "NameDE": "Ungez√§hmter",
       "IconPath": "\\images\\Professions\\Untamed.png",
       "Emote": "<:utd:950460200450682940>",
       "RaidOrgaPlusID": 31
@@ -203,10 +203,10 @@
     {
       "ID": 41,
       "NameEN": "Galeshot",
-      "NameDE": "Orkansch¸tze",
+      "NameDE": "Orkansch√ºtze",
       "IconPath": "\\images\\Professions\\Galeshot.png",
       "Emote": "<:rgr:484839548971646976>",
-      "RaidOrgaPlusID": 4
+      "RaidOrgaPlusID": 40
     },
     {
       "ID": 6,
@@ -219,7 +219,7 @@
     {
       "ID": 15,
       "NameEN": "Daredevil",
-      "NameDE": "Draufg‰nger",
+      "NameDE": "Draufg√§nger",
       "IconPath": "\\images\\Professions\\Daredevil.png",
       "Emote": "<:dar:484838873713868810>",
       "RaidOrgaPlusID": 15
@@ -227,7 +227,7 @@
     {
       "ID": 24,
       "NameEN": "Deadeye",
-      "NameDE": "Scharfsch¸tze",
+      "NameDE": "Scharfsch√ºtze",
       "IconPath": "\\images\\Professions\\Deadeye.png",
       "Emote": "<:ded:484839130123993090>",
       "RaidOrgaPlusID": 24
@@ -246,7 +246,7 @@
       "NameDE": "Antiquar",
       "IconPath": "\\images\\Professions\\Antiquary.png",
       "Emote": "<:thf:484840156290088962>",
-      "RaidOrgaPlusID": 6
+      "RaidOrgaPlusID": 42
     },
     {
       "ID": 7,
@@ -283,10 +283,10 @@
     {
       "ID": 43,
       "NameEN": "Evoker",
-      "NameDE": "Beschwˆrer",
+      "NameDE": "Beschw√∂rer",
       "IconPath": "\\images\\Professions\\Evoker.png",
       "Emote": "<:ele:484839211388764162>",
-      "RaidOrgaPlusID": 1
+      "RaidOrgaPlusID": 37
     },
     {
       "ID": 8,
@@ -326,7 +326,7 @@
       "NameDE": "Troubadour",
       "IconPath": "\\images\\Professions\\Troubadour.png",
       "Emote": "<:mes:484839435578507295>",
-      "RaidOrgaPlusID": 2
+      "RaidOrgaPlusID": 38
     },
     {
       "ID": 9,
@@ -366,7 +366,7 @@
       "NameDE": "Ritualist",
       "IconPath": "\\images\\Professions\\Ritualist.png",
       "Emote": "<:nec:484839499478597642>",
-      "RaidOrgaPlusID": 3
+      "RaidOrgaPlusID": 39
     }
   ]
 }
