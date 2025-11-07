@@ -1,4 +1,4 @@
-{
+Ôªø{
   "Professions": [
     {
       "ID": 0,
@@ -11,7 +11,7 @@
     {
       "ID": 2,
       "NameEN": "Guardian",
-      "NameDE": "W‰chter",
+      "NameDE": "W√§chter",
       "IconPath": "\\images\\Professions\\Guardian.png",
       "Emote": "<:gdn:484839339474288650>",
       "RaidOrgaPlusID": 8
@@ -19,7 +19,7 @@
     {
       "ID": 11,
       "NameEN": "Dragonhunter",
-      "NameDE": "Drachenj‰ger",
+      "NameDE": "Drachenj√§ger",
       "IconPath": "\\images\\Professions\\Dragonhunter.png",
       "Emote": "<:dgh:484839155155599360>",
       "RaidOrgaPlusID": 17
@@ -51,7 +51,7 @@
     {
       "ID": 3,
       "NameEN": "Revenant",
-      "NameDE": "Widerg‰nger",
+      "NameDE": "Widerg√§nger",
       "IconPath": "\\images\\Professions\\Revenant.png",
       "Emote": "<:rev:484839906170896437>",
       "RaidOrgaPlusID": 8
@@ -67,7 +67,7 @@
     {
       "ID": 21,
       "NameEN": "Renegade",
-      "NameDE": "Abtr¸nniger",
+      "NameDE": "Abtr√ºnniger",
       "IconPath": "\\images\\Professions\\Renegade.png",
       "Emote": "<:ren:484839875841884161>",
       "RaidOrgaPlusID": 27
@@ -171,7 +171,7 @@
     {
       "ID": 5,
       "NameEN": "Ranger",
-      "NameDE": "Waldl‰ufer",
+      "NameDE": "Waldl√§ufer",
       "IconPath": "\\images\\Professions\\Ranger.png",
       "Emote": "<:rgr:484839548971646976>",
       "RaidOrgaPlusID": 4
@@ -195,7 +195,7 @@
     {
       "ID": 32,
       "NameEN": "Untamed",
-      "NameDE": "Ungez‰hmter",
+      "NameDE": "Ungez√§hmter",
       "IconPath": "\\images\\Professions\\Untamed.png",
       "Emote": "<:utd:950460200450682940>",
       "RaidOrgaPlusID": 31
@@ -203,7 +203,7 @@
     {
       "ID": 41,
       "NameEN": "Galeshot",
-      "NameDE": "Orkansch¸tze",
+      "NameDE": "Orkansch√ºtze",
       "IconPath": "\\images\\Professions\\Galeshot.png",
       "Emote": "<:rgr:484839548971646976>",
       "RaidOrgaPlusID": 4
@@ -219,7 +219,7 @@
     {
       "ID": 15,
       "NameEN": "Daredevil",
-      "NameDE": "Draufg‰nger",
+      "NameDE": "Draufg√§nger",
       "IconPath": "\\images\\Professions\\Daredevil.png",
       "Emote": "<:dar:484838873713868810>",
       "RaidOrgaPlusID": 15
@@ -227,7 +227,7 @@
     {
       "ID": 24,
       "NameEN": "Deadeye",
-      "NameDE": "Scharfsch¸tze",
+      "NameDE": "Scharfsch√ºtze",
       "IconPath": "\\images\\Professions\\Deadeye.png",
       "Emote": "<:ded:484839130123993090>",
       "RaidOrgaPlusID": 24
@@ -283,7 +283,7 @@
     {
       "ID": 43,
       "NameEN": "Evoker",
-      "NameDE": "Beschwˆrer",
+      "NameDE": "Beschw√∂rer",
       "IconPath": "\\images\\Professions\\Evoker.png",
       "Emote": "<:ele:484839211388764162>",
       "RaidOrgaPlusID": 1
