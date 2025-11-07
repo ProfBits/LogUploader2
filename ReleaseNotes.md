@@ -1,5 +1,8 @@
 # v1.3.25
 
+## Features
+- Add support for Visions of Eternity Elite specializations in RaidOrga+
+
 # v1.3.24
 01.11.25
 

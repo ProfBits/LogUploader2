@@ -46,7 +46,7 @@
       "NameDE": "Lichtgestalt",
       "IconPath": "\\images\\Professions\\Luminary.png",
       "Emote": "<:gdn:484839339474288650>",
-      "RaidOrgaPlusID": 35
+      "RaidOrgaPlusID": 44
     },
     {
       "ID": 3,
@@ -86,7 +86,7 @@
       "NameDE": "Medium",
       "IconPath": "\\images\\Professions\\Conduit.png",
       "Emote": "<:rev:484839906170896437>",
-      "RaidOrgaPlusID": 8
+      "RaidOrgaPlusID": 45
     },
     {
       "ID": 1,
@@ -126,7 +126,7 @@
       "NameDE": "Paragon",
       "IconPath": "\\images\\Professions\\Paragon.png",
       "Emote": "<:war:484840192834797569>",
-      "RaidOrgaPlusID": 7
+      "RaidOrgaPlusID": 43
     },
     {
       "ID": 4,
@@ -166,7 +166,7 @@
       "NameDE": "Amalgam",
       "IconPath": "\\images\\Professions\\Amalgam.png",
       "Emote": "<:eng:484839253830926337>",
-      "RaidOrgaPlusID": 5
+      "RaidOrgaPlusID": 41
     },
     {
       "ID": 5,
@@ -206,7 +206,7 @@
       "NameDE": "Orkanschütze",
       "IconPath": "\\images\\Professions\\Galeshot.png",
       "Emote": "<:rgr:484839548971646976>",
-      "RaidOrgaPlusID": 4
+      "RaidOrgaPlusID": 40
     },
     {
       "ID": 6,
@@ -246,7 +246,7 @@
       "NameDE": "Antiquar",
       "IconPath": "\\images\\Professions\\Antiquary.png",
       "Emote": "<:thf:484840156290088962>",
-      "RaidOrgaPlusID": 6
+      "RaidOrgaPlusID": 42
     },
     {
       "ID": 7,
@@ -286,7 +286,7 @@
       "NameDE": "Beschwörer",
       "IconPath": "\\images\\Professions\\Evoker.png",
       "Emote": "<:ele:484839211388764162>",
-      "RaidOrgaPlusID": 1
+      "RaidOrgaPlusID": 37
     },
     {
       "ID": 8,
@@ -326,7 +326,7 @@
       "NameDE": "Troubadour",
       "IconPath": "\\images\\Professions\\Troubadour.png",
       "Emote": "<:mes:484839435578507295>",
-      "RaidOrgaPlusID": 2
+      "RaidOrgaPlusID": 38
     },
     {
       "ID": 9,
@@ -366,7 +366,7 @@
       "NameDE": "Ritualist",
       "IconPath": "\\images\\Professions\\Ritualist.png",
       "Emote": "<:nec:484839499478597642>",
-      "RaidOrgaPlusID": 3
+      "RaidOrgaPlusID": 39
     }
   ]
 }
