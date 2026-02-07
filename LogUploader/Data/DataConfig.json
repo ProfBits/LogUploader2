@@ -71,6 +71,12 @@
           "AvatarURL": "https://wiki.guildwars2.com/images/thumb/2/26/The_Wizard%27s_Tower_loading_screen.png/1920px-The_Wizard%27s_Tower_loading_screen.png"
         },
         {
+          "ID": 4,
+          "NameEN": "Visions of Eternity",
+          "NameDE": "Visions of Eternity",
+          "AvatarURL": "https://wiki.guildwars2.com/images/f/f4/Truths_Unearthed_Guarded_Glades_loading_screen.png"
+        },
+        {
           "ID": 255,
           "NameEN": "Freeze",
           "NameDE": "Frostie",
@@ -885,6 +891,19 @@
         "DiscordEmote": ":japanese_ogre:",
         "AvatarURL": "https://wiki.guildwars2.com/images/e/e0/Mini_Cerus.png",
         "RaidOrgaPlusID": 51
+      },
+      {
+        "ID": 27124,
+        "NameEN": "Kela, Seneschal of Waves",
+        "NameDE": "Kela, Seneschall der Wogen",
+        "FolderEN": "Kela, Seneschal of Waves",
+        "FolderDE": "Kela, Seneschall der Wogen",
+        "EiName": "Kela, Seneschal of Waves",
+        "GameAreaName": "StrikeMissions",
+        "GameAreaID": 4,
+        "DiscordEmote": ":crab:",
+        "AvatarURL": "https://wiki.guildwars2.com/images/6/6d/VoE_screenshot_03.jpg",
+        "RaidOrgaPlusID": -1
       },
       {
         "ID": 21333,

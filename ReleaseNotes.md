@@ -1,5 +1,8 @@
 # v1.3.26
 
+## Features
+- Add support for Raid Encounter: Kela, Seneschal of Waves
+
 # v1.3.25
 07.11.25
 
