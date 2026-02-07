@@ -3,6 +3,9 @@
 ## Features
 - Add support for Raid Encounter: Kela, Seneschal of Waves
 
+## Bugfixes
+- Fix broken image link for Shiverpeaks Pass
+
 # v1.3.25
 07.11.25
 
