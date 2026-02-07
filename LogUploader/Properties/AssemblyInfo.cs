@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bits Inc.")]
 [assembly: AssemblyProduct("Log Uploader")]
-[assembly: AssemblyCopyright("Copyright © ProfBits 2019 - 2025")]
+[assembly: AssemblyCopyright("Copyright © ProfBits 2019 - 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Runtime.InteropServices;
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.3.25.0")]
+[assembly: AssemblyFileVersion("1.3.26.0")]
 
 [assembly: InternalsVisibleTo("LogUploaderTests")]

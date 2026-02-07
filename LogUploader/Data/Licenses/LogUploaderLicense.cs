@@ -9,7 +9,7 @@ namespace LogUploader.Data.Licenses
     class LogUploaderLicense : ISoftwareLicense
     {
         public string Product { get => "LogUploader"; }
-        public string Owner { get => "© ProfBits 2019 - 2025"; }
+        public string Owner { get => "© ProfBits 2019 - 2026"; }
         public string Type { get => "MIT"; }
         public string Text { get => @"MIT License
 

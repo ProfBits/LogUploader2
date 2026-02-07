@@ -1,4 +1,13 @@
+# v1.3.27
+
 # v1.3.26
+07.02.26
+
+## Features
+- Add support for Raid Encounter: Kela, Seneschal of Waves
+
+## Bugfixes
+- Fix broken image link for Shiverpeaks Pass
 
 # v1.3.25
 07.11.25
