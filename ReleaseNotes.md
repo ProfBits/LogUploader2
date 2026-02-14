@@ -1,4 +1,7 @@
+# v1.3.28
+
 # v1.3.27
+14.02.26
 
 ## Features
 - Add support for Kela, Seneschal of Waves in RaidOrga+
